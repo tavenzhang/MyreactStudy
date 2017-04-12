@@ -6,8 +6,6 @@ global.SERVERADDR=SERVERADDR;
 const METHOD_GET = "GET";
 const METHOD_POST = "POST";
 
-
-
 //接口配置
 let HTTP_SERVER = {
     //获取接口配置详情

@@ -173,7 +173,7 @@ export default class OuterMoneyView extends BaseView {
                     this.setState({dataInfo: data.data, pickValue: data.data.bank_cards[0].id})
                 }
                 else {
-                    this.setState({dataInfo: data.data})
+                    this.setState({dataInfo: data.data});
                 }
             }
         })

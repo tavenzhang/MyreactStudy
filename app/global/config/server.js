@@ -35,7 +35,6 @@ let HTTP_SERVER = {
     //获取系统公告
     GET_LIST_SYSTEM:{url:`/mobile-announcements`, method:METHOD_POST,body:{}},
     GET_SYSTEM_DETAIL:{url:"",formatUrl:`/mobile-announcements/#id/view`, method:METHOD_POST,body:{}},
-    Domain:``,
     //资金明细
     LIST_REANSACTON:{url:`/mobile-transactions/index`,method:METHOD_POST,body:{page:1,pagesize:20}},
     //充值明细
@@ -78,6 +77,7 @@ let HTTP_SERVER = {
     MONEY_OUTER_1:{url:"/mobile-withdrawals/withdraw/1",method:METHOD_POST,body:{account:"",fund_password:"",amount:"",id:""}}
 };
 global.HTTP_SERVER=HTTP_SERVER
+
 
 const AppData={
     userData: null,

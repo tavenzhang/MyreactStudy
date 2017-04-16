@@ -42,8 +42,6 @@ buck-out/
 android/app/libs
 *.keystore
 .eslintrc.json
-app/assets/welcome/start2.png
-app/global/animationHelp.js
 ios/Podfile
 ios/Podfile.lock
 ios/Pods/

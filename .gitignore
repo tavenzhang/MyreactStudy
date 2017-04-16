@@ -44,13 +44,10 @@ android/app/libs
 .eslintrc.json
 app/assets/welcome/start2.png
 app/global/animationHelp.js
-app/redux/store/
 ios/Podfile
 ios/Podfile.lock
 ios/Pods/
 ios/TCP.xcworkspace/
-app/global/const/
-app/page/me/subView/award/
 app/page/me/subView/myMoney/
 .flowconfig
 .gitattributes

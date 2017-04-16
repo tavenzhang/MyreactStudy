@@ -32,7 +32,6 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = state => {
     return {
-        //isLoading: state.get("fetchState").get("requesting") || state.appState.requesting,
         isLoading: state.get("fetchState").get("requesting"),
         infoBox: state.get("appState").get("infoBox").toJS()
     }

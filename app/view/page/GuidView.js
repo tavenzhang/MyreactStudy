@@ -32,9 +32,9 @@ export default class GuidView extends React.Component {
             duration:1000,
             easing:Easing.linear()
         }).start(this.toApp());
-        NetInfo.isConnected.fetch().done((isConnected) => {
-            console.log('First, is ' + (isConnected ? 'online' : 'offline'));
-        })
+        // NetInfo.isConnected.fetch().done((isConnected) => {
+        //     console.log('First, is ' + (isConnected ? 'online' : 'offline'));
+        // })
     }
 
     componentWillUnmount() {

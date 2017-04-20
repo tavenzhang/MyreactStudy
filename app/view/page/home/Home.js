@@ -21,6 +21,7 @@ const mapStateToProps = state => {
 }
 
 @connect(mapStateToProps)
+
 export default class Home extends BaseView {
     constructor(props) {
         super(props);

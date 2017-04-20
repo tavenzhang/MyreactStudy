@@ -8,13 +8,14 @@ export const WINDOW = {
     height: Dimensions.get('window').height,
 };
 
+global.Window=WINDOW;
 
 //样式配置
 export const GlobelTheme = {
-    primary: '#f464a2',
+    primary: '#f4212b',
     second: '#448AFF',
-    gray: '#999',
-    black: '#222',
+    gray: '#ddd',
+    black: '#333',
     selectColor: '#ad9423',
     fontSizeNormal: 14,
     fontSizeSmall: 12,
@@ -25,7 +26,8 @@ export const GlobelTheme = {
     NavigatorHeadH: 64,
     TabBarH: 50,
     StatusBarH:Platform.OS === 'ios' ? 20 : 0,
-}
+    gameOperatePanelHeight: 50
+};
 
 global.GlobelTheme=GlobelTheme;
 

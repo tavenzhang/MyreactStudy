@@ -21,6 +21,7 @@ import ChaseDeatilView from "../view/page/me/subView/betRecord/ChaseDeatilView";
 import MessageDetail from "../view/page/me/subView/message/MessageDetail";
 import NoticeDeailView from "../view/page/notice/noticeDetail/NoticeDeailView";
 import SD11Choose5 from "../view/page/home/subview/games/SD11Choose5";
+import LotteryOrders from "../view/page/home/subview/games/LotteryOrders";
 import DelCardView from "../view/page/me/subView/cardManage/DelCardView";
 import EditCardView from "../view/page/me/subView/cardManage/EditCardView";
 import AddValidView from "../view/page/me/subView/cardManage/AddValidView";
@@ -64,6 +65,8 @@ let NavViews = {
     MsgView: (data) => ({"name": "MailView", "component": MsgView, "passProps": data}),
     //游戏玩法
     SD11Choose5: (data) => ({"component": SD11Choose5, "passProps": data}),
+    //号码篮
+    LotteryOrders: (data) => ({"component": LotteryOrders, "passProps": data}),
     //添加银行卡
     AddCardView: (data) => ({"component": AddCardView, "passProps": data}),
     //add step one

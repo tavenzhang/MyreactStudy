@@ -14,6 +14,7 @@ import fetchState from '../reducer/FetchReducer';
 import homeState from  '../reducer/HomeReducer';
 import appState from  '../reducer/AppReducer';
 import noticState from  '../reducer/NoticeReducer';
+import gameState from  '../reducer/GameReducer';
 
 import {Map}  from "immutable";
 
@@ -29,6 +30,7 @@ let rootReducer = combineReducers({
     fetchState,
     homeState,
     appState,
+    gameState,
     noticState,
 });
 
@@ -45,7 +47,7 @@ const initialState = Map({});
 
 export default function configureStore(preloadedState = initialState) {
     const enhancer = compose(
-        middleware,
+        middleware
         // devTools({
         //     name: Platform.OS,
         //     hostname: '192.16.137.3',

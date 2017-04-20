@@ -3,6 +3,7 @@
  */
 import { FetchAct } from '../redux/action/FetchAction';
 import { HomeAct } from '../redux/action/HomeAction';
+import { GameAct } from '../redux/action/GameAction';
 import { AppAct } from '../redux/action/AppAction';
 import { NoticeAct } from '../redux/action/NoticeAction';
 import { ActionType } from '../redux/action/ActionType';
@@ -10,6 +11,7 @@ export {
     FetchAct,
     HomeAct,
     AppAct,
+    GameAct,
     NoticeAct,
     ActionType
 }
@@ -19,6 +21,7 @@ const ActDispatch={
     FetchAct,
     HomeAct,
     AppAct,
+    GameAct,
     NoticeAct,
 }
 global.ActDispatch=ActDispatch;

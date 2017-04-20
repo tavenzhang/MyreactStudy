@@ -23,5 +23,10 @@ export  const ActionType = {
     NoticeType: {
         NOTICE_DATA_LIST: "NoticeType/DATA_LIST",
     },
+    GameType: {
+        ADD_ORDER: "GameType/ADD_ORDER",
+        DEL_ORDER: "GameType/DEL_ORDER",
+        SET_BALLS: "GameType/SET_BALLS",
+    },
 }
 global.ActionType=ActionType;

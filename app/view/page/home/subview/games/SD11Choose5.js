@@ -5,10 +5,32 @@ import {
     , StyleSheet,
     TouchableHighlight
 } from 'react-native';
+
+import {connect} from 'react-redux';
 import BaseView from "../../../../componet/BaseView";
 import {HeaderSD11Choose5} from "../../../../componet/navBarMenu/HeaderMenu";
+import WuxingZhixuanFushi from "./SSC/WuxingZhixuanFushi";
 
-export default class SD11Choose5 extends BaseView {
+const mapStateToProps = state => {
+    const balls = state.get("gameState").get("balls").toArray();
+    let newBalls = []
+    balls.map((v,i) => {
+        newBalls[i] = v.toArray();
+    });
+    return {
+        balls: newBalls,
+        orderNum: state.get("gameState").get("orderList").count(),
+        moneyUnit: state.get("gameState").get("moneyUnit"), //金额模式
+        multiple: state.get("gameState").get("multiple"), //倍数
+        onePrice: state.get("gameState").get("onePrice"), //单价
+        wayId: state.get("gameState").get("wayId"), //游戏id
+        type: state.get("gameState").get("type"), //游戏类型
+        title: state.get("gameState").get("title"), //游戏类型
+        balance: 200000,
+    }
+}
+
+class SD11Choose5 extends BaseView {
 
     constructor(props) {
         super(props);
@@ -32,16 +54,19 @@ export default class SD11Choose5 extends BaseView {
         return {titleView: HeaderSD11Choose5, title: gameName};
     }
 
+
     renderBody() {
+        const me = this;
         let contentView = this.menuView(this.firstMenu, false, this.state.selectFirstMenu);
         let subView = this.menuView(this.state.subMenuList, true, this.state.selectSecondMenu);
+        //{this.state.isShowMenu ? <View style={styles.firstMenuContain}>
+        //    {contentView}
+        //</View> : null
+        //}
+        //{subView}
         return (
             <View style={GlobeStyle.appContentView}>
-                {this.state.isShowMenu ? <View style={styles.firstMenuContain}>
-                    {contentView}
-                </View> : null
-                }
-                {subView}
+                <WuxingZhixuanFushi {...this.props} />
             </View>
         );
     }
@@ -130,6 +155,8 @@ export default class SD11Choose5 extends BaseView {
         TLog("onSelectSubView---------------",this.state.selectSecondMenu);
     }
 }
+
+export default connect(mapStateToProps)(SD11Choose5);
 
 const styles = StyleSheet.create({
     touchTabButton: {

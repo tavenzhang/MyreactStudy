@@ -41,24 +41,24 @@ export default class MoneyChangeHistoryView extends React.Component {
         );
     }
 
-    componentWillUpdate() {
-        LayoutAnimation.configureNext(LayoutAnimationHelp.springNoDelete);
-    }
+    // componentWillUpdate() {
+    //     LayoutAnimation.configureNext(LayoutAnimationHelp.springNoDelete);
+    // }
 
     componentDidMount() {
         this.onMount=true;
         let {httpService} = this.props
         httpService.body.page = 1;
         httpService.body.pagesize = 15;
-        ActDispatch.FetchAct.fetchVoWithResult(httpService, (result) => {
-            if (result.data.data) {
-                if(this.onMount)
-                {
-                    this.setState({dataList: result.data.data});
-                }
 
-            }
-        })
+        this.timeId=setTimeout(()=>{
+            ActDispatch.FetchAct.fetchVoWithResult(httpService, (result) => {
+                if (result.data.data) {
+                        this.setState({dataList: result.data.data});
+                }
+            })
+        },1000)
+
     }
 
 
@@ -92,7 +92,6 @@ export default class MoneyChangeHistoryView extends React.Component {
          let money= rowData.is_income ? `+${ parseInt(rowData.amount)}`:`-${ parseInt(rowData.amount)}`
 
         return (
-            <View>
                 <TouchableHighlight onPress={() => this.itemClick(rowData)} underlayColor='rgba(10,10,10,0.2)'>
                     <View style={styles.row}>
                         <View style={[styles.itemContentStyle,{flex:1}]}>
@@ -114,7 +113,6 @@ export default class MoneyChangeHistoryView extends React.Component {
                         </View>
                     </View>
                 </TouchableHighlight>
-            </View>
         );
     }
 
@@ -128,10 +126,7 @@ export default class MoneyChangeHistoryView extends React.Component {
 const styles = StyleSheet.create({
     itemHeadStyle: {
         alignItems: "center",
-        // borderRightWidth: 0.2,
-        // borderLeftWidth: 0.2,
         justifyContent: "center"
-        // borderWidth: 1
     },
     itemContentStyle: {
         flex: 1,
@@ -157,7 +152,7 @@ const styles = StyleSheet.create({
     },
     row: {
         flexDirection: 'row',
-        height: 50,
+        height: 45,
         borderBottomWidth:0.5,
         borderColor: "gray",
     },

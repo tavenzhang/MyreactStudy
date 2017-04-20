@@ -8,8 +8,10 @@ import {
 } from 'react-native';
 
 import Swiper from 'react-native-swiper';
+import GameDetail from './GameDetail';
 
-import GameView from './GameView';
+let hlist=GlobelTheme.screenHeight-GlobelTheme.bannerHeight-GlobelTheme.TabBarH-GlobelTheme.NavigatorHeadH
+
 export  default class GameList extends React.Component {
 
     render() {
@@ -31,28 +33,26 @@ export  default class GameList extends React.Component {
         }
         if (newList.length > 0) {
             listView = <Swiper
-                height={468}
+                ref=""
+                height={hlist}
                 loop={true}
                 dot={<View style={styles.customDot}/>}
                 activeDot={<View style={styles.customActiveDot}/>}
                 showsPagination={true}
-                paginationStyle={{
-                    bottom: 20
-                }}
-                contentContainerStyle={styles.swiperDemo}
-                style={{backgroundColor: '#eee'}}
-                title="taven"
+                pagingEnabled={true}
+                paginationStyle={{ bottom: 10}}
+                style={{}}
             >
                 {newList.map((item, i) => {
                     return (
-                        <GameView key={i + 100} dataList={item} gameModel={gameModel} playModel={playModel}/>
+                        <GameDetail key={`game${i}view`} dataList={item} gameModel={gameModel} playModel={playModel}/>
                     )
                 })}
             </Swiper>
         }
 
         return (
-            <View style={GlobeStyle.appContentView}>
+            <View style={[GlobeStyle.appContentView]}>
                 {listView}
             </View>
         )
@@ -63,7 +63,8 @@ const styles = StyleSheet.create({
     swiperDemo: {
         backgroundColor: '#eee',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        flex:1
     },
     customDot: {
         backgroundColor: '#ccc',

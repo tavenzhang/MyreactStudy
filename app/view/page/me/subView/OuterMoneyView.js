@@ -134,9 +134,8 @@ export default class OuterMoneyView extends BaseView {
                             style={styles.textStyle}
                             onChangeText={(pwdText) => this.setState({pwdText})}
                             value={this.state.newPwd}
-                            maxLength={8}
+                            maxLength={10}
                             placeholder={`输入资金密码`}
-                            keyboardType={"numeric"}
                             secureTextEntry={true}
                         />
                     </View>

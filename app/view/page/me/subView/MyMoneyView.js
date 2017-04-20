@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import {StyleSheet } from 'react-native';
 import {TabViewAnimated, TabBar } from 'react-native-tab-view';
 import BaseView from "../../../componet/BaseView";
 
@@ -42,18 +42,25 @@ const mapStateToProps = state => {
 
 @connect(mapStateToProps)
 export default class MyMoneyView extends BaseView {
-    state = {
-        index: 0,
-        routes: [
-            { key: '1', title: '全部' },
-            { key: '2', title: '充值' },
-            { key: '3', title: '提现' },
-            { key: '4', title: '派奖' },
-            { key: '5', title: '转账' }
-        ],
-    };
+    constructor(props)
+    {
+        super(props)
+        this.state = {
+            index: 1,
+            routes: [
+                { key: '1', title: '全部' },
+                { key: '2', title: '充值' },
+                { key: '3', title: '提现' },
+                { key: '4', title: '派奖' },
+                { key: '5', title: '转账' }
+            ],
+        };
+
+    }
+
 
     _handleChangeTab = (index) => {
+        TLog("_handleChangeTab----",index);
         this.setState({index});
     };
 
@@ -73,8 +80,8 @@ export default class MyMoneyView extends BaseView {
                 return <MoneyChangeHistoryView {...this.props} style={[ styles.page]} httpService={HTTP_SERVER.LIST_AWARD_MONEY} />;
             case '5':
                 return <MoneyChangeHistoryView {...this.props} style={[ styles.page]} httpService={HTTP_SERVER.LIST_TRANSLATE_MONEY} />;
-            default:
-                return <View style={[ styles.page, { backgroundColor: '#ff0' } ]} />;
+           default:
+               return null;
         }
     };
 

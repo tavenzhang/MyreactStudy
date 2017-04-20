@@ -19,12 +19,14 @@ export const GlobelTheme = {
     fontSizeNormal: 14,
     fontSizeSmall: 12,
     fontSizeLarge: 18,
+    bannerHeight:100,
     swipHeaderHeight: 50,//切换title的高度
     screenWidth: WINDOW.width,
     screenHeight: WINDOW.height,
     NavigatorHeadH: 64,
     TabBarH: 50,
     StatusBarH:Platform.OS === 'ios' ? 20 : 0,
+    halfAlpha:'rgba(100,100, 100, 0.6)',
 }
 
 global.GlobelTheme=GlobelTheme;

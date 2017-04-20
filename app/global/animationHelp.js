@@ -1,6 +1,3 @@
-/**
- * Created by zhangxinhua on 2017/1/22.
- */
 import {
     LayoutAnimation,
 } from 'react-native';

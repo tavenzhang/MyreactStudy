@@ -35,7 +35,7 @@ let HTTP_SERVER = {
     //获取系统公告
     GET_LIST_SYSTEM:{url:`/mobile-announcements`, method:METHOD_POST,body:{}},
     GET_SYSTEM_DETAIL:{url:"",formatUrl:`/mobile-announcements/#id/view`, method:METHOD_POST,body:{}},
-    //资金明细
+    //资金全部明细
     LIST_REANSACTON:{url:`/mobile-transactions/index`,method:METHOD_POST,body:{page:1,pagesize:20}},
     //充值明细
     LIST_ADD_MONEY:{url:`/mobile-transactions/my-deposit`,method:METHOD_POST,body:{page:1,pagesize:20}},

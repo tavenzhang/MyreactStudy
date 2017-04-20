@@ -12,7 +12,7 @@ export class HeaderPlusRightMenu extends React.Component {
     }
 }
 
-export class HeaderSD11Choose5 extends React.Component {
+export class HeaderMenuTitleView extends React.Component {
     render() {
         return (
                  <View style={[{flexDirection:"row"}]}>

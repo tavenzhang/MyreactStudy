@@ -1,6 +1,4 @@
-/**
- * Created by zhangxinhua on 16/12/11.
- */
+
 import React from 'react';
 import {
     View,
@@ -10,12 +8,12 @@ import {
 
 import {connect} from 'react-redux';
 
-import Loading from "../../../componet/Loading";
+//import Loading from "../../../componet/Loading";
 import BaseView from "../../../componet/BaseView";
 
 const mapStateToProps = state => {
     return {
-        isLoading: state.fetchState.requesting || state.appState.requesting,
+       // isLoading: state.fetchState.requesting || state.appState.requesting,
     }
 }
 
@@ -35,16 +33,15 @@ export default class ADView extends BaseView {
                 <View style={{flex:1}}>
                     <WebView style={styles.webview_style}
                              source={{uri:passProps.data}}
-                             //startInLoadingState={true}
+                             startInLoadingState={true}
                              domStorageEnabled={true}
                              javaScriptEnabled={true}
-                             onLoadStart={ActDispatch.AppAct.showLoading}
+                             onLoadStart={()=>ActDispatch.AppAct.showLoading()}
                              onLoad={ActDispatch.AppAct.hideLoading}
                              onError={ActDispatch.AppAct.hideLoading}
                     >
                     </WebView>
                 </View>
-                { isLoading ? <Loading /> : null}
             </View>
         );
     }

@@ -81,5 +81,4 @@ const styles = StyleSheet.create({
     tabItem: {
         backgroundColor: '#f00'
     }
-
 });

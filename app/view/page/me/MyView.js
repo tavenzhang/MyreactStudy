@@ -102,11 +102,11 @@ export default class MyView extends BaseView {
                         </Text>
                     </View>
                     <View style={{justifyContent: "space-around", flex: 1}}>
-                        <Text style={{textAlign: "center", textAlign: "left"}}><Text
+                        <Text style={{textAlign: "center"}}><Text
                             style={styles.titleSyle}>账户总额: </Text>{parseInt(userData.data.available)}
                         </Text>
-                        <Text style={{textAlign: "center", textAlign: "left"}}><Text
-                            style={styles.titleSyle}>可提金额: </Text>100
+                        <Text style={{textAlign: "center"}}><Text
+                            style={styles.titleSyle}>资金密码: </Text>{userData.data.is_set_fund_password ? "已设置":"未设置"}
                         </Text>
                     </View>
                 </View>
@@ -245,7 +245,7 @@ export default class MyView extends BaseView {
         //第一行 渲染 sectionHead
         let headView = row == 0 ? <View
             style={{
-                height: 25,
+                height: 30,
                 borderBottomWidth: 1,
                 borderColor: "#ddd",
                 backgroundColor: "#ddd",
@@ -258,12 +258,12 @@ export default class MyView extends BaseView {
                 <View>
                     {headView}
                     <View style={styles.row}>
-                        <View>
+
                             <View style={{flexDirection: "row", alignItems: "center"}}>
                                 <AIcon name={rowData.ico} style={{color: GlobelTheme.gray, fontSize: 20, width: 25}}/>
                                 <Text style={{fontSize: 14, left: 20}}>{rowData.name}</Text>
                             </View>
-                        </View>
+
                         <AIcon name="angle-right" style={styles.iconNormal}/>
                     </View>
                 </View>
@@ -332,7 +332,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: "space-between",
         alignItems: "center",
-        height: 40,
+        height: 38,
         borderBottomColor: "#ddd",
         borderBottomWidth: 1,
         marginLeft: 15

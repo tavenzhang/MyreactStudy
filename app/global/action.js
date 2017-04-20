@@ -1,6 +1,4 @@
-/**
- * Created by zhangxinhua on 16/12/11.
- */
+
 import { FetchAct } from '../redux/action/FetchAction';
 import { HomeAct } from '../redux/action/HomeAction';
 import { AppAct } from '../redux/action/AppAction';

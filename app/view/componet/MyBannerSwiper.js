@@ -21,7 +21,7 @@ export default class MyBannerSwiper extends React.Component {
                 activeDot={<View style={styles.customActiveDot} />}
                 showsPagination={false}
                 paginationStyle={{
-                        bottom: 10
+                        bottom: 5
                     }}
             >
                 { dataList ? dataList.map((banner,i) => {
@@ -42,6 +42,7 @@ export default class MyBannerSwiper extends React.Component {
     }
 
     bannerClick=(data)=> {
+        TLog("bannerClick,----data==",data)
         NavUtil.pushToView(NavViews.ADView(data));
     }
 }
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#77cc32',
     },
     bannerImage: {
-        height: 100,
+        height:GlobelTheme.bannerHeight,
         width: GlobelTheme.screenWidth,
     },
 

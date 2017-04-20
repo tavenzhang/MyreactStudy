@@ -22,14 +22,7 @@ const mapStateToProps = state => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        fetchtAct:bindActionCreators(ActionEnum.FetchAct, dispatch),
-        actions: bindActionCreators(ActionEnum.NoticeAct, dispatch),
-    }
-}
-
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(mapStateToProps)
 export default class GameResultView extends BaseView {
 
     constructor(props) {
@@ -38,6 +31,7 @@ export default class GameResultView extends BaseView {
             dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
         };
     }
+    
     componentDidMount() {
         let {actions, fetchtAct}= this.props;
         // fetchtAct.fetchWithResult("", (data) => {

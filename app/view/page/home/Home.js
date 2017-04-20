@@ -123,6 +123,4 @@ export default class Home extends BaseView {
     onLeftPressed() {
         this.setState({modalVisible: true});
     }
-
-
 }

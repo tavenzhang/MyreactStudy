@@ -27,6 +27,7 @@ const mapDispatchToProps = (dispatch) => {
     ActDispatch.FetchAct=bindActionCreators(ActDispatch.FetchAct,dispatch);
     ActDispatch.HomeAct=bindActionCreators(ActDispatch.HomeAct,dispatch);
     ActDispatch.NoticeAct=bindActionCreators(ActDispatch.NoticeAct,dispatch);
+    ActDispatch.GameAct=bindActionCreators(ActDispatch.GameAct,dispatch);
     return {}
 }
 
@@ -39,7 +40,7 @@ const mapStateToProps = state => {
 
 
 @connect(mapStateToProps, mapDispatchToProps)
-export default  class App extends React.Component {
+export default class App extends React.Component {
 
     //节点渲染以后
     componentWillMount() {

@@ -12,7 +12,7 @@ import {
 
 import Ball from "./Ball";
 import GameControlPannel from "./GameControlPannel";
-import GameModelPannel from "./GameControlPannel";
+import GameModelPannel from "./GameModelPannel";
 import BallOperateBtn from "./BallOperateBtn";
 import GameMethod from "../../../class/GameMethod";
 
@@ -63,7 +63,84 @@ export default class Games extends Component {
 
     //选球操作
     ballSelectActions(action,irow,si) {
+        const me = this;
+        const {balls} = this.props;
+        let ballsData = balls,
+            x = Number(irow),
+            bound = action,
+            row = ballsData[x],
+            len = row.length,
+            start = si || 0,
+            halfLen = Math.ceil((len - start) / 2 + start),
+            i = start;
 
+        //清空该行选球
+        for (; i < len; i++) {
+            me.setBallData(i, x, -1);
+        }
+
+        switch (bound) {
+            case 'all':
+                for (i = start; i < len; i++) {
+                    me.setBallData(i, x, 1);
+                }
+                break;
+            case 'big':
+                for (i = halfLen; i < len; i++) {
+                    me.setBallData(i, x, 1);
+                }
+                break;
+            case 'small':
+                for (i = start; i < halfLen; i++) {
+                    me.setBallData(i, x, 1);
+                }
+                break;
+            case 'odd':
+                for (i = start; i < len; i++) {
+                    if ((i + 1) % 2 != 1) {
+                        me.setBallData(i, x, 1);
+                    }
+                }
+                break;
+            case 'even':
+                for (i = start; i < len; i++) {
+                    if ((i + 1) % 2 == 1) {
+                        me.setBallData(i, x, 1);
+                    }
+                }
+                break;
+            case 'prime':
+                for (i = start; i < len; i++) {
+                    let isPrime = true;
+                    for (let j = 2; j <= Math.sqrt(i); j++) {
+                        if (i % j === 0) {
+                            isPrime = false;
+                            break;
+                        }
+                    }
+
+                    if (isPrime && i > 1) {
+                        me.setBallData(i, x, 1);
+                    }
+                }
+                break;
+            case 'composite':
+                for (i = start; i < len; i++) {
+                    for (let j = 2; j <= Math.sqrt(i); j++) {
+                        if (i % j === 0) {
+                            me.setBallData(i, x, 1);
+                            break;
+                        }
+                    }
+                }
+                break;
+            case 'none':
+
+                break;
+            default:
+                break;
+
+        }
     }
 
     setBallData(x, y, value) {
@@ -255,7 +332,7 @@ export default class Games extends Component {
     render() {
         const me = this;
         const { lotterys, multiple, onePrice, balance } = me.state;
-        const { orderNum } = me.props;
+        const { orderNum, bet_max_prize_group, bet_min_prize_group, moneyUnit } = me.props;
         const orderData = lotterys.length ? me.gameMethod.getResultData(lotterys) : null;
         const operTopDesc = `${lotterys.length}注 * ${multiple}倍 = ${moneyFormat(lotterys.length * multiple * onePrice)}元`;
 
@@ -263,7 +340,11 @@ export default class Games extends Component {
             <View style={{flex:1}}>
                 <ScrollView style={styles.ballOperate}>
                     {me.buildUI()}
-                    <GameModelPannel />
+                    <GameModelPannel
+                        bet_max_prize_group={bet_max_prize_group}
+                        bet_min_prize_group={bet_min_prize_group}
+                        moneyUnit={moneyUnit}
+                        />
                 </ScrollView>
                 <GameControlPannel
                     balance= {balance}

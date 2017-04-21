@@ -4,8 +4,8 @@ import {
 } from 'react-native';
 
 import BaseGameView from "../BaseGameView";
-import connect from "react-redux/src/components/connect";
 import WuxingZhixuanFushi from "../SSC/WuxingZhixuanFushi";
+import connect from "react-redux/src/components/connect";
 
 const mapStateToProps = state => {
     const balls = state.get("gameState").get("balls").toArray();
@@ -23,11 +23,14 @@ const mapStateToProps = state => {
         type: state.get("gameState").get("type"), //游戏类型
         title: state.get("gameState").get("title"), //游戏类型
         balance: 200000,
+        bet_max_prize_group: 1950,
+        bet_min_prize_group: 1600,
     }
 }
 
 @connect(mapStateToProps)
-export default class SD11Choose5 extends BaseGameView {
+
+export default class L115View extends BaseGameView {
 
     onRenderSubView(data) {
         TLog("SD11Choose5--onRenderSubView", data);
@@ -38,7 +41,5 @@ export default class SD11Choose5 extends BaseGameView {
             default:
                 return  <Text>{data.name}</Text>
         }
-
-
     }
 }

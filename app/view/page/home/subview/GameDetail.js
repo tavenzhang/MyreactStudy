@@ -47,12 +47,12 @@ export default class GameDetail extends React.Component {
             switch (data.id)
             {
                 case "1"://"id":"1","name":"重庆时时彩"
-                    NavUtil.pushToView(NavViews.CQSSC({...data, gameModel: gameModel, playModel: playModel}));
+                    NavUtil.pushToView(NavViews.SSCView({...data, gameModel: gameModel, playModel: playModel}));
                     break;
                 case "2"://"id":"2","name":"山东11选5"
-                    NavUtil.pushToView(NavViews.SD11Choose5({...data, gameModel: gameModel, playModel: playModel}));
+                    NavUtil.pushToView(NavViews.L115View({...data, gameModel: gameModel, playModel: playModel}));
                     break;
-
+                default :
             }
         }
         else {

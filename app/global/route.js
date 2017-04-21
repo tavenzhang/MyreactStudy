@@ -26,8 +26,8 @@ import EditCardView from "../view/page/me/subView/cardManage/EditCardView";
 import AddValidView from "../view/page/me/subView/cardManage/AddValidView";
 import EditCardAddView from "../view/page/me/subView/cardManage/EditCardAddView";
 import MoneyTransferView from "../view/page/me/subView/MoneyTransferView";
-import SD11Choose5 from "../view/page/home/subview/games/sd11_5/SD11Choose5";
-import CQSSC from "../view/page/home/subview/games/cqssc/CQSSC";
+import L115View from "../view/page/home/subview/games/L115/L115View";
+import SSCView from "../view/page/home/subview/games/SSC/SSCView";
 
 // PushFromLeft
 // FloatFromRight
@@ -64,9 +64,9 @@ let NavViews = {
     CardManageView: (data) => ({"name": "CardManageView", "component": CardManageView, "passProps": data}),
     MsgView: (data) => ({"name": "MailView", "component": MsgView, "passProps": data}),
     //游戏11选5玩法
-    SD11Choose5: (data) => ({"component": SD11Choose5, "passProps": data}),
+    L115View: (data) => ({"component": L115View, "passProps": data}),
     //游戏重启时时彩玩法
-    CQSSC: (data) => ({"component": CQSSC, "passProps": data}),
+    SSCView: (data) => ({"component": SSCView, "passProps": data}),
     //号码篮
     LotteryOrders: (data) => ({"component": LotteryOrders, "passProps": data}),
     //添加银行卡

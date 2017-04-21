@@ -87,7 +87,36 @@ export const TLog = (name = null, obj = []) => {
 global.TLog = TLog;
 
 
+/**
+ * 金额格式化
+ */
+export const moneyFormat = (numold, s) => {
+    let num = Number(numold),
+        re = /(-?\d+)(\d{3})/,
+        n= s ? s : 2;
 
+    if (Number.prototype.toFixed) {
+        num = (num).toFixed(n)
+    } else {
+        let j = 1,b = 1;
+        while (j >= n) {
+            b = b * 10;
+            j++;
+        }
+        num = Math.round(num * b) / b;
+    }
+    num = '' + num;
+    let arr = num.split('.')
+    while (re.test(arr[0])) {
+        arr[0] = arr[0].replace(re, "$1,$2")
+    }
+    if (!!arr[1]) {
+        num = arr[0] + '.' + arr[1];
+    }
+    return num
+}
+
+global.moneyFormat = moneyFormat;
 
 
 /**

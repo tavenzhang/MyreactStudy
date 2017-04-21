@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     },
 
     btnDisable: {
-        backgroundColor: GlobelTheme.gray,
+        backgroundColor: global.GlobelTheme.gray,
     },
 
     btnText: {

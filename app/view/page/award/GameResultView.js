@@ -9,8 +9,6 @@ import {
 } from 'react-native';
 
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-
 import AIcon from 'react-native-vector-icons/FontAwesome';
 import NumberCircle from "../../componet/NumberCircle";
 import BaseView from "../../componet/BaseView";
@@ -34,9 +32,6 @@ export default class GameResultView extends BaseView {
     
     componentDidMount() {
         let {actions, fetchtAct}= this.props;
-        // fetchtAct.fetchWithResult("", (data) => {
-        //     actions.flushNoticeListView(data)
-        // });
     }
 
     componentWillUnmount() {

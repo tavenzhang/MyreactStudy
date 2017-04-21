@@ -31,13 +31,8 @@ const mapStateToProps = state => {
     }
 }
 
-//const mapDispatchToProps = state => {
-//    return {
-//        GameAct: ActDispatch.GameAct,
-//    }
-//}
-
-class LotteryOrders extends BaseView {
+@connect(mapStateToProps)
+export default class LotteryOrders extends BaseView {
 
     constructor(props) {
         super(props);
@@ -153,10 +148,7 @@ class LotteryOrders extends BaseView {
 
     componentWillUnmount() {
     }
-
 }
-
-export default connect(mapStateToProps)(LotteryOrders);
 
 const styles = StyleSheet.create({
     orderListBox: {

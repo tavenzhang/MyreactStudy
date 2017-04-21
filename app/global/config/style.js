@@ -17,6 +17,7 @@ export const GlobelTheme = {
     gray: '#ddd',
     black: '#333',
     selectColor: '#ad9423',
+    bannerHeight:100,
     fontSizeNormal: 14,
     fontSizeSmall: 12,
     fontSizeLarge: 18,

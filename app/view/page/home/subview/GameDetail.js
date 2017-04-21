@@ -42,8 +42,18 @@ export default class GameDetail extends React.Component {
     itemClick = (data) => {
         data.title = data.name;
         const {gameModel, playModel} = this.props
+        TLog("gameDeail----",data)
         if (data.open == "1") {
-            NavUtil.pushToView(NavViews.SD11Choose5({...data, gameModel: gameModel, playModel: playModel}));
+            switch (data.id)
+            {
+                case "1"://"id":"1","name":"重庆时时彩"
+                    NavUtil.pushToView(NavViews.CQSSC({...data, gameModel: gameModel, playModel: playModel}));
+                    break;
+                case "2"://"id":"2","name":"山东11选5"
+                    NavUtil.pushToView(NavViews.SD11Choose5({...data, gameModel: gameModel, playModel: playModel}));
+                    break;
+
+            }
         }
         else {
             Alert.alert("当前游戏还在筹备中", "敬请期待！", [])

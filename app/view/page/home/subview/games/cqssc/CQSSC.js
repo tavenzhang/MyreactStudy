@@ -7,10 +7,11 @@ import {
 
 import BaseGameView from "../BaseGameView";
 
-export default class CQsstGameView extends BaseGameView {
+
+export default class CQSSC extends BaseGameView {
 
     onRenderSubView(data) {
-        TLog("CQsstGameView---------------", data);
+        TLog("CQSSC---------------", data);
         return <Text>{data.name}</Text>
     }
 }

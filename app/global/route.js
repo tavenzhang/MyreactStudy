@@ -20,14 +20,14 @@ import BetDetailView from "../view/page/me/subView/betRecord/BetDetailView";
 import ChaseDeatilView from "../view/page/me/subView/betRecord/ChaseDeatilView";
 import MessageDetail from "../view/page/me/subView/message/MessageDetail";
 import NoticeDeailView from "../view/page/notice/noticeDetail/NoticeDeailView";
-import SD11Choose5 from "../view/page/home/subview/games/SD11Choose5";
 import LotteryOrders from "../view/page/home/subview/games/LotteryOrders";
 import DelCardView from "../view/page/me/subView/cardManage/DelCardView";
 import EditCardView from "../view/page/me/subView/cardManage/EditCardView";
 import AddValidView from "../view/page/me/subView/cardManage/AddValidView";
 import EditCardAddView from "../view/page/me/subView/cardManage/EditCardAddView";
 import MoneyTransferView from "../view/page/me/subView/MoneyTransferView";
-
+import SD11Choose5 from "../view/page/home/subview/games/sd11_5/SD11Choose5";
+import CQSSC from "../view/page/home/subview/games/cqssc/CQSSC";
 
 // PushFromLeft
 // FloatFromRight
@@ -63,8 +63,10 @@ let NavViews = {
     ChangePwd: (data) => ({"name": "ChangePwd", "component": ChangePwd, "passProps": data}),
     CardManageView: (data) => ({"name": "CardManageView", "component": CardManageView, "passProps": data}),
     MsgView: (data) => ({"name": "MailView", "component": MsgView, "passProps": data}),
-    //游戏玩法
+    //游戏11选5玩法
     SD11Choose5: (data) => ({"component": SD11Choose5, "passProps": data}),
+    //游戏重启时时彩玩法
+    CQSSC: (data) => ({"component": CQSSC, "passProps": data}),
     //号码篮
     LotteryOrders: (data) => ({"component": LotteryOrders, "passProps": data}),
     //添加银行卡

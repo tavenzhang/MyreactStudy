@@ -1,6 +1,3 @@
-/**
- * Created by zhangxinhua on 16/12/13.
- */
 import React from 'react';
 import {
     View,
@@ -45,7 +42,7 @@ export  default class GameList extends React.Component {
             >
                 {newList.map((item, i) => {
                     return (
-                        <GameDetail key={`game${i}view`} dataList={item} gameModel={gameModel} playModel={playModel}/>
+                        <GameDetail key={`game${i}detail`} dataList={item} gameModel={gameModel} playModel={playModel}/>
                     )
                 })}
             </Swiper>
@@ -60,12 +57,6 @@ export  default class GameList extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    swiperDemo: {
-        backgroundColor: '#eee',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flex:1
-    },
     customDot: {
         backgroundColor: '#ccc',
         height: 6,

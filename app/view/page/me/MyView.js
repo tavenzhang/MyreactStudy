@@ -113,11 +113,11 @@ export default class MyView extends BaseView {
                 <View style={{flex: 1, alignItems: "center", flexDirection: "row", paddingLeft: 10}}>
                     <Text style={styles.titleSyle}>账户安全:</Text>
                     <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15, marginRight: 15}}>
-                        <AIcon name="id-card-o" style={{color: GlobelTheme.gray, fontSize: 20, marginRight: 5}}/>
+                        <AIcon name="id-card-o" style={{color: GlobelTheme.black, fontSize: 20, marginRight: 5}}/>
                         <Text style={{color: "red"}}>未绑定身份证</Text>
                     </View>
                     <View style={{flexDirection: "row", alignItems: "center"}}>
-                        <AIcon name="mobile" style={{color: GlobelTheme.gray, fontSize: 20, marginRight: 5}}/>
+                        <AIcon name="mobile" style={{color: GlobelTheme.black, fontSize: 20, marginRight: 5}}/>
                         <Text style={{color: "red"}}>未绑定手机</Text>
                     </View>
                 </View>
@@ -260,11 +260,11 @@ export default class MyView extends BaseView {
                     <View style={styles.row}>
 
                             <View style={{flexDirection: "row", alignItems: "center"}}>
-                                <AIcon name={rowData.ico} style={{color: GlobelTheme.gray, fontSize: 20, width: 25}}/>
+                                <AIcon name={rowData.ico} style={{color: GlobelTheme.grayDeep, fontSize: 20, width: 25}}/>
                                 <Text style={{fontSize: 14, left: 20}}>{rowData.name}</Text>
                             </View>
 
-                        <AIcon name="angle-right" style={styles.iconNormal}/>
+                        <AIcon name={EnumFontNames.angleRight} style={styles.iconNormal}/>
                     </View>
                 </View>
             </TouchableHighlight>

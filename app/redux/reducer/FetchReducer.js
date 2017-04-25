@@ -6,7 +6,6 @@ const initFetchState = fromJS({
     success: true
 })
 
-
 const fetchState = (state = initFetchState, action) => {
     switch (action.type){
         case ActionType.FetchType.FETCH_REQUEST :

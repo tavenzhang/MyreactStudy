@@ -8,7 +8,7 @@ import TabNavigator from 'react-native-tab-navigator';
 import AIcon from 'react-native-vector-icons/FontAwesome';
 import Home from "./home/Home";
 import MyView from "./me/MyView";
-import Notice from "./award/GameResultView";
+import Notice from "./award/GameResultList";
 import Discover from "./notice/Notice";
 
 const tabBarItems = [
@@ -78,7 +78,4 @@ const styles = StyleSheet.create({
         color: GlobelTheme.gray,
         fontSize: 25
     },
-    tabItem: {
-        backgroundColor: '#f00'
-    }
 });

@@ -61,14 +61,6 @@ export default class LoginView extends BaseView {
                         onPress={this.clickLogin}>
                         登陆
                     </Button>
-                    {/*<View style={{flexDirection: "row",justifyContent: "space-between"}}>*/}
-                        {/*<Button*/}
-                            {/*containerStyle={{padding:5, overflow:'hidden'}}*/}
-                            {/*style={{ fontSize: 14,color:"#00f"}}*/}
-                            {/*onPress={this.clickReg}>*/}
-                            {/*忘记密码?*/}
-                        {/*</Button>*/}
-                    {/*</View>*/}
                 </View>
             </View>
         );
@@ -113,11 +105,11 @@ const styles = StyleSheet.create({
         fontSize: 14
     },
     iconUser: {
-        color: GlobelTheme.gray,
+        color: GlobelTheme.grayDeep,
         fontSize: 18,
     },
     icoPwd: {
-        color: GlobelTheme.gray,
+        color: GlobelTheme.grayDeep,
         fontSize: 20,
     },
     inputContain: {

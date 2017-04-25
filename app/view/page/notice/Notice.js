@@ -14,7 +14,7 @@ import MsgListView from "../../componet/BaseListView";
 
 const mapStateToProps = state => {
     return {
-        isLoading: state.get("fetchState").get("requesting") || state.get("appState").get("requesting"),
+
     }
 }
 

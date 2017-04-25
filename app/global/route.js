@@ -13,7 +13,7 @@ import CardManageView from "../view/page/me/subView/CardManageView";
 import MsgView from "../view/page/me/subView/MailView";
 import TabbarView from "../view/page/TabbarView";
 import LoginView from "../view/page/me/subView/LoginView";
-import Fast3Notice from "../view/page/award/subView/Fast3Notice";
+import SSC_History from "../view/page/award/subView/SSC_History";
 import ADView from "../view/page/home/subview/ADView";
 import AddCardView from "../view/page/me/subView/cardManage/AddCardView";
 import BetDetailView from "../view/page/me/subView/betRecord/BetDetailView";
@@ -48,11 +48,11 @@ let navigator;
 let NavViews = {
     ADView: (data) => ({"component": ADView, "passProps": data}),
     //tab页面
-    TabbarView: () => ({component: TabbarView}),
+    TabbarView: () => ({"component": TabbarView}),
     //登陆
     LoginView: (data) => ({"component": LoginView, "passProps": data}),
     //快3游戏通知
-    Fast3Notice: (data) => ({"component": Fast3Notice, "passProps": data}),
+    SSC_History: (data) => ({"component": SSC_History, "passProps": data}),
     //个人中心页面
     AwardRecord: (data) => ({"name": "AwardRecordView", "component": AwardRecord, "passProps": data}),
     BetRecord: (data) => ({"name": "BetRecordView", "component": BetRecord, "passProps": data}),

@@ -170,7 +170,7 @@ export default class BetRecordView extends BaseView {
                     }}>
                     {
                         data.map((item, i) => {
-                            let selectColor = GlobelTheme.gray;
+                            let selectColor = GlobelTheme.grayDeep;
                             if (btnName == item.name) {
                                 selectColor = GlobelTheme.primary;
                             }

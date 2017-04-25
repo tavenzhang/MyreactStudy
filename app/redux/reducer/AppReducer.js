@@ -80,7 +80,7 @@ const appState = (state = initAppState, action) => {
                     tempList=tempList.concat(action.httpResult.data.data);
                 }
             }
-            TLog("ActionType.AppType.CARD_LIST_GET---",tempList)
+           // TLog("ActionType.AppType.CARD_LIST_GET---",tempList)
             return state.merge({cardList:tempList});
         default:
             return state;

@@ -15,6 +15,7 @@ export const GlobelTheme = {
     primary: '#f4212b',
     second: '#448AFF',
     gray: '#ddd',
+    grayDeep: '#888',
     black: '#333',
     selectColor: '#ad9423',
     fontGray: '#666',

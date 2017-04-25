@@ -19,10 +19,6 @@
 - (BOOL)application:(UIApplication *)application
     didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-#ifdef DEBUG
-
-#endif
-
   NSURL *jsCodeLocation;
 
 #ifdef DEBUG
@@ -34,8 +30,9 @@
 
 #else
   jsCodeLocation = [CodePush bundleURL];
-  Logger *log = LoggerGetDefaultLogger();
-  LoggerStart(log);
+  //  Logger *log = LoggerGetDefaultLogger();
+//  LoggerStart(log);
+  LoggerSetViewerHost(nil, (CFStringRef) @"192.168.0.102", (UInt32)40000);
   LogMarker(@"thomas--release");
 #endif
 

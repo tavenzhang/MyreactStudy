@@ -34,6 +34,10 @@ export default class BaseView extends Component {
         };
     }
 
+    componentWillMount() {
+
+    }
+
     renderNavigationBar() {
         let navigationBarProps = this.getNavigationBarProps();
         if(navigationBarProps != null)

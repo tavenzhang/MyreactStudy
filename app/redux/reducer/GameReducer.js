@@ -3,14 +3,11 @@
  */
 import {fromJS} from 'immutable';
 const initGameState = fromJS({
+    gameId: null,
+    lottery_items: null,
     orderList: [], //订单数据
-    balls: [], //选球结构
     moneyUnit: 1, //金额模式
     multiple: 1, //倍数
-    onePrice: 2, //单价
-    wayId: 68, //游戏id
-    type: 'wuxing.zhixuan.fushi', //游戏类型
-    title: '五星.直选.复式' //游戏类型
 })
 
 const gType = ActionType.GameType;
@@ -21,12 +18,11 @@ const gameState = (state = initGameState, action) => {
         case gType.ADD_ORDER:
             let shouldAdd = true;
             state.getIn(['orderList']).forEach(function(d, b) { //去重
-                if(d.formatViewBalls == action.data.formatViewBalls) {
+                if(d.viewBalls == action.data.viewBalls) {
                     shouldAdd = false;
                     return false;
                 }
             })
-
             if(shouldAdd) {
                 return state.update('orderList', arr => arr.concat(action.data));
             }
@@ -35,7 +31,6 @@ const gameState = (state = initGameState, action) => {
             }
         case gType.DEL_ORDER:
             if(action.id >= 0) {//删除某一个
-                TLog(action.id)
                 return state.deleteIn(['orderList', action.id ]);
             }
             else {//清空
@@ -43,6 +38,21 @@ const gameState = (state = initGameState, action) => {
             }
         case gType.SET_BALLS:
             return state.merge({balls: action.data})
+
+        case gType.SET_MONEYUNIT:
+            return state.merge({moneyUnit:action.data})
+
+        case gType.SET_MULTIPLE:
+            return state.merge({multiple:action.data})
+
+        case gType.SET_GAMECONFIG:
+            //TLog('gameConfig====',action.httpResult)
+            const data = action.httpResult.data;
+
+            return state.merge({
+                gameId: data.gameId,
+                lottery_items: data.currentNumber,
+            })
 
         default:
             return state;

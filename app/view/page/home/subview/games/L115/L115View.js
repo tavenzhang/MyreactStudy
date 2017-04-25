@@ -4,27 +4,17 @@ import {
 } from 'react-native';
 
 import BaseGameView from "../BaseGameView";
-import WuxingZhixuanFushi from "../SSC/WuxingZhixuanFushi";
+import SanmaZhixuanFushi from "../L115/SanmaZhixuanFushi";
+import SanmaZuxuanFushi from "../L115/SanmaZuxuanFushi";
+import SanmaZuxuanDantuo from "../L115/SanmaZuxuanDantuo";
 import connect from "react-redux/src/components/connect";
 
 const mapStateToProps = state => {
-    const balls = state.get("gameState").get("balls").toArray();
-    let newBalls = []
-    balls.map((v,i) => {
-        newBalls[i] = v.toArray();
-    });
     return {
-        balls: newBalls,
         orderNum: state.get("gameState").get("orderList").count(),
         moneyUnit: state.get("gameState").get("moneyUnit"), //金额模式
         multiple: state.get("gameState").get("multiple"), //倍数
-        onePrice: state.get("gameState").get("onePrice"), //单价
-        wayId: state.get("gameState").get("wayId"), //游戏id
-        type: state.get("gameState").get("type"), //游戏类型
-        title: state.get("gameState").get("title"), //游戏类型
-        balance: 200000,
-        bet_max_prize_group: 1950,
-        bet_min_prize_group: 1600,
+        balance: parseFloat(state.get("appState").getIn(['userData','data','available']))
     }
 }
 
@@ -36,10 +26,18 @@ export default class L115View extends BaseGameView {
         TLog("SD11Choose5--onRenderSubView", data);
         switch (data.id)
         {
-            case "95":
-                return  <WuxingZhixuanFushi {...this.props} />
+            //前三
+            case "112":
+                return  <SanmaZhixuanFushi {...this.props} {...this.state} />
+
+            case "108":
+                return  <SanmaZuxuanFushi {...this.props} {...this.state} />
+
+            case "121":
+                return  <SanmaZuxuanDantuo {...this.props} {...this.state} />
+
             default:
-                return  <Text>{data.name}</Text>
+                return  <Text>{data.id}</Text>
         }
     }
 }

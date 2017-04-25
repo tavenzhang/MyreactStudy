@@ -30,8 +30,8 @@ export default class OrderItem extends React.Component {
                     </TouchableOpacity>
                 </View>
                 <View>
-                    <Text style={styles.lotteryNumber}>{data.formatViewBalls}</Text>
-                    <Text style={styles.desc}>{data.num}注x{data.onePrice}元={moneyFormat(data.amount)}元</Text>
+                    <Text>[{data.gameName}] <Text style={styles.lotteryNumber}>{data.viewBalls}</Text></Text>
+                    <Text style={styles.desc}>{data.num}注x{data.multiple}倍x{data.onePrice * data.moneyunit}元={moneyFormat(data.amount)}元</Text>
                 </View>
             </View>
         )

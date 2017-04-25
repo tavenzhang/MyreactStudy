@@ -37,6 +37,7 @@ const appState = (state = initAppState, action) => {
                 success: true
             });
         case ActionType.AppType.LOGIN_RESULT:
+            TLog('wewe',action.data)
             AppData.userData = action.data;
             AppData.isLogined = true;
             action.data.isLogined=true;

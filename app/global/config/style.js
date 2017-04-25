@@ -8,6 +8,7 @@ export const WINDOW = {
     height: Dimensions.get('window').height,
 };
 
+global.CUSTOMER = Platform.OS === 'ios' ? '8f1ad78957965153dbce5d96ff37617a' : '4fcd4781a7bddee9abdc6f0361fa8caa';
 global.Window=WINDOW;
 
 //样式配置

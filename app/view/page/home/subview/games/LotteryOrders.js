@@ -19,15 +19,18 @@ import GameMethod from "../../../../../class/GameMethod";
 import AIcon from 'react-native-vector-icons/FontAwesome';
 
 const mapStateToProps = state => {
-    const balls = state.get("gameState").get("balls").toArray();
-    let newBalls = []
-    balls.map((v,i) => {
-        newBalls[i] = v.toArray();
-    });
+    //const balls = state.get("gameState").get("balls").toArray();
+    //let newBalls = []
+    //balls.map((v,i) => {
+    //    newBalls[i] = v.toArray();
+    //});
 
     return {
         orderList: state.get("gameState").get("orderList"),
-        balls: newBalls,
+        gameId: state.get("gameState").get("gameId"),
+        lottery_items: state.get("gameState").get("lottery_items"),
+        balance: parseFloat(state.get("appState").getIn(['userData','data','available']))
+        //balls: newBalls,
     }
 }
 
@@ -39,9 +42,10 @@ export default class LotteryOrders extends BaseView {
         this.state = {
         };
 
-        const { balls } = this.props;
-        this.gameMethod = new GameMethod();
-        this.gameMethod.setBalls(balls);
+        //const { balls } = this.props;
+        //this.gameMethod = new GameMethod();
+        //this.gameMethod.setBalls(balls);
+        this.submitOrders = this.submitOrders.bind(this);
     }
 
     componentWillMount() {
@@ -71,10 +75,47 @@ export default class LotteryOrders extends BaseView {
         }
     }
 
+    submitOrders(amount) {
+        const {gameId,orderList,lottery_items} = this.props;
+        let submitData = {
+            gameId:gameId,
+            isTrace:0,
+            traceWinStop:1,
+            traceStopValue:1,
+            balls:orderList,
+            amount:amount
+        };
+
+        submitData['orders'] = {};
+        ////非追号
+        //if (result['isTrace'] < 1) {
+        //    //获得当前期号，将期号作为键
+        //    result['orders'][Games.getCurrentGame().getGameConfig().getInstance().getCurrentGameNumber()] = 1;
+        //    //总金额
+        //    result['amount'] = Games.getCurrentGameOrder().getTotal()['amount'];
+        //} else {
+        //    //追号
+        //    for (; j < len2; j++) {
+        //        result['orders'][traceInfo['traceData'][j]['traceNumber']] = traceInfo['traceData'][j]['multiple'];
+        //    }
+        //    //总金额
+        //    result['amount'] = traceInfo['amount'];
+        //}
+        submitData['orders'][lottery_items] = 1;
+
+
+        HTTP_SERVER.SUBMIT_ORDERS.url = HTTP_SERVER.SUBMIT_ORDERS.formatUrl.replace(/#id/g, gameId) + '?customer='+CUSTOMER;
+        HTTP_SERVER.SUBMIT_ORDERS.body = submitData;
+        TLog("------=======-------",submitData)
+
+        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.SUBMIT_ORDERS, data => {
+            TLog('注单提交反馈======》',data)
+        })
+    }
+
     renderBody() {
-        const {orderList} = this.props;
+        const {orderList,balance} = this.props;
         const me = this;
-        const balance = 199999;
         let total = 0,
             totalMoney = 0;
 
@@ -135,7 +176,7 @@ export default class LotteryOrders extends BaseView {
                 <GameControlPannel
                     balance= {balance}
                     topDesc= {`总计: ${total}注, 共${moneyFormat(totalMoney)}元`}
-                    btnEvent= {() => {}}
+                    btnEvent= {() => me.submitOrders(totalMoney)}
                     btnDisable= {false}
                     btnName= "投 注"
                     />

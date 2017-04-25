@@ -1,10 +1,9 @@
 /**
- * Created by soga on 2017/4/20.
+ * Created by soga on 2017/4/24.
  */
-
 import SSC from "./SSC";
 
-export default class WuxingZhixuanFushi extends SSC {
+export default class HousanZhixuanFushi extends SSC {
 
     constructor(props) {
         super(props);
@@ -16,11 +15,9 @@ export default class WuxingZhixuanFushi extends SSC {
         [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
         [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
         [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
     ];
 
     //设置rowtitle
-    setRowTitle = () => ['万位','千位','百位','十位','个位'];
+    setRowTitle = () => ['百位','十位','个位'];
 
 }

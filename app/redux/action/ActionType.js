@@ -27,6 +27,9 @@ export  const ActionType = {
         ADD_ORDER: "GameType/ADD_ORDER",
         DEL_ORDER: "GameType/DEL_ORDER",
         SET_BALLS: "GameType/SET_BALLS",
+        SET_MONEYUNIT: "GameType/SET_MONEYUNIT",
+        SET_MULTIPLE: "GameType/SET_MULTIPLE",
+        SET_GAMECONFIG: "GameType/SET_GAMECONFIG",
     },
 }
 global.ActionType=ActionType;

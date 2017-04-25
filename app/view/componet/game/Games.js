@@ -13,22 +13,28 @@ import {
 import Ball from "./Ball";
 import GameControlPannel from "./GameControlPannel";
 import GameModelPannel from "./GameModelPannel";
+import GamePriceModelPannel from "./GamePriceModelPannel";
 import BallOperateBtn from "./BallOperateBtn";
-import GameMethod from "../../../class/GameMethod";
-
 
 export default class Games extends Component {
     constructor(props) {
         super(props);
         this.state =
         {
+            currentNumber: props.currentNumber,
+            currentNumberTime: props.currentNumberTime,
+            currentTime: props.currentTime,
+            gameNumbers:props.gameNumbers,
+            noIssue: props.noIssue,
+            series_identifier: props.series_identifier,
+            traceMaxTimes: props.traceMaxTimes,
+            history_lotterys: props.history_lotterys,
+            prize_group: props.bet_min_prize_group || props.user_prize_group,
+            balls: [],
             ballText: [],
             rowTitle: [],
             isBallsComplete: false,
             lotterys: [],
-            onePrice: props.onePrice,
-            multiple: props.multiple,
-            balance: props.balance,
             rowBallNumber: 5, //一行几个球
         };
 
@@ -39,17 +45,19 @@ export default class Games extends Component {
         this.checkBallIsComplete = this.checkBallIsComplete.bind(this);
         this.getLottery = this.getLottery.bind(this);
         this.ballSelectActions = this.ballSelectActions.bind(this);
-        this.gameMethod = new GameMethod();
+        this.getResultData = this.getResultData.bind(this);
+        this.getOriginal = this.getOriginal.bind(this);
+        this.formatViewBalls = this.formatViewBalls.bind(this);
     }
 
     componentWillMount() {
-        //初始化设置球排列
         const me = this;
 
-        ActDispatch.GameAct.setBalls(me.setBalls());
-
-        this.setState({rowTitle: me.setRowTitle()});
-        this.setState({ballText: me.setBallText()});
+        this.setState({
+            rowTitle: me.setRowTitle(),
+            ballText: me.setBallText(),
+            balls: me.setBalls()
+        });
     }
 
     //设置球排列
@@ -61,10 +69,22 @@ export default class Games extends Component {
     //设置BallText
     setBallText = () => [];
 
+    //清空所有选球
+    clearAllBall() {
+        const {balls} = this.state;
+        const me = this;
+
+        for (let j = 0; j < balls.length; j++) {
+            for (let i = 0; i < balls[j].length; i++) {
+                me.setBallData(i, j, -1);
+            }
+        }
+    }
+
     //选球操作
     ballSelectActions(action,irow,si) {
         const me = this;
-        const {balls} = this.props;
+        const {balls} = this.state;
         let ballsData = balls,
             x = Number(irow),
             bound = action,
@@ -137,21 +157,25 @@ export default class Games extends Component {
             case 'none':
 
                 break;
+
             default:
                 break;
 
         }
+
+        //计算注单
+        const lotteryNums = me.getLottery();
+        this.setState({lotterys: lotteryNums});
     }
 
     setBallData(x, y, value) {
         const me = this;
-        const {balls} = this.props;
+        const {balls} = this.state;
         const data = balls;
 
         if (y >= 0 && y < data.length && x >= 0) {
             data[y][x] = value;
-            ActDispatch.GameAct.setBalls(data);
-            me.gameMethod.setBalls(data);
+            this.setState({balls: data});
         }
     }
 
@@ -165,23 +189,32 @@ export default class Games extends Component {
 
     buildBalls(row) {
         const me = this;
-        const {balls} = this.props;
-
+        const {balls,ballText,rowTitle} = this.state;
         if(balls.length > 0) {
-            const ballWidth = (GlobelTheme.screenWidth - 20) / me.state.rowBallNumber;
-            return <View style={styles.ballBox}>
-                        {me.state.ballText.map((v,i) => {
-                            return <View  style={[styles.ballBtnBox,{width:ballWidth}]} key={i} >
-                                    <Ball
-                                        text={v}
-                                        row={row}
-                                        value={i}
-                                        status={balls[row][i]}
-                                        onPress={(x,y,v)=>me.selectBall(x,y,v)}
-                                        />
-                                </View>
-                        })}
-                    </View>
+            const rows = balls.length,
+                len = balls[0].length,
+                ballTextLen = ballText.length,
+                ballTitleLen = rowTitle.length;
+
+            if(rows == ballTitleLen && len == ballTextLen) {
+                const ballWidth = (GlobelTheme.screenWidth - 20) / me.state.rowBallNumber;
+                return <View style={styles.ballBox}>
+                    {me.state.ballText.map((v,i) => {
+                        return <View  style={[styles.ballBtnBox,{width:ballWidth}]} key={i} >
+                            <Ball
+                                text={v}
+                                row={row}
+                                value={i}
+                                status={balls[row][i]}
+                                onPress={(x,y,v)=>me.selectBall(x,y,v)}
+                                />
+                        </View>
+                    })}
+                </View>
+            }
+            else {
+                return null;
+            }
         }
         else {
             return null;
@@ -271,18 +304,45 @@ export default class Games extends Component {
         return result;
     }
 
+    //单行数组的排列组合
+    //list 参与排列的数组
+    //num 每组提取数量
+    //last 递归中间变量
+    combine(list, num, last) {
+        let result = [],
+            i = 0;
+        last = last || [];
+        if (num == 0) {
+            return [last];
+        }
+        for (; i <= list.length - num; i++) {
+            result = result.concat(arguments.callee(list.slice(i + 1), num - 1, last.slice(0).concat(list[i])));
+        }
+        return result;
+    }
+
+    //检查数组存在某数
+    arrIndexOf(value, arr) {
+        let r = 0;
+        for (let s = 0; s < arr.length; s++) {
+            if (arr[s] == value) {
+                r += 1;
+            }
+        }
+        return r || -1;
+    }
+
     //获取组合结果
     getLottery(isGetNum) {
         // tellmett：二维数组，球是否被选中
         const me = this;
-        const {balls} = this.props;
+        const {balls} = this.state;
         const data = balls;
 
         let i = 0,
             len = data.length,
             row,
             isEmptySelect = true,
-            _tempRow = [],
             j = 0,
             len2 = 0,
             result = [],
@@ -329,22 +389,42 @@ export default class Games extends Component {
         return me.combination(result);
     }
 
+    changeReBetRate(v) {
+        this.setState({prize_group:v});
+    }
+
     render() {
         const me = this;
-        const { lotterys, multiple, onePrice, balance } = me.state;
-        const { orderNum, bet_max_prize_group, bet_min_prize_group, moneyUnit } = me.props;
-        const orderData = lotterys.length ? me.gameMethod.getResultData(lotterys) : null;
-        const operTopDesc = `${lotterys.length}注 * ${multiple}倍 = ${moneyFormat(lotterys.length * multiple * onePrice)}元`;
+        const { lotterys, prize_group } = me.state;
+        const { orderNum, moneyUnit, multiple, balance, bet_max_prize_group, bet_min_prize_group, diff_grize_group, series_amount , currentGameWay} = me.props;
 
+        const orderData = lotterys.length ? me.getResultData(lotterys) : null;
+        const operTopDesc = `${lotterys.length}注 * ${multiple}倍 = ${moneyFormat(lotterys.length * multiple * currentGameWay.price * moneyUnit)}元`;
+
+        let modePriceOperate = null;
+        if(bet_min_prize_group && bet_max_prize_group) {
+            modePriceOperate = <GamePriceModelPannel
+                            value={prize_group}
+                            bet_max_prize_group={bet_max_prize_group}
+                            bet_min_prize_group={bet_min_prize_group}
+                            diff_grize_group={diff_grize_group}
+                            series_amount={series_amount}
+                            onChange={v => me.changeReBetRate(v)}
+                        />
+        }
         return (
             <View style={{flex:1}}>
                 <ScrollView style={styles.ballOperate}>
                     {me.buildUI()}
-                    <GameModelPannel
-                        bet_max_prize_group={bet_max_prize_group}
-                        bet_min_prize_group={bet_min_prize_group}
-                        moneyUnit={moneyUnit}
-                        />
+                    <View style={styles.controlPanel}>
+                        <GameModelPannel
+                            moneyUnit={moneyUnit}
+                            multiple={multiple}
+                            maxMultiple={currentGameWay.max_multiple}
+                            />
+                        {modePriceOperate}
+                    </View>
+
                 </ScrollView>
                 <GameControlPannel
                     balance= {balance}
@@ -355,7 +435,7 @@ export default class Games extends Component {
                             ActDispatch.GameAct.addOrderToBasket(orderData);
                         }
                         //清空选球
-                        me.ballSelectActions();
+                        me.clearAllBall();
                         //清空当前注单
                         me.setState({lotterys:[]});
                     }}
@@ -369,6 +449,175 @@ export default class Games extends Component {
                     />
             </View>
         );
+    }
+
+
+
+
+    getOriginal() {
+        const me = this;
+        const {balls} = this.state;
+
+        let len = balls.length,
+            len2 = 0,
+            i = 0,
+            j = 0,
+            row = [],
+            result = [];
+        for (; i < len; i++) {
+            row = [];
+            len2 = balls[i].length;
+            for (j = 0; j < len2; j++) {
+                if (balls[i][j] > 0) {
+                    row.push(j);
+                }
+            }
+            result.push(row);
+        }
+        return result;
+    }
+
+    formatViewBalls(original) {
+        let me = this,
+            result = [],
+            len = original.length,
+            i = 0;
+        for (; i < len; i++) {
+            result = result.concat(original[i].join(''));
+        }
+        return result.join('|');
+    }
+
+    getResultData(lotterys){
+        const me = this;
+        const { prize_group } = this.state;
+        const { moneyUnit, multiple, currentGameWay } = this.props;
+
+        let onePrice = currentGameWay.price,
+            lotterysOriginal = me.getOriginal();
+
+        if(lotterys.length < 1){
+            return {};
+        }
+        return {
+            //original:lotterysOriginal,
+            //lotterys:lotterys,
+            amount:lotterys.length * onePrice * multiple * moneyUnit,
+            wayId: currentGameWay.id,
+            ball:me.formatViewBalls(lotterysOriginal),
+            viewBalls:me.formatViewBalls(lotterysOriginal),
+            num:lotterys.length,
+            prize_group:prize_group,
+            onePrice: onePrice,
+            moneyunit: moneyUnit,
+            multiple:multiple,
+            gameName:currentGameWay.parent_parent_name_cn + currentGameWay.name_cn
+        };
+    }
+
+    //生成单注随机数
+    createRandomNum() {
+        var me = this,
+            current = [],
+            len = me.getBallData().length,
+            rowLen = me.getBallData()[0].length;
+        //随机数
+        for (var k = 0; k < len; k++) {
+            current[k] = [Math.floor(Math.random() * rowLen)];
+            current[k].sort(function (a, b) {
+                return a > b ? 1 : -1;
+            });
+        }
+        ;
+        return current;
+    }
+    //限制随机投注重复
+    checkRandomBets(hash, times) {
+        var me = this,
+            allowTag = typeof hash == 'undefined' ? true : false,
+            hash = hash || {},
+            current = [],
+            times = times || 0,
+            len = me.getBallData().length,
+            rowLen = me.getBallData()[0].length,
+            order = Games.getCurrentGameOrder().getTotal()['orders'];
+
+        //生成单数随机数
+        current = me.createRandomNum();
+        //如果大于限制数量
+        //则直接输出
+        if (Number(times) > Number(me.getRandomBetsNum())) {
+            return current;
+        }
+        //建立索引
+        if (allowTag) {
+            for (var i = 0; i < order.length; i++) {
+                if (order[i]['type'] == me.defConfig.name) {
+                    var name = order[i]['original'].join('');
+                    hash[name] = name;
+                }
+            }
+            ;
+        }
+        //对比结果
+        if (hash[current.join('')]) {
+            times++;
+            return arguments.callee.call(me, hash, times);
+        }
+        return current;
+    }
+    //生成一个当前玩法的随机投注号码
+    //该处实现复式，子类中实现其他个性化玩法
+    //返回值： 按照当前玩法生成一注标准的随机投注单(order)
+    randomNum() {
+        const me = this;
+        let i = 0,
+            current = [],
+            currentNum,
+            ranNum,
+            order = null,
+            dataNum = me.balls,
+            name = '',
+            name_en = '',
+            lotterys = [],
+            original = [];
+
+        current = me.checkRandomBets();
+        original = current;
+        lotterys = me.combination(original);
+
+        order = {
+            'type': name_en,
+            'original': original,
+            'lotterys': lotterys,
+            'moneyUnit': 1,
+            'multiple': 1,
+            'onePrice': 2,
+            'num': lotterys.length
+        };
+        order['amountText'] = Games.getCurrentGameStatistics().formatMoney(order['num'] * order['moneyUnit'] * order['multiple'] * order['onePrice']);
+        return order;
+    }
+
+    //计算当前选中的球数量
+    //限制计算某一单行内球数量
+    countBallsNumInLine(lineNum) {
+        const ball = this.state.balls;
+        let num = 0;
+
+        if (Object.prototype.toString.call(ball[lineNum]) == '[object Array]' && ball[lineNum].length > 0) {
+            for (let j = ball[lineNum].length - 1; j >= 0; j--) {
+                if (ball[lineNum][j] == 1) {
+                    num++;
+                }
+            }
+        } else {
+            if (ball[lineNum] == 1) {
+                num++;
+            }
+        }
+
+        return num || -1;
     }
 
 }
@@ -430,5 +679,13 @@ const styles = StyleSheet.create({
     gameRowTitleText: {
         color: '#fff',
         fontSize: 12
+    },
+
+    controlPanel: {
+        flex: 1,
+        padding: 10,
+        marginTop:10,
+        marginBottom:5,
+        //justifyContent: 'space-between'
     }
 });

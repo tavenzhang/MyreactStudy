@@ -21,5 +21,20 @@ export const GameAct={
     setBalls: data => ({
         type: gType.SET_BALLS,
         data
-    })
+    }),
+
+    setMoneyUnit: data => ({
+        type: gType.SET_MONEYUNIT,
+        data
+    }),
+
+    setMultiple: data => ({
+        type: gType.SET_MULTIPLE,
+        data
+    }),
+
+    setGameConfig: data => ({
+        type: gType.SET_GAMECONFIG,
+        data
+    }),
 }

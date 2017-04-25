@@ -7,7 +7,7 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableHighlight
+    TouchableOpacity
 } from 'react-native';
 
 
@@ -18,6 +18,8 @@ export default class MoneyUnit extends React.Component {
         this.state = {
             moneyUnits : [{title:'元',value:1},{title:'角',value:0.1},{title:'分',value:0.01}]
         }
+
+        this.setMoneyMode = this.setMoneyMode.bind(this);
     }
 
     static propTypes = {
@@ -28,38 +30,78 @@ export default class MoneyUnit extends React.Component {
         moneyMode : 1
     };
 
+    setMoneyMode(value) {
+        const { moneyMode } = this.props;
+        if(value && moneyMode != value) {
+            ActDispatch.GameAct.setMoneyUnit(value);
+        }
+    }
+
     render() {
 
+        const me = this;
+        const { moneyUnits } = me.state;
+        const { moneyMode } = me.props;
+
         return (
-            <View>
-                {this.state.moneyUnits.map((v,i) => {
-                    return <View key={i}><Text>{v.title}</Text></View>
+            <View style={styles.moneyBtnGrounps}>
+                {moneyUnits.map((v,i) => {
+                    let styleSpecial = null;
+                    if(i == 0) styleSpecial = styles.borderRadiusLeft;
+                    if(i == moneyUnits.length - 1) styleSpecial = styles.borderRadiusRight;
+
+                    const currentStyle = moneyMode == v.value ? styles.btnSelected : null;
+                    const currentTextStyle = moneyMode == v.value ? styles.btnTextSelected : null;
+
+                    return <TouchableOpacity key={i} onPress={() => me.setMoneyMode(v.value)} >
+                                <View  style={[styles.moneyBtn,styleSpecial,currentStyle]}>
+                                    <Text style={[styles.moneyBtnText,currentTextStyle]}>{v.title}</Text>
+                                </View>
+                            </TouchableOpacity>
                 })}
             </View>
         )
     }
 };
 
+const borderRadius = 6;
+
 const styles = StyleSheet.create({
-    ballText: {
-        color: '#000',
-        fontWeight: 'bold',
-        fontSize: 16
+    moneyBtnGrounps: {
+        flexDirection : 'row',
     },
-    ball: {
+    moneyBtn: {
         backgroundColor:global.GlobelTheme.gray,
         justifyContent:"center",
         alignItems:"center",
-        marginLeft: 5,
-        marginRight: 5,
-        marginBottom: 10,
+        width: 30,
+        height: 30,
+        borderWidth:1,
+        borderColor: global.GlobelTheme.second,
+        borderRightWidth: 0
     },
 
-    ballSelected: {
-        backgroundColor:global.GlobelTheme.primary,
+    borderRadiusLeft: {
+        borderTopLeftRadius: borderRadius,
+        borderBottomLeftRadius: borderRadius,
     },
 
-    ballSelectedText: {
-        color: '#fff',
-    }
+    borderRadiusRight: {
+        borderTopRightRadius: borderRadius,
+        borderBottomRightRadius: borderRadius,
+        borderRightWidth: 1
+    },
+
+    btnSelected: {
+        backgroundColor:global.GlobelTheme.second,
+    },
+
+    moneyBtnText: {
+        fontWeight: '700',
+        fontSize: 14
+    },
+
+    btnTextSelected: {
+        color : '#fff'
+    },
 });

@@ -7,13 +7,19 @@ const METHOD_GET = "GET";
 const METHOD_POST = "POST";
 
 //接口配置
-let HTTP_SERVER = {
+const HTTP_SERVER = {
     //获取接口配置详情
     GET_DATA_DEATIL:{url:`/mobile-types`},
     //获取游戏列表
     GET_GAME_LIST_INFO:{url:`/dist/js/data/lottery-series.json`},
     //获取玩法列表
     GET_PLAY_LIST_INFO:{url:`/dist/js/data/series-way-groups-way-group-ways.json`},
+    //获取游戏种类相关数据
+    GET_GAME_DETAIL:{url:'', formatUrl:`/mobile-lotteries/lottery-info/#id`, method:METHOD_POST,body:{}},
+    //获取游戏玩法相关数据
+    GET_GAME_WAY:{url:'', formatUrl:`/mobile-lotteries/series-info/#id/way/#way_id`, method:METHOD_POST,body:{}},
+    //注单提交接口
+    SUBMIT_ORDERS:{url:'', formatUrl:`/mobile-lotteries/lottery-bet/#id`, method:METHOD_POST,body:{}},
     //获取银行卡city 信息
     GET_BANG_CITY_INFO:{url:`/dist/js/data/districts.json`},
     //登陆

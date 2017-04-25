@@ -32,6 +32,36 @@ import QiansanZuxuanZusan from "../SSC/QiansanZuxuanZusan";
 import QiansanZuxuanZuliu from "../SSC/QiansanZuxuanZuliu";
 import QiansanQitaHeziweisu from "../SSC/QiansanQitaHeziweisu";
 import QiansanQitaTeshuhaoma from "../SSC/QiansanQitaTeshuhaoma";
+import QiansanZhixuanKuadu from "../SSC/QiansanZhixuanKuadu";
+import QiansanZuxuanBaodan from "../SSC/QiansanZuxuanBaodan";
+import QiansanZhixuanFushi from "../SSC/QiansanZhixuanFushi";
+import QiansanZhixuanHezhi from "../SSC/QiansanZhixuanHezhi";
+import QiansanZuxuanHezhi from "../SSC/QiansanZuxuanHezhi";
+
+
+import HousanZuxuanZusan from "../SSC/HousanZuxuanZusan";
+import HousanZuxuanZuliu from "../SSC/HousanZuxuanZuliu";
+import HousanQitaHeziweisu from "../SSC/HousanQitaHeziweisu";
+import HousanQitaTeshuhaoma from "../SSC/HousanQitaTeshuhaoma";
+import HousanZhixuanKuadu from "../SSC/HousanZhixuanKuadu";
+import HousanZhixuanHezhi from "../SSC/HousanZhixuanHezhi";
+import HousanZuxuanHezhi from "../SSC/HousanZuxuanHezhi";
+import HousanZhixuanZuhe from "../SSC/HousanZhixuanZuhe";
+import HousanZuxuanBaodan from "../SSC/HousanZuxuanBaodan";
+
+
+import ErxingZhixuanHouerFushi from "../SSC/ErxingZhixuanHouerFushi";
+import ErxingZhixuanQianerFushi from "../SSC/ErxingZhixuanQianerFushi";
+import ErxingZuxuanQianerFushi from "../SSC/ErxingZuxuanQianerFushi";
+import ErxingZuxuanHouerFushi from "../SSC/ErxingZuxuanHouerFushi";
+import ErxingZhixuanQianerKuadu from "../SSC/ErxingZhixuanQianerKuadu";
+import ErxingZhixuanHouerKuadu from "../SSC/ErxingZhixuanHouerKuadu";
+import ErxingZhixuanQianerHezhi from "../SSC/ErxingZhixuanQianerHezhi";
+import ErxingZhixuanHouerHezhi from "../SSC/ErxingZhixuanHouerHezhi";
+import ErxingZuxuanQianerHezhi from "../SSC/ErxingZuxuanQianerHezhi";
+import ErxingZuxuanHouerHezhi from "../SSC/ErxingZuxuanHouerHezhi";
+import ErxingZuxuanQianerBaodan from "../SSC/ErxingZuxuanQianerBaodan";
+import ErxingZuxuanHouerBaodan from "../SSC/ErxingZuxuanHouerBaodan";
 
 
 
@@ -127,9 +157,88 @@ export default class SSCView extends BaseGameView {
             case "48":
                 return  <QiansanQitaTeshuhaoma {...this.props} {...this.state}  />
 
-            //三星
+            case "60":
+                return  <QiansanZhixuanKuadu {...this.props} {...this.state}  />
+
+            case "64":
+                return  <QiansanZuxuanBaodan {...this.props} {...this.state}  />
+
+            case "65":
+                return  <QiansanZhixuanFushi {...this.props} {...this.state}  />
+
+            case "71":
+                return  <QiansanZhixuanHezhi {...this.props} {...this.state}  />
+
+            case "75":
+                return  <QiansanZuxuanHezhi {...this.props} {...this.state}  />
+
+            //后三
             case "69":
                 return  <HousanZhixuanFushi {...this.props} {...this.state}  />
+
+            case "49":
+                return  <HousanZuxuanZusan {...this.props} {...this.state}  />
+
+            case "50":
+                return  <HousanZuxuanZuliu {...this.props} {...this.state}  />
+
+            case "54":
+                return  <HousanQitaHeziweisu {...this.props} {...this.state}  />
+
+            case "57":
+                return  <HousanQitaTeshuhaoma {...this.props} {...this.state}  />
+
+            case "62":
+                return  <HousanZhixuanKuadu {...this.props} {...this.state}  />
+
+            case "73":
+                return  <HousanZhixuanHezhi {...this.props} {...this.state}  />
+
+            case "80":
+                return  <HousanZuxuanHezhi {...this.props} {...this.state}  />
+
+            case "82":
+                return  <HousanZhixuanZuhe {...this.props} {...this.state}  />
+
+            case "83":
+                return  <HousanZuxuanBaodan {...this.props} {...this.state}  />
+
+            //erxing
+            case "20":
+                return  <ErxingZuxuanQianerFushi {...this.props} {...this.state}  />
+
+            case "59":
+                return  <ErxingZuxuanHouerFushi {...this.props} {...this.state}  />
+
+            case "66":
+                return  <ErxingZhixuanQianerFushi {...this.props} {...this.state}  />
+
+            case "70":
+                return  <ErxingZhixuanHouerFushi {...this.props} {...this.state}  />
+
+            case "61":
+                return  <ErxingZhixuanQianerKuadu {...this.props} {...this.state}  />
+
+            case "63":
+                return  <ErxingZhixuanHouerKuadu {...this.props} {...this.state}  />
+
+            case "72":
+                return  <ErxingZhixuanQianerHezhi {...this.props} {...this.state}  />
+
+            case "74":
+                return  <ErxingZhixuanHouerHezhi {...this.props} {...this.state}  />
+
+            case "76":
+                return  <ErxingZuxuanQianerHezhi {...this.props} {...this.state}  />
+
+            case "77":
+                return  <ErxingZuxuanHouerHezhi {...this.props} {...this.state}  />
+
+            case "84":
+                return  <ErxingZuxuanQianerBaodan {...this.props} {...this.state}  />
+
+            case "85":
+                return  <ErxingZuxuanHouerBaodan {...this.props} {...this.state}  />
 
             default:
                 return  <Text>{data.id}</Text>

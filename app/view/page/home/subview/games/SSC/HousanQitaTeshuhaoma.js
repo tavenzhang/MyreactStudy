@@ -12,7 +12,7 @@ import Ball from "./../../../../../componet/game/Ball";
 
 import SSC from "./SSC";
 
-export default class QiansanQitaHeziweisu extends SSC {
+export default class HousanQitaTeshuhaoma extends SSC {
 
     constructor(props) {
         super(props);

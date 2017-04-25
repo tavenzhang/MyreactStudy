@@ -64,6 +64,25 @@ import ErxingZuxuanQianerBaodan from "../SSC/ErxingZuxuanQianerBaodan";
 import ErxingZuxuanHouerBaodan from "../SSC/ErxingZuxuanHouerBaodan";
 
 
+import YixingDingweidanFushi from "../SSC/YixingDingweidanFushi";
+
+
+import BudingweiSanxingQiansanyima from "../SSC/BudingweiSanxingQiansanyima";
+import BudingweiSanxingQiansanerma from "../SSC/BudingweiSanxingQiansanerma";
+import BudingweiSanxingHousanyima from "../SSC/BudingweiSanxingHousanyima";
+import BudingweiSanxingHousanerma from "../SSC/BudingweiSanxingHousanerma";
+import BudingweiSanxingZhongsanyima from "../SSC/BudingweiSanxingZhongsanyima";
+import BudingweiSanxingZhongsanerma from "../SSC/BudingweiSanxingZhongsanerma";
+import BudingweiSixingErma from "../SSC/BudingweiSixingErma";
+import BudingweiSixingYima from "../SSC/BudingweiSixingYima";
+import BudingweiWuxingYima from "../SSC/BudingweiWuxingYima";
+import BudingweiWuxingErma from "../SSC/BudingweiWuxingErma";
+import BudingweiWuxingSanma from "../SSC/BudingweiWuxingSanma";
+
+
+
+
+
 
 import connect from "react-redux/src/components/connect";
 
@@ -239,6 +258,34 @@ export default class SSCView extends BaseGameView {
 
             case "85":
                 return  <ErxingZuxuanHouerBaodan {...this.props} {...this.state}  />
+
+            case "78":
+                return  <YixingDingweidanFushi {...this.props} {...this.state}  />
+
+            //不定位
+            case "18":
+                return  <BudingweiSanxingQiansanyima {...this.props} {...this.state}  />
+
+            case "21":
+                return  <BudingweiSanxingQiansanerma {...this.props} {...this.state}  />
+
+            case "51":
+                return  <BudingweiSanxingHousanyima {...this.props} {...this.state}  />
+
+            case "52":
+                return  <BudingweiSanxingHousanerma {...this.props} {...this.state}  />
+
+            case "34":
+                return  <BudingweiSixingYima {...this.props} {...this.state}  />
+
+            case "35":
+                return  <BudingweiSixingErma {...this.props} {...this.state}  />
+
+            case "36":
+                return  <BudingweiWuxingErma {...this.props} {...this.state}  />
+
+            case "37":
+                return  <BudingweiWuxingSanma {...this.props} {...this.state}  />
 
             default:
                 return  <Text>{data.id}</Text>

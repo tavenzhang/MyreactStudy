@@ -16,6 +16,7 @@ export default class HousanQitaTeshuhaoma extends SSC {
 
     constructor(props) {
         super(props);
+        this.state.rowBallNumber = 3; //一行几个球
 
     }
 

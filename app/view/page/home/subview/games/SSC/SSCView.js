@@ -81,6 +81,14 @@ import BudingweiWuxingSanma from "../SSC/BudingweiWuxingSanma";
 
 
 
+import DaxiaodanshuangQianer from "../SSC/DaxiaodanshuangQianer";
+import DaxiaodanshuangQiansan from "../SSC/DaxiaodanshuangQiansan";
+import DaxiaodanshuangHousan from "../SSC/DaxiaodanshuangHousan";
+import DaxiaodanshuangHouer from "../SSC/DaxiaodanshuangHouer";
+
+
+
+import QuweiWumaSanxing from "../SSC/QuweiWumaSanxing";
 
 
 
@@ -286,6 +294,23 @@ export default class SSCView extends BaseGameView {
 
             case "37":
                 return  <BudingweiWuxingSanma {...this.props} {...this.state}  />
+
+            //大小单双
+            case "19":
+                return  <DaxiaodanshuangQianer {...this.props} {...this.state}  />
+
+            case "22":
+                return  <DaxiaodanshuangQiansan {...this.props} {...this.state}  />
+
+            case "53":
+                return  <DaxiaodanshuangHousan {...this.props} {...this.state}  />
+
+            case "58":
+                return  <DaxiaodanshuangHouer {...this.props} {...this.state}  />
+
+            //趣味
+            case "38":
+                return  <QuweiWumaSanxing {...this.props} {...this.state}  />
 
             default:
                 return  <Text>{data.id}</Text>

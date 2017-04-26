@@ -24,9 +24,9 @@ export default class BaseListView extends React.Component {
         this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
     }
 
-    shouldComponentUpdate() {
-
-    }
+    // shouldComponentUpdate() {
+    //
+    // }
 
     render() {
         let dataList=this.props.dataList;
@@ -40,7 +40,7 @@ export default class BaseListView extends React.Component {
                     onEndReached={this._onFootFlush}
                     onEndReachedThreshold={20}
                     renderFooter={this._renderFooter}
-                    onScroll={this._onScroll}
+                   // onScroll={this._onScroll}
                     enableEmptySections={true}
                     pageSize={15}
                     initialListSize={10}
@@ -56,7 +56,7 @@ export default class BaseListView extends React.Component {
             </View>
         );
     }
-    // _renderRow = (rowData) => {
+    // _renderRow = (rowData,section, row) => {
     //
     // }
     // componentWillUpdate() {
@@ -103,16 +103,16 @@ export default class BaseListView extends React.Component {
         }
     }
 
-    _onScroll = (event: Object) => {
-        // TLog("_onScroll-----event",event.nativeEvent);
-        // if(event.nativeEvent.layoutMeasurement.height>(event.nativeEvent.contentSize.height+50))
-        // {
-        //
-        // }
-        // else{
-        //     if (!canLoadMore) canLoadMore = true;
-        // }
-    }
+    // _onScroll = (event: Object) => {
+    //     // TLog("_onScroll-----event",event.nativeEvent);
+    //     // if(event.nativeEvent.layoutMeasurement.height>(event.nativeEvent.contentSize.height+50))
+    //     // {
+    //     //
+    //     // }
+    //     // else{
+    //     //     if (!canLoadMore) canLoadMore = true;
+    //     // }
+    // }
 
     _renderFooter = () => {
         //if (!canLoadMore) {

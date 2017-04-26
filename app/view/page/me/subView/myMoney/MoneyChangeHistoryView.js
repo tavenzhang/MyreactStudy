@@ -106,7 +106,7 @@ export default class MoneyChangeHistoryView extends React.Component {
                         </View>
                         <View style={[styles.itemContentStyle,{flex:2}]}>
                             <Text style={styles.textItemStyle}>{gameName}</Text>
-                            <Text style={{fontSize:12,color:GlobelTheme.gray, marginTop:5}} >{playName}</Text>
+                            <Text style={{fontSize:12,color:GlobelTheme.grayDeep, marginTop:5}} >{playName}</Text>
                         </View>
                         <View style={[styles.itemContentStyle,{flex:2}]}>
                             <Text style={styles.textItemStyle}>{parseInt(rowData.available)}</Text>

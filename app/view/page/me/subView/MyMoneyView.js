@@ -46,7 +46,7 @@ export default class MyMoneyView extends BaseView {
     {
         super(props)
         this.state = {
-            index: 1,
+            index:0,
             routes: [
                 { key: '1', title: '全部' },
                 { key: '2', title: '充值' },
@@ -55,7 +55,6 @@ export default class MyMoneyView extends BaseView {
                 { key: '5', title: '转账' }
             ],
         };
-
     }
 
 

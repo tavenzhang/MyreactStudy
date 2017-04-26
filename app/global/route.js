@@ -28,6 +28,8 @@ import EditCardAddView from "../view/page/me/subView/cardManage/EditCardAddView"
 import MoneyTransferView from "../view/page/me/subView/MoneyTransferView";
 import L115View from "../view/page/home/subview/games/L115/L115View";
 import SSCView from "../view/page/home/subview/games/SSC/SSCView";
+import G_11_5_History from "../view/page/award/subView/G_11_5_History";
+
 
 // PushFromLeft
 // FloatFromRight
@@ -51,8 +53,10 @@ let NavViews = {
     TabbarView: () => ({"component": TabbarView}),
     //登陆
     LoginView: (data) => ({"component": LoginView, "passProps": data}),
-    //快3游戏通知
+    //ssc 游戏详情
     SSC_History: (data) => ({"component": SSC_History, "passProps": data}),
+    //11-5 游戏详情
+    G_11_5_History: (data) => ({"component": G_11_5_History, "passProps": data}),
     //个人中心页面
     AwardRecord: (data) => ({"name": "AwardRecordView", "component": AwardRecord, "passProps": data}),
     BetRecord: (data) => ({"name": "BetRecordView", "component": BetRecord, "passProps": data}),

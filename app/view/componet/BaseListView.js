@@ -38,7 +38,7 @@ export default class BaseListView extends React.Component {
                     dataSource={ds}
                     renderRow={this.props.renderRow}
                     onEndReached={this._onFootFlush}
-                    onEndReachedThreshold={-10}
+                    onEndReachedThreshold={20}
                     renderFooter={this._renderFooter}
                     onScroll={this._onScroll}
                     enableEmptySections={true}
@@ -69,10 +69,10 @@ export default class BaseListView extends React.Component {
 
     _onFootFlush = () => {
        // TLog("_onFootFlush---data---------", this.state.canLoadMore);
-        if(oldLength==this.props.dataList.length)
-        {
-            return;
-        }
+       //  if(oldLength==this.props.dataList.length)
+       //  {
+       //      return;
+       //  }
         if(this.props.dataList.length >= 15) {
             oldLength= this.props.dataList.length;
           //  TLog("this.state.canLoadMore----", this.state.canLoadMore)

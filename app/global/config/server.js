@@ -1,6 +1,6 @@
 
 let SERVERADDR = "http://104.250.140.242:8081";
-
+//let SERVERADDR = "http://192.168.0.102";
 global.SERVERADDR=SERVERADDR;
 
 const METHOD_GET = "GET";
@@ -80,7 +80,13 @@ const HTTP_SERVER = {
     //提现
     MONEY_OUTER_0:{url:"/mobile-withdrawals/withdraw/0",method:METHOD_POST,body:{}},
     //提现
-    MONEY_OUTER_1:{url:"/mobile-withdrawals/withdraw/1",method:METHOD_POST,body:{account:"",fund_password:"",amount:"",id:""}}
+    MONEY_OUTER_1:{url:"/mobile-withdrawals/withdraw/1",method:METHOD_POST,body:{account:"",fund_password:"",amount:"",id:""}},
+  //-----------------------------------------------开奖通知-----------------------------------------
+    //获取所有arard notice list
+    notice_ALL_Lottery:{url:"/mobile-lotteries/all-lottery-numbers",method:METHOD_GET},
+    //获取具体游戏开奖记录/mobile-lotteries/lottery-issue-number-list/{lottery_id}/{next_id}
+    notice_Lottery_Hisotry:{url:"",formatUrl:`/mobile-lotteries/lottery-issue-number-list`,method:METHOD_GET},
+
 };
 global.HTTP_SERVER=HTTP_SERVER
 

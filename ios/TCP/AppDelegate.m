@@ -32,8 +32,8 @@
   jsCodeLocation = [CodePush bundleURL];
   //  Logger *log = LoggerGetDefaultLogger();
 //  LoggerStart(log);
-  LoggerSetViewerHost(nil, (CFStringRef) @"192.168.0.102", (UInt32)40000);
-  LogMarker(@"thomas--release");
+ // LoggerSetViewerHost(nil, (CFStringRef) @"192.168.0.102", (UInt32)40000);
+  //LogMarker(@"thomas--release");
 #endif
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation

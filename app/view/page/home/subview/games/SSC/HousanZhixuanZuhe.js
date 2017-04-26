@@ -4,7 +4,7 @@
 
 import SSC from "./SSC";
 
-export default class QiansanZhixuanZuhe extends SSC {
+export default class HousanZhixuanZuhe extends SSC {
 
     constructor(props) {
         super(props);

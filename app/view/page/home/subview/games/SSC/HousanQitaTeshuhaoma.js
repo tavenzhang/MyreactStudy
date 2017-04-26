@@ -12,11 +12,12 @@ import Ball from "./../../../../../componet/game/Ball";
 
 import SSC from "./SSC";
 
-export default class QiansanQitaHeziweisu extends SSC {
+export default class HousanQitaTeshuhaoma extends SSC {
 
     constructor(props) {
         super(props);
         this.state.rowBallNumber = 3; //一行几个球
+
     }
 
     //设置球排列

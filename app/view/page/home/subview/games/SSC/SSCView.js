@@ -110,7 +110,6 @@ const mapStateToProps = state => {
 }
 
 @connect(mapStateToProps)
-
 export default class SSCView extends BaseGameView {
 
     constructor(props) {
@@ -118,7 +117,7 @@ export default class SSCView extends BaseGameView {
     }
 
     onRenderSubView(data) {
-        TLog("SSCView--onRenderSubView", data);
+       // TLog("SSCView--onRenderSubView", data);
         switch (data.id)
         {
             //五星
@@ -148,7 +147,6 @@ export default class SSCView extends BaseGameView {
 
             case "32":
                 return  <WuxingZuxuanZuxuan120 {...this.props} {...this.state}  />
-
             //四星
             case "67":
                 return  <XixingZhixuanFushi {...this.props} {...this.state}  />

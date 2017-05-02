@@ -16,7 +16,6 @@ export  default class NoticeDeailView extends BaseView {
     }
 
     renderBody() {
-        // let {gamesDic} = this.props.passProps
         let typeInfo = this.state.data.msg_type;
         let typeName = "";
         for (let key in typeInfo) {
@@ -24,7 +23,6 @@ export  default class NoticeDeailView extends BaseView {
                 typeName = typeInfo[key];
             }
         }
-        // {this.state.data.msg_type[this.state.data.type_id]}
         return (
             <View style={[GlobeStyle.appContentView]}>
                 <WebView source={{html: this.state.data.content}} automaticallyAdjustContentInsets={false}/>

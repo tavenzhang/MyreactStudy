@@ -24,7 +24,6 @@ const mapStateToProps = state => {
     //balls.map((v,i) => {
     //    newBalls[i] = v.toArray();
     //});
-
     return {
         orderList: state.get("gameState").get("orderList"),
         gameId: state.get("gameState").get("gameId"),
@@ -109,7 +108,7 @@ export default class LotteryOrders extends BaseView {
         TLog("------=======-------",submitData)
 
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.SUBMIT_ORDERS, data => {
-            TLog('注单提交反馈======》',data)
+            TLog('注单提交反馈======》',data);
         })
     }
 
@@ -185,9 +184,11 @@ export default class LotteryOrders extends BaseView {
     }
 
     componentDidMount() {
+
     }
 
     componentWillUnmount() {
+
     }
 }
 

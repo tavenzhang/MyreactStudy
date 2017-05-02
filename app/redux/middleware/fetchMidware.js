@@ -9,7 +9,6 @@
 //     return str.substring(0, str.length - 1);
 // }
 
-
 function fetchMiddleware(extraArgument) {
     return ({dispatch, getState}) => next => action => {
         let resHttp="";
@@ -67,7 +66,16 @@ function fetchMiddleware(extraArgument) {
                                 next(ActionEnum.AppAct.showBox(data.Msg));
                             }
                             else{
-                                next(ActionEnum.AppAct.showErrorBox(data.Msg));
+                                if(data.type=="loginTimeout")//登陆超时
+                                {
+                                    next(ActionEnum.AppAct.showErrorBox("请登陆后再做此操作！"));
+                                    next(ActionEnum.AppAct.loginOut());
+                                    NavUtil.pushToView(NavViews.LoginView({title: "登陆"}));
+                                }
+                                else{
+                                    next(ActionEnum.AppAct.showErrorBox(data.Msg));
+                                }
+
                             }
                         }
                     }

@@ -123,7 +123,7 @@ const NavUtil = {
             Navgator.popN(n)
         });
     },
-     popToRoute:(data) => {
+    popToRoute:(data) => {
             InteractionManager.runAfterInteractions(() => {
                 Navgator.popToRoute(data);
             });

@@ -49,7 +49,6 @@ export default class MoneyUnit extends React.Component {
                     let styleSpecial = null;
                     if(i == 0) styleSpecial = styles.borderRadiusLeft;
                     if(i == moneyUnits.length - 1) styleSpecial = styles.borderRadiusRight;
-
                     const currentStyle = moneyMode == v.value ? styles.btnSelected : null;
                     const currentTextStyle = moneyMode == v.value ? styles.btnTextSelected : null;
 
@@ -71,13 +70,13 @@ const styles = StyleSheet.create({
         flexDirection : 'row',
     },
     moneyBtn: {
-        backgroundColor:global.GlobelTheme.gray,
+        backgroundColor:GlobelTheme.gray,
         justifyContent:"center",
         alignItems:"center",
         width: 30,
         height: 30,
         borderWidth:1,
-        borderColor: global.GlobelTheme.second,
+        borderColor: GlobelTheme.second,
         borderRightWidth: 0
     },
 
@@ -93,7 +92,7 @@ const styles = StyleSheet.create({
     },
 
     btnSelected: {
-        backgroundColor:global.GlobelTheme.second,
+        backgroundColor:GlobelTheme.second,
     },
 
     moneyBtnText: {

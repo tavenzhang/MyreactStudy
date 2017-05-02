@@ -37,7 +37,6 @@ export default class Games extends Component {
             lotterys: [],
             rowBallNumber: 5, //一行几个球
         };
-
         this.buildBalls = this.buildBalls.bind(this);
         this.buildUI    = this.buildUI.bind(this);
         this.selectBall = this.selectBall.bind(this);
@@ -52,7 +51,6 @@ export default class Games extends Component {
 
     componentWillMount() {
         const me = this;
-
         this.setState({
             rowTitle: me.setRowTitle(),
             ballText: me.setBallText(),
@@ -73,7 +71,6 @@ export default class Games extends Component {
     clearAllBall() {
         const {balls} = this.state;
         const me = this;
-
         for (let j = 0; j < balls.length; j++) {
             for (let i = 0; i < balls[j].length; i++) {
                 me.setBallData(i, j, -1);
@@ -93,7 +90,6 @@ export default class Games extends Component {
             start = si || 0,
             halfLen = Math.ceil((len - start) / 2 + start),
             i = start;
-
         //清空该行选球
         for (; i < len; i++) {
             me.setBallData(i, x, -1);
@@ -172,7 +168,6 @@ export default class Games extends Component {
         const me = this;
         const {balls} = this.state;
         const data = balls;
-
         if (y >= 0 && y < data.length && x >= 0) {
             data[y][x] = value;
             this.setState({balls: data});
@@ -184,7 +179,6 @@ export default class Games extends Component {
         me.setBallData(x,y,v)
         const lotteryNums = me.getLottery();
         this.setState({lotterys: lotteryNums});
-
     }
 
     buildBalls(row) {
@@ -195,7 +189,6 @@ export default class Games extends Component {
                 len = balls[0].length,
                 ballTextLen = ballText.length,
                 ballTitleLen = rowTitle.length;
-
             if(rows == ballTitleLen && len == ballTextLen) {
                 const ballWidth = (GlobelTheme.screenWidth - 20) / me.state.rowBallNumber;
                 return <View style={styles.ballBox}>
@@ -289,7 +282,6 @@ export default class Games extends Component {
             _row = [];
 
         m[i = h] = 1;
-
         while (i--) {
             m[i] = m[i + 1] * arr2[i].length;
         }
@@ -338,7 +330,6 @@ export default class Games extends Component {
         const me = this;
         const {balls} = this.state;
         const data = balls;
-
         let i = 0,
             len = data.length,
             row,
@@ -452,8 +443,6 @@ export default class Games extends Component {
     }
 
 
-
-
     getOriginal() {
         const me = this;
         const {balls} = this.state;
@@ -541,7 +530,6 @@ export default class Games extends Component {
             len = me.getBallData().length,
             rowLen = me.getBallData()[0].length,
             order = Games.getCurrentGameOrder().getTotal()['orders'];
-
         //生成单数随机数
         current = me.createRandomNum();
         //如果大于限制数量
@@ -604,7 +592,6 @@ export default class Games extends Component {
     countBallsNumInLine(lineNum) {
         const ball = this.state.balls;
         let num = 0;
-
         if (Object.prototype.toString.call(ball[lineNum]) == '[object Array]' && ball[lineNum].length > 0) {
             for (let j = ball[lineNum].length - 1; j >= 0; j--) {
                 if (ball[lineNum][j] == 1) {
@@ -616,10 +603,8 @@ export default class Games extends Component {
                 num++;
             }
         }
-
         return num || -1;
     }
-
 }
 
 
@@ -634,10 +619,9 @@ const styles = StyleSheet.create({
         //paddingLeft: 20,
         //paddingRight: 20,
     },
-
     gameBox: {
-    },
 
+    },
     ballBtnBox: {
         flexDirection : 'row',
         justifyContent:"center",
@@ -652,11 +636,10 @@ const styles = StyleSheet.create({
         marginRight: 20,
         marginBottom: 10,
         borderWidth: 1,
-        borderColor: global.GlobelTheme.gray,
+        borderColor: GlobelTheme.gray,
         padding :8,
         borderRadius: 15
     },
-
     gameRow: {
         flexWrap : 'wrap',
         margin: 10,
@@ -664,23 +647,20 @@ const styles = StyleSheet.create({
         marginBottom: 0,
         borderRadius: 8
     },
-
     gameRowTitle: {
         width: 45,
         height: 18,
-        backgroundColor : global.GlobelTheme.primary,
+        backgroundColor :GlobelTheme.primary,
         justifyContent:"center",
         alignItems:"center",
         marginLeft: 1,
         marginTop: 6,
         marginBottom: 10,
     },
-
     gameRowTitleText: {
         color: '#fff',
         fontSize: 12
     },
-
     controlPanel: {
         flex: 1,
         padding: 10,

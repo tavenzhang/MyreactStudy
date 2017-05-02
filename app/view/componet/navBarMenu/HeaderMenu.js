@@ -35,6 +35,12 @@ export class HeaderLeftDomain extends React.Component {
     }
 }
 
+export class GAME_DERAIL extends React.Component {
+    render() {
+        return  <AIcon name={EnumFontNames.bars} style={styles.barRightIcon} />
+    }
+}
+
 const styles = StyleSheet.create({
     navigationBarContainer: {
         flexDirection: 'row',
@@ -74,6 +80,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
 
     },
+    barRightIcon: {
+        color: '#fff',
+        fontSize: 20
+    }
 })
 
 

@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 
 import Ball from "./../../../../../componet/game/Ball";
-
 import SSC from "./SSC";
 
 export default class DaxiaodanshuangHouer extends SSC {
@@ -17,7 +16,6 @@ export default class DaxiaodanshuangHouer extends SSC {
     constructor(props) {
         super(props);
         this.state.rowBallNumber = 4; //一行几个球
-
     }
 
     //设置球排列
@@ -42,7 +40,7 @@ export default class DaxiaodanshuangHouer extends SSC {
         for (; i < len; i++) {
             tempArr = [];
             for(let j=0; j<original[i].length; j++) {
-                tempArr[j] = names[Number(original[i][j] )];
+                tempArr[j] = names[Number(original[i][j])];
             }
             result = result.concat(tempArr.join(''));
         }

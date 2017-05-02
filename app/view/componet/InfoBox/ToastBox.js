@@ -40,7 +40,6 @@ class ToastBox extends Component {
 
 
     componentDidMount() {
-
         this.time=setTimeout(()=>{
             this.props.onClose();
         },2000)

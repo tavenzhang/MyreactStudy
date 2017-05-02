@@ -19,7 +19,6 @@ const mapStateToProps = state => {
 }
 
 @connect(mapStateToProps)
-
 export default class L115View extends BaseGameView {
 
     onRenderSubView(data) {
@@ -40,4 +39,7 @@ export default class L115View extends BaseGameView {
                 return  <Text>{data.id}</Text>
         }
     }
+
+   
+
 }

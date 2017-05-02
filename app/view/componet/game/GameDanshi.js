@@ -184,7 +184,6 @@ export default class GameDanshi extends Games {
             str[i] = tData[i].join('');
         }
         str = str.join(' ').trim();
-
         if(str == ''){
 
             Alert.alert(
@@ -225,7 +224,6 @@ export default class GameDanshi extends Games {
 
 
 const styles = StyleSheet.create({
-
     uiBox: {
         padding: 10,
         backgroundColor: '#fff'

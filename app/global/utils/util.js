@@ -20,6 +20,11 @@ Date.prototype.Format = function (fmt) { //author: meizz
 
 
 const DateUtil={
+
+    formatSecondDate:(secondNum:Number)=>{
+        let data= new Date(secondNum)
+        return data.Format("mm:ss");
+    },
     //2017-02-22  15:47:00
     formatRecodData:(date:Date)=>{
         return date.Format("yyyy-MM-dd hh:mm:ss");
@@ -86,6 +91,28 @@ export const TLog = (name = null, obj = []) => {
 
 global.TLog = TLog;
 
+
+// Number.prototype.toFixed =function(len)
+// {
+//     var tempNum = 0;
+//     var s,temp;
+//     var s1 = this + "";
+//     var start = s1.indexOf(".");
+//
+//     //截取小数点后,0之后的数字，判断是否大于5，如果大于5这入为1
+//     if(s1.substr(start+len+1,1)>=5)
+//     {
+//         tempNum=1;
+//     }
+//
+//     //计算10的len次方,把原数字扩大它要保留的小数位数的倍数
+//     var temp = Math.pow(10,len);
+//     //求最接近this * temp的最小数字
+//     //floor() 方法执行的是向下取整计算，它返回的是小于或等于函数参数，并且与之最接近的整数
+//     s = Math.floor(this * temp) + tempNum;
+//     return s/temp;
+//
+// }
 
 /**
  * 金额格式化

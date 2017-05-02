@@ -30,7 +30,8 @@ export const GlobelTheme = {
     NavigatorHeadH: 64,
     TabBarH: 50,
     StatusBarH:Platform.OS === 'ios' ? 20 : 0,
-    gameOperatePanelHeight: 50
+    gameOperatePanelHeight: 50,
+    halfGrayAlpha:'rgba(52, 52, 52, 0.5)',
 };
 
 global.GlobelTheme=GlobelTheme;
@@ -46,16 +47,23 @@ export const GlobeStyle = StyleSheet.create({
         flex:1,
         backgroundColor: "#F1E0F6"
     },
+    appContentCenterView:{
+        flex:1,
+        justifyContent:"center",
+        alignItems:"center"
+    }
 });
 global.GlobeStyle=GlobeStyle;
 
 
-const EnumFontIco={
+const EnumFontNames={
     list_arrow_desc:"sort-desc",
     list_arrow_up:"sort-up",
     plus:"plus",
     angleRight:"angle-right",
+    infoCircle:"info-circle",
+    bars:'bars'
 }
 
-global.EnumFontNames=EnumFontIco;
+global.EnumFontNames=EnumFontNames;
 

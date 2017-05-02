@@ -8,9 +8,7 @@ export default class BudingweiSanxingZhongsanyima extends SSC {
 
     constructor(props) {
         super(props);
-
     }
-
     //设置球排列
     setBalls = () => [
         [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
@@ -18,7 +16,6 @@ export default class BudingweiSanxingZhongsanyima extends SSC {
 
     //设置rowtitle
     setRowTitle = () => ['不定位'];
-
     checkBallIsComplete(){
         let me = this,
             ball = me.state.balls[0],

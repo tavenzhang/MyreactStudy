@@ -70,8 +70,10 @@ export default class LoginView extends BaseView {
 
     }
 
-    componentWillUnmount() {
 
+
+    componentWillUnmount() {
+       // TLog("LoginView----------------componentWillUnmount")
     }
 
     clickLogin = () => {

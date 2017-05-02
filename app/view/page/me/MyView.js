@@ -258,12 +258,10 @@ export default class MyView extends BaseView {
                 <View>
                     {headView}
                     <View style={styles.row}>
-
                             <View style={{flexDirection: "row", alignItems: "center"}}>
                                 <AIcon name={rowData.ico} style={{color: GlobelTheme.grayDeep, fontSize: 20, width: 25}}/>
                                 <Text style={{fontSize: 14, left: 20}}>{rowData.name}</Text>
                             </View>
-
                         <AIcon name={EnumFontNames.angleRight} style={styles.iconNormal}/>
                     </View>
                 </View>

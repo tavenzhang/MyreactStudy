@@ -7,9 +7,7 @@ export default class XixingZuxuan6 extends SSC {
 
     constructor(props) {
         super(props);
-
     }
-
     //设置球排列
     setBalls = () => [
         [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],

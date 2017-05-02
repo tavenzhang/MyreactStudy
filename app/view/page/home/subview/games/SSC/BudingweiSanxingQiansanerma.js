@@ -8,14 +8,12 @@ export default class WuxingZhixuanFushi extends SSC {
 
     constructor(props) {
         super(props);
-
     }
 
     //设置球排列
     setBalls = () => [
         [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
     ];
-
     //设置rowtitle
     setRowTitle = () => ['不定位'];
 

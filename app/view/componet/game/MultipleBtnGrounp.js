@@ -90,13 +90,13 @@ const styles = StyleSheet.create({
         flexDirection : 'row',
     },
     multipleBtn: {
-        backgroundColor:global.GlobelTheme.second,
+        backgroundColor:GlobelTheme.second,
         justifyContent:"center",
         alignItems:"center",
         width: 30,
         height: 30,
         borderWidth:1,
-        borderColor: global.GlobelTheme.second,
+        borderColor: GlobelTheme.second,
     },
 
     borderRadiusLeft: {
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
         paddingLeft: 5,
         paddingRight: 5,
         borderWidth:1,
-        borderColor: global.GlobelTheme.second,
+        borderColor: GlobelTheme.second,
         flexDirection : 'row',
         justifyContent: 'space-between'
     },

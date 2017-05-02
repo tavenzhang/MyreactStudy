@@ -3,7 +3,6 @@
  */
 import React, {PropTypes} from 'react';
 import {
-    View,
     Text,
     StyleSheet,
     TouchableHighlight
@@ -30,7 +29,7 @@ export  default  class Ball extends React.Component {
             <TouchableHighlight
                 style={[{borderRadius:radius,width:radius*2,height:radius*2},styles.ball,sb]}
                 onPress={()=>onPress(value,row,ballChangeStatus)}
-                underlayColor={global.GlobelTheme.primary}
+                underlayColor={GlobelTheme.primary}
                 >
                 <Text style={[styles.ballText,sbt]}>{text}</Text>
             </TouchableHighlight>
@@ -45,7 +44,7 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     ball: {
-        backgroundColor:global.GlobelTheme.gray,
+        backgroundColor:GlobelTheme.gray,
         justifyContent:"center",
         alignItems:"center",
         marginLeft: 5,
@@ -54,7 +53,7 @@ const styles = StyleSheet.create({
     },
 
     ballSelected: {
-        backgroundColor:global.GlobelTheme.primary,
+        backgroundColor:GlobelTheme.primary,
     },
 
     ballSelectedText: {

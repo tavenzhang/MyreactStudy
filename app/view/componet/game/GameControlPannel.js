@@ -73,7 +73,7 @@ export default class GameControlPannel extends Component {
                         <Text style={styles.lotterys}>{topDesc}</Text>
                     </View>
                     <View>
-                        <Text style={styles.money}>可用余额:{global.moneyFormat(balance)}元</Text>
+                        <Text style={styles.money}>可用余额:{moneyFormat(balance)}元</Text>
                     </View>
                 </View>
                 <View style={{flexDirection : 'row'}}>
@@ -96,15 +96,15 @@ const styles = StyleSheet.create({
         flexDirection : 'row',
         position: 'absolute',
         bottom: -3,
-        width: global.Window.width,
+        width: Window.width,
         padding: 8,
         height: GlobelTheme.gameOperatePanelHeight,
-        backgroundColor: global.GlobelTheme.black,
+        backgroundColor: GlobelTheme.black,
         justifyContent: 'space-between'
     },
 
     lotterys: {
-        color: global.GlobelTheme.second,
+        color: GlobelTheme.second,
         fontSize: 14
     },
 

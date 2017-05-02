@@ -48,12 +48,10 @@ const gameState = (state = initGameState, action) => {
         case gType.SET_GAMECONFIG:
             //TLog('gameConfig====',action.httpResult)
             const data = action.httpResult.data;
-
             return state.merge({
                 gameId: data.gameId,
                 lottery_items: data.currentNumber,
             })
-
         default:
             return state;
     }

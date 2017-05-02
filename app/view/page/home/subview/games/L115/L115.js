@@ -17,9 +17,7 @@ export default class L115 extends Games {
 
     constructor(props) {
         super(props);
-
         this.state.rowBallNumber = 6; //一行几个球
-
         this.lastSelectBallIndex = -1;
     }
 

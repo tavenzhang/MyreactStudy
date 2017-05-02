@@ -7,7 +7,6 @@ export default class HousanQitaHeziweisu extends SSC {
 
     constructor(props) {
         super(props);
-
     }
 
     //设置球排列

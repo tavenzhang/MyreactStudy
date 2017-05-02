@@ -9,7 +9,6 @@ import {
     TouchableOpacity,
 } from 'react-native';
 
-import AIcon from 'react-native-vector-icons/FontAwesome';
 import MoneyUnit from './MoneyUnit';
 import MultipleBtnGrounp from "./MultipleBtnGrounp";
 

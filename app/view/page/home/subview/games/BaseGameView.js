@@ -4,11 +4,13 @@ import {
     Text,
     StyleSheet,
     Alert,
+    TouchableWithoutFeedback
 } from 'react-native';
 import BaseView from "../../../../componet/BaseView";
 import {GAME_DERAIL, HeaderMenuTitleView} from "../../../../componet/navBarMenu/HeaderMenu";
 import HeadMenuListView from "./HeadMenuListView";
 import MoreMenu from "../../../../componet/MoreMenu";
+import BannerView from "./BannerView";
 
 export default class BaseGameView extends BaseView {
     constructor(props) {
@@ -39,8 +41,8 @@ export default class BaseGameView extends BaseView {
             currentGameWay: {},
         }
         this.onRenderSubView = this.onRenderSubView.bind(this);
-        this.getMoreMenuData=this.getMoreMenuData.bind(this);
-        this.onMoreMenuSelect=this.onMoreMenuSelect.bind(this)
+        this.getMoreMenuData = this.getMoreMenuData.bind(this);
+        this.onMoreMenuSelect = this.onMoreMenuSelect.bind(this)
     }
 
     getNavigationBarProps() {
@@ -57,7 +59,7 @@ export default class BaseGameView extends BaseView {
     }
 
     onRightPressed() {
-         this.refs.moreMenu.toggle();
+        this.refs.moreMenu.toggle();
     }
 
     onHeadPressed() {
@@ -66,30 +68,24 @@ export default class BaseGameView extends BaseView {
 
     renderBody() {
         const {currentGameWay, currentNumber, defaultMethodId} = this.state;
+        const {series_id} = this.props.passProps
         let subView = this.state.selectItem ? this.onRenderSubView(this.state.selectItem) : null;
         let dim = (this.state.currentNumberTime - this.state.currentTime) * 1000;
         dim = dim > 0 ? dim : 0;
-        let menuDataList=this.getMoreMenuData();
+        let menuDataList = this.getMoreMenuData();
         return (defaultMethodId > 0) ? (
             <View style={GlobeStyle.appContentView}>
                 <HeadMenuListView selectItem={this.state.selectItem} onHeadPressed={this.onHeadPressed}
                                   menuDataList={this.firstMenu} isShowMenu={this.state.isShowMenu}
                                   clickMenuItem={this.clickMenuItem} rootStyle={styles.firstMenuContain}/>
-                <View style={styles.timeBanner}>
-                    <View><Text style={styles.timeBannerText}>距第{currentNumber}期开奖:<Text style={{
-                        color: "red",
-                        fontWeight: "bold"
-                    }}>{DateUtil.formatSecondDate(dim)}</Text></Text></View>
-                    <View ref="moreMenuButton"><Text
-                        style={styles.timeBannerText}>玩法奖金:{moneyFormat(currentGameWay.prize)}元</Text></View>
-                </View>
+                <BannerView dateHistoryList={this.state.history_lotterys} time={dim} prize={currentGameWay.prize} series_id={series_id}  currentNumber={currentNumber}/>
                 {subView}
                 <MoreMenu
                     ref="moreMenu"
                     menus={menuDataList}
                     contentStyle={{right: 20}}
                     onMoreMenuSelect={this.onMoreMenuSelect}
-                    buttonRect={{x:GlobelTheme.screenWidth-60, y: -50, width: 40, height: 40}}
+                    buttonRect={{x: GlobelTheme.screenWidth - 60, y: -50, width: 40, height: 40}}
                 />
             </View>
         ) : null
@@ -98,12 +94,6 @@ export default class BaseGameView extends BaseView {
 
 
     componentDidMount() {
-        const me = this;
-        const {series_id} = this.props.passProps;
-        const {requestGameStatus} = this.state;
-        // if(requestGameStatus == 1) {
-        //     this.setState({requestGameStatus:2});
-        // }
         this.requetGameData();
     }
 
@@ -131,7 +121,7 @@ export default class BaseGameView extends BaseView {
                 series_identifier: pd.series_identifier,
                 series_amount: pd.series_amount,
                 traceMaxTimes: pd.traceMaxTimes,
-                history_lotterys: pd.history_lotterys,
+                history_lotterys: pd.history_lotterys.split(","),
                 // requestGameStatus: 3
             });
             let dim = (this.state.currentNumberTime - this.state.currentTime);
@@ -146,6 +136,7 @@ export default class BaseGameView extends BaseView {
             }
         }, false);
     }
+
     //倒计时显示
     countTime = () => {
         let dim = (this.state.currentNumberTime - this.state.currentTime);
@@ -158,7 +149,6 @@ export default class BaseGameView extends BaseView {
             this.requetGameData();
         }
     }
-
 
     clickMenuItem = (data) => {
         //const me = this;
@@ -192,15 +182,13 @@ export default class BaseGameView extends BaseView {
         }
     }
 
-
-    getMoreMenuData(){
-        return [{name:"玩法说明",key:1},{name:"趋势图",key:2},{name:"近期开奖",key:3}];
+    getMoreMenuData() {
+        return [{name: "玩法说明", key: 1}, {name: "趋势图", key: 2}, {name: "近期开奖", key: 3}];
     }
 
-    onMoreMenuSelect(data){
+    onMoreMenuSelect(data) {
         const {currentGameWay} = this.state;
-        switch (data.key)
-        {
+        switch (data.key) {
             case 1:
                 const gameName = currentGameWay.parent_parent_name_cn + currentGameWay.name_cn;
                 const gameContent = `玩法说明:${currentGameWay.bonus_note}\n 玩法奖金:${moneyFormat(currentGameWay.prize)}`;
@@ -236,19 +224,4 @@ const styles = StyleSheet.create({
         width: GlobelTheme.screenWidth,
         height: GlobelTheme.screenHeight - GlobelTheme.NavigatorHeadH,
     },
-    timeBanner: {
-        flexDirection: 'row',
-        justifyContent: "space-between",
-        backgroundColor: '#ddd',
-        padding: 5
-    },
-    timeBannerText: {
-        fontSize: 12
-    },
-    row: {
-        flexDirection: 'row',
-        height: 40,
-        borderBottomColor: "#ddd",
-        borderBottomWidth: 1,
-    }
 });

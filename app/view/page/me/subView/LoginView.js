@@ -27,6 +27,11 @@ export default class LoginView extends BaseView {
         });
     }
 
+    getNavigationBarProps()
+    {
+        return {title:"登陆"};
+    }
+
     renderBody() {
         return (
             <View style={[GlobeStyle.appContentView,{justifyContent:"center"}]}>

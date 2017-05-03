@@ -52,7 +52,7 @@ let NavViews = {
     //tab页面
     TabbarView: () => ({"component": TabbarView}),
     //登陆
-    LoginView: (data) => ({"component": LoginView, "passProps": data}),
+    LoginView: (data={}) => ({"component": LoginView, "passProps": data}),
     //ssc 游戏详情
     SSC_History: (data) => ({"component": SSC_History, "passProps": data}),
     //11-5 游戏详情

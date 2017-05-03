@@ -16,12 +16,12 @@ const mapStateToProps = state => {
     return {
         bannerList: state.get("homeState").get("gameModel"),
         gameModel: state.get("appState").get("gameModel"),
-        playModel: state.get("appState").get("playModel")
+        playModel: state.get("appState").get("playModel"),
+        userData: state.get("appState").get("userData").toJS(),
     }
 }
 
 @connect(mapStateToProps)
-
 export default class Home extends BaseView {
     constructor(props) {
         super(props);
@@ -40,7 +40,7 @@ export default class Home extends BaseView {
     }
 
     renderBody() {
-        let {bannerList, gameModel, playModel} = this.props;
+        let {bannerList, gameModel, playModel,userData} = this.props;
         let gameList = gameModel.gameInfoList;
         bannerList = [{
             url: `${SERVERADDR}/dist/i/home/home_activity_banner2.jpg`,
@@ -55,8 +55,9 @@ export default class Home extends BaseView {
             name: "活动3",
             data: "http://www.google.com"
         }]
+
         return (
-            <View style={GlobeStyle.appContentView}>
+            <View style={GlobeStyle.appContentView} >
                 <Modal
                     animationType={"slide"}
                     transparent={false}
@@ -103,7 +104,7 @@ export default class Home extends BaseView {
                     </View>
                 </Modal>
                 <MyBannerSwiper dataList={bannerList} {...this.props}/>
-                <GameList dataList={gameList} gameModel={gameModel} playModel={playModel}/>
+                <GameList dataList={gameList} gameModel={gameModel} playModel={playModel} userData={userData}/>
             </View>
         );
     }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{PropTypes}from 'react';
 import {
     Image,
     View,
@@ -10,6 +10,13 @@ import {
 } from 'react-native';
 
 export default class GameDetail extends React.Component {
+    static propTypes={
+        dataList:PropTypes.array,
+        gameModel:PropTypes.any,
+        playModel:PropTypes.any,
+        userData:PropTypes.any
+    }
+
     // 构造
     constructor(props) {
         super(props);
@@ -41,23 +48,31 @@ export default class GameDetail extends React.Component {
 
     itemClick = (data) => {
         data.title = data.name;
-        const {gameModel, playModel} = this.props
-        TLog("gameDeail----",data)
-        if (data.open == "1") {
-            switch (data.id)
-            {
-                case "1"://"id":"1","name":"重庆时时彩"
-                    NavUtil.pushToView(NavViews.SSCView({...data, gameModel: gameModel, playModel: playModel}));
-                    break;
-                case "2"://"id":"2","name":"山东11选5"
-                    NavUtil.pushToView(NavViews.L115View({...data, gameModel: gameModel, playModel: playModel}));
-                    break;
-                default :
+        const {gameModel, playModel,userData} = this.props
+        TLog("gameDeail----",gameModel)
+        if(userData.isLogined)
+        {
+            if (data.open == "1") {
+                switch (data.id)
+                {
+                    case "1"://"id":"1","name":"重庆时时彩"
+                        NavUtil.pushToView(NavViews.SSCView({...data, gameModel: gameModel, playModel: playModel}));
+                        break;
+                    case "2"://"id":"2","name":"山东11选5"
+                        NavUtil.pushToView(NavViews.L115View({...data, gameModel: gameModel, playModel: playModel}));
+                        break;
+                    default :
+                }
+            }
+            else {
+                Alert.alert("当前游戏还在筹备中", "敬请期待！", [])
             }
         }
-        else {
-            Alert.alert("当前游戏还在筹备中", "敬请期待！", [])
+        else{
+            ActDispatch.AppAct.showErrorBox("请先登陆，再进入游戏！")
+            NavUtil.pushToView(NavViews.LoginView())
         }
+
     }
 }
 

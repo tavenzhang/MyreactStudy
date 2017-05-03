@@ -9,7 +9,6 @@ const initAppState = fromJS({
     fail: false,
     success: true,
     userData: {isLogined:false},
-    isLogined: false,
     infoBox: {
         show: false, //是否显示
         msg: "",//显示内容

@@ -18,7 +18,6 @@ const mapStateToProps = state => {
 }
 
 
-
 @connect(mapStateToProps)
 export default class ADView extends BaseView {
 

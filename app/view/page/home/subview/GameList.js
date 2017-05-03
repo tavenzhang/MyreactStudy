@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes}from 'react';
 import {
     View,
      StyleSheet,
@@ -11,8 +11,15 @@ let hlist=GlobelTheme.screenHeight-GlobelTheme.bannerHeight-GlobelTheme.TabBarH-
 
 export  default class GameList extends React.Component {
 
+    static propTypes={
+        dataList:PropTypes.array,
+        gameModel:PropTypes.any,
+        playModel:PropTypes.any,
+        userData:PropTypes.any
+    }
+
     render() {
-        let {dataList,gameModel,playModel} = this.props;
+        let {dataList,gameModel,playModel,userData} = this.props;
         let newList = []
         let listView = null;
          //每9个为一页 分页处理
@@ -42,7 +49,7 @@ export  default class GameList extends React.Component {
             >
                 {newList.map((item, i) => {
                     return (
-                        <GameDetail key={`game${i}detail`} dataList={item} gameModel={gameModel} playModel={playModel}/>
+                        <GameDetail key={`game${i}detail`} dataList={item} userData={userData} gameModel={gameModel} playModel={playModel}/>
                     )
                 })}
             </Swiper>

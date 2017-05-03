@@ -68,9 +68,9 @@ function fetchMiddleware(extraArgument) {
                             else{
                                 if(data.type=="loginTimeout")//登陆超时
                                 {
-                                    next(ActionEnum.AppAct.showErrorBox("请登陆后再做此操作！"));
+                                    next(ActionEnum.AppAct.showErrorBox("请登陆后 再做此操作！"));
                                     next(ActionEnum.AppAct.loginOut());
-                                    NavUtil.pushToView(NavViews.LoginView({title: "登陆"}));
+                                    NavUtil.pushToView(NavViews.LoginView());
                                 }
                                 else{
                                     next(ActionEnum.AppAct.showErrorBox(data.Msg));

@@ -6,9 +6,10 @@ import {
     ListView,
     TouchableWithoutFeedback
 } from 'react-native';
+import BaseView from "../../../../componet/BaseView";
 
 
-export default class BannerView extends React.Component {
+export default class BannerView extends BaseView {
 
     static propTypes = {
         dateHistoryList: PropTypes.array,
@@ -29,7 +30,6 @@ export default class BannerView extends React.Component {
             }),
         }
     }
-
 
     render() {
         let {dateHistoryList, time, currentNumber, prize} = this.props

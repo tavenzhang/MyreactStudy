@@ -89,7 +89,6 @@ export default class BaseGameView extends BaseView {
                 />
             </View>
         ) : null
-
     }
 
 
@@ -151,7 +150,6 @@ export default class BaseGameView extends BaseView {
     }
 
     clickMenuItem = (data) => {
-        //const me = this;
         const {gameMethodHash, isRequestGameWay, currentGameWay} = this.state;
         const {series_id} = this.props.passProps;
         if (currentGameWay.id != data.id) {

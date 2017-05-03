@@ -69,10 +69,9 @@ export default class GameDetail extends React.Component {
             }
         }
         else{
-            ActDispatch.AppAct.showErrorBox("请先登陆，再进入游戏！")
-            NavUtil.pushToView(NavViews.LoginView())
+            ActDispatch.AppAct.showErrorBox("请先登陆，再进入游戏！");
+            NavUtil.pushToView(NavViews.LoginView());
         }
-
     }
 }
 

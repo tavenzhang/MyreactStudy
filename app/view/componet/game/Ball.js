@@ -21,17 +21,17 @@ export  default  class Ball extends React.Component {
     };
 
     render() {
-        const {text,radius,color,row,value,onPress,status} = this.props;
+        const {text,radius,color,row,value,onPress,status,ballStyle,textStyle} = this.props;
         const sb  = status > 0 ? styles.ballSelected : null;
         const sbt = status > 0 ? styles.ballSelectedText : null;
         const ballChangeStatus = status > 0 ? -1 : 1;
         return (
             <TouchableHighlight
-                style={[{borderRadius:radius,width:radius*2,height:radius*2},styles.ball,sb]}
+                style={[{borderRadius:radius,width:radius*2,height:radius*2},styles.ball,sb,ballStyle]}
                 onPress={()=>onPress(value,row,ballChangeStatus)}
                 underlayColor={GlobelTheme.primary}
                 >
-                <Text style={[styles.ballText,sbt]}>{text}</Text>
+                <Text style={[styles.ballText,sbt,textStyle]}>{text}</Text>
             </TouchableHighlight>
         )
     }

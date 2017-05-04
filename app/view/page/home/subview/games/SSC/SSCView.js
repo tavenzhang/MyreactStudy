@@ -89,6 +89,17 @@ import DaxiaodanshuangHouer from "../SSC/DaxiaodanshuangHouer";
 
 
 import QuweiWumaSanxing from "../SSC/QuweiWumaSanxing";
+import QuweiSimaSanxing from "../SSC/QuweiSimaSanxing";
+import QuweiQiansanErxing from "../SSC/QuweiQiansanErxing";
+import QuweiHousanErxing from "../SSC/QuweiHousanErxing";
+import QuweiWumaQujianSanxing from "../SSC/QuweiWumaQujianSanxing";
+import QuweiSimaQujianSanxing from "../SSC/QuweiSimaQujianSanxing";
+import QuweiQiansanQujianErxing from "../SSC/QuweiQiansanQujianErxing";
+import QuweiHousanQujianErxing from "../SSC/QuweiHousanQujianErxing";
+import QuweiYifanfengshun from "../SSC/QuweiYifanfengshun";
+import QuweiHaoshichengshuang from "../SSC/QuweiHaoshichengshuang";
+import QuweiSanxingbaoxi from "../SSC/QuweiSanxingbaoxi";
+import QuweiSijifacai from "../SSC/QuweiSijifacai";
 
 
 
@@ -309,6 +320,39 @@ export default class SSCView extends BaseGameView {
             //趣味
             case "38":
                 return  <QuweiWumaSanxing {...this.props} {...this.state}  />
+
+            case "39":
+                return  <QuweiSimaSanxing {...this.props} {...this.state}  />
+
+            case "40":
+                return  <QuweiQiansanErxing {...this.props} {...this.state}  />
+
+            case "55":
+                return  <QuweiHousanErxing {...this.props} {...this.state}  />
+
+            case "41":
+                return  <QuweiWumaQujianSanxing {...this.props} {...this.state}  />
+
+            case "42":
+                return  <QuweiSimaQujianSanxing {...this.props} {...this.state}  />
+
+            case "43":
+                return  <QuweiQiansanQujianErxing {...this.props} {...this.state}  />
+
+            case "56":
+                return  <QuweiHousanQujianErxing {...this.props} {...this.state}  />
+
+            case "44":
+                return  <QuweiYifanfengshun {...this.props} {...this.state}  />
+
+            case "45":
+                return  <QuweiHaoshichengshuang {...this.props} {...this.state}  />
+
+            case "46":
+                return  <QuweiSanxingbaoxi {...this.props} {...this.state}  />
+
+            case "47":
+                return  <QuweiSijifacai {...this.props} {...this.state}  />
 
             default:
                 return  <Text>{data.id}</Text>

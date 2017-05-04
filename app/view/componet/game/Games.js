@@ -38,6 +38,7 @@ export default class Games extends Component {
             rowBallNumber: 5, //一行几个球
         };
         this.buildBalls = this.buildBalls.bind(this);
+        this.buildSpecialBalls = this.buildSpecialBalls.bind(this);
         this.buildUI    = this.buildUI.bind(this);
         this.selectBall = this.selectBall.bind(this);
         this.setBallData = this.setBallData.bind(this);
@@ -192,7 +193,7 @@ export default class Games extends Component {
             if(rows == ballTitleLen && len == ballTextLen) {
                 const ballWidth = (GlobelTheme.screenWidth - 20) / me.state.rowBallNumber;
                 return <View style={styles.ballBox}>
-                    {me.state.ballText.map((v,i) => {
+                    {ballText.map((v,i) => {
                         return <View  style={[styles.ballBtnBox,{width:ballWidth}]} key={i} >
                             <Ball
                                 text={v}
@@ -214,6 +215,10 @@ export default class Games extends Component {
         }
     }
 
+    buildSpecialBalls(row) {
+        return null;
+    }
+
     buildBallOperates(row){
         const me = this;
         return <View style={styles.ballBtnGrounp}>
@@ -225,6 +230,7 @@ export default class Games extends Component {
                 <BallOperateBtn text="清" onPress={() => me.ballSelectActions('none',row)} />
               </View>
     }
+
 
     buildUI(){
         const me = this;
@@ -388,7 +394,6 @@ export default class Games extends Component {
         const me = this;
         const { lotterys, prize_group } = me.state;
         const { orderNum, moneyUnit, multiple, balance, bet_max_prize_group, bet_min_prize_group, diff_grize_group, series_amount , currentGameWay} = me.props;
-
         const orderData = lotterys.length ? me.getResultData(lotterys) : null;
         const operTopDesc = `${lotterys.length}注 * ${multiple}倍 = ${moneyFormat(lotterys.length * multiple * currentGameWay.price * moneyUnit)}元`;
 

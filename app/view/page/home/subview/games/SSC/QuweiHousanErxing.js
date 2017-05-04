@@ -1,5 +1,5 @@
 /**
- * Created by soga on 2017/4/25.
+ * Created by soga on 2017/5/4.
  */
 import React, {Component} from 'react';
 import {
@@ -11,24 +11,21 @@ import {
 import Ball from "../../../../../componet/game/Ball";
 import SSC from "./SSC";
 
-export default class QuweiWumaSanxing extends SSC {
+export default class QuweiHousanErxing extends SSC {
 
     constructor(props) {
         super(props);
-
     }
 
     //设置球排列
     setBalls = () => [
         [-1,-1],
-        [-1,-1],
-        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
         [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
         [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
     ];
 
     //设置rowtitle
-    setRowTitle = () => ['万位','千位','百位','十位','个位'];
+    setRowTitle = () => ['百位','十位','个位'];
 
 
     formatViewBalls(original){
@@ -39,7 +36,7 @@ export default class QuweiWumaSanxing extends SSC {
             tempArr = [],
             names = ['小','大'];
         for (; i < len; i++) {
-            if(i < 2){
+            if(i == 0){
                 tempArr = [];
                 for(let j=0; j < original[i].length; j++) {
                     tempArr[j] = names[Number(original[i][j] )];
@@ -123,8 +120,8 @@ export default class QuweiWumaSanxing extends SSC {
             {me.state.rowTitle.map((v,i) => {
                 return <View key={i} style={styles.gameRow} >
                     <View style={styles.gameRowTitle}><Text style={styles.gameRowTitleText}>{v}</Text></View>
-                    { i < 2 ? me.buildSpecialBalls(i) : me.buildBalls(i)}
-                    { i >= 2 ? me.buildBallOperates(i) : null }
+                    { i == 0 ? me.buildSpecialBalls(i) : me.buildBalls(i)}
+                    { i != 0 ? me.buildBallOperates(i) : null }
                 </View>
             })}
         </View>

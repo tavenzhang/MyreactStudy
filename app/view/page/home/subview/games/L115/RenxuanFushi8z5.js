@@ -3,7 +3,7 @@
  */
 import L115 from "./L115";
 
-export default class RenxuanFushi1z1 extends L115 {
+export default class RenxuanFushi8z5 extends L115 {
 
     constructor(props) {
         super(props);

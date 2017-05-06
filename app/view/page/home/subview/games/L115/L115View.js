@@ -28,6 +28,15 @@ import RenxuanFushi6z5 from "../L115/RenxuanFushi6z5";
 import RenxuanFushi7z5 from "../L115/RenxuanFushi7z5";
 import RenxuanFushi8z5 from "../L115/RenxuanFushi8z5";
 
+import RenxuanDantuo2z2 from "../L115/RenxuanDantuo2z2";
+import RenxuanDantuo3z3 from "../L115/RenxuanDantuo3z3";
+import RenxuanDantuo4z4 from "../L115/RenxuanDantuo4z4";
+import RenxuanDantuo5z5 from "../L115/RenxuanDantuo5z5";
+import RenxuanDantuo6z5 from "../L115/RenxuanDantuo6z5";
+import RenxuanDantuo7z5 from "../L115/RenxuanDantuo7z5";
+import RenxuanDantuo8z5 from "../L115/RenxuanDantuo8z5";
+
+
 import connect from "react-redux/src/components/connect";
 
 const mapStateToProps = state => {
@@ -105,6 +114,28 @@ export default class L115View extends BaseGameView {
 
             case "105":
                 return  <RenxuanFushi8z5 {...this.props} {...this.state} />
+
+            //胆拖
+            case "113":
+                return  <RenxuanDantuo2z2 {...this.props} {...this.state} />
+
+            case "114":
+                return  <RenxuanDantuo3z3 {...this.props} {...this.state} />
+
+            case "115":
+                return  <RenxuanDantuo4z4 {...this.props} {...this.state} />
+
+            case "116":
+                return  <RenxuanDantuo5z5 {...this.props} {...this.state} />
+
+            case "117":
+                return  <RenxuanDantuo6z5 {...this.props} {...this.state} />
+
+            case "118":
+                return  <RenxuanDantuo7z5 {...this.props} {...this.state} />
+
+            case "119":
+                return  <RenxuanDantuo8z5 {...this.props} {...this.state} />
 
             default:
                 return  <Text>{data.id}</Text>

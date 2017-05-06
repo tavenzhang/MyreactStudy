@@ -61,7 +61,7 @@ export default class L115 extends Games {
     }
 
 
-    buildBalls(row) {
+    buildBalls(row,ballStyle) {
         const me = this;
         const {balls,ballText,rowTitle} = this.state;
         if(balls.length > 0) {
@@ -82,6 +82,8 @@ export default class L115 extends Games {
                                     value={i}
                                     status={balls[row][i]}
                                     onPress={(x,y,v)=>me.selectBall(x,y,v)}
+                                    ballStyle={ballStyle ? ballStyle.ball : null}
+                                    textStyle={ballStyle ? ballStyle.text : null}
                                     />
                             </View>
                         }

@@ -4,7 +4,7 @@
 
 import L115 from "./L115";
 
-export default class SanmaZuxuanDantuo extends L115 {
+export default class ErmaZuxuanDantuo extends L115 {
 
     constructor(props) {
         super(props);
@@ -59,7 +59,7 @@ export default class SanmaZuxuanDantuo extends L115 {
             result = [],
             arr = [],
             danMaArr = [],
-            nr = new Array();
+            nr = [];
 
         //校验当前的面板
         //获取选中数字
@@ -71,7 +71,7 @@ export default class SanmaZuxuanDantuo extends L115 {
             }
 
             //存储单号组合
-            result = me.combine(arr, 3 - danMaLen);
+            result = me.combine(arr, 2 - danMaLen);
             for(let j=0;j<ball[0].length;j++){
                 if(ball[0][j] == 1){
                     danMaArr.push(j);
@@ -79,7 +79,8 @@ export default class SanmaZuxuanDantuo extends L115 {
             }
 
             //加上单号各种组合
-            for(let s=0;s<result.length;s++){
+            for(var s=0;s<result.length;s++){
+
                 nr.push(result[s].concat(danMaArr));
             }
 
@@ -102,7 +103,7 @@ export default class SanmaZuxuanDantuo extends L115 {
         }
         if(y == 0){
             if(value == 1){
-                if(xLen > 1){
+                if(xLen > 0){
                     me.setBallData(me.lastSelectBallIndex, 0, -1);
                 }
                 //me.setBallData(x, 0, 1);

@@ -7,6 +7,11 @@ import BaseGameView from "../BaseGameView";
 import SanmaZhixuanFushi from "../L115/SanmaZhixuanFushi";
 import SanmaZuxuanFushi from "../L115/SanmaZuxuanFushi";
 import SanmaZuxuanDantuo from "../L115/SanmaZuxuanDantuo";
+
+import ErmaZhixuanFushi from "../L115/ErmaZhixuanFushi";
+import ErmaZuxuanFushi from "../L115/ErmaZuxuanFushi";
+import ErmaZuxuanDantuo from "../L115/ErmaZuxuanDantuo";
+
 import connect from "react-redux/src/components/connect";
 
 const mapStateToProps = state => {
@@ -34,6 +39,16 @@ export default class L115View extends BaseGameView {
 
             case "121":
                 return  <SanmaZuxuanDantuo {...this.props} {...this.state} />
+
+            //前二
+            case "107":
+                return  <ErmaZhixuanFushi {...this.props} {...this.state} />
+
+            case "111":
+                return  <ErmaZuxuanFushi {...this.props} {...this.state} />
+
+            case "120":
+                return  <ErmaZuxuanDantuo {...this.props} {...this.state} />
 
             default:
                 return  <Text>{data.id}</Text>

@@ -28,33 +28,37 @@ export default class L115 extends Games {
         const me = this;
         const {balls} = this.state;
         const data = balls;
-
+        if(x == 0){
+            return;
+        }
         if (y >= 0 && y < data.length && x > 0) {
             data[y][x] = value;
             this.setState({balls: data});
         }
     }
 
-    //formatViewBalls(original) {
-    //    const me = this;
-    //    let result = [],
-    //        len,
-    //        tempArr = [],
-    //        i = 0;
-    //
-    //    for(let k; k<original.length; k++) {
-    //        tempArr[k]  = [];
-    //        for(let h; h < original[k].length; h++) {
-    //            tempArr[k][h] = original[k][h] < 10 ? '0' + original[k][h] : '' + original[k][h];
-    //        }
-    //    }
-    //
-    //    len = tempArr.length;
-    //    for (i =0; i < len; i++) {
-    //        result = result.concat(tempArr[i].join(' '));
-    //    }
-    //    return result.join('|');
-    //}
+    makePostParameter(original) {
+        let me = this,
+            result = [],
+            tempArr = [],
+            k=0,
+            i = 0;
+
+        for(; k < original.length; k++) {
+            tempArr[k]  = [];
+            for(let j = 0; j < original[k].length; j++ ) {
+                tempArr[k][j] = original[k][j] < 10 ? '0' + original[k][j] : '' + original[k][j];
+            }
+        }
+        for (; i < tempArr.length; i++) {
+            result = result.concat(tempArr[i].join(' '));
+        }
+        return result.join('|');
+    }
+
+    formatViewBalls(original) {
+        return this.makePostParameter(original);
+    }
 
 
     buildBalls(row) {

@@ -16,7 +16,6 @@ export default class GameDetail extends React.Component {
         playModel:PropTypes.any,
         userData:PropTypes.any
     }
-
     // 构造
     constructor(props) {
         super(props);
@@ -49,7 +48,8 @@ export default class GameDetail extends React.Component {
     itemClick = (data) => {
         data.title = data.name;
         const {gameModel, playModel,userData} = this.props
-        TLog("gameDeail----",gameModel)
+        TLog("gameDeail----",gameModel);
+        //NavUtil.pushToView(NavViews.TrendView({title:`走势图`,lotteryId:data.id}))
         if(userData.isLogined)
         {
             if (data.open == "1") {
@@ -71,7 +71,7 @@ export default class GameDetail extends React.Component {
         else{
             ActDispatch.AppAct.showErrorBox("请先登陆，再进入游戏！");
             NavUtil.pushToView(NavViews.LoginView());
-        }
+         }
     }
 }
 

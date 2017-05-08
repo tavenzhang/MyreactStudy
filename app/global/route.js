@@ -29,6 +29,7 @@ import MoneyTransferView from "../view/page/me/subView/MoneyTransferView";
 import L115View from "../view/page/home/subview/games/L115/L115View";
 import SSCView from "../view/page/home/subview/games/SSC/SSCView";
 import G_11_5_History from "../view/page/award/subView/G_11_5_History";
+import TrendView from "../view/page/home/subview/trend/TrendView";
 
 
 // PushFromLeft
@@ -87,7 +88,8 @@ let NavViews = {
     MessageDetail: (data) => ({"component": MessageDetail, "passProps": data}),
     NoticeDeailView: (data) => ({"component": NoticeDeailView, "passProps": data}),
 
-    MoneyTransferView:(data) => ({"component": MoneyTransferView, "passProps": data})
+    MoneyTransferView:(data) => ({"component": MoneyTransferView, "passProps": data}),
+    TrendView: (data) => ({"component": TrendView, "passProps": data}),
 
 
 }

@@ -27,9 +27,10 @@ export default class GameDanshi extends Games {
             sameData : [], //重复号
             errorData : [], //错误号
             tData : [],
-        }
+        };
 
-        this.removeOrderAll = this.removeOrderAll.bind(this);
+        this.state.normalTips = '';
+
         this.iterator = this.iterator.bind(this);
         this.filterLotters = this.filterLotters.bind(this);
         this.checkSingleNum = this.checkSingleNum.bind(this);
@@ -37,33 +38,80 @@ export default class GameDanshi extends Games {
         this.checkBallIsComplete = this.checkBallIsComplete.bind(this);
     }
 
+    addBallsToBasket() {
+        const me = this;
+        const {ballData} = this.state;
+
+        const sameTip = ballData.sameData.length > 0 ? `重复号: ${me.formatViewBalls(ballData.sameData)}` : '';
+        const errorTip = ballData.errorData.length > 0 ? `错误号: ${me.formatViewBalls(ballData.errorData)}` : '';
+
+        if(sameTip || errorTip) {
+            Alert.alert(
+                '',
+                `${errorTip} ${sameTip}, 是否确定清理后加入购彩篮?`,
+                [
+                    {text: '取消'},
+                    {text: '确定', onPress: () => me.beforeAddBallsToBasket()}
+                ]
+            )
+        }
+        else {
+            me.beforeAddBallsToBasket();
+        }
+    }
+
     buildUI() {
         const me = this;
-        const {text} = this.state;
+        const {text, ballData} = this.state;
+
+        const sameTip = ballData.sameData.length > 0 ? `重复号: ${me.formatViewBalls(ballData.sameData)}` : '';
+        const errorTip = ballData.errorData.length > 0 ? `错误号: ${me.formatViewBalls(ballData.errorData)}` : '';
 
         return <View style={styles.uiBox}>
-            <Text style={styles.uiBoxTitleText}>请在下方的输入框内输入或粘贴投注内容,没注请使用"|"分隔开</Text>
+            <Text style={styles.uiBoxTitleText}>请在下方的输入框内输入或粘贴投注内容</Text>
             <TextInput
                 style={styles.textarea}
                 multiline={true}
                 numberOfLines={10}
                 onChangeText={text => {
                     this.setState({ text: text})
-                    me.checkBallIsComplete(text)
+                    const lotterys = me.checkBallIsComplete(text);
+                    if(lotterys.length > 0) {
+                        this.setState({lotterys: lotterys});
+                    }
                 }}
+                placeholder={this.state.normalTips}
                 keyboardType='numeric'
                 //onBlur={ text => me.checkBallIsComplete(text)}
                 value={text} />
             <View style={styles.btnGrounp}>
                 <Button
                     btnName="清理错误与重复"
-                    onPress={()=> me.removeOrderError()}
+                    onPress={()=>{
+                        if(sameTip || errorTip) {
+                            Alert.alert(
+                                '',
+                                `${errorTip} ${sameTip}, 是否确定清理?`,
+                                [
+                                    {text: '取消'},
+                                    {text: '确定', onPress: () => me.removeOrderError()}
+                                ]
+                            )
+                        }
+                    }}
                     leftIcon="check"
                     />
 
                 <Button
                     btnName="清空文本框"
-                    onPress={()=>me.removeOrderAll()}
+                    onPress={()=>Alert.alert(
+                        '',
+                        `是否确定要清空文本框?`,
+                        [
+                            {text: '取消'},
+                            {text: '确定', onPress: () => me.clearAllBall()}
+                        ]
+                    )}
                     leftIcon="trash-o"
                     />
             </View>
@@ -111,7 +159,7 @@ export default class GameDanshi extends Games {
     checkSingleNum(lotteryNum){
         const me = this;
 
-        return lotteryNum.length == me.props.balls.length;
+        return lotteryNum.length == me.state.balls.length;
         /**
          return me.defConfig.checkNum.test(lotteryNum) && lotteryNum.length == me.balls.length;
          **/
@@ -206,7 +254,7 @@ export default class GameDanshi extends Games {
     }
 
     //清空选区
-    removeOrderAll(){
+    clearAllBall(){
 
         this.setState({
             text: '',
@@ -219,6 +267,21 @@ export default class GameDanshi extends Games {
         //清空选号状态
         //Games.getCurrentGameStatistics().reSet();
         //me.showNormalTips();
+    }
+
+    getOriginal() {
+        return this.state.ballData.tData;
+    }
+
+    formatViewBalls(original) {
+        let me = this,
+            result = [],
+            len = original.length,
+            i = 0;
+        for (; i < len; i++) {
+            result[i] = original[i].join('');
+        }
+        return result.join('|');
     }
 }
 

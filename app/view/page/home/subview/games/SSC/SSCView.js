@@ -24,6 +24,7 @@ import XixingZuxuan12 from "../SSC/XixingZuxuan12";
 import XixingZuxuan24 from "../SSC/XixingZuxuan24";
 import XixingZhixuanFushi from "../SSC/XixingZhixuanFushi";
 import XixingZhixuanZuhe from "../SSC/XixingZhixuanZuhe";
+import XixingZhixuanDanshi from "../SSC/XixingZhixuanDanshi";
 
 
 
@@ -37,6 +38,10 @@ import QiansanZuxuanBaodan from "../SSC/QiansanZuxuanBaodan";
 import QiansanZhixuanFushi from "../SSC/QiansanZhixuanFushi";
 import QiansanZhixuanHezhi from "../SSC/QiansanZhixuanHezhi";
 import QiansanZuxuanHezhi from "../SSC/QiansanZuxuanHezhi";
+import QiansanZhixuanDanshi from "../SSC/QiansanZhixuanDanshi";
+import QiansanZusanDanshi from "../SSC/QiansanZusanDanshi";
+import QiansanZuliuDanshi from "../SSC/QiansanZuliuDanshi";
+import QiansanZuxuanHunhe from "../SSC/QiansanZuxuanHunhe";
 
 
 import HousanZuxuanZusan from "../SSC/HousanZuxuanZusan";
@@ -48,6 +53,10 @@ import HousanZhixuanHezhi from "../SSC/HousanZhixuanHezhi";
 import HousanZuxuanHezhi from "../SSC/HousanZuxuanHezhi";
 import HousanZhixuanZuhe from "../SSC/HousanZhixuanZuhe";
 import HousanZuxuanBaodan from "../SSC/HousanZuxuanBaodan";
+import HousanZhixuanDanshi from "../SSC/HousanZhixuanDanshi";
+import HousanZusanDanshi from "../SSC/HousanZusanDanshi";
+import HousanZuliuDanshi from "../SSC/HousanZuliuDanshi";
+import HousanZuxuanHunhe from "../SSC/HousanZuxuanHunhe";
 
 
 import ErxingZhixuanHouerFushi from "../SSC/ErxingZhixuanHouerFushi";
@@ -62,6 +71,10 @@ import ErxingZuxuanQianerHezhi from "../SSC/ErxingZuxuanQianerHezhi";
 import ErxingZuxuanHouerHezhi from "../SSC/ErxingZuxuanHouerHezhi";
 import ErxingZuxuanQianerBaodan from "../SSC/ErxingZuxuanQianerBaodan";
 import ErxingZuxuanHouerBaodan from "../SSC/ErxingZuxuanHouerBaodan";
+import ErxingZhixuanQianerDanshi from "../SSC/ErxingZhixuanQianerDanshi";
+import ErxingZuxuanQianerDanshi from "../SSC/ErxingZuxuanQianerDanshi";
+import ErxingZhixuanHouerDanshi from "../SSC/ErxingZhixuanHouerDanshi";
+import ErxingZuxuanHouerDanshi from "../SSC/ErxingZuxuanHouerDanshi";
 
 
 import YixingDingweidanFushi from "../SSC/YixingDingweidanFushi";
@@ -158,6 +171,7 @@ export default class SSCView extends BaseGameView {
 
             case "32":
                 return  <WuxingZuxuanZuxuan120 {...this.props} {...this.state}  />
+
             //四星
             case "67":
                 return  <XixingZhixuanFushi {...this.props} {...this.state}  />
@@ -176,6 +190,9 @@ export default class SSCView extends BaseGameView {
 
             case "79":
                 return  <XixingZhixuanZuhe {...this.props} {...this.state}  />
+
+            case "6":
+                return  <XixingZhixuanDanshi {...this.props} {...this.state}  />
 
             //前三
             case "14":
@@ -208,6 +225,18 @@ export default class SSCView extends BaseGameView {
             case "75":
                 return  <QiansanZuxuanHezhi {...this.props} {...this.state}  />
 
+            case "1":
+                return  <QiansanZhixuanDanshi {...this.props} {...this.state}  />
+
+            case "2":
+                return  <QiansanZusanDanshi {...this.props} {...this.state}  />
+
+            case "3":
+                return  <QiansanZuliuDanshi {...this.props} {...this.state}  />
+
+            case "13":
+                return  <QiansanZuxuanHunhe {...this.props} {...this.state}  />
+
             //后三
             case "69":
                 return  <HousanZhixuanFushi {...this.props} {...this.state}  />
@@ -238,6 +267,18 @@ export default class SSCView extends BaseGameView {
 
             case "83":
                 return  <HousanZuxuanBaodan {...this.props} {...this.state}  />
+
+            case "8":
+                return  <HousanZhixuanDanshi {...this.props} {...this.state}  />
+
+            case "9":
+                return  <HousanZusanDanshi {...this.props} {...this.state}  />
+
+            case "10":
+                return  <HousanZuliuDanshi {...this.props} {...this.state}  />
+
+            case "81":
+                return  <HousanZuxuanHunhe {...this.props} {...this.state}  />
 
             //erxing
             case "20":
@@ -276,8 +317,22 @@ export default class SSCView extends BaseGameView {
             case "85":
                 return  <ErxingZuxuanHouerBaodan {...this.props} {...this.state}  />
 
+            case "4":
+                return  <ErxingZhixuanQianerDanshi {...this.props} {...this.state}  />
+
+            case "5":
+                return  <ErxingZuxuanQianerDanshi {...this.props} {...this.state}  />
+
+            case "11":
+                return  <ErxingZhixuanHouerDanshi {...this.props} {...this.state}  />
+
+            case "12":
+                return  <ErxingZuxuanHouerDanshi {...this.props} {...this.state}  />
+
+            //一星
             case "78":
                 return  <YixingDingweidanFushi {...this.props} {...this.state}  />
+
 
             //不定位
             case "18":

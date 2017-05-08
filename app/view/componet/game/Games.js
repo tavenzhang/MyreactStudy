@@ -48,6 +48,8 @@ export default class Games extends Component {
         this.getResultData = this.getResultData.bind(this);
         this.getOriginal = this.getOriginal.bind(this);
         this.formatViewBalls = this.formatViewBalls.bind(this);
+        this.addBallsToBasket = this.addBallsToBasket.bind(this);
+        this.beforeAddBallsToBasket = this.beforeAddBallsToBasket.bind(this);
     }
 
     componentWillMount() {
@@ -390,11 +392,30 @@ export default class Games extends Component {
         this.setState({prize_group:v});
     }
 
+    beforeAddBallsToBasket() {
+        const me = this;
+        const { lotterys } = me.state;
+
+        const orderData = lotterys.length ? me.getResultData(lotterys) : null;
+
+        //加入购彩篮
+        if(orderData) {
+            ActDispatch.GameAct.addOrderToBasket(orderData);
+        }
+        //清空选球
+        me.clearAllBall();
+        //清空当前注单
+        me.setState({lotterys:[]});
+    }
+
+    addBallsToBasket() {
+        this.beforeAddBallsToBasket();
+    }
+
     render() {
         const me = this;
         const { lotterys, prize_group } = me.state;
         const { orderNum, moneyUnit, multiple, balance, bet_max_prize_group, bet_min_prize_group, diff_grize_group, series_amount , currentGameWay} = me.props;
-        const orderData = lotterys.length ? me.getResultData(lotterys) : null;
         const operTopDesc = `${lotterys.length}注 * ${multiple}倍 = ${moneyFormat(lotterys.length * multiple * currentGameWay.price * moneyUnit)}元`;
 
         let modePriceOperate = null;
@@ -426,14 +447,7 @@ export default class Games extends Component {
                     balance= {balance}
                     topDesc= {operTopDesc}
                     btnEvent= {() => {
-                        //加入购彩篮
-                        if(orderData) {
-                            ActDispatch.GameAct.addOrderToBasket(orderData);
-                        }
-                        //清空选球
-                        me.clearAllBall();
-                        //清空当前注单
-                        me.setState({lotterys:[]});
+                        me.addBallsToBasket();
                     }}
                     btnIconEvent= {() => {
                         NavUtil.pushToView(NavViews.LotteryOrders({}));

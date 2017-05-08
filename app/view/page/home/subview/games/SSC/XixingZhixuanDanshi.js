@@ -1,23 +1,19 @@
 /**
- * Created by soga on 2017/4/21.
+ * Created by soga on 2017/5/8.
  */
 
 
 import SSCDanshi from "./SSCDanshi";
 
-export default class WuxingZhixuanDanshi extends SSCDanshi {
+export default class XixingZhixuanDanshi extends SSCDanshi {
 
     constructor(props) {
         super(props);
 
-        //名称
-        this.state.name = 'wuxing.zhixuan.danshi';
-        //玩法提示
-        this.state.tips = '五星直选单式玩法说明';
         this.state.normalTips = ['说明：',
             '支持常见的各种单式格式，间隔符如： 换行符 回车 逗号 分号等',
             '',
-            '格式范例：12345 23456 88767 33021 98897 '
+            '格式范例：1234 2345 8876 3302 9889 '
         ].join('\n')
     }
 
@@ -26,8 +22,7 @@ export default class WuxingZhixuanDanshi extends SSCDanshi {
         [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
         [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
         [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
     ];
 
 

@@ -76,9 +76,7 @@ export default class GameDanshi extends Games {
                 onChangeText={text => {
                     this.setState({ text: text})
                     const lotterys = me.checkBallIsComplete(text);
-                    if(lotterys.length > 0) {
-                        this.setState({lotterys: lotterys});
-                    }
+                    this.setState({lotterys: lotterys});
                 }}
                 placeholder={this.state.normalTips}
                 keyboardType='numeric'
@@ -197,10 +195,11 @@ export default class GameDanshi extends Games {
                 ballData.errorData.push(balls);
             }
         }
+
+        this.setState({ballData: ballData});
         //校验
         if(ballData.tData.length > 0){
             this.setState({isBallsComplete: true});
-            this.setState({ballData: ballData});
             return ballData.tData;
         }else{
             this.setState({isBallsComplete: false});
@@ -273,7 +272,7 @@ export default class GameDanshi extends Games {
         return this.state.ballData.tData;
     }
 
-    formatViewBalls(original) {
+    makePostParameter(original) {
         let me = this,
             result = [],
             len = original.length,
@@ -282,6 +281,10 @@ export default class GameDanshi extends Games {
             result[i] = original[i].join('');
         }
         return result.join('|');
+    }
+
+    formatViewBalls(original) {
+        return this.makePostParameter(original)
     }
 }
 

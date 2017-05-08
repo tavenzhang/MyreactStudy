@@ -1,18 +1,20 @@
-import React from 'react';
+import React,{PropTypes} from 'react';
 import {
     View,
     Text
     , StyleSheet,
-    ListView,
     TouchableHighlight
 } from 'react-native';
-import AIcon from 'react-native-vector-icons/FontAwesome';
 import BaseView from "../../../componet/BaseView";
 import HistoryList from "../../../componet/BaseListView";
 import NumberCircle from "../../../componet/NumberCircle";
 
-
 export default class SSC_History extends BaseView {
+
+    static propTypes={
+        lottery_name:PropTypes.string,
+        lottery_id:PropTypes.any
+    }
 
     constructor(props) {
         super(props);
@@ -20,6 +22,10 @@ export default class SSC_History extends BaseView {
             dataArray: [],
         };
         this.next_id=0
+    }
+
+    getNavigationBarProps(){
+        return {title:this.props.passProps.lottery_name};
     }
 
     renderBody() {
@@ -34,10 +40,9 @@ export default class SSC_History extends BaseView {
         this.loadMore(null,0);
     }
 
-
     loadMore = (callBack, forcePage = 1) => {
-        const {passProps} = this.props;
-        HTTP_SERVER.notice_Lottery_Hisotry.url= `${HTTP_SERVER.notice_Lottery_Hisotry.formatUrl}/${passProps.lottery_id}/${this.next_id}`
+        const {lottery_id} = this.props.passProps;
+        HTTP_SERVER.notice_Lottery_Hisotry.url= `${HTTP_SERVER.notice_Lottery_Hisotry.formatUrl}/${lottery_id}/${this.next_id}`
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_Lottery_Hisotry,(result)=>{
             if(result.isSuccess)
             {
@@ -52,13 +57,12 @@ export default class SSC_History extends BaseView {
                         this.setState({dataArray:this.state.dataArray.concat(result.data.list)})
                     }
                 }
-                if (callBack) {
+                if(callBack) {
                     callBack();
                 }
             }
         })
     }
-
 
     _renderRow = (rowData) => {
         let itemContentView = [];
@@ -91,7 +95,6 @@ export default class SSC_History extends BaseView {
        // TLog("GameResultList----", data)
         // NavUtil.pushToView(NavViews.SSC_History({...data,title:data.name}));
     }
-
 }
 
 

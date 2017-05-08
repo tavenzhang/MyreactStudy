@@ -93,14 +93,14 @@ export default class GameResultList extends BaseView {
     }
 
     itemClick = (data) => {
-      //  TLog("itemClick-----",data)
+       TLog("itemClick-----",data)
         switch(data.series_name)
         {
             case "SSC":
-                NavUtil.pushToView(NavViews.SSC_History({...data,title:data.lottery_name}));
+                NavUtil.pushToView(NavViews.SSC_History({...data}));
                 break;
             case "11-5":
-                NavUtil.pushToView(NavViews.G_11_5_History({...data,title:data.lottery_name}));
+                NavUtil.pushToView(NavViews.G_11_5_History({...data}));
                 break;
         }
     }

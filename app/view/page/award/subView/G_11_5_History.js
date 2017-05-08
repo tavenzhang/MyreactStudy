@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{PropTypes}from 'react';
 import {
     View,
     Text
@@ -14,12 +14,20 @@ import NumberCircle from "../../../componet/NumberCircle";
 
 export default class G_11_5_History extends BaseView {
 
+    static propTypes = {
+        lottery_name: PropTypes.string,
+    }
+
     constructor(props) {
         super(props);
         this.state = {
             dataArray: [],
         };
         this.next_id=0
+    }
+
+   getNavigationBarProps(){
+        return {title:this.props.passProps.lottery_name}
     }
 
     renderBody() {
@@ -38,8 +46,8 @@ export default class G_11_5_History extends BaseView {
 
 
     loadMore = (callBack, forcePage = 1) => {
-        const {passProps} = this.props;
-        HTTP_SERVER.notice_Lottery_Hisotry.url= `${HTTP_SERVER.notice_Lottery_Hisotry.formatUrl}/${passProps.lottery_id}/${this.next_id}`
+        const {lottery_id} = this.props.passProps;
+        HTTP_SERVER.notice_Lottery_Hisotry.url= `${HTTP_SERVER.notice_Lottery_Hisotry.formatUrl}/${lottery_id}/${this.next_id}`
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_Lottery_Hisotry,(result)=>{
             if(result.isSuccess)
             {

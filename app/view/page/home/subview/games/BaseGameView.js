@@ -181,11 +181,12 @@ export default class BaseGameView extends BaseView {
     }
 
     getMoreMenuData() {
-        return [{name: "玩法说明", key: 1}, {name: "趋势图", key: 2}, {name: "近期开奖", key: 3}];
+        return [{name: "玩法说明", key: 1}, {name: "走势图", key: 2}, {name: "近期开奖", key: 3}];
     }
 
     onMoreMenuSelect(data) {
         const {currentGameWay} = this.state;
+        const {id, gameModel} = this.props.passProps;
         switch (data.key) {
             case 1:
                 const gameName = currentGameWay.parent_parent_name_cn + currentGameWay.name_cn;
@@ -199,6 +200,10 @@ export default class BaseGameView extends BaseView {
                 )
                 break;
             case 2:
+                NavUtil.pushToView(NavViews.TrendView({title:`${gameModel.getGameNameById(id)}-走势图`,lotteryId:id}))
+                break;
+            case 3:
+               // NavUtil.pushToView(NavViews.SSC_History({lottery_name:currentGameWay.parent_parent_name_cn,lottery_id:id}))
                 break;
             default:
                 break;

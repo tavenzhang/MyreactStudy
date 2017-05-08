@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import NavigationBar from './NavigationBar';
 
-import {shouldComponentUpdate } from 'react-immutable-render-mixin';
+import {shouldComponentUpdate} from 'react-immutable-render-mixin';
 
 
 const styles = StyleSheet.create({
@@ -57,6 +57,10 @@ export default class BaseView extends Component {
         }
     }
 
+    componentWillUpdate() {
+        LayoutAnimation.configureNext(LayoutAnimationHelp.springNoDelete);
+    }
+
     render() {
         return (
             <View style={[styles.container, this.props.style]}>
@@ -66,9 +70,7 @@ export default class BaseView extends Component {
         );
     }
 
-    componentWillUpdate() {
-        LayoutAnimation.configureNext(LayoutAnimationHelp.springNoDelete);
-    }
+
 
 
     renderBody() {

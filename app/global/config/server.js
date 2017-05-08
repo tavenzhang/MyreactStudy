@@ -86,7 +86,9 @@ const HTTP_SERVER = {
     notice_ALL_Lottery:{url:"/mobile-lotteries/all-lottery-numbers",method:METHOD_GET},
     //获取具体游戏开奖记录/mobile-lotteries/lottery-issue-number-list/{lottery_id}/{next_id}
     notice_Lottery_Hisotry:{url:"",formatUrl:`/mobile-lotteries/lottery-issue-number-list`,method:METHOD_GET},
-
+    //-----------------------------------------------趋势图-----------------------------------------
+    //趋势图数据  Get  /mobile-trends/trend-data?lottery_id=1&num_type=5
+    TREND_DATA:{url:"",formatUrl:`/mobile-trends/trend-data?lottery_id={#lid}&num_type={#type}`,method:METHOD_GET},
 };
 global.HTTP_SERVER=HTTP_SERVER
 

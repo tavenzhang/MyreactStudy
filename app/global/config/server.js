@@ -1,5 +1,5 @@
 
-let SERVERADDR = "http://104.250.140.242:8081";
+let SERVERADDR = "http://www.monkey.com";
 //let SERVERADDR = "http://192.168.0.102";
 global.SERVERADDR=SERVERADDR;
 
@@ -11,9 +11,10 @@ const HTTP_SERVER = {
     //获取接口配置详情
     GET_DATA_DEATIL:{url:`/mobile-types`},
     //获取游戏列表
-    GET_GAME_LIST_INFO:{url:`/dist/js/data/lottery-series.json`},
+    //GET_GAME_LIST_INFO:{url:`/js/data/lottery-series.json`},
+    GET_GAME_LIST_INFO:{url:`/mobile-lotteries/lottery-series`},
     //获取玩法列表
-    GET_PLAY_LIST_INFO:{url:`/dist/js/data/series-way-groups-way-group-ways.json`},
+    GET_PLAY_LIST_INFO:{url:`/mobile-lotteries/series-way-groups`},
     //获取游戏种类相关数据
     GET_GAME_DETAIL:{url:'', formatUrl:`/mobile-lotteries/lottery-info/#id`, method:METHOD_POST,body:{}},
     //获取游戏玩法相关数据
@@ -21,7 +22,7 @@ const HTTP_SERVER = {
     //注单提交接口
     SUBMIT_ORDERS:{url:'', formatUrl:`/mobile-lotteries/lottery-bet/#id`, method:METHOD_POST,body:{}},
     //获取银行卡city 信息
-    GET_BANG_CITY_INFO:{url:`/dist/js/data/districts.json`},
+    GET_BANG_CITY_INFO:{url:`/js/data/districts.json`},
     //登陆
     LOGIN_IN: {url:`/mobile-auth/login`, method:METHOD_POST,body:{username:"",password:""}},
     //登出

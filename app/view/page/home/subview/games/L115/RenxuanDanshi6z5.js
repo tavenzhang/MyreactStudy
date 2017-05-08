@@ -16,9 +16,9 @@ export default class RenxuanDanshi6z5 extends L115Danshi {
     ];
 
     //检测单注号码是否通过
-    checkSingleNum(lotteryNum) {
+    checkSingleNum(ln) {
         let me = this,
-            lotteryNum = lotteryNum.sort(),
+            lotteryNum = ln.sort(),
             len = lotteryNum.length,
             isPass = true;
         if(lotteryNum.length != 6){

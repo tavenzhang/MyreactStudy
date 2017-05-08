@@ -60,9 +60,9 @@ const appState = (state = initAppState, action) => {
                 }
             })
         case ActionType.AppType.GAMELIST_RESULT:
-            return state.merge({gameModel: new GameModel(action.httpResult)});
+            return state.merge({gameModel: new GameModel(action.httpResult.data)});
         case ActionType.AppType.PLAY_LIST_RESULT:
-            return state.merge({playModel: new PlayModel(action.httpResult)});
+            return state.merge({playModel: new PlayModel(action.httpResult.data)});
         case ActionType.AppType.MOBILE_TYPES_RESULT:
             return state.merge({typesModel: new MobileTypes(action.httpResult)});
         case ActionType.AppType.BANG_CITY_INFO:

@@ -4,50 +4,50 @@ import {
 } from 'react-native';
 
 import BaseGameView from "../BaseGameView";
-import SanmaZhixuanFushi from "../L115/SanmaZhixuanFushi";
-import SanmaZuxuanFushi from "../L115/SanmaZuxuanFushi";
-import SanmaZuxuanDantuo from "../L115/SanmaZuxuanDantuo";
-import SanmaZhixuanDanshi from "../L115/SanmaZhixuanDanshi";
-import SanmaZuxuanDanshi from "../L115/SanmaZuxuanDanshi";
+import SanmaZhixuanFushi from "./SanmaZhixuanFushi";
+import SanmaZuxuanFushi from "./SanmaZuxuanFushi";
+import SanmaZuxuanDantuo from "./SanmaZuxuanDantuo";
+import SanmaZhixuanDanshi from "./SanmaZhixuanDanshi";
+import SanmaZuxuanDanshi from "./SanmaZuxuanDanshi";
 
-import ErmaZhixuanFushi from "../L115/ErmaZhixuanFushi";
-import ErmaZuxuanFushi from "../L115/ErmaZuxuanFushi";
-import ErmaZuxuanDantuo from "../L115/ErmaZuxuanDantuo";
-import ErmaZhixuanDanshi from "../L115/ErmaZhixuanDanshi";
-import ErmaZuxuanDanshi from "../L115/ErmaZuxuanDanshi";
+import ErmaZhixuanFushi from "./ErmaZhixuanFushi";
+import ErmaZuxuanFushi from "./ErmaZuxuanFushi";
+import ErmaZuxuanDantuo from "./ErmaZuxuanDantuo";
+import ErmaZhixuanDanshi from "./ErmaZhixuanDanshi";
+import ErmaZuxuanDanshi from "./ErmaZuxuanDanshi";
 
-import QiansanBudingwei from "../L115/QiansanBudingwei";
+import QiansanBudingwei from "./QiansanBudingwei";
 
-import QuweiDingdanshuang from "../L115/QuweiDingdanshuang";
-import QuweiCaizhongwei from "../L115/QuweiCaizhongwei";
+import QuweiDingdanshuang from "./QuweiDingdanshuang";
+import QuweiCaizhongwei from "./QuweiCaizhongwei";
 
-import Dingweidan from "../L115/Dingweidan";
+import Dingweidan from "./Dingweidan";
 
-import RenxuanFushi1z1 from "../L115/RenxuanFushi1z1";
-import RenxuanFushi2z2 from "../L115/RenxuanFushi2z2";
-import RenxuanFushi3z3 from "../L115/RenxuanFushi3z3";
-import RenxuanFushi4z4 from "../L115/RenxuanFushi4z4";
-import RenxuanFushi5z5 from "../L115/RenxuanFushi5z5";
-import RenxuanFushi6z5 from "../L115/RenxuanFushi6z5";
-import RenxuanFushi7z5 from "../L115/RenxuanFushi7z5";
-import RenxuanFushi8z5 from "../L115/RenxuanFushi8z5";
+import RenxuanFushi1z1 from "./RenxuanFushi1z1";
+import RenxuanFushi2z2 from "./RenxuanFushi2z2";
+import RenxuanFushi3z3 from "./RenxuanFushi3z3";
+import RenxuanFushi4z4 from "./RenxuanFushi4z4";
+import RenxuanFushi5z5 from "./RenxuanFushi5z5";
+import RenxuanFushi6z5 from "./RenxuanFushi6z5";
+import RenxuanFushi7z5 from "./RenxuanFushi7z5";
+import RenxuanFushi8z5 from "./RenxuanFushi8z5";
 
-import RenxuanDanshi1z1 from "../L115/RenxuanDanshi1z1";
-import RenxuanDanshi2z2 from "../L115/RenxuanDanshi2z2";
-import RenxuanDanshi3z3 from "../L115/RenxuanDanshi3z3";
-import RenxuanDanshi4z4 from "../L115/RenxuanDanshi4z4";
-import RenxuanDanshi5z5 from "../L115/RenxuanDanshi5z5";
-import RenxuanDanshi6z5 from "../L115/RenxuanDanshi6z5";
-import RenxuanDanshi7z5 from "../L115/RenxuanDanshi7z5";
-import RenxuanDanshi8z5 from "../L115/RenxuanDanshi8z5";
+import RenxuanDanshi1z1 from "./RenxuanDanshi1z1";
+import RenxuanDanshi2z2 from "./RenxuanDanshi2z2";
+import RenxuanDanshi3z3 from "./RenxuanDanshi3z3";
+import RenxuanDanshi4z4 from "./RenxuanDanshi4z4";
+import RenxuanDanshi5z5 from "./RenxuanDanshi5z5";
+import RenxuanDanshi6z5 from "./RenxuanDanshi6z5";
+import RenxuanDanshi7z5 from "./RenxuanDanshi7z5";
+import RenxuanDanshi8z5 from "./RenxuanDanshi8z5";
 
-import RenxuanDantuo2z2 from "../L115/RenxuanDantuo2z2";
-import RenxuanDantuo3z3 from "../L115/RenxuanDantuo3z3";
-import RenxuanDantuo4z4 from "../L115/RenxuanDantuo4z4";
-import RenxuanDantuo5z5 from "../L115/RenxuanDantuo5z5";
-import RenxuanDantuo6z5 from "../L115/RenxuanDantuo6z5";
-import RenxuanDantuo7z5 from "../L115/RenxuanDantuo7z5";
-import RenxuanDantuo8z5 from "../L115/RenxuanDantuo8z5";
+import RenxuanDantuo2z2 from "./RenxuanDantuo2z2";
+import RenxuanDantuo3z3 from "./RenxuanDantuo3z3";
+import RenxuanDantuo4z4 from "./RenxuanDantuo4z4";
+import RenxuanDantuo5z5 from "./RenxuanDantuo5z5";
+import RenxuanDantuo6z5 from "./RenxuanDantuo6z5";
+import RenxuanDantuo7z5 from "./RenxuanDantuo7z5";
+import RenxuanDantuo8z5 from "./RenxuanDantuo8z5";
 
 
 import connect from "react-redux/src/components/connect";
@@ -66,7 +66,7 @@ export default class L115View extends BaseGameView {
 
     onRenderSubView(data) {
         TLog("SD11Choose5--onRenderSubView", data);
-        switch (data.id)
+        switch (data.id + '')
         {
             //前三
             case "112":

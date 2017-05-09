@@ -7,7 +7,6 @@ export default class SanmaZhixuanFushi extends L115 {
 
     constructor(props) {
         super(props);
-
     }
 
     //设置球排列

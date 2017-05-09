@@ -17,6 +17,15 @@ import MultipleBtnGrounp from "./MultipleBtnGrounp";
 
 export default class GamePriceModelPannel extends Component {
 
+    static propTypes={
+        bet_max_prize_group:PropTypes.any,
+        bet_min_prize_group:PropTypes.any,
+        series_amount:PropTypes.number,
+        diff_grize_group:PropTypes.number,
+        onChange:PropTypes.func,
+        value:PropTypes.any
+    }
+
     constructor(props) {
         super(props);
         //this.state = {
@@ -26,7 +35,6 @@ export default class GamePriceModelPannel extends Component {
 
 
     render() {
-        const me = this;
         const { bet_max_prize_group, bet_min_prize_group, series_amount, diff_grize_group, onChange, value } = this.props;
 
         return (

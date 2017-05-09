@@ -15,20 +15,19 @@ export  default class GameModel{
         }
     }
 
-    getGameInfoById(id)
-    {
-        return this.data[`${id}`];
-    }
+
 
     getGameNameById(id)
     {
-        if(this.data[`${id}`])
-        {
-            return this.data[`${id}`].name;
+        let reultName=""
+        for (let item of this.gameInfoList) {
+            if(item.id == parseInt(id))
+            {
+                reultName=item.name;
+                break;
+            }
         }
-        else{
-            return ""
-        }
+        return reultName;
     }
 
 }

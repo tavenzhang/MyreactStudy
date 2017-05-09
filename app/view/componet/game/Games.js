@@ -1,7 +1,6 @@
 /**
  * Created by soga on 2017/4/16.
  */
-
 import React, {Component} from 'react';
 import {
     View,
@@ -9,7 +8,6 @@ import {
     ScrollView,
     StyleSheet,
 } from 'react-native';
-
 import Ball from "./Ball";
 import GameControlPannel from "./GameControlPannel";
 import GameModelPannel from "./GameModelPannel";
@@ -154,7 +152,6 @@ export default class Games extends Component {
                 }
                 break;
             case 'none':
-
                 break;
 
             default:
@@ -168,7 +165,6 @@ export default class Games extends Component {
     }
 
     setBallData(x, y, value) {
-        const me = this;
         const {balls} = this.state;
         const data = balls;
         if (y >= 0 && y < data.length && x >= 0) {
@@ -232,7 +228,6 @@ export default class Games extends Component {
                 <BallOperateBtn text="清" onPress={() => me.ballSelectActions('none',row)} />
               </View>
     }
-
 
     buildUI(){
         const me = this;
@@ -461,9 +456,7 @@ export default class Games extends Component {
         );
     }
 
-
     getOriginal() {
-        const me = this;
         const {balls} = this.state;
 
         let len = balls.length,

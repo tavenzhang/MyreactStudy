@@ -48,54 +48,18 @@ export default class GameDetail extends React.Component {
     itemClick = (data) => {
         data.title = data.name;
         const {gameModel, playModel,userData} = this.props
-        TLog("gameDeail----",gameModel);
+        //TLog("gameDeail----",gameModel);
         TLog("playModel----",playModel);
         //NavUtil.pushToView(NavViews.TrendView({title:`走势图`,lotteryId:data.id}))
         if(userData.isLogined)
         {
             if (data.open == "1") {
-                switch (data.id+'')
+                switch (data.series_id)
                 {
-                    case "1":
-                    case "25":
-                    case "6":
-                    case "7":
-                    case "32":
-                    case "65":
-                    case "66":
-                    case "67":
+                    case 1:
                         NavUtil.pushToView(NavViews.SSCView({...data, gameModel: gameModel, playModel: playModel}));
                         break;
-                    case "2":
-                    case "8":
-                    case "9":
-                    case "10":
-                    case "26":
-                    case "27":
-                    case "28":
-                    case "29":
-                    case "30":
-                    case "33":
-                    case "34":
-                    case "35":
-                    case "36":
-                    case "37":
-                    case "38":
-                    case "39":
-                    case "40":
-                    case "41":
-                    case "42":
-                    case "43":
-                    case "44":
-                    case "45":
-                    case "46":
-                    case "47":
-                    case "48":
-                    case "49":
-                    case "50":
-                    case "51":
-                    case "63":
-                    case "64":
+                    case 2:
                         NavUtil.pushToView(NavViews.L115View({...data, gameModel: gameModel, playModel: playModel}));
                         break;
                     default :

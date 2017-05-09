@@ -45,9 +45,11 @@ export default class BaseGameView extends BaseView {
 
     getNavigationBarProps() {
         const {id, gameModel} = this.props.passProps;
+
         const {currentGameWay} = this.state;
         this.gameName= gameModel.getGameNameById(id);
         let gameName = this.gameName;
+       // TLog("------------------getNavigationBarProps=="+id,gameName)
         if (this.state.selectItem) {
             gameName = "["+currentGameWay.parent_parent_name_cn +"]-" +this.state.selectItem.name;
         }
@@ -94,12 +96,10 @@ export default class BaseGameView extends BaseView {
 
     componentDidMount() {
         this.requetGameData();
-        TLog("componentDidMount----BaseGameView")
     }
 
     componentWillUnmount() {
         clearInterval(this.timeId);
-        TLog("componentWillUnmount----BaseGameView")
     }
 
     requetGameData = () => {

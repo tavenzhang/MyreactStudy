@@ -66,7 +66,7 @@ export default class L115View extends BaseGameView {
 
     onRenderSubView(data) {
         TLog("SD11Choose5--onRenderSubView", data);
-        switch (data.id)
+        switch (`${data.id}`)
         {
             //前三
             case "112":

@@ -142,7 +142,7 @@ export default class SSCView extends BaseGameView {
 
     onRenderSubView(data) {
        // TLog("SSCView--onRenderSubView", data);
-        switch (data.id)
+        switch (`${data.id}`)
         {
             //五星
             case "68":

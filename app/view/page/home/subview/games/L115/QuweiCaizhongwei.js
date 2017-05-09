@@ -7,9 +7,7 @@ export default class QuweiCaizhongwei extends L115 {
 
     constructor(props) {
         super(props);
-
         this.state.rowBallNumber = 4; //一行几个球
-
     }
 
     //设置球排列

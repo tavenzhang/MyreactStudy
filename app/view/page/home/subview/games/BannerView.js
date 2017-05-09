@@ -17,8 +17,7 @@ export default class BannerView extends BaseView {
         time: PropTypes.number,
         prize: PropTypes.any,
         currentNumber: PropTypes.any,
-        series_id: PropTypes.string
-
+        series_id: PropTypes.any
     }
 
     constructor(props) {
@@ -26,8 +25,8 @@ export default class BannerView extends BaseView {
         this.state = {
             dataSource: new ListView.DataSource({
                 rowHasChanged: (r1, r2) => r1 !== r2,
-                showHistory: false
             }),
+            showHistory: false
         }
     }
 

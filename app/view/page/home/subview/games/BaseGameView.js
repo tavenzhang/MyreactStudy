@@ -1,10 +1,8 @@
 import React from 'react';
 import {
     View,
-    Text,
     StyleSheet,
     Alert,
-    TouchableWithoutFeedback
 } from 'react-native';
 import BaseView from "../../../../componet/BaseView";
 import {GAME_DERAIL, HeaderMenuTitleView} from "../../../../componet/navBarMenu/HeaderMenu";
@@ -47,9 +45,11 @@ export default class BaseGameView extends BaseView {
 
     getNavigationBarProps() {
         const {id, gameModel} = this.props.passProps;
-        let gameName = gameModel.getGameNameById(id);
+        const {currentGameWay} = this.state;
+        this.gameName= gameModel.getGameNameById(id);
+        let gameName = this.gameName;
         if (this.state.selectItem) {
-            gameName = gameName + "-" + this.state.selectItem.name;
+            gameName = "["+currentGameWay.parent_parent_name_cn +"]-" +this.state.selectItem.name;
         }
         return {
             titleView: HeaderMenuTitleView,
@@ -94,10 +94,12 @@ export default class BaseGameView extends BaseView {
 
     componentDidMount() {
         this.requetGameData();
+        TLog("componentDidMount----BaseGameView")
     }
 
     componentWillUnmount() {
         clearInterval(this.timeId);
+        TLog("componentWillUnmount----BaseGameView")
     }
 
     requetGameData = () => {
@@ -121,7 +123,6 @@ export default class BaseGameView extends BaseView {
                 series_amount: pd.series_amount,
                 traceMaxTimes: pd.traceMaxTimes,
                 history_lotterys: pd.history_lotterys.split(","),
-                // requestGameStatus: 3
             });
             let dim = (this.state.currentNumberTime - this.state.currentTime);
             clearInterval(this.timeId);
@@ -144,7 +145,7 @@ export default class BaseGameView extends BaseView {
         }
         else {
             clearInterval(this.timeId);
-            ActDispatch.AppAct.showBox(`当前第${this.state.currentNumber}期已经结束，获取下一期数据`);
+            ActDispatch.AppAct.showBox(`当前第${this.state.currentNumber}期已经结束，新一期即将开始!`);
             this.requetGameData();
         }
     }
@@ -167,6 +168,7 @@ export default class BaseGameView extends BaseView {
                     ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.GET_GAME_WAY, d => {
                         const pd = d.data;
                         gameMethodHash[pd.id] = pd;
+                        data.name= pd.name_cn;
                         this.setState({
                             currentGameWay: pd,
                             gameMethodHash: gameMethodHash,
@@ -189,7 +191,7 @@ export default class BaseGameView extends BaseView {
         const {id, gameModel} = this.props.passProps;
         switch (data.key) {
             case 1:
-                const gameName = currentGameWay.parent_parent_name_cn + currentGameWay.name_cn;
+                const gameName = currentGameWay.parent_parent_name_cn +"-"+ currentGameWay.name_cn;
                 const gameContent = `玩法说明:${currentGameWay.bonus_note}\n 玩法奖金:${moneyFormat(currentGameWay.prize)}`;
                 Alert.alert(
                     `${gameName}玩法说明`,
@@ -203,7 +205,7 @@ export default class BaseGameView extends BaseView {
                 NavUtil.pushToView(NavViews.TrendView({title:`${gameModel.getGameNameById(id)}-走势图`,lotteryId:id}))
                 break;
             case 3:
-               // NavUtil.pushToView(NavViews.SSC_History({lottery_name:currentGameWay.parent_parent_name_cn,lottery_id:id}))
+                NavUtil.pushToView(NavViews.SSC_History({lottery_name:this.gameName,lottery_id:id}))
                 break;
             default:
                 break;

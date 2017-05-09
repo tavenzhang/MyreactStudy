@@ -26,6 +26,7 @@ const mapStateToProps = state => {
     //});
     return {
         orderList: state.get("gameState").get("orderList"),
+        orderListNum: state.get("gameState").get("orderList").count(),
         gameId: state.get("gameState").get("gameId"),
         lottery_items: state.get("gameState").get("lottery_items"),
         balance: parseFloat(state.get("appState").getIn(['userData','data','available']))
@@ -60,20 +61,6 @@ export default class LotteryOrders extends BaseView {
         };
     }
 
-    //生成指定数目的随机投注号码，并添加进号码篮
-    selectBallAuto(num) {
-        const me = this;
-
-        for (let i=0; i < num; i++) {
-            Games.getCurrentGameOrder().add(me.randomNum());
-            const lottery = '';
-            //加入购彩篮
-            if(lottery) {
-                ActDispatch.GameAct.addOrderToBasket(lottery);
-            }
-        }
-    }
-
     submitOrders(amount) {
         const {gameId,orderList,lottery_items} = this.props;
         let submitData = {
@@ -105,19 +92,27 @@ export default class LotteryOrders extends BaseView {
 
         HTTP_SERVER.SUBMIT_ORDERS.url = HTTP_SERVER.SUBMIT_ORDERS.formatUrl.replace(/#id/g, gameId) + '?customer='+CUSTOMER;
         HTTP_SERVER.SUBMIT_ORDERS.body = submitData;
-        TLog("------=======-------",submitData)
+        TLog("------===submitData====-------",submitData)
 
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.SUBMIT_ORDERS, data => {
             TLog('注单提交反馈======》',data);
+            if(data.isSuccess) {
+                //清空购彩篮
+                ActDispatch.GameAct.delOrder();
+                //返回选球页
+                setTimeout(() => NavUtil.pop() , 1500);
+
+            }
         })
     }
 
     renderBody() {
-        const {orderList,balance} = this.props;
+        const {orderList,balance,orderListNum} = this.props;
         const me = this;
         let total = 0,
             totalMoney = 0;
 
+        const btnDisable = orderListNum == 0 ? styles.btnDisable : null;
         return (
             <View style={[GlobeStyle.appContentView]}>
                 <View style={styles.btnGrounp}>
@@ -150,19 +145,24 @@ export default class LotteryOrders extends BaseView {
                         })
                     }
                     <View style={styles.operateBox}>
-                        <TouchableOpacity style={styles.btnDeleteAll} underlayColor={GlobelTheme.primary} onPress={
-                            () => Alert.alert(
-                                '',
-                                '确定要清空购彩篮吗?',
-                                [
-                                  {text: '取消'},
-                                  {text: '确定', onPress: () => {
-                                    ActDispatch.GameAct.delOrder();
-                                    //返回上一级
-                                    //NavUtil.pop();
-                                  }},
-                                ]
-                            )
+                        <TouchableOpacity style={[styles.btnDeleteAll, btnDisable]} underlayColor={GlobelTheme.primary} onPress={
+                            () => {
+                                if(orderListNum) {
+                                    Alert.alert(
+                                        '',
+                                        '确定要清空购彩篮吗?',
+                                        [
+                                          {text: '取消'},
+                                          {text: '确定', onPress: () => {
+                                            ActDispatch.GameAct.delOrder();
+                                            //返回上一级
+                                            //返回选球页
+                                            setTimeout(() => NavUtil.pop() , 1000);
+                                          }}
+                                        ]
+                                    )
+                                }
+                            }
                         }>
                             <View style={{flexDirection : 'row'}}>
                                 <AIcon name="trash-o" style={styles.iconDelete} />
@@ -175,8 +175,21 @@ export default class LotteryOrders extends BaseView {
                 <GameControlPannel
                     balance= {balance}
                     topDesc= {`总计: ${total}注, 共${moneyFormat(totalMoney)}元`}
-                    btnEvent= {() => me.submitOrders(totalMoney)}
-                    btnDisable= {false}
+                    btnEvent= {() => {
+                        if(orderListNum == 0) {
+                            Alert.alert(
+                                '',
+                                '您的购彩篮为空,请先选择投注号码!',
+                                [
+                                  {text: '确定',onPress: () => NavUtil.pop()}
+                                ]
+                            )
+                        }
+                        else {
+                            me.submitOrders(totalMoney)
+                        }
+                    }}
+                    btnDisable= {orderListNum == 0 ? true : false}
                     btnName= "投 注"
                     />
             </View>
@@ -217,6 +230,9 @@ const styles = StyleSheet.create({
         width:140,
         justifyContent:"center",
         alignItems:"center",
+    },
+    btnDisable: {
+        backgroundColor: GlobelTheme.gray
     },
     textDelete: {
         fontSize: 16,

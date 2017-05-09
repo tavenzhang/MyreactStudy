@@ -48,22 +48,26 @@ export default class GameDetail extends React.Component {
     itemClick = (data) => {
         data.title = data.name;
         const {gameModel, playModel,userData} = this.props
-        //TLog("gameDeail----",gameModel);
-        TLog("playModel----",playModel);
+        TLog("gameSeious----",data);
         //NavUtil.pushToView(NavViews.TrendView({title:`走势图`,lotteryId:data.id}))
         if(userData.isLogined)
         {
             if (data.open == "1") {
-                switch (data.series_id)
+                switch (data.series_id+'')
                 {
-                    case 1:
+                    case "1":
                         NavUtil.pushToView(NavViews.SSCView({...data, gameModel: gameModel, playModel: playModel}));
                         break;
-                    case 2:
+                    case "2":
                         NavUtil.pushToView(NavViews.L115View({...data, gameModel: gameModel, playModel: playModel}));
                         break;
+
+                    case "3":
+                        NavUtil.pushToView(NavViews.D3View({...data, gameModel: gameModel, playModel: playModel}));
+                        break;
+
                     default :
-                        TLog('gameid',data.id)
+                        TLog('gameseries_id',data.series_id)
                 }
             }
             else {

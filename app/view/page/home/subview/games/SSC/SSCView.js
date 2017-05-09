@@ -6,113 +6,113 @@ import {
 } from 'react-native';
 
 import BaseGameView from "../BaseGameView";
-import WuxingZhixuanFushi from "../SSC/WuxingZhixuanFushi";
-import WuxingZhixuanDanshi from "../SSC/WuxingZhixuanDanshi";
-import WuxingZhixuanZuhe from "../SSC/WuxingZhixuanZuhe";
-import WuxingZuxuanZuxuan5 from "../SSC/WuxingZuxuanZuxuan5";
-import WuxingZuxuanZuxuan10 from "../SSC/WuxingZuxuanZuxuan10";
-import WuxingZuxuanZuxuan20 from "../SSC/WuxingZuxuanZuxuan20";
-import WuxingZuxuanZuxuan30 from "../SSC/WuxingZuxuanZuxuan30";
-import WuxingZuxuanZuxuan60 from "../SSC/WuxingZuxuanZuxuan60";
-import WuxingZuxuanZuxuan120 from "../SSC/WuxingZuxuanZuxuan120";
-import HousanZhixuanFushi from "../SSC/HousanZhixuanFushi";
+import WuxingZhixuanFushi from "./WuxingZhixuanFushi";
+import WuxingZhixuanDanshi from "./WuxingZhixuanDanshi";
+import WuxingZhixuanZuhe from "./WuxingZhixuanZuhe";
+import WuxingZuxuanZuxuan5 from "./WuxingZuxuanZuxuan5";
+import WuxingZuxuanZuxuan10 from "./WuxingZuxuanZuxuan10";
+import WuxingZuxuanZuxuan20 from "./WuxingZuxuanZuxuan20";
+import WuxingZuxuanZuxuan30 from "./WuxingZuxuanZuxuan30";
+import WuxingZuxuanZuxuan60 from "./WuxingZuxuanZuxuan60";
+import WuxingZuxuanZuxuan120 from "./WuxingZuxuanZuxuan120";
+import HousanZhixuanFushi from "./HousanZhixuanFushi";
 
 
-import XixingZuxuan4 from "../SSC/XixingZuxuan4";
-import XixingZuxuan6 from "../SSC/XixingZuxuan6";
-import XixingZuxuan12 from "../SSC/XixingZuxuan12";
-import XixingZuxuan24 from "../SSC/XixingZuxuan24";
-import XixingZhixuanFushi from "../SSC/XixingZhixuanFushi";
-import XixingZhixuanZuhe from "../SSC/XixingZhixuanZuhe";
-import XixingZhixuanDanshi from "../SSC/XixingZhixuanDanshi";
-
-
-
-import QiansanZhixuanZuhe from "../SSC/QiansanZhixuanZuhe";
-import QiansanZuxuanZusan from "../SSC/QiansanZuxuanZusan";
-import QiansanZuxuanZuliu from "../SSC/QiansanZuxuanZuliu";
-import QiansanQitaHeziweisu from "../SSC/QiansanQitaHeziweisu";
-import QiansanQitaTeshuhaoma from "../SSC/QiansanQitaTeshuhaoma";
-import QiansanZhixuanKuadu from "../SSC/QiansanZhixuanKuadu";
-import QiansanZuxuanBaodan from "../SSC/QiansanZuxuanBaodan";
-import QiansanZhixuanFushi from "../SSC/QiansanZhixuanFushi";
-import QiansanZhixuanHezhi from "../SSC/QiansanZhixuanHezhi";
-import QiansanZuxuanHezhi from "../SSC/QiansanZuxuanHezhi";
-import QiansanZhixuanDanshi from "../SSC/QiansanZhixuanDanshi";
-import QiansanZusanDanshi from "../SSC/QiansanZusanDanshi";
-import QiansanZuliuDanshi from "../SSC/QiansanZuliuDanshi";
-import QiansanZuxuanHunhe from "../SSC/QiansanZuxuanHunhe";
-
-
-import HousanZuxuanZusan from "../SSC/HousanZuxuanZusan";
-import HousanZuxuanZuliu from "../SSC/HousanZuxuanZuliu";
-import HousanQitaHeziweisu from "../SSC/HousanQitaHeziweisu";
-import HousanQitaTeshuhaoma from "../SSC/HousanQitaTeshuhaoma";
-import HousanZhixuanKuadu from "../SSC/HousanZhixuanKuadu";
-import HousanZhixuanHezhi from "../SSC/HousanZhixuanHezhi";
-import HousanZuxuanHezhi from "../SSC/HousanZuxuanHezhi";
-import HousanZhixuanZuhe from "../SSC/HousanZhixuanZuhe";
-import HousanZuxuanBaodan from "../SSC/HousanZuxuanBaodan";
-import HousanZhixuanDanshi from "../SSC/HousanZhixuanDanshi";
-import HousanZusanDanshi from "../SSC/HousanZusanDanshi";
-import HousanZuliuDanshi from "../SSC/HousanZuliuDanshi";
-import HousanZuxuanHunhe from "../SSC/HousanZuxuanHunhe";
-
-
-import ErxingZhixuanHouerFushi from "../SSC/ErxingZhixuanHouerFushi";
-import ErxingZhixuanQianerFushi from "../SSC/ErxingZhixuanQianerFushi";
-import ErxingZuxuanQianerFushi from "../SSC/ErxingZuxuanQianerFushi";
-import ErxingZuxuanHouerFushi from "../SSC/ErxingZuxuanHouerFushi";
-import ErxingZhixuanQianerKuadu from "../SSC/ErxingZhixuanQianerKuadu";
-import ErxingZhixuanHouerKuadu from "../SSC/ErxingZhixuanHouerKuadu";
-import ErxingZhixuanQianerHezhi from "../SSC/ErxingZhixuanQianerHezhi";
-import ErxingZhixuanHouerHezhi from "../SSC/ErxingZhixuanHouerHezhi";
-import ErxingZuxuanQianerHezhi from "../SSC/ErxingZuxuanQianerHezhi";
-import ErxingZuxuanHouerHezhi from "../SSC/ErxingZuxuanHouerHezhi";
-import ErxingZuxuanQianerBaodan from "../SSC/ErxingZuxuanQianerBaodan";
-import ErxingZuxuanHouerBaodan from "../SSC/ErxingZuxuanHouerBaodan";
-import ErxingZhixuanQianerDanshi from "../SSC/ErxingZhixuanQianerDanshi";
-import ErxingZuxuanQianerDanshi from "../SSC/ErxingZuxuanQianerDanshi";
-import ErxingZhixuanHouerDanshi from "../SSC/ErxingZhixuanHouerDanshi";
-import ErxingZuxuanHouerDanshi from "../SSC/ErxingZuxuanHouerDanshi";
-
-
-import YixingDingweidanFushi from "../SSC/YixingDingweidanFushi";
-
-
-import BudingweiSanxingQiansanyima from "../SSC/BudingweiSanxingQiansanyima";
-import BudingweiSanxingQiansanerma from "../SSC/BudingweiSanxingQiansanerma";
-import BudingweiSanxingHousanyima from "../SSC/BudingweiSanxingHousanyima";
-import BudingweiSanxingHousanerma from "../SSC/BudingweiSanxingHousanerma";
-import BudingweiSanxingZhongsanyima from "../SSC/BudingweiSanxingZhongsanyima";
-import BudingweiSanxingZhongsanerma from "../SSC/BudingweiSanxingZhongsanerma";
-import BudingweiSixingErma from "../SSC/BudingweiSixingErma";
-import BudingweiSixingYima from "../SSC/BudingweiSixingYima";
-import BudingweiWuxingYima from "../SSC/BudingweiWuxingYima";
-import BudingweiWuxingErma from "../SSC/BudingweiWuxingErma";
-import BudingweiWuxingSanma from "../SSC/BudingweiWuxingSanma";
+import XixingZuxuan4 from "./XixingZuxuan4";
+import XixingZuxuan6 from "./XixingZuxuan6";
+import XixingZuxuan12 from "./XixingZuxuan12";
+import XixingZuxuan24 from "./XixingZuxuan24";
+import XixingZhixuanFushi from "./XixingZhixuanFushi";
+import XixingZhixuanZuhe from "./XixingZhixuanZuhe";
+import XixingZhixuanDanshi from "./XixingZhixuanDanshi";
 
 
 
-import DaxiaodanshuangQianer from "../SSC/DaxiaodanshuangQianer";
-import DaxiaodanshuangQiansan from "../SSC/DaxiaodanshuangQiansan";
-import DaxiaodanshuangHousan from "../SSC/DaxiaodanshuangHousan";
-import DaxiaodanshuangHouer from "../SSC/DaxiaodanshuangHouer";
+import QiansanZhixuanZuhe from "./QiansanZhixuanZuhe";
+import QiansanZuxuanZusan from "./QiansanZuxuanZusan";
+import QiansanZuxuanZuliu from "./QiansanZuxuanZuliu";
+import QiansanQitaHeziweisu from "./QiansanQitaHeziweisu";
+import QiansanQitaTeshuhaoma from "./QiansanQitaTeshuhaoma";
+import QiansanZhixuanKuadu from "./QiansanZhixuanKuadu";
+import QiansanZuxuanBaodan from "./QiansanZuxuanBaodan";
+import QiansanZhixuanFushi from "./QiansanZhixuanFushi";
+import QiansanZhixuanHezhi from "./QiansanZhixuanHezhi";
+import QiansanZuxuanHezhi from "./QiansanZuxuanHezhi";
+import QiansanZhixuanDanshi from "./QiansanZhixuanDanshi";
+import QiansanZusanDanshi from "./QiansanZusanDanshi";
+import QiansanZuliuDanshi from "./QiansanZuliuDanshi";
+import QiansanZuxuanHunhe from "./QiansanZuxuanHunhe";
+
+
+import HousanZuxuanZusan from "./HousanZuxuanZusan";
+import HousanZuxuanZuliu from "./HousanZuxuanZuliu";
+import HousanQitaHeziweisu from "./HousanQitaHeziweisu";
+import HousanQitaTeshuhaoma from "./HousanQitaTeshuhaoma";
+import HousanZhixuanKuadu from "./HousanZhixuanKuadu";
+import HousanZhixuanHezhi from "./HousanZhixuanHezhi";
+import HousanZuxuanHezhi from "./HousanZuxuanHezhi";
+import HousanZhixuanZuhe from "./HousanZhixuanZuhe";
+import HousanZuxuanBaodan from "./HousanZuxuanBaodan";
+import HousanZhixuanDanshi from "./HousanZhixuanDanshi";
+import HousanZusanDanshi from "./HousanZusanDanshi";
+import HousanZuliuDanshi from "./HousanZuliuDanshi";
+import HousanZuxuanHunhe from "./HousanZuxuanHunhe";
+
+
+import ErxingZhixuanHouerFushi from "./ErxingZhixuanHouerFushi";
+import ErxingZhixuanQianerFushi from "./ErxingZhixuanQianerFushi";
+import ErxingZuxuanQianerFushi from "./ErxingZuxuanQianerFushi";
+import ErxingZuxuanHouerFushi from "./ErxingZuxuanHouerFushi";
+import ErxingZhixuanQianerKuadu from "./ErxingZhixuanQianerKuadu";
+import ErxingZhixuanHouerKuadu from "./ErxingZhixuanHouerKuadu";
+import ErxingZhixuanQianerHezhi from "./ErxingZhixuanQianerHezhi";
+import ErxingZhixuanHouerHezhi from "./ErxingZhixuanHouerHezhi";
+import ErxingZuxuanQianerHezhi from "./ErxingZuxuanQianerHezhi";
+import ErxingZuxuanHouerHezhi from "./ErxingZuxuanHouerHezhi";
+import ErxingZuxuanQianerBaodan from "./ErxingZuxuanQianerBaodan";
+import ErxingZuxuanHouerBaodan from "./ErxingZuxuanHouerBaodan";
+import ErxingZhixuanQianerDanshi from "./ErxingZhixuanQianerDanshi";
+import ErxingZuxuanQianerDanshi from "./ErxingZuxuanQianerDanshi";
+import ErxingZhixuanHouerDanshi from "./ErxingZhixuanHouerDanshi";
+import ErxingZuxuanHouerDanshi from "./ErxingZuxuanHouerDanshi";
+
+
+import YixingDingweidanFushi from "./YixingDingweidanFushi";
+
+
+import BudingweiSanxingQiansanyima from "./BudingweiSanxingQiansanyima";
+import BudingweiSanxingQiansanerma from "./BudingweiSanxingQiansanerma";
+import BudingweiSanxingHousanyima from "./BudingweiSanxingHousanyima";
+import BudingweiSanxingHousanerma from "./BudingweiSanxingHousanerma";
+import BudingweiSanxingZhongsanyima from "./BudingweiSanxingZhongsanyima";
+import BudingweiSanxingZhongsanerma from "./BudingweiSanxingZhongsanerma";
+import BudingweiSixingErma from "./BudingweiSixingErma";
+import BudingweiSixingYima from "./BudingweiSixingYima";
+import BudingweiWuxingYima from "./BudingweiWuxingYima";
+import BudingweiWuxingErma from "./BudingweiWuxingErma";
+import BudingweiWuxingSanma from "./BudingweiWuxingSanma";
 
 
 
-import QuweiWumaSanxing from "../SSC/QuweiWumaSanxing";
-import QuweiSimaSanxing from "../SSC/QuweiSimaSanxing";
-import QuweiQiansanErxing from "../SSC/QuweiQiansanErxing";
-import QuweiHousanErxing from "../SSC/QuweiHousanErxing";
-import QuweiWumaQujianSanxing from "../SSC/QuweiWumaQujianSanxing";
-import QuweiSimaQujianSanxing from "../SSC/QuweiSimaQujianSanxing";
-import QuweiQiansanQujianErxing from "../SSC/QuweiQiansanQujianErxing";
-import QuweiHousanQujianErxing from "../SSC/QuweiHousanQujianErxing";
-import QuweiYifanfengshun from "../SSC/QuweiYifanfengshun";
-import QuweiHaoshichengshuang from "../SSC/QuweiHaoshichengshuang";
-import QuweiSanxingbaoxi from "../SSC/QuweiSanxingbaoxi";
-import QuweiSijifacai from "../SSC/QuweiSijifacai";
+import DaxiaodanshuangQianer from "./DaxiaodanshuangQianer";
+import DaxiaodanshuangQiansan from "./DaxiaodanshuangQiansan";
+import DaxiaodanshuangHousan from "./DaxiaodanshuangHousan";
+import DaxiaodanshuangHouer from "./DaxiaodanshuangHouer";
+
+
+
+import QuweiWumaSanxing from "./QuweiWumaSanxing";
+import QuweiSimaSanxing from "./QuweiSimaSanxing";
+import QuweiQiansanErxing from "./QuweiQiansanErxing";
+import QuweiHousanErxing from "./QuweiHousanErxing";
+import QuweiWumaQujianSanxing from "./QuweiWumaQujianSanxing";
+import QuweiSimaQujianSanxing from "./QuweiSimaQujianSanxing";
+import QuweiQiansanQujianErxing from "./QuweiQiansanQujianErxing";
+import QuweiHousanQujianErxing from "./QuweiHousanQujianErxing";
+import QuweiYifanfengshun from "./QuweiYifanfengshun";
+import QuweiHaoshichengshuang from "./QuweiHaoshichengshuang";
+import QuweiSanxingbaoxi from "./QuweiSanxingbaoxi";
+import QuweiSijifacai from "./QuweiSijifacai";
 
 
 
@@ -142,7 +142,7 @@ export default class SSCView extends BaseGameView {
 
     onRenderSubView(data) {
        // TLog("SSCView--onRenderSubView", data);
-        switch (`${data.id}`)
+        switch (data.id + '')
         {
             //五星
             case "68":

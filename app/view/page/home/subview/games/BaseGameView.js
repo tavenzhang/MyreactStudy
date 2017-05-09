@@ -103,8 +103,8 @@ export default class BaseGameView extends BaseView {
     }
 
     requetGameData = () => {
-        const {series_id} = this.props.passProps
-        HTTP_SERVER.GET_GAME_DETAIL.url = HTTP_SERVER.GET_GAME_DETAIL.formatUrl.replace(/#id/g, series_id);
+        const {id} = this.props.passProps
+        HTTP_SERVER.GET_GAME_DETAIL.url = HTTP_SERVER.GET_GAME_DETAIL.formatUrl.replace(/#id/g, id);
         ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.GET_GAME_DETAIL, ActionType.GameType.SET_GAMECONFIG, data => {
             const pd = data.data;
             this.setState({
@@ -152,7 +152,7 @@ export default class BaseGameView extends BaseView {
 
     clickMenuItem = (data) => {
         const {gameMethodHash, isRequestGameWay, currentGameWay} = this.state;
-        const {series_id} = this.props.passProps;
+        const {id} = this.props.passProps;
         if (currentGameWay.id != data.id) {
             if (gameMethodHash[data.id]) {
                 this.setState({
@@ -164,7 +164,7 @@ export default class BaseGameView extends BaseView {
             else {
                 if (!isRequestGameWay) {
                     this.setState({isRequestGameWay: true});
-                    HTTP_SERVER.GET_GAME_WAY.url = HTTP_SERVER.GET_GAME_WAY.formatUrl.replace(/#id/g, series_id).replace(/#way_id/g, data.id)
+                    HTTP_SERVER.GET_GAME_WAY.url = HTTP_SERVER.GET_GAME_WAY.formatUrl.replace(/#id/g, id).replace(/#way_id/g, data.id)
                     ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.GET_GAME_WAY, d => {
                         const pd = d.data;
                         gameMethodHash[pd.id] = pd;

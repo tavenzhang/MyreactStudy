@@ -117,4 +117,28 @@ export default class L115Danshi extends GameDanshi {
         }
         return result.join('|');
     }
+
+    checkData(ln,num) {
+        const me = this;
+        let lotteryNum = ln.sort(),
+            len = lotteryNum.length,
+            isPass = true;
+
+        if(lotteryNum.length != num){
+            return isPass = false;
+        }
+
+        for(let i = 0;i < len;i++){
+            if(lotteryNum[i] == lotteryNum[i+1]){
+                return isPass = false;
+            }
+        }
+
+        for(let i=0; i<lotteryNum.length; i++) {
+            if (!me.checkNum.test(lotteryNum[i])  || Number(lotteryNum[i]) < 1 || Number(lotteryNum[i]) > 11) {
+                return isPass = false;
+            }
+        }
+        return isPass;
+    }
 }

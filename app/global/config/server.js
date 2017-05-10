@@ -193,7 +193,6 @@ const HTTP_SERVER = {
 };
 global.HTTP_SERVER = HTTP_SERVER
 
-
 const HttpUtil = {
     flushMoneyBalance: () => {
         ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.MOENY_USER_ACCOUNT, ActionEnum.AppAct.MONEY_ACCOUNT__CHANGE,null,true);

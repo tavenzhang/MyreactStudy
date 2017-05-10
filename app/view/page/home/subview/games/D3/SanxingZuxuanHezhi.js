@@ -10,9 +10,9 @@ import {
 } from 'react-native';
 
 import Ball from "../../../../../componet/game/Ball";
-import SSC from "./SSC";
+import D3 from "./D3";
 
-export default class QiansanZuxuanHezhi extends SSC {
+export default class QiansanZuxuanHezhi extends D3 {
 
     constructor(props) {
         super(props);

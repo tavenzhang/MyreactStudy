@@ -2,9 +2,9 @@
  * Created by soga on 2017/4/25.
  */
 
-import SSC from "./SSC";
+import D3 from "./D3";
 
-export default class YixingDingweidanFushi extends SSC {
+export default class YixingDingweidanFushi extends D3 {
 
     constructor(props) {
         super(props);
@@ -15,14 +15,12 @@ export default class YixingDingweidanFushi extends SSC {
     setBalls = () => [
         [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
         [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
     ];
 
 
     //设置rowtitle
-    setRowTitle = () => ['万位','千位','百位','十位','个位'];
+    setRowTitle = () => ['百位','十位','个位'];
 
     getLottery(isGetNum){
         let me = this,

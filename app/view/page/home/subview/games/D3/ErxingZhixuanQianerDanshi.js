@@ -1,7 +1,7 @@
 /**
  * Created by soga on 2017/5/8.
  */
-import SSCDanshi from "./SSCDanshi";
+import SSCDanshi from "./../SSC/SSCDanshi";
 
 export default class ErxingZhixuanQianerDanshi extends SSCDanshi {
 

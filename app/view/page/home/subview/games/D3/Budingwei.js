@@ -1,9 +1,9 @@
 /**
- * Created by soga on 2017/4/25.
+ * Created by soga on 2017/5/10.
  */
 import D3 from "./D3";
 
-export default class SanxingZuxuanZuliu extends D3 {
+export default class Budingwei extends D3 {
 
     constructor(props) {
         super(props);
@@ -12,19 +12,16 @@ export default class SanxingZuxuanZuliu extends D3 {
 
     //设置球排列
     setBalls = () => [
-        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
+        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
     ];
 
     //设置rowtitle
-    setRowTitle = () => ['组六'];
+    setRowTitle = () => ['不定位'];
 
-    //并设置 isBallsComplete
     checkBallIsComplete(){
-        const me = this;
-        const {balls} = this.state;
-        const ball = balls[0];
-
-        let i=0,
+        let me = this,
+            ball = me.state.balls[0],
+            i = 0,
             len = ball.length,
             num = 0;
         for(;i < len;i++){
@@ -32,8 +29,7 @@ export default class SanxingZuxuanZuliu extends D3 {
                 num++;
             }
         }
-        //二重号大于1 && 单号大于3
-        if(num >= 3){
+        if(num >= 1){
             this.setState({isBallsComplete: true});
             return true;
         }
@@ -43,11 +39,9 @@ export default class SanxingZuxuanZuliu extends D3 {
 
     //获取组合结果
     getLottery(){
-        const me = this;
-        const {balls} = this.state;
-        const ball = balls[0];
-
-        let i = 0,
+        let me = this,
+            ball = me.state.balls[0],
+            i = 0,
             len = ball.length,
             arr = [];
 
@@ -60,9 +54,10 @@ export default class SanxingZuxuanZuliu extends D3 {
         //校验当前的面板
         //获取选中数字
         if(me.checkBallIsComplete()){
-            return me.combine(arr, 3);
+            return me.combine(arr, 1);
         }
 
         return [];
     }
+
 }

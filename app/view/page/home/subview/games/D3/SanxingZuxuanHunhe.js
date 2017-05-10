@@ -1,9 +1,9 @@
 /**
  * Created by soga on 2017/5/8.
  */
-import SSCDanshi from "./SSCDanshi";
+import SSCDanshi from "./../SSC/SSCDanshi";
 
-export default class QiansanZuxuanHunhe extends SSCDanshi {
+export default class SanxingZuxuanHunhe extends SSCDanshi {
 
     constructor(props) {
         super(props);

@@ -2,9 +2,9 @@
  * Created by soga on 2017/4/25.
  */
 
-import SSC from "./SSC";
+import D3 from "./D3";
 
-export default class ErxingZhixuanHouerFushi extends SSC {
+export default class ErxingZhixuanHouerFushi extends D3 {
 
     constructor(props) {
         super(props);

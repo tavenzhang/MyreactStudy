@@ -2,9 +2,9 @@
  * Created by soga on 2017/4/25.
  */
 
-import SSC from "./SSC";
+import D3 from "./D3";
 
-export default class ErxingZhixuanQianerFushi extends SSC {
+export default class ErxingZhixuanQianerFushi extends D3 {
 
     constructor(props) {
         super(props);
@@ -18,6 +18,6 @@ export default class ErxingZhixuanQianerFushi extends SSC {
     ];
 
     //设置rowtitle
-    setRowTitle = () => ['万位','千位'];
+    setRowTitle = () => ['百位','十位'];
 
 }

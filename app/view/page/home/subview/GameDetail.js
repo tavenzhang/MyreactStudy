@@ -66,6 +66,10 @@ export default class GameDetail extends React.Component {
                         NavUtil.pushToView(NavViews.D3View({...data, gameModel: gameModel, playModel: playModel}));
                         break;
 
+                    case "5":
+                        NavUtil.pushToView(NavViews.K3View({...data, gameModel: gameModel, playModel: playModel}));
+                        break;
+
                     default :
                         TLog('gameseries_id',data.series_id)
                 }

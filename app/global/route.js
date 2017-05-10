@@ -29,6 +29,7 @@ import MoneyTransferView from "../view/page/me/subView/MoneyTransferView";
 import L115View from "../view/page/home/subview/games/L115/L115View";
 import SSCView from "../view/page/home/subview/games/SSC/SSCView";
 import D3View from "../view/page/home/subview/games/D3/D3View";
+import K3View from "../view/page/home/subview/games/K3/K3View";
 import G_11_5_History from "../view/page/award/subView/G_11_5_History";
 import TrendView from "../view/page/home/subview/trend/TrendView";
 
@@ -73,6 +74,8 @@ let NavViews = {
     L115View: (data) => ({"component": L115View, "passProps": data}),
     //福彩3d玩法
     D3View: (data) => ({"component": D3View, "passProps": data}),
+    //快3玩法
+    K3View: (data) => ({"component": K3View, "passProps": data}),
     //游戏重启时时彩玩法
     SSCView: (data) => ({"component": SSCView, "passProps": data}),
     //号码篮

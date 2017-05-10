@@ -35,6 +35,8 @@ export default class Games extends Component {
             lotterys: [],
             rowBallNumber: 5, //一行几个球
         };
+        this.ballSpecialTitle = [];
+        this.ballFirstStart = 0;
         this.buildBalls = this.buildBalls.bind(this);
         this.buildSpecialBalls = this.buildSpecialBalls.bind(this);
         this.buildUI    = this.buildUI.bind(this);
@@ -192,15 +194,17 @@ export default class Games extends Component {
                 const ballWidth = (GlobelTheme.screenWidth - 20) / me.state.rowBallNumber;
                 return <View style={styles.ballBox}>
                     {ballText.map((v,i) => {
-                        return <View  style={[styles.ballBtnBox,{width:ballWidth}]} key={i} >
-                            <Ball
-                                text={v}
-                                row={row}
-                                value={i}
-                                status={balls[row][i]}
-                                onPress={(x,y,v)=>me.selectBall(x,y,v)}
-                                />
-                        </View>
+                        if(i >= me.ballFirstStart) {
+                            return <View  style={[styles.ballBtnBox,{width:ballWidth}]} key={i} >
+                                <Ball
+                                    text={v}
+                                    row={row}
+                                    value={i}
+                                    status={balls[row][i]}
+                                    onPress={(x,y,v)=>me.selectBall(x,y,v)}
+                                    />
+                            </View>
+                        }
                     })}
                 </View>
             }
@@ -214,7 +218,36 @@ export default class Games extends Component {
     }
 
     buildSpecialBalls(row) {
-        return null;
+        const me = this;
+        const {balls,rowTitle} = this.state;
+        if(balls.length > 0 && me.ballSpecialTitle.length > 0) {
+            const rows = balls.length,
+                ballTitleLen = rowTitle.length;
+
+            if(rows == ballTitleLen) {
+                const ballWidth = (GlobelTheme.screenWidth - 20) / me.state.rowBallNumber;
+                return <View style={styles.ballBox}>
+                    {me.ballSpecialTitle.map((v,i) => {
+                        return <View  style={[styles.ballBtnBox,{width:ballWidth}]} key={i} >
+                            <Ball
+                                text={v}
+                                row={row}
+                                value={i}
+                                status={balls[row][i]}
+                                onPress={(x,y,v)=>me.selectBall(x,y,v)}
+                                //textStyle={styles.ballText}
+                                />
+                        </View>
+                    })}
+                </View>
+            }
+            else {
+                return null;
+            }
+        }
+        else {
+            return null;
+        }
     }
 
     buildBallOperates(row){

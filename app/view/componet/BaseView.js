@@ -7,8 +7,6 @@ import {
 import NavigationBar from './NavigationBar';
 
 import {shouldComponentUpdate} from 'react-immutable-render-mixin';
-
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -42,10 +40,12 @@ export default class BaseView extends Component {
         let navigationBarProps = this.getNavigationBarProps();
         if(navigationBarProps != null)
         {
-            Object.assign(this.props.passProps,navigationBarProps);
+            //{...data, gameModel: gameModel, playModel: playModel}
+            //Object.assign(this.props.passProps,navigationBarProps);
             return (
                 <NavigationBar
                     {...this.props.passProps}
+                    {...navigationBarProps}
                     onLeftPressed={this.onLeftPressed}
                     onRightPressed={this.onRightPressed}
                     onHeadPressed={this.onHeadPressed}
@@ -69,9 +69,6 @@ export default class BaseView extends Component {
             </View>
         );
     }
-
-
-
 
     renderBody() {
 

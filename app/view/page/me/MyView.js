@@ -31,6 +31,7 @@ let ItemNameEnum = {
 const mapStateToProps = state => {
     return {
         userData: state.get("appState").get("userData").toJS(),
+        moneyBalance:state.get("appState").get("moneyBalance"),
     }
 }
 
@@ -83,7 +84,7 @@ export default class MyView extends BaseView {
     }
 
     renderBody() {
-        let {userData} = this.props
+        let {userData,moneyBalance} = this.props
         let dataS = {"我的彩票": MyView.dataList1, "账户资金": MyView.dataList2, "个人信息": MyView.dataList3};
         let infoView = null;
         if (userData.isLogined) {
@@ -103,7 +104,7 @@ export default class MyView extends BaseView {
                     </View>
                     <View style={{justifyContent: "space-around", flex: 1}}>
                         <Text style={{textAlign: "center"}}><Text
-                            style={styles.titleSyle}>账户总额: </Text>{parseInt(userData.data.available)}
+                            style={styles.titleSyle}>账户总额: </Text>{parseInt(moneyBalance)}
                         </Text>
                         <Text style={{textAlign: "center"}}><Text
                             style={styles.titleSyle}>资金密码: </Text>{userData.data.is_set_fund_password ? "已设置":"未设置"}

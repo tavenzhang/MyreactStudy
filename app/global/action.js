@@ -30,6 +30,7 @@ const ActionEnum={
     HomeAct,
     AppAct,
     NoticeAct,
+    GameAct
 }
 
 global.ActionEnum=ActionEnum;

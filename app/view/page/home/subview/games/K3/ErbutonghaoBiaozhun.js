@@ -12,7 +12,7 @@ export default class ErbutonghaoBiaozhun extends K3 {
 
     //设置球排列
     setBalls = () => [
-        [-1,-1,-1,-1,-1,-1]
+        [-1,-1,-1,-1,-1,-1,-1]
     ];
 
     //设置rowtitle
@@ -36,19 +36,8 @@ export default class ErbutonghaoBiaozhun extends K3 {
         return false;
     }
 
-    formatViewBalls(original){
-        let me = this,
-            result = [],
-            len = original[0].length,
-            has = {'0':'1','1':'2','2':'3','3':'4','4':'5','5':'6'},
-            i = 0;
-
-        for (; i < len; i++) {
-            result.push(has['' + original[0][i]]);
-        }
-
-        result = result.join('');
-        return result;
+    makePostParameter(original){
+        return original[0].join('');
     }
 
     //获取总注数/获取组合结果

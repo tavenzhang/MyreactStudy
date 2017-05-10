@@ -17,13 +17,13 @@ export default class ErtonghaoDanxuan extends K3 {
     constructor(props) {
         super(props);
 
-        this.ballSpecialTitle = ['11','22','33','44','55','66'];
+        this.ballSpecialTitle = ['','11','22','33','44','55','66'];
     }
 
     //设置球排列
     setBalls = () => [
-        [-1,-1,-1,-1,-1,-1],
-        [-1,-1,-1,-1,-1,-1],
+        [-1,-1,-1,-1,-1,-1,-1],
+        [-1,-1,-1,-1,-1,-1,-1],
     ];
 
     //设置rowtitle
@@ -97,6 +97,7 @@ export default class ErtonghaoDanxuan extends K3 {
                 return <View key={i} style={styles.gameRow} >
                     <View style={styles.gameRowTitle}><Text style={styles.gameRowTitleText}>{v}</Text></View>
                     { i < 1 ? me.buildSpecialBalls(i) : me.buildBalls(i)}
+                    { i >= 1 ? me.buildBallOperates(i) : null}
                 </View>
             })}
         </View>

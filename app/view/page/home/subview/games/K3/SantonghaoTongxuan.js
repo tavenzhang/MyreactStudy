@@ -7,7 +7,8 @@ export default class SantonghaoDanxuan extends K3 {
 
     constructor(props) {
         super(props);
-        this.state.rowBallNumber = 5; //一行几个球
+        this.ballFirstStart = 0;
+        this.isShowOperate = false;
     }
 
     //设置球排列
@@ -19,6 +20,16 @@ export default class SantonghaoDanxuan extends K3 {
 
     //设置rowtitle
     setRowTitle = () => ['选球'];
+
+    setBallData(x, y, value) {
+        const me = this;
+        const {balls} = this.state;
+        const data = balls;
+        if (y >= 0 && y < data.length && x >= 0) {
+            data[y][x] = value;
+            this.setState({balls: data});
+        }
+    }
 
     formatViewBalls(original){
         let me = this,

@@ -8,6 +8,8 @@ export default class SantonghaoDanxuan extends K3 {
     constructor(props) {
         super(props);
         this.state.rowBallNumber = 5; //一行几个球
+        this.ballFirstStart = 0;
+        this.isShowOperate = false;
         this.ballTextArray = ['123', '124', '125', '126', '134', '135', '136', '145',  '146', '156', '234', '235', '236', '245', '246', '256', '345', '346', '356', '456'];
     }
 
@@ -21,6 +23,15 @@ export default class SantonghaoDanxuan extends K3 {
     //设置rowtitle
     setRowTitle = () => ['选球'];
 
+    setBallData(x, y, value) {
+        const me = this;
+        const {balls} = this.state;
+        const data = balls;
+        if (y >= 0 && y < data.length && x >= 0) {
+            data[y][x] = value;
+            this.setState({balls: data});
+        }
+    }
 
     checkBallIsComplete(){
         let me = this,

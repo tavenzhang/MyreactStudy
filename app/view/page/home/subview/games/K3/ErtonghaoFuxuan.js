@@ -7,18 +7,17 @@ export default class ErtonghaoFuxuan extends K3 {
 
     constructor(props) {
         super(props);
-
     }
 
     //设置球排列
     setBalls = () => [
-        [-1,-1,-1,-1,-1,-1]
+        [-1,-1,-1,-1,-1,-1,-1]
     ];
 
     //设置rowtitle
     setRowTitle = () => ['选球'];
 
-    setBallText = () => ['11*','22*','33*','44*','55*','66*'];
+    setBallText = () => ['','11*','22*','33*','44*','55*','66*'];
 
     checkBallIsComplete(){
         var me = this,
@@ -39,14 +38,13 @@ export default class ErtonghaoFuxuan extends K3 {
     }
 
     formatViewBalls(original) {
-        var me = this,
+        let me = this,
             result = [],
             len = original[0].length,
-            has = {'0': '11*', '1': '22*', '2': '33*', '3': '44*', '4': '55*', '5': '66*'},
             i = 0;
 
         for (; i < len; i++) {
-            result.push(has['' + original[0][i]]);
+            result.push(me.state.ballText[original[0][i]]);
         }
 
         result = result.join('|');

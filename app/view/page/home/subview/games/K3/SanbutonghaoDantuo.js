@@ -12,8 +12,8 @@ export default class ErbutonghaoDantuo extends K3 {
 
     //设置球排列
     setBalls = () => [
-        [-1,-1,-1,-1,-1,-1],
-        [-1,-1,-1,-1,-1,-1]
+        [-1,-1,-1,-1,-1,-1,-1],
+        [-1,-1,-1,-1,-1,-1,-1]
     ];
 
     //设置rowtitle
@@ -24,6 +24,9 @@ export default class ErbutonghaoDantuo extends K3 {
         const data = me.state.balls;
         let xLen = 0;
 
+        if(x==0) {
+            return false;
+        }
         for (let val in data[0]) {
             if(data[0][val] > 0){
                 xLen++;
@@ -58,7 +61,7 @@ export default class ErbutonghaoDantuo extends K3 {
         for(let k=0; k<original.length; k++) {
             tempArr[k]  = [];
             for(let j=0; j<original[k].length; j++) {
-                tempArr[k][j] = original[k][j] + 1;
+                tempArr[k][j] = original[k][j];
             }
         }
 

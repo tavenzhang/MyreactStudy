@@ -7,15 +7,15 @@ export default class SanlianhaoTongxuan extends K3 {
 
     constructor(props) {
         super(props);
-        this.state.rowBallNumber = 5; //一行几个球
+        this.isShowOperate = false;
     }
 
     //设置球排列
     setBalls = () => [
-        [-1]
+        [-1,-1]
     ];
 
-    setBallText = () => ['通选'];
+    setBallText = () => ['','通选'];
 
     //设置rowtitle
     setRowTitle = () => ['选球'];
@@ -29,7 +29,7 @@ export default class SanlianhaoTongxuan extends K3 {
             result = result.concat(original[i].join('|'));
         }
         result = result.join('|');
-        return result.replace('0', '通选');
+        return result.replace('1', '通选');
     }
 
     //获取总注数/获取组合结果
@@ -44,7 +44,7 @@ export default class SanlianhaoTongxuan extends K3 {
 
         //校验当前的面板
         //获取选中数字
-        if(ball[0] > 0){
+        if(ball[1] > 0){
             nr = [0]
         }
         return nr;

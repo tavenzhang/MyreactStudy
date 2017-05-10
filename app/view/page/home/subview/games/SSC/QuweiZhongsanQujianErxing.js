@@ -1,5 +1,5 @@
 /**
- * Created by soga on 2017/5/3.
+ * Created by soga on 2017/5/4.
  */
 import React, {Component} from 'react';
 import {
@@ -11,7 +11,7 @@ import {
 import Ball from "../../../../../componet/game/Ball";
 import SSC from "./SSC";
 
-export default class QuweiSimaSanxing extends SSC {
+export default class QuweiZhongsanQujianErxing extends SSC {
 
     constructor(props) {
         super(props);
@@ -20,14 +20,13 @@ export default class QuweiSimaSanxing extends SSC {
 
     //设置球排列
     setBalls = () => [
-        [-1,-1],
+        [-1,-1,-1,-1,-1],
         [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
-        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
     ];
 
     //设置rowtitle
-    setRowTitle = () => ['万位','千位','百位'];
-
+    setRowTitle = () => ['千位','百位','十位'];
 
     formatViewBalls(original){
         let me = this,
@@ -35,7 +34,7 @@ export default class QuweiSimaSanxing extends SSC {
             len = original.length,
             i = 0,
             tempArr = [],
-            names = ['小','大'];
+            names = ['一区','二区','三区','四区','五区'];
         for (; i < len; i++) {
             if(i == 0){
                 tempArr = [];
@@ -93,7 +92,7 @@ export default class QuweiSimaSanxing extends SSC {
             if(rows == ballTitleLen) {
                 const ballWidth = (GlobelTheme.screenWidth - 20) / me.state.rowBallNumber;
                 return <View style={styles.ballBox}>
-                    {['小','大'].map((v,i) => {
+                    {['一区(0,1)', '二区(2,3)', '三区(4,5)', '四区(6,7)', '五区(8,9)'].map((v,i) => {
                         return <View  style={[styles.ballBtnBox,{width:ballWidth}]} key={i} >
                             <Ball
                                 text={v}
@@ -101,6 +100,7 @@ export default class QuweiSimaSanxing extends SSC {
                                 value={i}
                                 status={balls[row][i]}
                                 onPress={(x,y,v)=>me.selectBall(x,y,v)}
+                                textStyle={styles.ballText}
                                 />
                         </View>
                     })}
@@ -175,6 +175,10 @@ const styles = StyleSheet.create({
         marginTop:10,
         marginBottom:5,
         //justifyContent: 'space-between'
-    }
+    },
 
+    ballText: {
+        fontWeight: 'bold',
+        fontSize: 12
+    }
 });

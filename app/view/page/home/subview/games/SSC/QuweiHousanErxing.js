@@ -92,7 +92,7 @@ export default class QuweiHousanErxing extends SSC {
             if(rows == ballTitleLen) {
                 const ballWidth = (GlobelTheme.screenWidth - 20) / me.state.rowBallNumber;
                 return <View style={styles.ballBox}>
-                    {['大','小'].map((v,i) => {
+                    {['小','大'].map((v,i) => {
                         return <View  style={[styles.ballBtnBox,{width:ballWidth}]} key={i} >
                             <Ball
                                 text={v}

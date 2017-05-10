@@ -11,7 +11,7 @@ import {
 import Ball from "../../../../../componet/game/Ball";
 import SSC from "./SSC";
 
-export default class QuweiSimaSanxing extends SSC {
+export default class QuweiZhongsanErxing extends SSC {
 
     constructor(props) {
         super(props);
@@ -26,7 +26,7 @@ export default class QuweiSimaSanxing extends SSC {
     ];
 
     //设置rowtitle
-    setRowTitle = () => ['万位','千位','百位'];
+    setRowTitle = () => ['千位','百位','十位'];
 
 
     formatViewBalls(original){
@@ -93,7 +93,7 @@ export default class QuweiSimaSanxing extends SSC {
             if(rows == ballTitleLen) {
                 const ballWidth = (GlobelTheme.screenWidth - 20) / me.state.rowBallNumber;
                 return <View style={styles.ballBox}>
-                    {['小','大'].map((v,i) => {
+                    {['大','小'].map((v,i) => {
                         return <View  style={[styles.ballBtnBox,{width:ballWidth}]} key={i} >
                             <Ball
                                 text={v}

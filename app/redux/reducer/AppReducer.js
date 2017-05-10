@@ -19,8 +19,10 @@ const initAppState = fromJS({
     playModel: new PlayModel(),
     typesModel:new MobileTypes(),
     bankCityModel:new BankCityModel(),
-    cardList:[]
+    cardList:[],
+    moneyBalance:0
 })
+
 const appState = (state = initAppState, action) => {
     switch (action.type) {
         case ActionType.AppType.SHOW_LOADING :
@@ -35,15 +37,17 @@ const appState = (state = initAppState, action) => {
                 fail: false,
                 success: true
             });
+        case ActionType.AppType.MONEY_ACCOUNT__CHANGE:
+            return state.merge({moneyBalance:Number(action.httpResult.available)});
         case ActionType.AppType.LOGIN_RESULT:
             AppData.userData = action.data;
             AppData.isLogined = true;
             action.data.isLogined=true;
-            return state.merge({userData: action.data})
+            return state.merge({userData: action.data,moneyBalance:Number(action.data.data.available)});
         case ActionType.AppType.LOG_OUT:
             AppData.userData = null;
             AppData.isLogined = false;
-            return state.merge({userData: {isLogined:false}})
+            return state.merge({userData: {isLogined:false},moneyBalance:0});
         case ActionType.AppType.SHOW_INFOBOX:
             return state.merge({infoBox: {
                     show: true,

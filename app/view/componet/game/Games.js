@@ -35,6 +35,9 @@ export default class Games extends Component {
             lotterys: [],
             rowBallNumber: 5, //一行几个球
         };
+        this.ballSpecialTitle = [];
+        this.ballFirstStart = 0;
+        this.isShowOperate = true;
         this.buildBalls = this.buildBalls.bind(this);
         this.buildSpecialBalls = this.buildSpecialBalls.bind(this);
         this.buildUI    = this.buildUI.bind(this);
@@ -192,15 +195,17 @@ export default class Games extends Component {
                 const ballWidth = (GlobelTheme.screenWidth - 20) / me.state.rowBallNumber;
                 return <View style={styles.ballBox}>
                     {ballText.map((v,i) => {
-                        return <View  style={[styles.ballBtnBox,{width:ballWidth}]} key={i} >
-                            <Ball
-                                text={v}
-                                row={row}
-                                value={i}
-                                status={balls[row][i]}
-                                onPress={(x,y,v)=>me.selectBall(x,y,v)}
-                                />
-                        </View>
+                        if(i >= me.ballFirstStart) {
+                            return <View  style={[styles.ballBtnBox,{width:ballWidth}]} key={i} >
+                                <Ball
+                                    text={v}
+                                    row={row}
+                                    value={i}
+                                    status={balls[row][i]}
+                                    onPress={(x,y,v)=>me.selectBall(x,y,v)}
+                                    />
+                            </View>
+                        }
                     })}
                 </View>
             }
@@ -214,7 +219,38 @@ export default class Games extends Component {
     }
 
     buildSpecialBalls(row) {
-        return null;
+        const me = this;
+        const {balls,rowTitle} = this.state;
+        if(balls.length > 0 && me.ballSpecialTitle.length > 0) {
+            const rows = balls.length,
+                ballTitleLen = rowTitle.length;
+
+            if(rows == ballTitleLen) {
+                const ballWidth = (GlobelTheme.screenWidth - 20) / me.state.rowBallNumber;
+                return <View style={styles.ballBox}>
+                    {me.ballSpecialTitle.map((v,i) => {
+                        if(i >= me.ballFirstStart) {
+                            return <View style={[styles.ballBtnBox,{width:ballWidth}]} key={i}>
+                                <Ball
+                                    text={v}
+                                    row={row}
+                                    value={i}
+                                    status={balls[row][i]}
+                                    onPress={(x,y,v)=>me.selectBall(x,y,v)}
+                                    //textStyle={styles.ballText}
+                                    />
+                            </View>
+                        }
+                    })}
+                </View>
+            }
+            else {
+                return null;
+            }
+        }
+        else {
+            return null;
+        }
     }
 
     buildBallOperates(row){
@@ -236,7 +272,7 @@ export default class Games extends Component {
                         return <View key={i} style={styles.gameRow} >
                                     <View style={styles.gameRowTitle}><Text style={styles.gameRowTitleText}>{v}</Text></View>
                                     {me.buildBalls(i)}
-                                    {me.buildBallOperates(i)}
+                                    { me.isShowOperate ? me.buildBallOperates(i) : null}
                                 </View>
                     })}
                 </View>
@@ -363,23 +399,11 @@ export default class Games extends Component {
                 }
             }
             if (isEmptySelect) {
-                this.setState({isBallsComplete: false});
                 return [];
             }
             //计算注数
             total *= rowNum;
         }
-        this.setState({isBallsComplete: true});
-        //返回注数
-        //if (isGetNum) {
-        //    return total;
-        //}
-        //if (me.state.isBallsComplete) {
-        //    //组合结果
-        //    return me.combination(result);
-        //} else {
-        //    return [];
-        //}
         return me.combination(result);
     }
 
@@ -393,6 +417,7 @@ export default class Games extends Component {
 
         const orderData = lotterys.length ? me.getResultData(lotterys) : null;
 
+        TLog('=======orderData=======>>>>>>>>>>>',orderData)
         //加入购彩篮
         if(orderData) {
             ActDispatch.GameAct.addOrderToBasket(orderData);
@@ -479,8 +504,11 @@ export default class Games extends Component {
     }
 
     formatViewBalls(original) {
-        let me = this,
-            result = [],
+        return this.makePostParameter(original);
+    }
+
+    makePostParameter(original){
+        let result = [],
             len = original.length,
             i = 0;
         for (; i < len; i++) {
@@ -505,7 +533,7 @@ export default class Games extends Component {
             //lotterys:lotterys,
             amount:lotterys.length * onePrice * multiple * moneyUnit,
             wayId: currentGameWay.id,
-            ball:me.formatViewBalls(lotterysOriginal),
+            ball:me.makePostParameter(lotterysOriginal),
             viewBalls:me.formatViewBalls(lotterysOriginal),
             num:lotterys.length,
             prize_group:prize_group,

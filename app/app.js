@@ -5,6 +5,7 @@ import {
     StatusBar,
     Platform,
     BackAndroid,
+    UIManager
 } from 'react-native';
 import  style from "./global/config/style";
 import  server from "./global/config/server";
@@ -46,6 +47,10 @@ export default class App extends React.Component {
     componentWillMount() {
         if (Platform.OS === 'android') {
             BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
+        }
+        //andorid setLayoutAnimatio 必须加入
+        if (Platform.OS === 'android') {
+            UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
         }
     }
 

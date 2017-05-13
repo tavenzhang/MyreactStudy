@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{PropTypes} from 'react';
 import {
     StyleSheet,
     View,
@@ -11,6 +11,10 @@ import {home_game} from "../../assets/index";
 
 
 export default class MyBannerSwiper extends React.Component {
+
+    static propTypes={
+        dataList:PropTypes.array
+    }
 
     render() {
         const {dataList}= this.props

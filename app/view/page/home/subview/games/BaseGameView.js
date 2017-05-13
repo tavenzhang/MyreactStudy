@@ -151,7 +151,6 @@ export default class BaseGameView extends BaseView {
             ActDispatch.AppAct.showBox(`当前第${this.state.currentNumber}期已经结束，新一期即将开始!`);
             this.requetGameData();
         }
-        clearInterval(this.timeId);
     }
 
     clickMenuItem = (data) => {

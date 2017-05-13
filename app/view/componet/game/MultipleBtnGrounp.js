@@ -70,6 +70,7 @@ export default class MultipleBtnGrounp extends React.Component {
                         }}
                         defaultValue={multiple.toString()}
                         keyboardType='numeric'
+                        underlineColorAndroid={'transparent'}
                         />
                     <Text>倍</Text>
                 </View>
@@ -129,7 +130,7 @@ const styles = StyleSheet.create({
     },
 
     textInput: {
-        height: 30,
+        height: 40,
         width: 70,
         textAlign: 'center',
         marginLeft: 5,

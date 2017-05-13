@@ -46,6 +46,7 @@ export default class LoginView extends BaseView {
                             value={this.state.nameText}
                             placeholder={"输入账号"}
                             autoFocus={true}
+                            underlineColorAndroid={'transparent'}
                         />
                     </View>
                     <View style={styles.inputContain}>
@@ -57,6 +58,7 @@ export default class LoginView extends BaseView {
                             placeholder={"密码"}
                             secureTextEntry={true}
                             multiline={false}
+                            underlineColorAndroid={'transparent'}
                         />
                     </View>
                     <Button
@@ -109,7 +111,8 @@ const styles = StyleSheet.create({
     textStyle: {
         width: 150,
         left: 10,
-        fontSize: 14
+        fontSize: 14,
+        height:40
     },
     iconUser: {
         color: GlobelTheme.grayDeep,
@@ -128,7 +131,7 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start",
         alignItems: "center",
         borderColor: 'gray',
-        borderBottomWidth: 0.2,
+        borderBottomWidth: 0.5,
     }
 });
 

@@ -12,6 +12,7 @@ import GameList from "./subview/GameList";
 import MyBannerSwiper from "../../componet/MyBannerSwiper";
 import {HeaderLeftDomain} from "../../componet/navBarMenu/HeaderMenu";
 
+
 const mapStateToProps = state => {
     return {
         bannerList: state.get("homeState").get("gameModel"),

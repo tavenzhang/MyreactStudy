@@ -67,7 +67,7 @@ export default class BannerView extends BaseView {
         let {series_id} = this.props
         let ballText = this.getFormatBallText(series_id,rowDataArr[1]);
         return (
-            <View style={{flexDirection: "row", backgroundColor: bgColor}}>
+            <View key={`${row}`}  style={{flexDirection: "row", backgroundColor: bgColor}}>
                 <Text>{`${rowDataArr[0]}期号码    ${ballText}`}</Text>
             </View>
         );

@@ -103,9 +103,10 @@ global.NavViews = NavViews;
 
 const NavUtil = {
     pushToView: (data) => {
-        InteractionManager.runAfterInteractions(() => {
-            Navgator.push(data);
-        });
+        Navgator.push(data);
+        // InteractionManager.runAfterInteractions(() => {
+        //     Navgator.push(data);
+        // });
     },
     replace: (data) => {
         InteractionManager.runAfterInteractions(() => {
@@ -118,9 +119,10 @@ const NavUtil = {
         });
     },
     pop: () => {
-        InteractionManager.runAfterInteractions(() => {
-            Navgator.pop()
-        });
+        Navgator.pop()
+        // InteractionManager.runAfterInteractions(() => {
+        //     Navgator.pop()
+        // });
 
     },
     popN: (n = 1) => {

@@ -27,12 +27,14 @@ export default class Notice extends BaseView {
 
     componentDidMount() {
         if (this.state.dataList.length <= 0) {
-            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.GET_LIST_SYSTEM, (result) => {
-                if (result.data.data) {
-                    let arr = this.state.dataList.concat(result.data.data);
-                    this.setState({dataList: arr});
-                }
-            });
+            RunAfterInteractions(()=>{
+                ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.GET_LIST_SYSTEM, (result) => {
+                    if (result.data.data) {
+                        let arr = this.state.dataList.concat(result.data.data);
+                        this.setState({dataList: arr});
+                    }
+                });
+            })
         }
     }
 

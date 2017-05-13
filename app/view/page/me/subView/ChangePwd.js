@@ -43,6 +43,7 @@ export default class ChangePwd extends BaseView {
                     placeholder={this.state.selectedTabIndex ? "原资金密码" : "原登陆密码"}
                     secureTextEntry={true}
                     autoFocus={true}
+                    underlineColorAndroid={'transparent'}
                 />
             </View>)
 
@@ -67,6 +68,7 @@ export default class ChangePwd extends BaseView {
                             maxLength={9}
                             placeholder={this.state.selectedTabIndex ? "新资金密码" : "新登陆密码"}
                             secureTextEntry={true}
+                            underlineColorAndroid={'transparent'}
                         />
                     </View>
                     <View style={styles.inputContain}>
@@ -78,6 +80,7 @@ export default class ChangePwd extends BaseView {
                             maxLength={9}
                             placeholder={"确认密码"}
                             secureTextEntry={true}
+                            underlineColorAndroid={'transparent'}
                         />
                     </View>
                     <Button
@@ -185,7 +188,8 @@ const styles = StyleSheet.create({
     textStyle: {
         width: 150,
         left: 10,
-        fontSize: 14
+        fontSize: 16,
+        height:40
     },
     iconUser: {
         color: GlobelTheme.gray,
@@ -205,6 +209,6 @@ const styles = StyleSheet.create({
         justifyContent: "flex-start",
         alignItems: "center",
         borderColor: 'gray',
-        borderBottomWidth: 0.2
+        borderBottomWidth: 0.5
     }
 });

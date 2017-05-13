@@ -1,4 +1,4 @@
-import React ,{PropTypes}from 'react';
+import React, {PropTypes}from 'react';
 import {
     View,
     Text,
@@ -13,15 +13,14 @@ export default class HeadMenuListView extends React.Component {
     static propTypes = {
         rootStyle: View.propTypes.style,
         onHeadPressed: PropTypes.func,
-        menuDataList:PropTypes.array,
-        isShowMenu:PropTypes.bool,
-        clickMenuItem:PropTypes.func,
-        selectItem:PropTypes.any
+        menuDataList: PropTypes.array,
+        clickMenuItem: PropTypes.func,
+        selectItem: PropTypes.any
     }
 
     constructor(props) {
         super(props);
-        this.state= {
+        this.state = {
             dataSource: new ListView.DataSource({
                 rowHasChanged: (r1, r2) => r1 !== r2,
             }),
@@ -29,10 +28,10 @@ export default class HeadMenuListView extends React.Component {
     }
 
 
-    render(){
-        let {menuDataList,isShowMenu,rootStyle} =this.props
+    render() {
+        let {menuDataList, rootStyle} = this.props
         let ds = this.state.dataSource.cloneWithRows(menuDataList);
-      return isShowMenu ? (<View style={rootStyle}>
+        return (<View style={rootStyle}>
             <View style={{flex: 2}}>
                 <ListView
                     dataSource={ds}
@@ -44,7 +43,7 @@ export default class HeadMenuListView extends React.Component {
                 flex: 1,
                 backgroundColor: GlobelTheme.halfGrayAlpha
             }}/></TouchableWithoutFeedback>
-        </View>):null
+        </View>)
     }
 
     _renderRow = (rowData) => {
@@ -62,20 +61,20 @@ export default class HeadMenuListView extends React.Component {
                     flexWrap: "wrap"
                 }}>
                     {rowData.children.map((item, index) => {
-                            let selectItemStyle = null
-                            if (this.props.selectItem && this.props.selectItem.id == item.id) {
-                                selectItemStyle = {borderWidth: 1, backgroundColor: "yellow"};
-                            }
-                            return (<TouchableHighlight key={index * 999} onPress={() => this.props.clickMenuItem(item)}
-                                                        underlayColor='rgba(10,10,10,0.2)'>
-                                <View style={[{
-                                    padding: 5,
-                                    marginHorizontal: 5,
-                                    marginBottom: 1
-                                }, selectItemStyle]}><Text>{item.name}</Text>
-                                </View>
-                            </TouchableHighlight>)
-                        })
+                        let selectItemStyle = null
+                        if (this.props.selectItem && this.props.selectItem.id == item.id) {
+                            selectItemStyle = {borderWidth: 1, backgroundColor: "yellow"};
+                        }
+                        return (<TouchableHighlight key={index * 999} onPress={() => this.props.clickMenuItem(item)}
+                                                    underlayColor='rgba(10,10,10,0.2)'>
+                            <View style={[{
+                                padding: 5,
+                                marginHorizontal: 5,
+                                marginBottom: 1
+                            }, selectItemStyle]}><Text>{item.name}</Text>
+                            </View>
+                        </TouchableHighlight>)
+                    })
                     }
                 </View>
             </View>

@@ -11,14 +11,13 @@ import {connect} from 'react-redux';
 //import Loading from "../../../componet/Loading";
 import BaseView from "../../../componet/BaseView";
 
-const mapStateToProps = state => {
-    return {
-       // isLoading: state.fetchState.requesting || state.appState.requesting,
-    }
-}
-
-
-@connect(mapStateToProps)
+// const mapStateToProps = state => {
+//     return {
+//        // isLoading: state.fetchState.requesting || state.appState.requesting,
+//     }
+// }
+//
+// @connect(mapStateToProps)
 export default class ADView extends BaseView {
 
     getNavigationBarProps(){

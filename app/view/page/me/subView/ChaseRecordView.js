@@ -236,13 +236,15 @@ export default class ChaseRecordView extends BaseView {
         }
 
         HTTP_SERVER.CHASE_RECODE.body.pagesize = 20;
-        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.CHASE_RECODE, (result) => {
-            if (callBack) {
-                callBack()
-            }
-            let arr =this.state.dataList.concat(result.data.data);
-            this.setState({dataList: arr});
-        }, false);
+        RunAfterInteractions(()=>{
+            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.CHASE_RECODE, (result) => {
+                if (callBack) {
+                    callBack()
+                }
+                let arr =this.state.dataList.concat(result.data.data);
+                this.setState({dataList: arr});
+            }, false);
+        })
     }
 }
 

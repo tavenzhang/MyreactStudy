@@ -7,6 +7,8 @@ import {
 } from 'react-native';
 
 import Swiper from 'react-native-swiper';
+import {home_game} from "../../assets/index";
+
 
 export default class MyBannerSwiper extends React.Component {
 
@@ -30,9 +32,14 @@ export default class MyBannerSwiper extends React.Component {
                         <TouchableOpacity key={i} activeOpacity={0.75} onPress={()=>{
                             this.bannerClick(banner);
                         }}>
+                            {/*<Image*/}
+                                {/*style={styles.bannerImage}*/}
+                                {/*source={{uri: banner.url}}*/}
+                                {/*key={i}*/}
+                            {/*/>*/}
                             <Image
                                 style={styles.bannerImage}
-                                source={{uri: banner.url}}
+                                source={home_game}
                                 key={i}
                             />
                         </TouchableOpacity>

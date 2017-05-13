@@ -1,4 +1,4 @@
-import { NativeModules,Platform } from 'react-native';
+import { NativeModules,Platform ,InteractionManager} from 'react-native';
 let IOSLog=NativeModules.IOSLog;
 
 
@@ -62,7 +62,6 @@ const DateUtil={
 
 global.DateUtil = DateUtil;
 
-
 const StringUtil={
     //2017-02-22  15:47:00
     formatBankCard:(str)=>{
@@ -74,6 +73,20 @@ const StringUtil={
 }
 global.StringUtil=StringUtil;
 
+
+runAfterInteractions=(func)=>{
+    if(func)
+    {
+        InteractionManager.runAfterInteractions(()=>{
+            if(func)
+            {
+                func();
+            }
+        })
+    }
+
+}
+global.RunAfterInteractions=runAfterInteractions
 /**
  * 打印
  */

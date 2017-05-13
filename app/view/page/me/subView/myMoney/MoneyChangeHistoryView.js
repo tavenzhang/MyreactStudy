@@ -3,7 +3,8 @@ import {
     View,
     Text, StyleSheet,
     TouchableHighlight,
-    LayoutAnimation
+    LayoutAnimation,
+    InteractionManager
 } from 'react-native';
 
 import MyListView from "../../../../componet/BaseListView";
@@ -52,11 +53,14 @@ export default class MoneyChangeHistoryView extends React.Component {
         httpService.body.pagesize = 15;
 
         this.timeId=setTimeout(()=>{
-            ActDispatch.FetchAct.fetchVoWithResult(httpService, (result) => {
-                if (result.data.data) {
+            InteractionManager.runAfterInteractions(() => {
+                ActDispatch.FetchAct.fetchVoWithResult(httpService, (result) => {
+                    if (result.data.data) {
                         this.setState({dataList: result.data.data});
-                }
-            })
+                    }
+                })
+            });
+
         },1000)
 
     }

@@ -60,11 +60,11 @@ export default class BaseGameView extends BaseView {
         };
     }
 
-    onRightPressed() {
+    onRightPressed=()=>{
         this.refs.moreMenu.toggle();
     }
 
-    onHeadPressed() {
+    onHeadPressed=()=>{
         this.setState({isShowMenu: !this.state.isShowMenu});
     }
 
@@ -77,9 +77,6 @@ export default class BaseGameView extends BaseView {
         let menuDataList = this.getMoreMenuData();
         return (defaultMethodId > 0) ? (
             <View style={GlobeStyle.appContentView}>
-                <HeadMenuListView selectItem={this.state.selectItem} onHeadPressed={this.onHeadPressed}
-                                  menuDataList={this.firstMenu} isShowMenu={this.state.isShowMenu}
-                                  clickMenuItem={this.clickMenuItem} rootStyle={styles.firstMenuContain}/>
                 <BannerView dateHistoryList={this.state.history_lotterys} time={dim} prize={currentGameWay.prize} series_id={series_id}  currentNumber={currentNumber}/>
                 {subView}
                 <MoreMenu
@@ -89,6 +86,9 @@ export default class BaseGameView extends BaseView {
                     onMoreMenuSelect={this.onMoreMenuSelect}
                     buttonRect={{x: GlobelTheme.screenWidth - 60, y: -50, width: 40, height: 40}}
                 />
+                {this.state.isShowMenu&&<HeadMenuListView selectItem={this.state.selectItem} onHeadPressed={this.onHeadPressed}
+                                                          menuDataList={this.firstMenu}
+                                                          clickMenuItem={this.clickMenuItem} rootStyle={styles.firstMenuContain}/>}
             </View>
         ) : null
     }
@@ -96,7 +96,7 @@ export default class BaseGameView extends BaseView {
 
     componentDidMount() {
         this.requetGameData();
-        HttpUtil.flushMoneyBalance();
+       // HttpUtil.flushMoneyBalance();
     }
 
     componentWillUnmount() {
@@ -106,36 +106,38 @@ export default class BaseGameView extends BaseView {
     requetGameData = () => {
         const {id} = this.props.passProps
         HTTP_SERVER.GET_GAME_DETAIL.url = HTTP_SERVER.GET_GAME_DETAIL.formatUrl.replace(/#id/g, id);
-        ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.GET_GAME_DETAIL, ActionType.GameType.SET_GAMECONFIG, data => {
-            const pd = data.data;
-            this.setState({
-                bet_max_prize_group: parseInt(pd.bet_max_prize_group),
-                bet_min_prize_group: parseInt(pd.bet_min_prize_group),
-                user_prize_group: parseInt(pd.user_prize_group),
-                defaultMethod_cn: pd.defaultMethod_cn,
-                defaultMethodId: pd.defaultMethodId,
-                currentNumber: pd.currentNumber,
-                currentNumberTime: pd.currentNumberTime,
-                currentTime: pd.currentTime,
-                gameNumbers: pd.gameNumbers,
-                diff_grize_group: parseInt(pd.diff_grize_group),
-                noIssue: pd.noIssue,
-                series_identifier: pd.series_identifier,
-                series_amount: pd.series_amount,
-                traceMaxTimes: pd.traceMaxTimes,
-                history_lotterys: pd.history_lotterys.split(","),
-            });
-            let dim = (this.state.currentNumberTime - this.state.currentTime);
-            clearInterval(this.timeId);
-            if (dim > 0) {
-                this.timeId = setInterval(this.countTime, 1000);
-            }
-            //const {defaultMethodId} = this.state;
-            if (!this.state.selectItem && pd.defaultMethodId) {
-                const defaultGame = {"id": pd.defaultMethodId + '', "name": pd.defaultMethod_cn}
-                this.clickMenuItem(defaultGame);
-            }
-        }, false);
+        RunAfterInteractions(()=>{
+            ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.GET_GAME_DETAIL, ActionType.GameType.SET_GAMECONFIG, data => {
+                const pd = data.data;
+                this.setState({
+                    bet_max_prize_group: parseInt(pd.bet_max_prize_group),
+                    bet_min_prize_group: parseInt(pd.bet_min_prize_group),
+                    user_prize_group: parseInt(pd.user_prize_group),
+                    defaultMethod_cn: pd.defaultMethod_cn,
+                    defaultMethodId: pd.defaultMethodId,
+                    currentNumber: pd.currentNumber,
+                    currentNumberTime: pd.currentNumberTime,
+                    currentTime: pd.currentTime,
+                    gameNumbers: pd.gameNumbers,
+                    diff_grize_group: parseInt(pd.diff_grize_group),
+                    noIssue: pd.noIssue,
+                    series_identifier: pd.series_identifier,
+                    series_amount: pd.series_amount,
+                    traceMaxTimes: pd.traceMaxTimes,
+                    history_lotterys: pd.history_lotterys.split(","),
+                });
+                let dim = (this.state.currentNumberTime - this.state.currentTime);
+                clearInterval(this.timeId);
+                if (dim > 0) {
+                    this.timeId = setInterval(this.countTime, 1000);
+                }
+                //const {defaultMethodId} = this.state;
+                if (!this.state.selectItem && pd.defaultMethodId) {
+                    const defaultGame = {"id": pd.defaultMethodId + '', "name": pd.defaultMethod_cn}
+                    this.clickMenuItem(defaultGame);
+                }
+            }, false);
+        })
     }
 
     //倒计时显示
@@ -149,6 +151,7 @@ export default class BaseGameView extends BaseView {
             ActDispatch.AppAct.showBox(`当前第${this.state.currentNumber}期已经结束，新一期即将开始!`);
             this.requetGameData();
         }
+        clearInterval(this.timeId);
     }
 
     clickMenuItem = (data) => {

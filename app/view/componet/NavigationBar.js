@@ -9,7 +9,6 @@ import {
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 export const Header_Arrow = "angle-left";
-const top_title = Platform.OS === 'ios' ? 10 : 0
 
 export default class NavigationBar extends React.Component {
 
@@ -107,7 +106,7 @@ const styles = StyleSheet.create({
     },
     subView:{
         flex: 1,
-        paddingTop:15
+        marginTop:GlobelTheme.StatusBarH
     },
     titleContain: {
         flex: 1,

@@ -45,7 +45,6 @@ export  default class GameList extends React.Component {
                 showsPagination={true}
                 pagingEnabled={true}
                 paginationStyle={{ bottom: 10}}
-                style={{}}
             >
                 {newList.map((item, i) => {
                     return (

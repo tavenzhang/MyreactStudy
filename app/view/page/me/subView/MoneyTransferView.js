@@ -44,6 +44,7 @@ export default class MoneyTransferView extends BaseView {
                                 placeholder={"直属下级(代理或玩家)"}
                                 keyboardType={"default"}
                                 autoCapitalize={"none"}
+                                underlineColorAndroid={'transparent'}
 
                             />
                         </View>
@@ -56,6 +57,7 @@ export default class MoneyTransferView extends BaseView {
                                 maxLength={20}
                                 placeholder={"转账金额"}
                                 keyboardType={"numeric"}
+                                underlineColorAndroid={'transparent'}
                             />
                         </View>
                         <View style={styles.inputContain}>
@@ -67,6 +69,7 @@ export default class MoneyTransferView extends BaseView {
                                 maxLength={8}
                                 placeholder={"资金密码"}
                                 secureTextEntry={true}
+                                underlineColorAndroid={'transparent'}
                             />
                         </View>
                         <View style={styles.inputContain}>
@@ -88,6 +91,7 @@ export default class MoneyTransferView extends BaseView {
                                 maxLength={20}
                                 keyboardType={"numeric"}
                                 placeholder={"请输入验证银行卡完整卡号"}
+                                underlineColorAndroid={'transparent'}
                             />
                         </View>
                         <Button
@@ -159,7 +163,8 @@ const styles = StyleSheet.create({
     textStyle: {
         width: 150,
         left: 10,
-        fontSize: 14
+        fontSize: 14,
+        height:40
     },
     iconUser: {
         color: GlobelTheme.gray,

@@ -1,9 +1,6 @@
 import React, {PropTypes}from 'react';
 import {
-    View,
-    Text,
     StyleSheet,
-    ScrollView,
 } from 'react-native';
 import BaseView from "../../../../../componet/BaseView";
 import {TabViewAnimated, TabBar} from 'react-native-tab-view';
@@ -13,7 +10,7 @@ import Game_SSC_TREND from "./Game_SSC_TREND";
 export default class SSCTrend extends BaseView {
 
     static propTypes={
-        lotteryId:PropTypes.string
+        lotteryId:PropTypes.any
     }
 
     constructor(props) {
@@ -37,7 +34,6 @@ export default class SSCTrend extends BaseView {
         };
     }
 
-
     render() {
         return (
             <TabViewAnimated
@@ -54,14 +50,16 @@ export default class SSCTrend extends BaseView {
     componentDidMount() {
         const {lotteryId} = this.props;
         HTTP_SERVER.TREND_DATA.url = HTTP_SERVER.TREND_DATA.formatUrl.replace(/{#lid}/, lotteryId).replace(/{#type}/, 5)
-        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.TREND_DATA, (data) => {
-            this.setState({
-                firstList: this.getDataByPosition(data, 0),
-                secondList: this.getDataByPosition(data, 1),
-                thirdList: this.getDataByPosition(data, 2),
-                fourList: this.getDataByPosition(data, 3),
-                fiveList: this.getDataByPosition(data, 4),
-                mixList:this.getDataByPosition(data, 5,true)
+        RunAfterInteractions(()=>{
+            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.TREND_DATA, (data) => {
+                this.setState({
+                    firstList: this.getDataByPosition(data, 0),
+                    secondList: this.getDataByPosition(data, 1),
+                    thirdList: this.getDataByPosition(data, 2),
+                    fourList: this.getDataByPosition(data, 3),
+                    fiveList: this.getDataByPosition(data, 4),
+                    mixList:this.getDataByPosition(data, 5,true)
+                })
             })
         })
     }

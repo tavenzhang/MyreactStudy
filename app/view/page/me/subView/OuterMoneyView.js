@@ -228,6 +228,7 @@ const styles = StyleSheet.create({
         width: 180,
         left: 10,
         fontSize: 14,
+        height:40
     },
     textLeft:{
         color:GlobelTheme.grayDeep,

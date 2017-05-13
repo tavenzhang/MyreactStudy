@@ -59,11 +59,14 @@ export  default class BetDetailView extends BaseView {
     componentDidMount() {
         let {id} = this.props.passProps
         HTTP_SERVER.BET_DETAIL.url = HTTP_SERVER.BET_DETAIL.formatUrl.replace(/#id/g, id);
-        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.BET_DETAIL, (result) => {
-            if (result.data) {
-                // let arr = this.state.dataList.concat(result.data.data);
-                this.setState({data: result.data})
-            }
+        RunAfterInteractions(()=>{
+            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.BET_DETAIL, (result) => {
+                if (result.data) {
+                    // let arr = this.state.dataList.concat(result.data.data);
+                    this.setState({data: result.data})
+                }
+            })
         })
+
     }
 }

@@ -56,14 +56,16 @@ export default class L115Trend extends BaseView {
     componentDidMount() {
         const {lotteryId} = this.props;
         HTTP_SERVER.TREND_DATA.url = HTTP_SERVER.TREND_DATA.formatUrl.replace(/{#lid}/, lotteryId).replace(/{#type}/, 5)
-        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.TREND_DATA, (data) => {
-            this.setState({
-                firstList: this.getDataByPosition(data, 0),
-                secondList: this.getDataByPosition(data, 1),
-                thirdList: this.getDataByPosition(data, 2),
-                fourList: this.getDataByPosition(data, 3),
-                fiveList: this.getDataByPosition(data, 4),
-                mixList:this.getDataByPosition(data, 5,true)
+        RunAfterInteractions(()=>{
+            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.TREND_DATA, (data) => {
+                this.setState({
+                    firstList: this.getDataByPosition(data, 0),
+                    secondList: this.getDataByPosition(data, 1),
+                    thirdList: this.getDataByPosition(data, 2),
+                    fourList: this.getDataByPosition(data, 3),
+                    fiveList: this.getDataByPosition(data, 4),
+                    mixList:this.getDataByPosition(data, 5,true)
+                })
             })
         })
     }

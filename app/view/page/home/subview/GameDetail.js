@@ -8,6 +8,7 @@ import {
     ListView,
     Alert
 } from 'react-native';
+import {home_game} from "../../../../assets/index";
 
 export default class GameDetail extends React.Component {
     static propTypes={
@@ -33,7 +34,8 @@ export default class GameDetail extends React.Component {
                 {dataList.map((rowData, index) => {
                     return (<TouchableHighlight key={index} onPress={() => this.itemClick(rowData)} underlayColor='rgba(0,0,0,0)'>
                         <View style={styles.itemRow}>
-                            <Image style={styles.thumb} source={{uri: rowData.img}}/>
+                            {/*<Image style={styles.thumb} source={{uri: rowData.img}}/>*/}
+                            <Image style={styles.thumb} source={home_game}/>
                             <Text style={rowData.open == "1" ? styles.text : styles.textNoOpen}>
                                 {rowData.name}
                             </Text>
@@ -50,7 +52,7 @@ export default class GameDetail extends React.Component {
         const {gameModel, playModel,userData} = this.props
         TLog("gameSeious----",data);
         //NavUtil.pushToView(NavViews.TrendView({title:`走势图`,lotteryId:data.id}))
-        if(userData.isLogined)
+        if(!userData.isLogined)
         {
             if (data.open == "1") {
                 switch (data.series_id+'')
@@ -65,7 +67,6 @@ export default class GameDetail extends React.Component {
                     case "3":
                         NavUtil.pushToView(NavViews.D3View({...data, gameModel: gameModel, playModel: playModel}));
                         break;
-
                     default :
                         TLog('gameseries_id',data.series_id)
                 }

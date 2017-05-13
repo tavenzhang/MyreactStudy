@@ -8,9 +8,11 @@ export const LayoutAnimationHelp={
      springNoDelete : {
         duration: 400,
         create: {
-            type: LayoutAnimation.Types.spring,
-            property: LayoutAnimation.Properties.scaleXY,
-            springDamping: 0.8,
+            //type: LayoutAnimation.Types.spring,
+            type:LayoutAnimation.Types.easeInEaseOut,
+          //  property: LayoutAnimation.Properties.scaleXY,
+            property:LayoutAnimation.Properties.opacity,
+            springDamping: 0.5,
         },
         update: {
             type: LayoutAnimation.Types.spring,

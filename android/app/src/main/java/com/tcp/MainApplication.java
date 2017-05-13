@@ -1,6 +1,7 @@
 package com.tcp;
 
 import android.app.Application;
+import android.text.Layout;
 
 import com.facebook.react.ReactApplication;
 import com.mehcode.reactnative.splashscreen.SplashScreenPackage;
@@ -8,6 +9,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.microsoft.codepush.react.CodePush;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,7 +32,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new SplashScreenPackage()
+              new SplashScreenPackage(),
+              new CodePush("4m7mIg893Bs5ayH-BPT_w9WhvYdrNJvdXVfbf", MainApplication.this, BuildConfig.DEBUG)
       );
     }
   };

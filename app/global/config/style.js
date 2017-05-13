@@ -27,13 +27,12 @@ export const GlobelTheme = {
     swipHeaderHeight: 50,//切换title的高度
     screenWidth: WINDOW.width,
     screenHeight: WINDOW.height,
-    NavigatorHeadH: 64,
-    TabBarH: 50,
-    StatusBarH:Platform.OS === 'ios' ? 20 : 0,
+    NavigatorHeadH:Platform.OS === 'ios'? 64:56,
+    TabBarH:64,
+    StatusBarH:Platform.OS === 'ios' ? 20:0,
     gameOperatePanelHeight: 50,
     halfGrayAlpha:'rgba(52, 52, 52, 0.5)',
 };
-
 global.GlobelTheme=GlobelTheme;
 
 export const GlobeStyle = StyleSheet.create({

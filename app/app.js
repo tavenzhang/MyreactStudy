@@ -21,7 +21,6 @@ import ToastBox from "./view/componet/InfoBox/ToastBox";
 import GuidView from "./view/page/GuidView";
 
 
-
 //定义全局Dispatch 方便使用
 const mapDispatchToProps = (dispatch) => {
     ActDispatch.AppAct=bindActionCreators(ActDispatch.AppAct,dispatch);
@@ -94,7 +93,7 @@ export default class App extends React.Component {
             return sceneAnimation;
         }
         //默认
-        return Navigator.SceneConfigs.FloatFromLeft
+        return Navigator.SceneConfigs.FloatFromLeft;
     }
 
     renderScene = (route, navigator) => {

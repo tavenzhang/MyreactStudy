@@ -1,5 +1,6 @@
 import { NativeModules,Platform ,InteractionManager} from 'react-native';
 let IOSLog=NativeModules.IOSLog;
+let TStatisticalModule=NativeModules.TStatisticalModule;//andorid 统计模块
 
 
 Date.prototype.Format = function (fmt) { //author: meizz
@@ -98,11 +99,23 @@ export const TLog = (name = null, obj = []) => {
          IOSLog.logClass("myLog",name+" \n"+ JSON.stringify(obj));
      }
      else{
-        obj ? console.log(name, obj) : console.log(name);
+          obj ? console.log(name, obj) : console.log(name);
+         TStatisticalModule.show(name,TStatisticalModule.SHORT);
     }
 };
 
 global.TLog = TLog;
+
+
+export const TStatistics = (name = null, paras= {}) => {
+
+    //if( process.env.NODE_ENV == 'development') {//开发环境
+    //	return console.TLog(name,obj)
+};
+
+global.TStatistics = TStatistics;
+
+
 
 
 // Number.prototype.toFixed =function(len)

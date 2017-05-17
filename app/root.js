@@ -25,9 +25,21 @@ export default class Root extends React.Component {
     }
 
     componentDidMount() {
-        let keyStr="4m7mIg893Bs5ayH-BPT_w9WhvYdrNJvdXVfbf"; //Staging
+       // let keyStr="4m7mIg893Bs5ayH-BPT_w9WhvYdrNJvdXVfbf"; //Staging
+        let keyStr="7VkGEgEuOW3nam5bwMGRSccDlq3l4ksvOXqog"; //Staging
         if(__DEV__){
-            console.log("__DEV__----------");
+            console.log("__DEV__----------keyStr",keyStr);
+            // release模式
+            CodePush.sync({
+                deploymentKey: keyStr,
+                updateDialog: {
+                    optionalIgnoreButtonLabel: '稍后',
+                    optionalInstallButtonLabel: '后台更新',
+                    optionalUpdateMessage: '有新版本了，是否更新？',
+                    title: '更新提示'
+                },
+                installMode: CodePush.InstallMode.IMMEDIATE
+            })
             // debug模式
         }else{
             console.log("__DEV__ release模式----------");

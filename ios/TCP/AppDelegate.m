@@ -32,8 +32,8 @@
   jsCodeLocation = [CodePush bundleURL];
   //  Logger *log = LoggerGetDefaultLogger();
 //  LoggerStart(log);
- // LoggerSetViewerHost(nil, (CFStringRef) @"192.168.0.102", (UInt32)40000);
-  //LogMarker(@"thomas--release");
+  LoggerSetViewerHost(nil, (CFStringRef) @"192.168.0.110", (UInt32)40000);
+  LogMarker(@"thomas--release");
 #endif
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
@@ -42,7 +42,6 @@
                                                    launchOptions:launchOptions];
   rootView.backgroundColor =
       [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
-
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;

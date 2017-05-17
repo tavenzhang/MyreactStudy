@@ -130,13 +130,13 @@ export default class BetRecordView extends BaseView {
                         </View>
                     </TouchableOpacity>
                 </View>
+                <View style={{flex: 1, backgroundColor: "yellow"}}>
+                    <BetRecordListView dataList={this.state.dataList} loadMore={this.loadMore} gameModel={gameModel}/>
+                </View>
                 <View style={{position: "absolute", zIndex: 6, top: 35}}>
                     {gameView}
                     {playView}
                     {timeView}
-                </View>
-                <View style={{flex: 1, backgroundColor: "yellow"}}>
-                    <BetRecordListView dataList={this.state.dataList} loadMore={this.loadMore} gameModel={gameModel}/>
                 </View>
             </View>
         );

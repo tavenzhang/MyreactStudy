@@ -3,6 +3,7 @@ import {
     View,
     Text, StyleSheet,
     TouchableHighlight,
+    TouchableOpacity
 } from 'react-native';
 import {connect} from 'react-redux';
 import AIcon from 'react-native-vector-icons/FontAwesome';
@@ -81,7 +82,7 @@ export default class ChaseRecordView extends BaseView {
                         height: 35,
                         borderBottomColor: GlobelTheme.gray, borderBottomWidth:1
                     }}>
-                    <TouchableHighlight style={[styles.touchTabButton, gameStyle]}
+                    <TouchableOpacity style={[styles.touchTabButton, gameStyle]}
                                         onPress={() => this.onPressMenu(ListType.GameList)}
                     >
                         <View style={{flexDirection: "row"}}>
@@ -95,8 +96,8 @@ export default class ChaseRecordView extends BaseView {
                                        top: -3
                                    }}/>
                         </View>
-                    </TouchableHighlight>
-                    <TouchableHighlight style={[styles.touchTabButton, playStyle]}
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.touchTabButton, playStyle]}
                                         onPress={() => this.onPressMenu(ListType.PlayList)}
                     >
                         <View style={{flexDirection: "row", alignItems: "center"}}>
@@ -110,7 +111,7 @@ export default class ChaseRecordView extends BaseView {
                                        top: -3
                                    }}/>
                         </View>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                     <TouchableHighlight style={[styles.touchTabButton, timeStyle]}
                                         onPress={() => this.onPressMenu(ListType.TimeList)}
                     >
@@ -127,13 +128,13 @@ export default class ChaseRecordView extends BaseView {
                         </View>
                     </TouchableHighlight>
                 </View>
+                <View style={{flex: 1, backgroundColor: "yellow"}}>
+                    <ChaseRecodListView dataList={this.state.dataList} loadMore={this.loadMore} {...this.props}/>
+                </View>
                 <View style={{position: "absolute", zIndex: 6, top: 35}}>
                     {gameView}
                     {playView}
                     {tiemView}
-                </View>
-                <View style={{flex: 1, backgroundColor: "yellow"}}>
-                    <ChaseRecodListView dataList={this.state.dataList} loadMore={this.loadMore} {...this.props}/>
                 </View>
             </View>
         );

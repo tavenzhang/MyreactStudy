@@ -44,21 +44,13 @@ export default class TabbarView extends React.Component {
                                     renderIcon={() => <AIcon name={item.icon} style={styles.iconNormal}/>}
                                     renderSelectedIcon={() => <AIcon name={item.icon} style={styles.iconPress}/>}
                                     onPress={() => this.setState({selectedTab: item.title})}>
-                                    <Component {...this.props}  passProps={{title:item.title}}/>
+                                    <Component {...this.props} passProps={{title: item.title}}/>
                                 </TabNavigator.Item>
                             )
                         })
                     }
                 </TabNavigator>
             </View>);
-    }
-
-    componentDidMount() {
-
-    }
-
-    componentWillUnmount() {
-        // this.timer && clearTimeout(this.timer);
     }
 }
 

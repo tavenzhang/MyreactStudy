@@ -37,7 +37,9 @@ export default class SSC_History extends BaseView {
     }
 
     componentDidMount() {
-        this.loadMore(null,0);
+        RunAfterInteractions(()=>{
+            this.loadMore(null,0);
+        })
     }
 
     loadMore = (callBack, forcePage = 1) => {

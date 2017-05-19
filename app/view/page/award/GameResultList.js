@@ -44,11 +44,13 @@ export default class GameResultList extends BaseView {
     }
 
     componentDidMount() {
-        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_ALL_Lottery,(data)=>{
-            if(data.isSuccess)
-            {
-                this.setState({dataArray:data.data});
-            }
+        RunAfterInteractions(()=>{
+            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_ALL_Lottery,(data)=>{
+                if(data.isSuccess)
+                {
+                    this.setState({dataArray:data.data});
+                }
+            })
         })
     }
 

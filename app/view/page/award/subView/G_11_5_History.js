@@ -46,28 +46,30 @@ export default class G_11_5_History extends BaseView {
 
 
     loadMore = (callBack, forcePage = 1) => {
-        const {lottery_id} = this.props.passProps;
-        HTTP_SERVER.notice_Lottery_Hisotry.url= `${HTTP_SERVER.notice_Lottery_Hisotry.formatUrl}/${lottery_id}/${this.next_id}`
-        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_Lottery_Hisotry,(result)=>{
-            if(result.isSuccess)
-            {
-                this.next_id = result.data.next_id;
-                if(forcePage==0)
-                {
+       RunAfterInteractions(()=>{
+           const {lottery_id} = this.props.passProps;
+           HTTP_SERVER.notice_Lottery_Hisotry.url= `${HTTP_SERVER.notice_Lottery_Hisotry.formatUrl}/${lottery_id}/${this.next_id}`
+           ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_Lottery_Hisotry,(result)=>{
+               if(result.isSuccess)
+               {
+                   this.next_id = result.data.next_id;
+                   if(forcePage==0)
+                   {
 
-                    this.setState({dataArray:result.data.list})
-                }
-               else{
-                    if(result.data.list.length>0)
-                    {
-                        this.setState({dataArray:this.state.dataArray.concat(result.data.list)})
-                    }
-                }
-                if (callBack) {
-                    callBack();
-                }
-            }
-        })
+                       this.setState({dataArray:result.data.list})
+                   }
+                   else{
+                       if(result.data.list.length>0)
+                       {
+                           this.setState({dataArray:this.state.dataArray.concat(result.data.list)})
+                       }
+                   }
+                   if (callBack) {
+                       callBack();
+                   }
+               }
+           })
+       })
     }
 
 

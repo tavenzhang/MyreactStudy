@@ -13,6 +13,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <TCP-Swift.h>
+#import "Flurry.h"
 
 @implementation AppDelegate
 
@@ -30,11 +31,13 @@
 
 #else
   jsCodeLocation = [CodePush bundleURL];
-  //  Logger *log = LoggerGetDefaultLogger();
+//    Logger *log = LoggerGetDefaultLogger();
 //  LoggerStart(log);
-  LoggerSetViewerHost(nil, (CFStringRef) @"192.168.0.110", (UInt32)40000);
-  LogMarker(@"thomas--release");
+//  LoggerSetViewerHost(nil, (CFStringRef) @"192.168.0.110", (UInt32)40000);
+//  LogMarker(@"thomas--release");
 #endif
+
+  [self initFurry:launchOptions];
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"TCP"
@@ -49,5 +52,15 @@
   [self.window makeKeyAndVisible];
   return YES;
 }
+
+-(void)initFurry:(NSDictionary *)launchOptions {
+  FlurrySessionBuilder* builder = [[[[[FlurrySessionBuilder new]
+                                      withLogLevel:FlurryLogLevelAll]
+                                     withCrashReporting:YES]
+                                    withSessionContinueSeconds:10]
+                                   withAppVersion:@"0.1.2"];
+  [Flurry startSession:@"CN8QMWM9JDX8FKF67FRV" withSessionBuilder:builder];
+}
+
 
 @end

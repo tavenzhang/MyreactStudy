@@ -16,8 +16,8 @@ export default class LoginView extends BaseView {
     constructor(props) {
         super(props);
         this.state = {
-            nameText: "",
-            pwdText: ""
+            nameText: null,
+            pwdText: null
         };
         MyStorage.getItem(EnumStroeKeys.USRTNAME, (data) => {
             this.setState({nameText: data});
@@ -84,10 +84,10 @@ export default class LoginView extends BaseView {
     }
 
     clickLogin = () => {
-        if (this.state.nameText.length < 1) {
-            Alert.alert("账号不能为空", "请输入有效的账号", []);
-        } else if (this.state.pwdText.length < 1) {
-            Alert.alert("密码不能为空", "请输入有效的密码", []);
+        if (!this.state.nameText) {
+            Alert.alert("账号不能为空", "请输入有效的账号");
+        } else if (!this.state.pwdText) {
+            Alert.alert("密码不能为空", "请输入有效的密码");
         }
         else {
             let bodyData = HTTP_SERVER.LOGIN_IN.body;

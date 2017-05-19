@@ -114,14 +114,16 @@ export default class MoneyTransferView extends BaseView {
     }
 
     componentDidMount() {
-        HTTP_SERVER.TRANSFER_GETINFO.url = HTTP_SERVER.TRANSFER_GETINFO.formatUrl.replace("#id", this.props.passProps.uid);
-        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.TRANSFER_GETINFO, (result) => {
-            let dataList = result.data.aBankCards.map((item) => {
-                item.name = item.account + `[${item.bank}]`;
-                return item
-            })
-            this.setState({dropDataList: dataList});
-        });
+        RunAfterInteractions(()=>{
+            HTTP_SERVER.TRANSFER_GETINFO.url = HTTP_SERVER.TRANSFER_GETINFO.formatUrl.replace("#id", this.props.passProps.uid);
+            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.TRANSFER_GETINFO, (result) => {
+                let dataList = result.data.aBankCards.map((item) => {
+                    item.name = item.account + `[${item.bank}]`;
+                    return item
+                })
+                this.setState({dropDataList: dataList});
+            });
+        })
     }
 
     onConfirmClick = () => {

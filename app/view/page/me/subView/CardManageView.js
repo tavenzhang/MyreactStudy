@@ -35,9 +35,11 @@ export default class CardManageView extends BaseView {
     }
 
     componentDidMount() {
-        HTTP_SERVER.LIST_BANGK_CARDS.body.page = 1;
-        HTTP_SERVER.LIST_BANGK_CARDS.body.pagesize = 15;
-        ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.LIST_BANGK_CARDS, ActionType.AppType.CARD_LIST_GET);
+        RunAfterInteractions(()=>{
+            HTTP_SERVER.LIST_BANGK_CARDS.body.page = 1;
+            HTTP_SERVER.LIST_BANGK_CARDS.body.pagesize = 15;
+            ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.LIST_BANGK_CARDS, ActionType.AppType.CARD_LIST_GET);
+        })
     }
 
 

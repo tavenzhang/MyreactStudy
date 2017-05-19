@@ -51,17 +51,23 @@ export default class MoneyChangeHistoryView extends React.Component {
         let {httpService} = this.props
         httpService.body.page = 1;
         httpService.body.pagesize = 15;
-
-        this.timeId=setTimeout(()=>{
-            InteractionManager.runAfterInteractions(() => {
-                ActDispatch.FetchAct.fetchVoWithResult(httpService, (result) => {
-                    if (result.data.data) {
-                        this.setState({dataList: result.data.data});
-                    }
-                })
-            });
-
-        },1000)
+        RunAfterInteractions(()=>{
+            ActDispatch.FetchAct.fetchVoWithResult(httpService, (result) => {
+                if (result.data.data) {
+                    this.setState({dataList: result.data.data});
+                }
+            })
+        })
+        // this.timeId=setTimeout(()=>{
+        //     InteractionManager.runAfterInteractions(() => {
+        //         ActDispatch.FetchAct.fetchVoWithResult(httpService, (result) => {
+        //             if (result.data.data) {
+        //                 this.setState({dataList: result.data.data});
+        //             }
+        //         })
+        //     });
+        //
+        // },1000)
 
     }
 

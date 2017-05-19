@@ -166,15 +166,17 @@ export default class OuterMoneyView extends BaseView {
     }
 
     componentDidMount() {
-        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.MONEY_OUTER_0, (data) => {
-            if (data.isSuccess) {
-                if (data.data.bank_cards && data.data.bank_cards.length > 0) {
-                    this.setState({dataInfo: data.data, pickValue: data.data.bank_cards[0].id})
+        RunAfterInteractions(()=>{
+            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.MONEY_OUTER_0, (data) => {
+                if (data.isSuccess) {
+                    if (data.data.bank_cards && data.data.bank_cards.length > 0) {
+                        this.setState({dataInfo: data.data, pickValue: data.data.bank_cards[0].id})
+                    }
+                    else {
+                        this.setState({dataInfo: data.data});
+                    }
                 }
-                else {
-                    this.setState({dataInfo: data.data});
-                }
-            }
+            })
         })
     }
 

@@ -27,7 +27,7 @@
 	<key>CodePushDeploymentKey</key>
 	<string>$(CODEPUSH_KEY)</string>
 	<key>CodePushServerURL</key>
-  <string>Http://192.168.0.110:3000</string>
+	<string>http://104.250.145.227:3000</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>

@@ -141,7 +141,9 @@ export default class ChaseRecordView extends BaseView {
     }
 
     componentDidMount() {
-        this.loadMore(null, 1);
+        RunAfterInteractions(()=>{
+            this.loadMore(null, 1);
+        })
     }
 
     onPressMenu = (btnType) => {

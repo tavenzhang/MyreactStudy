@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface IOSLog : NSObject<RCTBridgeModule>
+@interface INativeModule : NSObject<RCTBridgeModule>
 
 @end

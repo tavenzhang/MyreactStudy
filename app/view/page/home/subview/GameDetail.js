@@ -50,8 +50,8 @@ export default class GameDetail extends React.Component {
 
     itemClick = (data) => {
         data.title = data.name;
+        TAnalysis("进入游戏",data)
         const {gameModel, playModel,userData} = this.props
-        TLog("gameSeious----",data);
         //NavUtil.pushToView(NavViews.TrendView({title:`走势图`,lotteryId:data.id}))
         if(userData.isLogined)
         {

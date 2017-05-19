@@ -1,4 +1,5 @@
-let SERVERADDR = "http://www.monkey.com";
+//let SERVERADDR = "http://www.monkey.com";
+let SERVERADDR = "http://104.250.140.242:8081"
 //let SERVERADDR = "http://192.168.0.102";
 global.SERVERADDR = SERVERADDR;
 

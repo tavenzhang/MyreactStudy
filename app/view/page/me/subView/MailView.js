@@ -29,16 +29,19 @@ export default class MailView extends BaseView {
 
 
     componentDidMount() {
-        if(this.state.dataList.length<=0)
-        {
-            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LETTER_LIST, (result) => {
-                if(result.data.data)
-                {
-                    let  arr=this.state.dataList.concat(result.data.data);
-                    this.setState({dataList:arr});
-                }
-            });
-        }
+
+        RunAfterInteractions(()=>{
+            if(this.state.dataList.length<=0)
+            {
+                ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LETTER_LIST, (result) => {
+                    if(result.data.data)
+                    {
+                        let  arr=this.state.dataList.concat(result.data.data);
+                        this.setState({dataList:arr});
+                    }
+                });
+            }
+        })
     }
 
     _renderRow=(data)=>{

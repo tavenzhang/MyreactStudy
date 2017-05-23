@@ -59,7 +59,6 @@ export default class MyMoneyView extends BaseView {
 
 
     _handleChangeTab = (index) => {
-        TLog("_handleChangeTab----",index);
         this.setState({index});
     };
 

@@ -11,7 +11,8 @@ export  const ActionType = {
         MOBILE_TYPES_RESULT: "app/MOBILE_TYPES_RESULT",
         BANG_CITY_INFO:"app/BANG_CITY_INFO",
         CARD_LIST_GET:"app/CARD_LIST_GET",
-        MONEY_ACCOUNT__CHANGE:"app/MONEY_ACCOUNT__CHANGE"
+        MONEY_ACCOUNT__CHANGE:"app/MONEY_ACCOUNT__CHANGE",
+        APP_BACK_RESET:"app/APP_BACK_RESET",
     },
     FetchType: {
         FETCH_REQUEST: "fetch/REQUEST",

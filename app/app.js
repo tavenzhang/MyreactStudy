@@ -5,7 +5,8 @@ import {
     StatusBar,
     Platform,
     BackAndroid,
-    UIManager
+    UIManager,
+    ToastAndroid
 } from 'react-native';
 import  style from "./global/config/style";
 import  server from "./global/config/server";
@@ -24,11 +25,14 @@ import GuidView from "./view/page/GuidView";
 
 //定义全局Dispatch 方便使用
 const mapDispatchToProps = (dispatch) => {
-    ActDispatch.AppAct=bindActionCreators(ActDispatch.AppAct,dispatch);
-    ActDispatch.FetchAct=bindActionCreators(ActDispatch.FetchAct,dispatch);
-    ActDispatch.HomeAct=bindActionCreators(ActDispatch.HomeAct,dispatch);
-    ActDispatch.NoticeAct=bindActionCreators(ActDispatch.NoticeAct,dispatch);
-    ActDispatch.GameAct=bindActionCreators(ActDispatch.GameAct,dispatch);
+    if(!InitRegistApp)
+    {   ActDispatch.AppAct=bindActionCreators(ActDispatch.AppAct,dispatch);
+        ActDispatch.FetchAct=bindActionCreators(ActDispatch.FetchAct,dispatch);
+        ActDispatch.HomeAct=bindActionCreators(ActDispatch.HomeAct,dispatch);
+        ActDispatch.NoticeAct=bindActionCreators(ActDispatch.NoticeAct,dispatch);
+        ActDispatch.GameAct=bindActionCreators(ActDispatch.GameAct,dispatch);
+        InitRegistApp =true;
+    }
     return {}
 }
 
@@ -114,10 +118,13 @@ export default class App extends React.Component {
         }
         let now = new Date().getTime();
         if (now - this.lastClickTime < 2500) {//2.5秒内点击后退键两次推出应用程序
+            ActDispatch.AppAct.app_data_reset();
             return false;//控制权交给原生
         }
         this.lastClickTime = now;
-        ActDispatch.AppAct.showBox("再按一次退出");
+        ToastAndroid.show("再按一次退出",ToastAndroid.SHORT);
         return true;
     }
+
+
 }

@@ -738,7 +738,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = ZBE9R237M6;
+						DevelopmentTeam = 23DN84VL44;
 						LastSwiftMigration = 820;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -1303,7 +1303,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = ZBE9R237M6;
+				DEVELOPMENT_TEAM = 23DN84VL44;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
@@ -1337,7 +1337,7 @@
 				CODEPUSH_KEY = RcWB1BblFfzejm9MhYIIRMtAfa2V4ksvOXqog;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = ZBE9R237M6;
+				DEVELOPMENT_TEAM = 23DN84VL44;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",

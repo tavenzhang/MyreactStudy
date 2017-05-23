@@ -112,14 +112,16 @@ const NavUtil = {
         // });
     },
     replace: (data) => {
-        InteractionManager.runAfterInteractions(() => {
-            Navgator.replace(data);
-        });
+        Navgator.replace(data);
+        // InteractionManager.runAfterInteractions(() => {
+        //
+        // });
     },
     resetToView: (data) => {
-        InteractionManager.runAfterInteractions(() => {
-            Navgator.resetTo(data);
-        });
+        Navgator.resetTo(data);
+        // InteractionManager.runAfterInteractions(() => {
+        //
+        // });
     },
     pop: () => {
         Navgator.pop()
@@ -129,18 +131,22 @@ const NavUtil = {
 
     },
     popN: (n = 1) => {
-        InteractionManager.runAfterInteractions(() => {
-            Navgator.popN(n)
-        });
+        Navgator.popN(n)
+        // InteractionManager.runAfterInteractions(() => {
+        //
+        // });
     },
     popToRoute:(data) => {
-            InteractionManager.runAfterInteractions(() => {
-                Navgator.popToRoute(data);
-            });
+        Navgator.popToRoute(data);
+            // InteractionManager.runAfterInteractions(() => {
+            //
+            // });
         }
     }
     global.NavUtil = NavUtil
 
+
+global.InitRegistApp = false;
 
 
 

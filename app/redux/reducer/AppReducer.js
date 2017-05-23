@@ -85,6 +85,10 @@ const appState = (state = initAppState, action) => {
             }
            // TLog("ActionType.AppType.CARD_LIST_GET---",tempList)
             return state.merge({cardList:tempList});
+        case ActionType.AppType.APP_BACK_RESET:
+            AppData.userData = null;
+            AppData.isLogined = false;
+            return state.merge(initAppState);
         default:
             return state;
     }

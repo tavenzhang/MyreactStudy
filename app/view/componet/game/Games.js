@@ -192,7 +192,7 @@ export default class Games extends Component {
                 ballTextLen = ballText.length,
                 ballTitleLen = rowTitle.length;
             if(rows == ballTitleLen && len == ballTextLen) {
-                const ballWidth = (GlobelTheme.screenWidth - 20) / me.state.rowBallNumber;
+                const ballWidth = (GlobelTheme.windowWidth - 20) / me.state.rowBallNumber;
                 return <View style={styles.ballBox}>
                     {ballText.map((v,i) => {
                         if(i >= me.ballFirstStart) {
@@ -226,7 +226,7 @@ export default class Games extends Component {
                 ballTitleLen = rowTitle.length;
 
             if(rows == ballTitleLen) {
-                const ballWidth = (GlobelTheme.screenWidth - 20) / me.state.rowBallNumber;
+                const ballWidth = (GlobelTheme.windowWidth - 20) / me.state.rowBallNumber;
                 return <View style={styles.ballBox}>
                     {me.ballSpecialTitle.map((v,i) => {
                         if(i >= me.ballFirstStart) {

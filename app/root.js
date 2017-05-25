@@ -1,11 +1,20 @@
+import  ActionType   from "./redux/action/ActionType";
+import  action   from "./global/action";
+import  style from "./global/config/style";
+import  server from "./global/config/server";
+import  storage from "./global/utils/storage";
+import  uitls from "./global/utils/util";
+import  AnimationHelp from "./global/animationHelp";
+import  route   from "./global/route";
+import  native   from "./global/nativeExtent";
 import React  from 'react';
 import { Provider } from 'react-redux';
 import configureStore from './redux/store/store';
-const store = configureStore();
 
 import App from './app';
 import SplashScreen from "rn-splash-screen";
 
+const store = configureStore();
 export default class Root extends React.Component {
 
     constructor(props) {

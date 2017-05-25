@@ -1,8 +1,4 @@
-/**
- * Created by soga on 2017/4/18.
- */
 
-import {ActionType} from "./ActionType";
 
 const gType = ActionType.GameType;
 

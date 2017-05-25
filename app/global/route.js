@@ -37,20 +37,14 @@ import TrendView from "../view/page/home/subview/trend/TrendView";
 // PushFromLeft
 // FloatFromRight
 // FloatFromLeft
-// FloatFromBottom
-// FloatFromBottomAndroid
-// FadeAndroid
-// HorizontalSwipeJump
-// HorizontalSwipeJumpFromRight
 // VerticalUpSwipeJump
 // VerticalDownSwipeJump
 global.Navgator = null;
 
-let navigator;
 //  sceneAnimation: Navigator.SceneConfigs.FloatFromBottom
 //跳转页面集中控制 方便管理 和自定义动画
 
-let NavViews = {
+global.G_NavViews = {
     ADView: (data) => ({"component": ADView, "passProps": data}),
     //tab页面
     TabbarView: () => ({"component": TabbarView}),
@@ -96,15 +90,10 @@ let NavViews = {
 
     MoneyTransferView:(data) => ({"component": MoneyTransferView, "passProps": data}),
     TrendView: (data) => ({"component": TrendView, "passProps": data}),
-
-
 }
 
 
-global.G_NavViews = NavViews;
-
-
-const NavUtil = {
+global.G_NavUtil  = {
     pushToView: (data) => {
         Navgator.push(data);
         // InteractionManager.runAfterInteractions(() => {
@@ -132,18 +121,11 @@ const NavUtil = {
     },
     popN: (n = 1) => {
         Navgator.popN(n)
-        // InteractionManager.runAfterInteractions(() => {
-        //
-        // });
     },
     popToRoute:(data) => {
         Navgator.popToRoute(data);
-            // InteractionManager.runAfterInteractions(() => {
-            //
-            // });
         }
     }
-global.G_NavUtil = NavUtil
 
 
 global.G_InitRegistApp = false;

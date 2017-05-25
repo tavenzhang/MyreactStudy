@@ -70,7 +70,7 @@ export default class L115 extends Games {
                 ballTextLen = ballText.length,
                 ballTitleLen = rowTitle.length;
             if(rows == ballTitleLen && len == ballTextLen) {
-                const ballWidth = (GlobelTheme.screenWidth - 20) / me.state.rowBallNumber;
+                const ballWidth = (GlobelTheme.windowWidth - 20) / me.state.rowBallNumber;
                 return <View style={styles.ballBox}>
                     {me.state.ballText.map((v,i) => {
                         if(i > 0) {

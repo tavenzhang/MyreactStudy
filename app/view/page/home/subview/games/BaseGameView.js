@@ -84,7 +84,7 @@ export default class BaseGameView extends BaseView {
                     menus={menuDataList}
                     contentStyle={{right: 20}}
                     onMoreMenuSelect={this.onMoreMenuSelect}
-                    buttonRect={{x: GlobelTheme.screenWidth - 60, y: -50, width: 40, height: 40}}
+                    buttonRect={{x: GlobelTheme.windowWidth - 60, y: -50, width: 40, height: 40}}
                 />
                 {this.state.isShowMenu&&<HeadMenuListView selectItem={this.state.selectItem} onHeadPressed={this.onHeadPressed}
                                                           menuDataList={this.firstMenu}
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     firstMenuContain: {
         position: "absolute",
         zIndex: 6,
-        width: GlobelTheme.screenWidth,
-        height: GlobelTheme.screenHeight - GlobelTheme.NavigatorHeadH,
+        width: GlobelTheme.windowWidth,
+        height: GlobelTheme.windowHeight - GlobelTheme.navigatorHeadH,
     },
 });

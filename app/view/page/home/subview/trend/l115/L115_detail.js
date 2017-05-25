@@ -25,7 +25,7 @@ export default class L115_detail extends React.Component {
         let {dataList} =this.props
         return (
             <View style={GlobeStyle.appContentView}>
-                <View style={{width:GlobelTheme.screenWidth, height: 30,flexDirection: "row", backgroundColor: "#aaa"}}>
+                <View style={{width:GlobelTheme.windowWidth, height: 30,flexDirection: "row", backgroundColor: "#aaa"}}>
                     <View style={{flex: 2, justifyContent:"center", alignItems:"center"}}>
                         <Text style={[styles.text,{color:"white", fontWeight:"bold"}]} >{this.headData.title}</Text>
                     </View>
@@ -40,7 +40,7 @@ export default class L115_detail extends React.Component {
                     }
 
                 </View>
-                <ScrollView style={{width:GlobelTheme.screenWidth}}>
+                <ScrollView style={{width:GlobelTheme.windowWidth}}>
                     {
                         dataList.map((item, key) => {
                             count++;

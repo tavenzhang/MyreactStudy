@@ -7,29 +7,22 @@ let ANativeModule = NativeModules.ANativeModule;//andorid 扩展模块
 /**
  * 打印
  */
-export const TLog = (name = null, obj = []) => {
-    //if( process.env.NODE_ENV == 'development') {//开发环境
-    //	return console.TLog(name,obj)
-    if (Platform.OS === 'ios') {
-        INativeModule.logClass("myLog", name + " \n" + JSON.stringify(obj));
+global.TLog = (name = null, obj = []) => {
+    //obj ? console.log(name, obj) : console.log(name);
+    if (G_PLATFORM_IOS) {
+        if(G_ENV_DEBUG) {
+            INativeModule.logClass("myLog", name + " \n" + JSON.stringify(obj));
+        }
     }
     else {
-        // if( process.env.NODE_ENV == 'development'){
-        //     obj ? console.log(name, obj) : console.log(name);
-        // }
-        // else{
-        //     ANativeModule.logClass("myLog",name+" \n"+ JSON.stringify(obj));
-        // }
         ANativeModule.logClass("myLog", name + " \n" + JSON.stringify(obj));
     }
-};
-
-global.TLog = TLog;
+};;
 
 
 //移动端 统计分析 接口
-export const Analysis = (name = null, dateObj = null) => {
-    if (Platform.OS === 'ios') {
+global.T_Analysis =(name = null, dateObj = null) => {
+    if (G_PLATFORM_IOS) {
         if (dateObj == null) {
             INativeModule.analysis(name);
         }
@@ -48,11 +41,9 @@ export const Analysis = (name = null, dateObj = null) => {
     }
 };
 
-global.T_Analysis = Analysis;
-
 
 //code push 更新检测
-export const T_CheckCodePush = (serverName, keyStr) => {
+global.T_CheckCodePush = (serverName, keyStr) => {
 
     let codeUpdate = (err, datas) => {
         if (__DEV__) {
@@ -86,7 +77,7 @@ export const T_CheckCodePush = (serverName, keyStr) => {
         }
     }
 
-    if (Platform.OS === 'ios') {
+    if (G_PLATFORM_IOS) {
         INativeModule.codePushServer(serverName, codeUpdate);
     }
     else {
@@ -94,16 +85,14 @@ export const T_CheckCodePush = (serverName, keyStr) => {
     }
 }
 
-global.T_CheckCodePush = T_CheckCodePush;
 
-export const T_AppReStart = () => {
+
+global.T_AppReStart = () => {
     G_PLATFORM_IOS ?    RNRestart.Restart():ANativeModule.restartApp();
 
 }
-global.T_AppReStart = T_AppReStart;
 
-export const JSReload = () => {
+global.T_JSReload = () => {
    RNRestart.Restart();
 }
 
-global.T_JSReload = JSReload;

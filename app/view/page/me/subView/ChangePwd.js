@@ -57,7 +57,7 @@ export default class ChangePwd extends BaseView {
                     selectedIndex={this.state.selectedTabIndex}
                     activeTabStyle={{backgroundColor: "#a52a2a"}}
                 />
-                <View style={{marginLeft: 40, marginRight: 40, top: GlobelTheme.screenHeight / 9}}>
+                <View style={{marginLeft: 40, marginRight: 40, top: GlobelTheme.windowHeight / 9}}>
                     {oldPwdView}
                     <View style={styles.inputContain}>
                         <AIcon name="lock" style={styles.icoPwd}/>

@@ -3,7 +3,7 @@ import {
 } from 'react-native';
 
 //LayoutAnimation.Properties   opacity：透明度 scaleXY：缩放
-export const LayoutAnimationHelp={
+global.G_LayoutAnimationHelp={
      defaultSpring:LayoutAnimation.Presets.spring,
      springNoDelete : {
         duration: 400,
@@ -25,4 +25,3 @@ export const LayoutAnimationHelp={
     },
 }
 
-global.G_LayoutAnimationHelp=LayoutAnimationHelp;

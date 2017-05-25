@@ -1,14 +1,14 @@
 //let SERVERADDR = "http://www.monkey.com";
-//let SERVERADDR = "http://104.250.140.242:8081"
+//let G_SERVERADDR = "http://104.250.140.242:8081"
 let SERVERADDR = "http://www.orchidf.com";
 
-global.SERVERADDR = SERVERADDR;
+global.G_SERVERADDR = SERVERADDR;
 
 const METHOD_GET = "GET";
 const METHOD_POST = "POST";
 
 //接口配置
-const HTTP_SERVER = {
+global.HTTP_SERVER = {
     //获取接口配置详情
     GET_DATA_DEATIL: {url: `/mobile-types`},
     //获取游戏列表
@@ -193,19 +193,19 @@ const HTTP_SERVER = {
         method: METHOD_GET
     },
 };
-global.HTTP_SERVER = HTTP_SERVER
 
-const HttpUtil = {
+
+global.HttpUtil = {
     flushMoneyBalance: () => {
         ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.MOENY_USER_ACCOUNT, ActionEnum.AppAct.MONEY_ACCOUNT__CHANGE,null,true);
     }
 }
-global.HttpUtil = HttpUtil;
 
 
-const AppData = {
+
+global.AppData = {
     userData: null,
     isLogined: false,
 }
-global.AppData = AppData;
+
 

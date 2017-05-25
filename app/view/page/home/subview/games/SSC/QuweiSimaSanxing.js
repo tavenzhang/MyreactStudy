@@ -60,7 +60,7 @@ export default class QuweiSimaSanxing extends SSC {
                 ballTitleLen = rowTitle.length;
 
             if(rows == ballTitleLen) {
-                const ballWidth = (GlobelTheme.screenWidth - 20) / me.state.rowBallNumber;
+                const ballWidth = (GlobelTheme.windowWidth - 20) / me.state.rowBallNumber;
                 return <View style={styles.ballBox}>
                     {ballText.map((v,i) => {
                         return <View  style={[styles.ballBtnBox,{width:ballWidth}]} key={i} >
@@ -92,7 +92,7 @@ export default class QuweiSimaSanxing extends SSC {
                 ballTitleLen = rowTitle.length;
 
             if(rows == ballTitleLen) {
-                const ballWidth = (GlobelTheme.screenWidth - 20) / me.state.rowBallNumber;
+                const ballWidth = (GlobelTheme.windowWidth - 20) / me.state.rowBallNumber;
                 return <View style={styles.ballBox}>
                     {['大','小'].map((v,i) => {
                         return <View  style={[styles.ballBtnBox,{width:ballWidth}]} key={i} >

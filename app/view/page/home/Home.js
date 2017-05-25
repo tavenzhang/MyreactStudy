@@ -42,15 +42,15 @@ export default class Home extends BaseView {
         let {bannerList, gameModel, playModel,userData} = this.props;
         let gameList = gameModel.gameInfoList;
         bannerList = [{
-            url: `${SERVERADDR}/dist/i/home/home_activity_banner2.jpg`,
+            url: `${G_SERVERADDR}/dist/i/home/home_activity_banner2.jpg`,
             name: "活动1",
             data: "http://www.baidu.com"
         }, {
-            url: `${SERVERADDR}/dist/i/home/home_activity_banner2.jpg`,
+            url: `${G_SERVERADDR}/dist/i/home/home_activity_banner2.jpg`,
             name: "活动2",
             data: "http://www.baidu.com"
         }, {
-            url: `${SERVERADDR}/dist/i/home/home_activity_banner2.jpg`,
+            url: `${G_SERVERADDR}/dist/i/home/home_activity_banner2.jpg`,
             name: "活动3",
             data: "http://www.google.com"
         }]
@@ -68,7 +68,7 @@ export default class Home extends BaseView {
         G_MyStorage.getItem(G_EnumStroeKeys.DO_MAIN, (data) => {
             if(data&&data!="")
             {
-                SERVERADDR=data;
+                G_SERVERADDR=data;
             }
             ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.GET_GAME_LIST_INFO, ActionType.AppType.GAMELIST_RESULT, false);
             ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.GET_PLAY_LIST_INFO, ActionType.AppType.PLAY_LIST_RESULT, false);

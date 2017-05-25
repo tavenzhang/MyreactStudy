@@ -1,4 +1,4 @@
-export  const ActionType = {
+export const ActionType = {
     AppType: {
         SHOW_LOADING: "app/SHOW_LOADING",
         HIDE_LOADING: "app/HIDE_LOADING",

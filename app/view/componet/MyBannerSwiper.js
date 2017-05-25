@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     },
     bannerImage: {
         height:GlobelTheme.bannerHeight,
-        width: GlobelTheme.screenWidth,
+        width: GlobelTheme.windowWidth,
     },
 
     customDot: {

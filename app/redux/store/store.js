@@ -1,6 +1,4 @@
 
-import { Platform } from 'react-native';
-
 import { createStore, applyMiddleware, compose } from 'redux';
 
 import fetchMiddleware from '../middleware/fetchMidware';
@@ -10,11 +8,11 @@ import {
     combineReducers
 } from 'redux-immutable';
 
-import fetchState from '../reducer/FetchReducer';
 import homeState from  '../reducer/HomeReducer';
 import appState from  '../reducer/AppReducer';
 import noticState from  '../reducer/NoticeReducer';
 import gameState from  '../reducer/GameReducer';
+import fetchState from '../reducer/FetchReducer';
 
 import {Map}  from "immutable";
 

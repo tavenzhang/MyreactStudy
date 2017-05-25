@@ -35,7 +35,7 @@ export default class LoginView extends BaseView {
     renderBody() {
         return (
             <View style={[GlobeStyle.appContentView,{justifyContent:"center"}]}>
-                <View style={{marginLeft:40,marginRight: 40, marginBottom:GlobelTheme.screenHeight/5,}}>
+                <View style={{marginLeft:40,marginRight: 40, marginBottom:GlobelTheme.windowHeight/5,}}>
                     <View
                         style={styles.inputContain}>
                         <AIcon name="user-o" style={styles.iconUser}/>

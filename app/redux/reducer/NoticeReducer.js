@@ -1,4 +1,3 @@
-import {ActionType} from "../action/ActionType";
 import {fromJS} from 'immutable';
 
 const initNoticeState = fromJS({

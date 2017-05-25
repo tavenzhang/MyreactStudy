@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
         flexDirection : 'row',
         position: 'absolute',
         bottom: -3,
-        width: Window.width,
+        width: GlobelTheme.windowWidth,
         padding: 8,
         height: GlobelTheme.gameOperatePanelHeight,
         backgroundColor: GlobelTheme.black,

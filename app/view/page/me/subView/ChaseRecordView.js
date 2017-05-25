@@ -161,7 +161,7 @@ export default class ChaseRecordView extends BaseView {
                 <View
                     style={{
                         flexDirection: "row",
-                        width: GlobelTheme.screenWidth,
+                        width: GlobelTheme.windowWidth,
                         flexWrap: "wrap",
                         backgroundColor: "#ddd",
                         alignItems: "center"
@@ -176,7 +176,7 @@ export default class ChaseRecordView extends BaseView {
                                                         style={{
                                                             paddingHorizontal: 10,
                                                             paddingVertical: 6,
-                                                            width: GlobelTheme.screenWidth / 3,
+                                                            width: GlobelTheme.windowWidth / 3,
                                                             height: 35
                                                         }}
                                                         underlayColor='rgba(0,0,0,0)'

@@ -8,14 +8,7 @@ import {
     UIManager,
     ToastAndroid
 } from 'react-native';
-import  style from "./global/config/style";
-import  server from "./global/config/server";
-import  storage from "./global/utils/storage";
-import  uitls from "./global/utils/util";
-import  AnimationHelp from "./global/animationHelp";
-import  route   from "./global/route";
-import  action   from "./global/action";
-import  native   from "./global/nativeExtent";
+
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Loading from "./view/componet/Loading";
@@ -31,7 +24,7 @@ const mapDispatchToProps = (dispatch) => {
         ActDispatch.HomeAct=bindActionCreators(ActDispatch.HomeAct,dispatch);
         ActDispatch.NoticeAct=bindActionCreators(ActDispatch.NoticeAct,dispatch);
         ActDispatch.GameAct=bindActionCreators(ActDispatch.GameAct,dispatch);
-        G_InitRegistApp  =true;
+        G_InitRegistApp  = true;
     }
     return {}
 }
@@ -42,7 +35,6 @@ const mapStateToProps = state => {
         infoBox: state.get("appState").get("infoBox").toJS()
     }
 }
-
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class App extends React.Component {
@@ -125,6 +117,4 @@ export default class App extends React.Component {
         ToastAndroid.show("再按一次退出",ToastAndroid.SHORT);
         return true;
     }
-
-
 }

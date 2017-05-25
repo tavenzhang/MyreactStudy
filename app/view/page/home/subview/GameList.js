@@ -7,7 +7,7 @@ import {
 import Swiper from 'react-native-swiper';
 import GameDetail from './GameDetail';
 
-let hlist=GlobelTheme.screenHeight-GlobelTheme.bannerHeight-GlobelTheme.TabBarH-GlobelTheme.NavigatorHeadH
+let hlist=GlobelTheme.windowHeight-GlobelTheme.bannerHeight-GlobelTheme.TabBarH-GlobelTheme.navigatorHeadH
 
 export  default class GameList extends React.Component {
 

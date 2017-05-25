@@ -7,9 +7,12 @@ export const WINDOW = {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
 };
+global.G_PLATFORM_IOS= Platform.OS === 'ios'
 
-global.CUSTOMER = Platform.OS === 'ios' ? '8f1ad78957965153dbce5d96ff37617a' : '4fcd4781a7bddee9abdc6f0361fa8caa';
+global.CUSTOMER = G_PLATFORM_IOS ? '8f1ad78957965153dbce5d96ff37617a' : '4fcd4781a7bddee9abdc6f0361fa8caa';
 global.Window=WINDOW;
+
+
 
 //样式配置
 export const GlobelTheme = {

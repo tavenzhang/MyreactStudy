@@ -6,7 +6,7 @@ export const FetchAct = {
         isHideHint,
         callback,
         isText,
-        url:`${SERVERADDR}${url}`,
+        url,
         requestData,
         requestType
     }),

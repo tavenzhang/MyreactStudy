@@ -15,7 +15,7 @@ import  uitls from "./global/utils/util";
 import  AnimationHelp from "./global/animationHelp";
 import  route   from "./global/route";
 import  action   from "./global/action";
-import  naive   from "./global/nativeExtent";
+import  native   from "./global/nativeExtent";
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Loading from "./view/componet/Loading";
@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch) => {
         ActDispatch.HomeAct=bindActionCreators(ActDispatch.HomeAct,dispatch);
         ActDispatch.NoticeAct=bindActionCreators(ActDispatch.NoticeAct,dispatch);
         ActDispatch.GameAct=bindActionCreators(ActDispatch.GameAct,dispatch);
-        InitRegistApp =true;
+        InitRegistApp  =true;
     }
     return {}
 }

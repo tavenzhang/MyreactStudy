@@ -89,7 +89,8 @@ const GlobalKey = "global";
 const EnumStroeKeys={
     USRTNAME:"userName",
     PASS_PWD:"password",
-    DO_MAIN:"DO_MAIN"
+    DO_MAIN:"DO_MAIN",
+    CODE_PUSH:"code-push"
 }
 global.EnumStroeKeys=EnumStroeKeys;
 

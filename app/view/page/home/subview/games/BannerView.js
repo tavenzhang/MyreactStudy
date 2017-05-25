@@ -10,7 +10,10 @@ import BaseView from "../../../../componet/BaseView";
 
 
 export default class BannerView extends BaseView {
-
+    // static defaultProps = {
+    //     autoPlay: false,
+    //     maxLoops: 10,
+    // };
     static propTypes = {
         dateHistoryList: PropTypes.array,
         showHistory: PropTypes.bool,

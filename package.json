@@ -5,11 +5,11 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "release-ios":"code-push release-react tcp-ios ios  --description  ios新版本 ",
-    "release-android":"code-push release-react tcp-android android  --description android新版本",
+    "release-ios": "code-push release-react tcp-ios ios  --description  ios新版本 ",
+    "release-android": "code-push release-react tcp-android android  --description android新版本",
     "bundle-ios": "react-native bundle --entry-file index.ios.js  --platform ios --dev false --bundle-output ./ios/bundle/index.ios.jsbundle --assets-dest ./ios/bundle",
-    "bundle-android":"react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/",
-    "apk":"cd android && ./gradlew assembleRelease  && cd .."
+    "bundle-android": "react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/",
+    "apk": "cd android && ./gradlew assembleRelease  && cd .."
   },
   "dependencies": {
     "autobind-decorator": "^1.3.4",
@@ -23,6 +23,7 @@
     "react-native-md5": "^1.0.0",
     "react-native-modal-dropdown": "^0.4.2",
     "react-native-pull": "^2.0.1",
+    "react-native-restart": "0.0.2",
     "react-native-root-toast": "^1.0.3",
     "react-native-segmented-control-tab": "^2.0.1",
     "react-native-storage": "^0.1.4",

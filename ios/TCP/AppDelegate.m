@@ -18,33 +18,33 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application
-    didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
+didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+  
   NSURL *jsCodeLocation;
-
+  
 #ifdef DEBUG
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings]
-      jsBundleURLForBundleRoot:@"index.ios"
-              fallbackResource:nil];
+                    jsBundleURLForBundleRoot:@"index.ios"
+                    fallbackResource:nil];
   LoggerSetViewerHost(nil, (CFStringRef) @"192.168.0.110", (UInt32)40000);
   LogMarker(@"thomas---debug");
-
+  
 #else
   jsCodeLocation = [CodePush bundleURL];
-//    Logger *log = LoggerGetDefaultLogger();
-//  LoggerStart(log);
+  //  Logger *log = LoggerGetDefaultLogger();
+  //  LoggerStart(log);
 //  LoggerSetViewerHost(nil, (CFStringRef) @"192.168.0.110", (UInt32)40000);
 //  LogMarker(@"thomas--release");
 #endif
-
+  
   [self initFurry:launchOptions];
-
+  
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"TCP"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
   rootView.backgroundColor =
-      [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
+  [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;

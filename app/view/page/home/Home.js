@@ -1,16 +1,13 @@
 import React from 'react';
 import {
     View,
-    Modal,
-    Text,
-    TouchableOpacity,
-    TextInput,
 } from 'react-native';
 import BaseView from "../../componet/BaseView";
 import {connect} from 'react-redux';
 import GameList from "./subview/GameList";
 import MyBannerSwiper from "../../componet/MyBannerSwiper";
 import {HeaderLeftDomain} from "../../componet/navBarMenu/HeaderMenu";
+import ConfigView from "./subview/ConfigView";
 
 
 const mapStateToProps = state => {
@@ -27,12 +24,13 @@ export default class Home extends BaseView {
     constructor(props) {
         super(props);
         this.state =
-            {modalVisible: false,
+            {
+                modalVisible: false,
                 domain:""
         };
     }
 
-    setModalVisible(visible) {
+    setModalVisible=(visible)=> {
         this.setState({modalVisible: visible});
     }
 
@@ -59,51 +57,7 @@ export default class Home extends BaseView {
 
         return (
             <View style={GlobeStyle.appContentView} >
-                <Modal
-                    animationType={"slide"}
-                    transparent={false}
-                    visible={this.state.modalVisible}
-                    onRequestClose={() => {
-                        alert("Modal has been closed.")
-                    }}
-                    hardwareAccelerated={true}
-                    style={{backgroundColor: "blue", justifyContent: "center", alignItems: "center"}}
-                >
-                    <View style={[GlobeStyle.appContentView, {
-                        justifyContent: "center", alignItems: "center",
-                    }]}>
-                        <View>
-                            <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
-                                <Text>请输入新域名:</Text>
-                                <TextInput
-                                    style={{marginLeft: 10, paddingLeft: 5,width: 220, borderRadius: 5, borderWidth: 1, fontSize: 14, height: 30}}
-                                    placeholder={"新域名(www.hao123.com 或使用Ip:port)"}
-                                    autoCapitalize={"none"}
-                                    onChangeText={(domain) => this.setState({domain})}
-                                    value={this.state.domain}
-                                />
-                            </View>
-                            <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center",
-                                marginTop:
-                            40}}>
-                                <TouchableOpacity style={{alignSelf: "center", flex:1, alignItems:"center"}} onPress={() => {
-                                    this.setModalVisible(!this.state.modalVisible)
-                                    MyStorage.setItem(EnumStroeKeys.DO_MAIN, "http://"+this.state.domain,()=>{
-                                        TLog("this.state.domain-----",);
-                                        ActDispatch.AppAct.showBox("域名更新成功，请重启app 生效！")
-                                    });
-                                }}>
-                                    <Text style={{borderWidth:1, margin:15, padding:5, backgroundColor:"green"}}>确认修改</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={{alignSelf: "center", flex:1,alignItems:"center"}} onPress={() => {
-                                    this.setModalVisible(!this.state.modalVisible)
-                                }}>
-                                    <Text style={{borderWidth:1, margin:15,padding:5,backgroundColor:"red"}}>取消</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View>
-                </Modal>
+                <ConfigView modalVisible={this.state.modalVisible} setModalVisible={this.setModalVisible}/>
                 <MyBannerSwiper dataList={bannerList} {...this.props}/>
                 <GameList dataList={gameList} gameModel={gameModel} playModel={playModel} userData={userData}/>
             </View>

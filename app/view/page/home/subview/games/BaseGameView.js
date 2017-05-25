@@ -2,7 +2,6 @@ import React from 'react';
 import {
     View,
     StyleSheet,
-    Alert,
 } from 'react-native';
 import BaseView from "../../../../componet/BaseView";
 import {GAME_DERAIL, HeaderMenuTitleView} from "../../../../componet/navBarMenu/HeaderMenu";
@@ -61,7 +60,10 @@ export default class BaseGameView extends BaseView {
     }
 
     onRightPressed=()=>{
-        this.refs.moreMenu.toggle();
+        if(this.refs.moreMenu)
+        {
+            this.refs.moreMenu.toggle();
+        }
     }
 
     onHeadPressed=()=>{
@@ -108,35 +110,41 @@ export default class BaseGameView extends BaseView {
         HTTP_SERVER.GET_GAME_DETAIL.url = HTTP_SERVER.GET_GAME_DETAIL.formatUrl.replace(/#id/g, id);
         G_RunAfterInteractions(()=>{
             ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.GET_GAME_DETAIL, ActionType.GameType.SET_GAMECONFIG, data => {
-                const pd = data.data;
-                this.setState({
-                    bet_max_prize_group: parseInt(pd.bet_max_prize_group),
-                    bet_min_prize_group: parseInt(pd.bet_min_prize_group),
-                    user_prize_group: parseInt(pd.user_prize_group),
-                    defaultMethod_cn: pd.defaultMethod_cn,
-                    defaultMethodId: pd.defaultMethodId,
-                    currentNumber: pd.currentNumber,
-                    currentNumberTime: pd.currentNumberTime,
-                    currentTime: pd.currentTime,
-                    gameNumbers: pd.gameNumbers,
-                    diff_grize_group: parseInt(pd.diff_grize_group),
-                    noIssue: pd.noIssue,
-                    series_identifier: pd.series_identifier,
-                    series_amount: pd.series_amount,
-                    traceMaxTimes: pd.traceMaxTimes,
-                    history_lotterys: pd.history_lotterys.split(","),
-                });
-                let dim = (this.state.currentNumberTime - this.state.currentTime);
-                clearInterval(this.timeId);
-                if (dim > 0) {
-                    this.timeId = setInterval(this.countTime, 1000);
+                if(`${data.isSuccess}`!="404")
+                {
+                    const pd = data.data;
+                    this.setState({
+                        bet_max_prize_group: parseInt(pd.bet_max_prize_group),
+                        bet_min_prize_group: parseInt(pd.bet_min_prize_group),
+                        user_prize_group: parseInt(pd.user_prize_group),
+                        defaultMethod_cn: pd.defaultMethod_cn,
+                        defaultMethodId: pd.defaultMethodId,
+                        currentNumber: pd.currentNumber,
+                        currentNumberTime: pd.currentNumberTime,
+                        currentTime: pd.currentTime,
+                        gameNumbers: pd.gameNumbers,
+                        diff_grize_group: parseInt(pd.diff_grize_group),
+                        noIssue: pd.noIssue,
+                        series_identifier: pd.series_identifier,
+                        series_amount: pd.series_amount,
+                        traceMaxTimes: pd.traceMaxTimes,
+                        history_lotterys: pd.history_lotterys.split(","),
+                    });
+                    let dim = (this.state.currentNumberTime - this.state.currentTime);
+                    clearInterval(this.timeId);
+                    if (dim > 0) {
+                        this.timeId = setInterval(this.countTime, 1000);
+                    }
+                    //const {defaultMethodId} = this.state;
+                    if (!this.state.selectItem && pd.defaultMethodId) {
+                        const defaultGame = {"id": pd.defaultMethodId + '', "name": pd.defaultMethod_cn}
+                        this.clickMenuItem(defaultGame);
+                    }
+                }else {
+                    G_AlertUtil.showWithDestructive("","当前游戏获取数据出错，请稍后再尝试",[{text:"返回大厅",onPress:()=>{G_NavUtil.pop()}},{text:"了解"}])
                 }
-                //const {defaultMethodId} = this.state;
-                if (!this.state.selectItem && pd.defaultMethodId) {
-                    const defaultGame = {"id": pd.defaultMethodId + '', "name": pd.defaultMethod_cn}
-                    this.clickMenuItem(defaultGame);
-                }
-            }, false);
+
+            });
         })
     }
 
@@ -179,7 +187,7 @@ export default class BaseGameView extends BaseView {
                             isRequestGameWay: false,
                             selectItem: data
                         });
-                    }, false);
+                    });
                 }
             }
         }
@@ -196,13 +204,11 @@ export default class BaseGameView extends BaseView {
             case 1:
                 const gameName = currentGameWay.parent_parent_name_cn +"-"+ currentGameWay.name_cn;
                 const gameContent = `玩法说明:${currentGameWay.bonus_note}\n 玩法奖金:${G_moneyFormat(currentGameWay.prize)}`;
-                Alert.alert(
-                    `${gameName}玩法说明`,
+                G_AlertUtil.show(`${gameName}玩法说明`,
                     gameContent,
                     [
                         {text: '知道了'},
-                    ]
-                )
+                    ])
                 break;
             case 2:
                 G_NavUtil.pushToView(G_NavViews.TrendView({title:`${gameModel.getGameNameById(id)}-走势图`,lotteryId:id}))

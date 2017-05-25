@@ -3,6 +3,7 @@ import  action   from "./global/action";
 import  style from "./global/config/style";
 import  server from "./global/config/server";
 import  storage from "./global/utils/storage";
+import  alertUtil from "./global/utils/alertUtil";
 import  uitls from "./global/utils/util";
 import  AnimationHelp from "./global/animationHelp";
 import  route   from "./global/route";
@@ -32,17 +33,14 @@ export default class Root extends React.Component {
 
     componentDidMount() {
         G_MyStorage.getItem(G_EnumStroeKeys.CODE_PUSH, (data) => {
-            if(data&&data!="")
-            {
+            if(data&&data!="") {
                 let codePush = JSON.parse(data);
                 T_CheckCodePush(codePush.server,codePush.keyStr);
-                TLog("G_EnumStroeKeys.CODE_PUSH---",data);
             }else{
                 let codePush={};
                 codePush.keyStr= G_PLATFORM_IOS ? "RcWB1BblFfzejm9MhYIIRMtAfa2V4ksvOXqog":"OESoJepwvYUVO5JLX51iJl3LHucn4ksvOXqog"; //Staging
                 codePush.server="http://104.250.145.227:3000";
                 T_CheckCodePush(codePush.server,codePush.keyStr);
-                TLog("G_EnumStroeKeys.CODE_PUSH---nosave");
             }
         })
     }

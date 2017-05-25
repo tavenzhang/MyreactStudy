@@ -6,7 +6,6 @@ import {
     StyleSheet,
     TouchableHighlight,
     ListView,
-    Alert
 } from 'react-native';
 import {home_game} from "../../../../assets/index";
 
@@ -77,7 +76,7 @@ export default class GameDetail extends React.Component {
                 }
             }
             else {
-                Alert.alert("当前游戏还在筹备中", "敬请期待！", [])
+                G_AlertUtil.show("当前游戏还在筹备中", "敬请期待！");
             }
         }
         else{

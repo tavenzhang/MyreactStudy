@@ -153,9 +153,9 @@ export default class ConfigView extends BaseView {
             T_AppReStart();
         }
         else{
-            Alert.alert("修改成功！","应用程序重新启动后生效",[
-                {text: '稍后',onPress: () =>{this.toggleView()}},
-                {text: '马上重启', onPress: () =>T_AppReStart()}
+            G_AlertUtil.showWithDestructive("修改成功！","应用程序重新启动后生效",[
+                {text: '马上重启', onPress: () =>T_AppReStart()},
+                {text: '稍后',onPress: () =>{this.toggleView()}}
             ])
         }
     }

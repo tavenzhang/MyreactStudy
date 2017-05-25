@@ -5,7 +5,6 @@ import {
     , StyleSheet,
     ListView,
     TouchableHighlight,
-    Alert
 } from 'react-native';
 
 import {connect} from 'react-redux';
@@ -235,7 +234,7 @@ export default class MyView extends BaseView {
             }
         }
         else {
-           Alert.alert("", "请先登陆", [
+            G_AlertUtil.showWithDestructive("", "请先登陆", [
                 {text: '登陆', onPress: this.clickLogin,style:"destructive"},
                 {text: '取消'}
             ])

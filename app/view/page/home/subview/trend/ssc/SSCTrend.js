@@ -50,7 +50,7 @@ export default class SSCTrend extends BaseView {
     componentDidMount() {
         const {lotteryId} = this.props;
         HTTP_SERVER.TREND_DATA.url = HTTP_SERVER.TREND_DATA.formatUrl.replace(/{#lid}/, lotteryId).replace(/{#type}/, 5)
-        RunAfterInteractions(()=>{
+        G_RunAfterInteractions(()=>{
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.TREND_DATA, (data) => {
                 this.setState({
                     firstList: this.getDataByPosition(data, 0),

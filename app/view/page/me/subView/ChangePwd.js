@@ -102,13 +102,6 @@ export default class ChangePwd extends BaseView {
         );
     }
 
-    componentDidMount() {
-
-    }
-
-    componentWillUnmount() {
-
-    }
 
     onTabChange = (index) => {
         this.setState({
@@ -144,7 +137,7 @@ export default class ChangePwd extends BaseView {
                     ActDispatch.AppAct.showErrorBox(data.Msg);
                     if(data.isSuccess)
                     {
-                        NavUtil.pop();
+                        G_NavUtil.pop();
                     }
                 }, false)
             }
@@ -158,7 +151,7 @@ export default class ChangePwd extends BaseView {
                         ActDispatch.AppAct.showErrorBox(data.Msg);
                         if(data.isSuccess)
                         {
-                            NavUtil.pop();
+                            G_NavUtil.pop();
                         }
                     }, false)
                 }
@@ -170,7 +163,7 @@ export default class ChangePwd extends BaseView {
                         ActDispatch.AppAct.showErrorBox(data.Msg);
                         if(data.isSuccess)
                         {
-                            NavUtil.pop();
+                            G_NavUtil.pop();
                         }
                     }, false)
 

@@ -55,7 +55,7 @@ export default class MyBannerSwiper extends React.Component {
 
     bannerClick=(data)=> {
         TLog("bannerClick,----data==",data)
-        NavUtil.pushToView(NavViews.ADView(data));
+        G_NavUtil.pushToView(G_NavViews.ADView(data));
     }
 }
 

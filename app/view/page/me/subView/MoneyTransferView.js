@@ -114,7 +114,7 @@ export default class MoneyTransferView extends BaseView {
     }
 
     componentDidMount() {
-        RunAfterInteractions(()=>{
+        G_RunAfterInteractions(()=>{
             HTTP_SERVER.TRANSFER_GETINFO.url = HTTP_SERVER.TRANSFER_GETINFO.formatUrl.replace("#id", this.props.passProps.uid);
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.TRANSFER_GETINFO, (result) => {
                 let dataList = result.data.aBankCards.map((item) => {
@@ -152,7 +152,7 @@ export default class MoneyTransferView extends BaseView {
             HTTP_SERVER.TRANSFER_SUB_MINT.body.card_number = this.state.cardNum;
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.TRANSFER_SUB_MINT, (result) => {
                 if (result.isSuccess) {
-                    NavUtil.pop();
+                    G_NavUtil.pop();
                 }
 
             })

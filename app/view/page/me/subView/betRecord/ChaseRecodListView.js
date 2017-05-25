@@ -51,7 +51,7 @@ export default class ChaseRecodListView extends React.Component {
     }
 
     itemClick = (data) => {
-        NavUtil.pushToView(NavViews.ChaseDeatilView({...data,title:"追号详情",...this.props}));
+        G_NavUtil.pushToView(G_NavViews.ChaseDeatilView({...data,title:"追号详情",...this.props}));
     }
 }
 

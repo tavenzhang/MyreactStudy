@@ -33,7 +33,7 @@ export  default class NoticeDeailView extends BaseView {
     componentDidMount() {
         let {id} = this.props.passProps
         HTTP_SERVER.GET_SYSTEM_DETAIL.url = HTTP_SERVER.GET_SYSTEM_DETAIL.formatUrl.replace(/#id/g, id);
-        RunAfterInteractions(()=>{
+        G_RunAfterInteractions(()=>{
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.GET_SYSTEM_DETAIL, (result) => {
                 if (result.data) {
                     this.setState({data: result.data})

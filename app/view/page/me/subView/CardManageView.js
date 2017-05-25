@@ -35,7 +35,7 @@ export default class CardManageView extends BaseView {
     }
 
     componentDidMount() {
-        RunAfterInteractions(()=>{
+        G_RunAfterInteractions(()=>{
             HTTP_SERVER.LIST_BANGK_CARDS.body.page = 1;
             HTTP_SERVER.LIST_BANGK_CARDS.body.pagesize = 15;
             ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.LIST_BANGK_CARDS, ActionType.AppType.CARD_LIST_GET);
@@ -60,7 +60,7 @@ export default class CardManageView extends BaseView {
            return null;
        }
 
-        rowData.accountEny=StringUtil.formatBankCard(rowData.account);
+        rowData.accountEny=G_StringUtil.formatBankCard(rowData.account);
         let countName = rowData.account_name.replace(/./g, "*");
         let lockSate = rowData.islock ? "被锁定" : "使用中"
 
@@ -87,19 +87,19 @@ export default class CardManageView extends BaseView {
     }
 
     itemEditClcik=(data)=> {
-        NavUtil.pushToView(NavViews.EditCardView({title: "1. 验证银行卡",...data}));
+        G_NavUtil.pushToView(G_NavViews.EditCardView({title: "1. 验证银行卡",...data}));
     }
 
     itemDeleteClcik=(data)=> {
-        NavUtil.pushToView(NavViews.DelCardView({title: "删除银行卡",...data}));
+        G_NavUtil.pushToView(G_NavViews.DelCardView({title: "删除银行卡",...data}));
     }
 
     onRightPressed() {
         TLog("this.props.cardList---"+this.props.cardList.length)
         if(this.props.cardList.length<=0) {
-            NavUtil.pushToView(NavViews.AddCardView({title: "添加银行卡"}));
+            G_NavUtil.pushToView(G_NavViews.AddCardView({title: "添加银行卡"}));
         }else {
-            NavUtil.pushToView(NavViews.AddValidView({title: "1. 验证银行卡",cardList:this.props.cardList}));
+            G_NavUtil.pushToView(G_NavViews.AddValidView({title: "1. 验证银行卡",cardList:this.props.cardList}));
         }
     }
 }

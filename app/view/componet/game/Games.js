@@ -436,7 +436,7 @@ export default class Games extends Component {
         const me = this;
         const { lotterys, prize_group } = me.state;
         const { orderNum, moneyUnit, multiple, balance, bet_max_prize_group, bet_min_prize_group, diff_grize_group, series_amount , currentGameWay} = me.props;
-        const operTopDesc = `${lotterys.length}注 * ${multiple}倍 = ${moneyFormat(lotterys.length * multiple * currentGameWay.price * moneyUnit)}元`;
+        const operTopDesc = `${lotterys.length}注 * ${multiple}倍 = ${G_moneyFormat(lotterys.length * multiple * currentGameWay.price * moneyUnit)}元`;
 
         let modePriceOperate = null;
         if(bet_min_prize_group && bet_max_prize_group) {
@@ -470,7 +470,7 @@ export default class Games extends Component {
                         me.addBallsToBasket();
                     }}
                     btnIconEvent= {() => {
-                        NavUtil.pushToView(NavViews.LotteryOrders({}));
+                        G_NavUtil.pushToView(G_NavViews.LotteryOrders({}));
                     }}
                     btnIconEventDesc={orderNum}
                     btnIconName='cart-plus'

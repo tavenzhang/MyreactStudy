@@ -92,7 +92,7 @@ const EnumStroeKeys={
     DO_MAIN:"DO_MAIN",
     CODE_PUSH:"code-push"
 }
-global.EnumStroeKeys=EnumStroeKeys;
+global.G_EnumStroeKeys=EnumStroeKeys;
 
 
  class MyStorage {
@@ -122,4 +122,4 @@ global.EnumStroeKeys=EnumStroeKeys;
         )
     }
 }
-global.MyStorage=MyStorage;
+global.G_MyStorage=MyStorage;

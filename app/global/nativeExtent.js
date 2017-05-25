@@ -28,7 +28,7 @@ global.TLog = TLog;
 
 
 //移动端 统计分析 接口
-export const TAnalysis = (name = null, dateObj = null) => {
+export const Analysis = (name = null, dateObj = null) => {
     if (Platform.OS === 'ios') {
         if (dateObj == null) {
             INativeModule.analysis(name);
@@ -48,10 +48,11 @@ export const TAnalysis = (name = null, dateObj = null) => {
     }
 };
 
-global.TAnalysis = TAnalysis;
+global.T_Analysis = Analysis;
 
 
-export const G_CheckCodePush = (serverName, keyStr) => {
+//code push 更新检测
+export const T_CheckCodePush = (serverName, keyStr) => {
 
     let codeUpdate = (err, datas) => {
         if (__DEV__) {
@@ -62,7 +63,6 @@ export const G_CheckCodePush = (serverName, keyStr) => {
                 .then( (update) =>{
                     if( !update ){
                         TLog("codePush--------","app是最新版了")
-                        console.log("app是最新版了");
                     }else {
                         TLog("codePush--------",update)
                         CodePush.sync({
@@ -78,7 +78,7 @@ export const G_CheckCodePush = (serverName, keyStr) => {
                         let codePush={};
                         codePush.keyStr=keyStr;
                         codePush.server=serverName;
-                        MyStorage.setItem(EnumStroeKeys.CODE_PUSH,JSON.stringify(codePush));
+                        G_MyStorage.setItem(G_EnumStroeKeys.CODE_PUSH,JSON.stringify(codePush));
                     }
                 }).catch((err)=>{
                 TLog("codePush-------error-",err);
@@ -94,16 +94,16 @@ export const G_CheckCodePush = (serverName, keyStr) => {
     }
 }
 
-global.G_CheckCodePush = G_CheckCodePush;
+global.T_CheckCodePush = T_CheckCodePush;
 
-export const G_AppReStart = () => {
+export const T_AppReStart = () => {
     G_PLATFORM_IOS ?    RNRestart.Restart():ANativeModule.restartApp();
 
 }
-global.G_AppReStart = G_AppReStart;
+global.T_AppReStart = T_AppReStart;
 
 export const JSReload = () => {
    RNRestart.Restart();
 }
 
-global.G_JSReload = JSReload;
+global.T_JSReload = JSReload;

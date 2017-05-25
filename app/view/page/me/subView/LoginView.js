@@ -19,10 +19,10 @@ export default class LoginView extends BaseView {
             nameText: null,
             pwdText: null
         };
-        MyStorage.getItem(EnumStroeKeys.USRTNAME, (data) => {
+        G_MyStorage.getItem(G_EnumStroeKeys.USRTNAME, (data) => {
             this.setState({nameText: data});
         })
-        MyStorage.getItem(EnumStroeKeys.PASS_PWD, (data) => {
+        G_MyStorage.getItem(G_EnumStroeKeys.PASS_PWD, (data) => {
             this.setState({pwdText: data});
         });
     }
@@ -93,11 +93,11 @@ export default class LoginView extends BaseView {
             let bodyData = HTTP_SERVER.LOGIN_IN.body;
             bodyData.username = this.state.nameText;
             bodyData.password = md5.hex_md5(md5.hex_md5(md5.hex_md5(this.state.nameText + this.state.pwdText)));
-            MyStorage.setItem(EnumStroeKeys.USRTNAME, bodyData.username);
-            MyStorage.setItem(EnumStroeKeys.PASS_PWD, this.state.pwdText);
+            G_MyStorage.setItem(G_EnumStroeKeys.USRTNAME, bodyData.username);
+            G_MyStorage.setItem(G_EnumStroeKeys.PASS_PWD, this.state.pwdText);
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LOGIN_IN, (data) => {
                 if (data.isSuccess) {
-                    NavUtil.pop(this.props);
+                    G_NavUtil.pop(this.props);
                     ActDispatch.AppAct.loginReault(data);
                 } else {
                     ActDispatch.AppAct.showBox(data.Msg);

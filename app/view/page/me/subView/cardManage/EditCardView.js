@@ -115,7 +115,7 @@ export default class EditCardView extends BaseView {
             HTTP_SERVER.BANK_CARD_MODIFY_STEP_O.url=  HTTP_SERVER.BANK_CARD_MODIFY_STEP_O.formatUrl.replace("#id", passProps.id)
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.BANK_CARD_MODIFY_STEP_O, (result) => {
                 if (result.isSuccess) {
-                    NavUtil.pushToView(NavViews.EditCardAddView({...passProps,title: "2. 修改银行卡",isStep2:true}));
+                    G_NavUtil.pushToView(G_NavViews.EditCardAddView({...passProps,title: "2. 修改银行卡",isStep2:true}));
                 }
                 else {
                     //ActDispatch.AppAct.showErrorBox(result.Msg);

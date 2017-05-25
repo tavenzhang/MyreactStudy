@@ -54,9 +54,9 @@ export default class BannerView extends BaseView {
                         <View><Text style={styles.timeBannerText}>距第{currentNumber}期开奖:<Text style={{
                             color: "red",
                             fontWeight: "bold"
-                        }}>{DateUtil.formatSecondDate(time)}</Text></Text></View>
+                        }}>{G_DateUtil.formatSecondDate(time)}</Text></Text></View>
                         <View ref="moreMenuButton"><Text
-                            style={styles.timeBannerText}>玩法奖金:{moneyFormat(prize)}元</Text></View>
+                            style={styles.timeBannerText}>玩法奖金:{G_moneyFormat(prize)}元</Text></View>
                     </View>
                     {historyView}
                 </View>

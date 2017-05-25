@@ -31,7 +31,7 @@ export default class OrderItem extends React.Component {
                 </View>
                 <View>
                     <Text>[{data.gameName}] <Text style={styles.lotteryNumber}>{data.viewBalls}</Text></Text>
-                    <Text style={styles.desc}>{data.num}注x{data.multiple}倍x{data.onePrice * data.moneyunit}元={moneyFormat(data.amount)}元</Text>
+                    <Text style={styles.desc}>{data.num}注x{data.multiple}倍x{data.onePrice * data.moneyunit}元={G_moneyFormat(data.amount)}元</Text>
                 </View>
             </View>
         )

@@ -101,7 +101,7 @@ let NavViews = {
 }
 
 
-global.NavViews = NavViews;
+global.G_NavViews = NavViews;
 
 
 const NavUtil = {
@@ -143,10 +143,10 @@ const NavUtil = {
             // });
         }
     }
-    global.NavUtil = NavUtil
+global.G_NavUtil = NavUtil
 
 
-global.InitRegistApp = false;
+global.G_InitRegistApp = false;
 
 
 

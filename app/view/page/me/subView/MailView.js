@@ -30,7 +30,7 @@ export default class MailView extends BaseView {
 
     componentDidMount() {
 
-        RunAfterInteractions(()=>{
+        G_RunAfterInteractions(()=>{
             if(this.state.dataList.length<=0)
             {
                 ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LETTER_LIST, (result) => {
@@ -45,7 +45,7 @@ export default class MailView extends BaseView {
     }
 
     _renderRow=(data)=>{
-        let dataName =  DateUtil.formatItemDateString(data.updated_at);
+        let dataName =  G_DateUtil.formatItemDateString(data.updated_at);
         return (
             <View>
                 <TouchableHighlight onPress={() => this.itemClick(data)} underlayColor='rgba(10,10,10,0.2)'>
@@ -68,7 +68,7 @@ export default class MailView extends BaseView {
     }
 
     itemClick=(data)=>{
-        NavUtil.pushToView(NavViews.MessageDetail({...data,title:"信件详情"}));
+        G_NavUtil.pushToView(G_NavViews.MessageDetail({...data,title:"信件详情"}));
     }
 
 }

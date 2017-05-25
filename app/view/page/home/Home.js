@@ -65,7 +65,7 @@ export default class Home extends BaseView {
     }
 
     componentDidMount() {
-        MyStorage.getItem(EnumStroeKeys.DO_MAIN, (data) => {
+        G_MyStorage.getItem(G_EnumStroeKeys.DO_MAIN, (data) => {
             if(data&&data!="")
             {
                 SERVERADDR=data;

@@ -27,7 +27,7 @@ export default class Notice extends BaseView {
 
     componentDidMount() {
         if (this.state.dataList.length <= 0) {
-            RunAfterInteractions(()=>{
+            G_RunAfterInteractions(()=>{
                 ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.GET_LIST_SYSTEM, (result) => {
                     if (result.data.data) {
                         let arr = this.state.dataList.concat(result.data.data);
@@ -47,7 +47,7 @@ export default class Notice extends BaseView {
                             <Text style={styles.textHeadStyle}>{data.title}</Text>
                         </View>
                         <View style={styles.itemContentStyle}>
-                            <AIcon name={EnumFontNames.angleRight}
+                            <AIcon name={G_EnumFontNames.angleRight}
                                    style={{fontSize: 25, alignSelf: "center", color: "gray"}}/>
                         </View>
                     </View>
@@ -56,7 +56,7 @@ export default class Notice extends BaseView {
         );
     }
     itemClick = (data) => {
-        NavUtil.pushToView(NavViews.NoticeDeailView({...data, title: data.title}));
+        G_NavUtil.pushToView(G_NavViews.NoticeDeailView({...data, title: data.title}));
     }
 }
 

@@ -60,7 +60,7 @@ export default class BaseListView extends React.Component {
     //
     // }
     // componentWillUpdate() {
-    //     LayoutAnimation.configureNext(LayoutAnimationHelp.defaultSpring);
+    //     LayoutAnimation.configureNext(G_LayoutAnimationHelp.defaultSpring);
     // }
 
     componentDidMount() {

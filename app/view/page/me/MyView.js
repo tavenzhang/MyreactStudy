@@ -171,11 +171,11 @@ export default class MyView extends BaseView {
     }
 
     clickReg = () => {
-        NavUtil.pushToView(NavViews.RegView({title: "注册"}));
+        G_NavUtil.pushToView(G_NavViews.RegView({title: "注册"}));
     }
 
     clickLogin = () => {
-        NavUtil.pushToView(NavViews.LoginView({title: "登陆"}));
+        G_NavUtil.pushToView(G_NavViews.LoginView({title: "登陆"}));
     }
 
     itemClick = (data) => {
@@ -183,22 +183,22 @@ export default class MyView extends BaseView {
         if (userData.isLogined) {
             switch (data.name) {
                 case ItemNameEnum.awardFind:
-                    NavUtil.pushToView(NavViews.AwardRecord({title: data.name}))
+                    G_NavUtil.pushToView(G_NavViews.AwardRecord({title: data.name}))
                     break;
                 case ItemNameEnum.betRecord:
-                    NavUtil.pushToView(NavViews.BetRecord({title: data.name}));
+                    G_NavUtil.pushToView(G_NavViews.BetRecord({title: data.name}));
                     break;
                 case ItemNameEnum.chaseRecode:
-                    NavUtil.pushToView(NavViews.ChaseRecord({title: data.name}));
+                    G_NavUtil.pushToView(G_NavViews.ChaseRecord({title: data.name}));
                     break;
                 case ItemNameEnum.myMoney:
-                    NavUtil.pushToView(NavViews.MyMoneyView({title: data.name}));
+                    G_NavUtil.pushToView(G_NavViews.MyMoneyView({title: data.name}));
                     break;
                 case ItemNameEnum.inMoney:
-                    NavUtil.pushToView(NavViews.InMoneyView({title: data.name}));
+                    G_NavUtil.pushToView(G_NavViews.InMoneyView({title: data.name}));
                     break;
                 case ItemNameEnum.outerMoney:
-                    NavUtil.pushToView(NavViews.OuterMoneyView({
+                    G_NavUtil.pushToView(G_NavViews.OuterMoneyView({
                         title: data.name,
                         money: parseInt(userData.data.available),
                         uid: userData.data.user_id,
@@ -206,12 +206,12 @@ export default class MyView extends BaseView {
                     }));
                     break;
                 case ItemNameEnum.pwdMange:
-                    NavUtil.pushToView(NavViews.ChangePwd({title: data.name,defaultIndex:0}));
+                    G_NavUtil.pushToView(G_NavViews.ChangePwd({title: data.name,defaultIndex:0}));
                     break;
                 case ItemNameEnum.cardMange:
                    if(userData.data.is_set_fund_password)
                    {
-                       NavUtil.pushToView(NavViews.CardManageView({title: data.name}));
+                       G_NavUtil.pushToView(G_NavViews.CardManageView({title: data.name}));
                    }
                    else{
 
@@ -223,10 +223,10 @@ export default class MyView extends BaseView {
                    }
                     break;
                 case ItemNameEnum.msgNotice:
-                    NavUtil.pushToView(NavViews.MsgView({title: data.name}));
+                    G_NavUtil.pushToView(G_NavViews.MsgView({title: data.name}));
                     break;
                 case ItemNameEnum.moneyTransfer:
-                    NavUtil.pushToView(NavViews.MoneyTransferView({
+                    G_NavUtil.pushToView(G_NavViews.MoneyTransferView({
                         title: data.name,
                         money: parseInt(userData.data.available),
                         uid: userData.data.user_id
@@ -263,7 +263,7 @@ export default class MyView extends BaseView {
                                 <AIcon name={rowData.ico} style={{color: GlobelTheme.grayDeep, fontSize: 20, width: 25}}/>
                                 <Text style={{fontSize: 14, left: 20}}>{rowData.name}</Text>
                             </View>
-                        <AIcon name={EnumFontNames.angleRight} style={styles.iconNormal}/>
+                        <AIcon name={G_EnumFontNames.angleRight} style={styles.iconNormal}/>
                     </View>
                 </View>
             </TouchableHighlight>
@@ -279,7 +279,7 @@ export default class MyView extends BaseView {
     //     );
     // }
     gotoFoundPwd=()=>{
-        NavUtil.pushToView(NavViews.ChangePwd({title:"密码管理",defaultIndex:1}));
+        G_NavUtil.pushToView(G_NavViews.ChangePwd({title:"密码管理",defaultIndex:1}));
     }
 }
 

@@ -37,7 +37,7 @@ export default class SSC_History extends BaseView {
     }
 
     componentDidMount() {
-        RunAfterInteractions(()=>{
+        G_RunAfterInteractions(()=>{
             this.loadMore(null,0);
         })
     }
@@ -95,7 +95,7 @@ export default class SSC_History extends BaseView {
 
     itemClick = (data) => {
        // TLog("GameResultList----", data)
-        // NavUtil.pushToView(NavViews.SSC_History({...data,title:data.name}));
+        // NavUtil.pushToView(G_NavViews.SSC_History({...data,title:data.name}));
     }
 }
 

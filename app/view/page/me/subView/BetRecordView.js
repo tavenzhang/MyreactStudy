@@ -4,7 +4,6 @@ import {
     Text, StyleSheet,
     TouchableHighlight,
     TouchableOpacity,
-    InteractionManager
 } from 'react-native';
 import {connect} from 'react-redux';
 import AIcon from 'react-native-vector-icons/FontAwesome';
@@ -30,9 +29,9 @@ export default class BetRecordView extends BaseView {
     constructor(props) {
         super(props);
         let now = new Date();
-        let lastWeekTime = DateUtil.formatRecodData(new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000));
-        let lastMonth = DateUtil.formatRecodData(new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000));
-        let lastTowMonth = DateUtil.formatRecodData(new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000));
+        let lastWeekTime = G_DateUtil.formatRecodData(new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000));
+        let lastMonth = G_DateUtil.formatRecodData(new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000));
+        let lastTowMonth = G_DateUtil.formatRecodData(new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000));
         this.state = {
             curGame: null,
             curPlay: null,
@@ -90,7 +89,7 @@ export default class BetRecordView extends BaseView {
                         <View style={{flexDirection: "row"}}>
                             <Text
                                 style={{color: !gameView ? GlobelTheme.black : GlobelTheme.primary}}>{gameBtnName}</Text>
-                            <AIcon name={EnumFontNames.list_arrow_desc}
+                            <AIcon name={G_EnumFontNames.list_arrow_desc}
                                    style={{
                                        color: !gameView ? GlobelTheme.black : GlobelTheme.primary,
                                        fontSize: 15,
@@ -105,7 +104,7 @@ export default class BetRecordView extends BaseView {
                         <View style={{flexDirection: "row", alignItems: "center"}}>
                             <Text
                                 style={{color: !playView ? GlobelTheme.black : GlobelTheme.primary}}>{playBtnName}</Text>
-                            <AIcon name={EnumFontNames.list_arrow_desc}
+                            <AIcon name={G_EnumFontNames.list_arrow_desc}
                                    style={{
                                        color: !playView ? GlobelTheme.black : GlobelTheme.primary,
                                        fontSize: 15,
@@ -120,7 +119,7 @@ export default class BetRecordView extends BaseView {
                         <View style={{flexDirection: "row"}}>
                             <Text
                                 style={{color: !timeView ? GlobelTheme.black : GlobelTheme.primary}}>{timeBtnName}</Text>
-                            <AIcon name={EnumFontNames.list_arrow_desc}
+                            <AIcon name={G_EnumFontNames.list_arrow_desc}
                                    style={{
                                        color: !timeView ? GlobelTheme.black : GlobelTheme.primary,
                                        fontSize: 15,
@@ -143,9 +142,9 @@ export default class BetRecordView extends BaseView {
     }
 
     componentDidMount() {
-        InteractionManager.runAfterInteractions(() => {
+        G_RunAfterInteractions(()=>{
             this.loadMore(null, 1);
-        });
+        })
     }
 
     onPressMenu = (btnType) => {
@@ -227,7 +226,7 @@ export default class BetRecordView extends BaseView {
 
     loadMore = (callBack, forcePage = 0) => {
         HTTP_SERVER.BET_RECODE.body.bought_at_from = this.state.curTime ? this.state.curTime.date : "";
-        HTTP_SERVER.BET_RECODE.body.bought_at_to = DateUtil.formatRecodData(new Date());
+        HTTP_SERVER.BET_RECODE.body.bought_at_to = G_DateUtil.formatRecodData(new Date());
         HTTP_SERVER.BET_RECODE.body.lottery_id = this.state.curGame ? this.state.curGame.id : "";
         HTTP_SERVER.BET_RECODE.body.way_id = this.state.curPlay ? this.state.curPlay.id : "";
         if (forcePage > 0) {

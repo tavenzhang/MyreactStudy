@@ -70,7 +70,7 @@ function fetchMiddleware(extraArgument) {
                                 {
                                     next(ActionEnum.AppAct.showErrorBox("请登陆后 再做此操作！"));
                                     next(ActionEnum.AppAct.loginOut());
-                                    NavUtil.pushToView(NavViews.LoginView());
+                                    G_NavUtil.pushToView(G_NavViews.LoginView());
                                 }
                                 else{
                                     next(ActionEnum.AppAct.showErrorBox(data.Msg));

@@ -25,4 +25,4 @@ export const LayoutAnimationHelp={
     },
 }
 
-global.LayoutAnimationHelp=LayoutAnimationHelp;
+global.G_LayoutAnimationHelp=LayoutAnimationHelp;

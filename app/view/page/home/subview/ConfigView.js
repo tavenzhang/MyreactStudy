@@ -99,9 +99,9 @@ export default class ConfigView extends BaseView {
     onClickDomain=()=>{
         if(this.state.domain !="")
         {
-            MyStorage.setItem(EnumStroeKeys.DO_MAIN, "http://"+this.state.domain,()=>{
+            G_MyStorage.setItem(G_EnumStroeKeys.DO_MAIN, "http://"+this.state.domain,()=>{
                 ActDispatch.AppAct.showBox("域名更新成功")
-                G_JSReload();
+                T_JSReload();
             });
         }
         else{
@@ -118,13 +118,13 @@ export default class ConfigView extends BaseView {
             {
                 case "1":
                     codePush.server="http://192.168.0.110:3000";
-                    MyStorage.setItem(EnumStroeKeys.CODE_PUSH,JSON.stringify(codePush),()=>{
+                    G_MyStorage.setItem(G_EnumStroeKeys.CODE_PUSH,JSON.stringify(codePush),()=>{
                         this.restartApp();
                     });
                     break;
                 case "2":
                     codePush.server="http://104.250.145.227:3000";
-                    MyStorage.setItem(EnumStroeKeys.CODE_PUSH,JSON.stringify(codePush),()=>{
+                    G_MyStorage.setItem(G_EnumStroeKeys.CODE_PUSH,JSON.stringify(codePush),()=>{
                         this.restartApp();
                     });
                     break;
@@ -132,7 +132,7 @@ export default class ConfigView extends BaseView {
                     ActDispatch.FetchAct.fetchWithResult("http://"+this.state.bundleServer,(data)=>{
                         codePush.keyStr= G_PLATFORM_IOS ? data.key_ios:data.key_android;
                         codePush.server=(data.server)
-                        MyStorage.setItem(EnumStroeKeys.CODE_PUSH,JSON.stringify(codePush),()=>{
+                        G_MyStorage.setItem(G_EnumStroeKeys.CODE_PUSH,JSON.stringify(codePush),()=>{
                             this.restartApp();
                         });
                     })
@@ -150,12 +150,12 @@ export default class ConfigView extends BaseView {
     restartApp=()=>{
         if(G_PLATFORM_IOS)
         {
-            G_AppReStart();
+            T_AppReStart();
         }
         else{
             Alert.alert("修改成功！","应用程序重新启动后生效",[
                 {text: '稍后',onPress: () =>{this.toggleView()}},
-                {text: '马上重启', onPress: () =>G_AppReStart()}
+                {text: '马上重启', onPress: () =>T_AppReStart()}
             ])
         }
     }

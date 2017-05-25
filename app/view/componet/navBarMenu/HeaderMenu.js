@@ -8,7 +8,7 @@ import AIcon from 'react-native-vector-icons/FontAwesome';
 
 export class HeaderPlusRightMenu extends React.Component {
     render() {
-        return (<AIcon color="white" size={23} name={EnumFontNames.plus}/>)
+        return (<AIcon color="white" size={23} name={G_EnumFontNames.plus}/>)
     }
 }
 
@@ -17,7 +17,7 @@ export class HeaderMenuTitleView extends React.Component {
         return (
                  <View style={[{flexDirection:"row"}]}>
                     <Text key={'title'} style={styles.title}>{this.props.title}</Text>
-                    <AIcon color="white" style={{marginLeft:5}} size={16} name={EnumFontNames.list_arrow_desc}/>
+                    <AIcon color="white" style={{marginLeft:5}} size={16} name={G_EnumFontNames.list_arrow_desc}/>
                 </View>
         )
     }
@@ -37,7 +37,7 @@ export class HeaderLeftDomain extends React.Component {
 
 export class GAME_DERAIL extends React.Component {
     render() {
-        return  <AIcon name={EnumFontNames.bars} style={styles.barRightIcon} />
+        return  <AIcon name={G_EnumFontNames.bars} style={styles.barRightIcon} />
     }
 }
 

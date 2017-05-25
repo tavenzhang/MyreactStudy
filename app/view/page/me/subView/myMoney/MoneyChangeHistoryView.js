@@ -43,7 +43,7 @@ export default class MoneyChangeHistoryView extends React.Component {
     }
 
     // componentWillUpdate() {
-    //     LayoutAnimation.configureNext(LayoutAnimationHelp.springNoDelete);
+    //     LayoutAnimation.configureNext(G_LayoutAnimationHelp.springNoDelete);
     // }
 
     componentDidMount() {
@@ -51,7 +51,7 @@ export default class MoneyChangeHistoryView extends React.Component {
         let {httpService} = this.props
         httpService.body.page = 1;
         httpService.body.pagesize = 15;
-        RunAfterInteractions(()=>{
+        G_RunAfterInteractions(()=>{
             ActDispatch.FetchAct.fetchVoWithResult(httpService, (result) => {
                 if (result.data.data) {
                     this.setState({dataList: result.data.data});
@@ -97,7 +97,7 @@ export default class MoneyChangeHistoryView extends React.Component {
     _renderRow = (rowData,section) => {
         let {gameModel,playModel,typesModel}=this.props;
         let gameName= gameModel.getGameNameById(rowData.lottery_id);
-         let dateStr=   DateUtil.formatSimpleItemDateString(rowData.created_at);
+         let dateStr=   G_DateUtil.formatSimpleItemDateString(rowData.created_at);
          let playName = playModel.getWayNameById(rowData.way_id);
          let money= rowData.is_income ? `+${ parseInt(rowData.amount)}`:`-${ parseInt(rowData.amount)}`
 

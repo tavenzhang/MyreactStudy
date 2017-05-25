@@ -106,7 +106,7 @@ export default class BaseGameView extends BaseView {
     requetGameData = () => {
         const {id} = this.props.passProps
         HTTP_SERVER.GET_GAME_DETAIL.url = HTTP_SERVER.GET_GAME_DETAIL.formatUrl.replace(/#id/g, id);
-        RunAfterInteractions(()=>{
+        G_RunAfterInteractions(()=>{
             ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.GET_GAME_DETAIL, ActionType.GameType.SET_GAMECONFIG, data => {
                 const pd = data.data;
                 this.setState({
@@ -195,7 +195,7 @@ export default class BaseGameView extends BaseView {
         switch (data.key) {
             case 1:
                 const gameName = currentGameWay.parent_parent_name_cn +"-"+ currentGameWay.name_cn;
-                const gameContent = `玩法说明:${currentGameWay.bonus_note}\n 玩法奖金:${moneyFormat(currentGameWay.prize)}`;
+                const gameContent = `玩法说明:${currentGameWay.bonus_note}\n 玩法奖金:${G_moneyFormat(currentGameWay.prize)}`;
                 Alert.alert(
                     `${gameName}玩法说明`,
                     gameContent,
@@ -205,10 +205,10 @@ export default class BaseGameView extends BaseView {
                 )
                 break;
             case 2:
-                NavUtil.pushToView(NavViews.TrendView({title:`${gameModel.getGameNameById(id)}-走势图`,lotteryId:id}))
+                G_NavUtil.pushToView(G_NavViews.TrendView({title:`${gameModel.getGameNameById(id)}-走势图`,lotteryId:id}))
                 break;
             case 3:
-                NavUtil.pushToView(NavViews.SSC_History({lottery_name:this.gameName,lottery_id:id}))
+                G_NavUtil.pushToView(G_NavViews.SSC_History({lottery_name:this.gameName,lottery_id:id}))
                 break;
             default:
                 break;

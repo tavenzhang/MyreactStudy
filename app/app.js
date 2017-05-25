@@ -25,13 +25,13 @@ import GuidView from "./view/page/GuidView";
 
 //定义全局Dispatch 方便使用
 const mapDispatchToProps = (dispatch) => {
-    if(!InitRegistApp)
+    if(!G_InitRegistApp)
     {   ActDispatch.AppAct=bindActionCreators(ActDispatch.AppAct,dispatch);
         ActDispatch.FetchAct=bindActionCreators(ActDispatch.FetchAct,dispatch);
         ActDispatch.HomeAct=bindActionCreators(ActDispatch.HomeAct,dispatch);
         ActDispatch.NoticeAct=bindActionCreators(ActDispatch.NoticeAct,dispatch);
         ActDispatch.GameAct=bindActionCreators(ActDispatch.GameAct,dispatch);
-        InitRegistApp  =true;
+        G_InitRegistApp  =true;
     }
     return {}
 }

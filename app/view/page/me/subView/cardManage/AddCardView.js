@@ -208,10 +208,10 @@ export default class AddCardView extends BaseView {
                  {
                      if(passProps.isStep2)
                      {
-                         NavUtil.popN(2);
+                         G_NavUtil.popN(2);
                      }
                      else{
-                         NavUtil.pop();
+                         G_NavUtil.pop();
                      }
                      HTTP_SERVER.LIST_BANGK_CARDS.page=1;
                      ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.LIST_BANGK_CARDS, ActionType.AppType.CARD_LIST_GET);

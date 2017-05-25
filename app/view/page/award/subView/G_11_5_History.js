@@ -46,7 +46,7 @@ export default class G_11_5_History extends BaseView {
 
 
     loadMore = (callBack, forcePage = 1) => {
-       RunAfterInteractions(()=>{
+       G_RunAfterInteractions(()=>{
            const {lottery_id} = this.props.passProps;
            HTTP_SERVER.notice_Lottery_Hisotry.url= `${HTTP_SERVER.notice_Lottery_Hisotry.formatUrl}/${lottery_id}/${this.next_id}`
            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_Lottery_Hisotry,(result)=>{
@@ -102,7 +102,7 @@ export default class G_11_5_History extends BaseView {
 
     itemClick = (data) => {
        // TLog("GameResultList----", data)
-        // NavUtil.pushToView(NavViews.SSC_History({...data,title:data.name}));
+        // NavUtil.pushToView(G_NavViews.SSC_History({...data,title:data.name}));
     }
 
 }

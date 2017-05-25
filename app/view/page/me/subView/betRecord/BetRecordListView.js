@@ -24,7 +24,7 @@ export default class BetRecordListView extends React.Component {
 
     _renderRow = (rowData) => {
         let {gameModel} = this.props;
-        let dataName = DateUtil.formatItemDateString(rowData.bought_at);
+        let dataName = G_DateUtil.formatItemDateString(rowData.bought_at);
         let gameName = gameModel.getGameNameById(rowData.lottery_id);
         return (
             <View>
@@ -54,7 +54,7 @@ export default class BetRecordListView extends React.Component {
 
     itemClick = (data) => {
         let {gameModel} = this.props;
-        NavUtil.pushToView(NavViews.BetDetailView({...data, title: "投注详情", gameModel: gameModel}));
+        G_NavUtil.pushToView(G_NavViews.BetDetailView({...data, title: "投注详情", gameModel: gameModel}));
     }
 }
 

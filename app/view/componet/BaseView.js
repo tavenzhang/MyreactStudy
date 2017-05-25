@@ -58,7 +58,7 @@ export default class BaseView extends Component {
     }
 
     componentWillUpdate() {
-        LayoutAnimation.configureNext(LayoutAnimationHelp.springNoDelete);
+        LayoutAnimation.configureNext(G_LayoutAnimationHelp.springNoDelete);
     }
 
     render() {
@@ -75,7 +75,7 @@ export default class BaseView extends Component {
     }
 
     onLeftPressed() {
-         NavUtil.pop();
+         G_NavUtil.pop();
     }
 
     onRightPressed() {

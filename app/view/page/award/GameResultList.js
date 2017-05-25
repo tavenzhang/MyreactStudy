@@ -44,7 +44,7 @@ export default class GameResultList extends BaseView {
     }
 
     componentDidMount() {
-        RunAfterInteractions(()=>{
+        G_RunAfterInteractions(()=>{
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_ALL_Lottery,(data)=>{
                 if(data.isSuccess)
                 {
@@ -99,10 +99,10 @@ export default class GameResultList extends BaseView {
         switch(data.series_name)
         {
             case "SSC":
-                NavUtil.pushToView(NavViews.SSC_History({...data}));
+                G_NavUtil.pushToView(G_NavViews.SSC_History({...data}));
                 break;
             case "11-5":
-                NavUtil.pushToView(NavViews.G_11_5_History({...data}));
+                G_NavUtil.pushToView(G_NavViews.G_11_5_History({...data}));
                 break;
         }
     }

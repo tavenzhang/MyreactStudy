@@ -49,27 +49,27 @@ export default class GameDetail extends React.Component {
     }
 
     itemClick = (data) => {
-        TAnalysis("进入游戏",data)
+        T_Analysis("进入游戏",data)
         const {gameModel, playModel,userData} = this.props
-        //NavUtil.pushToView(NavViews.TrendView({title:`走势图`,lotteryId:data.id}))
+        //G_NavUtil.pushToView(G_NavViews.TrendView({title:`走势图`,lotteryId:data.id}))
         if(userData.isLogined)
         {
             if (data.open == "1") {
                 switch (data.series_id+'')
                 {
                     case "1":
-                        NavUtil.pushToView(NavViews.SSCView({...data, gameModel: gameModel, playModel: playModel}));
+                        G_NavUtil.pushToView(G_NavViews.SSCView({...data, gameModel: gameModel, playModel: playModel}));
                         break;
                     case "2":
-                        NavUtil.pushToView(NavViews.L115View({...data, gameModel: gameModel, playModel: playModel}));
+                        G_NavUtil.pushToView(G_NavViews.L115View({...data, gameModel: gameModel, playModel: playModel}));
                         break;
 
                     case "3":
-                        NavUtil.pushToView(NavViews.D3View({...data, gameModel: gameModel, playModel: playModel}));
+                        G_NavUtil.pushToView(G_NavViews.D3View({...data, gameModel: gameModel, playModel: playModel}));
                         break;
 
                     case "5":
-                        NavUtil.pushToView(NavViews.K3View({...data, gameModel: gameModel, playModel: playModel}));
+                        G_NavUtil.pushToView(G_NavViews.K3View({...data, gameModel: gameModel, playModel: playModel}));
                         break;
 
                     default :
@@ -82,7 +82,7 @@ export default class GameDetail extends React.Component {
         }
         else{
             ActDispatch.AppAct.showErrorBox("请先登陆，再进入游戏！");
-            NavUtil.pushToView(NavViews.LoginView());
+            G_NavUtil.pushToView(G_NavViews.LoginView());
          }
     }
 }

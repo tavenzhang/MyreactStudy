@@ -67,5 +67,5 @@ const EnumFontNames={
     bars:'bars'
 }
 
-global.EnumFontNames=EnumFontNames;
+global.G_EnumFontNames=EnumFontNames;
 

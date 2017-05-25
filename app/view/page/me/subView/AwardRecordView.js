@@ -50,7 +50,7 @@ export default class AwardRecordView extends BaseView {
     }
 
     componentWillUpdate() {
-        LayoutAnimation.configureNext(LayoutAnimationHelp.springNoDelete);
+        LayoutAnimation.configureNext(G_LayoutAnimationHelp.springNoDelete);
     }
 
     componentDidMount() {

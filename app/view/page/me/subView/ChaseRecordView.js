@@ -27,9 +27,9 @@ export default class ChaseRecordView extends BaseView {
     constructor(props) {
         super(props);
         let now = new Date();
-        let lastWeekTime = DateUtil.formatRecodData(new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000));
-        let lastMonth = DateUtil.formatRecodData(new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000));
-        let lastTowMonth = DateUtil.formatRecodData(new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000));
+        let lastWeekTime = G_DateUtil.formatRecodData(new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000));
+        let lastMonth = G_DateUtil.formatRecodData(new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000));
+        let lastTowMonth = G_DateUtil.formatRecodData(new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000));
         this.state = {
             curGame: null,
             curPlay: null,
@@ -88,7 +88,7 @@ export default class ChaseRecordView extends BaseView {
                         <View style={{flexDirection: "row"}}>
                             <Text
                                 style={{color: !gameView ? GlobelTheme.black : GlobelTheme.primary}}>{gameBtnName}</Text>
-                            <AIcon name={EnumFontNames.list_arrow_desc}
+                            <AIcon name={G_EnumFontNames.list_arrow_desc}
                                    style={{
                                        color: !gameView ? GlobelTheme.black : GlobelTheme.primary,
                                        fontSize: 15,
@@ -103,7 +103,7 @@ export default class ChaseRecordView extends BaseView {
                         <View style={{flexDirection: "row", alignItems: "center"}}>
                             <Text
                                 style={{color: !playView ? GlobelTheme.black : GlobelTheme.primary}}>{playBtnName}</Text>
-                            <AIcon name={EnumFontNames.list_arrow_desc}
+                            <AIcon name={G_EnumFontNames.list_arrow_desc}
                                    style={{
                                        color: !playView ? GlobelTheme.black : GlobelTheme.primary,
                                        fontSize: 15,
@@ -118,7 +118,7 @@ export default class ChaseRecordView extends BaseView {
                         <View style={{flexDirection: "row"}}>
                             <Text
                                 style={{color: !tiemView ? GlobelTheme.black : GlobelTheme.primary}}>{timeBtnName}</Text>
-                            <AIcon name={EnumFontNames.list_arrow_desc}
+                            <AIcon name={G_EnumFontNames.list_arrow_desc}
                                    style={{
                                        color: !tiemView ? GlobelTheme.black : GlobelTheme.primary,
                                        fontSize: 15,
@@ -141,7 +141,7 @@ export default class ChaseRecordView extends BaseView {
     }
 
     componentDidMount() {
-        RunAfterInteractions(()=>{
+        G_RunAfterInteractions(()=>{
             this.loadMore(null, 1);
         })
     }
@@ -227,7 +227,7 @@ export default class ChaseRecordView extends BaseView {
 
     loadMore = (callBack, forcePage = 0) => {
         HTTP_SERVER.CHASE_RECODE.body.bought_at_from = this.state.curTime ? this.state.curTime.date : "";
-        HTTP_SERVER.CHASE_RECODE.body.bought_at_to = DateUtil.formatRecodData(new Date());
+        HTTP_SERVER.CHASE_RECODE.body.bought_at_to = G_DateUtil.formatRecodData(new Date());
         HTTP_SERVER.CHASE_RECODE.body.lottery_id = this.state.curGame ? this.state.curGame.id : "";
         HTTP_SERVER.CHASE_RECODE.body.way_id = this.state.curPlay ? this.state.curPlay.id : "";
         if (forcePage > 0) {
@@ -239,7 +239,7 @@ export default class ChaseRecordView extends BaseView {
         }
 
         HTTP_SERVER.CHASE_RECODE.body.pagesize = 20;
-        RunAfterInteractions(()=>{
+        G_RunAfterInteractions(()=>{
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.CHASE_RECODE, (result) => {
                 if (callBack) {
                     callBack()

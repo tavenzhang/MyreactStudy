@@ -100,7 +100,7 @@ export default class LotteryOrders extends BaseView {
                 //清空购彩篮
                 ActDispatch.GameAct.delOrder();
                 //返回选球页
-                setTimeout(() => NavUtil.pop() , 1500);
+                setTimeout(() => G_NavUtil.pop() , 1500);
 
             }
         })
@@ -130,7 +130,7 @@ export default class LotteryOrders extends BaseView {
 
                     <Button
                         btnName="继续选号"
-                        onPress={() => NavUtil.pop()}
+                        onPress={() => G_NavUtil.pop()}
                         />
                 </View>
                 <ScrollView style={styles.orderListBox}>
@@ -157,7 +157,7 @@ export default class LotteryOrders extends BaseView {
                                             ActDispatch.GameAct.delOrder();
                                             //返回上一级
                                             //返回选球页
-                                            setTimeout(() => NavUtil.pop() , 1000);
+                                            setTimeout(() => G_NavUtil.pop() , 1000);
                                           }}
                                         ]
                                     )
@@ -174,14 +174,14 @@ export default class LotteryOrders extends BaseView {
 
                 <GameControlPannel
                     balance= {balance}
-                    topDesc= {`总计: ${total}注, 共${moneyFormat(totalMoney)}元`}
+                    topDesc= {`总计: ${total}注, 共${G_moneyFormat(totalMoney)}元`}
                     btnEvent= {() => {
                         if(orderListNum == 0) {
                             Alert.alert(
                                 '',
                                 '您的购彩篮为空,请先选择投注号码!',
                                 [
-                                  {text: '确定',onPress: () => NavUtil.pop()}
+                                  {text: '确定',onPress: () => G_NavUtil.pop()}
                                 ]
                             )
                         }

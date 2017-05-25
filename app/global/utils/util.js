@@ -1,6 +1,4 @@
-import { NativeModules,Platform ,InteractionManager} from 'react-native';
-let INativeModule=NativeModules.NativeModule;//ios 扩展模块
-let ANativeModule=NativeModules.ANativeModule;//andorid 扩展模块
+import {InteractionManager} from 'react-native';
 
 Date.prototype.Format = function (fmt) { //author: meizz
     var o = {
@@ -60,7 +58,7 @@ const DateUtil={
     }
 }
 
-global.DateUtil = DateUtil;
+global.G_DateUtil = DateUtil;
 
 const StringUtil={
     //2017-02-22  15:47:00
@@ -71,7 +69,7 @@ const StringUtil={
          return tempStr;
     },
 }
-global.StringUtil=StringUtil;
+global.G_StringUtil=StringUtil;
 
 
 runAfterInteractions=(func)=>{
@@ -86,7 +84,7 @@ runAfterInteractions=(func)=>{
     }
 
 }
-global.RunAfterInteractions=runAfterInteractions
+global.G_RunAfterInteractions=runAfterInteractions
 
 
 
@@ -143,8 +141,7 @@ export const moneyFormat = (numold, s) => {
     return num
 }
 
-global.moneyFormat = moneyFormat;
-
+global.G_moneyFormat = moneyFormat;
 
 /**
  * 判断对象是否是空

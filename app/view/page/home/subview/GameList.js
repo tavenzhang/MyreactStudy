@@ -7,7 +7,7 @@ import {
 import Swiper from 'react-native-swiper';
 import GameDetail from './GameDetail';
 
-let hlist=GlobelTheme.windowHeight-GlobelTheme.bannerHeight-GlobelTheme.TabBarH-GlobelTheme.navigatorHeadH
+let hlist=G_Theme.windowHeight-G_Theme.bannerHeight-G_Theme.TabBarH-G_Theme.navigatorHeadH
 
 export  default class GameList extends React.Component {
 
@@ -55,7 +55,7 @@ export  default class GameList extends React.Component {
         }
 
         return (
-            <View style={[GlobeStyle.appContentView]}>
+            <View style={[G_Style.appContentView]}>
                 {listView}
             </View>
         )

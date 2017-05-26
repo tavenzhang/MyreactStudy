@@ -107,7 +107,7 @@ export default class OuterMoneyView extends BaseView {
                         alignItems: "center",
                         flexDirection: "row",
                         borderBottomWidth: 0.5,
-                        borderColor: GlobelTheme.gray
+                        borderColor: G_Theme.gray
                     }]}>
                         <TextInput
                             style={styles.textStyle}
@@ -128,7 +128,7 @@ export default class OuterMoneyView extends BaseView {
                         alignItems: "center",
                         flexDirection: "row",
                         borderBottomWidth: 0.5,
-                        borderColor: GlobelTheme.gray
+                        borderColor: G_Theme.gray
                     }]}>
                         <TextInput
                             style={styles.textStyle}
@@ -158,7 +158,7 @@ export default class OuterMoneyView extends BaseView {
 
         return (
             <AutoHideKeyBoardView>
-                <View style={GlobeStyle.appContentView}>
+                <View style={G_Style.appContentView}>
                     {contentView}
                 </View>
             </AutoHideKeyBoardView>
@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
         height:40
     },
     textLeft:{
-        color:GlobelTheme.grayDeep,
+        color:G_Theme.grayDeep,
         margin: 5,
     }
 });

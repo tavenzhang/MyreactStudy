@@ -22,6 +22,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   
   NSURL *jsCodeLocation;
   
+  
 #ifdef DEBUG
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings]
                     jsBundleURLForBundleRoot:@"index.ios"
@@ -33,8 +34,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   jsCodeLocation = [CodePush bundleURL];
   //  Logger *log = LoggerGetDefaultLogger();
   //  LoggerStart(log);
-//  LoggerSetViewerHost(nil, (CFStringRef) @"192.168.0.110", (UInt32)40000);
-//  LogMarker(@"thomas--release");
+  //  LoggerSetViewerHost(nil, (CFStringRef) @"192.168.0.110", (UInt32)40000);
+  //  LogMarker(@"thomas--release");
 #endif
   
   [self initFurry:launchOptions];

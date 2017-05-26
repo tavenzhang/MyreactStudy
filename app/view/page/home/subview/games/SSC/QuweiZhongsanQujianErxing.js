@@ -58,7 +58,7 @@ export default class QuweiZhongsanQujianErxing extends SSC {
                 ballTitleLen = rowTitle.length;
 
             if(rows == ballTitleLen) {
-                const ballWidth = (GlobelTheme.windowWidth - 20) / me.state.rowBallNumber;
+                const ballWidth = (G_Theme.windowWidth - 20) / me.state.rowBallNumber;
                 return <View style={styles.ballBox}>
                     {ballText.map((v,i) => {
                         return <View  style={[styles.ballBtnBox,{width:ballWidth}]} key={i} >
@@ -90,7 +90,7 @@ export default class QuweiZhongsanQujianErxing extends SSC {
                 ballTitleLen = rowTitle.length;
 
             if(rows == ballTitleLen) {
-                const ballWidth = (GlobelTheme.windowWidth - 20) / me.state.rowBallNumber;
+                const ballWidth = (G_Theme.windowWidth - 20) / me.state.rowBallNumber;
                 return <View style={styles.ballBox}>
                     {['一区(0,1)', '二区(2,3)', '三区(4,5)', '四区(6,7)', '五区(8,9)'].map((v,i) => {
                         return <View  style={[styles.ballBtnBox,{width:ballWidth}]} key={i} >
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     gameRowTitle: {
         width: 45,
         height: 18,
-        backgroundColor :GlobelTheme.primary,
+        backgroundColor :G_Theme.primary,
         justifyContent:"center",
         alignItems:"center",
         marginLeft: 1,

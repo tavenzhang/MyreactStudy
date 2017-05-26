@@ -29,7 +29,7 @@ export default class AwardRecordView extends BaseView {
 
     renderBody() {
         return (
-            <View style={GlobeStyle.appContentView}>
+            <View style={G_Style.appContentView}>
                 <View style={styles.row}>
                     <View style={styles.itemHeadStyle}>
                         <Text style={styles.textHeadStyle}>游戏</Text>

@@ -29,7 +29,7 @@ export default class TabbarView extends React.Component {
 
     render() {
         return (
-            <View style={GlobeStyle.appView}>
+            <View style={G_Style.appView}>
                 <TabNavigator tabBarStyle={{backgroundColor: "#171719"}}>
                     {
                         tabBarItems.map((item, i) => {
@@ -57,17 +57,17 @@ export default class TabbarView extends React.Component {
 
 const styles = StyleSheet.create({
     textStyle: {
-        color: GlobelTheme.gray,
+        color: G_Theme.gray,
     },
     selectedTextStyle: {
-        color: GlobelTheme.selectColor,
+        color: G_Theme.selectColor,
     },
     iconPress: {
-        color: GlobelTheme.selectColor,
+        color: G_Theme.selectColor,
         fontSize: 25
     },
     iconNormal: {
-        color: GlobelTheme.gray,
+        color: G_Theme.gray,
         fontSize: 25
     },
 });

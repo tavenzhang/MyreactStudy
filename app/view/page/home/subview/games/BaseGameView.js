@@ -78,7 +78,7 @@ export default class BaseGameView extends BaseView {
         dim = dim > 0 ? dim : 0;
         let menuDataList = this.getMoreMenuData();
         return (defaultMethodId > 0) ? (
-            <View style={GlobeStyle.appContentView}>
+            <View style={G_Style.appContentView}>
                 <BannerView dateHistoryList={this.state.history_lotterys} time={dim} prize={currentGameWay.prize} series_id={series_id}  currentNumber={currentNumber}/>
                 {subView}
                 <MoreMenu
@@ -86,7 +86,7 @@ export default class BaseGameView extends BaseView {
                     menus={menuDataList}
                     contentStyle={{right: 20}}
                     onMoreMenuSelect={this.onMoreMenuSelect}
-                    buttonRect={{x: GlobelTheme.windowWidth - 60, y: -50, width: 40, height: 40}}
+                    buttonRect={{x: G_Theme.windowWidth - 60, y: -50, width: 40, height: 40}}
                 />
                 {this.state.isShowMenu&&<HeadMenuListView selectItem={this.state.selectItem} onHeadPressed={this.onHeadPressed}
                                                           menuDataList={this.firstMenu}
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
     firstMenuContain: {
         position: "absolute",
         zIndex: 6,
-        width: GlobelTheme.windowWidth,
-        height: GlobelTheme.windowHeight - GlobelTheme.navigatorHeadH,
+        width: G_Theme.windowWidth,
+        height: G_Theme.windowHeight - G_Theme.navigatorHeadH,
     },
 });

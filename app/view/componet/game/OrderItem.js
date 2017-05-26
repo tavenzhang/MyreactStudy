@@ -70,6 +70,6 @@ const styles = StyleSheet.create({
         letterSpacing: 1
     },
     desc: {
-        color: global.GlobelTheme.second
+        color: global.G_Theme.second
     }
 });

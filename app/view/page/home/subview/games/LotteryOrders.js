@@ -114,7 +114,7 @@ export default class LotteryOrders extends BaseView {
 
         const btnDisable = orderListNum == 0 ? styles.btnDisable : null;
         return (
-            <View style={[GlobeStyle.appContentView]}>
+            <View style={[G_Style.appContentView]}>
                 <View style={styles.btnGrounp}>
                     <Button
                         btnName="机选1注"
@@ -145,7 +145,7 @@ export default class LotteryOrders extends BaseView {
                         })
                     }
                     <View style={styles.operateBox}>
-                        <TouchableOpacity style={[styles.btnDeleteAll, btnDisable]} underlayColor={GlobelTheme.primary} onPress={
+                        <TouchableOpacity style={[styles.btnDeleteAll, btnDisable]} underlayColor={G_Theme.primary} onPress={
                             () => {
                                 if(orderListNum) {
                                     Alert.alert(
@@ -207,7 +207,7 @@ export default class LotteryOrders extends BaseView {
 
 const styles = StyleSheet.create({
     orderListBox: {
-        marginBottom:GlobelTheme.gameOperatePanelHeight - 2,
+        marginBottom:G_Theme.gameOperatePanelHeight - 2,
         marginTop:10
     },
     operateBox: {
@@ -225,14 +225,14 @@ const styles = StyleSheet.create({
         flexDirection : 'row',
         //borderWidth: 1,
         //borderColor: '#333',
-        backgroundColor: GlobelTheme.primary,
+        backgroundColor: G_Theme.primary,
         padding: 10,
         width:140,
         justifyContent:"center",
         alignItems:"center",
     },
     btnDisable: {
-        backgroundColor: GlobelTheme.gray
+        backgroundColor: G_Theme.gray
     },
     textDelete: {
         fontSize: 16,
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
         padding: 5,
         backgroundColor: '#fff',
         justifyContent: 'space-between',
-        shadowColor:GlobelTheme.gray,
+        shadowColor:G_Theme.gray,
         shadowOffset:{h:5,w:0},
         shadowRadius:3,
         shadowOpacity:0.6,

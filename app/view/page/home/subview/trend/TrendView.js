@@ -22,7 +22,7 @@ export default class TrendView extends BaseView {
             resultView = <L115Trend lotteryId={lotteryId}/>
         }
         return (
-        <View style={GlobeStyle.appContentView}>
+        <View style={G_Style.appContentView}>
             {resultView}
         </View>
         );

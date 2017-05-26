@@ -59,7 +59,7 @@ export default class QuweiSimaSanxing extends SSC {
                 ballTitleLen = rowTitle.length;
 
             if(rows == ballTitleLen) {
-                const ballWidth = (GlobelTheme.windowWidth - 20) / me.state.rowBallNumber;
+                const ballWidth = (G_Theme.windowWidth - 20) / me.state.rowBallNumber;
                 return <View style={styles.ballBox}>
                     {ballText.map((v,i) => {
                         return <View  style={[styles.ballBtnBox,{width:ballWidth}]} key={i} >
@@ -91,7 +91,7 @@ export default class QuweiSimaSanxing extends SSC {
                 ballTitleLen = rowTitle.length;
 
             if(rows == ballTitleLen) {
-                const ballWidth = (GlobelTheme.windowWidth - 20) / me.state.rowBallNumber;
+                const ballWidth = (G_Theme.windowWidth - 20) / me.state.rowBallNumber;
                 return <View style={styles.ballBox}>
                     {['小','大'].map((v,i) => {
                         return <View  style={[styles.ballBtnBox,{width:ballWidth}]} key={i} >
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     gameRowTitle: {
         width: 45,
         height: 18,
-        backgroundColor :GlobelTheme.primary,
+        backgroundColor :G_Theme.primary,
         justifyContent:"center",
         alignItems:"center",
         marginLeft: 1,

@@ -39,7 +39,7 @@ export default class QiansanZuxuanHezhi extends SSC {
                 ballTitleLen = rowTitle.length;
 
             if(rows == ballTitleLen && len == ballTextLen) {
-                const ballWidth = (GlobelTheme.windowWidth - 20) / me.state.rowBallNumber;
+                const ballWidth = (G_Theme.windowWidth - 20) / me.state.rowBallNumber;
                 return <View style={styles.ballBox}>
                     {me.state.ballText.map((v,i) => {
                         if(i > 0) {

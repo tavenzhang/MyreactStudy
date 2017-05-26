@@ -16,7 +16,7 @@ export default class BetRecordListView extends React.Component {
     render() {
         let ds = this.props.dataList;
         return (
-            <View style={GlobeStyle.appContentView}>
+            <View style={G_Style.appContentView}>
                 <BetListView dataList={ds} loadMore={this.props.loadMore} renderRow={this._renderRow}/>
             </View>
         )

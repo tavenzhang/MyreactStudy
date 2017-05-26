@@ -86,14 +86,14 @@ export default class GameDetail extends React.Component {
     }
 }
 
-const gridSize = Math.floor(GlobelTheme.windowWidth / 3)
+const gridSize = Math.floor(G_Theme.windowWidth / 3)
 var styles = StyleSheet.create({
     sp: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         alignItems: "flex-start",
         height:gridSize*3,
-        width:GlobelTheme.windowWidth,
+        width:G_Theme.windowWidth,
     },
     itemRow: {
         justifyContent: 'center',

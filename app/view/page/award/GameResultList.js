@@ -33,7 +33,7 @@ export default class GameResultList extends BaseView {
     renderBody() {
         let ds = this.state.dataSource.cloneWithRows(this.state.dataArray);
         return (
-            <View style={GlobeStyle.appContentView}>
+            <View style={G_Style.appContentView}>
                 <ListView
                     dataSource={ds}
                     renderRow={this._renderRow}
@@ -123,7 +123,7 @@ var styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     iconNormal: {
-        color: GlobelTheme.grayDeep,
+        color: G_Theme.grayDeep,
         fontSize: 30,
         right: 20,
         alignSelf: "center",

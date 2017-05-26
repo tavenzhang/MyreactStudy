@@ -49,7 +49,7 @@ export default class GamePriceModelPannel extends Component {
                     style={styles.slider}
                     minimumValue={bet_min_prize_group}
                     maximumValue={bet_max_prize_group}
-                    maximumTrackTintColor={GlobelTheme.gray}
+                    maximumTrackTintColor={G_Theme.gray}
                     step={diff_grize_group}
                     />
                 <View style={styles.priceDataBox}>
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
 
     priceControlTitle: {
         fontSize:11,
-        color: GlobelTheme.fontGray
+        color: G_Theme.fontGray
     },
 
     priceDataBox: {
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
 
     priceData: {
         fontSize:11,
-        color: GlobelTheme.second
+        color: G_Theme.second
     },
 
     slider: {

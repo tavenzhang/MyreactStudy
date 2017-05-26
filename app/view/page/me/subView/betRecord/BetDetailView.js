@@ -22,7 +22,7 @@ export  default class BetDetailView extends BaseView {
         let {gameModel} = this.props.passProps
         let  gameName = gameModel.getGameNameById(this.state.data.lottery_id)
 
-        return (<View style={[GlobeStyle.appContentView]}>
+        return (<View style={[G_Style.appContentView]}>
             <View>
                 <Text>游戏名称:   {gameName}</Text>
             </View>

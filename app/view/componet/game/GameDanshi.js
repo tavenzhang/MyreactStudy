@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
     uiBoxTitleText: {
         margin: 10,
         textAlign: 'center',
-        color: GlobelTheme.fontGray
+        color: G_Theme.fontGray
     },
 
     textarea: {
@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
         borderRadius:2,
         padding: 8,
         fontSize: 14,
-        borderColor: GlobelTheme.second
+        borderColor: G_Theme.second
     },
 
     btnGrounp: {

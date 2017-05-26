@@ -33,7 +33,7 @@ export default class BaseListView extends React.Component {
         dataList = dataList ? dataList:[];
         let ds = this.state.dataSource.cloneWithRows(dataList);
         return (
-            <View style={GlobeStyle.appContentView}>
+            <View style={G_Style.appContentView}>
                 <ListView
                     dataSource={ds}
                     renderRow={this.props.renderRow}

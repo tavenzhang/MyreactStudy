@@ -41,7 +41,7 @@ export default class HeadMenuListView extends React.Component {
             </View>
             <TouchableWithoutFeedback onPress={this.props.onHeadPressed}><View style={{
                 flex: 1,
-                backgroundColor: GlobelTheme.halfGrayAlpha
+                backgroundColor: G_Theme.halfGrayAlpha
             }}/></TouchableWithoutFeedback>
         </View>)
     }
@@ -50,7 +50,7 @@ export default class HeadMenuListView extends React.Component {
         return (
             <View
                 style={{flexDirection: "row", margin: 5, borderBottomWidth: 1}}>
-                <View style={GlobeStyle.appContentCenterView}>
+                <View style={G_Style.appContentCenterView}>
                     <Text>{rowData.name}</Text>
                 </View>
                 <View style={{

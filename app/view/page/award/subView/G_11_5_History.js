@@ -34,7 +34,7 @@ export default class G_11_5_History extends BaseView {
         const {passProps} = this.props;
         //TLog("SSC_History----",passProps)
         return (
-            <View style={GlobeStyle.appContentView}>
+            <View style={G_Style.appContentView}>
                 <HistoryList dataList={this.state.dataArray} loadMore={this.loadMore} renderRow={this._renderRow}/>
             </View>
         );
@@ -121,7 +121,7 @@ var styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     iconNormal: {
-        color: GlobelTheme.grayDeep,
+        color: G_Theme.grayDeep,
         fontSize: 30,
         right: 20,
         alignSelf: "center",

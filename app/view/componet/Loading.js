@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         position: 'absolute',
-        top: (GlobelTheme.windowHeight-80)/2,
-        left: (GlobelTheme.windowWidth -100)/2,
+        top: (G_Theme.windowHeight-80)/2,
+        left: (G_Theme.windowWidth -100)/2,
     },
 
     loadingTitle: {

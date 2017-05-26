@@ -96,15 +96,15 @@ const styles = StyleSheet.create({
         flexDirection : 'row',
         position: 'absolute',
         bottom: -3,
-        width: GlobelTheme.windowWidth,
+        width: G_Theme.windowWidth,
         padding: 8,
-        height: GlobelTheme.gameOperatePanelHeight,
-        backgroundColor: GlobelTheme.black,
+        height: G_Theme.gameOperatePanelHeight,
+        backgroundColor: G_Theme.black,
         justifyContent: 'space-between'
     },
 
     lotterys: {
-        color: GlobelTheme.second,
+        color: G_Theme.second,
         fontSize: 14
     },
 
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     },
 
     btn: {
-        backgroundColor: global.GlobelTheme.primary,
+        backgroundColor: global.G_Theme.primary,
         justifyContent:"center",
         alignItems:"center",
         padding:10,
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
         position:'absolute',
         top: -1,
         right: -1,
-        backgroundColor: GlobelTheme.second,
+        backgroundColor: G_Theme.second,
         width: 18,
         height: 18,
         borderRadius: 9,
@@ -152,11 +152,11 @@ const styles = StyleSheet.create({
     },
 
     btnDisable: {
-        backgroundColor: global.GlobelTheme.gray,
+        backgroundColor: global.G_Theme.gray,
     },
 
     btnIconDisable: {
-        color: global.GlobelTheme.gray,
+        color: global.G_Theme.gray,
     },
 
     btnText: {
@@ -165,6 +165,6 @@ const styles = StyleSheet.create({
 
     iconCar: {
         fontSize: 25,
-        color: global.GlobelTheme.second,
+        color: global.G_Theme.second,
     }
 });

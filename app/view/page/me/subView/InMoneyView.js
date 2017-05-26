@@ -32,7 +32,7 @@ export default class InMoneyView extends BaseView {
     renderBody() {
         const {title} = this.props;
         return (
-            <View style={GlobeStyle.appView}>
+            <View style={G_Style.appView}>
                 <View style={{flex:2,marginLeft:40,marginRight: 40,justifyContent: "center"}}>
                     <View style={styles.inputContain}>
                         <AIcon name="user-o" style={styles.iconUser}/>
@@ -128,11 +128,11 @@ const styles = StyleSheet.create({
         fontSize: 14
     },
     iconUser: {
-        color: GlobelTheme.gray,
+        color: G_Theme.gray,
         fontSize: 18,
     },
     icoPwd: {
-        color: GlobelTheme.gray,
+        color: G_Theme.gray,
         fontSize: 20,
     },
     inputContain: {

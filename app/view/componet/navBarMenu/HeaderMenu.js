@@ -44,7 +44,7 @@ export class GAME_DERAIL extends React.Component {
 const styles = StyleSheet.create({
     navigationBarContainer: {
         flexDirection: 'row',
-        height: GlobelTheme.navigatorHeadH,
+        height: G_Theme.navigatorHeadH,
         alignItems: 'center',
         borderBottomColor: '#ccc',
         borderBottomWidth: 0.5,
@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
     },
     titleContain: {
         position: 'absolute',
-        width: GlobelTheme.windowWidth,
-        height: GlobelTheme.navigatorHeadH,
+        width: G_Theme.windowWidth,
+        height: G_Theme.navigatorHeadH,
         justifyContent: 'center',
         alignItems: 'center',
     },

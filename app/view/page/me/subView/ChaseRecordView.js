@@ -64,33 +64,33 @@ export default class ChaseRecordView extends BaseView {
 
         let gameStyle = this.state.curClickType == ListType.GameList ? {
             borderBottomWidth: 1,
-            borderBottomColor: GlobelTheme.primary
+            borderBottomColor: G_Theme.primary
         } : null;
         let playStyle = this.state.curClickType == ListType.PlayList ? {
             borderBottomWidth: 1,
-            borderBottomColor: GlobelTheme.primary
+            borderBottomColor: G_Theme.primary
         } : null;
         let timeStyle = this.state.curClickType == ListType.TimeList ? {
             borderBottomWidth: 1,
-            borderBottomColor: GlobelTheme.primary
+            borderBottomColor: G_Theme.primary
         } : null;
         return (
-            <View style={GlobeStyle.appContentView}>
+            <View style={G_Style.appContentView}>
                 <View
                     style={{
                         flexDirection: "row",
                         height: 35,
-                        borderBottomColor: GlobelTheme.gray, borderBottomWidth:1
+                        borderBottomColor: G_Theme.gray, borderBottomWidth:1
                     }}>
                     <TouchableOpacity style={[styles.touchTabButton, gameStyle]}
                                         onPress={() => this.onPressMenu(ListType.GameList)}
                     >
                         <View style={{flexDirection: "row"}}>
                             <Text
-                                style={{color: !gameView ? GlobelTheme.black : GlobelTheme.primary}}>{gameBtnName}</Text>
+                                style={{color: !gameView ? G_Theme.black : G_Theme.primary}}>{gameBtnName}</Text>
                             <AIcon name={G_EnumFontNames.list_arrow_desc}
                                    style={{
-                                       color: !gameView ? GlobelTheme.black : GlobelTheme.primary,
+                                       color: !gameView ? G_Theme.black : G_Theme.primary,
                                        fontSize: 15,
                                        marginLeft: 5,
                                        top: -3
@@ -102,10 +102,10 @@ export default class ChaseRecordView extends BaseView {
                     >
                         <View style={{flexDirection: "row", alignItems: "center"}}>
                             <Text
-                                style={{color: !playView ? GlobelTheme.black : GlobelTheme.primary}}>{playBtnName}</Text>
+                                style={{color: !playView ? G_Theme.black : G_Theme.primary}}>{playBtnName}</Text>
                             <AIcon name={G_EnumFontNames.list_arrow_desc}
                                    style={{
-                                       color: !playView ? GlobelTheme.black : GlobelTheme.primary,
+                                       color: !playView ? G_Theme.black : G_Theme.primary,
                                        fontSize: 15,
                                        marginLeft: 5,
                                        top: -3
@@ -117,10 +117,10 @@ export default class ChaseRecordView extends BaseView {
                     >
                         <View style={{flexDirection: "row"}}>
                             <Text
-                                style={{color: !tiemView ? GlobelTheme.black : GlobelTheme.primary}}>{timeBtnName}</Text>
+                                style={{color: !tiemView ? G_Theme.black : G_Theme.primary}}>{timeBtnName}</Text>
                             <AIcon name={G_EnumFontNames.list_arrow_desc}
                                    style={{
-                                       color: !tiemView ? GlobelTheme.black : GlobelTheme.primary,
+                                       color: !tiemView ? G_Theme.black : G_Theme.primary,
                                        fontSize: 15,
                                        marginLeft: 5,
                                        top: -3
@@ -161,22 +161,22 @@ export default class ChaseRecordView extends BaseView {
                 <View
                     style={{
                         flexDirection: "row",
-                        width: GlobelTheme.windowWidth,
+                        width: G_Theme.windowWidth,
                         flexWrap: "wrap",
                         backgroundColor: "#ddd",
                         alignItems: "center"
                     }}>
                     {
                         data.map((item, i) => {
-                            let selectColor = GlobelTheme.gray;
+                            let selectColor = G_Theme.gray;
                             if (btnName == item.name) {
-                                selectColor = GlobelTheme.primary;
+                                selectColor = G_Theme.primary;
                             }
                             return (<TouchableHighlight key={"menuView" + i}
                                                         style={{
                                                             paddingHorizontal: 10,
                                                             paddingVertical: 6,
-                                                            width: GlobelTheme.windowWidth / 3,
+                                                            width: G_Theme.windowWidth / 3,
                                                             height: 35
                                                         }}
                                                         underlayColor='rgba(0,0,0,0)'

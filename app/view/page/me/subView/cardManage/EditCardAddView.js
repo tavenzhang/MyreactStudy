@@ -36,10 +36,10 @@ export default class EditCardAddView extends BaseView {
             cityList = this.state.provinceData.children
         }
         return (
-            <View style={GlobeStyle.appContentView}>
-                <View style={{height: GlobelTheme.windowHeight / 3, backgroundColor: "white", paddingLeft: 10}}>
+            <View style={G_Style.appContentView}>
+                <View style={{height: G_Theme.windowHeight / 3, backgroundColor: "white", paddingLeft: 10}}>
                     <View style={{flex: 1, alignItems: "center", flexDirection: "row"}}>
-                        <View style={{width: GlobelTheme.windowWidth * 1 / 3, alignItems: "flex-end"}}>
+                        <View style={{width: G_Theme.windowWidth * 1 / 3, alignItems: "flex-end"}}>
                             <Text >开户银行: </Text>
                         </View>
                         <ModalDropdown style={styles.dropdown_1}
@@ -55,7 +55,7 @@ export default class EditCardAddView extends BaseView {
                         </ModalDropdown>
                     </View>
                     <View style={{flex: 1, alignItems: "center", flexDirection: "row"}}>
-                        <View style={{width: GlobelTheme.windowWidth * 1 / 3, alignItems: "flex-end"}}>
+                        <View style={{width: G_Theme.windowWidth * 1 / 3, alignItems: "flex-end"}}>
                             <Text >开户银行区域: </Text>
                         </View>
                         <ModalDropdown style={styles.dropdown_1}
@@ -84,7 +84,7 @@ export default class EditCardAddView extends BaseView {
                         </ModalDropdown>
                     </View>
                     <View style={{flex: 1, alignItems: "center", flexDirection: "row"}}>
-                        <View style={{width: GlobelTheme.windowWidth * 1 / 3, alignItems: "flex-end"}}>
+                        <View style={{width: G_Theme.windowWidth * 1 / 3, alignItems: "flex-end"}}>
                             <Text >支行名称: </Text>
                         </View>
                         <TextInput
@@ -97,7 +97,7 @@ export default class EditCardAddView extends BaseView {
                         />
                     </View>
                     <View style={{flex: 1, alignItems: "center", flexDirection: "row"}}>
-                        <View style={{width: GlobelTheme.windowWidth * 1 / 3, alignItems: "flex-end"}}>
+                        <View style={{width: G_Theme.windowWidth * 1 / 3, alignItems: "flex-end"}}>
                             <Text >开户人姓名: </Text>
                         </View>
                         <TextInput
@@ -110,7 +110,7 @@ export default class EditCardAddView extends BaseView {
                         />
                     </View>
                     <View style={{flex: 1, alignItems: "center", flexDirection: "row"}}>
-                        <View style={{width: GlobelTheme.windowWidth * 1 / 3, alignItems: "flex-end"}}>
+                        <View style={{width: G_Theme.windowWidth * 1 / 3, alignItems: "flex-end"}}>
                             <Text >银行卡号: </Text>
                         </View>
                         <TextInput
@@ -124,7 +124,7 @@ export default class EditCardAddView extends BaseView {
                         />
                     </View>
                     <View style={{flex: 1, alignItems: "center", flexDirection: "row"}}>
-                        <View style={{width: GlobelTheme.windowWidth * 1 / 3, alignItems: "flex-end"}}>
+                        <View style={{width: G_Theme.windowWidth * 1 / 3, alignItems: "flex-end"}}>
                             <Text>确认银行卡号: </Text>
                         </View>
                         <TextInput
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
         flex: 1, alignItems: "center", justifyContent: "center",
     },
     cardInput: {
-        width: GlobelTheme.windowWidth * 2 / 3,
+        width: G_Theme.windowWidth * 2 / 3,
         marginLeft: 20,
         fontSize: 14,
         flex: 2,

@@ -64,8 +64,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#77cc32',
     },
     bannerImage: {
-        height:GlobelTheme.bannerHeight,
-        width: GlobelTheme.windowWidth,
+        height:G_Theme.bannerHeight,
+        width: G_Theme.windowWidth,
     },
 
     customDot: {

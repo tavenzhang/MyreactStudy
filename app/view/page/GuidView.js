@@ -19,7 +19,7 @@ export default class GuidView extends React.Component {
         return (
             <Animated.View style={{flex: 1,opacity:this.state.fadeInOpacity}}>
                 <Image
-                    style={{flex: 1, width: GlobelTheme.windowWidth, height:GlobelTheme.windowHeight}}
+                    style={{flex: 1, width: G_Theme.windowWidth, height:G_Theme.windowHeight}}
                     source={startImg}
                 />
             </Animated.View>

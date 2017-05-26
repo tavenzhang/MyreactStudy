@@ -12,10 +12,10 @@ RCT_EXPORT_MODULE();
 RCT_EXPORT_METHOD(logClass:(NSString *)name message:(NSString *)msg)
 {
   //[MyLog LogMsg:name :msg];
-    #ifdef DEBUG
-        [MyLog LogMsg:name :msg];
-    #else
-    #endif
+#ifdef DEBUG
+  [MyLog LogMsg:name :msg];
+#else
+#endif
 }
 
 RCT_EXPORT_METHOD(analysisWithObj:(NSString *)name data:(NSDictionary *)paras)

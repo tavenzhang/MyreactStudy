@@ -34,8 +34,8 @@ export default class LoginView extends BaseView {
 
     renderBody() {
         return (
-            <View style={[GlobeStyle.appContentView,{justifyContent:"center"}]}>
-                <View style={{marginLeft:40,marginRight: 40, marginBottom:GlobelTheme.windowHeight/5,}}>
+            <View style={[G_Style.appContentView,{justifyContent:"center"}]}>
+                <View style={{marginLeft:40,marginRight: 40, marginBottom:G_Theme.windowHeight/5,}}>
                     <View
                         style={styles.inputContain}>
                         <AIcon name="user-o" style={styles.iconUser}/>
@@ -115,11 +115,11 @@ const styles = StyleSheet.create({
         height:40
     },
     iconUser: {
-        color: GlobelTheme.grayDeep,
+        color: G_Theme.grayDeep,
         fontSize: 18,
     },
     icoPwd: {
-        color: GlobelTheme.grayDeep,
+        color: G_Theme.grayDeep,
         fontSize: 20,
     },
     inputContain: {

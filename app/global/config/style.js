@@ -13,10 +13,8 @@ global.G_PLATFORM_IOS= Platform.OS === 'ios'
 
 global.CUSTOMER = G_PLATFORM_IOS ? '8f1ad78957965153dbce5d96ff37617a' : '4fcd4781a7bddee9abdc6f0361fa8caa';
 
-
-
 //样式配置
-global.GlobelTheme  = {
+global.G_Theme  = {
     primary: '#f4212b',
     second: '#448AFF',
     gray: '#ddd',
@@ -40,7 +38,7 @@ global.GlobelTheme  = {
 };
 
 
-global.GlobeStyle = StyleSheet.create({
+global.G_Style = StyleSheet.create({
 
     appView: {
         width: WINDOW.width,

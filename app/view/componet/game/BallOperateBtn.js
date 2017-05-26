@@ -36,7 +36,7 @@ export default class BallOperateBtn extends React.Component {
 
 const styles = StyleSheet.create({
     ballText: {
-        color: GlobelTheme.primary,
+        color: G_Theme.primary,
         fontWeight: 'bold',
         fontSize: 16
     },

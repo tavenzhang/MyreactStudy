@@ -40,7 +40,7 @@ export default class ConfigView extends BaseView {
                     hardwareAccelerated={true}
                     style={{backgroundColor: "blue", justifyContent: "center", alignItems: "center"}}
                 >
-                    <View style={[GlobeStyle.appContentView, {
+                    <View style={[G_Style.appContentView, {
                         justifyContent: "center", alignItems: "center"}]}>
                             <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
                                 <Text>新域名:</Text>
@@ -63,7 +63,7 @@ export default class ConfigView extends BaseView {
                                 </TouchableOpacity>
                             </View>
                     </View>
-                    <View style={[GlobeStyle.appContentView, {
+                    <View style={[G_Style.appContentView, {
                         justifyContent: "center", alignItems: "center",
                     }]}>
                             <View style={{flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
@@ -164,7 +164,7 @@ export default class ConfigView extends BaseView {
 
 const styles = StyleSheet.create({
     textStyle: {
-        color: GlobelTheme.gray,
+        color: G_Theme.gray,
         borderWidth:1,
         margin:15,
         padding:5,
@@ -179,11 +179,11 @@ const styles = StyleSheet.create({
        height:40
     },
     iconPress: {
-        color: GlobelTheme.primary,
+        color: G_Theme.primary,
         fontSize: 25
     },
     iconNormal: {
-        color: GlobelTheme.gray,
+        color: G_Theme.gray,
         fontSize: 25
     },
     webview_style: {

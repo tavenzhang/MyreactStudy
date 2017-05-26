@@ -113,11 +113,11 @@ export default class MyView extends BaseView {
                 <View style={{flex: 1, alignItems: "center", flexDirection: "row", paddingLeft: 10}}>
                     <Text style={styles.titleSyle}>账户安全:</Text>
                     <View style={{flexDirection: "row", alignItems: "center", marginLeft: 15, marginRight: 15}}>
-                        <AIcon name="id-card-o" style={{color: GlobelTheme.black, fontSize: 20, marginRight: 5}}/>
+                        <AIcon name="id-card-o" style={{color: G_Theme.black, fontSize: 20, marginRight: 5}}/>
                         <Text style={{color: "red"}}>未绑定身份证</Text>
                     </View>
                     <View style={{flexDirection: "row", alignItems: "center"}}>
-                        <AIcon name="mobile" style={{color: GlobelTheme.black, fontSize: 20, marginRight: 5}}/>
+                        <AIcon name="mobile" style={{color: G_Theme.black, fontSize: 20, marginRight: 5}}/>
                         <Text style={{color: "red"}}>未绑定手机</Text>
                     </View>
                 </View>
@@ -153,7 +153,7 @@ export default class MyView extends BaseView {
         }
         let ds = this.state.dataSource.cloneWithRowsAndSections(dataS);
         return (
-            <View style={[GlobeStyle.appContentView, {backgroundColor: "rgba(230,230,230,0.5)"}]}>
+            <View style={[G_Style.appContentView, {backgroundColor: "rgba(230,230,230,0.5)"}]}>
                 {infoView}
                 <ListView
                     dataSource={ds}
@@ -259,7 +259,7 @@ export default class MyView extends BaseView {
                     {headView}
                     <View style={styles.row}>
                             <View style={{flexDirection: "row", alignItems: "center"}}>
-                                <AIcon name={rowData.ico} style={{color: GlobelTheme.grayDeep, fontSize: 20, width: 25}}/>
+                                <AIcon name={rowData.ico} style={{color: G_Theme.grayDeep, fontSize: 20, width: 25}}/>
                                 <Text style={{fontSize: 14, left: 20}}>{rowData.name}</Text>
                             </View>
                         <AIcon name={G_EnumFontNames.angleRight} style={styles.iconNormal}/>
@@ -312,17 +312,17 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     textStyle: {
-        color: GlobelTheme.gray,
+        color: G_Theme.gray,
     },
     selectedTextStyle: {
-        color: GlobelTheme.primary,
+        color: G_Theme.primary,
     },
     iconPress: {
-        color: GlobelTheme.primary,
+        color: G_Theme.primary,
         fontSize: 25
     },
     iconNormal: {
-        color: GlobelTheme.gray,
+        color: G_Theme.gray,
         fontSize: 25,
         right: 20
     },

@@ -21,7 +21,7 @@ export default class MailView extends BaseView {
 
     renderBody() {
         return (
-            <View style={GlobeStyle.appContentView}>
+            <View style={G_Style.appContentView}>
                 <MsgListView dataList={this.state.dataList} loadMore={this.props.loadMore} renderRow={this._renderRow}/>
             </View>
         );
@@ -55,7 +55,7 @@ export default class MailView extends BaseView {
                             <Text style={[styles.textItemStyle,{marginTop:5}]} numberOfLines={1}>{dataName}</Text>
                         </View>
                         <View style={styles.itemContentStyle}>
-                            <Text style={[styles.textItemStyle,{fontWeight: "bold",color:data.is_readed ? "gray":GlobelTheme.primary}]} >{data.is_readed ? "已读":"未读"}</Text>
+                            <Text style={[styles.textItemStyle,{fontWeight: "bold",color:data.is_readed ? "gray":G_Theme.primary}]} >{data.is_readed ? "已读":"未读"}</Text>
                         </View>
                         <View style={styles.itemContentStyle}>
                             <AIcon name={"angle-right"}

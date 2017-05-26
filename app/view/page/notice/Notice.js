@@ -19,7 +19,7 @@ export default class Notice extends BaseView {
 
     renderBody() {
         return (
-            <View style={GlobeStyle.appContentView}>
+            <View style={G_Style.appContentView}>
                 <MsgListView dataList={this.state.dataList} loadMore={this.props.loadMore} renderRow={this._renderRow}/>
             </View>
         );

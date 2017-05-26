@@ -192,7 +192,7 @@ export default class Games extends Component {
                 ballTextLen = ballText.length,
                 ballTitleLen = rowTitle.length;
             if(rows == ballTitleLen && len == ballTextLen) {
-                const ballWidth = (GlobelTheme.windowWidth - 20) / me.state.rowBallNumber;
+                const ballWidth = (G_Theme.windowWidth - 20) / me.state.rowBallNumber;
                 return <View style={styles.ballBox}>
                     {ballText.map((v,i) => {
                         if(i >= me.ballFirstStart) {
@@ -226,7 +226,7 @@ export default class Games extends Component {
                 ballTitleLen = rowTitle.length;
 
             if(rows == ballTitleLen) {
-                const ballWidth = (GlobelTheme.windowWidth - 20) / me.state.rowBallNumber;
+                const ballWidth = (G_Theme.windowWidth - 20) / me.state.rowBallNumber;
                 return <View style={styles.ballBox}>
                     {me.ballSpecialTitle.map((v,i) => {
                         if(i >= me.ballFirstStart) {
@@ -650,7 +650,7 @@ export default class Games extends Component {
 
 const styles = StyleSheet.create({
     ballOperate: {
-        marginBottom:GlobelTheme.gameOperatePanelHeight - 2,
+        marginBottom:G_Theme.gameOperatePanelHeight - 2,
     },
     ballBox: {
         flex: 1,
@@ -676,7 +676,7 @@ const styles = StyleSheet.create({
         marginRight: 20,
         marginBottom: 10,
         borderWidth: 1,
-        borderColor: GlobelTheme.gray,
+        borderColor: G_Theme.gray,
         padding :8,
         borderRadius: 15
     },
@@ -690,7 +690,7 @@ const styles = StyleSheet.create({
     gameRowTitle: {
         width: 45,
         height: 18,
-        backgroundColor :GlobelTheme.primary,
+        backgroundColor :G_Theme.primary,
         justifyContent:"center",
         alignItems:"center",
         marginLeft: 1,

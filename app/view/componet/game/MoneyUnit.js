@@ -70,13 +70,13 @@ const styles = StyleSheet.create({
         flexDirection : 'row',
     },
     moneyBtn: {
-        backgroundColor:GlobelTheme.gray,
+        backgroundColor:G_Theme.gray,
         justifyContent:"center",
         alignItems:"center",
         width: 30,
         height: 30,
         borderWidth:1,
-        borderColor: GlobelTheme.second,
+        borderColor: G_Theme.second,
         borderRightWidth: 0
     },
 
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     },
 
     btnSelected: {
-        backgroundColor:GlobelTheme.second,
+        backgroundColor:G_Theme.second,
     },
 
     moneyBtnText: {

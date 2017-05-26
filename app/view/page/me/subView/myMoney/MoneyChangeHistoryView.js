@@ -19,7 +19,7 @@ export default class MoneyChangeHistoryView extends React.Component {
 
     render() {
         return (
-            <View style={GlobeStyle.appContentView}>
+            <View style={G_Style.appContentView}>
                 <View style={styles.headRow}>
                     <View style={[styles.itemHeadStyle,{flex:1}]}>
                         <Text style={styles.textHeadStyle}>日期</Text>
@@ -116,7 +116,7 @@ export default class MoneyChangeHistoryView extends React.Component {
                         </View>
                         <View style={[styles.itemContentStyle,{flex:2}]}>
                             <Text style={styles.textItemStyle}>{gameName}</Text>
-                            <Text style={{fontSize:12,color:GlobelTheme.grayDeep, marginTop:5}} >{playName}</Text>
+                            <Text style={{fontSize:12,color:G_Theme.grayDeep, marginTop:5}} >{playName}</Text>
                         </View>
                         <View style={[styles.itemContentStyle,{flex:2}]}>
                             <Text style={styles.textItemStyle}>{parseInt(rowData.available)}</Text>

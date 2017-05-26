@@ -24,7 +24,7 @@ export  default class NoticeDeailView extends BaseView {
             }
         }
         return (
-            <View style={[GlobeStyle.appContentView]}>
+            <View style={[G_Style.appContentView]}>
                 <WebView source={{html: this.state.data.content}} automaticallyAdjustContentInsets={false}/>
             </View>
         );

@@ -39,7 +39,7 @@ export  default  class Button extends React.Component {
 
 const styles = StyleSheet.create({
     btn: {
-        backgroundColor: global.GlobelTheme.primary,
+        backgroundColor: global.G_Theme.primary,
         justifyContent:"center",
         flexDirection : 'row',
         alignItems:"center",
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         position:'absolute',
         top: -3,
         right: -3,
-        backgroundColor: GlobelTheme.second,
+        backgroundColor: G_Theme.second,
         width: 18,
         height: 18,
         borderRadius: 9,
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     },
 
     btnDisable: {
-        backgroundColor: global.GlobelTheme.gray,
+        backgroundColor: global.G_Theme.gray,
     },
 
     btnText: {

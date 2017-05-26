@@ -56,7 +56,7 @@ export default class Home extends BaseView {
         }]
 
         return (
-            <View style={GlobeStyle.appContentView} >
+            <View style={G_Style.appContentView} >
                 <ConfigView modalVisible={this.state.modalVisible} setModalVisible={this.setModalVisible}/>
                 <MyBannerSwiper dataList={bannerList} {...this.props}/>
                 <GameList dataList={gameList} gameModel={gameModel} playModel={playModel} userData={userData}/>

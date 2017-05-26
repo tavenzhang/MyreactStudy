@@ -48,7 +48,7 @@ export default class ChangePwd extends BaseView {
             </View>)
 
         return (
-            <View style={GlobeStyle.appView}>
+            <View style={G_Style.appView}>
                 <SegmentedControlTab
                     values={['登陆密码', '资金密码']}
                     onTabPress={this.onTabChange}
@@ -57,7 +57,7 @@ export default class ChangePwd extends BaseView {
                     selectedIndex={this.state.selectedTabIndex}
                     activeTabStyle={{backgroundColor: "#a52a2a"}}
                 />
-                <View style={{marginLeft: 40, marginRight: 40, top: GlobelTheme.windowHeight / 9}}>
+                <View style={{marginLeft: 40, marginRight: 40, top: G_Theme.windowHeight / 9}}>
                     {oldPwdView}
                     <View style={styles.inputContain}>
                         <AIcon name="lock" style={styles.icoPwd}/>
@@ -185,11 +185,11 @@ const styles = StyleSheet.create({
         height:40
     },
     iconUser: {
-        color: GlobelTheme.gray,
+        color: G_Theme.gray,
         fontSize: 18,
     },
     icoPwd: {
-        color: GlobelTheme.gray,
+        color: G_Theme.gray,
         fontSize: 20,
     },
     inputContain: {

@@ -26,7 +26,7 @@ export  default class MessageDetail extends BaseView {
             }
         }
        // {this.state.data.msg_type[this.state.data.type_id]}
-        return (<View style={[GlobeStyle.appContentView]}>
+        return (<View style={[G_Style.appContentView]}>
             <View>
                 <Text>标题:   {this.state.data.msg_title}</Text>
             </View>

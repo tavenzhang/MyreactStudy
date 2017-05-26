@@ -24,8 +24,8 @@ export default class L115_detail extends React.Component {
         let count = 0;
         let {dataList} =this.props
         return (
-            <View style={GlobeStyle.appContentView}>
-                <View style={{width:GlobelTheme.windowWidth, height: 30,flexDirection: "row", backgroundColor: "#aaa"}}>
+            <View style={G_Style.appContentView}>
+                <View style={{width:G_Theme.windowWidth, height: 30,flexDirection: "row", backgroundColor: "#aaa"}}>
                     <View style={{flex: 2, justifyContent:"center", alignItems:"center"}}>
                         <Text style={[styles.text,{color:"white", fontWeight:"bold"}]} >{this.headData.title}</Text>
                     </View>
@@ -40,7 +40,7 @@ export default class L115_detail extends React.Component {
                     }
 
                 </View>
-                <ScrollView style={{width:GlobelTheme.windowWidth}}>
+                <ScrollView style={{width:G_Theme.windowWidth}}>
                     {
                         dataList.map((item, key) => {
                             count++;
@@ -56,7 +56,7 @@ export default class L115_detail extends React.Component {
                                     {
                                         item.ballList.map((ballItem, ballKey) => {
                                             return (
-                                                <View style={[GlobeStyle.appContentView,{backgroundColor: backColor}]} key={`ballItem${ballKey}`}>
+                                                <View style={[G_Style.appContentView,{backgroundColor: backColor}]} key={`ballItem${ballKey}`}>
                                                     {this.renderItem(ballItem, ballKey)}
                                                 </View>)
                                         })

@@ -30,7 +30,7 @@ export default class MoneyTransferView extends BaseView {
         TLog("MoneyTransferView----", passProps);
         return (
             <AutoHideKeyBoardView>
-                <View style={GlobeStyle.appView}>
+                <View style={G_Style.appView}>
                     <View style={{flex: 1, marginLeft: 40, marginRight: 40, marginTop: 40}}>
                         <View style={styles.inputContain}>
                             <Text>账户余额: {parseInt(passProps.money)}</Text>
@@ -169,11 +169,11 @@ const styles = StyleSheet.create({
         height:40
     },
     iconUser: {
-        color: GlobelTheme.gray,
+        color: G_Theme.gray,
         fontSize: 18,
     },
     icoPwd: {
-        color: GlobelTheme.gray,
+        color: G_Theme.gray,
         fontSize: 20,
     },
     inputContain: {

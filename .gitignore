@@ -52,6 +52,8 @@ app/page/me/subView/myMoney/
 .tmp/
 .watchmanconfig
 __tests__/
+android/app/src/main/assets/res
+android/app/src/main/java/com/tcp/nativeExtention
 android/app/src/main/assets/fonts/MaterialCommunityIcons.ttf
 ios/TCP-tvOS/
 ios/TCP-tvOSTests/

@@ -5,6 +5,7 @@ import android.app.Application;
 import com.elvishew.xlog.LogLevel;
 import com.elvishew.xlog.XLog;
 import com.facebook.react.ReactApplication;
+import cn.jpush.reactnativejpush.JPushPackage;
 import com.avishayil.rnrestart.ReactNativeRestartPackage;
 import com.flurry.android.FlurryAgent;
 import com.mehcode.reactnative.splashscreen.SplashScreenPackage;
@@ -21,6 +22,10 @@ import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
 
+    private boolean SHUTDOWN_TOAST = false;
+
+    private boolean SHUTDOWN_LOG = false;
+
     public static CodePush myCodePush = null;
     private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
 
@@ -36,11 +41,11 @@ public class MainApplication extends Application implements ReactApplication {
 
         @Override
         protected List<ReactPackage> getPackages() {
-
             myCodePush = new CodePush("OESoJepwvYUVO5JLX51iJl3LHucn4ksvOXqog", MainApplication.this, BuildConfig.DEBUG, "http://104.250.145.227:3000");
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new ReactNativeRestartPackage(),
+                    new JPushPackage(SHUTDOWN_TOAST, SHUTDOWN_LOG),
+                    new ReactNativeRestartPackage(),
                     new SplashScreenPackage(),
                     myCodePush,
                     new ANativePackage()

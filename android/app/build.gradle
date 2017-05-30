@@ -96,8 +96,12 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        manifestPlaceholders = [
+                //JPUSH_PKGNAME : applicationId,
+                JPUSH_APPKEY: "3a51d532f31e7d7fbf4cb069", //在极光推送后台申请的APPKey
+                APP_CHANNEL: ""
+        ]
     }
-
 
     splits {
         abi {
@@ -141,6 +145,7 @@ android {
 }
 
 dependencies {
+    compile project(':jpush-react-native')
     compile project(':react-native-restart')
     compile project(':react-native-vector-icons')
     compile project(':react-native-code-push')
@@ -151,6 +156,8 @@ dependencies {
     // From node_modules
     compile 'com.flurry.android:analytics:7.0.0@aar'
     compile 'com.elvishew:xlog:1.1.0'
+    compile project(':jpush-react-native')  // 添加 jpush 依赖
+    compile project(':jcore-react-native')
 }
 
 // Run this once to be able to run the application with BUCK

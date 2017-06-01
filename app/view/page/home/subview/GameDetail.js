@@ -70,6 +70,12 @@ export default class GameDetail extends React.Component {
                     case "5":
                         G_NavUtil.pushToView(G_NavViews.K3View({...data, gameModel: gameModel, playModel: playModel}));
                         break;
+                    case "8":
+                        NavUtil.pushToView(NavViews.KL10View({...data, gameModel: gameModel, playModel: playModel}));
+                        break;
+                    case "7":
+                        NavUtil.pushToView(NavViews.PK10View({...data, gameModel: gameModel, playModel: playModel}));
+                        break;
 
                     default :
                         TLog('gameseries_id',data.series_id)

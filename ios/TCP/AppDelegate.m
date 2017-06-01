@@ -26,7 +26,7 @@ static BOOL isProduction = true;
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings]
       jsBundleURLForBundleRoot:@"index.ios"
               fallbackResource:nil];
-  LoggerSetViewerHost(nil, (CFStringRef) @"192.168.0.110", (UInt32)40000);
+  LoggerSetViewerHost(nil, (CFStringRef) @"192.168.0.102", (UInt32)40000);
   LogMarker(@"thomas---debug");
   isProduction = false;
 #else

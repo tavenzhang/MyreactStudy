@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     gameRowTitle: {
         width: 45,
         height: 18,
-        backgroundColor: global.GlobelTheme.primary,
+        backgroundColor: G_Theme.primary,
         justifyContent: "center",
         alignItems: "center",
         marginLeft: 1,

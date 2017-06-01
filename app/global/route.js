@@ -128,14 +128,10 @@ global.G_NavUtil  = {
     popN: (n = 1) => {
         Navgator.popN(n)
     },
-
     popToRoute:(data) => {
         Navgator.popToRoute(data);
         }
     }
-
-}
-global.NavUtil = NavUtil
 
 
 

@@ -34,7 +34,8 @@ static BOOL isProduction = true;
   isProduction = true;
 #endif
   [self initFurry:launchOptions];
-  [self registAppPush:application didFinishLaunchingWithOptions:launchOptions];
+  // [self registAppPush:application
+  // didFinishLaunchingWithOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"TCP"
                                                initialProperties:nil

@@ -5,13 +5,13 @@ import {
     Easing,
 } from 'react-native';
 import {startImg} from "../../assets/index";
-import NetInfo from "react-native/Libraries/Network/NetInfo";
+import SplashScreen from 'react-native-smart-splash-screen'
 
 export default class GuidView extends React.Component {
     constructor(props) {
         super(props);
         this.state={
-            fadeInOpacity:new Animated.Value(0.3),
+            fadeInOpacity:new Animated.Value(0.8),
         }
     }
 
@@ -35,6 +35,11 @@ export default class GuidView extends React.Component {
         // NetInfo.isConnected.fetch().done((isConnected) => {
         //     console.log('First, is ' + (isConnected ? 'online' : 'offline'));
         // })
+        SplashScreen.close({
+            animationType: SplashScreen.animationType.scale,
+            duration: 850,
+            delay: 500,
+        })
     }
 
     componentWillUnmount() {
@@ -44,7 +49,7 @@ export default class GuidView extends React.Component {
     toApp=()=>{
         this.timer = setTimeout(() => {
             G_NavUtil.resetToView(G_NavViews.TabbarView());
-        }, 2000)
+        }, 1500)
 
     }
 }

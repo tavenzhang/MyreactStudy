@@ -1,8 +1,11 @@
 package com.tcp;
 
+
+import android.os.Bundle;
+
 import com.facebook.react.ReactActivity;
-import com.oblador.vectoricons.VectorIconsPackage;
-import com.microsoft.codepush.react.CodePush;
+import com.reactnativecomponent.splashscreen.RCTSplashScreen;
+
 
 public class MainActivity extends ReactActivity {
 
@@ -13,5 +16,12 @@ public class MainActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "TCP";
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        RCTSplashScreen.openSplashScreen(this);   //open splashscreen
+        //RCTSplashScreen.openSplashScreen(this, true, ImageView.ScaleType.FIT_XY);   //open splashscreen fullscreen
+        super.onCreate(savedInstanceState);
     }
 }

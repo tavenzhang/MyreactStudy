@@ -4,6 +4,7 @@
 #import "JPUSHService.h"
 #import "LoggerClient.h"
 #import "RCTJPushActionQueue.h"
+#import "RCTSplashScreen.h"
 #import <CodePush/CodePush.h>
 #import <RCTJPushModule.h>
 #import <React/RCTBundleURLProvider.h>
@@ -27,19 +28,21 @@ static BOOL isProduction = true;
               fallbackResource:nil];
   LoggerSetViewerHost(nil, (CFStringRef) @"192.168.0.110", (UInt32)40000);
   LogMarker(@"thomas---debug");
-  isProduction=false;
+  isProduction = false;
 #else
   jsCodeLocation = [CodePush bundleURL];
-    isProduction=true;
+  isProduction = true;
 #endif
   [self initFurry:launchOptions];
-  //[self registAppPush:application didFinishLaunchingWithOptions:launchOptions];
+  [self registAppPush:application didFinishLaunchingWithOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"TCP"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
   rootView.backgroundColor =
       [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
+
+  [RCTSplashScreen open:rootView withImageNamed:@"Icon-App"];
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;

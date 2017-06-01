@@ -13,14 +13,12 @@ import { Provider } from 'react-redux';
 import configureStore from './redux/store/store';
 
 import App from './app';
-import SplashScreen from "rn-splash-screen";
+
 
 const store = configureStore();
 export default class Root extends React.Component {
-
     constructor(props) {
         super(props)
-        SplashScreen.hide();
     }
 
     render() {

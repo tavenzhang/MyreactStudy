@@ -13,7 +13,8 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Loading from "./view/componet/Loading";
 import ToastBox from "./view/componet/InfoBox/ToastBox";
-import GuidView from "./view/page/GuidView";
+import SplashScreen from 'react-native-smart-splash-screen'
+import TabbarView from "./view/page/TabbarView";
 
 
 //定义全局Dispatch 方便使用
@@ -56,6 +57,14 @@ export default class App extends React.Component {
         }
     }
 
+    componentDidMount() {
+        SplashScreen.close({
+            animationType: SplashScreen.animationType.scale,
+            duration: 850,
+            delay: 500,
+        })
+    }
+
     render() {
         const {isLoading, infoBox} = this.props;
         return (
@@ -68,7 +77,7 @@ export default class App extends React.Component {
                     hidden={Platform.OS === 'ios' ? false : true}
                 />
                 <Navigator
-                    initialRoute={{component: GuidView}}
+                    initialRoute={{component: TabbarView}}
                     configureScene={this.configureScene}
                     style={{backgroundColor:'#fff'}}
                     renderScene={this.renderScene}

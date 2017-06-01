@@ -5,10 +5,10 @@ import android.app.Application;
 import com.elvishew.xlog.LogLevel;
 import com.elvishew.xlog.XLog;
 import com.facebook.react.ReactApplication;
+import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage;
 import cn.jpush.reactnativejpush.JPushPackage;
 import com.avishayil.rnrestart.ReactNativeRestartPackage;
 import com.flurry.android.FlurryAgent;
-import com.mehcode.reactnative.splashscreen.SplashScreenPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -44,9 +44,9 @@ public class MainApplication extends Application implements ReactApplication {
             myCodePush = new CodePush("OESoJepwvYUVO5JLX51iJl3LHucn4ksvOXqog", MainApplication.this, BuildConfig.DEBUG, "http://104.250.145.227:3000");
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+                    new RCTSplashScreenPackage(),
                     new JPushPackage(SHUTDOWN_TOAST, SHUTDOWN_LOG),
                     new ReactNativeRestartPackage(),
-                    new SplashScreenPackage(),
                     myCodePush,
                     new ANativePackage()
             );

@@ -41,7 +41,7 @@ const mapStateToProps = state => {
 }
 
 @connect(mapStateToProps)
-export default class MyMoneyView extends BaseView {
+export default class MoneyDetailView extends BaseView {
     constructor(props)
     {
         super(props)

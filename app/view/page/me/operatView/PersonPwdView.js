@@ -17,7 +17,7 @@ const mapStateToProps = state => {
     }
 }
 @connect(mapStateToProps)
-export default class ChangePwd extends BaseView {
+export default class PersonPwdView extends BaseView {
 
     constructor(props) {
         super(props);

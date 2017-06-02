@@ -25,7 +25,7 @@ const mapStateToProps = state => {
 }
 
 @connect(mapStateToProps)
-export default class BetRecordView extends BaseView {
+export default class RecordBetView extends BaseView {
     constructor(props) {
         super(props);
         let now = new Date();

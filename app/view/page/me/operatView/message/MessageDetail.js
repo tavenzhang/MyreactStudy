@@ -25,7 +25,7 @@ export  default class MessageDetail extends BaseView {
                 typeName = typeInfo[key];
             }
         }
-       // {this.state.data.msg_type[this.state.data.type_id]}
+
         return (<View style={[G_Style.appContentView]}>
             <View>
                 <Text>标题:   {this.state.data.msg_title}</Text>
@@ -43,10 +43,13 @@ export  default class MessageDetail extends BaseView {
     componentDidMount() {
         let {id} = this.props.passProps
         HTTP_SERVER.LETTER_DETAIL.url = HTTP_SERVER.LETTER_DETAIL.formatUrl.replace(/#id/g, id);
-        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LETTER_DETAIL, (result) => {
-            if (result.data) {
-                this.setState({data: result.data});
-            }
+        G_RunAfterInteractions(()=>{
+            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LETTER_DETAIL, (result) => {
+                if (result.data) {
+                    this.setState({data: result.data});
+                }
+            })
         })
+
     }
 }

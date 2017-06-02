@@ -11,7 +11,7 @@ import BaseView from "../../../componet/BaseView";
 import MsgListView from "../../../componet/BaseListView";
 
 
-export default class MailView extends BaseView {
+export default class PersonMailView extends BaseView {
     constructor(props) {
         super(props);
         this.state = {

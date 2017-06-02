@@ -2,30 +2,30 @@ import {
     InteractionManager,
     Navigator
 } from 'react-native';
-import AwardRecord from "../view/page/me/subView/AwardRecordView";
-import BetRecord from "../view/page/me/subView/BetRecordView";
-import ChaseRecord from "../view/page/me/subView/ChaseRecordView";
-import MyMoneyView from "../view/page/me/subView/MyMoneyView";
-import InMoneyView from "../view/page/me/subView/InMoneyView";
-import OuterMoneyView from "../view/page/me/subView/OuterMoneyView";
-import ChangePwd from "../view/page/me/subView/ChangePwd";
-import CardManageView from "../view/page/me/subView/CardManageView";
-import MsgView from "../view/page/me/subView/MailView";
+import RecordAwardView from "../view/page/me/operatView/RecordAwardView";
+import RecordBetView from "../view/page/me/operatView/RecordBetView";
+import RecordChaseView from "../view/page/me/operatView/RecordChaseView";
+import MoneyDetailView from "../view/page/me/operatView/MoneyDetailView";
+import MoneyInView from "../view/page/me/operatView/MoneyInView";
+import MoneyOuterView from "../view/page/me/operatView/MoneyOuterView";
+import MoneyCardView from "../view/page/me/operatView/MoneyCardView";
+import PersonPwdView from "../view/page/me/operatView/PersonPwdView";
+import PersonMailView from "../view/page/me/operatView/PersonMailView";
 import TabbarView from "../view/page/TabbarView";
 import LoginView from "../view/page/me/subView/LoginView";
 import SSC_History from "../view/page/award/subView/SSC_History";
 import ADView from "../view/page/home/subview/ADView";
-import AddCardView from "../view/page/me/subView/cardManage/AddCardView";
-import BetDetailView from "../view/page/me/subView/betRecord/BetDetailView";
-import ChaseDeatilView from "../view/page/me/subView/betRecord/ChaseDeatilView";
-import MessageDetail from "../view/page/me/subView/message/MessageDetail";
+import AddCardView from "../view/page/me/operatView/cardManage/AddCardView";
+import BetDetailView from "../view/page/me/operatView/betRecord/BetDetailView";
+import ChaseDeatilView from "../view/page/me/operatView/betRecord/ChaseDeatilView";
+import MessageDetail from "../view/page/me/operatView/message/MessageDetail";
 import NoticeDeailView from "../view/page/notice/noticeDetail/NoticeDeailView";
 import LotteryOrders from "../view/page/home/subview/games/LotteryOrders";
-import DelCardView from "../view/page/me/subView/cardManage/DelCardView";
-import EditCardView from "../view/page/me/subView/cardManage/EditCardView";
-import AddValidView from "../view/page/me/subView/cardManage/AddValidView";
-import EditCardAddView from "../view/page/me/subView/cardManage/EditCardAddView";
-import MoneyTransferView from "../view/page/me/subView/MoneyTransferView";
+import DelCardView from "../view/page/me/operatView/cardManage/DelCardView";
+import EditCardView from "../view/page/me/operatView/cardManage/EditCardView";
+import AddValidView from "../view/page/me/operatView/cardManage/AddValidView";
+import EditCardAddView from "../view/page/me/operatView/cardManage/EditCardAddView";
+import MoneyTransferView from "../view/page/me/operatView/MoneyTransferView";
 import L115View from "../view/page/home/subview/games/L115/L115View";
 import SSCView from "../view/page/home/subview/games/SSC/SSCView";
 import D3View from "../view/page/home/subview/games/D3/D3View";
@@ -34,6 +34,11 @@ import PK10View from "../view/page/home/subview/games/PK10/PK10View";
 import K3View from "../view/page/home/subview/games/K3/K3View";
 import G_11_5_History from "../view/page/award/subView/G_11_5_History";
 import TrendView from "../view/page/home/subview/trend/TrendView";
+import AgentProfitView from "../view/page/me/operatView/AgentProfitView";
+import AgentCreateUserView from "../view/page/me/operatView/AgentCreateUserView";
+import AgentTeamView from "../view/page/me/operatView/AgentTeamView";
+import AgentInfoView from "../view/page/me/operatView/AgentInfoView";
+import AgentAssignMoney from "../view/page/me/operatView/AgentAssignMoney";
 
 
 // PushFromLeft
@@ -45,84 +50,79 @@ global.Navgator = null;
 
 //  sceneAnimation: Navigator.SceneConfigs.FloatFromBottom
 //跳转页面集中控制 方便管理 和自定义动画
+let pushView=(component,passProps=null,sceneAnimation=null)=>{
+    return {component,passProps,sceneAnimation}
+}
+
 
 global.G_NavViews = {
-    ADView: (data) => ({"component": ADView, "passProps": data}),
+    ADView: (data) => pushView(ADView,data),
     //tab页面
-    TabbarView: () => ({"component": TabbarView}),
+    TabbarView: () => pushView(TabbarView),
     //登陆
-    LoginView: (data = {}) => ({"component": LoginView, "passProps": data}),
+    LoginView: (data = {}) => pushView(LoginView,data),
     //ssc 游戏详情
-    SSC_History: (data) => ({"component": SSC_History, "passProps": data}),
+    SSC_History: (data) =>pushView(SSC_History,data),
     //11-5 游戏详情
-    G_11_5_History: (data) => ({"component": G_11_5_History, "passProps": data}),
+    G_11_5_History: (data) =>pushView(G_11_5_History,data),
+
     //个人中心页面
-    AwardRecord: (data) => ({"name": "AwardRecordView", "component": AwardRecord, "passProps": data}),
-    BetRecord: (data) => ({"name": "BetRecordView", "component": BetRecord, "passProps": data}),
-    ChaseRecord: (data) => ({"name": "ChaseRecordView", "component": ChaseRecord, "passProps": data}),
-    MyMoneyView: (data) => ({"name": "MyMoneyView", "component": MyMoneyView, "passProps": data}),
-    InMoneyView: (data) => ({"name": "InMoneyView", "component": InMoneyView, "passProps": data}),
-    OuterMoneyView: (data) => ({"name": "OuterMoneyView", "component": OuterMoneyView, "passProps": data}),
-    ChangePwd: (data) => ({"name": "ChangePwd", "component": ChangePwd, "passProps": data}),
-    CardManageView: (data) => ({"name": "CardManageView", "component": CardManageView, "passProps": data}),
-    MsgView: (data) => ({"name": "MailView", "component": MsgView, "passProps": data}),
-    //游戏11选5玩法
-    L115View: (data) => ({"component": L115View, "passProps": data}),
+    RecordAwardView: (data = {}) =>pushView(RecordAwardView,data),
+    RecordBetView: (data = {}) =>pushView(RecordBetView,data),
+    RecordChaseView: (data = {}) =>pushView(RecordChaseView,data),
+    MoneyDetailView: (data = {}) =>pushView(MoneyDetailView,data),
+    MoneyInView: (data = {}) => pushView(MoneyInView,data),
+    MoneyOuterView: (data = {}) => pushView(MoneyOuterView,data),
+    PersonPwdView: (data = {}) => pushView(PersonPwdView,data),
+    MoneyCardView: (data = {}) => pushView(MoneyCardView,data),
+    PersonMailView: (data = {}) =>pushView(PersonMailView,data),
+    AgentTeamView:(data = {}) =>pushView(AgentTeamView,data),
+    AgentProfitView :(data = {}) =>pushView(AgentProfitView,data),
+    AgentInfoView:(data = {}) =>pushView(AgentInfoView,data),
+    AgentCreateUserView:(data = {}) =>pushView(AgentCreateUserView,data),
+    AgentAssignMoney:(data = {}) =>pushView(AgentAssignMoney,data),
+
+    L115View: (data) =>pushView(L115View,data),
     //福彩3d玩法
-    D3View: (data) => ({"component": D3View, "passProps": data}),
+    D3View: (data) => pushView(D3View,data),
     //快3玩法
-    K3View: (data) => ({"component": K3View, "passProps": data}),
-    //KL10玩法
-    KL10View: (data) => ({"component": KL10View, "passProps": data}),
+    K3View: (data) => pushView(K3View,data),
+    KL10View: (data) => pushView(KL10View,data),
 
-    PK10View: (data) => ({"component": PK10View, "passProps": data}),
+    PK10View: (data) =>pushView(PK10View,data),
     //游戏重启时时彩玩法
-    SSCView: (data) => ({"component": SSCView, "passProps": data}),
+    SSCView: (data) =>pushView(SSCView,data),
     //号码篮
-    LotteryOrders: (data) => ({"component": LotteryOrders, "passProps": data}),
-    //添加银行卡
-    AddCardView: (data) => ({"component": AddCardView, "passProps": data}),
+    LotteryOrders: (data) =>pushView(LotteryOrders,data),
+    AddCardView: (data) =>pushView(AddCardView,data),
     //add step one
-    AddValidView: (data) => ({"component": AddValidView, "passProps": data}),
-    EditCardAddView: (data) => ({"component": EditCardAddView, "passProps": data}),
+    AddValidView: (data) => pushView(AddValidView,data),
+    EditCardAddView: (data) =>pushView(EditCardAddView,data),
     //del银行卡
-    DelCardView: (data) => ({"component": DelCardView, "passProps": data}),
+    DelCardView: (data) => pushView(DelCardView,data),
     //edit
-    EditCardView: (data) => ({"component": EditCardView, "passProps": data}),
-    BetDetailView: (data) => ({"component": BetDetailView, "passProps": data}),
-    ChaseDeatilView: (data) => ({"component": ChaseDeatilView, "passProps": data}),
-    MessageDetail: (data) => ({"component": MessageDetail, "passProps": data}),
-    NoticeDeailView: (data) => ({"component": NoticeDeailView, "passProps": data}),
-
-    MoneyTransferView: (data) => ({"component": MoneyTransferView, "passProps": data}),
-    TrendView: (data) => ({"component": TrendView, "passProps": data}),
+    EditCardView: (data) => pushView(EditCardView,data),
+    BetDetailView: (data) => pushView(BetDetailView,data),
+    ChaseDeatilView: (data) =>pushView(ChaseDeatilView,data),
+    MessageDetail: (data) =>pushView(MessageDetail,data),
+    NoticeDeailView: (data) =>pushView(NoticeDeailView,data),
+    MoneyTransferView: (data) =>pushView(MoneyTransferView,data),
+    TrendView: (data) =>pushView(TrendView,data),
 }
 
 
 global.G_NavUtil  = {
     pushToView: (data) => {
         Navgator.push(data);
-        // InteractionManager.runAfterInteractions(() => {
-        //     Navgator.push(data);
-        // });
     },
     replace: (data) => {
         Navgator.replace(data);
-        // InteractionManager.runAfterInteractions(() => {
-        //
-        // });
     },
     resetToView: (data) => {
         Navgator.resetTo(data);
-        // InteractionManager.runAfterInteractions(() => {
-        //
-        // });
     },
     pop: () => {
         Navgator.pop()
-        // InteractionManager.runAfterInteractions(() => {
-        //     Navgator.pop()
-        // });
 
     },
     popN: (n = 1) => {

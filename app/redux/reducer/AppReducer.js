@@ -40,13 +40,8 @@ const appState = (state = initAppState, action) => {
         case ActionType.AppType.MONEY_ACCOUNT__CHANGE:
             return state.merge({moneyBalance:Number(action.httpResult.available)});
         case ActionType.AppType.LOGIN_RESULT:
-            AppData.userData = action.data;
-            AppData.isLogined = true;
-            action.data.isLogined=true;
-            return state.merge({userData: action.data,moneyBalance:Number(action.data.data.available)});
+            return state.merge({userData: {...action.data,isLogined:true},moneyBalance:Number(action.data.data.available)});
         case ActionType.AppType.LOG_OUT:
-            AppData.userData = null;
-            AppData.isLogined = false;
             return state.merge({userData: {isLogined:false},moneyBalance:0});
         case ActionType.AppType.SHOW_INFOBOX:
             return state.merge({infoBox: {
@@ -86,8 +81,6 @@ const appState = (state = initAppState, action) => {
            // TLog("ActionType.AppType.CARD_LIST_GET---",tempList)
             return state.merge({cardList:tempList});
         case ActionType.AppType.APP_BACK_RESET:
-            AppData.userData = null;
-            AppData.isLogined = false;
             return state.merge(initAppState);
         default:
             return state;

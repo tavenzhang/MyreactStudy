@@ -194,18 +194,11 @@ global.HTTP_SERVER = {
     },
 };
 
-
 global.HttpUtil = {
     flushMoneyBalance: () => {
-        ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.MOENY_USER_ACCOUNT, ActionEnum.AppAct.MONEY_ACCOUNT__CHANGE,null,true);
+        ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.MOENY_USER_ACCOUNT, ActionEnum.AppAct.MONEY_ACCOUNT__CHANGE, null, true);
     }
 }
 
-
-
-global.AppData = {
-    userData: null,
-    isLogined: false,
-}
 
 

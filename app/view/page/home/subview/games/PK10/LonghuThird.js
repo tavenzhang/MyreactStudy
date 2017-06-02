@@ -17,7 +17,6 @@ export default class LonghuThird extends PK10 {
         super(props);
         this.state.rowBallNumber = 2; //一行几个球
         this.ballFirstStart = 0;
-
     }
 
     //设置球排列

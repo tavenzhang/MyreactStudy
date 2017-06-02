@@ -30,7 +30,7 @@ export default class TabbarView extends React.Component {
     render() {
         return (
             <View style={G_Style.appView}>
-                <TabNavigator tabBarStyle={{backgroundColor: "#171719"}}>
+                <TabNavigator tabBarStyle={styles.tabNavigator}>
                     {
                         tabBarItems.map((item, i) => {
                             let Component = item.component;
@@ -54,8 +54,10 @@ export default class TabbarView extends React.Component {
     }
 }
 
-
 const styles = StyleSheet.create({
+    tabNavigator:{
+        backgroundColor: "#171719"
+    },
     textStyle: {
         color: G_Theme.gray,
     },

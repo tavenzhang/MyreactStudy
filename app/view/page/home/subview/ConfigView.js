@@ -6,7 +6,6 @@ import {
     TextInput,
     Text,
     TouchableOpacity,
-    Alert
 } from 'react-native';
 import BaseView from "../../../componet/BaseView";
 

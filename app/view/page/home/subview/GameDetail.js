@@ -52,6 +52,7 @@ export default class GameDetail extends React.Component {
 
     itemClick = (data) => {
         T_Analysis("进入游戏",data)
+        TLog("进入游戏1",data)
         const {gameModel, playModel,userData} = this.props
         //G_NavUtil.pushToView(G_NavViews.TrendView({title:`走势图`,lotteryId:data.id}))
         if(userData.isLogined)
@@ -76,11 +77,18 @@ export default class GameDetail extends React.Component {
                     case "8":
                         G_NavUtil.pushToView(G_NavViews.KL10View({...data, gameModel: gameModel, playModel: playModel}));
                         break;
+                    case "4":
+                        G_NavUtil.pushToView(G_NavViews.KENOView({...data, gameModel: gameModel, playModel: playModel}));
+                        break;
                     case "7":
                         G_NavUtil.pushToView(G_NavViews.PK10View({...data, gameModel: gameModel, playModel: playModel}));
                         break;
+                    case "6"://幸运28
+                        TLog(data);
+                        G_NavUtil.pushToView(G_NavViews.LUCKYView({...data, gameModel: gameModel, playModel: playModel}));
+                        break;
                     default :
-                       G_AlertUtil.show(" ","此游戏尚未开启! ")
+                        TLog('gameseries_id',data.series_id)
                 }
             }
             else {

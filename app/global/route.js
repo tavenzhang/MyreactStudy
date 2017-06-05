@@ -31,7 +31,9 @@ import SSCView from "../view/page/home/subview/games/SSC/SSCView";
 import D3View from "../view/page/home/subview/games/D3/D3View";
 import KL10View from "../view/page/home/subview/games/KL10/KL10View";
 import PK10View from "../view/page/home/subview/games/PK10/PK10View";
+import KENOView from "../view/page/home/subview/games/KENO/KENOView";
 import K3View from "../view/page/home/subview/games/K3/K3View";
+import LUCKYView from "../view/page/home/subview/games/LUCKY/LUCKYView";
 import G_11_5_History from "../view/page/award/subView/G_11_5_History";
 import TrendView from "../view/page/home/subview/trend/TrendView";
 import AgentProfitView from "../view/page/me/operatView/AgentProfitView";
@@ -51,69 +53,72 @@ global.Navgator = null;
 
 //  sceneAnimation: Navigator.SceneConfigs.FloatFromBottom
 //跳转页面集中控制 方便管理 和自定义动画
-let pushView=(component,passProps=null,sceneAnimation=null)=>{
-    return {component,passProps,sceneAnimation}
+let pushView = (component, passProps = null, sceneAnimation = null) => {
+    return {component, passProps, sceneAnimation}
 }
 
 
 global.G_NavViews = {
-    ADView: (data) => pushView(ADView,data),
+    ADView: (data) => pushView(ADView, data),
     //tab页面
     TabbarView: () => pushView(TabbarView),
     //登陆
-    LoginView: (data = {}) => pushView(LoginView,data),
+    LoginView: (data = {}) => pushView(LoginView, data),
     //ssc 游戏详情
-    SSC_History: (data) =>pushView(SSC_History,data),
+    SSC_History: (data) => pushView(SSC_History, data),
     //11-5 游戏详情
-    G_11_5_History: (data) =>pushView(G_11_5_History,data),
+    G_11_5_History: (data) => pushView(G_11_5_History, data),
 
     //个人中心页面
-    RecordAwardView: (data = {}) =>pushView(RecordAwardView,data),
-    RecordBetView: (data = {}) =>pushView(RecordBetView,data),
-    RecordChaseView: (data = {}) =>pushView(RecordChaseView,data),
-    MoneyDetailView: (data = {}) =>pushView(MoneyDetailView,data),
-    MoneyInView: (data = {}) => pushView(MoneyInView,data),
-    MoneyOuterView: (data = {}) => pushView(MoneyOuterView,data),
-    PersonPwdView: (data = {}) => pushView(PersonPwdView,data),
-    MoneyCardView: (data = {}) => pushView(MoneyCardView,data),
-    PersonMailView: (data = {}) =>pushView(PersonMailView,data),
-    AgentTeamView:(data = {}) =>pushView(AgentTeamView,data),
-    AgentProfitView :(data = {}) =>pushView(AgentProfitView,data),
-    AgentInfoView:(data = {}) =>pushView(AgentInfoView,data),
-    AgentCreateUserView:(data = {}) =>pushView(AgentCreateUserView,data),
-    AgentAssignMoney:(data = {}) =>pushView(AgentAssignMoney,data),
+    RecordAwardView: (data = {}) => pushView(RecordAwardView, data),
+    RecordBetView: (data = {}) => pushView(RecordBetView, data),
+    RecordChaseView: (data = {}) => pushView(RecordChaseView, data),
+    MoneyDetailView: (data = {}) => pushView(MoneyDetailView, data),
+    MoneyInView: (data = {}) => pushView(MoneyInView, data),
+    MoneyOuterView: (data = {}) => pushView(MoneyOuterView, data),
+    PersonPwdView: (data = {}) => pushView(PersonPwdView, data),
+    MoneyCardView: (data = {}) => pushView(MoneyCardView, data),
+    PersonMailView: (data = {}) => pushView(PersonMailView, data),
+    AgentTeamView: (data = {}) => pushView(AgentTeamView, data),
+    AgentProfitView: (data = {}) => pushView(AgentProfitView, data),
+    AgentInfoView: (data = {}) => pushView(AgentInfoView, data),
+    AgentCreateUserView: (data = {}) => pushView(AgentCreateUserView, data),
+    AgentAssignMoney: (data = {}) => pushView(AgentAssignMoney, data),
 
-    L115View: (data) =>pushView(L115View,data),
+    L115View: (data) => pushView(L115View, data),
     //福彩3d玩法
-    D3View: (data) => pushView(D3View,data),
+    D3View: (data) => pushView(D3View, data),
     //快3玩法
-    K3View: (data) => pushView(K3View,data),
-    KL10View: (data) => pushView(KL10View,data),
+    K3View: (data) => pushView(K3View, data),
+    KL10View: (data) => pushView(KL10View, data),
 
-    PK10View: (data) =>pushView(PK10View,data),
+    PK10View: (data) => pushView(PK10View, data),
+//KENOWANFA
+    KENOView: (data) => pushView(KENOView, data),
+    LUCKYView: (data) => pushView(LUCKYView, data),
     //游戏重启时时彩玩法
-    SSCView: (data) =>pushView(SSCView,data),
+    SSCView: (data) => pushView(SSCView, data),
     //号码篮
-    LotteryOrders: (data) =>pushView(LotteryOrders,data),
-    AddCardView: (data) =>pushView(AddCardView,data),
+    LotteryOrders: (data) => pushView(LotteryOrders, data),
+    AddCardView: (data) => pushView(AddCardView, data),
     //add step one
-    AddValidView: (data) => pushView(AddValidView,data),
-    EditCardAddView: (data) =>pushView(EditCardAddView,data),
+    AddValidView: (data) => pushView(AddValidView, data),
+    EditCardAddView: (data) => pushView(EditCardAddView, data),
     //del银行卡
-    DelCardView: (data) => pushView(DelCardView,data),
+    DelCardView: (data) => pushView(DelCardView, data),
     //edit
-    EditCardView: (data) => pushView(EditCardView,data),
-    BetDetailView: (data) => pushView(BetDetailView,data),
-    ChaseDeatilView: (data) =>pushView(ChaseDeatilView,data),
-    MessageDetail: (data) =>pushView(MessageDetail,data),
-    NoticeDeailView: (data) =>pushView(NoticeDeailView,data),
-    MoneyTransferView: (data) =>pushView(MoneyTransferView,data),
-    TrendView: (data) =>pushView(TrendView,data),
-    ARankView:(data={})=>pushView(ARankView,data),
+    EditCardView: (data) => pushView(EditCardView, data),
+    BetDetailView: (data) => pushView(BetDetailView, data),
+    ChaseDeatilView: (data) => pushView(ChaseDeatilView, data),
+    MessageDetail: (data) => pushView(MessageDetail, data),
+    NoticeDeailView: (data) => pushView(NoticeDeailView, data),
+    MoneyTransferView: (data) => pushView(MoneyTransferView, data),
+    TrendView: (data) => pushView(TrendView, data),
+    ARankView: (data = {}) => pushView(ARankView, data),
 }
 
 
-global.G_NavUtil  = {
+global.G_NavUtil = {
     pushToView: (data) => {
         Navgator.push(data);
     },
@@ -130,11 +135,10 @@ global.G_NavUtil  = {
     popN: (n = 1) => {
         Navgator.popN(n)
     },
-    popToRoute:(data) => {
+    popToRoute: (data) => {
         Navgator.popToRoute(data);
-        }
     }
-
+}
 
 
 global.G_InitRegistApp = false;

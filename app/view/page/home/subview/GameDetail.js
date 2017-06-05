@@ -31,8 +31,9 @@ export default class GameDetail extends React.Component {
         return (
             <View style={styles.sp}>
                 {dataList.map((rowData, index) => {
+                    const splitIcon = index == 0 ? styles.itemRowBorder : null;
                     return (<TouchableHighlight key={index} onPress={() => this.itemClick(rowData)} underlayColor='rgba(0,0,0,0)'>
-                        <View style={[styles.itemRow,styles.itemRowBorder]}>
+                        <View style={[styles.itemRow,splitIcon]}>
                             <Image style={styles.thumb} source={HOME_ICONS[rowData.series_id]}/>
                             <View>
                                 <Text style={rowData.open == "1" ? styles.text : styles.textNoOpen}>

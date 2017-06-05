@@ -19,7 +19,7 @@ const mapStateToProps = state => {
 }
 
 @connect(mapStateToProps)
-export default class AwardRecordView extends BaseView {
+export default class RecordAwardRView extends BaseView {
     constructor(props) {
         super(props);
         this.state = {

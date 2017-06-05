@@ -13,7 +13,7 @@ import Button from 'react-native-button'
 import BaseView from "../../../componet/BaseView";
 import AutoHideKeyBoardView from "../../../componet/AutoHideKeyBoardView";
 
-export default class OuterMoneyView extends BaseView {
+export default class MoneyOuterView extends BaseView {
     constructor(props) {
         super(props);
         this.state = {

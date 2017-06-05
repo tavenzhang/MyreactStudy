@@ -10,7 +10,8 @@
 // }
 
 function fetchMiddleware(extraArgument) {
-    return ({dispatch, getState}) => next => action => {
+    return store => next => action => {
+        let {dispatch,getState}=store
         let resHttp="";
         if (action.type == ActionType.FetchType.FETCH_REQUEST) {
             let requestType = action.requestType || 'POST';
@@ -23,12 +24,11 @@ function fetchMiddleware(extraArgument) {
                 }
             }
             if (requestType == 'POST') {
-                //  requestHeader.body = obj2ser(requestData);
-                if(AppData.userData)
-                {
-                    requestData.jsessionid = AppData.userData.data.jsessionid;
+                let userData=getState().get("appState").get("userData");
+                if(userData.isLogined) {
+                    requestData.jsessionid = userData.jsessionid;
                 }
-                //TLog("-----------------thomas========",getState().appState.userData);
+                let {appState}=getState();
                 requestHeader.body = JSON.stringify(requestData);
             }
 

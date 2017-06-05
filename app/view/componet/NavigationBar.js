@@ -100,8 +100,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         height: G_Theme.navigatorHeadH,
         alignItems: 'center',
-        borderBottomColor: '#ccc',
-        borderBottomWidth: 0.5,
+        //borderBottomColor: '#ccc',
+        //borderBottomWidth: 0.5,
         backgroundColor: '#d7213c',
     },
     subView:{

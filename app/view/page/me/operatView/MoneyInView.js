@@ -19,7 +19,7 @@ const mapStateToProps = state => {
 }
 
 @connect(mapStateToProps)
-export default class InMoneyView extends BaseView {
+export default class MoneyInView extends BaseView {
     constructor(props) {
         super(props);
         this.state = {
@@ -30,7 +30,6 @@ export default class InMoneyView extends BaseView {
 
 
     renderBody() {
-        const {title} = this.props;
         return (
             <View style={G_Style.appView}>
                 <View style={{flex:2,marginLeft:40,marginRight: 40,justifyContent: "center"}}>

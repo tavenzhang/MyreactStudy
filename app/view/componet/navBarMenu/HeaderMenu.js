@@ -41,6 +41,12 @@ export class GAME_DERAIL extends React.Component {
     }
 }
 
+export class NavRightRank extends React.Component {
+    render() {
+        return (<View><Text style={{fontSize:16,color:"white", fontWeight:"bold"}}>本月排名</Text></View>)
+    }
+}
+
 const styles = StyleSheet.create({
     navigationBarContainer: {
         flexDirection: 'row',

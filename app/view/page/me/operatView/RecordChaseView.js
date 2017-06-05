@@ -23,7 +23,7 @@ const mapStateToProps = state => {
     }
 }
 @connect(mapStateToProps)
-export default class ChaseRecordView extends BaseView {
+export default class RecordChaseView extends BaseView {
     constructor(props) {
         super(props);
         let now = new Date();

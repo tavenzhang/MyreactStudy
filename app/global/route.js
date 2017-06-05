@@ -31,7 +31,9 @@ import SSCView from "../view/page/home/subview/games/SSC/SSCView";
 import D3View from "../view/page/home/subview/games/D3/D3View";
 import KL10View from "../view/page/home/subview/games/KL10/KL10View";
 import PK10View from "../view/page/home/subview/games/PK10/PK10View";
+import KENOView from "../view/page/home/subview/games/KENO/KENOView";
 import K3View from "../view/page/home/subview/games/K3/K3View";
+import LUCKYView from "../view/page/home/subview/games/LUCKY/LUCKYView";
 import G_11_5_History from "../view/page/award/subView/G_11_5_History";
 import TrendView from "../view/page/home/subview/trend/TrendView";
 
@@ -74,10 +76,14 @@ global.G_NavViews = {
     K3View: (data) => ({"component": K3View, "passProps": data}),
     //KL10玩法
     KL10View: (data) => ({"component": KL10View, "passProps": data}),
-
+    //PK10玩法
     PK10View: (data) => ({"component": PK10View, "passProps": data}),
+    //KENOWANFA
+    KENOView: (data) => ({"component": KENOView, "passProps": data}),
     //游戏重启时时彩玩法
     SSCView: (data) => ({"component": SSCView, "passProps": data}),
+    //游戏重启时时彩玩法
+    LUCKYView: (data) => ({"component": LUCKYView, "passProps": data}),
     //号码篮
     LotteryOrders: (data) => ({"component": LotteryOrders, "passProps": data}),
     //添加银行卡

@@ -60,6 +60,7 @@ __tests__/
 android/app/src/main/assets/res
 android/app/src/main/java/com/tcp/nativeExtention
 android/app/src/main/assets/fonts/MaterialCommunityIcons.ttf
+android/app/src/main/
 
 ios/TCP/Images.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png
 ios/TCP/Images.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png

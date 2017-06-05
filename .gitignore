@@ -43,8 +43,14 @@ android/app/libs
 *.keystore
 .eslintrc.json
 ios/Podfile.lock
+ios/
 ios/Pods/
+ios/TCP.xcodeproj
 ios/TCP.xcworkspace/
+ios/TCP-tvOS/
+ios/TCP-tvOSTests/
+ios/TCP.xcodeproj/xcshareddata/xcschemes/TCP-tvOS.xcscheme
+
 app/page/me/subView/myMoney/
 .flowconfig
 .gitattributes
@@ -54,9 +60,7 @@ __tests__/
 android/app/src/main/assets/res
 android/app/src/main/java/com/tcp/nativeExtention
 android/app/src/main/assets/fonts/MaterialCommunityIcons.ttf
-ios/TCP-tvOS/
-ios/TCP-tvOSTests/
-ios/TCP.xcodeproj/xcshareddata/xcschemes/TCP-tvOS.xcscheme
+
 ios/TCP/Images.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png
 ios/TCP/Images.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png
 ios/TCP/Images.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png

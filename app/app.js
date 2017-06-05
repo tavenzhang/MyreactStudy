@@ -58,11 +58,11 @@ export default class App extends React.Component {
     }
 
     componentDidMount() {
-        // SplashScreen.close({
-        //     animationType: SplashScreen.animationType.scale,
-        //     duration: 850,
-        //     delay: 500,
-        // })
+        SplashScreen.close({
+            animationType: SplashScreen.animationType.scale,
+            duration: 850,
+            delay: 500,
+        })
     }
 
     render() {

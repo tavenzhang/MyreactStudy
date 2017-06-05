@@ -42,7 +42,6 @@ buck-out/
 android/app/libs
 *.keystore
 .eslintrc.json
-ios/Podfile
 ios/Podfile.lock
 ios/Pods/
 ios/TCP.xcworkspace/

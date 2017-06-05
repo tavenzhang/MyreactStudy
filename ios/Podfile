@@ -4,5 +4,4 @@ target :TCP do
 pod 'NSLogger/NoStrip','1.7.0'
 pod 'IQKeyboardManager'
 pod 'Flurry-iOS-SDK/FlurrySDK','8.0.1'
-
 end

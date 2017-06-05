@@ -39,6 +39,7 @@ import AgentCreateUserView from "../view/page/me/operatView/AgentCreateUserView"
 import AgentTeamView from "../view/page/me/operatView/AgentTeamView";
 import AgentInfoView from "../view/page/me/operatView/AgentInfoView";
 import AgentAssignMoney from "../view/page/me/operatView/AgentAssignMoney";
+import ARankView from "../view/page/me/operatView/agentinfo/ARankView";
 
 
 // PushFromLeft
@@ -108,6 +109,7 @@ global.G_NavViews = {
     NoticeDeailView: (data) =>pushView(NoticeDeailView,data),
     MoneyTransferView: (data) =>pushView(MoneyTransferView,data),
     TrendView: (data) =>pushView(TrendView,data),
+    ARankView:(data={})=>pushView(ARankView,data),
 }
 
 

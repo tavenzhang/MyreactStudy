@@ -36,11 +36,6 @@ export default class MyBannerSwiper extends React.Component {
                         <TouchableOpacity key={i} activeOpacity={0.75} onPress={()=>{
                             this.bannerClick(banner);
                         }}>
-                            {/*<Image*/}
-                                {/*style={styles.bannerImage}*/}
-                                {/*source={{uri: banner.url}}*/}
-                                {/*key={i}*/}
-                            {/*/>*/}
                             <Image
                                 style={styles.bannerImage}
                                 source={home_game}

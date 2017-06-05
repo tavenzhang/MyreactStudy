@@ -7,7 +7,7 @@ import {
     TouchableHighlight,
     ListView,
 } from 'react-native';
-import {home_game} from "../../../../assets/index";
+import {HOME_ICONS,SSC} from "../../../../assets/index";
 
 
 export default class GameDetail extends React.Component {
@@ -27,22 +27,24 @@ export default class GameDetail extends React.Component {
     }
 
     render() {
-        const {dataList} = this.props
+        const {dataList} = this.props;
         return (
-            <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-                <View style={styles.sp}>
+            <View style={styles.sp}>
                 {dataList.map((rowData, index) => {
                     return (<TouchableHighlight key={index} onPress={() => this.itemClick(rowData)} underlayColor='rgba(0,0,0,0)'>
-                        <View style={styles.itemRow}>
-                            {/*<Image style={styles.thumb} source={{uri: "Icon-App"}}/>*/}
-                            <Image style={styles.thumb} source={home_game}/>
-                            <Text style={rowData.open == "1" ? styles.text : styles.textNoOpen}>
-                                {rowData.name}
-                            </Text>
+                        <View style={[styles.itemRow,styles.itemRowBorder]}>
+                            <Image style={styles.thumb} source={HOME_ICONS[rowData.series_id]}/>
+                            <View>
+                                <Text style={rowData.open == "1" ? styles.text : styles.textNoOpen}>
+                                    {rowData.name}
+                                </Text>
+                                <Text style={styles.textDesc}>
+                                    {rowData.open == "1" ? '火爆进行中' : '暂停销售'}
+                                </Text>
+                            </View>
                         </View>
                     </TouchableHighlight>)
                 })}
-                </View>
             </View>
         )
     }
@@ -92,32 +94,41 @@ export default class GameDetail extends React.Component {
     }
 }
 
-const gridSize = Math.floor(G_Theme.windowWidth / 3)
+const gridSize = Math.floor(G_Theme.windowWidth / 2)
 var styles = StyleSheet.create({
     sp: {
         flexDirection: 'row',
-        flexWrap: 'wrap',
-        alignItems: "flex-start",
-        height:gridSize*3,
         width:G_Theme.windowWidth,
+        borderBottomWidth: 0.5,
+        borderBottomColor: '#e5e5e5',
+        paddingBottom: 10,
+        paddingTop: 10,
     },
     itemRow: {
-        justifyContent: 'center',
+        flexDirection: 'row',
         width: gridSize,
-        height: gridSize,
-        alignItems: 'center',
+        paddingLeft: 20,
+        paddingRight: 10,
+    },
+    itemRowBorder: {
+        borderRightWidth:0.5,
+        borderRightColor: '#e5e5e5',
     },
     thumb: {
-        width: 60,
-        height: 60,
-        borderWidth: 1,
-        borderRadius: 5,
-        borderColor: '#CCC'
+        width: 40,
+        height: 40,
+        marginRight: 8,
+        borderRadius: 20,
     },
     text: {
-        marginTop: 5,
+        marginTop: 4,
         fontWeight: 'bold',
-        color: "green",
+        color: '#222',
+    },
+    textDesc: {
+        color: '#999',
+        fontSize: 12,
+        lineHeight: 20
     },
     textNoOpen: {
         color: "gray",

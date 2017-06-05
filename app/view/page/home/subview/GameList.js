@@ -2,9 +2,9 @@ import React, {PropTypes}from 'react';
 import {
     View,
      StyleSheet,
+    ScrollView,
 } from 'react-native';
 
-import Swiper from 'react-native-swiper';
 import GameDetail from './GameDetail';
 
 let hlist=G_Theme.windowHeight-G_Theme.bannerHeight-G_Theme.TabBarH-G_Theme.navigatorHeadH
@@ -27,7 +27,7 @@ export  default class GameList extends React.Component {
             let tempArr = null;
             for(let i=0;i<dataList.length;i++)
             {
-                if(i%9==0)
+                if(i%2==0)
                 {
                     tempArr=[];
                     newList.push(tempArr);
@@ -35,28 +35,16 @@ export  default class GameList extends React.Component {
                 tempArr.push(dataList[i]);
             }
         }
-        if (newList.length > 0) {
-            listView = <Swiper
-                ref=""
-                height={hlist}
-                loop={true}
-                dot={<View style={styles.customDot}/>}
-                activeDot={<View style={styles.customActiveDot}/>}
-                showsPagination={true}
-                pagingEnabled={true}
-                paginationStyle={{ bottom: 10}}
-            >
-                {newList.map((item, i) => {
-                    return (
-                        <GameDetail key={`game${i}detail`} dataList={item} userData={userData} gameModel={gameModel} playModel={playModel}/>
-                    )
-                })}
-            </Swiper>
-        }
 
         return (
-            <View style={[G_Style.appContentView]}>
-                {listView}
+            <View style={[G_Style.appContentView,styles.gameListBox]}>
+                <ScrollView >
+                    {newList.map((item, i) => {
+                        return (
+                            <GameDetail key={`game${i}detail`} dataList={item} userData={userData} gameModel={gameModel} playModel={playModel}/>
+                        )
+                    })}
+                </ScrollView>
             </View>
         )
     }
@@ -71,6 +59,11 @@ const styles = StyleSheet.create({
         marginRight: 2,
         marginTop: 2,
         borderRadius: 3,
+    },
+
+    gameListBox: {
+        backgroundColor: '#fff',
+        marginTop: 8,
     },
 
     customActiveDot: {

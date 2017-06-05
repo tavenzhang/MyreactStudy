@@ -42,15 +42,15 @@ export default class Home extends BaseView {
         let {bannerList, gameModel, playModel,userData} = this.props;
         let gameList = gameModel.gameInfoList;
         bannerList = [{
-            url: `${G_SERVERADDR}/dist/i/home/home_activity_banner2.jpg`,
+            url: `${G_SERVERADDR}/i/home/home_activity_banne1r3.jpg`,
             name: "活动1",
             data: "http://www.baidu.com"
         }, {
-            url: `${G_SERVERADDR}/dist/i/home/home_activity_banner2.jpg`,
+            url: `${G_SERVERADDR}/i/home/home_activity_banner12.jpg`,
             name: "活动2",
             data: "http://www.baidu.com"
         }, {
-            url: `${G_SERVERADDR}/dist/i/home/home_activity_banner2.jpg`,
+            url: `${G_SERVERADDR}/i/home/home_activity_banne1r2.jpg`,
             name: "活动3",
             data: "http://www.google.com"
         }]
@@ -58,7 +58,7 @@ export default class Home extends BaseView {
         return (
             <View style={G_Style.appContentView} >
                 <ConfigView modalVisible={this.state.modalVisible} setModalVisible={this.setModalVisible}/>
-                <MyBannerSwiper dataList={bannerList} {...this.props}/>
+                <MyBannerSwiper dataList={bannerList} {...this.props} />
                 <GameList dataList={gameList} gameModel={gameModel} playModel={playModel} userData={userData}/>
             </View>
         );

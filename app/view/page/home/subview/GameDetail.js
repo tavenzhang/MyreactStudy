@@ -74,14 +74,13 @@ export default class GameDetail extends React.Component {
                         G_NavUtil.pushToView(G_NavViews.K3View({...data, gameModel: gameModel, playModel: playModel}));
                         break;
                     case "8":
-                        NavUtil.pushToView(NavViews.KL10View({...data, gameModel: gameModel, playModel: playModel}));
+                        G_NavUtil.pushToView(G_NavViews.KL10View({...data, gameModel: gameModel, playModel: playModel}));
                         break;
                     case "7":
-                        NavUtil.pushToView(NavViews.PK10View({...data, gameModel: gameModel, playModel: playModel}));
+                        G_NavUtil.pushToView(G_NavViews.PK10View({...data, gameModel: gameModel, playModel: playModel}));
                         break;
-
                     default :
-                        TLog('gameseries_id',data.series_id)
+                       G_AlertUtil.show(" ","此游戏尚未开启! ")
                 }
             }
             else {

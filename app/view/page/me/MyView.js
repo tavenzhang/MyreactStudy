@@ -69,10 +69,10 @@ export default class MyView extends BaseView {
         ico: "envelope-o",
         name: ItemNameEnum.msgNotice
     }];
-    static dataListTopAgent = [{ico: "lock", name: ItemNameEnum.agentInfo}, {
-        ico: "envelope-o",
+    static dataListTopAgent = [{ico: "info-circle", name: ItemNameEnum.agentInfo}, {
+        ico: "user-circle",
         name: ItemNameEnum.agentCreate
-    }, {ico: "envelope-o", name: ItemNameEnum.agentTeam}, {ico: "envelope-o", name: ItemNameEnum.agentProfit}];
+    }, {ico: "cubes", name: ItemNameEnum.agentTeam}, {ico: "book", name: ItemNameEnum.agentProfit}];
 
     getNavigationBarProps() {
         let {userData} = this.props;
@@ -100,15 +100,8 @@ export default class MyView extends BaseView {
         let infoView = null;
         if (userData.isLogined) {
             //0：palyer 1：agent 2：topAgent
-            if (userData.data.user_type == 1)//1表示是代理用户 才可以转账
+            if (userData.data.user_type == 1||userData.data.user_type == 2)//1表示是代理用户 才可以转账
             {
-                dataList = {
-                    "我的彩票": MyView.dataListRecord,
-                    "账户资金": MyView.dataListMoeny_Agent,
-                    "个人信息": MyView.dataListPerson
-                };
-            }
-            else if (userData.data.user_type == 2) {
                 dataList = {
                     "代理中心": MyView.dataListTopAgent,
                     "我的彩票": MyView.dataListRecord,
@@ -187,7 +180,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "flex-start",
         shadowColor: "gray",
-        elevation: 10,
+        elevation: 2,
         shadowOffset: {width: 2, height: 2},
         shadowOpacity: 0.6
     },

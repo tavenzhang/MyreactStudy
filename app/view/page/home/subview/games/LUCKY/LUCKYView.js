@@ -20,18 +20,37 @@ const mapStateToProps = state => {
 
 @connect(mapStateToProps)
 export default class LUCKYView extends BaseGameView {
-
     constructor(props) {
         super(props);
     }
+
+    // getGameTitle(){
+    //     const {name} = this.props.passProps;
+    //     let   gameName = "["+name +"]-趣味";
+    //
+    //     return gameName;
+    // }
+
+    getGameWays(){
+        let methods= super.getGameWays();
+        methods.map((item)=>{
+            if(item.name=="趣味")
+            {
+                item.children=[{"id":202,"name":"趣味"}];
+            }
+        })
+        return methods;
+    }
+
+
+
     onRenderSubView(data) {
         TLog("lucky--onRenderSubView", data);
-        TLog('firstMenu', this.firstMenu);
-
+        TLog('gameMenu', this.gameMenu);
         switch (data.id + '') {
 
             default:
-                return <QUWEI {...this.props} {...this.state} gameMethod={this.firstMenu} />
+                return <QUWEI {...this.props} {...this.state} gameMethod={this.gameMenu} />
         }
     }
 

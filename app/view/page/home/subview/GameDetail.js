@@ -84,7 +84,7 @@ export default class GameDetail extends React.Component {
                         G_NavUtil.pushToView(G_NavViews.PK10View({...data, gameModel: gameModel, playModel: playModel}));
                         break;
                     case "6"://幸运28
-                        TLog(data);
+                        TLog("幸运28---",data);
                         G_NavUtil.pushToView(G_NavViews.LUCKYView({...data, gameModel: gameModel, playModel: playModel}));
                         break;
                     default :

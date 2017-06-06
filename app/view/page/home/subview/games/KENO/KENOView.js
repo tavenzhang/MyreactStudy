@@ -29,6 +29,24 @@ const mapStateToProps = state => {
 
 @connect(mapStateToProps)
 export default class L115View extends BaseGameView {
+    //
+    // getGameTitle(){
+    //     const {name} = this.props.passProps;
+    //     let   gameName = "["+name +"]-趣味";
+    //
+    //     return gameName;
+    // }
+    // //
+    getGameWays(){
+        let methods= super.getGameWays();
+        methods.map((item)=>{
+            if(item.name=="趣味")
+            {
+                item.children=[{"id":163,"name":"趣味"}];
+            }
+        })
+        return methods;
+    }
 
     onRenderSubView(data) {
         TLog("KENO--onRenderSubView", data);

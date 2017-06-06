@@ -416,8 +416,7 @@ export default class Games extends Component {
         const { lotterys } = me.state;
 
         const orderData = lotterys.length ? me.getResultData(lotterys) : null;
-
-        TLog('=======orderData=======>>>>>>>>>>>',orderData)
+        TLog('=======orderData=======>>>>>>>>>>>',orderData);
         //加入购彩篮
         if(orderData) {
             ActDispatch.GameAct.addOrderToBasket(orderData);

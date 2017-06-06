@@ -33,7 +33,6 @@ export default class GamePriceModelPannel extends Component {
         //}
     }
 
-
     render() {
         const { bet_max_prize_group, bet_min_prize_group, series_amount, diff_grize_group, onChange, value } = this.props;
 

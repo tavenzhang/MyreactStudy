@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     },
 
     textInput: {
-        height: 40,
+        height: G_Theme.textInpuntH,
         width: 70,
         textAlign: 'center',
         marginLeft: 5,

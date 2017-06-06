@@ -3,7 +3,7 @@
  */
 export const  startImg=require('./welcome/start.png')
 
-export const  home_game=require('./homeGame.jpg')
+export const  home_game=require('./homeGame.png')
 
 export const  SSC=require('./home/ssc.png')
 export const  L115=require('./home/L115.png')

@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
         width: 150,
         left: 10,
         fontSize: 14,
-        height:40
+        height:G_Theme.textInpuntH
     },
     iconUser: {
         color: G_Theme.gray,

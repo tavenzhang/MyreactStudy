@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
         width: 180,
         left: 10,
         fontSize: 14,
-        height:40
+        height:G_Theme.textInpuntH
     },
     textLeft:{
         color:G_Theme.grayDeep,

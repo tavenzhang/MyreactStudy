@@ -26,15 +26,12 @@ export  default class GameList extends React.Component {
         if (dataList && dataList.length > 0) {
             let tempArr = null;
             for (let i = 0; i < dataList.length; i++) {
-                if (dataList[i]['series_id'] > 5) {
-
-
                     if (i % 2 == 0) {
                         tempArr = [];
                         newList.push(tempArr);
                     }
                     tempArr.push(dataList[i]);
-                }
+
             }
         }
 

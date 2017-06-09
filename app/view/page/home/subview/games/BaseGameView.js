@@ -10,10 +10,10 @@ import MoreMenu from "../../../../componet/MoreMenu";
 import BannerView from "./BannerView";
 
 export default class BaseGameView extends BaseView {
-
     constructor(props) {
         super(props);
-        this.gameMenu = this.getGameWays();
+        const {series_id, playModel} = this.props.passProps;
+        this.firstMenu = playModel.getPlayByGid(series_id).arrayList;
         this.state = {
             bet_max_prize_group: null,
             bet_min_prize_group: null,
@@ -40,42 +40,23 @@ export default class BaseGameView extends BaseView {
         this.onRenderSubView = this.onRenderSubView.bind(this);
         this.getMoreMenuData = this.getMoreMenuData.bind(this);
         this.onMoreMenuSelect = this.onMoreMenuSelect.bind(this)
-        this.getGameTitle=this.getGameTitle.bind(this);
-        this.getGameWays=this.getGameWays.bind(this);
     }
 
     getNavigationBarProps() {
-       let gameName= this.getGameTitle();
+        const {id, gameModel} = this.props.passProps;
+
+        const {currentGameWay} = this.state;
+        this.gameName= gameModel.getGameNameById(id);
+        let gameName = this.gameName;
+       // TLog("------------------getNavigationBarProps=="+id,gameName)
+        if (this.state.selectItem) {
+            gameName = "["+currentGameWay.parent_parent_name_cn +"]-" +this.state.selectItem.name;
+        }
         return {
             titleView: HeaderMenuTitleView,
             title: gameName,
             rightView: GAME_DERAIL
         };
-    }
-
-    getGameTitle(){
-        const {name} = this.props.passProps;
-
-        const {currentGameWay} = this.state;
-        let gameName = name;
-        if (this.state.selectItem) {
-            if(currentGameWay.parent_parent_name_cn)
-            {
-                gameName = "["+currentGameWay.parent_parent_name_cn +"]-" +this.state.selectItem.name;
-            }
-            else{
-                gameName = "["+name +"]-" +this.state.selectItem.name;
-            }
-        }
-        return gameName;
-    }
-
-    getGameWays()
-    {
-         const {series_id, playModel} = this.props.passProps;
-         let list= playModel.getPlayByGid(series_id).arrayList
-             TLog("getGameWays----",list)
-         return list;
     }
 
     onRightPressed=()=>{
@@ -108,7 +89,7 @@ export default class BaseGameView extends BaseView {
                     buttonRect={{x: G_Theme.windowWidth - 60, y: -50, width: 40, height: 40}}
                 />
                 {this.state.isShowMenu&&<HeadMenuListView selectItem={this.state.selectItem} onHeadPressed={this.onHeadPressed}
-                                                          menuDataList={this.gameMenu}
+                                                          menuDataList={this.firstMenu}
                                                           clickMenuItem={this.clickMenuItem} rootStyle={styles.firstMenuContain}/>}
             </View>
         ) : null
@@ -182,7 +163,7 @@ export default class BaseGameView extends BaseView {
 
     clickMenuItem = (data) => {
         const {gameMethodHash, isRequestGameWay, currentGameWay} = this.state;
-        const {id,playModel} = this.props.passProps;
+        const {id} = this.props.passProps;
         if (currentGameWay.id != data.id) {
             if (gameMethodHash[data.id]) {
                 this.setState({
@@ -198,13 +179,7 @@ export default class BaseGameView extends BaseView {
                     ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.GET_GAME_WAY, d => {
                         const pd = d.data;
                         gameMethodHash[pd.id] = pd;
-                        if(pd.name_cn)
-                        {
-                            data.name= pd.name_cn;
-                        }
-                        else {
-                            data.name = playModel.getWayNameById(data.id)
-                        }
+                        data.name= pd.name_cn;
                         this.setState({
                             currentGameWay: pd,
                             gameMethodHash: gameMethodHash,

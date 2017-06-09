@@ -49,7 +49,7 @@ export default class LUCKYView extends BaseGameView {
 
         switch (data.id + '') {
             default:
-                return <QUWEI {...this.props} {...this.state} />
+                return <QUWEI {...this.props} {...this.state} clickMenuItem={this.clickMenuItem} />
         }
     }
 

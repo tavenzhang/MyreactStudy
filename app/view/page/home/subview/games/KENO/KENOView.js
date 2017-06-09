@@ -74,7 +74,26 @@ export default class L115View extends BaseGameView {
                 return <Renxuan7 {...this.props} {...this.state} />
             //趣味
             case '163':
-                return <Quwei {...this.props} {...this.state} />
+            case '164':
+            case '165':
+            case '166':
+            case '167':
+            case '168':
+            case '169':
+            case '170':
+            case '171':
+            case '172':
+            case '173':
+            case '174':
+            case '175':
+            case '176':
+            case '177':
+            case '178':
+            case '179':
+            case '180':
+            case '182':
+            // case '183':
+                return <Quwei {...this.props} {...this.state}  clickMenuItem={this.clickMenuItem} />
 
             default:
                 return <Text>{data.id}</Text>

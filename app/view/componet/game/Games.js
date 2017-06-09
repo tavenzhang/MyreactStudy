@@ -37,6 +37,8 @@ export default class Games extends Component {
         };
         this.ballSpecialTitle = [];
         this.ballFirstStart = 0;
+        this.isShowMoneyUnit=true;
+        this.isShowGamePriceModelPannel=true;//是否显示奖金
         this.isShowOperate = true;
         this.buildBalls = this.buildBalls.bind(this);
         this.buildSpecialBalls = this.buildSpecialBalls.bind(this);
@@ -169,6 +171,7 @@ export default class Games extends Component {
 
     setBallData(x, y, value) {
         const {balls} = this.state;
+        TLog('----');
         const data = balls;
         if (y >= 0 && y < data.length && x >= 0) {
             data[y][x] = value;
@@ -279,10 +282,9 @@ export default class Games extends Component {
     }
     //检测选球是否完整，是否能形成有效的投注
     //并设置 isBallsComplete
-    checkBallIsComplete(){
+    checkBallIsComplete(multiple){
         const me = this;
-        const {data} = this.props;
-
+        const data= !!me.state.balls ? me.state.balls :[] ;
         let i = 0,
             len = data.length,
             row,
@@ -306,6 +308,8 @@ export default class Games extends Component {
             }
         }
         this.setState({isBallsComplete: true});
+        return true;
+
     }
 
     combination(arr2) {
@@ -404,7 +408,13 @@ export default class Games extends Component {
             //计算注数
             total *= rowNum;
         }
-        return me.combination(result);
+        TLog('result))))',result);
+
+        if (me.checkBallIsComplete()) {
+            return me.combination(result);
+        }
+        return [];
+
     }
 
     changeReBetRate(v) {
@@ -425,6 +435,7 @@ export default class Games extends Component {
         me.clearAllBall();
         //清空当前注单
         me.setState({lotterys:[]});
+        me.setState({isBallsComplete: false});
     }
 
     addBallsToBasket() {
@@ -433,13 +444,14 @@ export default class Games extends Component {
 
     render() {
         const me = this;
-        const { lotterys, prize_group } = me.state;
+        const { lotterys, prize_group, isBallsComplete } = me.state;
         const { orderNum, moneyUnit, multiple, balance, bet_max_prize_group, bet_min_prize_group, diff_grize_group, series_amount , currentGameWay} = me.props;
+        TLog('currentGameWay',currentGameWay);
         const operTopDesc = `${lotterys.length}注 * ${multiple}倍 = ${G_moneyFormat(lotterys.length * multiple * currentGameWay.price * moneyUnit)}元`;
 
         let modePriceOperate = null;
         if(bet_min_prize_group && bet_max_prize_group) {
-            modePriceOperate = <GamePriceModelPannel
+            modePriceOperate = this.isShowGamePriceModelPannel?<GamePriceModelPannel
                             value={prize_group}
                             bet_max_prize_group={bet_max_prize_group}
                             bet_min_prize_group={bet_min_prize_group}
@@ -447,6 +459,7 @@ export default class Games extends Component {
                             series_amount={series_amount}
                             onChange={v => me.changeReBetRate(v)}
                         />
+                :null;
         }
         return (
             <View style={{flex:1}}>
@@ -456,6 +469,8 @@ export default class Games extends Component {
                         <GameModelPannel
                             moneyUnit={moneyUnit}
                             multiple={multiple}
+                            checkBallIsComplete={this.checkBallIsComplete}
+                            isShowMoneyUnit={this.isShowMoneyUnit}
                             maxMultiple={currentGameWay.max_multiple}
                             />
                         {modePriceOperate}
@@ -473,7 +488,7 @@ export default class Games extends Component {
                     }}
                     btnIconEventDesc={orderNum}
                     btnIconName='cart-plus'
-                    btnDisable= { lotterys.length > 0 ? false : true }
+                    btnDisable= { !isBallsComplete }
                     btnIconDisable= { orderNum > 0 ? false : true }
                     />
             </View>
@@ -556,7 +571,6 @@ export default class Games extends Component {
                 return a > b ? 1 : -1;
             });
         }
-        ;
         return current;
     }
     //限制随机投注重复

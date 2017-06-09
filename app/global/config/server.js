@@ -1,6 +1,6 @@
-//let SERVERADDR = "http://www.monkey.com";
+let SERVERADDR = "http://www.monkey.com";
 //let G_SERVERADDR = "http://104.250.140.242:8081"
-let SERVERADDR = "http://www.orchidf.com";
+//let SERVERADDR = "http://www.orchidf.com";
 
 global.G_SERVERADDR = SERVERADDR;
 
@@ -192,6 +192,13 @@ global.HTTP_SERVER = {
         formatUrl: `/mobile-trends/trend-data?lottery_id={#lid}&num_type={#type}`,
         method: METHOD_GET
     },
+//获取游戏的全部玩法
+    MethodData: {
+        url: "",
+        formatUrl: `/mobile-lotteries/lottery-way-group/#id`,
+        method: METHOD_GET
+    },
+
 };
 
 global.HttpUtil = {

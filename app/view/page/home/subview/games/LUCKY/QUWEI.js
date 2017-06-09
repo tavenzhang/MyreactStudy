@@ -17,29 +17,30 @@ export default class QUWEI extends LUCKY {
     constructor(props) {
         super(props);
         this.cfgNum = 1;
+        this.isShowMoneyUnit = false;
+        this.isShowGamePriceModelPannel = false;
         this.state.rowBallNumber = 4; //一行几个球
-
         this.state.gameMethod = [];
-
+        this.clickMenuItem = props.clickMenuItem;
+        this.currentGameWay = [];
     }
 
     //
     setBallText = () => [[0, 1, 2, 3, 4, 5, 6, 7, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-            21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37]];
+        21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37]];
 
     //设置球排列
     setBalls = () => [
         [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-
-    ];
+            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]];
 
     //设置rowtitle
     setRowTitle = () => ['选球'];
 
-    checkBallIsComplete() {
+    checkBallIsComplete(v = null) {
+
         let me = this,
-            ball = me.state.balls[0],
+            ball = !!me.state.balls[0] ? me.state.balls[0] : [],
             i = 0,
             len = ball.length,
             num = 0;
@@ -48,18 +49,52 @@ export default class QUWEI extends LUCKY {
                 num++;
             }
         }
+
+        if (num < 1) {
+            this.setState({isBallsComplete: false});
+            return false;
+        }
+        //检查倍数
+
+        TLog('检查');
+
+        let {multiple} = this.props;
+        if (v != null) {
+            multiple = v;
+        }
+        TLog('multiple', multiple);
+        TLog('currentGameWay', this.currentGameWay);
+
+        if (this.currentGameWay && this.currentGameWay.bet_max_amount > -1) {
+            if (multiple > this.currentGameWay.bet_max_amount) {
+                this.setState({isBallsComplete: false});
+                return false;
+            }
+        }
+        if (this.currentGameWay && this.currentGameWay.bet_min_amount > -1) {
+            if (multiple < this.currentGameWay.bet_min_amount) {
+                this.setState({isBallsComplete: false});
+                return false;
+            }
+        }
+
+
         this.setState({isBallsComplete: true});
         return true;
 
     }
 
-    selectBall(x, y, v, id) {
+
+    selectBall(x, y, v, data) {
+
         const me = this;
         me.setBallData(x, y, v)
+        this.currentGameWay = data;
+        this.clickMenuItem(data);
         const lotteryNums = me.getLottery();
-        TLog(lotteryNums);
+        TLog('data', data);
         this.setState({lotterys: lotteryNums});
-        this.setState({selectItem: id});
+        this.setState({selectItem: data.id});
 
     }
 
@@ -121,6 +156,34 @@ export default class QUWEI extends LUCKY {
         })
     }
 
+    getResultData(lotterys) {
+        const me = this;
+        const {prize_group} = this.state;
+        const {moneyUnit, multiple, currentGameWay} = this.props;
+        TLog('multiple', multiple);
+        TLog('moneyUnit', moneyUnit);
+        TLog('currentGameWay', currentGameWay);
+        let onePrice = currentGameWay.price,
+            lotterysOriginal = me.getOriginal();
+
+        if (lotterys.length < 1) {
+            return {};
+        }
+        return {
+            //original:lotterysOriginal,
+            //lotterys:lotterys,
+            amount: lotterys.length * onePrice * multiple * moneyUnit,
+            wayId: currentGameWay.id,
+            ball: me.makePostParameter(lotterysOriginal),
+            viewBalls: me.formatViewBalls(lotterysOriginal),
+            num: lotterys.length,
+            prize_group: prize_group,
+            onePrice: onePrice,
+            moneyunit: moneyUnit,
+            multiple: multiple,
+            gameName: currentGameWay.parent_parent_name_cn + currentGameWay.name_cn
+        };
+    }
 
     buildSpecialBalls(row) {
         const me = this;
@@ -145,7 +208,7 @@ export default class QUWEI extends LUCKY {
                                           row={row}
                                           value={repo.valid_nums}
                                           status={balls[row][i]}
-                                          onPress={(x, y, v) => me.selectBall(x, y, v, repo.id)}
+                                          onPress={(x, y, v) => me.selectBall(x, y, v, repo)}
                                     />
                                     <Text style={{color: '#757575'}}>{(repo.prize * 100) / 100}</Text>
                                 </View>
@@ -164,7 +227,7 @@ export default class QUWEI extends LUCKY {
                                         row={row}
                                         value={repo.valid_nums}
                                         status={balls[row][i]}
-                                        onPress={(x, y, v) => me.selectBall(x, y, v, repo.id)}
+                                        onPress={(x, y, v) => me.selectBall(x, y, v, repo)}
                                     />
 
                                 </View>

@@ -46,11 +46,10 @@ export default class LUCKYView extends BaseGameView {
 
     onRenderSubView(data) {
         TLog("lucky--onRenderSubView", data);
-        TLog('gameMenu', this.gameMenu);
-        switch (data.id + '') {
 
+        switch (data.id + '') {
             default:
-                return <QUWEI {...this.props} {...this.state} gameMethod={this.gameMenu} />
+                return <QUWEI {...this.props} {...this.state} clickMenuItem={this.clickMenuItem} />
         }
     }
 

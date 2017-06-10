@@ -66,11 +66,9 @@ export default class GameDetail extends React.Component {
                     case "2":
                         G_NavUtil.pushToView(G_NavViews.L115View({...data, gameModel: gameModel, playModel: playModel}));
                         break;
-
                     case "3":
                         G_NavUtil.pushToView(G_NavViews.D3View({...data, gameModel: gameModel, playModel: playModel}));
                         break;
-
                     case "5":
                         G_NavUtil.pushToView(G_NavViews.K3View({...data, gameModel: gameModel, playModel: playModel}));
                         break;

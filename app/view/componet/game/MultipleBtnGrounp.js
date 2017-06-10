@@ -30,7 +30,7 @@ export default class MultipleBtnGrounp extends React.Component {
     };
 
     setMultiple(value) {
-        const { multiple, maxMultiple } = this.props;
+        const { multiple, maxMultiple,checkBallIsComplete } = this.props;
         let newMultiple = parseInt(value) || multiple;
 
         if(maxMultiple && value > maxMultiple) {
@@ -47,6 +47,8 @@ export default class MultipleBtnGrounp extends React.Component {
         ActDispatch.GameAct.setMultiple(newMultiple);
 
         this.setState({multipleValue:newMultiple})
+        checkBallIsComplete(newMultiple);
+
     }
 
     render() {

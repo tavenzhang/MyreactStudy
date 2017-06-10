@@ -1,7 +1,7 @@
 /**
  * Created by soga on 2017/4/20.
  */
-import React, {Component,PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {
     View,
     Text,
@@ -19,16 +19,25 @@ export default class GameModelPannel extends Component {
         super(props);
     }
 
+    static defaultProps = {
+        isShowMoneyUnit: true//是否展示圆角分模式
+    };
+
+    showMoneyUnit(moneyUnit) {
+        return ( <MoneyUnit moneyMode={moneyUnit}/>)
+    }
+
     render() {
         const me = this;
-        const { moneyUnit, multiple, maxMultiple } = this.props;
-
+        const {moneyUnit, multiple, maxMultiple, isShowMoneyUnit,checkBallIsComplete} = this.props;
         return (
             <View style={styles.moneyOperateBox}>
-                <MultipleBtnGrounp multiple={multiple} maxMultiple={maxMultiple} />
-                <MoneyUnit moneyMode={moneyUnit} />
+
+                <MultipleBtnGrounp multiple={multiple} maxMultiple={maxMultiple} checkBallIsComplete={checkBallIsComplete}/>
+                {isShowMoneyUnit ? me.showMoneyUnit(moneyUnit) : null}
             </View>
         );
+
     }
 
 }
@@ -37,7 +46,7 @@ export default class GameModelPannel extends Component {
 const styles = StyleSheet.create({
 
     moneyOperateBox: {
-        flexDirection : 'row',
+        flexDirection: 'row',
         marginBottom: 10,
         justifyContent: 'space-between'
     }

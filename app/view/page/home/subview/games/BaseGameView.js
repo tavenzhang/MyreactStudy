@@ -53,6 +53,18 @@ export default class BaseGameView extends BaseView {
         };
     }
 
+    onRightPressed=()=>{
+        if(this.refs.moreMenu)
+        {
+            this.refs.moreMenu.toggle();
+        }
+    }
+
+    onHeadPressed=()=>{
+        this.setState({isShowMenu: !this.state.isShowMenu});
+    }
+
+
     getGameTitle(){
         const {name} = this.props.passProps;
 
@@ -74,20 +86,9 @@ export default class BaseGameView extends BaseView {
     {
          const {series_id, playModel} = this.props.passProps;
          let list= playModel.getPlayByGid(series_id).arrayList
-             TLog("getGameWays----",list)
          return list;
     }
 
-    onRightPressed=()=>{
-        if(this.refs.moreMenu)
-        {
-            this.refs.moreMenu.toggle();
-        }
-    }
-
-    onHeadPressed=()=>{
-        this.setState({isShowMenu: !this.state.isShowMenu});
-    }
 
     renderBody() {
         const {currentGameWay, currentNumber, defaultMethodId} = this.state;

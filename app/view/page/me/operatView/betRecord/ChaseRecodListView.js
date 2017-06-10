@@ -8,6 +8,7 @@ import BetListView from "../../../../componet/BaseListView";
 import AIcon from 'react-native-vector-icons/FontAwesome';
 
 export default class ChaseRecodListView extends React.Component {
+
     constructor(props) {
         super(props);
         this.itemClick=this.itemClick.bind(this);

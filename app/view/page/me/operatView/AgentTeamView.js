@@ -1,19 +1,13 @@
-/**
- * Created by thomas on 2017/6/2.
- */
 import React from 'react';
 import {
     View,
-    Text, StyleSheet,
-    TouchableHighlight,
-    LayoutAnimation,
-    InteractionManager
+    Text,
 } from 'react-native';
 
 import {connect} from 'react-redux';
 import BaseView from "../../../componet/BaseView";
-import AwardListView from "../../../componet/BaseListView";
-
+import TeamListView from "./agentTeam/TeamListView"
+import AgentFindView from "./agentTeam/AgentFindView";
 
 const mapStateToProps = state => {
     return {
@@ -24,9 +18,45 @@ const mapStateToProps = state => {
 @connect(mapStateToProps)
 export default class AgentTeamView extends BaseView {
 
-
-    renderBody(){
-        return (<View/>)
+    constructor(props) {
+        super(props);
+        this.state = {
+            pwdText: "",
+            modalVisible: false
+        }
     }
 
+    getNavigationBarProps() {
+        return {
+            rightView: this.navRigntView
+        };
+    }
+
+    navRigntView = () => {
+        return (
+            <View style={{
+                marginLeft: 20,
+                paddingHorizontal: 8,
+                paddingVertical: 4,
+                backgroundColor: "rgb(208,199,160)",
+                borderRadius: 5
+            }}>
+                <Text>查询</Text>
+            </View>
+        )
+    }
+
+    onRightPressed() {
+        this.setState({modalVisible: true});
+    }
+
+    renderBody() {
+        return (<View>
+            <AgentFindView visible={this.state.modalVisible} hideViewHandle={() => {
+                this.setState({modalVisible: false});
+            }}/>
+            <TeamListView/>
+        </View>)
+    }
 }
+

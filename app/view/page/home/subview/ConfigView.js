@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import BaseView from "../../../componet/BaseView";
 
-
 export default class ConfigView extends BaseView {
 
     static propTypes = {
@@ -19,8 +18,7 @@ export default class ConfigView extends BaseView {
 
     constructor(props) {
         super(props);
-        this.state =
-            {
+        this.state = {
                 domain:"",
                 bundleServer:""
             };

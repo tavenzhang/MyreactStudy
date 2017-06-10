@@ -192,6 +192,36 @@ global.HTTP_SERVER = {
         formatUrl: `/mobile-trends/trend-data?lottery_id={#lid}&num_type={#type}`,
         method: METHOD_GET
     },
+    //代理中心
+    AgentInfo: {url: "/mobile-agent/agentHome", method: METHOD_POST},
+    AgentInfoTeamMonthySell: {url: "/mobile-agent/get-month-team-turnover", method: METHOD_POST},
+    AgentInfoTeamData: {url: "/mobile-agent/get-team-data", method: METHOD_POST},
+    //获取代理月排行数据
+    AgentInfoMonthSale: {url: "/mobile-agent/get-agent-month-rank/sale", method: METHOD_POST},
+    AgentInfoMonthNewaccount: {url: "/mobile-agent/get-agent-month-rank/newaccount", method: METHOD_POST},
+    AgentInfoMonthProfit: {url: "/mobile-agent/get-agent-month-rank/profit", method: METHOD_POST},
+    //人工开户页面展示
+    AgentUserGetInfo: {url: "/mobile-agent/users/accurate-create", method: METHOD_GET},
+    AgentUserCreate: {url: "/mobile-agent/users/accurate-create", method: METHOD_POST,body:{username:"",password:"",prize_group:0,is_agent:0,_random:1}},
+    //链接开户的页面展示
+    AgentUserLinkList: {url: "/mobile-agent/user-links", method: METHOD_GET},
+    //删除开户链接
+    AgentUserDelLink: {url: "",formatUrl:"/mobile-agent/user-links/#id", method: METHOD_POST},
+    //获取用户的奖金组信息
+    AgentPrizeGroup: {url: "/mobile-agent/user-links/get-user-pirzegroup", method: METHOD_POST},
+    //推广链接的详情
+    AgentUserLinkDetail: {url: "",formatUrl:"/mobile-agent/user-links/view/#id", method: METHOD_POST},
+    //创建推广链接
+    AgentUserLinkCreate: {url: "/mobile-agent/user-links/create", method: METHOD_POST},
+    //高点配额
+    AgentAssinList: {url: "/mobile-agent/my-overlimit-quotas/index", method: METHOD_POST,body:{username:""}},
+    AgentAssinPerson: {url: "/mobile-agent/my-overlimit-quotas/get-quota-and-history", method: METHOD_POST,body:{username:""}},
+    AgentAssinChange:{url: "/mobile-agent/my-overlimit-quotas/save", method: METHOD_POST,body:{prize_group:"",user_id:"",username:"",plus_num:"",subtract_num:""}},
+    //获取团队用户数据
+    AgentTeamUser: {url: "/mobile-agent/users", method: METHOD_POST,body:{page:0}},
+    //盈亏报表
+    AgentProfit: {url: "/mobile-agent/user-profits", method: METHOD_POST,body:{page:0}}
+
 };
 
 global.HttpUtil = {

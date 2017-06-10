@@ -1,15 +1,10 @@
-import React from 'react';
-import {
-    View,
-    Text
-    , StyleSheet,
-    TextInput,
-} from 'react-native';
-import SegmentedControlTab from 'react-native-segmented-control-tab'
-import Button from 'react-native-button'
-import AIcon from 'react-native-vector-icons/FontAwesome';
+import React from "react";
+import {StyleSheet, TextInput, View} from "react-native";
+import Button from "react-native-button";
+import AIcon from "react-native-vector-icons/FontAwesome";
 import BaseView from "../../../componet/BaseView";
 import connect from "react-redux/src/components/connect";
+import MySegmentedControlTab from "../../../componet/MySegmentedControlTab";
 
 const mapStateToProps = state => {
     return {
@@ -49,14 +44,7 @@ export default class PersonPwdView extends BaseView {
 
         return (
             <View style={G_Style.appView}>
-                <SegmentedControlTab
-                    values={['登陆密码', '资金密码']}
-                    onTabPress={this.onTabChange}
-                    tabsContainerStyle={{marginLeft: 40, marginRight: 40, alignSelf: "center", margin: 5}}
-                    tabStyle={{borderColor: "#a52a2a"}}
-                    selectedIndex={this.state.selectedTabIndex}
-                    activeTabStyle={{backgroundColor: "#a52a2a"}}
-                />
+                <MySegmentedControlTab selectedTabIndex={this.state.selectedTabIndex} valueList={['登陆密码', '资金密码']} onTabChange={this.onTabChange}/>
                 <View style={{marginLeft: 40, marginRight: 40, top: G_Theme.windowHeight / 9}}>
                     {oldPwdView}
                     <View style={styles.inputContain}>
@@ -182,7 +170,7 @@ const styles = StyleSheet.create({
         width: 150,
         left: 10,
         fontSize: 16,
-        height:40
+        height:G_Theme.textInpuntH
     },
     iconUser: {
         color: G_Theme.gray,

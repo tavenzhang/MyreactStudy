@@ -44,6 +44,9 @@ android/app/libs
 .eslintrc.json
 ios/Podfile.lock
 ios/
+ios/AdHoc_thomas.tcp.mobileprovision
+ios/YSJ33K53ML.cer
+ios/fastlane
 ios/Pods/
 ios/TCP.xcodeproj
 ios/TCP.xcworkspace/

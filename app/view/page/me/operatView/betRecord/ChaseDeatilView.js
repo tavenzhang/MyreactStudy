@@ -19,7 +19,8 @@ export  default class BetDetailView extends BaseView {
     }
 
     renderBody() {
-        let {gameModel,typesModel} = this.props.passProps
+
+        let {gameModel,typesModel} = this.props.passProps;
         let  gameName = gameModel.getGameNameById(this.state.data.lottery_id)
         let dataList= this.state.data.detail_list ? this.state.data.detail_list.data:[];
         return (<View style={[G_Style.appContentView]}>

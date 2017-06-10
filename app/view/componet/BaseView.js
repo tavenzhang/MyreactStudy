@@ -23,6 +23,7 @@ export default class BaseView extends Component {
         this.onLeftPressed = this.onLeftPressed.bind(this);
         this.onRightPressed = this.onRightPressed.bind(this);
         this.onHeadPressed=this.onHeadPressed.bind(this);
+        this.getNavigationOperateView=this.getNavigationOperateView.bind(this)
         //this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
     }
@@ -30,6 +31,10 @@ export default class BaseView extends Component {
     getNavigationBarProps () {
         return {
         };
+    }
+
+    getNavigationOperateView(){
+        return null
     }
 
     componentWillMount() {

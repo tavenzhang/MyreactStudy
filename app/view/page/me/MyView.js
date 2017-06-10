@@ -72,7 +72,7 @@ export default class MyView extends BaseView {
     static dataListTopAgent = [{ico: "info-circle", name: ItemNameEnum.agentInfo}, {
         ico: "user-circle",
         name: ItemNameEnum.agentCreate
-    }, {ico: "cubes", name: ItemNameEnum.agentTeam}, {ico: "book", name: ItemNameEnum.agentProfit}];
+    }, {ico: "shekel", name: ItemNameEnum.agentAssignMoney},{ico: "cubes", name: ItemNameEnum.agentTeam}, {ico: "book", name: ItemNameEnum.agentProfit}];
 
     getNavigationBarProps() {
         let {userData} = this.props;

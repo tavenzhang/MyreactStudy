@@ -25,6 +25,7 @@ function fetchMiddleware(extraArgument) {
             }
             if (requestType == 'POST') {
                 let userData=getState().get("appState").get("userData");
+                requestData = requestData ? requestData:{};
                 if(userData.isLogined) {
                     requestData.jsessionid = userData.jsessionid;
                 }

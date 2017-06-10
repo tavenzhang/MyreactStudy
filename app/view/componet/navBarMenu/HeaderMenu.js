@@ -6,44 +6,57 @@ import {
 } from 'react-native'
 import AIcon from 'react-native-vector-icons/FontAwesome';
 
+export class NavRightButton extends React.Component {
+
+    render() {
+        let {name} = this.props
+        return (<View><Text style={{fontSize: 16, color: "white", fontWeight: "bold"}}>{name}</Text></View>)
+    }
+}
+
 export class HeaderPlusRightMenu extends React.Component {
     render() {
         return (<AIcon color="white" size={23} name={G_EnumFontNames.plus}/>)
     }
 }
 
-export class HeaderMenuTitleView extends React.Component {
-    render() {
-        return (
-                 <View style={[{flexDirection:"row"}]}>
-                    <Text key={'title'} style={styles.title}>{this.props.title}</Text>
-                    <AIcon color="white" style={{marginLeft:5}} size={16} name={G_EnumFontNames.list_arrow_desc}/>
-                </View>
-        )
-    }
+
+export const HeaderMenuTitleView = () => {
+    return (
+        <View style={[{flexDirection: "row"}]}>
+            <Text key={'title'} style={styles.title}>{this.props.title}</Text>
+            <AIcon color="white" style={{marginLeft: 5}} size={16} name={G_EnumFontNames.list_arrow_desc}/>
+        </View>
+    )
 }
 
 export class HeaderRightLoginOut extends React.Component {
     render() {
-        return (<View><Text style={{fontSize:16,color:"white", fontWeight:"bold"}}>注销</Text></View>)
+        return (<View><Text style={{fontSize: 16, color: "white", fontWeight: "bold"}}>注销</Text></View>)
     }
 }
 
-export class HeaderLeftDomain extends React.Component {
+export class HeaderLeftDomain extends React.PureComponent {
     render() {
-        return (<View><Text style={{fontSize:14,color:"white", fontWeight:"bold"}}>设置</Text></View>)
+        return (<View><Text style={{fontSize: 14, color: "white", fontWeight: "bold"}}>设置</Text></View>)
     }
 }
 
-export class GAME_DERAIL extends React.Component {
+export class GAME_DERAIL extends React.PureComponent {
     render() {
-        return  <AIcon name={G_EnumFontNames.bars} style={styles.barRightIcon} />
+        return <AIcon name={G_EnumFontNames.bars} style={styles.barRightIcon}/>
     }
 }
 
-export class NavRightRank extends React.Component {
+
+export class NavRightRank extends React.PureComponent {
     render() {
-        return (<View><Text style={{fontSize:16,color:"white", fontWeight:"bold"}}>本月排名</Text></View>)
+        return <NavRightButton name={"本月排名"}/>
+    }
+}
+export class NavRightLink extends React.PureComponent {
+    render() {
+        return <NavRightButton name={"查看链接"}/>
     }
 }
 

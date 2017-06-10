@@ -40,9 +40,9 @@ import AgentProfitView from "../view/page/me/operatView/AgentProfitView";
 import AgentCreateUserView from "../view/page/me/operatView/AgentCreateUserView";
 import AgentTeamView from "../view/page/me/operatView/AgentTeamView";
 import AgentInfoView from "../view/page/me/operatView/AgentInfoView";
-import AgentAssignMoney from "../view/page/me/operatView/AgentAssignMoney";
+import AgentAssignMoneyView from "../view/page/me/operatView/AgentAssignMoneyView";
 import ARankView from "../view/page/me/operatView/agentinfo/ARankView";
-
+import AssignDetilView from "../view/page/me/operatView/agentAssign/AssignDetilView";
 
 // PushFromLeft
 // FloatFromRight
@@ -83,7 +83,7 @@ global.G_NavViews = {
     AgentProfitView: (data = {}) => pushView(AgentProfitView, data),
     AgentInfoView: (data = {}) => pushView(AgentInfoView, data),
     AgentCreateUserView: (data = {}) => pushView(AgentCreateUserView, data),
-    AgentAssignMoney: (data = {}) => pushView(AgentAssignMoney, data),
+    AgentAssignMoney: (data = {}) => pushView(AgentAssignMoneyView, data),
 
     L115View: (data) => pushView(L115View, data),
     //福彩3d玩法
@@ -115,6 +115,7 @@ global.G_NavViews = {
     MoneyTransferView: (data) => pushView(MoneyTransferView, data),
     TrendView: (data) => pushView(TrendView, data),
     ARankView: (data = {}) => pushView(ARankView, data),
+    AssignDetilView:(data = {}) => pushView(AssignDetilView, data),
 }
 
 

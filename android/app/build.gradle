@@ -92,7 +92,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
-        versionName "1.0.2"
+        versionName "1.0.1"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -145,6 +145,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-shake-event')
     compile project(':react-native-smart-splash-screen')
     compile project(':jpush-react-native')
     compile project(':react-native-restart')

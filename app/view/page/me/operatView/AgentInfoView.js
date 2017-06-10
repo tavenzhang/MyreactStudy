@@ -9,7 +9,7 @@ import BaseView from "../../../componet/BaseView";
 import MoneyView from "./agentinfo/MoneyView";
 import TeamView from "./agentinfo/TeamView";
 import AssignView from "./agentinfo/AssignView";
-import { NavRightRank} from "../../../componet/navBarMenu/HeaderMenu";
+import {NavRightRank} from "../../../componet/navBarMenu/HeaderMenu";
 
 const mapStateToProps = state => {
     return {
@@ -38,6 +38,15 @@ export default class AgentInfoView extends BaseView {
                 <AssignView data={null}/>
             </View>
         )
+    }
+
+    componentDidMount() {
+        G_RunAfterInteractions(()=>{
+            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentInfo,(data)=>{
+
+            })
+
+        })
     }
 }
 

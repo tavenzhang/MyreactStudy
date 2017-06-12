@@ -34,7 +34,7 @@ export default class CreateLinkView extends React.Component {
                 <View style={{width: 150, height: 100}}>
                     <Picker
                         itemStyle={{fontSize: 13, height: 100}}
-                        mode={'dropdown'}
+                        mode={Picker.MODE_DROPDOWN}
                         selectedValue={this.state.pickValue}
                         onValueChange={(data) => {
                             this.setState({pickValue: data})

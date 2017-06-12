@@ -1,6 +1,4 @@
-/**
- * Created by thomas on 2017/6/3.
- */
+
 import React ,{PropTypes} from 'react';
 import {
     View,
@@ -8,7 +6,7 @@ import {
     StyleSheet
 } from 'react-native';
 import BaseView from "../../../../componet/BaseView";
-import SegmentedControlTab from "react-native-segmented-control-tab";
+import MySegmentedControlTab from "../../../../componet/MySegmentedControlTab";
 
 export  default  class ARankView extends  BaseView{
 
@@ -29,14 +27,7 @@ export  default  class ARankView extends  BaseView{
     renderBody() {
 
         return(<View>
-                <SegmentedControlTab
-                    values={['投注额', '开户数',"净盈亏"]}
-                    onTabPress={this.onTabChange}
-                    tabsContainerStyle={{marginLeft: 40, marginRight: 40, alignSelf: "center", margin: 5}}
-                    tabStyle={{borderColor: "#a52a2a"}}
-                    selectedIndex={this.state.selectedTabIndex}
-                    activeTabStyle={{backgroundColor: "#a52a2a"}}
-                />
+                <MySegmentedControlTab selectedTabIndex={this.state.selectedTabIndex} valueList={['投注额', '开户数',"净盈亏"]} onTabChange={this.onTabChange}/>
             </View>
         );
     }

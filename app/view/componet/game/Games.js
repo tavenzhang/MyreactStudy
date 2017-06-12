@@ -18,31 +18,32 @@ export default class Games extends Component {
     constructor(props) {
         super(props);
         this.state =
-        {
-            currentNumber: props.currentNumber,
-            currentNumberTime: props.currentNumberTime,
-            currentTime: props.currentTime,
-            gameNumbers:props.gameNumbers,
-            noIssue: props.noIssue,
-            series_identifier: props.series_identifier,
-            traceMaxTimes: props.traceMaxTimes,
-            history_lotterys: props.history_lotterys,
-            prize_group: props.bet_min_prize_group || props.user_prize_group,
-            balls: [],
-            ballText: [],
-            rowTitle: [],
-            isBallsComplete: false,
-            lotterys: [],
-            rowBallNumber: 5, //一行几个球
-        };
+            {
+                currentNumber: props.currentNumber,
+                currentNumberTime: props.currentNumberTime,
+                currentTime: props.currentTime,
+                gameNumbers: props.gameNumbers,
+                noIssue: props.noIssue,
+                series_identifier: props.series_identifier,
+                traceMaxTimes: props.traceMaxTimes,
+                history_lotterys: props.history_lotterys,
+                prize_group: props.bet_min_prize_group || props.user_prize_group,
+                balls: [],
+                ballText: [],
+                rowTitle: [],
+                isBallsComplete: false,
+                lotterys: [],
+                isSelect: false,
+                rowBallNumber: 5, //一行几个球
+            };
         this.ballSpecialTitle = [];
         this.ballFirstStart = 0;
-        this.isShowMoneyUnit=true;
-        this.isShowGamePriceModelPannel=true;//是否显示奖金
+        this.isShowMoneyUnit = true;
+        this.isShowGamePriceModelPannel = true;//是否显示奖金
         this.isShowOperate = true;
         this.buildBalls = this.buildBalls.bind(this);
         this.buildSpecialBalls = this.buildSpecialBalls.bind(this);
-        this.buildUI    = this.buildUI.bind(this);
+        this.buildUI = this.buildUI.bind(this);
         this.selectBall = this.selectBall.bind(this);
         this.setBallData = this.setBallData.bind(this);
         this.checkBallIsComplete = this.checkBallIsComplete.bind(this);
@@ -53,6 +54,8 @@ export default class Games extends Component {
         this.formatViewBalls = this.formatViewBalls.bind(this);
         this.addBallsToBasket = this.addBallsToBasket.bind(this);
         this.beforeAddBallsToBasket = this.beforeAddBallsToBasket.bind(this);
+        this.clearAllBall = this.clearAllBall.bind(this);
+        this.selectAutoOne = this.selectAutoOne.bind(this);
     }
 
     componentWillMount() {
@@ -79,13 +82,40 @@ export default class Games extends Component {
         const me = this;
         for (let j = 0; j < balls.length; j++) {
             for (let i = 0; i < balls[j].length; i++) {
-                me.setBallData(i, j, -1);
+                me.selectBall(i, j, -1);
             }
         }
+
+
+    }
+
+//随机选一注
+    selectAutoOne() {
+        const {balls} = this.state;
+        const me = this;
+        for (let j = 0; j < balls.length; j++) {
+
+            let len2=balls[j].length;
+            let i=Math.floor( Math.random()*len2) ;
+
+            me.selectBall(i, j, 1);
+        }
+    }
+//是否有选球
+    checkIsSelectBall() {
+        const {balls} = this.state;
+        for (let j = 0; j < balls.length; j++) {
+            for (let i = 0; i < balls[j].length; i++) {
+               if(balls[j][i]>-1){
+                   return true;
+               }
+            }
+        }
+        return false;
     }
 
     //选球操作
-    ballSelectActions(action,irow,si) {
+    ballSelectActions(action, irow, si) {
         const me = this;
         const {balls} = this.state;
         let ballsData = balls,
@@ -171,7 +201,6 @@ export default class Games extends Component {
 
     setBallData(x, y, value) {
         const {balls} = this.state;
-        TLog('----');
         const data = balls;
         if (y >= 0 && y < data.length && x >= 0) {
             data[y][x] = value;
@@ -179,34 +208,34 @@ export default class Games extends Component {
         }
     }
 
-    selectBall(x,y,v) {
+    selectBall(x, y, v) {
         const me = this;
-        me.setBallData(x,y,v)
+        me.setBallData(x, y, v)
         const lotteryNums = me.getLottery();
         this.setState({lotterys: lotteryNums});
     }
 
     buildBalls(row) {
         const me = this;
-        const {balls,ballText,rowTitle} = this.state;
-        if(balls.length > 0) {
+        const {balls, ballText, rowTitle} = this.state;
+        if (balls.length > 0) {
             const rows = balls.length,
                 len = balls[0].length,
                 ballTextLen = ballText.length,
                 ballTitleLen = rowTitle.length;
-            if(rows == ballTitleLen && len == ballTextLen) {
+            if (rows == ballTitleLen && len == ballTextLen) {
                 const ballWidth = (G_Theme.windowWidth - 20) / me.state.rowBallNumber;
                 return <View style={styles.ballBox}>
-                    {ballText.map((v,i) => {
-                        if(i >= me.ballFirstStart) {
-                            return <View  style={[styles.ballBtnBox,{width:ballWidth}]} key={i} >
+                    {ballText.map((v, i) => {
+                        if (i >= me.ballFirstStart) {
+                            return <View style={[styles.ballBtnBox, {width: ballWidth}]} key={i}>
                                 <Ball
                                     text={v}
                                     row={row}
                                     value={i}
                                     status={balls[row][i]}
-                                    onPress={(x,y,v)=>me.selectBall(x,y,v)}
-                                    />
+                                    onPress={(x, y, v) => me.selectBall(x, y, v)}
+                                />
                             </View>
                         }
                     })}
@@ -223,25 +252,25 @@ export default class Games extends Component {
 
     buildSpecialBalls(row) {
         const me = this;
-        const {balls,rowTitle} = this.state;
-        if(balls.length > 0 && me.ballSpecialTitle.length > 0) {
+        const {balls, rowTitle} = this.state;
+        if (balls.length > 0 && me.ballSpecialTitle.length > 0) {
             const rows = balls.length,
                 ballTitleLen = rowTitle.length;
 
-            if(rows == ballTitleLen) {
+            if (rows == ballTitleLen) {
                 const ballWidth = (G_Theme.windowWidth - 20) / me.state.rowBallNumber;
                 return <View style={styles.ballBox}>
-                    {me.ballSpecialTitle.map((v,i) => {
-                        if(i >= me.ballFirstStart) {
-                            return <View style={[styles.ballBtnBox,{width:ballWidth}]} key={i}>
+                    {me.ballSpecialTitle.map((v, i) => {
+                        if (i >= me.ballFirstStart) {
+                            return <View style={[styles.ballBtnBox, {width: ballWidth}]} key={i}>
                                 <Ball
                                     text={v}
                                     row={row}
                                     value={i}
                                     status={balls[row][i]}
-                                    onPress={(x,y,v)=>me.selectBall(x,y,v)}
+                                    onPress={(x, y, v) => me.selectBall(x, y, v)}
                                     //textStyle={styles.ballText}
-                                    />
+                                />
                             </View>
                         }
                     })}
@@ -256,35 +285,37 @@ export default class Games extends Component {
         }
     }
 
-    buildBallOperates(row){
+    buildBallOperates(row) {
         const me = this;
         return <View style={styles.ballBtnGrounp}>
-                <BallOperateBtn text="全" onPress={() => me.ballSelectActions('all',row)} />
-                <BallOperateBtn text="大" onPress={() => me.ballSelectActions('big',row)} />
-                <BallOperateBtn text="小" onPress={() => me.ballSelectActions('small',row)} />
-                <BallOperateBtn text="单" onPress={() => me.ballSelectActions('odd',row)} />
-                <BallOperateBtn text="双" onPress={() => me.ballSelectActions('even',row)} />
-                <BallOperateBtn text="清" onPress={() => me.ballSelectActions('none',row)} />
-              </View>
+            <BallOperateBtn text="全" onPress={() => me.ballSelectActions('all', row)}/>
+            <BallOperateBtn text="大" onPress={() => me.ballSelectActions('big', row)}/>
+            <BallOperateBtn text="小" onPress={() => me.ballSelectActions('small', row)}/>
+            <BallOperateBtn text="单" onPress={() => me.ballSelectActions('odd', row)}/>
+            <BallOperateBtn text="双" onPress={() => me.ballSelectActions('even', row)}/>
+            <BallOperateBtn text="清" onPress={() => me.ballSelectActions('none', row)}/>
+        </View>
     }
 
-    buildUI(){
+    buildUI() {
         const me = this;
         return <View style={styles.gameBox}>
-                    {me.state.rowTitle.map((v,i) => {
-                        return <View key={i} style={styles.gameRow} >
-                                    <View style={styles.gameRowTitle}><Text style={styles.gameRowTitleText}>{v}</Text></View>
-                                    {me.buildBalls(i)}
-                                    { me.isShowOperate ? me.buildBallOperates(i) : null}
-                                </View>
-                    })}
+            {me.state.rowTitle.map((v, i) => {
+                return <View key={i} style={styles.gameRow}>
+                    <View style={styles.gameRowTitle}><Text style={styles.gameRowTitleText}>{v}</Text></View>
+                    {me.buildBalls(i)}
+                    { me.isShowOperate ? me.buildBallOperates(i) : null}
                 </View>
+            })}
+        </View>
     }
+
     //检测选球是否完整，是否能形成有效的投注
     //并设置 isBallsComplete
-    checkBallIsComplete(multiple){
+    checkBallIsComplete(multiple) {
+        TLog('cccc');
         const me = this;
-        const data= !!me.state.balls ? me.state.balls :[] ;
+        const data = !!me.state.balls ? me.state.balls : [];
         let i = 0,
             len = data.length,
             row,
@@ -408,7 +439,7 @@ export default class Games extends Component {
             //计算注数
             total *= rowNum;
         }
-        TLog('result))))',result);
+        TLog('result))))', result);
 
         if (me.checkBallIsComplete()) {
             return me.combination(result);
@@ -418,23 +449,23 @@ export default class Games extends Component {
     }
 
     changeReBetRate(v) {
-        this.setState({prize_group:v});
+        this.setState({prize_group: v});
     }
 
     beforeAddBallsToBasket() {
         const me = this;
-        const { lotterys } = me.state;
+        const {lotterys} = me.state;
 
         const orderData = lotterys.length ? me.getResultData(lotterys) : null;
-        TLog('=======orderData=======>>>>>>>>>>>',orderData);
+        TLog('=======orderData=======>>>>>>>>>>>', orderData);
         //加入购彩篮
-        if(orderData) {
+        if (orderData) {
             ActDispatch.GameAct.addOrderToBasket(orderData);
         }
         //清空选球
         me.clearAllBall();
         //清空当前注单
-        me.setState({lotterys:[]});
+        me.setState({lotterys: []});
         me.setState({isBallsComplete: false});
     }
 
@@ -444,53 +475,55 @@ export default class Games extends Component {
 
     render() {
         const me = this;
-        const { lotterys, prize_group, isBallsComplete } = me.state;
-        const { orderNum, moneyUnit, multiple, balance, bet_max_prize_group, bet_min_prize_group, diff_grize_group, series_amount , currentGameWay} = me.props;
-        TLog('currentGameWay',currentGameWay);
+        const {lotterys, prize_group, isBallsComplete} = me.state;
+        const {orderNum, moneyUnit, multiple, balance, bet_max_prize_group, bet_min_prize_group, diff_grize_group, series_amount, currentGameWay} = me.props;
         const operTopDesc = `${lotterys.length}注 * ${multiple}倍 = ${G_moneyFormat(lotterys.length * multiple * currentGameWay.price * moneyUnit)}元`;
 
         let modePriceOperate = null;
-        if(bet_min_prize_group && bet_max_prize_group) {
-            modePriceOperate = this.isShowGamePriceModelPannel?<GamePriceModelPannel
-                            value={prize_group}
-                            bet_max_prize_group={bet_max_prize_group}
-                            bet_min_prize_group={bet_min_prize_group}
-                            diff_grize_group={diff_grize_group}
-                            series_amount={series_amount}
-                            onChange={v => me.changeReBetRate(v)}
-                        />
-                :null;
+        if (bet_min_prize_group && bet_max_prize_group) {
+            modePriceOperate = this.isShowGamePriceModelPannel ? <GamePriceModelPannel
+                value={prize_group}
+                bet_max_prize_group={bet_max_prize_group}
+                bet_min_prize_group={bet_min_prize_group}
+                diff_grize_group={diff_grize_group}
+                series_amount={series_amount}
+                onChange={v => me.changeReBetRate(v)}
+            />
+                : null;
         }
         return (
-            <View style={{flex:1}}>
+            <View style={{flex: 1}}>
                 <ScrollView style={styles.ballOperate}>
                     {me.buildUI()}
                     <View style={styles.controlPanel}>
                         <GameModelPannel
                             moneyUnit={moneyUnit}
                             multiple={multiple}
+                            cleanBall={this.clearAllBall}
+                            selectAutoOne={this.selectAutoOne}
+                            isSelectBalls={this.checkIsSelectBall()}
                             checkBallIsComplete={this.checkBallIsComplete}
                             isShowMoneyUnit={this.isShowMoneyUnit}
                             maxMultiple={currentGameWay.max_multiple}
-                            />
+                        />
                         {modePriceOperate}
                     </View>
 
                 </ScrollView>
                 <GameControlPannel
-                    balance= {balance}
-                    topDesc= {operTopDesc}
-                    btnEvent= {() => {
+                    balance={balance}
+                    topDesc={operTopDesc}
+                    btnEvent={() => {
                         me.addBallsToBasket();
                     }}
-                    btnIconEvent= {() => {
+                    btnIconEvent={() => {
                         G_NavUtil.pushToView(G_NavViews.LotteryOrders({}));
                     }}
                     btnIconEventDesc={orderNum}
                     btnIconName='cart-plus'
-                    btnDisable= { !isBallsComplete }
-                    btnIconDisable= { orderNum > 0 ? false : true }
-                    />
+                    btnDisable={ !isBallsComplete }
+                    btnIconDisable={ orderNum > 0 ? false : true }
+                />
             </View>
         );
     }
@@ -521,7 +554,7 @@ export default class Games extends Component {
         return this.makePostParameter(original);
     }
 
-    makePostParameter(original){
+    makePostParameter(original) {
         let result = [],
             len = original.length,
             i = 0;
@@ -531,30 +564,30 @@ export default class Games extends Component {
         return result.join('|');
     }
 
-    getResultData(lotterys){
+    getResultData(lotterys) {
         const me = this;
-        const { prize_group } = this.state;
-        const { moneyUnit, multiple, currentGameWay } = this.props;
+        const {prize_group} = this.state;
+        const {moneyUnit, multiple, currentGameWay} = this.props;
 
         let onePrice = currentGameWay.price,
             lotterysOriginal = me.getOriginal();
 
-        if(lotterys.length < 1){
+        if (lotterys.length < 1) {
             return {};
         }
         return {
             //original:lotterysOriginal,
             //lotterys:lotterys,
-            amount:lotterys.length * onePrice * multiple * moneyUnit,
+            amount: lotterys.length * onePrice * multiple * moneyUnit,
             wayId: currentGameWay.id,
-            ball:me.makePostParameter(lotterysOriginal),
-            viewBalls:me.formatViewBalls(lotterysOriginal),
-            num:lotterys.length,
-            prize_group:prize_group,
+            ball: me.makePostParameter(lotterysOriginal),
+            viewBalls: me.formatViewBalls(lotterysOriginal),
+            num: lotterys.length,
+            prize_group: prize_group,
             onePrice: onePrice,
             moneyunit: moneyUnit,
-            multiple:multiple,
-            gameName:currentGameWay.parent_parent_name_cn + currentGameWay.name_cn
+            multiple: multiple,
+            gameName: currentGameWay.parent_parent_name_cn + currentGameWay.name_cn
         };
     }
 
@@ -573,6 +606,7 @@ export default class Games extends Component {
         }
         return current;
     }
+
     //限制随机投注重复
     checkRandomBets(hash, times) {
         var me = this,
@@ -607,6 +641,7 @@ export default class Games extends Component {
         }
         return current;
     }
+
     //生成一个当前玩法的随机投注号码
     //该处实现复式，子类中实现其他个性化玩法
     //返回值： 按照当前玩法生成一注标准的随机投注单(order)
@@ -663,38 +698,36 @@ export default class Games extends Component {
 
 const styles = StyleSheet.create({
     ballOperate: {
-        marginBottom:G_Theme.gameOperatePanelHeight - 2,
+        marginBottom: G_Theme.gameOperatePanelHeight - 2,
     },
     ballBox: {
         flex: 1,
-        flexDirection : 'row',
-        flexWrap : 'wrap',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
         //paddingLeft: 20,
         //paddingRight: 20,
     },
-    gameBox: {
-
-    },
+    gameBox: {},
     ballBtnBox: {
-        flexDirection : 'row',
-        justifyContent:"center",
-        alignItems:"center",
+        flexDirection: 'row',
+        justifyContent: "center",
+        alignItems: "center",
         height: 50
     },
 
     ballBtnGrounp: {
-        flexDirection : 'row',
+        flexDirection: 'row',
         justifyContent: 'space-between',
         marginLeft: 20,
         marginRight: 20,
         marginBottom: 10,
         borderWidth: 1,
         borderColor: G_Theme.gray,
-        padding :8,
+        padding: 8,
         borderRadius: 15
     },
     gameRow: {
-        flexWrap : 'wrap',
+        flexWrap: 'wrap',
         margin: 10,
         backgroundColor: '#fff',
         marginBottom: 0,
@@ -703,9 +736,9 @@ const styles = StyleSheet.create({
     gameRowTitle: {
         width: 45,
         height: 18,
-        backgroundColor :G_Theme.primary,
-        justifyContent:"center",
-        alignItems:"center",
+        backgroundColor: G_Theme.primary,
+        justifyContent: "center",
+        alignItems: "center",
         marginLeft: 1,
         marginTop: 6,
         marginBottom: 10,
@@ -717,8 +750,8 @@ const styles = StyleSheet.create({
     controlPanel: {
         flex: 1,
         padding: 10,
-        marginTop:10,
-        marginBottom:5,
+        marginTop: 10,
+        marginBottom: 5,
         //justifyContent: 'space-between'
     }
 });

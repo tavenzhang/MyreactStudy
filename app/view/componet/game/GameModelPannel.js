@@ -11,6 +11,8 @@ import {
 
 import MoneyUnit from './MoneyUnit';
 import MultipleBtnGrounp from "./MultipleBtnGrounp";
+import CleanBalls from "./CleanBalls";
+import SelectAutoOne from "./SelectAutoOne";
 
 
 export default class GameModelPannel extends Component {
@@ -26,15 +28,28 @@ export default class GameModelPannel extends Component {
     showMoneyUnit(moneyUnit) {
         return ( <MoneyUnit moneyMode={moneyUnit}/>)
     }
+//清空
+    showCleanBall(cleanBall) {
+        return ( <CleanBalls cleanBall={cleanBall}/>)
+
+    }
+//机选一注
+    showSelectAutoOne(selectAutoOne) {
+        return ( <SelectAutoOne selectAutoOne={selectAutoOne}/>)
+
+    }
 
     render() {
         const me = this;
-        const {moneyUnit, multiple, maxMultiple, isShowMoneyUnit,checkBallIsComplete} = this.props;
+        const {moneyUnit, multiple, maxMultiple, isShowMoneyUnit, checkBallIsComplete, isSelectBalls, cleanBall, selectAutoOne} = this.props;
         return (
             <View style={styles.moneyOperateBox}>
-
-                <MultipleBtnGrounp multiple={multiple} maxMultiple={maxMultiple} checkBallIsComplete={checkBallIsComplete}/>
+                {isSelectBalls ? me.showCleanBall(cleanBall) : null}
+                {!isSelectBalls ? me.showSelectAutoOne(selectAutoOne) : null}
+                <MultipleBtnGrounp multiple={multiple} maxMultiple={maxMultiple}
+                                   checkBallIsComplete={checkBallIsComplete}/>
                 {isShowMoneyUnit ? me.showMoneyUnit(moneyUnit) : null}
+
             </View>
         );
 

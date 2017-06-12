@@ -52,7 +52,8 @@ export default class AgentTeamView extends BaseView {
 
     renderBody() {
         return (<View>
-            <AgentFindView visible={this.state.modalVisible} hideViewHandle={() => {
+            <AgentFindView visible={this.state.modalVisible} hideViewHandle={(data) => {
+                TLog("AgentFindView-----",data);
                 this.setState({modalVisible: false});
             }}/>
             <TeamListView/>

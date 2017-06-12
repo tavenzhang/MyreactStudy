@@ -56,7 +56,8 @@ export default class AgentProfitView extends BaseView {
     }
     renderBody(){
         return (<View style={{justifyContent:"center", alignItems:"center"}}>
-            <AgentSearchView visible={this.state.modalVisible} hideViewHandle={() => {
+            <AgentSearchView visible={this.state.modalVisible} hideViewHandle={(data) => {
+                TLog("AgentSearchView----",data);
                 this.setState({modalVisible: false});
             }}/>
         </View>)

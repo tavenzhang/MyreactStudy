@@ -21,8 +21,10 @@ export default class AgentFindView extends React.Component{
         super(props)
         this.state={
             modalVisible:true,
-            pwdText: "",
+            userNameText: "",
             pickValue:null,
+            startDate:null,
+            endDate:null
         }
         this.dateValidList = [{name: "全部用户", value: 1}, {name: "玩家", value: 7}, {name: "代理", value: 30}]
     }
@@ -41,8 +43,8 @@ export default class AgentFindView extends React.Component{
                                 <View style={{borderBottomWidth: 1, borderColor: "gray", marginRight: 20,}}>
                                     <TextInput
                                         style={styles.textStyle}
-                                        onChangeText={(pwdText) => this.setState({pwdText: pwdText})}
-                                        value={this.state.pwdText}
+                                        onChangeText={(userNameText) => this.setState({userNameText: userNameText})}
+                                        value={this.state.userNameText}
                                         placeholder={""}
                                         secureTextEntry={true}
                                         multiline={false}
@@ -70,9 +72,9 @@ export default class AgentFindView extends React.Component{
                         </View>
                         <View style={{flexDirection: "row", alignItems: "center"}}>
                             <Text style={{marginRight: 5}}>注册时间:</Text>
-                            <MyDatePicker/>
+                            <MyDatePicker onDateSelect={(startDate)=>{this.setState({startDate})}}/>
                             <Text style={{marginHorizontal: 10}}>至</Text>
-                            <MyDatePicker/>
+                            <MyDatePicker  onDateSelect={(endDate)=>{this.setState({endDate})}}/>
                         </View>
                         <TouchableOpacity onPress={this.onFindConfirm}>
                         <View style={{
@@ -94,9 +96,8 @@ export default class AgentFindView extends React.Component{
     //查询提交操作
     onFindConfirm=()=>{
         let {hideViewHandle}=this.props
-        if(hideViewHandle)
-        {
-            hideViewHandle();
+        if(hideViewHandle) {
+            hideViewHandle({...this.state});
         }
     }
 }

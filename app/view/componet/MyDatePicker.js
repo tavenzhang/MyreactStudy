@@ -10,6 +10,7 @@ export default class MyDatePicker extends Component {
         defaultDate: PropTypes.any,
         minDate: PropTypes.any,
         maxDate: PropTypes.any,
+        onDateSelect:PropTypes.func
     }
 
     constructor(props){
@@ -21,7 +22,7 @@ export default class MyDatePicker extends Component {
 
     render(){
 
-        let {minDate,maxDate}=this.props
+        let {minDate,maxDate,onDateSelect}=this.props
         return (
         <View>
             <DatePicker
@@ -50,8 +51,14 @@ export default class MyDatePicker extends Component {
                 }}
                 is24Hour={true}
                 onDateChange={(date) => {
+
                     this.setState({date: date},()=>{
-                        TLog("onDateChange---",date)
+                        TLog("onDateChange---",date);
+                        if(onDateSelect)
+                        {
+                            TLog("onDateChange---fun");
+                            onDateSelect(date);
+                        }
                     })
                 }}
             />

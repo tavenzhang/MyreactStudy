@@ -46,23 +46,23 @@ export  default  class ARankView extends  BaseView{
     _rendHeadView=()=>{
         let titleList=["投注额","开户数","净盈亏"]
         return (<View style={{flexDirection: "row", borderWidth:1, backgroundColor:G_Theme.gray}}>
-            <Text style={styles.headText}>用户名</Text>
-            <Text style={styles.headText}>属性</Text>
-            <Text style={styles.headText}>奖金组</Text>
-            <Text style={styles.headText}>团人数</Text>
-            <Text style={[styles.headText, {flex:2}]}>团队余额</Text>
-            <Text style={[styles.headText]}>{titleList[this.state.selectedTabIndex]}</Text>
+            <Text style={styles.headView}>用户名</Text>
+            <Text style={styles.headView}>属性</Text>
+            <Text style={styles.headView}>奖金组</Text>
+            <Text style={styles.headView}>团人数</Text>
+            <Text style={[styles.headView, {flex:2}]}>团队余额</Text>
+            <Text style={[styles.headView]}>{titleList[this.state.selectedTabIndex]}</Text>
         </View>)
     }
 
     _rendRow=(data,section)=>{
         return (<View style={{flexDirection: "row", borderWidth:1}}>
-            <Text style={styles.contentText}>{data.username}</Text>
-            <Text style={styles.contentText}>{data.user_level_txt}</Text>
-            <Text style={styles.contentText} numberOfLines={2}>{data.prize_group}</Text>
-            <Text style={styles.contentText} numberOfLines={2}>{data.direct_child_num}</Text>
-            <Text style={[styles.contentText,{flex:2}]} numberOfLines={3}>{data.group_balance_sum}</Text>
-            <Text style={[styles.contentText]}>{data.data}</Text>
+            <Text style={styles.contentView}>{data.username}</Text>
+            <Text style={styles.contentView}>{data.user_level_txt}</Text>
+            <Text style={styles.contentView} numberOfLines={2}>{data.prize_group}</Text>
+            <Text style={styles.contentView} numberOfLines={2}>{data.direct_child_num}</Text>
+            <Text style={[styles.contentView,{flex:2}]} numberOfLines={3}>{data.group_balance_sum}</Text>
+            <Text style={[styles.contentView]}>{data.data}</Text>
         </View>)
     }
 
@@ -85,12 +85,12 @@ export  default  class ARankView extends  BaseView{
 }
 
 const styles = StyleSheet.create({
-    headText:{
+    headView:{
         flex:1,
         textAlign:'center',
         paddingVertical:10
     },
-    contentText:{
+    contentView:{
         flex:1,
         paddingHorizontal: 2,
         textAlign:'center',

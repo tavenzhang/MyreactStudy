@@ -40,25 +40,25 @@ export default class LinkListView extends BaseView {
 
     renderHeadView = () => {
         return (<View style={{flexDirection: "row"}}>
-            <Text style={[styles.headText,]}>渠道</Text>
-            <Text style={[styles.headText]}>类型</Text>
-            <Text style={[styles.headText,{flex:4}]}>复制链接</Text>
-            <Text style={[styles.headText,{flex:2}]}>操作</Text>
+            <Text style={[styles.headView,]}>渠道</Text>
+            <Text style={[styles.headView]}>类型</Text>
+            <Text style={[styles.headView,{flex:4}]}>复制链接</Text>
+            <Text style={[styles.headView,{flex:2}]}>操作</Text>
         </View>)
     }
 
     rendeRow=(data,section)=>{
         return (<View style={{flexDirection: "row"}}>
-            <View style={[styles.contentText]}>
+            <View style={[styles.contentView]}>
                     <Text>{data.channel}</Text>
             </View>
-            <View style={[styles.contentText]}>
+            <View style={[styles.contentView]}>
                 <Text >{data.is_agent ? "代理":"玩家"}</Text>
             </View>
-            <View style={[styles.contentText,{flex:4}]}>
+            <View style={[styles.contentView,{flex:4}]}>
                 <Button style={{fontSize:14, color:"red"}} onPress={()=>{this._onClicpLink(data.url)}}>{data.url}</Button>
             </View>
-            <View style={[styles.contentText,{flex:2, flexDirection:"row"}]}>
+            <View style={[styles.contentView,{flex:2, flexDirection:"row"}]}>
                <Button style={{fontSize:14}}  onPress={()=>{this._onDetailLink(data)}}>
                    查看
                </Button>
@@ -88,9 +88,10 @@ export default class LinkListView extends BaseView {
 
         G_RunAfterInteractions(()=>{
             HTTP_SERVER.AgentUserDelLink.url=HTTP_SERVER.AgentUserDelLink.formatUrl.replace("#id",data.id);
-            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentUserDelLink,(data)=>{
-                if(data.isSuccess)
+            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentUserDelLink,(result)=>{
+                if(result.isSuccess)
                 {
+                    TLog("G_RunAfterInteractions");
                     let list=this.state.dataList.concat();
                     for (let index in list)
                     {
@@ -122,7 +123,7 @@ const  styles = StyleSheet.create({
         marginRight:15,
         paddingLeft:5
     },
-    headText: {
+    headView: {
         padding: 2,
         paddingVertical: 5,
         backgroundColor: "rgb(241, 241, 241)",
@@ -132,7 +133,7 @@ const  styles = StyleSheet.create({
         textAlign: "center",
         fontWeight:"bold"
     },
-    contentText:{
+    contentView:{
         flex: 1,
         padding: 2,
         borderWidth: 1,

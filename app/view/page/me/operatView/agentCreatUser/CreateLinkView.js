@@ -78,10 +78,11 @@ export default class CreateLinkView extends React.Component {
                 <TextInput
                     style={[styles.textStyle]}
                     onChangeText={(textChannel) => this.setState({textChannel})}
-                    value={this.state.pwdText}
+                    value={this.state.textChannel}
                     placeholder={"如qq推广"}
                     multiline={false}
                     underlineColorAndroid={'transparent'}
+                    autoCapitalize={"none"}
                 />
             </View>
             <View style={styles.itemSp}>
@@ -93,6 +94,7 @@ export default class CreateLinkView extends React.Component {
                         value={this.state.textQQ1}
                         placeholder={"qq1"}
                         multiline={false}
+                        keyboardType={"numeric"}
                         underlineColorAndroid={'transparent'}
                     />
                     <TextInput
@@ -101,6 +103,7 @@ export default class CreateLinkView extends React.Component {
                         value={this.state.textQQ2}
                         placeholder={"qq2"}
                         multiline={false}
+                        keyboardType={"numeric"}
                         underlineColorAndroid={'transparent'}
                     />
                     <TextInput
@@ -108,6 +111,7 @@ export default class CreateLinkView extends React.Component {
                         onChangeText={(textQQ3) => this.setState({textQQ3})}
                         value={this.state.textQQ3}
                         placeholder={"qq3"}
+                        keyboardType={"numeric"}
                         multiline={false}
                         underlineColorAndroid={'transparent'}
                     />
@@ -193,7 +197,7 @@ export default class CreateLinkView extends React.Component {
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentUserLinkCreate, (data) => {
             if (data.isSuccess) {
                 ActDispatch.AppAct.showBox(`链接生成成功!`);
-                this.setState({userNameText: "", pwdText: ""});
+                G_NavUtil.pushToView(G_NavViews.LinkListView())
             }
         })
     }

@@ -64,6 +64,7 @@ export default class CreateHumanView extends React.Component {
                         placeholder={"设置登录密码"}
                         secureTextEntry={true}
                         multiline={false}
+                        autoCapitalize={"none"}
                         underlineColorAndroid={'transparent'}
                     />
                 </View>

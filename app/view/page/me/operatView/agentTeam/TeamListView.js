@@ -37,25 +37,25 @@ export default class TeamListView extends React.Component{
 
     renderHeadView = () => {
         return (<View style={{flexDirection: "row"}}>
-            <Text style={[styles.headText,]}>用户</Text>
-            <Text style={[styles.headText, {borderLeftWidth: 0}]}>奖金组</Text>
-            <Text style={[styles.headText, {borderLeftWidth: 0}]}>下级</Text>
-            <Text style={[styles.headText]}>净盈亏</Text>
-            <Text style={[styles.headText]}>月投注</Text>
-            <Text style={[styles.headText]}>操作</Text>
-            <Text style={[styles.headText]}>详情</Text>
+            <Text style={[styles.headView,]}>用户</Text>
+            <Text style={[styles.headView, {borderLeftWidth: 0}]}>奖金组</Text>
+            <Text style={[styles.headView, {borderLeftWidth: 0}]}>下级</Text>
+            <Text style={[styles.headView]}>净盈亏</Text>
+            <Text style={[styles.headView]}>月投注</Text>
+            <Text style={[styles.headView]}>操作</Text>
+            <Text style={[styles.headView]}>详情</Text>
         </View>)
     }
 
     rendeRow=(data,section)=>{
         return (<View style={{flexDirection: "row"}}>
-            <Text style={[styles.contentText,]}>李四说下</Text>
-            <Text style={[styles.contentText, {borderLeftWidth: 0}]}>1938</Text>
-            <Text style={[styles.contentText, {borderLeftWidth: 0}]}>3</Text>
-            <Text style={[styles.contentText]}>11111</Text>
-            <Text style={[styles.contentText]}>22222</Text>
-            <Text style={[styles.contentText]}>转移</Text>
-            <Text style={[styles.contentText]}>详情</Text>
+            <Text style={[styles.contentView,]}>李四说下</Text>
+            <Text style={[styles.contentView, {borderLeftWidth: 0}]}>1938</Text>
+            <Text style={[styles.contentView, {borderLeftWidth: 0}]}>3</Text>
+            <Text style={[styles.contentView]}>11111</Text>
+            <Text style={[styles.contentView]}>22222</Text>
+            <Text style={[styles.contentView]}>转移</Text>
+            <Text style={[styles.contentView]}>详情</Text>
         </View>)
     }
 }
@@ -69,7 +69,7 @@ const  styles = StyleSheet.create({
         marginRight:15,
         paddingLeft:5
     },
-    headText: {
+    headView: {
         padding: 2,
         backgroundColor: "rgb(241, 241, 241)",
         flex: 1,
@@ -78,7 +78,7 @@ const  styles = StyleSheet.create({
         textAlign: "center",
         fontWeight:"bold"
     },
-    contentText:{
+    contentView:{
         padding: 2,
         flex: 1,
         fontSize: 12,

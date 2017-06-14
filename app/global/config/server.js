@@ -1,6 +1,6 @@
-//let SERVERADDR = "http://www.monkey.com";
+let SERVERADDR = "http://www.monkey.com";
 //let G_SERVERADDR = "http://104.250.140.242:8081"
-let SERVERADDR = "http://www.orchidf.com";
+// let SERVERADDR = "http://www.orchidf.com";
 
 global.G_SERVERADDR = SERVERADDR;
 
@@ -16,8 +16,11 @@ global.HTTP_SERVER = {
     GET_GAME_LIST_INFO: {url: `/mobile-lotteries/lottery-series`},
     //获取玩法列表
     GET_PLAY_LIST_INFO: {url: `/mobile-lotteries/series-way-groups`},
+
     //获取游戏种类相关数据
     GET_GAME_DETAIL: {url: '', formatUrl: `/mobile-lotteries/lottery-info/#id`, method: METHOD_POST, body: {}},
+    //获取游戏的所有玩法
+    MethodData: {url: '', formatUrl: `/mobile-lotteries/lottery-way-group/#id`, method: METHOD_POST, body: {}},
     //获取游戏玩法相关数据
     GET_GAME_WAY: {url: '', formatUrl: `/mobile-lotteries/series-info/#id/way/#way_id`, method: METHOD_POST, body: {}},
     //注单提交接口

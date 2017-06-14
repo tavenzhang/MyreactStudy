@@ -86,12 +86,15 @@ export default class QUWEI extends LUCKY {
 
         const me = this;
         me.setBallData(x, y, v)
+        TLog('daadada',data);
+        if(v==1){
         this.currentGameWay = data;
-        this.clickMenuItem(data);
+        this.clickMenuItem(this.currentGameWay);
+            this.setState({selectItem: data.id});
+        }
         const lotteryNums = me.getLottery();
         TLog('data', data);
         this.setState({lotterys: lotteryNums});
-        this.setState({selectItem: data.id});
 
     }
 
@@ -133,11 +136,9 @@ export default class QUWEI extends LUCKY {
         }
         //校验当前的面板
         //获取选中数字
-        if (me.checkBallIsComplete()) {
-            return me.combine(arr, 1);
-        }
+        me.checkBallIsComplete();
 
-        return [];
+        return me.combine(arr, 1);
     }
 
     componentDidMount() {

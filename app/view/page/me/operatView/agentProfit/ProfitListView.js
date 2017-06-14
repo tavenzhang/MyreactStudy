@@ -9,6 +9,7 @@ import {
     TouchableHighlight
 } from 'react-native';
 
+import AIcon from 'react-native-vector-icons/FontAwesome';
 
 export default class ProfitListView extends React.Component {
 
@@ -26,6 +27,7 @@ export default class ProfitListView extends React.Component {
         }
 
     }
+
     clickSum() {
         const {oAgentSumPerDay} = this.props;
 
@@ -82,24 +84,16 @@ export default class ProfitListView extends React.Component {
         G_NavUtil.pushToView(G_NavViews.ProfitView({
             title: '盈亏详情',
             profitData: profitData,
-
+            formatMoney:this.formatMoney,
         }));
 
     }
 
     render() {
-        let {dataList}=this.props;
+        let {dataList} = this.props;
         let ds = this.state.dataSource.cloneWithRows(dataList)
         if (dataList) {
             return (<View >
-                <View style={[styles.Head]}>
-                    <Text style={[styles.headText,]}>用户</Text>
-                    <Text style={[styles.headText]}>投注</Text>
-                    <Text style={[styles.headText]}>返点</Text>
-                    <Text style={[styles.headText]}>中奖</Text>
-                    <Text style={[styles.headText]}>盈亏</Text>
-                    <Text style={[styles.headText]}>操作</Text>
-                </View>
                 {this.rendeSum()}
                 {this.renderSelf()}
                 {this.renderDirect()}
@@ -116,12 +110,15 @@ export default class ProfitListView extends React.Component {
             </View>
         )
     }
-    renderDirect(){
-        const {oSelfProfit}=this.props;
 
-        if (oSelfProfit&&!!oSelfProfit.turnover) {
-            return (<View style={[styles.Head]}>
-                <Text style={[styles.contentText]}>直属下级盈亏明细</Text>
+    renderDirect() {
+        const {oSelfProfit} = this.props;
+
+        if (oSelfProfit && !!oSelfProfit.turnover) {
+            return (<View style={[styles.row]}>
+                <View style={[styles.itemContentStyle, {flex: 10}]}>
+                    <Text style={[styles.textItemName]}>直属下级盈亏明细</Text>
+                </View>
             </View>);
         }
         return (<View></View>);
@@ -129,74 +126,98 @@ export default class ProfitListView extends React.Component {
     }
 
     renderSelf() {
-        const {oSelfProfit}=this.props;
-        if (oSelfProfit&&!!oSelfProfit.turnover) {
+        const {oSelfProfit} = this.props;
+        if (oSelfProfit && !!oSelfProfit.turnover) {
             return (
-                <View style={[styles.Head]}>
-                    <Text style={[styles.contentText]}>自己</Text>
-                    <Text style={[styles.contentText]}>{this.formatMoney(oSelfProfit.turnover)}</Text>
-                    <Text style={[styles.contentText]}>{this.formatMoney(oSelfProfit.commission)}</Text>
-                    <Text style={[styles.contentText]}>{this.formatMoney(oSelfProfit.prize)}</Text>
-                    <Text style={[styles.contentText]}>{this.formatMoney(oSelfProfit.profit_loss)}</Text>
+                <TouchableHighlight onPress={() => this.clickSelf()} underlayColor='rgba(10,10,10,0.2)'>
+                    <View style={[styles.row]}>
+                        <View style={[styles.itemContentStyle, {flex: 2}]}>
+                            <Text style={styles.textItemName}>自己</Text>
+                        </View>
+                        <View style={[styles.itemContentStyle, {flex: 2}]}>
+                            <Text style={[styles.textItemStyle]}
+                                  numberOfLines={1}>投注: {this.formatMoney(oSelfProfit.turnover)}</Text>
+                            <Text style={[styles.textItemStyle]}
+                                  numberOfLines={1}>返点: {this.formatMoney(oSelfProfit.commission)}</Text>
+                        </View>
+                        <View style={[styles.itemContentStyle, {flex: 2}]}>
+                            <Text style={styles.textItemStyle}>中奖: {this.formatMoney(oSelfProfit.prize)}</Text>
+                            <Text style={[styles.textItemStyle]}
+                                  numberOfLines={1}>盈亏: {this.formatMoney(oSelfProfit.profit_loss)}</Text>
+                        </View>
+                        <View style={styles.itemContentStyle}>
+                            <AIcon name={"angle-right"}
+                                   style={{fontSize: 25, alignSelf: "center", color: "gray"}}/>
+                        </View>
 
-                    <TouchableHighlight style={{
-                        padding: 2, marginRight: 4, marginLeft: 4, flex: 1,
-                        overflow: 'hidden',
-                        borderRadius: 3,
-                        backgroundColor: '#d7213c'
-                    }} onPress={() => this.clickSelf()} underlayColor='rgba(0,0,0,0)'>
-                        <Text style={[styles.contentButton]}>详情</Text>
-                    </TouchableHighlight>
-                </View>
+                    </View>
+                </TouchableHighlight>
             )
         }
         return (<View></View>);
     }
 
     rendeSum() {
-        const {oAgentSumPerDay}=this.props;
+        const {oAgentSumPerDay} = this.props;
 
-        if (oAgentSumPerDay&&!!oAgentSumPerDay.team_turnover) {
-            return (<View style={[styles.Head]}>
-                <Text style={[styles.contentText]}>合计</Text>
-                <Text style={[styles.contentText]}>{this.formatMoney(oAgentSumPerDay.team_turnover)}</Text>
-                <Text style={[styles.contentText]}>{this.formatMoney(oAgentSumPerDay.team_commission)}</Text>
-                <Text style={[styles.contentText]}>{this.formatMoney(oAgentSumPerDay.team_prize)}</Text>
-                <Text style={[styles.contentText]}>{this.formatMoney(oAgentSumPerDay.team_profit_loss)}</Text>
+        if (oAgentSumPerDay && !!oAgentSumPerDay.team_turnover) {
+            return (
+                <TouchableHighlight onPress={() => this.clickSum()} underlayColor='rgba(10,10,10,0.2)'>
 
-                <TouchableHighlight style={{
-                    padding: 2, marginRight: 4, marginLeft: 4, flex: 1,
-                    overflow: 'hidden',
-                    borderRadius: 3,
-                    backgroundColor: '#d7213c'
-                }} onPress={() => this.clickSum()} underlayColor='rgba(0,0,0,0)'>
-                    <Text style={[styles.contentButton]}>详情</Text>
+                    <View style={[styles.row]}>
+                        <View style={[styles.itemContentStyle, {flex: 2}]}>
+                            <Text style={styles.textItemName}>合计</Text>
+                        </View>
+                        <View style={[styles.itemContentStyle, {flex: 2}]}>
+                            <Text style={[styles.textItemStyle]}
+                                  numberOfLines={1}>投注: {this.formatMoney(oAgentSumPerDay.team_turnover)}</Text>
+                            <Text style={[styles.textItemStyle]}
+                                  numberOfLines={1}>返点: {this.formatMoney(oAgentSumPerDay.team_commission)}</Text>
+                        </View>
+                        <View style={[styles.itemContentStyle, {flex: 2}]}>
+                            <Text style={styles.textItemStyle}>中奖: {this.formatMoney(oAgentSumPerDay.team_prize)}</Text>
+                            <Text style={[styles.textItemStyle]}
+                                  numberOfLines={1}>盈亏: {this.formatMoney(oAgentSumPerDay.team_profit_loss)}</Text>
+                        </View>
+                        <View style={styles.itemContentStyle}>
+                            <AIcon name={"angle-right"}
+                                   style={{fontSize: 25, alignSelf: "center", color: "gray"}}/>
+                        </View>
+
+                    </View>
                 </TouchableHighlight>
-            </View>)
+            )
         }
         return (<View></View>);
     }
 
     rendeRow = (data, section) => {
-        return (<View style={[styles.row]}>
-            {/*<TouchableHighlight key={data.id} onPress={() => this.item(data.username)} underlayColor='rgba(0,0,0,0)'>*/}
-            <Text style={[styles.contentText,]}>{data.username}</Text>
-            {/*</TouchableHighlight>*/}
-            <Text style={[styles.contentText]}>{this.formatMoney(data.team_turnover)}</Text>
-            <Text style={[styles.contentText]}>{this.formatMoney(data.team_commission)}</Text>
-            <Text style={[styles.contentText]}>{this.formatMoney(data.team_prize)}</Text>
-            <Text style={[styles.contentText]}>{this.formatMoney(data.team_profit_loss)}</Text>
+        return (
 
-            <TouchableHighlight style={{
-                padding: 2, margin: 4, flex: 1,
-                overflow: 'hidden',
-                borderRadius: 3,
-                backgroundColor: '#d7213c'
-            }} onPress={() => this.clickItem(data)} underlayColor='rgba(0,0,0,0)'>
-                <Text style={[styles.contentButton]}>详情</Text>
-            </TouchableHighlight>
+            <TouchableHighlight onPress={() => this.clickItem(data)} underlayColor='rgba(10,10,10,0.2)'>
 
-        </View>)
+                <View style={[styles.row]}>
+                    <View style={[styles.itemContentStyle, {flex: 2}]}>
+                        <Text style={styles.textItemName}>{data.username}</Text>
+                    </View>
+                    <View style={[styles.itemContentStyle, {flex: 2}]}>
+                        <Text style={[styles.textItemStyle]}
+                              numberOfLines={1}>投注: {this.formatMoney(data.team_turnover)}</Text>
+                        <Text style={[styles.textItemStyle]}
+                              numberOfLines={1}>返点: {this.formatMoney(data.team_commission)}</Text>
+                    </View>
+                    <View style={[styles.itemContentStyle, {flex: 2}]}>
+                        <Text style={styles.textItemStyle}>中奖: {this.formatMoney(data.team_prize)}</Text>
+                        <Text style={[styles.textItemStyle]}
+                              numberOfLines={1}>盈亏: {this.formatMoney(data.team_profit_loss)}</Text>
+                    </View>
+                    <View style={styles.itemContentStyle}>
+                        <AIcon name={"angle-right"}
+                               style={{fontSize: 25, alignSelf: "center", color: "gray"}}/>
+                    </View>
+
+                </View>
+            </TouchableHighlight>)
     }
 
     formatMoney(num) {
@@ -227,44 +248,42 @@ export default class ProfitListView extends React.Component {
     }
 }
 const styles = StyleSheet.create({
-    Head: {
-        width: G_Theme.windowWidth,
-        height: 30,
-        paddingTop: 5,
-        paddingBottom: 5,
-        flexDirection: "row",
-        borderBottomWidth: 0.5,
-        borderColor: '#ccc',
+
+    itemContentStyle: {
+        flex: 1,
+        justifyContent: "center"
+        // borderWidth: 1
     },
-    row: {
-        borderBottomWidth: 0.5,
-        borderColor: '#ccc',
-        flexDirection: "row",
-        height: 40,
-        paddingTop: 5,
-        paddingBottom: 5,
-        width: G_Theme.windowWidth,
+    textItemName: {
+        textAlign: "center",
 
     },
-    defaultStyle: {
-        flexDirection: "row"
+    textItemStyle: {
+        fontSize: 12,
+        color: "gray",
+        marginTop: 5,
+
     },
-    textStyle: {
-        width: 150,
-        left: 10,
-        fontSize: 14,
-        height: G_Theme.textInpuntH,
-        marginRight: 15,
-        paddingLeft: 5
+
+
+    row: {
+        width: G_Theme.windowWidth,
+        height: 50,
+        paddingTop: 5,
+        paddingBottom: 5,
+        flexDirection: "row",
+        borderBottomWidth: 0.5,
+        borderColor: '#ccc',
+
     },
+
     headText: {
         padding: 2,
         flex: 1,
         borderColor: "#ccc",
         textAlign: "center",
         fontWeight: "bold"
-    },
-    contentText: {
+    }, contentText: {
         padding: 2,
         flex: 1,
         fontSize: 12,

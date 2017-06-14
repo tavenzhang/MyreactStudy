@@ -24,7 +24,11 @@ export default class MoneyTransferView extends BaseView {
             dropSelectItem: null,
         };
     }
+componentWillMount(){
+    const {passProps} = this.props;
+    this.setState({agentCount:passProps.username});
 
+}
     renderBody() {
         const {passProps} = this.props;
         return (

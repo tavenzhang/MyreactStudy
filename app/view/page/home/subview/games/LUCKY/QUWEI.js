@@ -56,14 +56,11 @@ export default class QUWEI extends LUCKY {
         }
         //检查倍数
 
-        TLog('检查');
 
         let {multiple} = this.props;
         if (v != null) {
             multiple = v;
         }
-        TLog('multiple', multiple);
-        TLog('currentGameWay', this.currentGameWay);
 
         if (this.currentGameWay && this.currentGameWay.bet_max_amount > -1) {
             if (multiple > this.currentGameWay.bet_max_amount) {
@@ -89,13 +86,25 @@ export default class QUWEI extends LUCKY {
 
         const me = this;
         me.setBallData(x, y, v)
-        this.currentGameWay = data;
-        this.clickMenuItem(data);
+        TLog('daadada', data);
+        if (v == 1) {
+            this.currentGameWay = data;
+            this.clickMenuItem(this.currentGameWay);
+            this.setState({selectItem: data.id});
+        }
         const lotteryNums = me.getLottery();
         TLog('data', data);
         this.setState({lotterys: lotteryNums});
-        this.setState({selectItem: data.id});
 
+    }
+
+//随机选一注
+    selectAutoOne() {
+        const {gameMethod} = this.state;
+        const me = this;
+        let len = gameMethod.length;
+        let i = Math.floor(Math.random() * len);
+        me.selectBall(i, 0, 1, gameMethod[i]);
     }
 
     setBallData(x, y, value) {
@@ -136,11 +145,9 @@ export default class QUWEI extends LUCKY {
         }
         //校验当前的面板
         //获取选中数字
-        if (me.checkBallIsComplete()) {
-            return me.combine(arr, 1);
-        }
+        me.checkBallIsComplete();
 
-        return [];
+        return me.combine(arr, 1);
     }
 
     componentDidMount() {

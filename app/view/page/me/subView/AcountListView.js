@@ -97,7 +97,7 @@ export default class AcountListView extends React.Component {
                     G_NavUtil.pushToView(G_NavViews.AgentProfitView ({title: data.name}));
                     break;
                 case ItemNameEnum.agentTeam:
-                    G_NavUtil.pushToView(G_NavViews.AgentTeamView ({title: data.name}));
+                    G_NavUtil.pushToView(G_NavViews.AgentTeamView ({title: data.name,userData:userData}));
                     break;
                 case ItemNameEnum.agentInfo:
                     G_NavUtil.pushToView(G_NavViews.AgentInfoView({title: data.name}));

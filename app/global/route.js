@@ -37,6 +37,7 @@ import LUCKYView from "../view/page/home/subview/games/LUCKY/LUCKYView";
 import G_11_5_History from "../view/page/award/subView/G_11_5_History";
 import TrendView from "../view/page/home/subview/trend/TrendView";
 import AgentProfitView from "../view/page/me/operatView/AgentProfitView";
+import ProfitView from "../view/page/me/operatView/ProfitView";
 import AgentCreateUserView from "../view/page/me/operatView/AgentCreateUserView";
 import AgentTeamView from "../view/page/me/operatView/AgentTeamView";
 import AgentInfoView from "../view/page/me/operatView/AgentInfoView";
@@ -84,6 +85,7 @@ global.G_NavViews = {
     PersonMailView: (data = {}) => pushView(PersonMailView, data),
     AgentTeamView: (data = {}) => pushView(AgentTeamView, data),
     AgentProfitView: (data = {}) => pushView(AgentProfitView, data),
+    ProfitView: (data = {}) => pushView(ProfitView, data),
     AgentInfoView: (data = {}) => pushView(AgentInfoView, data),
     AgentCreateUserView: (data = {}) => pushView(AgentCreateUserView, data),
     AgentAssignMoney: (data = {}) => pushView(AgentAssignMoneyView, data),

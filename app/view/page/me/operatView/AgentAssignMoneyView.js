@@ -14,7 +14,7 @@ import Button from "react-native-button";
 
 const mapStateToProps = state => {
     return {
-        // gameModel:state.get("appState").get("gameModel"),
+        userData: state.get("appState").get("userData").toJS(),
     }
 }
 
@@ -38,7 +38,7 @@ export default class AgentAssignMoneyView extends BaseView {
 
     renderBody() {
         let ds = this.state.dataSource.cloneWithRows(this.state.dataList)
-        return (<View>
+        return (<View style={G_Style.appContentView}>
             <ListView
                 dataSource={ds}
                 renderHeader={this.renderHeadView}
@@ -48,6 +48,12 @@ export default class AgentAssignMoneyView extends BaseView {
         </View>)
     }
 
+    componentDidMount() {
+        G_RunAfterInteractions(()=>{
+            HTTP_SERVER.AgentAssinList.body.username = this.props.userData.data.username;
+            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentAssinList)
+        })
+    }
 
     // renderSeparator=()=>{
     //     return (<View style={{backgroundColor:'red', height:1}}>
@@ -59,9 +65,9 @@ export default class AgentAssignMoneyView extends BaseView {
             <Text style={[styles.headText, {borderLeftWidth: 0}]}>已用</Text>
             <Text style={[styles.headText, {borderLeftWidth: 0}]}>未用</Text>
             <Text style={styles.headText}>总量</Text>
-            <Button containerStyle={styles.btnCpStyle} onPress={() => {
+            <Button containerStyle={[styles.btnCpStyle,{paddingVertical: 15}]} onPress={() => {
                 this.clickDetailBtn({name:"全情"})
-            }}><Text style={styles.btnText}>全配</Text></Button>
+            }}><Text style={[styles.btnText,{fontWeight:"bold",}]}>全配</Text></Button>
         </View>)
     }
 
@@ -86,6 +92,7 @@ export default class AgentAssignMoneyView extends BaseView {
 const styles = StyleSheet.create({
     headText: {
         padding: 10,
+        paddingVertical: 15,
         backgroundColor: "rgb(241, 241, 241)",
         flex: 1,
         borderWidth: 1,

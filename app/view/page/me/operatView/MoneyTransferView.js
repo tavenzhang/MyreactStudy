@@ -27,7 +27,6 @@ export default class MoneyTransferView extends BaseView {
 
     renderBody() {
         const {passProps} = this.props;
-        TLog("MoneyTransferView----", passProps);
         return (
             <AutoHideKeyBoardView>
                 <View style={G_Style.appView}>

@@ -9,8 +9,9 @@ import {connect} from 'react-redux';
 import AIcon from 'react-native-vector-icons/FontAwesome';
 import Button from 'react-native-button';
 import BaseView from "../../componet/BaseView";
-import {HeaderRightLoginOut} from "../../componet/navBarMenu/HeaderMenu";
+import {HeaderLeftDomain, HeaderRightLoginOut} from "../../componet/navBarMenu/HeaderMenu";
 import AcountListView from "./subView/AcountListView";
+import ConfigView from "../home/subview/ConfigView";
 
 
 export let ItemNameEnum = {
@@ -74,14 +75,26 @@ export default class MyView extends BaseView {
         name: ItemNameEnum.agentCreate
     }, {ico: "shekel", name: ItemNameEnum.agentAssignMoney},{ico: "cubes", name: ItemNameEnum.agentTeam}, {ico: "book", name: ItemNameEnum.agentProfit}];
 
+    constructor(props)
+    {
+        super(props)
+        this.state={
+            modalVisible: false,
+        }
+    }
+
     getNavigationBarProps() {
         let {userData} = this.props;
         if (userData.isLogined) {
-            return {rightView: HeaderRightLoginOut};
+            return {rightView: HeaderRightLoginOut,leftView: HeaderLeftDomain};
         }
         else {
-            return {};
+            return {leftView: HeaderLeftDomain};
         }
+    }
+
+    onLeftPressed() {
+        this.setState({modalVisible: true});
     }
 
     onRightPressed() {
@@ -156,6 +169,7 @@ export default class MyView extends BaseView {
         }
         return (
             <View style={[G_Style.appContentView, {backgroundColor: "rgba(230,230,230,0.5)"}]}>
+                <ConfigView modalVisible={this.state.modalVisible} setModalVisible={this.setModalVisible}/>
                 {infoView}
                 <AcountListView dataList={dataList} userData={userData}/>
             </View>
@@ -165,6 +179,10 @@ export default class MyView extends BaseView {
 
     clickLogin = () => {
         G_NavUtil.pushToView(G_NavViews.LoginView());
+    }
+
+    setModalVisible=(visible)=> {
+        this.setState({modalVisible: visible});
     }
 }
 

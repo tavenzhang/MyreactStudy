@@ -8,11 +8,9 @@ import {
     ListView
 } from 'react-native';
 
-import {connect} from 'react-redux';
-
 import Button from "react-native-button";
 import BaseView from "../../../../componet/BaseView";
-import MyDatePicker from "../../../../componet/MyDatePicker";
+
 
 export default class AssignDetilView extends BaseView{
 
@@ -29,19 +27,19 @@ export default class AssignDetilView extends BaseView{
     renderBody() {
         let ds = this.state.dataSource.cloneWithRows(this.state.dataList)
         return (<View>
-            <View style={{flexDirection:"row", justifyContent:"center", justifyContent:"center", margin:5,
-                marginVertical: 20}}>
+            <View style={{flexDirection:"row", alignItems:"center", margin:10,
+                }}>
                 <Text>用户名:</Text>
                 <TextInput
                     style={styles.textStyle}
                     onChangeText={(pwdText) => this.setState({pwdText:pwdText})}
                     value={this.state.pwdText}
-                    placeholder={"用户名"}
-                    secureTextEntry={true}
+                    placeholder={""}
                     multiline={false}
                     underlineColorAndroid={'transparent'}
                 />
-                <Button>
+                <Button containerStyle={{backgroundColor:G_Theme.bgPbg, paddingHorizontal:5,
+                    paddingVertical: 5,borderRadius:5}} style={{fontSize:14}}>
                     查找
                 </Button>
             </View>
@@ -56,22 +54,23 @@ export default class AssignDetilView extends BaseView{
 
     renderHeadView = () => {
         return (<View style={{flexDirection: "row"}}>
-            <Text style={[styles.headText,]}>下级代理</Text>
-            <Text style={[styles.headText, {borderLeftWidth: 0}]}>永久奖金组</Text>
-            <Text style={[styles.headText, {borderLeftWidth: 0}]}>临时奖金组</Text>
+            <Text style={[styles.headText]}>下级代理</Text>
+            <Text style={[styles.headText]}>永久奖金组</Text>
+            <Text style={[styles.headText]}>临时奖金组</Text>
             <Text style={[styles.headText,{flex: 3}]}>管理下级配额</Text>
         </View>)
     }
 
     rendeRow=(data,section)=>{
         return (<View style={{flexDirection: "row"}}>
-            <Text style={[styles.contentText, {flex: 2}]}>{data.money}</Text>
-            <Text style={[styles.contentText, {borderLeftWidth: 0}]}>{data.use}</Text>
-            <Text style={[styles.contentText, {borderLeftWidth: 0}]}>{data.unuse}</Text>
-            <Text style={styles.contentText}>{data.total}</Text>
+            <Text style={[styles.contentText]}>{data.money}</Text>
+            <Text style={[styles.contentText]}>{data.use}</Text>
+            <Text style={[styles.contentText]}>{data.unuse}</Text>
+            <Text style={[styles.contentText,{flex: 3}]}>{data.total}</Text>
         </View>)
     }
 }
+
 const  styles = StyleSheet.create({
     textStyle: {
         width: 150,
@@ -79,7 +78,8 @@ const  styles = StyleSheet.create({
         fontSize: 14,
         height:G_Theme.textInpuntH,
         borderWidth:0.5,
-        marginRight:15,
+        borderRadius: 5,
+        marginRight:30,
         paddingLeft:5
     },
     headText: {

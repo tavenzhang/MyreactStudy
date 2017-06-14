@@ -73,6 +73,7 @@ export default class AgentSearchView extends React.Component {
                                     }
                                 </Picker>
                             </View>
+
                         </View>
                         <View style={{flexDirection: "row", alignItems: "center"}}>
                             <Text style={{marginRight: 5}}>注册时间:</Text>
@@ -97,7 +98,6 @@ export default class AgentSearchView extends React.Component {
             </MyModalView>
         )
     }
-
 
 
     //查询提交操作

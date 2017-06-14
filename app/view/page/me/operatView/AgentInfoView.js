@@ -2,7 +2,10 @@
  * Created by thomas on 2017/6/2.
  */
 import React from "react";
-import {View} from "react-native";
+import {
+    View,
+    ScrollView
+} from "react-native";
 
 import {connect} from "react-redux";
 import BaseView from "../../../componet/BaseView";
@@ -13,12 +16,20 @@ import {NavRightRank} from "../../../componet/navBarMenu/HeaderMenu";
 
 const mapStateToProps = state => {
     return {
-        // gameModel:state.get("appState").get("gameModel"),
+        moneyBalance: state.get("appState").get("moneyBalance"),
+        userData: state.get("appState").get("userData").toJS(),
     }
 }
 
 @connect(mapStateToProps)
 export default class AgentInfoView extends BaseView {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            agentData: null,
+        }
+    }
 
     getNavigationBarProps() {
         return {
@@ -26,26 +37,25 @@ export default class AgentInfoView extends BaseView {
         };
     }
 
-    onRightPressed(){
-         G_NavUtil.pushToView(G_NavViews.ARankView());
+    onRightPressed() {
+        G_NavUtil.pushToView(G_NavViews.ARankView());
     }
 
     renderBody() {
         return (
-            <View>
-                <MoneyView data={null}/>
-                <TeamView data={null}/>
-                <AssignView data={null}/>
-            </View>
+            <ScrollView>
+                <MoneyView data={this.state.agentData} {...this.props}/>
+                <TeamView data={this.state.agentData}/>
+                <AssignView data={this.state.agentData}/>
+            </ScrollView>
         )
     }
 
     componentDidMount() {
-        G_RunAfterInteractions(()=>{
-            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentInfo,(data)=>{
-
+        G_RunAfterInteractions(() => {
+            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentInfo, (data) => {
+                this.setState({agentData: data.data})
             })
-
         })
     }
 }

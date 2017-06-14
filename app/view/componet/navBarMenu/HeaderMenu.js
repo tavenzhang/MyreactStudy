@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import AIcon from 'react-native-vector-icons/FontAwesome';
 
-export class NavRightButton extends React.Component {
+export class NavRightButton extends React.PureComponent {
 
     render() {
         let {name} = this.props
@@ -14,23 +14,15 @@ export class NavRightButton extends React.Component {
     }
 }
 
-export class HeaderPlusRightMenu extends React.Component {
+export class HeaderPlusRightMenu extends React.PureComponent{
     render() {
         return (<AIcon color="white" size={23} name={G_EnumFontNames.plus}/>)
     }
 }
 
 
-export const HeaderMenuTitleView = () => {
-    return (
-        <View style={[{flexDirection: "row"}]}>
-            <Text key={'title'} style={styles.title}>{this.props.title}</Text>
-            <AIcon color="white" style={{marginLeft: 5}} size={16} name={G_EnumFontNames.list_arrow_desc}/>
-        </View>
-    )
-}
 
-export class HeaderRightLoginOut extends React.Component {
+export class HeaderRightLoginOut extends React.PureComponent {
     render() {
         return (<View><Text style={{fontSize: 16, color: "white", fontWeight: "bold"}}>注销</Text></View>)
     }

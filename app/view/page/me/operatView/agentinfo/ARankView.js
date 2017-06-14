@@ -2,8 +2,9 @@
 import React ,{PropTypes} from 'react';
 import {
     View,
-    Text,
-    StyleSheet
+    StyleSheet,
+    ListView,
+    Text
 } from 'react-native';
 import BaseView from "../../../../componet/BaseView";
 import MySegmentedControlTab from "../../../../componet/MySegmentedControlTab";
@@ -19,60 +20,82 @@ export  default  class ARankView extends  BaseView{
         super(props);
         this.state = {
             selectedTabIndex: 0,
+            dataSource: new ListView.DataSource({
+                rowHasChanged: (r1, r2) => r1 !== r2,
+            }),
+            dataList:[]
         };
     }
     getNavigationBarProps () {
         return {title:"本月排名"}
     }
     renderBody() {
-
+            let ds= this.state.dataSource.cloneWithRows(this.state.dataList);
         return(<View>
                 <MySegmentedControlTab selectedTabIndex={this.state.selectedTabIndex} valueList={['投注额', '开户数',"净盈亏"]} onTabChange={this.onTabChange}/>
+                <ListView
+                    dataSource={ds}
+                    renderHeader={this._rendHeadView}
+                    renderRow={this._rendRow}
+                    enableEmptySections={true}
+                />
             </View>
         );
     }
+
+    _rendHeadView=()=>{
+        let titleList=["投注额","开户数","净盈亏"]
+        return (<View style={{flexDirection: "row", borderWidth:1, backgroundColor:G_Theme.gray}}>
+            <Text style={styles.headText}>用户名</Text>
+            <Text style={styles.headText}>属性</Text>
+            <Text style={styles.headText}>奖金组</Text>
+            <Text style={styles.headText}>团人数</Text>
+            <Text style={[styles.headText, {flex:2}]}>团队余额</Text>
+            <Text style={[styles.headText]}>{titleList[this.state.selectedTabIndex]}</Text>
+        </View>)
+    }
+
+    _rendRow=(data,section)=>{
+        return (<View style={{flexDirection: "row", borderWidth:1}}>
+            <Text style={styles.contentText}>{data.username}</Text>
+            <Text style={styles.contentText}>{data.user_level_txt}</Text>
+            <Text style={styles.contentText} numberOfLines={2}>{data.prize_group}</Text>
+            <Text style={styles.contentText} numberOfLines={2}>{data.direct_child_num}</Text>
+            <Text style={[styles.contentText,{flex:2}]} numberOfLines={3}>{data.group_balance_sum}</Text>
+            <Text style={[styles.contentText]}>{data.data}</Text>
+        </View>)
+    }
+
+    onTabChange=(index)=>{
+       // 投注额（sale）,开户数（newaccount），净盈亏（profit）
+        let typeList = ["sale","newaccount","profit"];
+        this.setState({dataList:[],selectedTabIndex:index})
+        HTTP_SERVER.AgentInfoMonth.url= HTTP_SERVER.AgentInfoMonth.formatUrl.replace("#type",typeList[index]);
+        G_RunAfterInteractions(()=>{
+            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentInfoMonth,(data)=>{
+                this.setState({dataList:data})
+            })
+        })
+    }
+
+    componentDidMount() {
+        this.onTabChange(0);
+    }
+
 }
 
 const styles = StyleSheet.create({
-    circleView: {
-        width: 86,
-        borderWidth: 5,
-        height: 86,
-        borderRadius: 86,
-        justifyContent: "center",
-        alignItems: "center",
-        marginHorizontal: 10,
-        backgroundColor: "transparent"
+    headText:{
+        flex:1,
+        textAlign:'center',
+        paddingVertical:10
     },
-    textPeople: {
-        color: 'red',
-        fontWeight: 'bold',
-        marginTop: 5
-    },
-    infoMoney: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        paddingHorizontal: 10,
-        marginVertical: 5
-    },
-    square: {
-        width: 80,
-        height: 80,
-        borderWidth: 1,
-        borderColor: "gray",
-        borderRadius: 5,
-        justifyContent: "center",
-        alignItems: "center",
-        margin: 10
-    },
-    group:{
-        width: 86,
-        height: 86,
-        borderRadius: 86,
-        justifyContent: "center",
-        alignItems: "center",
-        marginHorizontal: 10,
-        backgroundColor: "gray"
+    contentText:{
+        flex:1,
+        paddingHorizontal: 2,
+        textAlign:'center',
+        alignSelf:"center",
+        paddingVertical:5
     }
 });
 

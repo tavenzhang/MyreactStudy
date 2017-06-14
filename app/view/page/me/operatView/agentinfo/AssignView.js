@@ -15,34 +15,51 @@ export  default  class AssignView extends React.Component {
     }
 
     render() {
-        let {data} = this.props
-        return (<View>
+        let {data} = this.props;
+        let dataItemList = [];
+        if (data && data.aOverLimits) {
+            for (let key in data.aOverLimits) {
+                dataItemList.push(data.aOverLimits[key])
+            }
+        }
+        return (data ? <View>
                 <Text>可用高点余额</Text>
-                <View style={{flexDirection: "row", margin: 10, alignItems: "center", justifyContent: "center"}}>
-                    <View style={[styles.group]}>
-                        <Text>1955</Text>
-                    </View>
-                    <View style={[styles.group]}>
-                        <Text>1955</Text>
-                    </View>
-                    <View style={[styles.group]}>
-                        <Text>1955</Text>
+                <View style={{alignItems:"center"}}>
+                    <View style={{
+                        flexDirection: "row",
+                        flexWrap: "wrap",
+                        margin: 5,
+                        alignItems: "center",
+                    }}>
+                        {dataItemList.map((item, index) => {
+
+                            return (  <View style={[styles.group]} key={index + "uu"}>
+                                <Text
+                                    style={{color: "white", fontWeight: "bold", fontSize: 16}}>{item.prize_group}</Text>
+                                <Text style={{
+                                    marginTop: 3,
+                                    color: "green",
+                                    fontSize: 14
+                                }}>{`${item.used_num}/${item.limit_num}`}</Text>
+                            </View>)
+                        })}
                     </View>
                 </View>
-            </View>
+            </View> : null
         );
     }
 }
 
 
 const styles = StyleSheet.create({
-    group:{
+    group: {
         width: 86,
         height: 86,
         borderRadius: 86,
         justifyContent: "center",
         alignItems: "center",
         marginHorizontal: 10,
-        backgroundColor: "gray"
+        backgroundColor: G_Theme.bgPbg,
+        marginVertical:2
     }
 });

@@ -195,24 +195,25 @@ global.HTTP_SERVER = {
     //代理中心
     AgentInfo: {url: "/mobile-agent/agentHome", method: METHOD_POST},
     AgentInfoTeamMonthySell: {url: "/mobile-agent/get-month-team-turnover", method: METHOD_POST},
-    AgentInfoTeamData: {url: "/mobile-agent/get-team-data", method: METHOD_POST},
+   ///mobile-agent/get-team-data/{date}  【today ，week ，month】
+    AgentInfoTeamData: {url:"",formatUrl:"/mobile-agent/get-team-data/#time", method: METHOD_POST},
     //获取代理月排行数据
-    AgentInfoMonthSale: {url: "/mobile-agent/get-agent-month-rank/sale", method: METHOD_POST},
-    AgentInfoMonthNewaccount: {url: "/mobile-agent/get-agent-month-rank/newaccount", method: METHOD_POST},
-    AgentInfoMonthProfit: {url: "/mobile-agent/get-agent-month-rank/profit", method: METHOD_POST},
+    ///mobile-agent/get-agent-month-rank/{metho}  投注额（sale）,开户数（newaccount），净盈亏（profit）
+    AgentInfoMonth: {url:"",formatUrl: "/mobile-agent/get-agent-month-rank/#type", method: METHOD_POST},
     //人工开户页面展示
-    AgentUserGetInfo: {url: "/mobile-agent/users/accurate-create", method: METHOD_GET},
-    AgentUserCreate: {url: "/mobile-agent/users/accurate-create", method: METHOD_POST,body:{username:"",password:"",prize_group:0,is_agent:0,_random:1}},
+    AgentUserGetInfo: {url: "/mobile-agent/get-accurate-create", method: METHOD_POST,body:{}},
+    AgentUserCreate: {url: "/mobile-agent/accurate-create", method: METHOD_POST,body:{username:"",password:"",prize_group:0,is_agent:0,_random:"",bac_commission_proporty:""}},
     //链接开户的页面展示
-    AgentUserLinkList: {url: "/mobile-agent/user-links", method: METHOD_GET},
+    AgentUserLinkList: {url: "/mobile-agent/user-links", method: METHOD_POST},
     //删除开户链接
     AgentUserDelLink: {url: "",formatUrl:"/mobile-agent/user-links/#id", method: METHOD_POST},
+    //创建推广链接
+    AgentUserLinkCreate: {url: "/mobile-agent/user-links/create", method: METHOD_POST,body:{valid_days:0,prize_group:1950,is_agent:0,channel:"",agent_qqs:"",bac_commission_proporty:""}},
     //获取用户的奖金组信息
     AgentPrizeGroup: {url: "/mobile-agent/user-links/get-user-pirzegroup", method: METHOD_POST},
     //推广链接的详情
     AgentUserLinkDetail: {url: "",formatUrl:"/mobile-agent/user-links/view/#id", method: METHOD_POST},
-    //创建推广链接
-    AgentUserLinkCreate: {url: "/mobile-agent/user-links/create", method: METHOD_POST},
+
     //高点配额
     AgentAssinList: {url: "/mobile-agent/my-overlimit-quotas/index", method: METHOD_POST,body:{username:""}},
     AgentAssinPerson: {url: "/mobile-agent/my-overlimit-quotas/get-quota-and-history", method: METHOD_POST,body:{username:""}},

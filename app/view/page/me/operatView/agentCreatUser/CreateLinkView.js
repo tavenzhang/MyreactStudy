@@ -7,27 +7,53 @@ import {
     Picker
 } from 'react-native';
 
-
 import Button from "react-native-button";
 
 export default class CreateLinkView extends React.Component {
     static propTypes = {
-        isGentUser: PropTypes.any
+        isGentUser: PropTypes.any,
+        groupDate: PropTypes.object
     }
 
     constructor(props) {
         super(props)
         this.state = {
             value: 0,
-            pickValue: null
+            textChannel: "",
+            pickValue: 1,
+            groundValue: 0,
+            textQQ1: "",
+            textQQ2: "",
+            textQQ3: "",
         };
         this.dateValidList = [{name: "1天", value: 1}, {name: "7天", value: 7}, {name: "30天", value: 30}, {
             name: "90天",
             value: 90
-        }, {name: "永久有效", value: 99999}]
+        }, {name: "永久有效", value: 0}],
+            this.curGroupValue = 0;
     }
 
     render() {
+        let {isGentUser, groupDate} = this.props;
+        let minGroup = 0;
+        let maxGroup = 0;
+        let percent = 0.0;
+        if (groupDate) {
+            minGroup = !isGentUser ? groupDate.iPlayerMinPrizeGroup : groupDate.iAgentMinPrizeGroup;
+            maxGroup = !isGentUser ? groupDate.iPlayerMaxPrizeGroup : groupDate.iAgentMaxPrizeGroup;
+            if (this.state.groundValue < minGroup) {
+                this.curGroupValue = minGroup;
+            }
+            else if (this.state.groundValue > maxGroup) {
+                this.curGroupValue = maxGroup;
+            }
+            else {
+                this.curGroupValue = this.state.groundValue;
+            }
+            percent = ((groupDate.iCurrentUserPrizeGroup - this.curGroupValue) * 100 / 2000 ).toFixed(2);
+        }
+
+
         return (<View>
             <View style={[styles.itemSp, {margin: 0}]}>
                 <Text style={{textAlign: "right", alignSelf: "center"}}>链接有效期</Text>
@@ -51,42 +77,41 @@ export default class CreateLinkView extends React.Component {
                 <Text style={{textAlign: "right", alignSelf: "center"}}>推广渠道</Text>
                 <TextInput
                     style={[styles.textStyle]}
-                    onChangeText={(pwdText) => this.setState({pwdText: pwdText})}
+                    onChangeText={(textChannel) => this.setState({textChannel})}
                     value={this.state.pwdText}
                     placeholder={"如qq推广"}
-                    secureTextEntry={true}
                     multiline={false}
                     underlineColorAndroid={'transparent'}
                 />
             </View>
             <View style={styles.itemSp}>
-                <Text style={{textAlign: "right"}}>客服QQ</Text>
-                <View style={{alignItems:"center", justifyContent:"center"}}>
+                <Text style={{textAlign: "right"}}>客服QQ </Text>
+                <View style={{alignItems: "center", justifyContent: "center"}}>
                     <TextInput
                         style={[styles.textStyle]}
-                        onChangeText={(pwdText) => this.setState({pwdText: pwdText})}
-                        value={this.state.pwdText}
+                        onChangeText={(textQQ1) => this.setState({textQQ1})}
+                        value={this.state.textQQ1}
                         placeholder={"qq1"}
                         multiline={false}
                         underlineColorAndroid={'transparent'}
                     />
                     <TextInput
                         style={[styles.textStyle, {marginTop: 5}]}
-                        onChangeText={(pwdText) => this.setState({pwdText: pwdText})}
-                        value={this.state.pwdText}
+                        onChangeText={(textQQ2) => this.setState({textQQ2})}
+                        value={this.state.textQQ2}
                         placeholder={"qq2"}
                         multiline={false}
                         underlineColorAndroid={'transparent'}
                     />
                     <TextInput
                         style={[styles.textStyle, {marginTop: 5}]}
-                        onChangeText={(pwdText) => this.setState({pwdText: pwdText})}
-                        value={this.state.pwdText}
+                        onChangeText={(textQQ3) => this.setState({textQQ3})}
+                        value={this.state.textQQ3}
                         placeholder={"qq3"}
                         multiline={false}
                         underlineColorAndroid={'transparent'}
                     />
-                    <Text style={{color: G_Theme.grayDeep, marginLeft:5}}>(此QQ会显示在该链接开户页面)</Text>
+                    <Text style={{color: G_Theme.grayDeep, marginLeft: 5}}>(此QQ会显示在该链接开户页面)</Text>
                 </View>
             </View>
 
@@ -97,7 +122,9 @@ export default class CreateLinkView extends React.Component {
                 justifyContent: "space-between"
             }}>
                 <Text style={{textAlign: "right"}}>设置奖金组</Text>
-                <Text style={{textAlign: "left"}}>1956 预计平均返点率 0.00%</Text>
+                <Text style={{textAlign: "center"}}><Text
+                    style={{color: "red", fontWeight: "bold"}}>{`${parseInt(this.curGroupValue)} `}</Text>
+                    预计平均返点率 {percent}%</Text>
             </View>
 
             <View style={{
@@ -107,38 +134,69 @@ export default class CreateLinkView extends React.Component {
                 justifyContent: "space-between"
             }}>
                 <Slider
-                    value={this.state.value}
-                    step={10}
-                    maximumValue={200}
-                    minimumValue={0}
+                    value={this.state.groundValue}
+                    maximumValue={parseInt(maxGroup)}
+                    minimumValue={parseInt(minGroup)}
                     minimumTrackTintColor={"red"}
-                    maximumTrackTintColor={"blue"}
+                    maximumTrackTintColor={"gray"}
                     thumbTintColor={"yellow"}
-                    style={{height: 10, flex: 1,}}
-                    onValueChange={(value) => {
-                        this.setState({value: value})
+                    style={{height: 10, flex: 1}}
+                    disabled={groupDate == null}
+                    onValueChange={(groundValue) => {
+                        this.setState({groundValue})
                     }}/>
             </View>
             <View style={{flexDirection: "row", marginVertical: 15, justifyContent: "space-between"}}>
-                <Text >1550</Text>
-                <Text>1960</Text>
+                <Text>{minGroup}</Text>
+                <Text>{maxGroup}</Text>
             </View>
             <Button
                 containerStyle={{
-                    padding: 5,
                     margin: 20,
                     overflow: 'hidden',
                     borderRadius: 3,
                     backgroundColor: '#d7213c'
                 }}
-                style={{fontSize: 14, color: "white"}}
-                styleDisabled={{color: '#fff'}}
-                onPress={this.clickLogin}>
+                style={{fontSize: 14, color: "white", padding: 5}}
+                styleDisabled={{color: '#fff', backgroundColor: "gray"}}
+                onPress={this._onCreateLink} disabled={!this._onValidInput()}>
                 生成链接
             </Button>
         </View>)
     }
 
+    _onValidInput = () => {
+        let {groupDate} = this.props
+        let result = false
+        if (this.state.textChannel == "") {
+            result = false
+        }
+        else if (this.state.textQQ1 == "" && this.state.textQQ2 == "" && this.state.textQQ3 == "") {
+            result = false;
+        } else if (groupDate == null) {
+            result = false;
+        }
+        else {
+            result = true;
+        }
+        return result
+    }
+
+    _onCreateLink = () => {
+        HTTP_SERVER.AgentUserLinkList
+        HTTP_SERVER.AgentUserLinkCreate.body.valid_days = this.state.pickValue;
+        HTTP_SERVER.AgentUserLinkCreate.body.is_agent = this.props.isGentUser;
+        HTTP_SERVER.AgentUserLinkCreate.body.prize_group = parseInt(this.curGroupValue);
+        HTTP_SERVER.AgentUserLinkCreate.body.channel = this.state.textChannel;
+        HTTP_SERVER.AgentUserLinkCreate.body.agent_qqs = [this.state.textQQ1, this.state.textQQ2, this.state.textQQ3];
+        HTTP_SERVER.AgentUserLinkCreate.body.bac_commission_proporty = this.props.groupDate.bac_commission_proporty;
+        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentUserLinkCreate, (data) => {
+            if (data.isSuccess) {
+                ActDispatch.AppAct.showBox(`链接生成成功!`);
+                this.setState({userNameText: "", pwdText: ""});
+            }
+        })
+    }
 
 }
 

@@ -35,6 +35,7 @@ global.G_Theme = {
     gameOperatePanelHeight: 50,
     textInpuntH: G_PLATFORM_IOS ? null : 40,
     halfGrayAlpha: 'rgba(52, 52, 52, 0.5)',
+    bgPbg: "rgb(208,199,160)",
 };
 
 

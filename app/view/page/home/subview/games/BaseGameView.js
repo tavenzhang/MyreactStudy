@@ -2,12 +2,14 @@ import React from 'react';
 import {
     View,
     StyleSheet,
+    Text
 } from 'react-native';
 import BaseView from "../../../../componet/BaseView";
-import {GAME_DERAIL, HeaderMenuTitleView} from "../../../../componet/navBarMenu/HeaderMenu";
+import {GAME_DERAIL} from "../../../../componet/navBarMenu/HeaderMenu";
 import HeadMenuListView from "./HeadMenuListView";
 import MoreMenu from "../../../../componet/MoreMenu";
 import BannerView from "./BannerView";
+import AIcon from 'react-native-vector-icons/FontAwesome';
 
 export default class BaseGameView extends BaseView {
 
@@ -45,12 +47,18 @@ export default class BaseGameView extends BaseView {
     }
 
     getNavigationBarProps() {
-       let gameName= this.getGameTitle();
+         this.gameName= this.getGameTitle();
         return {
-            titleView: HeaderMenuTitleView,
-            title: gameName,
+            titleView: this.renderNavTitleView,
             rightView: GAME_DERAIL
         };
+    }
+
+    renderNavTitleView=()=>{
+       return (<View style={[{flexDirection: "row"}]}>
+            <Text key={'title'} style={styles.title}>{this.gameName}</Text>
+            <AIcon color="white" style={{marginLeft: 5}} size={16} name={G_EnumFontNames.list_arrow_desc}/>
+        </View>)
     }
 
     getGameTitle(){
@@ -252,6 +260,12 @@ export default class BaseGameView extends BaseView {
 }
 
 const styles = StyleSheet.create({
+    title: {
+        color:"white",
+        fontSize:18,
+        fontWeight: "900",
+        textAlign: 'center',
+    },
     touchTabButton: {
         flex: 1,
         alignItems: "center",

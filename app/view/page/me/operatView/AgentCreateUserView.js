@@ -27,7 +27,9 @@ export default class AgentCreateUserView extends BaseView {
         super(props)
         this.state = {
             selectedTabIndex: 0,
-            switchValue:false
+            switchValue:false,
+            groupDate:null,
+            linkGroupDate:null,
         };
 
     }
@@ -38,7 +40,9 @@ export default class AgentCreateUserView extends BaseView {
         };
     }
 
-
+    onRightPressed(){
+        G_NavUtil.pushToView(G_NavViews.LinkListView());
+    }
 
     renderBody() {
         return (<View>
@@ -59,7 +63,7 @@ export default class AgentCreateUserView extends BaseView {
                                 }}/>
                     </View>
                 </View>
-                {this.state.selectedTabIndex ? <CreateLinkView isGentUser={this.state.switchValue}/>:<CreateHumanView isGentUser={this.state.switchValue}/> }
+                {this.state.selectedTabIndex ? <CreateLinkView groupDate={this.state.linkGroupDate} isGentUser={this.state.switchValue}/>:<CreateHumanView groupDate={this.state.groupDate} isGentUser={this.state.switchValue}/> }
             </View>
 
         </View>)
@@ -68,6 +72,18 @@ export default class AgentCreateUserView extends BaseView {
     onTabChange = (index) => {
         this.setState({selectedTabIndex: index});
     }
+
+    componentDidMount() {
+        G_RunAfterInteractions(() => {
+            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentUserGetInfo, (data) => {
+                this.setState({groupDate: data.data})
+            }, false);
+            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentPrizeGroup, (data) => {
+                this.setState({linkGroupDate: data.data})
+            }, false);
+        })
+    }
+
 }
 const styles = StyleSheet.create({
     textStyle: {

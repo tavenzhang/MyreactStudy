@@ -10,34 +10,56 @@ import Button from "react-native-button";
 
 export default class CreateHumanView extends React.Component {
     static propTypes = {
-        isGentUser: PropTypes.any
+        isGentUser: PropTypes.any,
+        groupDate:PropTypes.object
     }
 
     constructor(props) {
         super(props)
         this.state = {
-            value: 0,
-            pickValue: null,
-            pwdText:""
+            groundValue: 0,
+            pwdText: "",
+            userNameText: "",
         };
+        this.curGroupValue = 0;
     }
 
     render() {
+        let {isGentUser,groupDate} = this.props;
+        let minGroup = 0;
+        let maxGroup = 0;
+        let  percent=0.0;
+        if (groupDate) {
+            minGroup = !isGentUser ? groupDate.iPlayerMinPrizeGroup : groupDate.iAgentMinPrizeGroup;
+            maxGroup = !isGentUser ? groupDate.iPlayerMaxPrizeGroup : groupDate.iAgentMaxPrizeGroup;
+            if (this.state.groundValue < minGroup) {
+                this.curGroupValue = minGroup;
+            }
+            else if (this.state.groundValue > maxGroup) {
+                this.curGroupValue = maxGroup;
+            }
+            else {
+                this.curGroupValue = this.state.groundValue;
+            }
+            percent = ((groupDate.iCurrentUserPrizeGroup - this.curGroupValue)*100/2000 ).toFixed(2);
+        }
+
         return (<View>
             <View style={styles.itemSp}>
                 <Text style={{textAlign: "right"}}>设置账号信息</Text>
                 <View>
                     <TextInput
                         style={styles.textStyle}
-                        onChangeText={(pwdText) => this.setState({pwdText: pwdText})}
-                        value={this.state.pwdText}
+                        onChangeText={(userNameText) => this.setState({userNameText})}
+                        value={this.state.userNameText}
                         placeholder={"设置登录账户"}
                         multiline={false}
                         underlineColorAndroid={'transparent'}
+                        autoCapitalize={"none"}
                     />
                     <TextInput
                         style={[styles.textStyle, {marginTop: 10}]}
-                        onChangeText={(pwdText) => this.setState({pwdText: pwdText})}
+                        onChangeText={(pwdText) => this.setState({pwdText})}
                         value={this.state.pwdText}
                         placeholder={"设置登录密码"}
                         secureTextEntry={true}
@@ -53,7 +75,9 @@ export default class CreateHumanView extends React.Component {
                 justifyContent: "space-between"
             }}>
                 <Text style={{textAlign: "right"}}>设置奖金组</Text>
-                <Text style={{textAlign: "left"}}>1956 预计平均返点率 0.00%</Text>
+                <Text style={{textAlign: "center"}}><Text
+                    style={{color: "red", fontWeight: "bold"}}>{`${parseInt(this.curGroupValue)} `}</Text>
+                    预计平均返点率 {percent}%</Text>
             </View>
 
             <View style={{
@@ -63,39 +87,73 @@ export default class CreateHumanView extends React.Component {
                 justifyContent: "space-between"
             }}>
                 <Slider
-                    value={this.state.value}
-                    step={10}
-                    maximumValue={200}
-                    minimumValue={0}
+                    value={this.state.groundValue}
+                    maximumValue={parseInt(maxGroup)}
+                    minimumValue={parseInt(minGroup)}
                     minimumTrackTintColor={"red"}
-                    maximumTrackTintColor={"blue"}
+                    maximumTrackTintColor={"gray"}
                     thumbTintColor={"yellow"}
-                    style={{height: 10, flex: 1,}}
-                    onValueChange={(value) => {
-                        this.setState({value: value})
+                    style={{height: 10, flex: 1}}
+                    disabled={groupDate == null}
+                    onValueChange={(groundValue) => {
+                        this.setState({groundValue})
                     }}/>
             </View>
             <View style={{flexDirection: "row", marginVertical: 15, justifyContent: "space-between"}}>
-                <Text >1550</Text>
-                <Text>1960</Text>
+                <Text>{minGroup}</Text>
+                <Text>{maxGroup}</Text>
             </View>
+
             <Button
                 containerStyle={{
-                    padding: 5,
                     margin: 20,
                     overflow: 'hidden',
                     borderRadius: 3,
                     backgroundColor: '#d7213c'
                 }}
-                style={{fontSize: 14, color: "white"}}
-                styleDisabled={{color: '#fff'}}
-                onPress={this.clickLogin}>
+                style={{fontSize: 14, color: "white",  padding: 5}}
+                styleDisabled={{ backgroundColor:"gray"}}
+                onPress={this._onCreateRequest} disabled={!this._onValidInput()} >
                 立即开户
             </Button>
         </View>)
     }
 
+    _onValidInput=()=> {
+        let {groupDate} = this.props
+        let result = false
+        if (this.state.userNameText == "") {
+            result = false
+        }
+        else
+            if (this.state.pwdText == "") {
+                result = false;
+            } else if (groupDate == null) {
+                result = false;
+            }
+            else {
+                result = true;
+            }
+            return result
+        }
 
+
+    _onCreateRequest = () => {
+            HTTP_SERVER.AgentUserCreate.body.username = this.state.userNameText;
+            HTTP_SERVER.AgentUserCreate.body.password = this.state.pwdText;
+            HTTP_SERVER.AgentUserCreate.body.is_agent = this.props.isGentUser;
+            HTTP_SERVER.AgentUserCreate.body.prize_group =  parseInt(this.curGroupValue);
+            HTTP_SERVER.AgentUserCreate.body._random =this.props.groupDate._random;
+            HTTP_SERVER.AgentUserCreate.body.bac_commission_proporty=this.props.groupDate.bac_commission_proporty;
+            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentUserCreate, (data) => {
+                if(data.isSuccess)
+                {
+                    ActDispatch.AppAct.showBox(`${this.state.userNameText} 开户成功!`);
+                    this.setState({userNameText:"",pwdText:""});
+                }
+            })
+
+    }
 }
 
 const styles = StyleSheet.create({

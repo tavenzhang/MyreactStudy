@@ -25,18 +25,11 @@ export default class Home extends BaseView {
         super(props);
         this.state =
             {
-                modalVisible: false,
                 domain:""
         };
     }
 
-    setModalVisible=(visible)=> {
-        this.setState({modalVisible: visible});
-    }
 
-    getNavigationBarProps() {
-        return {leftView: HeaderLeftDomain};
-    }
 
     renderBody() {
         let {bannerList, gameModel, playModel,userData} = this.props;
@@ -57,7 +50,7 @@ export default class Home extends BaseView {
 
         return (
             <View style={G_Style.appContentView} >
-                <ConfigView modalVisible={this.state.modalVisible} setModalVisible={this.setModalVisible}/>
+                {/*<ConfigView modalVisible={this.state.modalVisible} setModalVisible={this.setModalVisible}/>*/}
                 <MyBannerSwiper dataList={bannerList} {...this.props} />
                 <GameList dataList={gameList} gameModel={gameModel} playModel={playModel} userData={userData}/>
             </View>
@@ -77,7 +70,4 @@ export default class Home extends BaseView {
         })
     }
 
-    onLeftPressed() {
-        this.setState({modalVisible: true});
-    }
 }

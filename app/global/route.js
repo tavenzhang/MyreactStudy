@@ -44,6 +44,8 @@ import AgentInfoView from "../view/page/me/operatView/AgentInfoView";
 import AgentAssignMoneyView from "../view/page/me/operatView/AgentAssignMoneyView";
 import ARankView from "../view/page/me/operatView/agentinfo/ARankView";
 import AssignDetilView from "../view/page/me/operatView/agentAssign/AssignDetilView";
+import LinkListView from "../view/page/me/operatView/agentCreatUser/LinkListView";
+import LinkDetailView from "../view/page/me/operatView/agentCreatUser/LinkDetailView";
 
 // PushFromLeft
 // FloatFromRight
@@ -74,9 +76,10 @@ global.G_NavViews = {
     RecordAwardView: (data = {}) => pushView(RecordAwardView, data),
     RecordBetView: (data = {}) => pushView(RecordBetView, data),
     RecordChaseView: (data = {}) => pushView(RecordChaseView, data),
-    MoneyDetailView: (data = {}) => pushView(MoneyDetailView, data),
-    MoneyInView: (data = {}) => pushView(MoneyInView, data),
-    MoneyOuterView: (data = {}) => pushView(MoneyOuterView, data),
+    MoneyDetailView: (data = {}) => pushView(MoneyDetailView, {...data,title:"资金明细"}),
+    MoneyInView: (data = {}) => pushView(MoneyInView, {...data,title:"账户充值"}),
+    MoneyOuterView: (data = {}) => pushView(MoneyOuterView, {...data,title:"账户提现"}),
+    MoneyTransferView: (data) => pushView(MoneyTransferView,  {...data,title:"账户转账"}),
     PersonPwdView: (data = {}) => pushView(PersonPwdView, data),
     MoneyCardView: (data = {}) => pushView(MoneyCardView, data),
     PersonMailView: (data = {}) => pushView(PersonMailView, data),
@@ -114,10 +117,12 @@ global.G_NavViews = {
     ChaseDeatilView: (data) => pushView(ChaseDeatilView, data),
     MessageDetail: (data) => pushView(MessageDetail, data),
     NoticeDeailView: (data) => pushView(NoticeDeailView, data),
-    MoneyTransferView: (data) => pushView(MoneyTransferView, data),
+
     TrendView: (data) => pushView(TrendView, data),
     ARankView: (data = {}) => pushView(ARankView, data),
-    AssignDetilView:(data = {}) => pushView(AssignDetilView, data),
+    AssignDetilView:(data = {}) => pushView(AssignDetilView, {...data,title:"配额详情"}),
+    LinkListView:(data = {}) => pushView(LinkListView, {...data,title:"开户链接"}),
+    LinkDetailView:(data = {}) => pushView(LinkDetailView, {...data,title:"链接详情"}),
 }
 
 

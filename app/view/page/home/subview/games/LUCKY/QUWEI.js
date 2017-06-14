@@ -86,16 +86,25 @@ export default class QUWEI extends LUCKY {
 
         const me = this;
         me.setBallData(x, y, v)
-        TLog('daadada',data);
-        if(v==1){
-        this.currentGameWay = data;
-        this.clickMenuItem(this.currentGameWay);
+        TLog('daadada', data);
+        if (v == 1) {
+            this.currentGameWay = data;
+            this.clickMenuItem(this.currentGameWay);
             this.setState({selectItem: data.id});
         }
         const lotteryNums = me.getLottery();
         TLog('data', data);
         this.setState({lotterys: lotteryNums});
 
+    }
+
+//随机选一注
+    selectAutoOne() {
+        const {gameMethod} = this.state;
+        const me = this;
+        let len = gameMethod.length;
+        let i = Math.floor(Math.random() * len);
+        me.selectBall(i, 0, 1, gameMethod[i]);
     }
 
     setBallData(x, y, value) {

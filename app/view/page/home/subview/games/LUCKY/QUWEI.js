@@ -56,14 +56,11 @@ export default class QUWEI extends LUCKY {
         }
         //检查倍数
 
-        TLog('检查');
 
         let {multiple} = this.props;
         if (v != null) {
             multiple = v;
         }
-        TLog('multiple', multiple);
-        TLog('currentGameWay', this.currentGameWay);
 
         if (this.currentGameWay && this.currentGameWay.bet_max_amount > -1) {
             if (multiple > this.currentGameWay.bet_max_amount) {

@@ -20,16 +20,16 @@ export default class AgentSearchView extends React.Component {
         super(props)
         this.state = {
             modalVisible: true,
-            userNameText: "",
-            pickValue: null,
-            startDate:null,
-            endDate:null
+            username: "",
+            is_agent: null,
+            date_from:null,
+            date_to:null
         }
-        this.dateValidList = [{name: "所有玩家", value: 1},
-            {name: "自己", value: 11},
-            {name: "玩家", value: 7}, {
+        this.dateValidList = [{name: "所有玩家", value: ''},
+            {name: "玩家", value: 0},
+            {
             name: "代理",
-            value: 30
+            value: 1
         }]
     }
 
@@ -47,10 +47,9 @@ export default class AgentSearchView extends React.Component {
                                 <View style={{borderBottomWidth: 1, borderColor: "gray", marginRight: 20,}}>
                                     <TextInput
                                         style={styles.textStyle}
-                                        onChangeText={(userNameText) => this.setState({userNameText: userNameText})}
-                                        value={this.state.userNameText}
+                                        onChangeText={(username) => this.setState({username: username})}
+                                        value={this.state.username}
                                         placeholder={""}
-                                        secureTextEntry={true}
                                         multiline={false}
                                         underlineColorAndroid={'transparent'}
                                     />
@@ -61,9 +60,9 @@ export default class AgentSearchView extends React.Component {
                                 <Picker
                                     itemStyle={{fontSize: 13, height: 120}}
                                     mode={'dropdown'}
-                                    selectedValue={this.state.pickValue}
-                                    onValueChange={(data) => {
-                                        this.setState({pickValue: data})
+                                    selectedValue={this.state.is_agent}
+                                    onValueChange={(is_agent) => {
+                                        this.setState({is_agent: is_agent})
                                     }}>
                                     {
                                         this.dateValidList.map((item, index) => {
@@ -75,11 +74,11 @@ export default class AgentSearchView extends React.Component {
                             </View>
                         </View>
                         <View style={{flexDirection: "row", alignItems: "center"}}>
-                            <Text style={{marginRight: 5}}>注册时间:</Text>
-                            <MyDatePicker onDateSelect={(startDate)=>{
-                                this.setState({startDate})}}/>
+                            <Text style={{marginRight: 5}}>时间:</Text>
+                            <MyDatePicker onDateSelect={(date_from)=>{
+                                this.setState({date_from:date_from})}}/>
                             <Text style={{marginHorizontal: 10}}>至</Text>
-                            <MyDatePicker  onDateSelect={(endDate)=>{this.setState({endDate})}}/>
+                            <MyDatePicker  onDateSelect={(date_to)=>{this.setState({date_to:date_to})}}/>
                         </View>
                         <TouchableOpacity onPress={this.onFindConfirm}>
                             <View style={{
@@ -102,6 +101,7 @@ export default class AgentSearchView extends React.Component {
 
     //查询提交操作
     onFindConfirm = () => {
+        TLog('adfaf');
         let {hideViewHandle} = this.props
         if (hideViewHandle) {
             hideViewHandle({...this.state});

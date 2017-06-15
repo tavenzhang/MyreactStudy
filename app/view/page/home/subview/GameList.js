@@ -32,8 +32,6 @@ export  default class GameList extends React.Component {
                         newList.push(tempArr);
                     }
                     tempArr.push(dataList[i]);
-
-                
             }
         }
 

@@ -7,12 +7,13 @@ export default class Renxuan2 extends KENO {
 
     constructor(props) {
         super(props);
+        this.RandomArr = [];
 
     }
 
     //设置球排列
     setBalls = () => [
-        [-1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
@@ -39,6 +40,45 @@ export default class Renxuan2 extends KENO {
         }
         this.setState({isBallsComplete: false});
         return false;
+    }
+
+//随机选一注
+    selectAutoOne() {
+        const me = this;
+        let len = 0;
+        me.setRandomArr();
+       for(let j=0;j<2;j++){
+           let i=me.getRandomNum();
+           TLog('i=',i);
+           me.selectBall(i, 0, 1);
+       }
+    }
+
+    //设置可选择的随机数组
+    setRandomArr(num) {
+        let me = this,
+            balls = me.state.balls[0];
+        if (!!num) {
+            this.RandomArr.splice(num, 1);
+        } else {
+            this.RandomArr=[];
+            for(let i=1;i<balls.length;i++){
+                this.RandomArr.push(i);
+            }
+        }
+
+    }
+
+
+    //获取随机
+    getRandomNum() {
+        let me = this,
+            i = Math.floor(Math.random() *this.RandomArr.length);
+        return this.RandomArr[i-1];
+
+        me.setRandomArr(i-1);
+
+
     }
 
     //获取组合结果

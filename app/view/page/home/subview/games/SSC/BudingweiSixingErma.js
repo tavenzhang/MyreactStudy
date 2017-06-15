@@ -18,7 +18,16 @@ export default class BudingweiSixingErma extends SSC {
 
     //设置rowtitle
     setRowTitle = () => ['不定位'];
-
+    //随机选一注
+    selectAutoOne() {
+        const me = this;
+        let len = 0;
+        me.setRandomArr();
+        for(let j=0;j<2;j++){
+            let i=me.getRandomNum();
+            me.selectBall(i, 0, 1);
+        }
+    }
     checkBallIsComplete(){
         let me = this,
             ball = me.state.balls[0],

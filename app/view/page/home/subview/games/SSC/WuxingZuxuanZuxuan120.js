@@ -22,6 +22,17 @@ export default class WuxingZuxuanZuxuan120 extends SSC {
     //设置rowtitle
     setRowTitle = () => ['选球'];
 
+    //随机选一注
+    selectAutoOne() {
+        const me = this;
+        let len = 0;
+        me.setRandomArr();
+        //第一位
+        for (let j = 0; j < 5; j++) {
+            let i = me.getRandomNum();
+            me.selectBall(i, 0, 1);
+        }
+    }
     //并设置 isBallsComplete
     checkBallIsComplete(){
         const me = this;

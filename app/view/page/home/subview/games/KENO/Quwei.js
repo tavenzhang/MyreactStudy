@@ -55,9 +55,9 @@ export default class Quwei extends KENO {
             ball = me.state.balls,
             num = 0;
         for (let row in ball) {
-                if (ball[row].length>0) {
-                    num++;
-                }
+            if (ball[row].length > 0) {
+                num++;
+            }
 
         }
 
@@ -93,8 +93,6 @@ export default class Quwei extends KENO {
     }
 
 
-
-
     getResultData(lotterys) {
         const me = this;
         const {prize_group} = this.state;
@@ -116,7 +114,7 @@ export default class Quwei extends KENO {
             wayId: currentGameWay.id,
             ball: this.currentGameWay.valid_nums,
             viewBalls: this.currentGameWay.series_way_name,
-            num:1,
+            num: 1,
             prize_group: prize_group,
             onePrice: onePrice,
             moneyunit: moneyUnit,
@@ -141,13 +139,15 @@ export default class Quwei extends KENO {
     selectBall(x, y, v, data) {
         const me = this;
         me.setBallData(x, y, v)
-        this.currentGameWay = data;
-        this.clickMenuItem(data);
+        if (v == 1) {
+            this.currentGameWay = data;
+            this.clickMenuItem(data);
+            this.setState({selectItem: data.id});
 
+        }
         const lotteryNums = me.getLottery();
         TLog('lotteryNums----2', lotteryNums);
         this.setState({lotterys: lotteryNums});
-        this.setState({selectItem: data.id});
 
     }
 
@@ -178,6 +178,25 @@ export default class Quwei extends KENO {
         }
     }
 
+//随机选一注
+    selectAutoOne() {
+        const {gameMethod} = this.state;
+        const me = this;
+        let len =0;
+        let i = Math.floor(Math.random() * 20);
+
+        gameMethod[0]['children'].map((children,y)=>{
+            let clen=children.children.length;
+            for (let x=0; x < clen; x++) {
+                len++;
+                if (len == i) {
+                    me.selectBall(x, y, 1, gameMethod[0].children[y].children[x]);
+                }
+            }
+
+        //
+        })
+    }
     //获取组合结果
     getLottery() {
         let me = this,
@@ -185,7 +204,6 @@ export default class Quwei extends KENO {
             i = 0,
             len = ball.length,
             arr = [];
-        TLog('len', len);
 
         for (; i < len; i++) {
 
@@ -196,7 +214,6 @@ export default class Quwei extends KENO {
                 }
             }
         }
-        TLog('arr----1',arr);
         //校验当前的面板
         // //获取选中数字
         me.checkBallIsComplete()

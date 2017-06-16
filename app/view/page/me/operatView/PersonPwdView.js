@@ -4,7 +4,7 @@ import Button from "react-native-button";
 import AIcon from "react-native-vector-icons/FontAwesome";
 import BaseView from "../../../componet/BaseView";
 import connect from "react-redux/src/components/connect";
-import MySegmentedControlTab from "../../../componet/MySegmentedControlTab";
+import MySegmentedControlTab from "../../../componet/tcustom/TSegmentedControlTab";
 
 const mapStateToProps = state => {
     return {

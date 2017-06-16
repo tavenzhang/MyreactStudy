@@ -10,7 +10,6 @@ react-native run-android --variant=release
 
 react-native run-ios --configuration Release
 
-
 code-push release-react tcp-ios ios  --description '新版本测试'
 
 code-push release-react tcp-android android  -m true  --description '新版本测试'

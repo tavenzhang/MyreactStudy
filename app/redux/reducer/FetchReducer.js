@@ -2,13 +2,14 @@ import {fromJS} from 'immutable';
 const initFetchState = fromJS({
     requesting : false,
     fail: false,
-    success: true
+    success: true,
+    isModal:false
 })
 
 const fetchState = (state = initFetchState, action) => {
     switch (action.type){
         case ActionType.FetchType.FETCH_REQUEST :
-            return state.merge({requesting:true,fail:false,success:false});
+            return state.merge({requesting:true,fail:false,success:false,isModal:action.isModal});
         case ActionType.FetchType.FETCH_FAILED :
             return state.merge({requesting:false,fail:true,success:false});
         case ActionType.FetchType.FETCH_SUCCEED :

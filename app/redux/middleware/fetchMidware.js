@@ -26,8 +26,9 @@ function fetchMiddleware(extraArgument) {
             if (requestType == 'POST') {
                 let userData=getState().get("appState").get("userData");
                 requestData = requestData ? requestData:{};
-                if(userData.isLogined) {
-                    requestData.jsessionid = userData.jsessionid;
+
+                if(userData.get("isLogined")) {
+                    requestData.jsessionid = userData.get("data").get("jsessionid");
                 }
                 let {appState}=getState();
                 requestHeader.body = JSON.stringify(requestData);
@@ -50,7 +51,7 @@ function fetchMiddleware(extraArgument) {
                     else {
                         if (action.callback) {
                             try{
-                                action.callback(data)
+                                action.callback(data);
                             }
                             catch (err){
                                 TLog(`callback error<----------${action.url}:`,err);
@@ -62,8 +63,7 @@ function fetchMiddleware(extraArgument) {
                         }
                         if(data.Msg)//警告提示信息
                         {
-                            if(data.isSuccess)
-                            {
+                            if(data.isSuccess){
                                 next(ActionEnum.AppAct.showBox(data.Msg));
                             }
                             else{
@@ -81,7 +81,10 @@ function fetchMiddleware(extraArgument) {
                         }
                     }
                     //更改请求状态
-                    next(ActionEnum.FetchAct.noticeSuccess());
+                    if(!action.isHideHint)  {
+                        next(ActionEnum.FetchAct.noticeSuccess());
+                    }
+
                 })
                 .catch(e => {
                     let errorMsg = e.toString();

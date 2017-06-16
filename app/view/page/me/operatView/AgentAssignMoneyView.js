@@ -24,15 +24,12 @@ export default class AgentAssignMoneyView extends BaseView {
     constructor(props) {
         super(props);
         this.state = {
+            dataList:[],
             dataSource: new ListView.DataSource({
                 rowHasChanged: (r1, r2) => r1 !== r2,
-            }),
-            dataList: [{money: 1950, use: 10, unuse: 100, total: 888}, {
-                money: 1951,
-                use: 10,
-                unuse: 100,
-                total: 888
-            }, {money: 1952, use: 10, unuse: 100, total: 888}, {money: 1953, use: 10, unuse: 100, total: 888}]
+
+            },
+            ),
         }
     }
 
@@ -43,46 +40,50 @@ export default class AgentAssignMoneyView extends BaseView {
                 dataSource={ds}
                 renderHeader={this.renderHeadView}
                 renderRow={this.rendeRow}
-                //renderSeparator={this.renderSeparator}
+                enableEmptySections={true}
             />
         </View>)
     }
 
     componentDidMount() {
         G_RunAfterInteractions(()=>{
-            HTTP_SERVER.AgentAssinList.body.username = this.props.userData.data.username;
-            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentAssinList)
+            //this.props.userData.data.username;
+            HTTP_SERVER.AgentAssinList.body.username = "";
+            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentAssinList,(data)=>{
+                let dataList=[];
+                let obj = data.data.quotas;
+                for(let key in obj){
+                    let temp = obj[key];
+                    dataList.push(temp);
+                }
+                this.setState({dataList:dataList})
+            })
         })
     }
 
-    // renderSeparator=()=>{
-    //     return (<View style={{backgroundColor:'red', height:1}}>
-    //             </View>)
-    // }
     renderHeadView = () => {
         return (<View style={{flexDirection: "row"}}>
-            <Text style={[styles.headText, {flex: 2}]}>我的高点配额</Text>
-            <Text style={[styles.headText, {borderLeftWidth: 0}]}>已用</Text>
-            <Text style={[styles.headText, {borderLeftWidth: 0}]}>未用</Text>
-            <Text style={styles.headText}>总量</Text>
-            <Button containerStyle={[styles.btnCpStyle,{paddingVertical: 15}]} onPress={() => {
-                this.clickDetailBtn({name:"全情"})
-            }}><Text style={[styles.btnText,{fontWeight:"bold",}]}>全配</Text></Button>
+            <Text style={[styles.headView, {flex: 2}]}>我的高点配额</Text>
+            <Text style={[styles.headView, {borderLeftWidth: 0}]}>已用</Text>
+            <Text style={[styles.headView, {borderLeftWidth: 0}]}>未用</Text>
+            <Text style={styles.headView}>总量</Text>
+            <Button style={[styles.btnText,{fontWeight:"bold"}]} containerStyle={[styles.btnCpStyle,{paddingVertical: 15}]} onPress={() => {
+                this.clickDetailBtn({prize_group:""})
+            }}>全配</Button>
         </View>)
     }
 
     rendeRow = (data) => {
         return (<View style={{flexDirection: "row"}}>
-            <Text style={[styles.contentText, {flex: 2}]}>{data.money}</Text>
-            <Text style={[styles.contentText, {borderLeftWidth: 0}]}>{data.use}</Text>
-            <Text style={[styles.contentText, {borderLeftWidth: 0}]}>{data.unuse}</Text>
-            <Text style={styles.contentText}>{data.total}</Text>
-            <Button containerStyle={styles.btnCpStyle} onPress={() => {
+            <Text style={[styles.contentView, {flex: 2}]}>{data.prize_group}</Text>
+            <Text style={[styles.contentView, {borderLeftWidth: 0}]}>{data.used_num}</Text>
+            <Text style={[styles.contentView, {borderLeftWidth: 0}]}>{data.limit_num - data.used_num}</Text>
+            <Text style={styles.contentView}>{data.limit_num}</Text>
+            <Button style={styles.btnText} containerStyle={styles.btnCpStyle} onPress={() => {
                 this.clickDetailBtn(data)
-            }}><Text style={styles.btnText}>配额</Text></Button>
+            }}>配额</Button>
         </View>)
     }
-
 
     clickDetailBtn = (data) => {
         G_NavUtil.pushToView(G_NavViews.AssignDetilView(data));
@@ -90,7 +91,7 @@ export default class AgentAssignMoneyView extends BaseView {
 
 }
 const styles = StyleSheet.create({
-    headText: {
+    headView: {
         padding: 10,
         paddingVertical: 15,
         backgroundColor: "rgb(241, 241, 241)",
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "bold"
     },
-    contentText: {
+    contentView: {
         padding: 10,
         flex: 1,
        borderWidth: 1,
@@ -117,6 +118,7 @@ const styles = StyleSheet.create({
     btnText:{
         color:"blue",
         textAlign: "center",
-        borderBottomWidth:1
+        borderBottomWidth:1,
+        fontSize:14
     }
 })

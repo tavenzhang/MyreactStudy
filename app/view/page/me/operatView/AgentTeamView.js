@@ -58,7 +58,6 @@ export default class AgentTeamView extends BaseView {
     }
     _getSource(searchData) {
         TLog("HTTP_SERVER------------------------------------", HTTP_SERVER.AgentProfit);
-
         G_RunAfterInteractions(() => {
             HTTP_SERVER.AgentTeamUser.body.page = 1;
             HTTP_SERVER.AgentTeamUser.body.pagesize = 15;

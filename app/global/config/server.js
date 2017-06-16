@@ -218,9 +218,9 @@ global.HTTP_SERVER = {
     AgentUserLinkDetail: {url: "",formatUrl:"/mobile-agent/user-links/view/#id", method: METHOD_POST},
 
     //高点配额
-    AgentAssinList: {url: "/mobile-agent/my-overlimit-quotas/index", method: METHOD_POST,body:{username:""}},
-    AgentAssinPerson: {url: "/mobile-agent/my-overlimit-quotas/get-quota-and-history", method: METHOD_POST,body:{username:""}},
-    AgentAssinChange:{url: "/mobile-agent/my-overlimit-quotas/save", method: METHOD_POST,body:{prize_group:"",user_id:"",username:"",plus_num:"",subtract_num:""}},
+    AgentAssinList: {url: "/mobile-agent/my-overlimit-quotas/index", method: METHOD_POST,body:{username:"",prize_group:""}},
+    AgentAssinPerson: {url: "/mobile-agent/my-overlimit-quotas/get-quota-and-history", method: METHOD_POST,body:{user_id:"",prize_group:""}},
+    AgentAssinChange:{url: "/mobile-agent/my-overlimit-quotas/save", method: METHOD_POST,body:{prize_group:"",user_id:"",username:"",plus_num:"",subtract_num:"",note:""}},
     //获取团队用户数据
     AgentTeamUser: {url: "/mobile-agent/users", method: METHOD_POST,body:{page:0}},
     //盈亏报表

@@ -8,8 +8,8 @@ import {
     TouchableOpacity,
 
 } from 'react-native';
-import MyDatePicker from "../../../../componet/MyDatePicker";
-import MyModalView from "../../../../componet/MyModalView";
+import MyDatePicker from "../../../../componet/tcustom/date/TDatePicker";
+import MyModalView from "../../../../componet/tcustom/modal/TModalView";
 export default class AgentFindView extends React.Component{
     static propTypes={
         visible:PropTypes.bool,
@@ -48,6 +48,7 @@ export default class AgentFindView extends React.Component{
                                         placeholder={""}
                                         multiline={false}
                                         underlineColorAndroid={'transparent'}
+                                        autoCapitalize={"none"}
                                     />
                                 </View>
                             </View>

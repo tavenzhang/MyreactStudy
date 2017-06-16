@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 
 
-export default class AutoHideKeyBoardView extends React.Component {
+export default class AutoHideKeyBoardView extends React.PureComponent {
 
     render() {
         return (

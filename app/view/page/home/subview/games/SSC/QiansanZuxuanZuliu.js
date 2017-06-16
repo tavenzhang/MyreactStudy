@@ -17,7 +17,16 @@ export default class QiansanZuxuanZuliu extends SSC {
 
     //设置rowtitle
     setRowTitle = () => ['组六'];
-
+    //随机选一注
+    selectAutoOne() {
+        const me = this;
+        let len = 0;
+        me.setRandomArr();
+        for(let j=0;j<3;j++){
+            let i=me.getRandomNum();
+            me.selectBall(i, 0, 1);
+        }
+    }
     //并设置 isBallsComplete
     checkBallIsComplete(){
         const me = this;

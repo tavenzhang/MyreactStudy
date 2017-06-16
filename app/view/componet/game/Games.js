@@ -113,7 +113,32 @@ export default class Games extends Component {
         }
         return false;
     }
+//设置随机选球
+    setRandomArr(num) {
+        let me = this,
+            balls = me.state.balls[0];
+        if (num!=undefined) {
+            this.RandomArr.splice(num, 1);
+        } else {
+            this.RandomArr = [];
+            for (let i = 0; i < balls.length; i++) {
+                this.RandomArr.push(i);
+            }
+        }
+    }
 
+    //获取随机
+    getRandomNum() {
+        let me = this,
+            i = Math.floor(Math.random() * this.RandomArr.length);
+        let Num = this.RandomArr[i];
+        TLog('IIII=', i);
+        TLog('this.RandomArr=', this.RandomArr);
+        TLog('this.RandomArr=', this.RandomArr[i]);
+
+        me.setRandomArr(i);
+        return Num;
+    }
     //选球操作
     ballSelectActions(action, irow, si) {
         const me = this;

@@ -15,7 +15,16 @@ export default class HousanZuxuanZusan extends SSC {
     setBalls = () => [
         [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
     ];
-
+    //随机选一注
+    selectAutoOne() {
+        const me = this;
+        let len = 0;
+        me.setRandomArr();
+        for(let j=0;j<2;j++){
+            let i=me.getRandomNum();
+            me.selectBall(i, 0, 1);
+        }
+    }
     //设置rowtitle
     setRowTitle = () => ['组三'];
 

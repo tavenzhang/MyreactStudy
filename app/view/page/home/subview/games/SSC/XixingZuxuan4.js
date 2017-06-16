@@ -19,6 +19,18 @@ export default class XixingZuxuan4 extends SSC {
     //设置rowtitle
     setRowTitle = () => ['三重号','单号'];
 
+//随机选一注
+    selectAutoOne() {
+        const me = this;
+        let len = 0;
+        me.setRandomArr();
+        for(let j=0;j<2;j++){
+            let i=me.getRandomNum();
+            me.selectBall(i, j, 1);
+        }
+    }
+
+
     checkBallIsComplete(){
         let me = this,
             ball = me.state.balls,

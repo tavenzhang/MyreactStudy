@@ -20,28 +20,19 @@ export default class WuxingZuxuanZuxuan5 extends SSC {
     //设置rowtitle
     setRowTitle = () => ['四重号', '单号'];
 
+
 //随机选一注
     selectAutoOne() {
-        const {balls} = this.state;
         const me = this;
-        //第一位
-        let len2 = balls[0].length;
-        let i = Math.floor(Math.random() * len2);
-        me.selectBall(i, 0, 1);
-
-        //第二位
-        let len = balls[1].length;
-        let j = Math.floor(Math.random() * len);
-        //不重复
-        if (j == i) {
-            if (j + 1 >= len) {
-                j--;
-            }
-            j++;
+        let len = 0;
+        me.setRandomArr();
+        for(let j=0;j<2;j++){
+            let i=me.getRandomNum();
+            me.selectBall(i, j, 1);
         }
-        me.selectBall(j, 1, 1);
-
     }
+
+
 
     //并设置 isBallsComplete
     checkBallIsComplete() {

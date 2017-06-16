@@ -18,7 +18,16 @@ export default class QianerZhixuanFushi extends KL10 {
 
     //设置rowtitle
     setRowTitle = () => ['一位','二位'];
-
+//随机选一注
+    selectAutoOne() {
+        const me = this;
+        me.setRandomArr();
+        //第一位
+        for (let j = 0; j < 2; j++) {
+            let i = me.getRandomNum();
+            me.selectBall(i, j, 1);
+        }
+    }
     checkBallIsComplete() {
         const me = this;
         const ball = this.state.balls;

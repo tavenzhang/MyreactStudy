@@ -17,7 +17,16 @@ export default class SanxingZuxuanZuliu extends D3 {
 
     //设置rowtitle
     setRowTitle = () => ['组六'];
-
+//随机选一注
+    selectAutoOne() {
+        const me = this;
+        me.setRandomArr();
+//第二位
+        for (let j = 0; j < 3; j++) {
+            let i = me.getRandomNum();
+            me.selectBall(i, 0, 1);
+        }
+    }
     //并设置 isBallsComplete
     checkBallIsComplete(){
         const me = this;

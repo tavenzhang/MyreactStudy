@@ -29,6 +29,17 @@ export default class ErtonghaoDanxuan extends K3 {
     //设置rowtitle
     setRowTitle = () => ['同号','不同号'];
 
+    //随机选一注
+    selectAutoOne() {
+        const me = this;
+        const {balls} = this.state;
+        let len =  balls.length;
+        me.setRandomArr();
+        for (let j = 0; j <len; j++) {
+            let i = me.getRandomNum();
+            me.selectBall(i, j, 1);
+        }
+    }
     checkBallIsComplete(){
         let me = this,
             ball = me.state.balls,

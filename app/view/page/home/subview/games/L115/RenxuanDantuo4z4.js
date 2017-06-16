@@ -19,7 +19,20 @@ export default class RenxuanDantuo4z4 extends L115 {
 
     //设置rowtitle
     setRowTitle = () => ['胆码','拖码'];
-
+//随机选一注
+    selectAutoOne() {
+        const me = this;
+        const {balls} = this.state;
+        me.setRandomArr();
+        //第一位
+        let i1=me.getRandomNum();
+        me.selectBall(i1, 0, 1);
+//第二位
+        for (let j = 0; j < 3; j++) {
+            let i=me.getRandomNum();
+            me.selectBall(i, 1, 1);
+        }
+    }
     setBallData(x, y, value) {
         const me = this;
         const data = me.state.balls;

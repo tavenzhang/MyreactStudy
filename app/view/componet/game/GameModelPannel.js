@@ -28,24 +28,14 @@ export default class GameModelPannel extends Component {
     showMoneyUnit(moneyUnit) {
         return ( <MoneyUnit moneyMode={moneyUnit}/>)
     }
-//清空
-    showCleanBall(cleanBall) {
-        return ( <CleanBalls cleanBall={cleanBall}/>)
-
-    }
-//机选一注
-    showSelectAutoOne(selectAutoOne) {
-        return ( <SelectAutoOne selectAutoOne={selectAutoOne}/>)
-
-    }
 
     render() {
         const me = this;
-        const {moneyUnit, multiple, maxMultiple, isShowMoneyUnit, checkBallIsComplete, isSelectBalls, cleanBall, selectAutoOne} = this.props;
+        const {moneyUnit, multiple, maxMultiple, isShowMoneyUnit, checkBallIsComplete, cleanBall, randomSelct} = this.props;
         return (
             <View style={styles.moneyOperateBox}>
-                {isSelectBalls ? me.showCleanBall(cleanBall) : null}
-                {!isSelectBalls ? me.showSelectAutoOne(selectAutoOne) : null}
+                {/*<CleanBalls cleanBall={cleanBall}/>*/}
+                <SelectAutoOne randomSelct={randomSelct}/>
                 <MultipleBtnGrounp multiple={multiple} maxMultiple={maxMultiple}
                                    checkBallIsComplete={checkBallIsComplete}/>
                 {isShowMoneyUnit ? me.showMoneyUnit(moneyUnit) : null}

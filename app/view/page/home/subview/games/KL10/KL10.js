@@ -19,6 +19,7 @@ export default class KL10 extends Games {
         super(props);
         this.state.rowBallNumber = 5; //一行几个球
         this.lastSelectBallIndex = -1;
+        this.ballFirstStart=1;
     }
 
     //设置BallText

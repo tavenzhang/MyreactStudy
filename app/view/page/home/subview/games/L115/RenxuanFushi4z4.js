@@ -17,7 +17,16 @@ export default class RenxuanFushi4z4 extends L115 {
 
     //设置rowtitle
     setRowTitle = () => ['选球'];
-
+    //随机选一注
+    selectAutoOne() {
+        const me = this;
+        const {balls} = this.state;
+        me.setRandomArr();
+        for (let j = 0; j < 4; j++) {
+            let i=me.getRandomNum();
+            me.selectBall(i, 0, 1);
+        }
+    }
     checkBallIsComplete() {
         let me = this,
             ball = me.state.balls[0],

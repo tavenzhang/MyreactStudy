@@ -18,7 +18,17 @@ export default class QianerZhixuanFushi extends PK10 {
 
     //设置rowtitle
     setRowTitle = () => ['冠军','亚军'];
-
+    //随机选一注
+    selectAutoOne() {
+        const me = this;
+        const {balls} = this.state;
+        me.setRandomArr();
+        let len = balls.length;
+        for (let j = 0; j < len; j++) {
+            let i = me.getRandomNum();
+            me.selectBall(i, j, 1);
+        }
+    }
     checkBallIsComplete() {
         const me = this;
         const ball = this.state.balls;

@@ -13,6 +13,7 @@ import GameControlPannel from "./GameControlPannel";
 import GameModelPannel from "./GameModelPannel";
 import GamePriceModelPannel from "./GamePriceModelPannel";
 import BallOperateBtn from "./BallOperateBtn";
+import RNShakeEvent from 'react-native-shake-event';
 
 export default class Games extends Component {
     constructor(props) {
@@ -36,6 +37,7 @@ export default class Games extends Component {
                 isSelect: false,
                 rowBallNumber: 5, //一行几个球
             };
+        this.RandomArr = [];
         this.ballSpecialTitle = [];
         this.ballFirstStart = 0;
         this.isShowMoneyUnit = true;
@@ -56,6 +58,7 @@ export default class Games extends Component {
         this.beforeAddBallsToBasket = this.beforeAddBallsToBasket.bind(this);
         this.clearAllBall = this.clearAllBall.bind(this);
         this.selectAutoOne = this.selectAutoOne.bind(this);
+        this.randomSelct = this.randomSelct.bind(this);
     }
 
     componentWillMount() {
@@ -65,8 +68,15 @@ export default class Games extends Component {
             ballText: me.setBallText(),
             balls: me.setBalls()
         });
+        RNShakeEvent.addEventListener('shake', () => {
+            me.randomSelct();
+        });
     }
 
+
+    componentWillUnmount() {
+        RNShakeEvent.removeEventListener('shake');
+    }
     //设置球排列
     setBalls = () => [];
 
@@ -88,40 +98,50 @@ export default class Games extends Component {
 
 
     }
+//随机选球
+    randomSelct() {
+        //如果有选球先清空
+        if (this.checkIsSelectBall()) {
+            this.clearAllBall();
+        }
+        this.selectAutoOne();
+    }
 
-//随机选一注
+    //随机选一注
     selectAutoOne() {
-        const {balls} = this.state;
         const me = this;
-        for (let j = 0; j < balls.length; j++) {
+        const {balls} = this.state;
 
-            let len2=balls[j].length;
-            let i=Math.floor( Math.random()*len2) ;
-
+        let len = balls.length;
+        for (let j = 0; j < len; j++) {
+            me.setRandomArr(undefined, j);
+            let i = me.getRandomNum();
             me.selectBall(i, j, 1);
         }
     }
+
 //是否有选球
     checkIsSelectBall() {
         const {balls} = this.state;
         for (let j = 0; j < balls.length; j++) {
             for (let i = 0; i < balls[j].length; i++) {
-               if(balls[j][i]>-1){
-                   return true;
-               }
+                if (balls[j][i] > -1) {
+                    return true;
+                }
             }
         }
         return false;
     }
+
 //设置随机选球
-    setRandomArr(num) {
+    setRandomArr(num = undefined, row = 0) {
         let me = this,
-            balls = me.state.balls[0];
-        if (num!=undefined) {
+            balls = me.state.balls[row];
+        if (num != undefined) {
             this.RandomArr.splice(num, 1);
         } else {
             this.RandomArr = [];
-            for (let i = 0; i < balls.length; i++) {
+            for (let i = this.ballFirstStart; i < balls.length; i++) {
                 this.RandomArr.push(i);
             }
         }
@@ -139,6 +159,7 @@ export default class Games extends Component {
         me.setRandomArr(i);
         return Num;
     }
+
     //选球操作
     ballSelectActions(action, irow, si) {
         const me = this;
@@ -525,8 +546,7 @@ export default class Games extends Component {
                             moneyUnit={moneyUnit}
                             multiple={multiple}
                             cleanBall={this.clearAllBall}
-                            selectAutoOne={this.selectAutoOne}
-                            isSelectBalls={this.checkIsSelectBall()}
+                            randomSelct={this.randomSelct}
                             checkBallIsComplete={this.checkBallIsComplete}
                             isShowMoneyUnit={this.isShowMoneyUnit}
                             maxMultiple={currentGameWay.max_multiple}

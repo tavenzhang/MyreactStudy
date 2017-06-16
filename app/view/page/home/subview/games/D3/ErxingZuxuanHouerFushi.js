@@ -17,7 +17,16 @@ export default class ErxingZuxuanHouerFushi extends D3 {
 
     //设置rowtitle
     setRowTitle = () => ['组选'];
-
+//随机选一注
+    selectAutoOne() {
+        const me = this;
+        me.setRandomArr();
+//第二位
+        for (let j = 0; j < 2; j++) {
+            let i = me.getRandomNum();
+            me.selectBall(i, 0, 1);
+        }
+    }
     getLottery(isGetNum){
         let me = this,
             data = me.state.balls[0],

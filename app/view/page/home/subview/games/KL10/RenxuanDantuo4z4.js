@@ -19,7 +19,19 @@ export default class RenxuanDantuo4z4 extends KL10 {
 
     //设置rowtitle
     setRowTitle = () => ['胆码','拖码'];
-
+//随机选一注
+    selectAutoOne() {
+        const me = this;
+        me.setRandomArr();
+        //第一位
+        let i = me.getRandomNum();
+        me.selectBall(i, 0, 1);
+        //第二位
+        for (let j = 0; j < 3; j++) {
+            let i = me.getRandomNum();
+            me.selectBall(i, 1, 1);
+        }
+    }
     setBallData(x, y, value) {
         const me = this;
         const data = me.state.balls;

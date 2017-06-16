@@ -19,10 +19,21 @@ export default class L115 extends Games {
         super(props);
         this.state.rowBallNumber = 6; //一行几个球
         this.lastSelectBallIndex = -1;
+        this.ballFirstStart=1;
     }
     //设置BallText
     setBallText = () => [0,1,2,3,4,5,6,7,8,9,10,11];
 
+    //随机选一注
+    selectAutoOne() {
+        const me = this;
+        const {balls} = this.state;
+        me.setRandomArr();
+        for (let j = 0; j < balls.length; j++) {
+            let i=me.getRandomNum();
+            me.selectBall(i, j, 1);
+        }
+    }
     setBallData(x, y, value) {
 
         const me = this;

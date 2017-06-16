@@ -23,10 +23,10 @@ export default class SelectAutoOne extends React.Component {
     render() {
 
         const me = this;
-        const {selectAutoOne} = this.props;
+        const {randomSelct} = this.props;
 
         return (
-            <TouchableOpacity onPress={() => selectAutoOne()}>
+            <TouchableOpacity onPress={() => randomSelct()}>
 
                 <View  style={styles.multipleBtnGrounps}>
 

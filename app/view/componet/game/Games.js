@@ -7,7 +7,7 @@ import {
     Text,
     ScrollView,
     StyleSheet,
-    VibrationIOS,
+    Vibration,
 } from 'react-native';
 import Ball from "./Ball";
 import GameControlPannel from "./GameControlPannel";
@@ -73,10 +73,9 @@ export default class Games extends Component {
         });
         RNShakeEvent.addEventListener('shake', () => {
             me.randomSelcet();
-            VibrationIOS.vibrate();
+            Vibration.vibrate();
         });
     }
-
 
     componentWillUnmount() {
         RNShakeEvent.removeEventListener('shake');

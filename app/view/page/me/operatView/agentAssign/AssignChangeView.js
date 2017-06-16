@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 import BaseView from "../../../../componet/BaseView";
-import {TProxyButton} from "../../../../componet/tcustom/button/TButton";
+import {TButtonProxy} from "../../../../componet/tcustom/button/TButton";
 
 export default class AssignChangeView extends BaseView {
 
@@ -97,7 +97,7 @@ export default class AssignChangeView extends BaseView {
                     underlineColorAndroid={'transparent'}
                 />
             </View>
-            <TProxyButton disable={!this.state.isChange}
+            <TButtonProxy disable={!this.state.isChange}
                           containerStyle={{width: G_Theme.windowWidth * 2 / 3, alignSelf: "center", marginBottom: 10}}
                           onPress={this._onClickChange} btnName={"确认修改"}/>
 

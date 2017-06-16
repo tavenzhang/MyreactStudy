@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 
 import BaseView from "../../../../componet/BaseView";
-import {TProxyButton} from "../../../../componet/tcustom/button/TButton";
+import {TButtonProxy} from "../../../../componet/tcustom/button/TButton";
 import {TTextInput} from "../../../../componet/tcustom/textInput/TTextInput";
 
 
@@ -49,7 +49,7 @@ export default class AssignDetilView extends BaseView {
                             viewStyle={{borderBottomWidth:1, marginHorizontal:10, borderColor:"gray"}}
                             style={styles.textStyle}
                             placeholder={"检索用户名"} onChangeText={(userName) => this.setState({userName})} />
-                <TProxyButton btnName='搜索'
+                <TButtonProxy btnName='搜索'
                               containerStyle={{paddingHorizontal: 10, borderRadius: 5}}
                               onPress={this._onSearchBtn}/>
             </View>
@@ -89,7 +89,7 @@ export default class AssignDetilView extends BaseView {
             {
                 data.groupList.map((item, index) => {
                     return (<View style={[styles.contentView]} key={index}>
-                        {item.editable ? <TProxyButton containerStyle={{paddingHorizontal: 8, borderRadius: 5}}
+                        {item.editable ? <TButtonProxy containerStyle={{paddingHorizontal: 8, borderRadius: 5}}
                                                        onPress={() => this._onClikGroupBtn(item, data)}
                                                        textStyle={styles.contentText} btnName={item.value}/>
                             : <Text style={styles.contentText}>{item.value}</Text> }

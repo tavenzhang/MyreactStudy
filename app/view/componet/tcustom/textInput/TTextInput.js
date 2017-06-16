@@ -15,11 +15,13 @@ export class TTextInput extends React.Component {
         style: PropTypes.any,
         viewStyle:PropTypes.any,
         multiline:PropTypes.bool,
-        keyboardType:PropTypes.string
+        keyboardType:PropTypes.string,
+        secureTextEntry:PropTypes.bool,
+        autoFocus:PropTypes.bool,
     }
 
     render() {
-        const {placeholder, style, viewStyle ,onChangeText,multiline,keyboardType,value} = this.props;
+        const {placeholder, style, autoFocus, viewStyle,secureTextEntry,onChangeText,multiline,keyboardType,value} = this.props;
         return (
             <View style={viewStyle}>
                 <TextInput
@@ -28,9 +30,11 @@ export class TTextInput extends React.Component {
                     value={value}
                     placeholder={placeholder}
                     multiline={multiline ? multiline : false}
+                    autoFocus={autoFocus ? autoFocus :false}
                     autoCapitalize={"none"}
                     keyboardType={keyboardType ? keyboardType :"default"}
                     underlineColorAndroid={'transparent'}
+                    secureTextEntry={secureTextEntry ? secureTextEntry:false}
                 />
             </View>)
     }
@@ -40,13 +44,8 @@ const styles = StyleSheet.create({
     textStyle: {
         width: 150,
         fontSize: 14,
-        height:G_Theme.textInpuntH
+        height:G_Theme.textInpuntH,
     },
 
-    loadingTitle: {
-        marginTop: 10,
-        fontSize: 14,
-        color: 'white'
-    }
 })
 

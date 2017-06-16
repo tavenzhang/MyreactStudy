@@ -3,7 +3,6 @@
  */
 import React, {PropTypes} from 'react';
 import {
-    View,
     Text,
     StyleSheet,
 } from 'react-native';
@@ -11,7 +10,7 @@ import {
 import AIcon from 'react-native-vector-icons/FontAwesome';
 import Button from "react-native-button";
 
-export class TProxyButton extends React.PureComponent {
+export class TButtonProxy extends React.PureComponent {
 
     static propTypes={
         btnName:PropTypes.any,
@@ -34,3 +33,26 @@ export class TProxyButton extends React.PureComponent {
     }
 }
 
+
+export class TButton extends React.Component {
+
+    static propTypes={
+        btnName:PropTypes.string,
+        onPress:PropTypes.func,
+        disable:PropTypes.bool,
+        containerStyle:PropTypes.any,
+        textStyle:PropTypes.any,
+        disabledStyle:PropTypes.any,
+    }
+
+    render() {
+        const {containerStyle,onPress, btnName,textStyle,disabledStyle,disable} = this.props;
+        return (
+            <Button containerStyle={[{
+                backgroundColor: disable ? "gray":`#d7213c`, borderRadius: 5,
+                paddingVertical: 5,paddingHorizontal: 5, alignItems:"center"
+            },containerStyle]}  disabled={disable}  style={[{fontSize: 14, color: "white", textAlign:"center"},textStyle]} styleDisabled={[{backgroundColor:"gray", color:"white"},disabledStyle]} onPress={onPress}>
+                {btnName}
+            </Button>)
+    }
+}

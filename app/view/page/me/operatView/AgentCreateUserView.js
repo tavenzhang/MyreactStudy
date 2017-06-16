@@ -4,9 +4,6 @@ import {
     View,
     Text, StyleSheet,
     Switch,
-    TextInput,
-    Slider,
-    Picker
 } from 'react-native';
 
 import {connect} from 'react-redux';
@@ -15,6 +12,7 @@ import CreateHumanView from "./agentCreatUser/CreateHumanView";
 import CreateLinkView from "./agentCreatUser/CreateLinkView";
 import {NavRightLink} from "../../../componet/navBarMenu/HeaderMenu";
 import MySegmentedControlTab from "../../../componet/tcustom/TSegmentedControlTab";
+
 const mapStateToProps = state => {
     return {
         // gameModel:state.get("appState").get("gameModel"),
@@ -31,7 +29,6 @@ export default class AgentCreateUserView extends BaseView {
             groupDate:null,
             linkGroupDate:null,
         };
-
     }
 
     getNavigationBarProps() {

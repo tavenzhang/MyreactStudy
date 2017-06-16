@@ -14,7 +14,6 @@ export default class Loading extends React.Component {
         isModal: PropTypes.bool
     }
 
-
     render() {
         let {visible, isModal} = this.props
 

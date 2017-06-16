@@ -2,22 +2,23 @@ import React from 'react';
 import {
     View
     , StyleSheet,
-    TextInput,
-    Alert
+
 } from 'react-native';
 
 import AIcon from 'react-native-vector-icons/FontAwesome';
-import Button from 'react-native-button';
+
 import md5 from "react-native-md5";
 import BaseView from "../../../componet/BaseView";
+import {TTextInput} from "../../../componet/tcustom/textInput/TTextInput";
+import {TButton} from "../../../componet/tcustom/button/TButton";
 
 export default class LoginView extends BaseView {
 
     constructor(props) {
         super(props);
         this.state = {
-            nameText: null,
-            pwdText: null
+            nameText: "",
+            pwdText: ""
         };
         G_MyStorage.getItem(G_EnumStroeKeys.USRTNAME, (data) => {
             this.setState({nameText: data});
@@ -39,55 +40,31 @@ export default class LoginView extends BaseView {
                     <View
                         style={styles.inputContain}>
                         <AIcon name="user-o" style={styles.iconUser}/>
-                        <TextInput
-                            style={styles.textStyle}
-                            autoCapitalize="none"
-                            onChangeText={(nameText) => this.setState({nameText:nameText})}
-                            value={this.state.nameText}
-                            placeholder={"输入账号"}
-                            autoFocus={true}
-                            underlineColorAndroid={'transparent'}
-                        />
+                        <TTextInput    placeholder={"输入账号"}
+                                       autoFocus={true}
+                                       value={this.state.nameText}
+                                       onChangeText={(nameText) => this.setState({nameText})}
+                                    />
                     </View>
                     <View style={styles.inputContain}>
                         <AIcon name="lock" style={styles.icoPwd}/>
-                        <TextInput
-                            style={styles.textStyle}
-                            onChangeText={(pwdText) => this.setState({pwdText:pwdText})}
-                            value={this.state.pwdText}
-                            placeholder={"密码"}
-                            secureTextEntry={true}
-                            multiline={false}
-                            underlineColorAndroid={'transparent'}
-                        />
+                        <TTextInput    placeholder={"输入密码"}
+                                       secureTextEntry={true}
+                                       value={this.state.pwdText}
+                                       onChangeText={(pwdText) => this.setState({pwdText})}/>
                     </View>
-                    <Button
-                        containerStyle={{padding:5,margin: 10,  overflow:'hidden', borderRadius:3, backgroundColor: '#d7213c'}}
-                        style={{ fontSize: 14,color:"white"}}
-                        styleDisabled={{color: '#fff'}}
-                        onPress={this.clickLogin}>
-                        登陆
-                    </Button>
+                    <TButton containerStyle={{padding:5,margin: 20}} btnName={"登陆"} onPress={this.clickLogin}/>
                 </View>
             </View>
         );
     }
 
-    componentDidMount() {
-
-    }
-
-
-
-    componentWillUnmount() {
-       // TLog("LoginView----------------componentWillUnmount")
-    }
 
     clickLogin = () => {
         if (!this.state.nameText) {
-            Alert.alert("账号不能为空", "请输入有效的账号");
+            G_AlertUtil.show("账号不能为空", "请输入有效的账号");
         } else if (!this.state.pwdText) {
-            Alert.alert("密码不能为空", "请输入有效的密码");
+            G_AlertUtil.show("密码不能为空", "请输入有效的密码");
         }
         else {
             let bodyData = HTTP_SERVER.LOGIN_IN.body;
@@ -108,19 +85,15 @@ export default class LoginView extends BaseView {
 }
 
 const styles = StyleSheet.create({
-    textStyle: {
-        width: 150,
-        left: 10,
-        fontSize: 14,
-        height:G_Theme.textInpuntH
-    },
     iconUser: {
         color: G_Theme.grayDeep,
         fontSize: 18,
+        marginRight:10
     },
     icoPwd: {
         color: G_Theme.grayDeep,
         fontSize: 20,
+        marginRight:10
     },
     inputContain: {
         paddingBottom: 5,

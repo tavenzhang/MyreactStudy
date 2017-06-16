@@ -8,7 +8,8 @@ import {
 
 import Button from "react-native-button";
 import {TSlider} from "../../../../componet/tcustom/slider/TSlider";
-import {TProxyButton} from "../../../../componet/tcustom/button/TButton";
+import {TButtonProxy} from "../../../../componet/tcustom/button/TButton";
+import {TTextInput} from "../../../../componet/tcustom/textInput/TTextInput";
 
 export default class CreateHumanView extends React.Component {
     static propTypes = {
@@ -50,7 +51,7 @@ export default class CreateHumanView extends React.Component {
                 this.curGroupValue = maxGroup;
             }
             else {
-                this.curGroupValue = this.state.groundValue;
+                this.curGroupValue = parseInt(this.state.groundValue);
             }
             //百家乐奖金组调整
             if (this.state.groudBacValue < minBacGroup) {
@@ -71,24 +72,22 @@ export default class CreateHumanView extends React.Component {
                 <View style={styles.itemSp}>
                     <Text style={{textAlign: "right"}}>设置账号信息</Text>
                     <View>
-                        <TextInput
-                            style={styles.textStyle}
-                            onChangeText={(userNameText) => this.setState({userNameText})}
-                            value={this.state.userNameText}
-                            placeholder={"设置登录账户"}
-                            multiline={false}
-                            underlineColorAndroid={'transparent'}
-                            autoCapitalize={"none"}
+                        <TTextInput value={this.state.userNameText}
+                                    style={styles.textStyle}
+                                    placeholder={"设置登录账户"}
+                                    onChangeText={(userNameText) => {
+                                        this.setState({userNameText})
+                                    }}
                         />
-                        <TextInput
-                            style={[styles.textStyle, {marginTop: 10}]}
-                            onChangeText={(pwdText) => this.setState({pwdText})}
-                            value={this.state.pwdText}
-                            placeholder={"设置登录密码"}
-                            secureTextEntry={true}
-                            multiline={false}
-                            autoCapitalize={"none"}
-                            underlineColorAndroid={'transparent'}
+
+                        <TTextInput value={this.state.pwdText}
+                                    viewStyle={{marginTop:3}}
+                                        style={styles.textStyle}
+                                    placeholder={"设置登录密码"}
+                                    secureTextEntry={true}
+                                    onChangeText={(pwdText) => {
+                                        this.setState({pwdText})
+                                    }}
                         />
                     </View>
                 </View>

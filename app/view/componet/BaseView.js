@@ -32,8 +32,6 @@ export default class BaseView extends Component {
         };
     }
 
-
-
     componentWillMount() {
 
     }

@@ -36,6 +36,7 @@ export default class GameDanshi extends Games {
         this.checkSingleNum = this.checkSingleNum.bind(this);
         this.removeOrderError = this.removeOrderError.bind(this);
         this.checkBallIsComplete = this.checkBallIsComplete.bind(this);
+        this.isRandomSelect=false;//不允许随机选择
     }
 
     addBallsToBasket() {

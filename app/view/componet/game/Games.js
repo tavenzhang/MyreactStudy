@@ -7,6 +7,7 @@ import {
     Text,
     ScrollView,
     StyleSheet,
+    Vibration,
 } from 'react-native';
 import Ball from "./Ball";
 import GameControlPannel from "./GameControlPannel";
@@ -58,7 +59,9 @@ export default class Games extends Component {
         this.beforeAddBallsToBasket = this.beforeAddBallsToBasket.bind(this);
         this.clearAllBall = this.clearAllBall.bind(this);
         this.selectAutoOne = this.selectAutoOne.bind(this);
-        this.randomSelct = this.randomSelct.bind(this);
+        this.randomSelcet = this.randomSelcet.bind(this);
+        this.isRandomSelect=true;//是否随机选择
+
     }
 
     componentWillMount() {
@@ -69,7 +72,8 @@ export default class Games extends Component {
             balls: me.setBalls()
         });
         RNShakeEvent.addEventListener('shake', () => {
-            me.randomSelct();
+            me.randomSelcet();
+            Vibration.vibrate();
         });
     }
 
@@ -99,7 +103,7 @@ export default class Games extends Component {
 
     }
 //随机选球
-    randomSelct() {
+    randomSelcet() {
         //如果有选球先清空
         if (this.checkIsSelectBall()) {
             this.clearAllBall();
@@ -546,7 +550,8 @@ export default class Games extends Component {
                             moneyUnit={moneyUnit}
                             multiple={multiple}
                             cleanBall={this.clearAllBall}
-                            randomSelct={this.randomSelct}
+                            isRandomSelect={this.isRandomSelect}
+                            randomSelcet={this.randomSelcet}
                             checkBallIsComplete={this.checkBallIsComplete}
                             isShowMoneyUnit={this.isShowMoneyUnit}
                             maxMultiple={currentGameWay.max_multiple}

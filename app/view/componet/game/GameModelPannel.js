@@ -29,13 +29,17 @@ export default class GameModelPannel extends Component {
         return ( <MoneyUnit moneyMode={moneyUnit}/>)
     }
 
+    showSelectAutoOne(randomSelcet) {
+        return ( <SelectAutoOne randomSelct={randomSelcet}/>);
+    }
+
     render() {
         const me = this;
-        const {moneyUnit, multiple, maxMultiple, isShowMoneyUnit, checkBallIsComplete, cleanBall, randomSelct} = this.props;
+        const {moneyUnit, multiple, maxMultiple, isShowMoneyUnit, isRandomSelect, checkBallIsComplete, cleanBall, randomSelcet} = this.props;
         return (
             <View style={styles.moneyOperateBox}>
                 {/*<CleanBalls cleanBall={cleanBall}/>*/}
-                <SelectAutoOne randomSelct={randomSelct}/>
+                {isRandomSelect ? me.showSelectAutoOne(randomSelcet) : null}
                 <MultipleBtnGrounp multiple={multiple} maxMultiple={maxMultiple}
                                    checkBallIsComplete={checkBallIsComplete}/>
                 {isShowMoneyUnit ? me.showMoneyUnit(moneyUnit) : null}

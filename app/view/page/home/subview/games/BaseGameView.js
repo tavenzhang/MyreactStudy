@@ -171,7 +171,7 @@ export default class BaseGameView extends BaseView {
                     G_AlertUtil.showWithDestructive("","当前游戏获取数据出错，请稍后再尝试",[{text:"返回大厅",onPress:()=>{G_NavUtil.pop()}},{text:"了解"}])
                 }
 
-            });
+            },false,true);
         })
     }
 

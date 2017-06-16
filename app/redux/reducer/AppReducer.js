@@ -42,6 +42,7 @@ const appState = (state = initAppState, action) => {
         case ActionType.AppType.LOGIN_RESULT:
             return state.merge({userData: {...action.data,isLogined:true},moneyBalance:Number(action.data.data.available)});
         case ActionType.AppType.LOG_OUT:
+            TLog("ActionType.AppType.LOG_OUT--")
             return state.merge({userData: {isLogined:false},moneyBalance:0});
         case ActionType.AppType.SHOW_INFOBOX:
             return state.merge({infoBox: {

@@ -46,6 +46,7 @@ import ARankView from "../view/page/me/operatView/agentinfo/ARankView";
 import AssignDetilView from "../view/page/me/operatView/agentAssign/AssignDetilView";
 import LinkListView from "../view/page/me/operatView/agentCreatUser/LinkListView";
 import LinkDetailView from "../view/page/me/operatView/agentCreatUser/LinkDetailView";
+import AssignChangeView from "../view/page/me/operatView/agentAssign/AssignChangeView";
 
 // PushFromLeft
 // FloatFromRight
@@ -83,12 +84,12 @@ global.G_NavViews = {
     PersonPwdView: (data = {}) => pushView(PersonPwdView, data),
     MoneyCardView: (data = {}) => pushView(MoneyCardView, data),
     PersonMailView: (data = {}) => pushView(PersonMailView, data),
-    AgentTeamView: (data = {}) => pushView(AgentTeamView, data),
-    AgentProfitView: (data = {}) => pushView(AgentProfitView, data),
+    AgentTeamView: (data = {}) => pushView(AgentTeamView,  {...data,title:"团队管理"} ),
+    AgentProfitView: (data = {}) => pushView(AgentProfitView,  {...data,title:"盈亏报表"} ),
     ProfitView: (data = {}) => pushView(ProfitView, data),
     AgentInfoView: (data = {}) => pushView(AgentInfoView, data),
-    AgentCreateUserView: (data = {}) => pushView(AgentCreateUserView, data),
-    AgentAssignMoney: (data = {}) => pushView(AgentAssignMoneyView, data),
+    AgentCreateUserView: (data = {}) => pushView(AgentCreateUserView, {...data,title:"账号开户"}),
+    AgentAssignMoney: (data = {}) => pushView(AgentAssignMoneyView, {...data,title:"高点配额"}),
 
     L115View: (data) => pushView(L115View, data),
     //福彩3d玩法
@@ -123,6 +124,7 @@ global.G_NavViews = {
     AssignDetilView:(data = {}) => pushView(AssignDetilView, {...data,title:"配额详情"}),
     LinkListView:(data = {}) => pushView(LinkListView, {...data,title:"开户链接"}),
     LinkDetailView:(data = {}) => pushView(LinkDetailView, {...data,title:"链接详情"}),
+    AssignChangeView:(data = {}) => pushView(AssignChangeView, {...data,title:"修改配额"}),
 }
 
 

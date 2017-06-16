@@ -33,6 +33,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = state => {
     return {
         isLoading: state.get("fetchState").get("requesting"),
+        isModal:state.get("fetchState").get("isModal"),
         infoBox: state.get("appState").get("infoBox").toJS()
     }
 }
@@ -66,7 +67,7 @@ export default class App extends React.Component {
     }
 
     render() {
-        const {isLoading, infoBox} = this.props;
+        const {isLoading, infoBox,isModal} = this.props;
         return (
             <View style={{flex: 1}}>
                 <StatusBar
@@ -82,7 +83,8 @@ export default class App extends React.Component {
                     style={{backgroundColor:'#fff'}}
                     renderScene={this.renderScene}
                 />
-                { isLoading ? <Loading/> : null}
+
+                <Loading visible={isLoading} isModal={isModal} />
                 {infoBox.show ? <ToastBox
                 msg={infoBox.msg}
                 style={infoBox.style}

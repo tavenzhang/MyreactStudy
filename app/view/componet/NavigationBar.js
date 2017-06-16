@@ -30,7 +30,6 @@ export default class NavigationBar extends React.Component {
             )
         }
 
-
         if (this.props.isShowBack || (Navgator && Navgator.getCurrentRoutes().length > 1)) {
             leftView = <TouchableOpacity
                 key={'leftMenu'}

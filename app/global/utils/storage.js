@@ -89,7 +89,8 @@ global.G_EnumStroeKeys={
     USRTNAME:"userName",
     PASS_PWD:"password",
     DO_MAIN:"DO_MAIN",
-    CODE_PUSH:"code-push"
+    CODE_PUSH:"code-push",
+    FORCE_FLUSH_PROXY_MEONY:"FORCE_FLUSH_PROXY_MEONY",
 }
 
 
@@ -104,7 +105,7 @@ global.G_MyStorage= {
         )
     },
     setItem: (key: string, value: string, callback = null) => {
-        AsyncStorage.setItem(key, value).then(() => {
+        AsyncStorage.setItem(key,`${value}`).then(() => {
             if (callback) {
                 callback();
             }

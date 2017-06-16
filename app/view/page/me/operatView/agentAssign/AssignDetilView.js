@@ -2,14 +2,12 @@ import React from 'react';
 import {
     View,
     Text, StyleSheet,
-    TextInput,
-    TouchableHighlight,
-    LayoutAnimation,
     ListView
 } from 'react-native';
 
-import Button from "react-native-button";
 import BaseView from "../../../../componet/BaseView";
+import {TProxyButton} from "../../../../componet/tcustom/button/TButton";
+import {TTextInput} from "../../../../componet/tcustom/textInput/TTextInput";
 
 
 export default class AssignDetilView extends BaseView {
@@ -20,12 +18,26 @@ export default class AssignDetilView extends BaseView {
             dataSource: new ListView.DataSource({
                 rowHasChanged: (r1, r2) => r1 !== r2,
             }),
-            dataObj: null
+            dataObj: null,
+            userName:"",
         }
     }
 
-    renderBody() {
+    componentWillReceiveProps(nextProps) {
+        G_MyStorage.getItem(G_EnumStroeKeys.FORCE_FLUSH_PROXY_MEONY, (data) => {
+            if (data&&data!="false") {
+                G_MyStorage.setItem(G_EnumStroeKeys.FORCE_FLUSH_PROXY_MEONY, "false", () => {
+                    this.flushData(true);
+                    TLog("componentWillReceiveProps----G_EnumStroeKeys.FORCE_FLUSH_PROXY_MEONY");
+                })
+            }else {
+                TLog("componentWillReceiveProps----");
+            }
+        })
+    }
 
+
+    renderBody() {
         let dataList = this.state.dataObj ? this.state.dataObj.dataList : []
         let ds = this.state.dataSource.cloneWithRows(dataList);
         return (this.state.dataObj ? <View style={G_Style.appContentView}>
@@ -33,20 +45,13 @@ export default class AssignDetilView extends BaseView {
                 flexDirection: "row", alignItems: "center", margin: 10,
             }}>
                 <Text>用户名:</Text>
-                <TextInput
-                    style={styles.textStyle}
-                    onChangeText={(pwdText) => this.setState({pwdText: pwdText})}
-                    value={this.state.pwdText}
-                    placeholder={""}
-                    multiline={false}
-                    underlineColorAndroid={'transparent'}
-                />
-                <Button containerStyle={{
-                    backgroundColor: G_Theme.bgPbg, paddingHorizontal: 5,
-                    paddingVertical: 5, borderRadius: 5
-                }} style={{fontSize: 14, color: "white"}}>
-                    搜索
-                </Button>
+                <TTextInput value={this.state.userName}
+                            viewStyle={{borderBottomWidth:1, marginHorizontal:10, borderColor:"gray"}}
+                            style={styles.textStyle}
+                            placeholder={"检索用户名"} onChangeText={(userName) => this.setState({userName})} />
+                <TProxyButton btnName='搜索'
+                              containerStyle={{paddingHorizontal: 10, borderRadius: 5}}
+                              onPress={this._onSearchBtn}/>
             </View>
             <View style={{flexDirection: "row"}}>
                 <View style={[styles.headView, {flex: 2}]}>
@@ -58,7 +63,7 @@ export default class AssignDetilView extends BaseView {
                 {
                     this.state.dataObj.headList.map((item, index) => {
                         return ( <View style={[styles.headView]} key={index}>
-                            <Text style={styles.headText}>{item}</Text>
+                            <Text style={styles.headText}>{item.prize_group}</Text>
                         </View>)
                     })
                 }
@@ -78,18 +83,16 @@ export default class AssignDetilView extends BaseView {
                 <Text style={styles.contentText}> {data.info.username}</Text>
             </View>
             <View style={[styles.contentView, {flex: 2}]}>
-                <Text style={[styles.contentText,{fontSize:12}]}>{`临时:${data.info.prize_group}`}</Text>
-                <Text style={[styles.contentText,{fontSize:12}]}>{`永久:${data.info.forever_prize_group}`}</Text>
+                <Text style={[styles.contentText, {fontSize: 12}]}>{`临时:${data.info.prize_group}`}</Text>
+                <Text style={[styles.contentText, {fontSize: 12}]}>{`永久:${data.info.forever_prize_group}`}</Text>
             </View>
             {
                 data.groupList.map((item, index) => {
                     return (<View style={[styles.contentView]} key={index}>
-                        {item.editable ? <Button containerStyle={{
-                            backgroundColor: G_Theme.bgPbg, paddingHorizontal: 10,
-                            paddingVertical: 3, borderRadius: 5
-                        }} style={{fontSize: 14, color: "white"}} onPress={() => {
-                            this._onClikGroupBtn(data)
-                        }}>{item.value}</Button> : <Text style={styles.contentText}>{item.value}</Text> }
+                        {item.editable ? <TProxyButton containerStyle={{paddingHorizontal: 8, borderRadius: 5}}
+                                                       onPress={() => this._onClikGroupBtn(item, data)}
+                                                       textStyle={styles.contentText} btnName={item.value}/>
+                            : <Text style={styles.contentText}>{item.value}</Text> }
                     </View>)
                 })
             }
@@ -98,53 +101,59 @@ export default class AssignDetilView extends BaseView {
 
 
     componentDidMount() {
-        // TLog("Assign---", this.props.passProps);
-        HTTP_SERVER.AgentAssinList.body.prize_group = this.props.passProps.prize_group
-        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentAssinList, (data) => {
-            let dataObj = {}
-            let headList = [];
-            obj = data.data.quotas;
-            for (let index in obj) {
-                let temp = `${obj[index].prize_group}`;
-                headList.push(temp);
-            }
-            dataObj.headList = headList;
+        this.flushData(false);
+    }
 
-            let dataList = [];
-            let groupList = [];
-            let obj = data.data.aSubUsers;
-            for (let key in obj) {
-                let temp = obj[key];
-                obj[key].groupList = []
-                let quotas = temp.quotas
-                for (let qindex in quotas) {
-                    for (let item of headList) {
-                        if (item == qindex) {
-                            temp.groupList.push(quotas[qindex])
+    flushData = (isHideLoading,username="") => {
+        G_RunAfterInteractions(()=>{
+            HTTP_SERVER.AgentAssinList.body.username=username
+            HTTP_SERVER.AgentAssinList.body.prize_group = this.props.passProps.prize_group
+            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentAssinList, (data) => {
+                let dataObj = {}
+                let headList = [];
+                obj = data.data.quotas;
+                for (let index in obj) {
+                    let temp = obj[index];
+                    headList.push(temp);
+                }
+                dataObj.headList = headList;
+                let dataList = [];
+                let obj = data.data.aSubUsers;
+                for (let key in obj) {
+                    let temp = obj[key];
+                    obj[key].groupList = []
+                    let quotas = temp.quotas
+                    for (let qindex in quotas) {
+                        for (let item of headList) {
+                            if (item.prize_group == qindex) {
+                                quotas[qindex].group = item;
+                                quotas[qindex].curGroup = qindex;
+                                temp.groupList.push(quotas[qindex])
+                            }
                         }
                     }
+                    dataList.push(temp);
                 }
-                dataList.push(temp);
-            }
-            dataObj.dataList = dataList;
-            this.setState({dataObj})
+                dataObj.dataList = dataList;
+                this.setState({dataObj})
+            },isHideLoading)
         })
     }
 
-    _onClikGroupBtn = (data) => {
+    _onClikGroupBtn = (groupData, data) => {
+        G_NavUtil.pushToView(G_NavViews.AssignChangeView({groupData, data}))
+    }
 
+    _onSearchBtn=()=>{
+        this.flushData(false,this.state.userName);
     }
 }
 
 const styles = StyleSheet.create({
     textStyle: {
         width: 150,
-        left: 10,
         fontSize: 14,
-        height: G_Theme.textInpuntH,
-        borderWidth: 0.5,
-        borderRadius: 5,
-        marginRight: 30,
+        height: 30,
         paddingLeft: 5,
     },
     headText: {
@@ -160,7 +169,7 @@ const styles = StyleSheet.create({
         borderColor: "gray",
         justifyContent: "center",
         alignItems: "center",
-        borderRightWidth: 0
+        borderRightWidth: 0,
     },
     contentView: {
         paddingVertical: 5,
@@ -170,7 +179,8 @@ const styles = StyleSheet.create({
         borderColor: "gray",
         justifyContent: "center",
         alignItems: "center",
-        borderRightWidth: 0
+        borderRightWidth: 0,
+        borderTopWidth: 0
         //textAlign: "center"
     },
     contentText: {

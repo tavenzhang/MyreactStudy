@@ -7,7 +7,7 @@ import {
     Text
 } from 'react-native';
 import BaseView from "../../../../componet/BaseView";
-import MySegmentedControlTab from "../../../../componet/MySegmentedControlTab";
+import MySegmentedControlTab from "../../../../componet/tcustom/TSegmentedControlTab";
 
 export  default  class ARankView extends  BaseView{
 

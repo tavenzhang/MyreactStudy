@@ -19,7 +19,6 @@ export default class TeamListView extends React.Component {
             }),
             username: ''
         }
-
     }
 
     item(username) {
@@ -72,10 +71,9 @@ export default class TeamListView extends React.Component {
             <Text style={[styles.contentText]}>{data.profit}</Text>
             <Text style={[styles.contentText]}>{data.turnover}</Text>
 
-
             <TouchableHighlight style={{padding: 2,marginRight:5,marginLeft:5 , flex: 1,
                 overflow: 'hidden',
-                borderRadius: 3,
+                borderRadius: 10,
                 backgroundColor: '#d7213c'}} onPress={() => this.item(data.username)} underlayColor='rgba(0,0,0,0)'>
                 <Text style={[styles.contentButton]}>转账</Text>
             </TouchableHighlight>

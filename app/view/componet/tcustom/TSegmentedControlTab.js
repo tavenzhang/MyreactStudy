@@ -38,8 +38,6 @@ export default class MySegmentedControlTab extends React.Component {
             </View>
         )
     }
-
-
 }
 const styles = StyleSheet.create({
     defaltContainStyle:{

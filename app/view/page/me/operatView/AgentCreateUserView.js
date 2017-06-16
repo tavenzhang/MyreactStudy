@@ -14,7 +14,7 @@ import BaseView from "../../../componet/BaseView";
 import CreateHumanView from "./agentCreatUser/CreateHumanView";
 import CreateLinkView from "./agentCreatUser/CreateLinkView";
 import {NavRightLink} from "../../../componet/navBarMenu/HeaderMenu";
-import MySegmentedControlTab from "../../../componet/MySegmentedControlTab";
+import MySegmentedControlTab from "../../../componet/tcustom/TSegmentedControlTab";
 const mapStateToProps = state => {
     return {
         // gameModel:state.get("appState").get("gameModel"),

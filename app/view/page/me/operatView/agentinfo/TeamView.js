@@ -30,13 +30,13 @@ export  default  class TeamView extends  React.Component {
         let {data}= this.props;
 
         return( data&&this.state.monthData ?<View>
-                <View style={{flexDirection: "row", margin: 10, alignItems:'center'}}>
+                <View style={{flexDirection: "row", margin: 5, alignItems:'center'}}>
                     <Text>我的团队</Text>
                     <Button style={styles.btnText} containerStyle={this.state.btnIndex == 0 ? styles.btnCpSelectStyle:styles.btnCpNormal} onPress={()=>this.onClickDateButton(0)}>今日</Button>
                     <Button style={styles.btnText}  containerStyle={this.state.btnIndex == 1 ? styles.btnCpSelectStyle:styles.btnCpNormal}  onPress={()=>this.onClickDateButton(1)}>本周</Button>
                     <Button style={styles.btnText}  containerStyle={this.state.btnIndex == 2 ? styles.btnCpSelectStyle:styles.btnCpNormal}   onPress={()=>this.onClickDateButton(2)}>本月</Button>
                 </View>
-                <View style={{flexDirection: "row", margin: 10,alignItems: "center",justifyContent: "center"}}>
+                <View style={{flexDirection: "row", margin: 5,alignItems: "center",justifyContent: "center"}}>
                     <View style={{alignItems: "center", justifyContent: "center"}}>
                         <Text>团队投注用户</Text>
                         <View style={styles.square}>

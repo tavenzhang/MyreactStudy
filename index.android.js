@@ -1,3 +1,4 @@
 import { AppRegistry } from 'react-native';
-import Root from './app/root'
+
+import Root from './js/root'
 AppRegistry.registerComponent('TCP', () => Root);

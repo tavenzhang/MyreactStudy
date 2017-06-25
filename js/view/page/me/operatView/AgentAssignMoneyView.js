@@ -5,7 +5,6 @@ import {
     StyleSheet,
 } from 'react-native';
 import TFlatList from "../../../componet/TFlatList";
-
 import {connect} from 'react-redux';
 import BaseView from "../../../componet/BaseView";
 import Button from "react-native-button";

@@ -7,8 +7,6 @@ import {
 
 import GameDetail from './GameDetail';
 
-let hlist = G_Theme.windowHeight - G_Theme.bannerHeight - G_Theme.TabBarH - G_Theme.navigatorHeadH
-
 export  default class GameList extends React.Component {
 
     static propTypes = {

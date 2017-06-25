@@ -1,26 +1,14 @@
 import React from 'react';
 import {
     View,
-    Text, StyleSheet,
-    TouchableHighlight,
-    LayoutAnimation,
-    Picker,
-    TextInput
+    Text,
 } from 'react-native';
 
-import {connect} from 'react-redux';
 import BaseView from "../../../componet/BaseView";
 import AgentSearchView from "./agentProfit/AgentSearchView";
 import ProfitListView from "./agentProfit/ProfitListView";
 
 
-const mapStateToProps = state => {
-    return {
-        // gameModel:state.get("appState").get("gameModel"),
-    }
-}
-
-@connect(mapStateToProps)
 export default class AgentProfitView extends BaseView {
 
     constructor(props) {

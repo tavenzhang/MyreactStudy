@@ -12,7 +12,6 @@ import {connect} from 'react-redux';
 import BaseView from "../../../componet/BaseView";
 import AgentSearchView from "./agentProfit/AgentSearchView";
 import ProfitListView from "./agentProfit/ProfitListView";
-import TeamListView from "./agentTeam/TeamListView";
 
 
 const mapStateToProps = state => {
@@ -66,7 +65,6 @@ export default class AgentProfitView extends BaseView {
     }
     _getSource(searchData) {
         TLog("HTTP_SERVER------------------------------------", HTTP_SERVER.AgentProfit);
-
         G_RunAfterInteractions(() => {
             HTTP_SERVER.AgentProfit.body.page = 1;
             HTTP_SERVER.AgentProfit.body.pagesize = 15;

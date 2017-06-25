@@ -2,8 +2,6 @@ import React, {PropTypes} from 'react';
 import {
     View,
     Text, StyleSheet,
-    ListView,
-    Clipboard
 } from 'react-native';
 
 

@@ -6,7 +6,7 @@ import {
     TouchableHighlight
 } from 'react-native';
 import BaseView from "../../../componet/BaseView";
-import HistoryList from "../../../componet/BaseListView";
+import TFlatList from "../../../componet/TFlatList";
 import NumberCircle from "../../../componet/NumberCircle";
 
 export default class SSC_History extends BaseView {
@@ -31,34 +31,26 @@ export default class SSC_History extends BaseView {
     renderBody() {
         return (
             <View style={G_Style.appContentView}>
-                <HistoryList dataList={this.state.dataArray} loadMore={this.loadMore} renderRow={this._renderRow}/>
+                <TFlatList dataList={this.state.dataArray} loadMore={this.loadMore} renderRow={this._renderRow}/>
             </View>
         );
     }
 
     componentDidMount() {
         G_RunAfterInteractions(()=>{
-            this.loadMore(null,0);
+            this.loadMore(null,true);
         })
     }
 
-    loadMore = (callBack, forcePage = 1) => {
+    loadMore = (callBack, isFlush) => {
         const {lottery_id} = this.props.passProps;
         HTTP_SERVER.notice_Lottery_Hisotry.url= `${HTTP_SERVER.notice_Lottery_Hisotry.formatUrl}/${lottery_id}/${this.next_id}`
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_Lottery_Hisotry,(result)=>{
             if(result.isSuccess)
             {
                 this.next_id= result.data.next_id;
-                if(forcePage==0)
-                {
-                    this.setState({dataArray:result.data.list})
-                }
-               else{
-                    if(result.data.list.length>0)
-                    {
-                        this.setState({dataArray:this.state.dataArray.concat(result.data.list)})
-                    }
-                }
+                this.setState({dataArray:this.state.dataArray.concat(result.data.list)})
+
                 if(callBack) {
                     callBack();
                 }
@@ -94,7 +86,7 @@ export default class SSC_History extends BaseView {
     }
 
     itemClick = (data) => {
-       // TLog("GameResultList----", data)
+       // TLog("Award----", data)
         // NavUtil.pushToView(G_NavViews.SSC_History({...data,title:data.name}));
     }
 }

@@ -2,11 +2,9 @@ import React, {PropTypes} from 'react';
 import {
     View,
     Text, StyleSheet,
-    ListView,
     Clipboard
 } from 'react-native';
-
-
+import TFlatList from "../../../../componet/TFlatList";
 import Button from "react-native-button";
 import BaseView from "../../../../componet/BaseView";
 
@@ -19,21 +17,17 @@ export default class LinkListView extends BaseView {
     constructor(props) {
         super(props);
         this.state = {
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (r1, r2) => r1 !== r2,
-            }),
             dataList:[]
         }
     }
 
     renderBody() {
-        let ds = this.state.dataSource.cloneWithRows(this.state.dataList)
+
         return (<View style={G_Style.appContentView}>
-            <ListView
-                dataSource={ds}
+            <TFlatList
+                dataList={this.state.dataList}
                 renderHeader={this.renderHeadView}
                 renderRow={this.rendeRow}
-                enableEmptySections={true}
             />
         </View>)
     }
@@ -47,7 +41,7 @@ export default class LinkListView extends BaseView {
         </View>)
     }
 
-    rendeRow=(data,section)=>{
+    rendeRow=(data)=>{
         return (<View style={{flexDirection: "row"}}>
             <View style={[styles.contentView]}>
                     <Text>{data.channel}</Text>

@@ -7,7 +7,7 @@ import {
     Text,
 } from 'react-native';
 import BaseView from "../../../../componet/BaseView";
-import DetailListView from "../../../../componet/BaseListView";
+import DetailListView from "../../../../componet/TFlatList";
 
 export  default class BetDetailView extends BaseView {
 
@@ -54,7 +54,7 @@ export  default class BetDetailView extends BaseView {
             <View>
                 <Text>购彩时间:  {this.state.data.bought_at}</Text>
             </View>
-             <DetailListView dataList={dataList} loadMore={this.loadMore} renderRow={this._renderRow}/>
+             <TFlatList dataList={dataList} loadMore={this.loadMore} renderRow={this._renderRow}/>
         </View>
         );
     }

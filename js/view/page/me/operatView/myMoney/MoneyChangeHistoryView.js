@@ -3,11 +3,9 @@ import {
     View,
     Text, StyleSheet,
     TouchableHighlight,
-    LayoutAnimation,
-    InteractionManager
 } from 'react-native';
 
-import MyListView from "../../../../componet/BaseListView";
+import TFlatList from "../../../../componet/TFlatList";
 
 export default class MoneyChangeHistoryView extends React.Component {
     constructor(props) {
@@ -37,7 +35,7 @@ export default class MoneyChangeHistoryView extends React.Component {
                         <Text style={styles.textHeadStyle}>余额</Text>
                     </View>
                 </View>
-                <MyListView dataList={this.state.dataList} loadMore={this._loadMore} renderRow={this._renderRow}/>
+                <TFlatList dataList={this.state.dataList} loadMore={this._loadMore} renderRow={this._renderRow}/>
             </View>
         );
     }
@@ -56,18 +54,23 @@ export default class MoneyChangeHistoryView extends React.Component {
         })
     }
 
-
     componentDidUnMount() {
         this.onMount=false;
     }
 
-    _loadMore = (callFinishBack) => {
+    _loadMore = (callFinishBack,isFlush) => {
         let {httpService} = this.props;
-        httpService.body.page += 1;
-        httpService.body.pagesize = 15;
+        if(isFlush) {
+            httpService.body.page = 1;
+            httpService.body.pagesize = 15;
+        }
+        else{
+            httpService.body.page += 1;
+            httpService.body.pagesize = 15;
+        }
         ActDispatch.FetchAct.fetchVoWithResult(httpService, (result) => {
             if (result.data.data) {
-                let arr = this.state.dataList.concat(result.data.data);
+                let arr =   G_ArrayUtils.addComapreCopy(this.state.dataList,result.data.data)
                 if(this.onMount){
                     this.setState({dataList: arr})
                 }
@@ -80,6 +83,7 @@ export default class MoneyChangeHistoryView extends React.Component {
     }
 
     _renderRow = (rowData,section) => {
+
         let {gameModel,playModel,typesModel}=this.props;
         let gameName= gameModel.getGameNameById(rowData.lottery_id);
          let dateStr=   G_DateUtil.formatSimpleItemDateString(rowData.created_at);

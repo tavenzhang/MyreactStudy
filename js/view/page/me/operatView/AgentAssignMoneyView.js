@@ -3,8 +3,8 @@ import {
     View,
     Text,
     StyleSheet,
-    ListView
 } from 'react-native';
+import TFlatList from "../../../componet/TFlatList";
 
 import {connect} from 'react-redux';
 import BaseView from "../../../componet/BaseView";
@@ -23,21 +23,15 @@ export default class AgentAssignMoneyView extends BaseView {
         super(props);
         this.state = {
             dataList:[],
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (r1, r2) => r1 !== r2,
-                },
-            ),
         }
     }
 
     renderBody() {
-        let ds = this.state.dataSource.cloneWithRows(this.state.dataList)
         return (<View style={G_Style.appContentView}>
-            <ListView
-                dataSource={ds}
+            <TFlatList
+                dataList={this.state.dataList}
                 renderHeader={this.renderHeadView}
                 renderRow={this.rendeRow}
-                enableEmptySections={true}
             />
         </View>)
     }

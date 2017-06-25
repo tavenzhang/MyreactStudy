@@ -37,6 +37,7 @@ export default class RecordBetView extends BaseView {
             curPlay: null,
             curTime: null,
             dataList: [],
+            pageSize:20,
             timeList: [{name: "全部时间", date: ""}, {name: "最近一周", date: lastWeekTime}, {
                 name: "最近一个月",
                 date: lastMonth
@@ -130,7 +131,7 @@ export default class RecordBetView extends BaseView {
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 1, backgroundColor: "yellow"}}>
-                    <BetRecordListView dataList={this.state.dataList} loadMore={this.loadMore} gameModel={gameModel}/>
+                    <BetRecordListView pageSize={this.state.pageSize} dataList={this.state.dataList} loadMore={this.loadMore} gameModel={gameModel}/>
                 </View>
                 <View style={{position: "absolute", zIndex: 6, top: 35}}>
                     {gameView}
@@ -143,7 +144,7 @@ export default class RecordBetView extends BaseView {
 
     componentDidMount() {
         G_RunAfterInteractions(()=>{
-            this.loadMore(null, 1);
+            this.loadMore(null, true);
         })
     }
 
@@ -224,24 +225,24 @@ export default class RecordBetView extends BaseView {
         }
     }
 
-    loadMore = (callBack, forcePage = 0) => {
+    loadMore = (callBack, isFlush) => {
         HTTP_SERVER.BET_RECODE.body.bought_at_from = this.state.curTime ? this.state.curTime.date : "";
         HTTP_SERVER.BET_RECODE.body.bought_at_to = G_DateUtil.formatRecodData(new Date());
         HTTP_SERVER.BET_RECODE.body.lottery_id = this.state.curGame ? this.state.curGame.id : "";
         HTTP_SERVER.BET_RECODE.body.way_id = this.state.curPlay ? this.state.curPlay.id : "";
-        if (forcePage > 0) {
-            HTTP_SERVER.BET_RECODE.body.page = forcePage;
+        if (isFlush) {
+            HTTP_SERVER.BET_RECODE.body.page = 1;
             this.setState({dataList: []});
         }
         else {
             HTTP_SERVER.BET_RECODE.body.page += 1;
         }
-        HTTP_SERVER.BET_RECODE.body.pagesize = 20;
+        HTTP_SERVER.BET_RECODE.body.pagesize = this.state.pageSize;
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.BET_RECODE, (result) => {
             if (callBack) {
                 callBack()
             }
-            let arr = this.state.dataList.concat(result.data.data);
+            let arr = G_ArrayUtils.addComapreCopy(this.state.dataList,result.data.data);
             this.setState({dataList: arr});
         }, false);
     }

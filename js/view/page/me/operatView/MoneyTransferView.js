@@ -3,8 +3,6 @@ import {
     View,
     Text
     , StyleSheet,
-    TextInput,
-    Alert
 } from 'react-native';
 import TDropListComponet from "../../../componet/TDropListComponet";
 

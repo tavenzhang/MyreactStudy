@@ -3,12 +3,10 @@ import {
     View,
     Text
     , StyleSheet,
-    ListView,
     TouchableHighlight
 } from 'react-native';
-import AIcon from 'react-native-vector-icons/FontAwesome';
 import BaseView from "../../../componet/BaseView";
-import HistoryList from "../../../componet/BaseListView";
+import TFlatList from "../../../componet/TFlatList";
 import NumberCircle from "../../../componet/NumberCircle";
 
 
@@ -32,10 +30,9 @@ export default class G_11_5_History extends BaseView {
 
     renderBody() {
         const {passProps} = this.props;
-        //TLog("SSC_History----",passProps)
         return (
             <View style={G_Style.appContentView}>
-                <HistoryList dataList={this.state.dataArray} loadMore={this.loadMore} renderRow={this._renderRow}/>
+                <TFlatList dataList={this.state.dataArray} loadMore={this.loadMore} renderRow={this._renderRow}/>
             </View>
         );
     }
@@ -53,17 +50,7 @@ export default class G_11_5_History extends BaseView {
                if(result.isSuccess)
                {
                    this.next_id = result.data.next_id;
-                   if(forcePage==0)
-                   {
-
-                       this.setState({dataArray:result.data.list})
-                   }
-                   else{
-                       if(result.data.list.length>0)
-                       {
-                           this.setState({dataArray:this.state.dataArray.concat(result.data.list)})
-                       }
-                   }
+                   this.setState({dataArray:this.state.dataArray.concat(result.data.list)})
                    if (callBack) {
                        callBack();
                    }
@@ -101,7 +88,7 @@ export default class G_11_5_History extends BaseView {
     }
 
     itemClick = (data) => {
-       // TLog("GameResultList----", data)
+       // TLog("Award----", data)
         // NavUtil.pushToView(G_NavViews.SSC_History({...data,title:data.name}));
     }
 

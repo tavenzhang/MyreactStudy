@@ -33,4 +33,8 @@ export const GameAct={
         type: gType.SET_GAMECONFIG,
         data
     }),
+    setTrace: data => ({
+        type: gType.SET_TRACE,
+        data
+    }),
 }

@@ -9,13 +9,25 @@ import {
     StyleSheet,
     Vibration,
 } from 'react-native';
+import {connect} from 'react-redux';
 import Ball from "./Ball";
 import GameControlPannel from "./GameControlPannel";
 import GameModelPannel from "./GameModelPannel";
 import GamePriceModelPannel from "./GamePriceModelPannel";
 import BallOperateBtn from "./BallOperateBtn";
 import RNShakeEvent from 'react-native-shake-event';
-
+//
+// const mapStateToProps = state => {
+//     TLog('----------->',state)
+//     return {
+//         orderList: state.get("gameState").get("orderList"),
+//         orderListNum: state.get("gameState").get("orderList").count(),
+//
+//         balance: parseFloat(state.get("appState").getIn(['userData', 'data', 'available']))
+//         //balls: newBalls,
+//     }
+// }
+// @connect(mapStateToProps)
 export default class Games extends Component {
     constructor(props) {
         super(props);
@@ -38,6 +50,7 @@ export default class Games extends Component {
                 isSelect: false,
                 rowBallNumber: 5, //一行几个球
             };
+        this.randomBetsNum = 500;
         this.RandomArr = [];
         this.ballSpecialTitle = [];
         this.ballFirstStart = 0;
@@ -60,7 +73,12 @@ export default class Games extends Component {
         this.clearAllBall = this.clearAllBall.bind(this);
         this.selectAutoOne = this.selectAutoOne.bind(this);
         this.randomSelcet = this.randomSelcet.bind(this);
-        this.isRandomSelect=true;//是否随机选择
+        this.randomLotterys = this.randomLotterys.bind(this);
+        this.randomNum = this.randomNum.bind(this);
+        this.checkRandomBets = this.checkRandomBets.bind(this);
+        this.createRandomNum = this.createRandomNum.bind(this);
+        this.randomCombinLottery = this.randomCombinLottery.bind(this);
+        this.isRandomSelect = true;//是否随机选择
 
     }
 
@@ -80,6 +98,7 @@ export default class Games extends Component {
     componentWillUnmount() {
         RNShakeEvent.removeEventListener('shake');
     }
+
     //设置球排列
     setBalls = () => [];
 
@@ -101,6 +120,7 @@ export default class Games extends Component {
 
 
     }
+
 //随机选球
     randomSelcet() {
         //如果有选球先清空
@@ -155,9 +175,9 @@ export default class Games extends Component {
         let me = this,
             i = Math.floor(Math.random() * this.RandomArr.length);
         let Num = this.RandomArr[i];
-        TLog('IIII=', i);
-        TLog('this.RandomArr=', this.RandomArr);
-        TLog('this.RandomArr=', this.RandomArr[i]);
+        // TLog('IIII=', i);
+        // TLog('this.RandomArr=', this.RandomArr);
+        // TLog('this.RandomArr=', this.RandomArr[i]);
 
         me.setRandomArr(i);
         return Num;
@@ -362,7 +382,6 @@ export default class Games extends Component {
     //检测选球是否完整，是否能形成有效的投注
     //并设置 isBallsComplete
     checkBallIsComplete(multiple) {
-        TLog('cccc');
         const me = this;
         const data = !!me.state.balls ? me.state.balls : [];
         let i = 0,
@@ -488,7 +507,6 @@ export default class Games extends Component {
             //计算注数
             total *= rowNum;
         }
-        TLog('result))))', result);
 
         if (me.checkBallIsComplete()) {
             return me.combination(result);
@@ -566,7 +584,7 @@ export default class Games extends Component {
                         me.addBallsToBasket();
                     }}
                     btnIconEvent={() => {
-                        G_NavUtil.pushToView(G_NavViews.LotteryOrders({}));
+                        G_NavUtil.pushToView(G_NavViews.LotteryOrders({randomLotterys: me.randomLotterys}));
                     }}
                     btnIconEventDesc={orderNum}
                     btnIconName='cart-plus'
@@ -620,6 +638,8 @@ export default class Games extends Component {
 
         let onePrice = currentGameWay.price,
             lotterysOriginal = me.getOriginal();
+        TLog('lotterysOriginal', lotterysOriginal);
+        TLog('lotterys', lotterys);
 
         if (lotterys.length < 1) {
             return {};
@@ -640,48 +660,60 @@ export default class Games extends Component {
         };
     }
 
+
     //生成单注随机数
     createRandomNum() {
-        var me = this,
+
+        const me = this,
             current = [],
-            len = me.getBallData().length,
-            rowLen = me.getBallData()[0].length;
-        //随机数
-        for (var k = 0; k < len; k++) {
-            current[k] = [Math.floor(Math.random() * rowLen)];
-            current[k].sort(function (a, b) {
-                return a > b ? 1 : -1;
-            });
+            {balls} = this.state;
+
+        let len = balls.length;
+        for (let j = 0; j < len; j++) {
+            me.setRandomArr(undefined, j);
+            let i = me.getRandomNum();
+            current[j] = [i];
         }
+        // current.sort(function (a, b) {
+        //     return a > b ? 1 : -1;
+        // })
         return current;
+    }
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me = this;
+        return me.combination(arr);
     }
 
     //限制随机投注重复
     checkRandomBets(hash, times) {
-        var me = this,
-            allowTag = typeof hash == 'undefined' ? true : false,
-            hash = hash || {},
-            current = [],
-            times = times || 0,
-            len = me.getBallData().length,
-            rowLen = me.getBallData()[0].length,
-            order = Games.getCurrentGameOrder().getTotal()['orders'];
-        //生成单数随机数
-        current = me.createRandomNum();
+        const me = this,
+            {orderList, currentGameWay} = this.props,
+            {balls} = this.state;
+
+        let allowTag,
+            len = balls.length,
+            rowLen = balls[0].length,
+            // //生成单数随机数
+            current = me.createRandomNum();
+        allowTag = hash == undefined ? true : false;
+        hash = hash || {};
+        times = times || 0;
         //如果大于限制数量
         //则直接输出
-        if (Number(times) > Number(me.getRandomBetsNum())) {
+        if (Number(times) > Number(this.randomBetsNum)) {
             return current;
         }
         //建立索引
         if (allowTag) {
-            for (var i = 0; i < order.length; i++) {
-                if (order[i]['type'] == me.defConfig.name) {
-                    var name = order[i]['original'].join('');
+            for (var i = 0; i < orderList.length; i++) {
+
+                if (orderList[i]['wayId'] == currentGameWay.id) {
+                    var name = orderList[i]['original'].join('');
                     hash[name] = name;
                 }
             }
-            ;
         }
         //对比结果
         if (hash[current.join('')]) {
@@ -691,36 +723,53 @@ export default class Games extends Component {
         return current;
     }
 
+    randomLotterys(num) {
+        var me = this,
+            i = 0;
+        for (; i < num; i++) {
+            //加入购彩篮
+            let orderData = me.randomNum();
+            TLog('=======orderData222=======>>>>>>>>>>>', orderData);
+            if (orderData) {
+                ActDispatch.GameAct.addOrderToBasket(orderData);
+            }
+        }
+    }
+
+
+
     //生成一个当前玩法的随机投注号码
     //该处实现复式，子类中实现其他个性化玩法
     //返回值： 按照当前玩法生成一注标准的随机投注单(order)
     randomNum() {
-        const me = this;
+        const me = this,
+            {prize_group} = this.state,
+            {moneyUnit, multiple, currentGameWay} = this.props;
         let i = 0,
             current = [],
-            currentNum,
-            ranNum,
-            order = null,
-            dataNum = me.balls,
-            name = '',
-            name_en = '',
+            order = [],
             lotterys = [],
+            onePrice = currentGameWay.price,
             original = [];
 
         current = me.checkRandomBets();
         original = current;
-        lotterys = me.combination(original);
+        lotterys = me.randomCombinLottery(original);
+        TLog('original--rand', original);
+        TLog('lotterys--rand', lotterys);
 
         order = {
-            'type': name_en,
-            'original': original,
-            'lotterys': lotterys,
-            'moneyUnit': 1,
-            'multiple': 1,
-            'onePrice': 2,
-            'num': lotterys.length
+            amount: lotterys.length * onePrice * multiple * moneyUnit,
+            ball: me.makePostParameter(original),
+            viewBalls: me.formatViewBalls(original),
+            wayId: currentGameWay.id,
+            num: lotterys.length,
+            prize_group: prize_group,
+            onePrice: onePrice,
+            moneyunit: moneyUnit,
+            multiple: multiple,
+            gameName: currentGameWay.parent_parent_name_cn + currentGameWay.name_cn
         };
-        order['amountText'] = Games.getCurrentGameStatistics().formatMoney(order['num'] * order['moneyUnit'] * order['multiple'] * order['onePrice']);
         return order;
     }
 

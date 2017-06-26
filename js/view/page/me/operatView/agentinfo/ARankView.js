@@ -21,14 +21,8 @@ export  default  class ARankView extends  BaseView{
         super(props);
         this.state = {
             selectedTabIndex: 0,
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (r1, r2) => r1 !== r2,
-            }),
             dataList:[]
         };
-    }
-    getNavigationBarProps () {
-        return {title:"本月排名"}
     }
     renderBody() {
         return(<View>

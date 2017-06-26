@@ -13,7 +13,7 @@ import appState from  '../reducer/AppReducer';
 import noticState from  '../reducer/NoticeReducer';
 import gameState from  '../reducer/GameReducer';
 import fetchState from '../reducer/FetchReducer';
-
+import navState from '../reducer/NavReducer';
 import {Map}  from "immutable";
 
 /**
@@ -25,6 +25,7 @@ middleware = applyMiddleware(fetchMiddleware);
  * 所有reducer
  */
 let rootReducer = combineReducers({
+    navState,
     fetchState,
     homeState,
     appState,

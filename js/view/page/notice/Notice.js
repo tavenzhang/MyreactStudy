@@ -10,6 +10,14 @@ import BaseView from "../../componet/BaseView";
 import TFlatList from "../../componet/TFlatList";
 
 export default class Notice extends BaseView {
+
+    static navigationOptions = ({navigation})=> ({
+        title: '通知',
+        tabBarIcon: ({tintColor, focused}) => {
+            return <AIcon name='reorder' style={{ fontSize: 25, color:focused ? G_Theme.selectColor:G_Theme.gray}}/>
+        },
+    })
+
     constructor(props) {
         super(props);
         this.state = {

@@ -49,7 +49,7 @@ export default class MoneyInView extends BaseView {
         </View>)
     }
 
-    onTabChange = (index) => {
+    onTabChange = (data,index) => {
         this.setState({selectedTabIndex: index});
     }
 

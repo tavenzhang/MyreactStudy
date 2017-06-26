@@ -17,7 +17,7 @@ export default class PersonPwdView extends BaseView {
     constructor(props) {
         super(props);
         let {userData} = this.props;
-        let {defaultIndex}=this.props.passProps;
+        let {defaultIndex}=this.props.navigation.state.params
         this.isSetFundPwd=userData.data.is_set_fund_password;
         this.state = {
             oldPwd: "",
@@ -91,7 +91,7 @@ export default class PersonPwdView extends BaseView {
     }
 
 
-    onTabChange = (index) => {
+    onTabChange = (data,index) => {
         this.setState({
             selectedTabIndex: index,
             oldPwd: "",

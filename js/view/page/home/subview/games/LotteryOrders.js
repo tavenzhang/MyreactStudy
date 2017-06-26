@@ -48,9 +48,6 @@ export default class LotteryOrders extends BaseView {
         this.submitOrders = this.submitOrders.bind(this);
     }
 
-    componentWillMount() {
-
-    }
 
     getNavigationBarProps() {
         return {

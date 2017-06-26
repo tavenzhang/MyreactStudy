@@ -6,7 +6,7 @@ import BaseView from "../../componet/BaseView";
 import {connect} from 'react-redux';
 import GameList from "./subview/GameList";
 import MyBannerSwiper from "../../componet/MyBannerSwiper";
-
+import AIcon from 'react-native-vector-icons/FontAwesome';
 
 const mapStateToProps = state => {
     return {
@@ -19,15 +19,22 @@ const mapStateToProps = state => {
 
 @connect(mapStateToProps)
 export default class Home extends BaseView {
+
+    static navigationOptions = ({navigation})=> ({
+        title: "大厅",
+        tabBarIcon: ({tintColor, focused}) => {
+            return <AIcon name='home' style={{ fontSize: 25, color:focused ? G_Theme.selectColor:G_Theme.gray}}/>
+        },
+    })
+
     constructor(props) {
         super(props);
         this.state =
             {
                 domain:""
         };
+
     }
-
-
 
     renderBody() {
         let {bannerList, gameModel, playModel,userData} = this.props;

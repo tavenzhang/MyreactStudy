@@ -64,7 +64,7 @@ const mapStateToProps = state => {
 
 @connect(mapStateToProps)
 export default class L115View extends BaseGameView {
-
+    static navigationOptions = BaseGameView.navigationOptionsGame;
     onRenderSubView(data) {
         TLog("SD11Choose5--onRenderSubView", data);
         switch (data.id + '')

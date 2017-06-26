@@ -4,7 +4,7 @@ import {
     View,
 } from 'react-native';
 import SegmentedControlTab from "react-native-segmented-control-tab";
-
+import { SegmentedControls } from 'react-native-radio-buttons'
 
 export default class MySegmentedControlTab extends React.Component {
     static propTypes={
@@ -25,16 +25,28 @@ export default class MySegmentedControlTab extends React.Component {
     render() {
         let {valueList,onTabChange,tabsContainerStyle,tabStyle,activeTabStyle,selectedTabIndex}=this.props
         return (
-            <View>
-                <SegmentedControlTab
-                    values={valueList}
-                    onTabPress={onTabChange}
-                    tabsContainerStyle={[styles.defaltContainStyle,tabsContainerStyle]}
-                    tabStyle={[styles.defaultTabStyle,tabStyle]}
-                    selectedIndex={selectedTabIndex}
-                    activeTabStyle={[styles.defaultActiveTabStyle,activeTabStyle]}
-                    borderRadius={10}
+            <View >
+                <SegmentedControls
+                    //backTint={'yellow'}
+                    selectedTint= {'white'}
+                    tint= {'#a52a2a'}
+                    options={ valueList }
+                    onSelection={onTabChange}
+                    selectedOption={valueList[selectedTabIndex]}
+                    containerStyle={[styles.defaltContainStyle,tabsContainerStyle]}
+                    optionStyle={{fontSize:14, fontWeight:"bold"}}
+                    optionContainerStyle={[{flex: 1},tabStyle]}
                 />
+
+                {/*<SegmentedControlTab*/}
+                    {/*values={valueList}*/}
+                    {/*onTabPress={onTabChange}*/}
+                    {/*tabsContainerStyle={[styles.defaltContainStyle,tabsContainerStyle]}*/}
+                    {/*tabStyle={[styles.defaultTabStyle,tabStyle]}*/}
+                    {/*selectedIndex={selectedTabIndex}*/}
+                    {/*activeTabStyle={[styles.defaultActiveTabStyle,activeTabStyle]}*/}
+                    {/*borderRadius={10}*/}
+                {/*/>*/}
             </View>
         )
     }

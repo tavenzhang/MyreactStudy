@@ -14,7 +14,7 @@ export default class AssignChangeView extends BaseView {
 
     constructor(props) {
         super(props);
-        let {groupData} = this.props.passProps;
+        let {groupData} = this.props.navigation.state.params
         let dim = parseInt(groupData.group.limit_num - groupData.group.used_num);
         let total = groupData.value + dim;
         this.dataList = [];
@@ -34,8 +34,7 @@ export default class AssignChangeView extends BaseView {
     }
 
     renderBody() {
-        TLog("AssignChangeView----", this.props.passProps);
-        let {groupData, data} = this.props.passProps;
+        let {groupData, data} = this.props.navigation.state.params;
         let ds = this.state.dataSource.cloneWithRows(this.state.dataList);
         return (<View style={G_Style.appContentView}>
             <View style={styles.gridRow}>
@@ -112,7 +111,7 @@ export default class AssignChangeView extends BaseView {
 
 
     componentDidMount() {
-        let {groupData, data} = this.props.passProps;
+        let {groupData, data} = this.props.navigation.state.params;
         G_RunAfterInteractions(() => {
             HTTP_SERVER.AgentAssinPerson.body.prize_group = groupData.curGroup;
             HTTP_SERVER.AgentAssinPerson.body.user_id = data.object.id;
@@ -150,7 +149,7 @@ export default class AssignChangeView extends BaseView {
     }
 
     _onClickChange = () => {
-        let {groupData, data} = this.props.passProps;
+        let {groupData, data} = this.props.navigation.state.params;
         let dim = this.state.pickValue - groupData.value
         HTTP_SERVER.AgentAssinChange.body.prize_group = groupData.curGroup;
         HTTP_SERVER.AgentAssinChange.body.user_id = data.object.id;

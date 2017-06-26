@@ -84,7 +84,7 @@ export default class AgentTeamView extends BaseView {
 
 
     renderBody() {
-        let {userData} = this.props.passProps;
+        let {userData} = this.props.navigation.state.params
         const {searchData}=this.state;
         TLog('[[[[[[[searchData]]]]]]',searchData);
 

@@ -29,6 +29,7 @@ const mapStateToProps = state => {
 
 @connect(mapStateToProps)
 export default class L115View extends BaseGameView {
+    static navigationOptions = BaseGameView.navigationOptionsGame;
     //
     // getGameTitle(){
     //     const {name} = this.props.passProps;

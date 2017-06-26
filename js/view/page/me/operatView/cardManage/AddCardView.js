@@ -25,8 +25,7 @@ export default class AddCardView extends BaseView {
     }
 
     renderBody() {
-        let {passProps} = this.props;
-        TLog("AddCardView-----------", passProps);
+
         let backList = this.state.bankCityModel ? this.state.bankCityModel.bankList : [];
         let princeList = this.state.bankCityModel ? this.state.bankCityModel.princeList : [];
         let cityList = [];
@@ -197,10 +196,10 @@ export default class AddCardView extends BaseView {
             HTTP_SERVER.BANK_CARD_ADD_STEP_2.body.province_id = this.state.provinceData.id;
             HTTP_SERVER.BANK_CARD_ADD_STEP_2.body.city_id = this.state.cityData.id;
             HTTP_SERVER.BANK_CARD_ADD_STEP_2.body.branch = this.state.brunchName;
-            let {passProps} = this.props;
+            let params = this.props.navigation.state.params
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.BANK_CARD_ADD_STEP_2, (result) => {
                 if (result.isSuccess) {
-                    if (passProps.isStep2) {
+                    if (params.isStep2) {
                         G_NavUtil.popN(2);
                     }
                     else {

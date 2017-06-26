@@ -46,7 +46,7 @@ export default class AgentProfitView extends BaseView {
     }
 
     renderBody() {
-        let {profitData, formatMoney} = this.props.passProps;
+        let {profitData, formatMoney} = this.props.navigation.state.params;
 
         return (
             <View style={G_Style.appView}>

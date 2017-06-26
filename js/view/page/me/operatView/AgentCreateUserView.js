@@ -10,17 +10,16 @@ import {connect} from 'react-redux';
 import BaseView from "../../../componet/BaseView";
 import CreateHumanView from "./agentCreatUser/CreateHumanView";
 import CreateLinkView from "./agentCreatUser/CreateLinkView";
-import {NavRightLink} from "../../../componet/navBarMenu/HeaderMenu";
+import {NavComomButton, NavRightLink} from "../../../componet/navBarMenu/HeaderMenu";
 import MySegmentedControlTab from "../../../componet/tcustom/TSegmentedControlTab";
 
-const mapStateToProps = state => {
-    return {
-        // gameModel:state.get("appState").get("gameModel"),
-    }
-}
 
-@connect(mapStateToProps)
 export default class AgentCreateUserView extends BaseView {
+    static navigationOptions = ({navigation})=> ({
+        headerRight:<NavComomButton name={"查看链接"} navigation={navigation} isRightButton={true} />
+    })
+
+
     constructor(props) {
         super(props)
         this.state = {
@@ -66,8 +65,9 @@ export default class AgentCreateUserView extends BaseView {
         </View>)
     }
 
-    onTabChange = (index) => {
-        this.setState({selectedTabIndex: index});
+    onTabChange = (data,selected) => {
+        TLog("onTabChange---------"+selected,data)
+        this.setState({selectedTabIndex: selected});
     }
 
     componentDidMount() {

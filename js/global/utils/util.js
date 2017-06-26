@@ -73,16 +73,20 @@ const StringUtil = {
 }
 global.G_StringUtil = StringUtil;
 
-
-runAfterInteractions = (func) => {
-    if (func) {
+runAfterInteractions = (func,isInteractionManager=false) => {
+    if(isInteractionManager)
+    {
         InteractionManager.runAfterInteractions(() => {
             if (func) {
                 func();
             }
         })
     }
-
+    else{
+        if (func) {
+            func();
+        }
+    }
 }
 global.G_RunAfterInteractions = runAfterInteractions
 

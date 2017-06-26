@@ -15,9 +15,10 @@ export default class MoneyTransferView extends BaseView {
     constructor(props) {
         super(props);
         let agentName="";
-        if(this.props.passProps&&this.props.passProps.username)
+       let  params= this.props.navigation.state.params
+        if(params&&params.username)
         {
-            agentName=this.props.passProps.username;
+            agentName=params.username;
         }
         this.state = {
             pwdText: "",
@@ -32,13 +33,13 @@ export default class MoneyTransferView extends BaseView {
 
 
     renderBody() {
-        const {passProps} = this.props;
+        let  params= this.props.navigation.state.params
         return (
             <AutoHideKeyBoardView>
                 <View style={G_Style.appView}>
                     <View style={{flex: 1, marginLeft: 40, marginRight: 40, marginTop: 40}}>
                         <View style={styles.inputContain}>
-                            <Text>账户余额: {parseInt(passProps.money)}</Text>
+                            <Text>账户余额: {parseInt(params.money)}</Text>
                         </View>
                         <View style={styles.inputContain}>
                             <Text>收款账号:</Text>
@@ -99,8 +100,9 @@ export default class MoneyTransferView extends BaseView {
     }
 
     componentDidMount() {
+        let  params= this.props.navigation.state.params
         G_RunAfterInteractions(() => {
-            HTTP_SERVER.TRANSFER_GETINFO.url = HTTP_SERVER.TRANSFER_GETINFO.formatUrl.replace("#id", this.props.passProps.uid);
+            HTTP_SERVER.TRANSFER_GETINFO.url = HTTP_SERVER.TRANSFER_GETINFO.formatUrl.replace("#id", params.uid);
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.TRANSFER_GETINFO, (result) => {
                 let dataList = result.data.aBankCards.map((item) => {
                     item.name = item.account + `[${item.bank}]`;
@@ -113,7 +115,7 @@ export default class MoneyTransferView extends BaseView {
 
     onDataValid =()=>{
       let errMsg=null;
-      const {passProps} = this.props;
+        let  params= this.props.navigation.state.params
       if (this.state.dropSelectItem == null) {
           errMsg ="请选择一张验证的银行卡";
       } else if (this.state.agentCount.length <= 0) {
@@ -128,7 +130,7 @@ export default class MoneyTransferView extends BaseView {
       else if (this.state.cardNum.length <= 0) {
           errMsg ="请入银行卡卡号";
       }
-      else if (parseInt(passProps.money) < parseInt(this.state.money)) {
+      else if (parseInt(params.money) < parseInt(this.state.money)) {
           errMsg ="转账金额不能大于账户余额";
       }
       return errMsg;

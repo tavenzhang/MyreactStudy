@@ -4,14 +4,13 @@ import {
     Text
     , StyleSheet,
 } from 'react-native';
-
+import AIcon from 'react-native-vector-icons/FontAwesome';
 import {connect} from 'react-redux';
 import Button from 'react-native-button';
 import BaseView from "../../componet/BaseView";
-import {HeaderLeftDomain, HeaderRightLoginOut} from "../../componet/navBarMenu/HeaderMenu";
 import AcountListView from "./subView/AcountListView";
 import ConfigView from "../home/subview/ConfigView";
-
+import {TButton} from "../../componet/tcustom/button/TButton";
 
 export let ItemNameEnum = {
     //我的彩票
@@ -39,11 +38,28 @@ const mapStateToProps = state => {
     return {
         userData: state.get("appState").get("userData").toJS(),
         moneyBalance: state.get("appState").get("moneyBalance"),
+        nav: state.get("navState").toJS()
     }
 }
 
 @connect(mapStateToProps)
 export default class MyView extends BaseView {
+
+    static navigationOptions = ({navigation})=> ({
+        title: '我的',
+        tabBarIcon: ({focused}) => {
+            return <AIcon name='user' style={{ fontSize: 25, color:focused ? G_Theme.selectColor:G_Theme.gray}}/>
+        },
+        headerLeft: <TButton textStyle={{fontSize:16}} viewStyle={{marginLeft:10}} btnName="设置" onPress={()=>{
+            let {onLeftPressed} = navigation.state.params;
+            onLeftPressed()
+        }}/>,
+        headerRight:<TButton textStyle={{fontSize:16}}  visible={navigation.state.params&&navigation.state.params.isLogined} viewStyle={{marginRight:10}} btnName="注销" onPress={()=>{
+            let {onRightPressed} = navigation.state.params;
+            onRightPressed()
+        }}/>
+    })
+
 
     static dataListRecord = [{ico: "star", name: ItemNameEnum.awardFind}, {
         ico: "file-text",
@@ -80,17 +96,9 @@ export default class MyView extends BaseView {
         this.state={
             modalVisible: false,
         }
+        this.isLogin = this.props.userData.isLogined
     }
 
-    getNavigationBarProps() {
-        let {userData} = this.props;
-        if (userData.isLogined) {
-            return {rightView: HeaderRightLoginOut,leftView: HeaderLeftDomain};
-        }
-        else {
-            return {leftView: HeaderLeftDomain};
-        }
-    }
 
     onLeftPressed() {
         this.setState({modalVisible: true});
@@ -102,8 +110,20 @@ export default class MyView extends BaseView {
         })
     }
 
+    componentWillUpdate(){
+        super.componentWillUpdate();
+        let {userData,navigation} = this.props;
+        let params=navigation.state.params
+        if(params&&this.isLogin != userData.isLogined)
+        {
+            this.isLogin=userData.isLogined;
+            this.props.navigation.setParams({isLogined:userData.isLogined});
+        }
+    }
+
     renderBody() {
-        let {userData, moneyBalance} = this.props
+        let {userData, moneyBalance} = this.props;
+       // TLog("nav-------------",this.props.nav);
         let dataList = {
             "我的彩票": MyView.dataListRecord,
             "账户资金": MyView.dataListMoney,
@@ -176,6 +196,10 @@ export default class MyView extends BaseView {
 
     setModalVisible=(visible)=> {
         this.setState({modalVisible: visible});
+    }
+
+    componentDidMount() {
+        this.props.navigation.setParams({isLogined:this.props.userData.isLogined});
     }
 }
 

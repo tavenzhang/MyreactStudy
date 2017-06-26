@@ -79,7 +79,7 @@ export default class AgentProfitView extends BaseView {
     }
 
     renderBody() {
-        let {userData} = this.props.passProps;
+        let {userData} = this.props.navigation.state.params;
         const {searchData} = this.state;
         return (<View>
             <AgentSearchView visible={this.state.modalVisible} username={searchData ? searchData.username : ''}

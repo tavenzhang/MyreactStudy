@@ -21,6 +21,12 @@ const mapStateToProps = state => {
 
 @connect(mapStateToProps)
 export default class Award extends BaseView {
+    static navigationOptions = ({navigation})=> ({
+        title: '开奖',
+        tabBarIcon: ({tintColor, focused}) => {
+            return <AIcon name='gift' style={{ fontSize: 25, color:focused ? G_Theme.selectColor:G_Theme.gray}}/>
+        },
+    })
 
     constructor(props) {
         super(props);
@@ -99,6 +105,9 @@ export default class Award extends BaseView {
                 break;
             case "11-5":
                 G_NavUtil.pushToView(G_NavViews.G_11_5_History({...data}));
+                break;
+            default:
+                G_AlertUtil.show("","敬请期待！")
                 break;
         }
     }

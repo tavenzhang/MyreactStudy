@@ -3,7 +3,9 @@ import {
     View,
     Text
     , StyleSheet,
+    TouchableOpacity
 } from 'react-native';
+import AIcon from 'react-native-vector-icons/FontAwesome';
 
 import BaseGameView from "../BaseGameView";
 import WuxingZhixuanFushi from "./WuxingZhixuanFushi";
@@ -152,9 +154,11 @@ const mapStateToProps = state => {
     }
 }
 
+
+
 @connect(mapStateToProps)
 export default class SSCView extends BaseGameView {
-
+    static navigationOptions = BaseGameView.navigationOptionsGame;
     constructor(props) {
         super(props);
     }
@@ -491,3 +495,11 @@ export default class SSCView extends BaseGameView {
         }
     }
 }
+const styles = StyleSheet.create({
+    title: {
+        color: "white",
+        fontSize: 18,
+        fontWeight: "900",
+        textAlign: 'center',
+    },
+});

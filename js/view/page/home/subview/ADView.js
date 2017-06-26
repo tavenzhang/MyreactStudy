@@ -20,17 +20,15 @@ import BaseView from "../../../componet/BaseView";
 // @connect(mapStateToProps)
 export default class ADView extends BaseView {
 
-    getNavigationBarProps(){
-        return {title:this.props.passProps.name}
-    }
+
 
     renderBody() {
-        const {passProps, isLoading} = this.props;
+        let params= this.props.navigation.state.params;
         return (
             <View style={G_Style.appContentView}>
                 <View style={{flex:1}}>
                     <WebView style={styles.webview_style}
-                             source={{uri:passProps.data}}
+                             source={{uri:params.data}}
                              startInLoadingState={true}
                              domStorageEnabled={true}
                              javaScriptEnabled={true}

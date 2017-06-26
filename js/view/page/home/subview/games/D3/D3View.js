@@ -51,7 +51,7 @@ const mapStateToProps = state => {
 
 @connect(mapStateToProps)
 export default class D3View extends BaseGameView {
-
+    static navigationOptions = BaseGameView.navigationOptionsGame;
     constructor(props) {
         super(props);
     }

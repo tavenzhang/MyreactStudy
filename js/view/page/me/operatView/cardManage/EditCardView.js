@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 
 import BaseView from "../../../../componet/BaseView";
-import Button from "react-native-button";
 import {TButton} from "../../../../componet/tcustom/button/TButton";
 
 export default class EditCardView extends BaseView {
@@ -21,8 +20,7 @@ export default class EditCardView extends BaseView {
     }
 
     renderBody() {
-        let {passProps} = this.props;
-        //TLog("EditCardView-----------", passProps)
+        let params = this.props.navigation.state.params
         return (
             <View style={G_Style.appContentView}>
                 <View style={{height: G_Theme.windowHeight / 3, backgroundColor: "white", paddingLeft: 10}}>
@@ -31,7 +29,7 @@ export default class EditCardView extends BaseView {
                         color: G_Theme.gray,
                         margin: 10,
                         alignSelf: "center"
-                    }}>卡号: {passProps.accountEny}</Text>
+                    }}>卡号: {params.accountEny}</Text>
 
                     <View style={{flex: 1, alignItems: "center", flexDirection: "row"}}>
                         <View style={{width: G_Theme.windowWidth * 1 / 3, alignItems: "flex-end"}}>
@@ -105,16 +103,16 @@ export default class EditCardView extends BaseView {
     clickNext = () => {
         // TLog("-----------------------his.state.careNumText-:" + this.state.careNumText.length, this.state.careNumText);
 
-        let {passProps} = this.props;
+        let params = this.props.navigation.state.params
         //id:1,account_name:"",account:"",fund_password:""
-        HTTP_SERVER.BANK_CARD_MODIFY_STEP_O.body.id = passProps.id;
-        HTTP_SERVER.BANK_CARD_MODIFY_STEP_O.body.account = passProps.account;
+        HTTP_SERVER.BANK_CARD_MODIFY_STEP_O.body.id = params.id;
+        HTTP_SERVER.BANK_CARD_MODIFY_STEP_O.body.account = params.account;
         HTTP_SERVER.BANK_CARD_MODIFY_STEP_O.body.account_name = this.state.countName;
         HTTP_SERVER.BANK_CARD_MODIFY_STEP_O.body.fund_password = this.state.password;
-        HTTP_SERVER.BANK_CARD_MODIFY_STEP_O.url = HTTP_SERVER.BANK_CARD_MODIFY_STEP_O.formatUrl.replace("#id", passProps.id)
+        HTTP_SERVER.BANK_CARD_MODIFY_STEP_O.url = HTTP_SERVER.BANK_CARD_MODIFY_STEP_O.formatUrl.replace("#id", params.id)
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.BANK_CARD_MODIFY_STEP_O, (result) => {
             if (result.isSuccess) {
-                G_NavUtil.pushToView(G_NavViews.EditCardAddView({...passProps, title: "2. 修改银行卡", isStep2: true}));
+                G_NavUtil.pushToView(G_NavViews.EditCardAddView({...params, title: "2. 修改银行卡", isStep2: true}));
             }
         })
     }

@@ -21,15 +21,12 @@ export default class G_11_5_History extends BaseView {
         this.state = {
             dataArray: [],
         };
-        this.next_id=0
+        this.next_id=0;
     }
 
-   getNavigationBarProps(){
-        return {title:this.props.passProps.lottery_name}
-    }
 
     renderBody() {
-        const {passProps} = this.props;
+
         return (
             <View style={G_Style.appContentView}>
                 <TFlatList dataList={this.state.dataArray} loadMore={this.loadMore} renderRow={this._renderRow}/>
@@ -44,7 +41,7 @@ export default class G_11_5_History extends BaseView {
 
     loadMore = (callBack, forcePage = 1) => {
        G_RunAfterInteractions(()=>{
-           const {lottery_id} = this.props.passProps;
+           const {lottery_id} = this.props.navigation.state.params;
            HTTP_SERVER.notice_Lottery_Hisotry.url= `${HTTP_SERVER.notice_Lottery_Hisotry.formatUrl}/${lottery_id}/${this.next_id}`
            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_Lottery_Hisotry,(result)=>{
                if(result.isSuccess)

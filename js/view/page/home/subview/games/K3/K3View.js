@@ -40,7 +40,7 @@ const mapStateToProps = state => {
 
 @connect(mapStateToProps)
 export default class K3View extends BaseGameView {
-
+    static navigationOptions = BaseGameView.navigationOptionsGame;
     onRenderSubView(data) {
         TLog("K3--onRenderSubView", data);
         switch (data.id + '')

@@ -21,12 +21,9 @@ export default class SSC_History extends BaseView {
         this.state = {
             dataArray: [],
         };
-        this.next_id=0
+        this.next_id=0;
     }
 
-    getNavigationBarProps(){
-        return {title:this.props.passProps.lottery_name};
-    }
 
     renderBody() {
         return (
@@ -43,7 +40,8 @@ export default class SSC_History extends BaseView {
     }
 
     loadMore = (callBack, isFlush) => {
-        const {lottery_id} = this.props.passProps;
+        //TLog("this.props.navigation.state.params---",this.props.navigation.state.params)
+        const {lottery_id} = this.props.navigation.state.params;
         HTTP_SERVER.notice_Lottery_Hisotry.url= `${HTTP_SERVER.notice_Lottery_Hisotry.formatUrl}/${lottery_id}/${this.next_id}`
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_Lottery_Hisotry,(result)=>{
             if(result.isSuccess)

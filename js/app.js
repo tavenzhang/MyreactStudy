@@ -14,9 +14,11 @@ import {bindActionCreators} from 'redux';
 import Loading from "./view/componet/Loading";
 
 import SplashScreen from 'react-native-smart-splash-screen'
-import TabbarView from "./view/TabbarView";
 import ToastBoxView from "./view/componet/InfoBox/ToastBox";
-import {Navigator} from 'react-native-deprecated-custom-components';
+
+import {addNavigationHelpers} from "react-navigation";
+import {AppStackNavigator} from "./redux/reducer/NavReducer";
+
 
 //定义全局Dispatch 方便使用
 const mapDispatchToProps = (dispatch) => {
@@ -29,14 +31,15 @@ const mapDispatchToProps = (dispatch) => {
         ActDispatch.GameAct=bindActionCreators(ActDispatch.GameAct,dispatch);
         G_InitRegistApp  = true;
     }
-    return {}
+    return {dispatch: dispatch}
 }
 
 const mapStateToProps = state => {
     return {
         isLoading: state.get("fetchState").get("requesting"),
         isModal:state.get("fetchState").get("isModal"),
-        infoBox: state.get("appState").get("infoBox").toJS()
+        infoBox: state.get("appState").get("infoBox").toJS(),
+        nav: state.get("navState").toJS()
     }
 }
 
@@ -70,6 +73,7 @@ export default class App extends React.Component {
 
     render() {
         const {isLoading, infoBox,isModal} = this.props;
+        G_NavState = this.props.nav;
         return (
             <View style={{flex: 1}}>
                 <StatusBar
@@ -79,13 +83,10 @@ export default class App extends React.Component {
                     translucent={true}
                     hidden={Platform.OS === 'ios' ? false : true}
                 />
-                <Navigator
-                    initialRoute={{component: TabbarView}}
-                    configureScene={this.configureScene}
-                    style={{backgroundColor:'#fff'}}
-                    renderScene={this.renderScene}
-                />
-
+                <AppStackNavigator navigation={addNavigationHelpers({
+                    dispatch: this.props.dispatch,
+                    state: this.props.nav,
+                })}/>
                 <Loading visible={isLoading} isModal={isModal} />
                 {infoBox.show ? <ToastBoxView isError={infoBox.isError}
                                               visible={infoBox.show}
@@ -94,24 +95,26 @@ export default class App extends React.Component {
             </View>
         )
     }
-    //设置出场动画
-    configureScene = (route) => {
-        let sceneAnimation = route.sceneAnimation;
-        if (sceneAnimation) {
-            return sceneAnimation;
-        }
-        //默认
-        return Navigator.SceneConfigs.FloatFromLeft;
-    }
 
-    renderScene = (route, navigator) => {
-        this.navigator = navigator;
-        global.Navgator = navigator;
-        let Component = route.component;
-        return (
-            <Component navigator={navigator} route={route} passProps={route.passProps}/>
-        )
-    }
+
+    //设置出场动画
+    // configureScene = (route) => {
+    //     let sceneAnimation = route.sceneAnimation;
+    //     if (sceneAnimation) {
+    //         return sceneAnimation;
+    //     }
+    //     //默认
+    //     return Navigator.SceneConfigs.FloatFromLeft;
+    // }
+    //
+    // renderScene = (route, navigator) => {
+    //     this.navigator = navigator;
+    //     global.Navgator = navigator;
+    //     let Component = route.component;
+    //     return (
+    //         <Component navigator={navigator} route={route} passProps={route.passProps}/>
+    //     )
+    // }
 
     onBackAndroid = () => {
         const routers = this.navigator.getCurrentRoutes();
@@ -130,15 +133,4 @@ export default class App extends React.Component {
     }
 }
 
-
-const styles = StyleSheet.create({
-    viewStyle: {
-        position: "absolute",
-        zIndex: 111,
-        width: G_Theme.windowWidth,
-        height: G_Theme.windowHeight,
-        justifyContent: "center",
-        alignItems: "center"
-    },
-})
 

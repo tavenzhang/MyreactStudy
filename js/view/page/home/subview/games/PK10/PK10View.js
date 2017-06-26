@@ -34,7 +34,7 @@ const mapStateToProps = state => {
 
 @connect(mapStateToProps)
 export default class PK10View extends BaseGameView {
-
+    static navigationOptions = BaseGameView.navigationOptionsGame;
     onRenderSubView(data) {
         TLog("PK10--onRenderSubView", data);
         switch (data.id + '') {

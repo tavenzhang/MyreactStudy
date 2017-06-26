@@ -24,8 +24,8 @@ export default class AddValidView extends BaseView {
     }
 
     renderBody() {
-        let {passProps} = this.props;
-        TLog("ValidCardView-----------", passProps);
+        let params = this.props.navigation.state.params
+        TLog("ValidCardView-----------", params);
         return (
             <View style={G_Style.appContentView}>
                 <View style={{backgroundColor: "white", justifyContent: "center", alignItems: "center"}}>
@@ -36,7 +36,7 @@ export default class AddValidView extends BaseView {
                         <TDropListComponet
                             style={{flex: 2, marginRight: 20}}
                             itemName={this.state.cardData ? this.state.cardData.accountEny : "请选择转账银行卡"}
-                            dataList={passProps.cardList}
+                            dataList={params.cardList}
                             rendDropRow={this.rendCardRow}
                             onSelect={(idx, value) => {
                                 this.setState({cardData: value});

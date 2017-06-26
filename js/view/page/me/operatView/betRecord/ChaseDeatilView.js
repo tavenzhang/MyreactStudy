@@ -20,7 +20,7 @@ export  default class BetDetailView extends BaseView {
 
     renderBody() {
 
-        let {gameModel,typesModel} = this.props.passProps;
+        let {gameModel,typesModel} = this.props.navigation.state.params;
         let  gameName = gameModel.getGameNameById(this.state.data.lottery_id)
         let dataList= this.state.data.detail_list ? this.state.data.detail_list.data:[];
         return (<View style={[G_Style.appContentView]}>
@@ -60,7 +60,7 @@ export  default class BetDetailView extends BaseView {
     }
 
     componentDidMount() {
-        let {id} = this.props.passProps
+        let {id} = this.props.navigation.state.params
         HTTP_SERVER.CHASE_DETAIL.url = HTTP_SERVER.CHASE_DETAIL.formatUrl.replace(/#id/g, id);
         G_RunAfterInteractions(()=>{
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.CHASE_DETAIL, (result) => {

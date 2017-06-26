@@ -41,7 +41,7 @@ export  default class MessageDetail extends BaseView {
     }
 
     componentDidMount() {
-        let {id} = this.props.passProps
+        let {id} = this.props.navigation.state.params
         HTTP_SERVER.LETTER_DETAIL.url = HTTP_SERVER.LETTER_DETAIL.formatUrl.replace(/#id/g, id);
         G_RunAfterInteractions(()=>{
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LETTER_DETAIL, (result) => {

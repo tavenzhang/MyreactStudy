@@ -20,16 +20,7 @@ export default class LoginView extends BaseView {
             nameText: "",
             pwdText: ""
         };
-        G_MyStorage.getItem(G_EnumStroeKeys.USRTNAME, (data) => {
-            this.setState({nameText: data});
-        })
-        G_MyStorage.getItem(G_EnumStroeKeys.PASS_PWD, (data) => {
-            this.setState({pwdText: data});
-        });
-    }
 
-    getNavigationBarProps() {
-        return {title:"登录"};
     }
 
     renderBody() {
@@ -56,6 +47,15 @@ export default class LoginView extends BaseView {
                 </View>
             </View>
         );
+    }
+
+    componentDidMount() {
+        G_MyStorage.getItem(G_EnumStroeKeys.USRTNAME, (data) => {
+            this.setState({nameText: data});
+        })
+        G_MyStorage.getItem(G_EnumStroeKeys.PASS_PWD, (data) => {
+            this.setState({pwdText: data});
+        });
     }
 
     onErrMsg=()=>{

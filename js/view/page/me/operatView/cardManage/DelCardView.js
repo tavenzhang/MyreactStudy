@@ -20,8 +20,8 @@ export default class DelCardView extends BaseView {
     }
 
     renderBody() {
-        let {passProps} = this.props;
-        TLog("DelCardView-----------", passProps)
+        let params = this.props.navigation.state.params
+        TLog("DelCardView-----------", params)
         return (
             <View style={G_Style.appContentView}>
                 <View style={{height: G_Theme.windowHeight / 3, backgroundColor: "white", paddingLeft: 10}}>
@@ -30,7 +30,7 @@ export default class DelCardView extends BaseView {
                         color: G_Theme.gray,
                         margin: 10,
                         alignSelf:"center"
-                    }}>卡号:  {passProps.accountEny}</Text>
+                    }}>卡号:  {params.accountEny}</Text>
 
                     <View style={{flex: 1, alignItems: "center", flexDirection: "row"}}>
                         <View style={{width: G_Theme.windowWidth * 1 / 3, alignItems: "flex-end"}}>
@@ -105,11 +105,9 @@ export default class DelCardView extends BaseView {
     }
 
     clickNext = () => {
-        //TLog("-----------------------his.state.careNumText-:" + this.state.careNumText.length, this.state.careNumText);
-
-            let {passProps} = this.props;
+           let params = this.props.navigation.state.params
             //id:1,account_name:"",account:"",fund_password:""
-            HTTP_SERVER.BANK_CARDS_DEL.body.id = passProps.id;
+            HTTP_SERVER.BANK_CARDS_DEL.body.id = params.id;
             HTTP_SERVER.BANK_CARDS_DEL.body.account=this.state.careNumText.trim();
             HTTP_SERVER.BANK_CARDS_DEL.body.account_name=this.state.countName.trim();
             HTTP_SERVER.BANK_CARDS_DEL.body.fund_password = this.state.password.trim();

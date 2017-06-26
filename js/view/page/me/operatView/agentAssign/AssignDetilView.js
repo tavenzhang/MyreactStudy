@@ -107,7 +107,7 @@ export default class AssignDetilView extends BaseView {
     flushData = (isHideLoading,username="") => {
         G_RunAfterInteractions(()=>{
             HTTP_SERVER.AgentAssinList.body.username=username
-            HTTP_SERVER.AgentAssinList.body.prize_group = this.props.passProps.prize_group
+            HTTP_SERVER.AgentAssinList.body.prize_group = this.props.navigation.state.params.prize_group
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentAssinList, (data) => {
                 let dataObj = {}
                 let headList = [];

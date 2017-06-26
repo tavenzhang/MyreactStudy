@@ -18,6 +18,7 @@ const mapStateToProps = state => {
 @connect(mapStateToProps)
 export default class AgentAssignMoneyView extends BaseView {
 
+
     constructor(props) {
         super(props);
         this.state = {

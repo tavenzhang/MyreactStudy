@@ -17,7 +17,7 @@ export default class LinkDetailView extends BaseView {
     }
 
     renderBody() {
-        let {content}=this.props.passProps;
+        let {content}=this.props.navigation.state.params;
         let validstr= content.valid_days ? `${content.valid_days}天`:"永久";
         TLog("content-----",content)
         return (<View style={G_Style.appContentView}>

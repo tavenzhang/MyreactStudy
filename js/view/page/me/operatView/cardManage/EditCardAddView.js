@@ -28,8 +28,7 @@ export default class EditCardAddView extends BaseView {
     }
 
     renderBody() {
-        let {passProps} = this.props;
-        TLog("EditCardAddView-----------", passProps)
+
         let backList = this.state.bankCityModel ? this.state.bankCityModel.bankList : [];
         let princeList = this.state.bankCityModel ? this.state.bankCityModel.princeList : [];
         let cityList = [];
@@ -160,8 +159,8 @@ export default class EditCardAddView extends BaseView {
     }
 
     componentDidMount() {
-        let {passProps} = this.props;
-        HTTP_SERVER.BANK_CARD_MODIFY_STEP_1.url= HTTP_SERVER.BANK_CARD_MODIFY_STEP_1.formatUrl.replace("#id",passProps.id);
+        let params = this.props.navigation.state.params
+        HTTP_SERVER.BANK_CARD_MODIFY_STEP_1.url= HTTP_SERVER.BANK_CARD_MODIFY_STEP_1.formatUrl.replace("#id",params.id);
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.BANK_CARD_MODIFY_STEP_1, (result) => {
             this.setState({bankCityModel: new BankCityModel(result)})
             //ActDispatch.AppAct.showErrorBox(result.Msg);
@@ -203,12 +202,12 @@ export default class EditCardAddView extends BaseView {
             HTTP_SERVER.BANK_CARD_MODIFY_STEP_2.body.province_id=this.state.provinceData.id;
             HTTP_SERVER.BANK_CARD_MODIFY_STEP_2.body.city_id=this.state.cityData.id;
             HTTP_SERVER.BANK_CARD_MODIFY_STEP_2.body.branch=this.state.brunchName;
-            let {passProps} = this.props;
-            HTTP_SERVER.BANK_CARD_MODIFY_STEP_2.url= HTTP_SERVER.BANK_CARD_MODIFY_STEP_2.formatUrl.replace("#id",passProps.id);
+           let params = this.props.navigation.state.params
+            HTTP_SERVER.BANK_CARD_MODIFY_STEP_2.url= HTTP_SERVER.BANK_CARD_MODIFY_STEP_2.formatUrl.replace("#id",params.id);
              ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.BANK_CARD_MODIFY_STEP_2, (result) => {
                  if(result.isSuccess)
                  {
-                     if(passProps.isStep2)
+                     if(params.isStep2)
                      {
                          G_NavUtil.popN(2);
                      }

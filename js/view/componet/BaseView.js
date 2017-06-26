@@ -4,9 +4,9 @@ import {
     StyleSheet,
     LayoutAnimation
 } from 'react-native';
-import NavigationBar from './NavigationBar';
 
 import {shouldComponentUpdate} from 'react-immutable-render-mixin';
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -14,7 +14,9 @@ const styles = StyleSheet.create({
     }
 });
 
+//定义全局Dispatch 方便使用
 export default class BaseView extends Component {
+
     constructor(props) {
         super(props);
         this.getNavigationBarProps = this.getNavigationBarProps.bind(this);
@@ -25,6 +27,11 @@ export default class BaseView extends Component {
         this.onHeadPressed=this.onHeadPressed.bind(this);
         //this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
+        this.initRegist=false;
+        if(this.props.navigation)
+        {
+            G_Navigation = this.props.navigation
+        }
     }
 
     getNavigationBarProps () {
@@ -32,31 +39,24 @@ export default class BaseView extends Component {
         };
     }
 
-    componentWillMount() {
-
-    }
 
     renderNavigationBar() {
-        let navigationBarProps = this.getNavigationBarProps();
-        if(navigationBarProps != null)
-        {
-            return (
-                <NavigationBar
-                    {...this.props.passProps}
-                    {...navigationBarProps}
-                    onLeftPressed={this.onLeftPressed}
-                    onRightPressed={this.onRightPressed}
-                    onHeadPressed={this.onHeadPressed}
-                />
-            );
-        }
-        else{
-            return {}
-        }
+
+        return null
     }
 
     componentWillUpdate() {
         LayoutAnimation.configureNext(G_LayoutAnimationHelp.springNoDelete);
+
+        if(!this.initRegist)
+        {
+            if(this.props.navigation)
+            {
+                let {setParams}=this.props.navigation
+                setParams({onLeftPressed:this.onLeftPressed,onRightPressed:this.onRightPressed,onHeadPressed:this.onHeadPressed})
+                this.initRegist=true;
+            }
+        }
     }
 
     render() {
@@ -73,7 +73,7 @@ export default class BaseView extends Component {
     }
 
     onLeftPressed() {
-         G_NavUtil.pop();
+        TLog('onLeftPressed');
     }
 
     onRightPressed() {

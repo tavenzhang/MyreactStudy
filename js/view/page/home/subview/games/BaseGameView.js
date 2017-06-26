@@ -2,16 +2,35 @@ import React from 'react';
 import {
     View,
     StyleSheet,
-    Text
+    Text, TouchableOpacity
 } from 'react-native';
 import BaseView from "../../../../componet/BaseView";
-import {GAME_DERAIL} from "../../../../componet/navBarMenu/HeaderMenu";
+import {GAME_DERAIL, NavAIcoButton} from "../../../../componet/navBarMenu/HeaderMenu";
+import {TButton} from "../../../../componet/tcustom/button/TButton";
 import HeadMenuListView from "./HeadMenuListView";
 import MoreMenu from "../../../../componet/MoreMenu";
 import BannerView from "./BannerView";
 import AIcon from 'react-native-vector-icons/FontAwesome';
 
+
+
+
 export default class BaseGameView extends BaseView {
+
+    static navigationOptionsGame = ({navigation}) => {
+        let {onHeadPressed,getGameTitle,onRightPressed} = navigation.state.params
+        TLog("onHeadPressed-----",onHeadPressed)
+        TLog("getGameTitle------",getGameTitle)
+        return {
+            headerTitle: onHeadPressed && getGameTitle ?
+                <TouchableOpacity onPress={() => onHeadPressed()}><View style={[{flexDirection: "row"}]}>
+                    <Text key={'title'} style={styles.title}>{getGameTitle()}</Text>
+                    <AIcon color="white" style={{marginLeft: 5}} size={16}
+                           name={G_EnumFontNames.list_arrow_desc}/>
+                </View></TouchableOpacity> : null,
+            headerRight: <NavAIcoButton navigation={navigation} icoName={G_EnumFontNames.bars} isRightButton={true}/>
+        }
+    }
 
     constructor(props) {
         super(props);
@@ -42,71 +61,73 @@ export default class BaseGameView extends BaseView {
         this.onRenderSubView = this.onRenderSubView.bind(this);
         this.getMoreMenuData = this.getMoreMenuData.bind(this);
         this.onMoreMenuSelect = this.onMoreMenuSelect.bind(this)
-        this.getGameTitle=this.getGameTitle.bind(this);
-        this.getGameWays=this.getGameWays.bind(this);
+        this.getGameTitle = this.getGameTitle.bind(this);
+        this.getGameWays = this.getGameWays.bind(this);
+        this.registFuc=false
     }
 
-    getNavigationBarProps() {
-         this.gameName= this.getGameTitle();
-        return {
-            titleView: this.renderNavTitleView,
-            rightView: GAME_DERAIL
-        };
-    }
+    // getNavigationBarProps() {
+    //     this.gameName = this.getGameTitle();
+    //     return {
+    //         // titleView: this.renderNavTitleView,
+    //         rightView: GAME_DERAIL
+    //     };
+    // }
 
-    renderNavTitleView=()=>{
-       return (<View style={[{flexDirection: "row"}]}>
-            <Text key={'title'} style={styles.title}>{this.gameName}</Text>
-            <AIcon color="white" style={{marginLeft: 5}} size={16} name={G_EnumFontNames.list_arrow_desc}/>
-        </View>)
-    }
 
-    getGameTitle(){
-        const {name} = this.props.passProps;
+    getGameTitle() {
+        const {name} = this.props.navigation.state.params;
 
         const {currentGameWay} = this.state;
         let gameName = name;
         if (this.state.selectItem) {
-            if(currentGameWay.parent_parent_name_cn)
-            {
-                gameName = "["+currentGameWay.parent_parent_name_cn +"]-" +this.state.selectItem.name;
+            if (currentGameWay.parent_parent_name_cn) {
+                gameName = "[" + currentGameWay.parent_parent_name_cn + "]-" + this.state.selectItem.name;
             }
-            else{
-                gameName = "["+name +"]-" +this.state.selectItem.name;
+            else {
+                gameName = "[" + name + "]-" + this.state.selectItem.name;
             }
         }
         return gameName;
     }
 
-    getGameWays()
-    {
-         const {series_id, playModel} = this.props.passProps;
-         let list= playModel.getPlayByGid(series_id).arrayList
-             TLog("getGameWays----",list)
-         return list;
+    getGameWays() {
+        const {series_id, playModel} = this.props.navigation.state.params;
+        let list = playModel.getPlayByGid(series_id).arrayList
+        TLog("getGameWays----", list)
+        return list;
     }
 
-    onRightPressed=()=>{
-        if(this.refs.moreMenu)
-        {
+    onRightPressed = () => {
+        if (this.refs.moreMenu) {
             this.refs.moreMenu.toggle();
         }
     }
 
-    onHeadPressed=()=>{
+    onHeadPressed = () => {
         this.setState({isShowMenu: !this.state.isShowMenu});
     }
 
+    componentWillUpdate(){
+        super.componentWillUpdate();
+        if(!this.registFuc)
+        {
+            this.registFuc=true;
+            this.props.navigation.setParams({getGameTitle:this.getGameTitle,onHeadPressed:this.onHeadPressed})
+        }
+
+    }
     renderBody() {
         const {currentGameWay, currentNumber, defaultMethodId} = this.state;
-        const {series_id} = this.props.passProps
+        const {series_id} = this.props.navigation.state.params;
         let subView = this.state.selectItem ? this.onRenderSubView(this.state.selectItem) : null;
         let dim = (this.state.currentNumberTime - this.state.currentTime) * 1000;
         dim = dim > 0 ? dim : 0;
         let menuDataList = this.getMoreMenuData();
         return (defaultMethodId > 0) ? (
             <View style={G_Style.appContentView}>
-                <BannerView dateHistoryList={this.state.history_lotterys} time={dim} prize={currentGameWay.prize} series_id={series_id}  currentNumber={currentNumber}/>
+                <BannerView dateHistoryList={this.state.history_lotterys} time={dim} prize={currentGameWay.prize}
+                            series_id={series_id} currentNumber={currentNumber}/>
                 {subView}
                 <MoreMenu
                     ref="moreMenu"
@@ -115,9 +136,10 @@ export default class BaseGameView extends BaseView {
                     onMoreMenuSelect={this.onMoreMenuSelect}
                     buttonRect={{x: G_Theme.windowWidth - 60, y: -50, width: 40, height: 40}}
                 />
-                {this.state.isShowMenu&&<HeadMenuListView selectItem={this.state.selectItem} onHeadPressed={this.onHeadPressed}
-                                                          menuDataList={this.gameMenu}
-                                                          clickMenuItem={this.clickMenuItem} rootStyle={styles.firstMenuContain}/>}
+                {this.state.isShowMenu &&
+                <HeadMenuListView selectItem={this.state.selectItem} onHeadPressed={this.onHeadPressed}
+                                  menuDataList={this.gameMenu}
+                                  clickMenuItem={this.clickMenuItem} rootStyle={styles.firstMenuContain}/>}
             </View>
         ) : null
     }
@@ -133,12 +155,11 @@ export default class BaseGameView extends BaseView {
     }
 
     requetGameData = () => {
-        const {id} = this.props.passProps
+        const {id} = this.props.navigation.state.params;
         HTTP_SERVER.GET_GAME_DETAIL.url = HTTP_SERVER.GET_GAME_DETAIL.formatUrl.replace(/#id/g, id);
-        G_RunAfterInteractions(()=>{
+        G_RunAfterInteractions(() => {
             ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.GET_GAME_DETAIL, ActionType.GameType.SET_GAMECONFIG, data => {
-                if(`${data.isSuccess}`!="404")
-                {
+                if (`${data.isSuccess}` != "404") {
                     const pd = data.data;
                     this.setState({
                         bet_max_prize_group: parseInt(pd.bet_max_prize_group),
@@ -167,11 +188,15 @@ export default class BaseGameView extends BaseView {
                         const defaultGame = {"id": pd.defaultMethodId + '', "name": pd.defaultMethod_cn}
                         this.clickMenuItem(defaultGame);
                     }
-                }else {
-                    G_AlertUtil.showWithDestructive("","当前游戏获取数据出错，请稍后再尝试",[{text:"返回大厅",onPress:()=>{G_NavUtil.pop()}},{text:"了解"}])
+                } else {
+                    G_AlertUtil.showWithDestructive("", "当前游戏获取数据出错，请稍后再尝试", [{
+                        text: "返回大厅", onPress: () => {
+                            G_NavUtil.pop()
+                        }
+                    }, {text: "了解"}])
                 }
 
-            },false,true);
+            }, false, true);
         })
     }
 
@@ -190,7 +215,7 @@ export default class BaseGameView extends BaseView {
 
     clickMenuItem = (data) => {
         const {gameMethodHash, isRequestGameWay, currentGameWay} = this.state;
-        const {id,playModel} = this.props.passProps;
+        const {id, playModel} = this.props.navigation.state.params;
         if (currentGameWay.id != data.id) {
             if (gameMethodHash[data.id]) {
                 this.setState({
@@ -206,9 +231,8 @@ export default class BaseGameView extends BaseView {
                     ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.GET_GAME_WAY, d => {
                         const pd = d.data;
                         gameMethodHash[pd.id] = pd;
-                        if(pd.name_cn)
-                        {
-                            data.name= pd.name_cn;
+                        if (pd.name_cn) {
+                            data.name = pd.name_cn;
                         }
                         else {
                             data.name = playModel.getWayNameById(data.id)
@@ -232,10 +256,10 @@ export default class BaseGameView extends BaseView {
 
     onMoreMenuSelect(data) {
         const {currentGameWay} = this.state;
-        const {id, gameModel} = this.props.passProps;
+        const {id, gameModel} = this.props.navigation.state.params;
         switch (data.key) {
             case 1:
-                const gameName = currentGameWay.parent_parent_name_cn +"-"+ currentGameWay.name_cn;
+                const gameName = currentGameWay.parent_parent_name_cn + "-" + currentGameWay.name_cn;
                 const gameContent = `玩法说明:${currentGameWay.bonus_note}\n 玩法奖金:${G_moneyFormat(currentGameWay.prize)}`;
                 G_AlertUtil.show(`${gameName}玩法说明`,
                     gameContent,
@@ -244,10 +268,13 @@ export default class BaseGameView extends BaseView {
                     ])
                 break;
             case 2:
-                G_NavUtil.pushToView(G_NavViews.TrendView({title:`${gameModel.getGameNameById(id)}-走势图`,lotteryId:id}))
+                G_NavUtil.pushToView(G_NavViews.TrendView({
+                    title: `${gameModel.getGameNameById(id)}-走势图`,
+                    lotteryId: id
+                }))
                 break;
             case 3:
-                G_NavUtil.pushToView(G_NavViews.SSC_History({lottery_name:this.gameName,lottery_id:id}))
+                G_NavUtil.pushToView(G_NavViews.SSC_History({lottery_name: this.gameName, lottery_id: id}))
                 break;
             default:
                 break;
@@ -261,8 +288,8 @@ export default class BaseGameView extends BaseView {
 
 const styles = StyleSheet.create({
     title: {
-        color:"white",
-        fontSize:18,
+        color: "white",
+        fontSize: 18,
         fontWeight: "900",
         textAlign: 'center',
     },

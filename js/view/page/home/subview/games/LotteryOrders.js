@@ -109,8 +109,8 @@ export default class LotteryOrders extends BaseView {
 
     renderBody() {
 
-        const {orderList, balance, orderListNum, isTrace, traceTimes, traceMultiple} = this.props;
-        const {randomLotterys} = this.props.passProps;
+        const {orderList, balance, orderListNum, isTrace, traceTimes, traceMultiple,navigation} = this.props;
+        const {randomLotterys} = navigation.state.params;
         const me = this;
         let total = 0,
             totalMoney = 0;

@@ -649,6 +649,7 @@ export default class Games extends Component {
             //lotterys:lotterys,
             amount: lotterys.length * onePrice * multiple * moneyUnit,
             wayId: currentGameWay.id,
+            original:lotterysOriginal,
             ball: me.makePostParameter(lotterysOriginal),
             viewBalls: me.formatViewBalls(lotterysOriginal),
             num: lotterys.length,
@@ -691,6 +692,8 @@ export default class Games extends Component {
         const me = this,
             {orderList, currentGameWay} = this.props,
             {balls} = this.state;
+        let neworderList=orderList.toJS();
+            TLog('neworderList[0]____',neworderList);
 
         let allowTag,
             len = balls.length,
@@ -707,10 +710,10 @@ export default class Games extends Component {
         }
         //建立索引
         if (allowTag) {
-            for (var i = 0; i < orderList.length; i++) {
+            for (var i = 0; i < neworderList.length; i++) {
 
-                if (orderList[i]['wayId'] == currentGameWay.id) {
-                    var name = orderList[i]['original'].join('');
+                if (neworderList[i]['wayId'] == currentGameWay.id) {
+                    var name = neworderList[i]['original'].join('');
                     hash[name] = name;
                 }
             }
@@ -760,6 +763,7 @@ export default class Games extends Component {
 
         order = {
             amount: lotterys.length * onePrice * multiple * moneyUnit,
+            original:original,
             ball: me.makePostParameter(original),
             viewBalls: me.formatViewBalls(original),
             wayId: currentGameWay.id,

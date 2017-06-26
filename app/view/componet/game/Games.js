@@ -657,84 +657,69 @@ export default class Games extends Component {
         };
     }
 
-    // //生成单注随机数
-    // createRandomNum() {
-    //
-    //     const me = this,
-    //         current = [],
-    //         {balls} = this.state;
-    //
-    //     let len = balls.length;
-    //     for (let j = 0; j < len; j++) {
-    //         me.setRandomArr(undefined, j);
-    //         let i = me.getRandomNum();
-    //         current.push(i);
-    //     }
-    //     // current.sort(function (a, b) {
-    //     //     return a > b ? 1 : -1;
-    //     // })
-    //     return current;
-    //
-    //     //
-    //     //
-    //     // var me = this,
-    //     //     current = [],
-    //     //     len =balls.length,
-    //     //     rowLen = balls[0].length;
-    //     // //随机数
-    //     // for (var k = 0; k < len; k++) {
-    //     //     current[k] = [Math.floor(Math.random() * rowLen)];
-    //     //     current[k].sort(function (a, b) {
-    //     //         return a > b ? 1 : -1;
-    //     //     });
-    //     // }
-    //     // return current;
-    // }
-    //
-    // //限制随机投注重复
-    // checkRandomBets(hash, times) {
-    //     // const me = this,
-    //     //     {orderList, currentGameWay} = this.props,
-    //     //     {balls} = this.state;
-    //     //
-    //     // let allowTag,
-    //     //     len = balls.length,
-    //     //     rowLen = balls[0].length,
-    //     //     // //生成单数随机数
-    //     //     current = me.createRandomNum();
-    //     // allowTag = hash == undefined ? true : false;
-    //     // hash = hash || {};
-    //     // times = times || 0;
-    //     // //如果大于限制数量
-    //     // //则直接输出
-    //     // if (Number(times) > Number(this.randomBetsNum)) {
-    //     //     return current;
-    //     // }
-    //     // 建立索引
-    //     // if (allowTag) {
-    //     //     for (var i = 0; i < orderList.length; i++) {
-    //     //
-    //     //         if (orderList[i]['wayId'] == currentGameWay.id) {
-    //     //             var name = orderList[i]['original'].join('');
-    //     //             hash[name] = name;
-    //     //         }
-    //     //     }
-    //     // }
-    //     //对比结果
-    //     // if (hash[current.join('')]) {
-    //     //     times++;
-    //     //     return arguments.callee.call(me, hash, times);
-    //     // }
-    //     // return current;
-    //     return [];
-    // }
+    //生成单注随机数
+    createRandomNum() {
+
+        const me = this,
+            current = [],
+            {balls} = this.state;
+
+        let len = balls.length;
+        for (let j = 0; j < len; j++) {
+            me.setRandomArr(undefined, j);
+            let i = me.getRandomNum();
+            current.push(i);
+        }
+        // current.sort(function (a, b) {
+        //     return a > b ? 1 : -1;
+        // })
+        return current;
+
+    }
+
+    //限制随机投注重复
+    checkRandomBets(hash, times) {
+        const me = this,
+            {orderList, currentGameWay} = this.props,
+            {balls} = this.state;
+
+        let allowTag,
+            len = balls.length,
+            rowLen = balls[0].length,
+            // //生成单数随机数
+            current = me.createRandomNum();
+        allowTag = hash == undefined ? true : false;
+        hash = hash || {};
+        times = times || 0;
+        //如果大于限制数量
+        //则直接输出
+        if (Number(times) > Number(this.randomBetsNum)) {
+            return current;
+        }
+        //建立索引
+        if (allowTag) {
+            for (var i = 0; i < orderList.length; i++) {
+
+                if (orderList[i]['wayId'] == currentGameWay.id) {
+                    var name = orderList[i]['original'].join('');
+                    hash[name] = name;
+                }
+            }
+        }
+        //对比结果
+        if (hash[current.join('')]) {
+            times++;
+            return arguments.callee.call(me, hash, times);
+        }
+        return current;
+    }
 
     randomLotterys(num) {
         var me = this,
             i = 0;
         for (; i < num; i++) {
             //加入购彩篮
-            // let orderData = me.randomNum();
+            let orderData = me.randomNum();
             TLog('=======orderData=======>>>>>>>>>>>', orderData);
             if (orderData) {
                 ActDispatch.GameAct.addOrderToBasket(orderData);

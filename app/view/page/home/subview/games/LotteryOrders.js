@@ -184,7 +184,7 @@ export default class LotteryOrders extends BaseView {
                 />
                 <GameControlPannel
                     balance={balance}
-                    topDesc={`总计: ${total}注${traceTimes}期${traceMultiple}倍, 共${G_moneyFormat(totalMoney * traceTimes * traceMultiple)}元`}
+                    topDesc={`总计1: ${total}注${traceTimes}期${traceMultiple}倍, 共${G_moneyFormat(totalMoney * traceTimes * traceMultiple)}元`}
                     btnEvent={() => {
                         if (orderListNum == 0) {
                             Alert.alert(

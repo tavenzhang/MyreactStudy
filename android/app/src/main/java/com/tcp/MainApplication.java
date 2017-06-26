@@ -5,6 +5,13 @@ import android.app.Application;
 import com.elvishew.xlog.LogLevel;
 import com.elvishew.xlog.XLog;
 import com.facebook.react.ReactApplication;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage;
+import com.jadsonlourenco.RNShakeEvent.RNShakeEventPackage;
+import com.avishayil.rnrestart.ReactNativeRestartPackage;
+import com.RNFetchBlob.RNFetchBlobPackage;
+import com.microsoft.codepush.react.CodePush;
+import cn.jpush.reactnativejpush.JPushPackage;
 import com.jadsonlourenco.RNShakeEvent.RNShakeEventPackage;
 import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage;
 import cn.jpush.reactnativejpush.JPushPackage;
@@ -45,8 +52,10 @@ public class MainApplication extends Application implements ReactApplication {
             myCodePush = new CodePush("OESoJepwvYUVO5JLX51iJl3LHucn4ksvOXqog", MainApplication.this, BuildConfig.DEBUG, "http://104.250.145.227:3000");
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new VectorIconsPackage(),
+            new RCTSplashScreenPackage(),
             new RNShakeEventPackage(),
-                    new RCTSplashScreenPackage(),
+            new RNFetchBlobPackage(),
                     new JPushPackage(SHUTDOWN_TOAST, SHUTDOWN_LOG),
                     new ReactNativeRestartPackage(),
                     myCodePush,

@@ -60,7 +60,6 @@ export default class MyView extends BaseView {
         }}/>
     })
 
-
     static dataListRecord = [{ico: "star", name: ItemNameEnum.awardFind}, {
         ico: "file-text",
         name: ItemNameEnum.betRecord
@@ -108,6 +107,10 @@ export default class MyView extends BaseView {
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LOGIN_OUT, () => {
             ActDispatch.AppAct.loginOut();
         })
+    }
+
+    componentWillReceiveProps() {
+        TLog("componentWillReceiveProps---------------------")
     }
 
     componentWillUpdate(){

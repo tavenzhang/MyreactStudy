@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import BaseView from "../../../componet/BaseView";
 import TeamListView from "./agentTeam/TeamListView"
 import AgentFindView from "./agentTeam/AgentFindView";
+import {NavComomButton} from "../../../componet/navBarMenu/HeaderMenu";
 
 const mapStateToProps = state => {
     return {
@@ -17,6 +18,15 @@ const mapStateToProps = state => {
 
 @connect(mapStateToProps)
 export default class AgentTeamView extends BaseView {
+    static navigationOptions = ({navigation})=> ({
+        headerRight:<NavComomButton style={{
+            marginLeft: 20,
+            paddingHorizontal: 8,
+            paddingVertical: 4,
+            backgroundColor: "rgb(208,199,160)",
+            borderRadius: 5
+        }} name={"查询"} navigation={navigation} />
+    })
 
     constructor(props) {
         super(props);
@@ -28,25 +38,19 @@ export default class AgentTeamView extends BaseView {
         this.resetData=this.resetData.bind(this);
     }
 
-    getNavigationBarProps() {
-        return {
-            rightView: this.navRigntView
-        };
-    }
+    // getNavigationBarProps() {
+    //     return {
+    //         rightView: this.navRigntView
+    //     };
+    // }
 
-    navRigntView = () => {
-        return (
-            <View style={{
-                marginLeft: 20,
-                paddingHorizontal: 8,
-                paddingVertical: 4,
-                backgroundColor: "rgb(208,199,160)",
-                borderRadius: 5
-            }}>
-                <Text>查询</Text>
-            </View>
-        )
-    }
+    // navRigntView = () => {
+    //     return (
+    //         <View >
+    //             <Text>查询</Text>
+    //         </View>
+    //     )
+    // }
 
     onRightPressed() {
         this.setState({modalVisible: true});

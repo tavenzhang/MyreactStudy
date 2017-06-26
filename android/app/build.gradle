@@ -145,16 +145,14 @@ android {
 }
 
 dependencies {
-<<<<<<< HEAD
-=======
-    compile project(':react-native-fetch-blob')
->>>>>>> 8cdbdbbf4da1f2f6082307b72bdfa5c9f306db54
-    compile project(':react-native-shake-event')
-    compile project(':react-native-smart-splash-screen')
-    compile project(':jpush-react-native')
-    compile project(':react-native-restart')
     compile project(':react-native-vector-icons')
+    compile project(':react-native-smart-splash-screen')
+    compile project(':react-native-shake-event')
+    compile project(':react-native-restart')
+    compile project(':react-native-fetch-blob')
     compile project(':react-native-code-push')
+    compile project(':jpush-react-native')
+
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.facebook.react:react-native:+'

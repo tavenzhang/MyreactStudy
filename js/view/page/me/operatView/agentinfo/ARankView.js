@@ -58,7 +58,7 @@ export  default  class ARankView extends  BaseView{
         </View>)
     }
 
-    onTabChange=(index)=>{
+    onTabChange=(item,index)=>{
        // 投注额（sale）,开户数（newaccount），净盈亏（profit）
         let typeList = ["sale","newaccount","profit"];
         this.setState({dataList:[],selectedTabIndex:index})
@@ -71,7 +71,7 @@ export  default  class ARankView extends  BaseView{
     }
 
     componentDidMount() {
-        this.onTabChange(0);
+        this.onTabChange(null,0);
     }
 
 }

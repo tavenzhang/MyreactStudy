@@ -182,7 +182,7 @@ let pushView = (component, passProps = null,title=null) => {
 global.G_NavViews = {
     ADView: (data) => pushView("ADView", data),
     //登陆
-    LoginView: (data = {}) => pushView("LoginView", data),
+    LoginView: (data = {}) => pushView("LoginView", data,"登录"),
     //ssc 游戏详情
     SSC_History: (data) => pushView("SSC_History", data,data.lottery_name),
     //11-5 游戏详情
@@ -252,12 +252,6 @@ global.G_NavUtil = {
         if(G_NavState.routes[G_NavState.routes.length-1].routeName != data.component) {
             G_Navigation.navigate(data.component, {...data.passProps});
        }
-    },
-    replace: (data) => {
-        G_Navigation.replace(data);
-    },
-    resetToView: (data) => {
-        G_Navigation.resetTo(data);
     },
     pop: () => {
         lastView=null

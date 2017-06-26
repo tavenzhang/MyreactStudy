@@ -13,7 +13,7 @@ export default class TrendView extends BaseView {
     }
 
     renderBody() {
-        let {lotteryId} = this.props.passProps
+        let {lotteryId} = this.props.navigation.state.params;
         let resultView = null;
         if (`${lotteryId}` == "1") {
             resultView = <SSCTrend lotteryId={lotteryId}/>

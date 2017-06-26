@@ -77,8 +77,8 @@ export default class BaseGameView extends BaseView {
 
     getGameTitle() {
         const {name} = this.props.navigation.state.params;
-
         const {currentGameWay} = this.state;
+        this.gameName=name;
         let gameName = name;
         if (this.state.selectItem) {
             if (currentGameWay.parent_parent_name_cn) {
@@ -274,7 +274,7 @@ export default class BaseGameView extends BaseView {
                 }))
                 break;
             case 3:
-                G_NavUtil.pushToView(G_NavViews.SSC_History({lottery_name: this.gameName, lottery_id: id}))
+                G_NavUtil.pushToView(G_NavViews.SSC_History({lottery_name:this.gameName, lottery_id: id}))
                 break;
             default:
                 break;

@@ -209,7 +209,7 @@ export default class EditCardAddView extends BaseView {
                  {
                      if(params.isStep2)
                      {
-                         G_NavUtil.popN(2);
+                         G_NavUtil.pop();
                      }
                      else{
                          G_NavUtil.pop();

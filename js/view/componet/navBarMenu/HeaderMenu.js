@@ -10,7 +10,12 @@ import AIcon from 'react-native-vector-icons/FontAwesome';
 export class NavButtonView extends React.PureComponent {
     static propTypes = {
         navigation: PropTypes.any,
-        isRightButton:PropTypes.bool
+        isRightButton:PropTypes.bool,
+        style:PropTypes.object
+    }
+
+    static defaultProps={
+        isRightButton:true
     }
 
     onPress = () => {
@@ -24,13 +29,13 @@ export class NavButtonView extends React.PureComponent {
         }
     }
     render() {
-        let {isRightButton} = this.props
+        let {isRightButton,style} = this.props
         let custStyle={
             marginLeft:isRightButton ? 0:15,
             marginRight:isRightButton ? 15:0
         }
         return (<TouchableOpacity  onPress={this.onPress}>
-            <View style={custStyle}>
+            <View style={[custStyle,style]}>
                 {this.props.children}
             </View>
         </TouchableOpacity>)
@@ -40,11 +45,14 @@ export class NavButtonView extends React.PureComponent {
 
 
 
-export class NavComomButton extends React.PureComponent {
+export class
+
+NavComomButton extends React.PureComponent {
     static propTypes = {
         name: PropTypes.string,
         navigation: PropTypes.any,
-        isRightButton:PropTypes.bool
+        isRightButton:PropTypes.bool,
+        style:PropTypes.object
     }
     render() {
 
@@ -63,7 +71,8 @@ export class NavAIcoButton extends React.PureComponent {
         name: PropTypes.string,
         navigation: PropTypes.any,
         isRightButton:PropTypes.bool,
-        icoName:PropTypes.string
+        icoName:PropTypes.string,
+        style:PropTypes.object
     }
 
     render() {

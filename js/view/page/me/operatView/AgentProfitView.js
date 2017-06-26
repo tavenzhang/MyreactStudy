@@ -7,9 +7,20 @@ import {
 import BaseView from "../../../componet/BaseView";
 import AgentSearchView from "./agentProfit/AgentSearchView";
 import ProfitListView from "./agentProfit/ProfitListView";
+import {NavComomButton} from "../../../componet/navBarMenu/HeaderMenu";
 
 
 export default class AgentProfitView extends BaseView {
+    static navigationOptions = ({navigation})=> ({
+        headerRight:<NavComomButton style={{
+            marginLeft: 20,
+            paddingHorizontal: 8,
+            paddingVertical: 4,
+            backgroundColor: "rgb(208,199,160)",
+            borderRadius: 5
+        }} name={"搜索"} navigation={navigation} />
+    })
+
 
     constructor(props) {
         super(props);
@@ -24,25 +35,6 @@ export default class AgentProfitView extends BaseView {
 
     }
 
-    getNavigationBarProps() {
-        return {
-            rightView: this.navRigntView
-        };
-    }
-
-    navRigntView = () => {
-        return (
-            <View style={{
-                marginLeft: 20,
-                paddingHorizontal: 8,
-                paddingVertical: 4,
-                backgroundColor: "rgb(208,199,160)",
-                borderRadius: 5
-            }}>
-                <Text>搜索</Text>
-            </View>
-        )
-    }
 
     onRightPressed() {
         this.setState({modalVisible: true});

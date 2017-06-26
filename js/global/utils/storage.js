@@ -88,8 +88,7 @@ const GlobalKey = "global";
 //     }
 // }
 global.G_EnumStroeKeys={
-    USRTNAME:"userName",
-    PASS_PWD:"password",
+    USR_DATA:"USR_DATA",
     DO_MAIN:"DO_MAIN",
     CODE_PUSH:"code-push",
     FORCE_FLUSH_PROXY_MEONY:"FORCE_FLUSH_PROXY_MEONY",

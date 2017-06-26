@@ -3,10 +3,9 @@ import {
     View,
     StatusBar,
     Platform,
-    BackAndroid,
+    BackHandler,
     UIManager,
     ToastAndroid,
-    StyleSheet
 } from 'react-native';
 
 import {connect} from 'react-redux';
@@ -19,11 +18,9 @@ import ToastBoxView from "./view/componet/InfoBox/ToastBox";
 import {addNavigationHelpers} from "react-navigation";
 import {AppStackNavigator} from "./redux/reducer/NavReducer";
 
-
 //定义全局Dispatch 方便使用
 const mapDispatchToProps = (dispatch) => {
     if(!G_InitRegistApp)
-        TLog("dispatch------mapDispatchToProps",dispatch!=null)
     {   ActDispatch.AppAct=bindActionCreators(ActDispatch.AppAct,dispatch);
         ActDispatch.FetchAct=bindActionCreators(ActDispatch.FetchAct,dispatch);
         ActDispatch.HomeAct=bindActionCreators(ActDispatch.HomeAct,dispatch);
@@ -48,18 +45,18 @@ export default class App extends React.Component {
 
     //节点渲染以后
     componentWillMount() {
-        if (Platform.OS === 'android') {
-            BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
+        if (!G_PLATFORM_IOS) {
+            BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
         }
         //andorid setLayoutAnimatio 必须加入
-        if (Platform.OS === 'android') {
+        if (!G_PLATFORM_IOS) {
             UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
         }
     }
 
     componentWillUnmount() {
-        if (Platform.OS === 'android') {
-            BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid);
+        if (!G_PLATFORM_IOS) {
+            BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
         }
     }
 
@@ -96,30 +93,10 @@ export default class App extends React.Component {
         )
     }
 
-
-    //设置出场动画
-    // configureScene = (route) => {
-    //     let sceneAnimation = route.sceneAnimation;
-    //     if (sceneAnimation) {
-    //         return sceneAnimation;
-    //     }
-    //     //默认
-    //     return Navigator.SceneConfigs.FloatFromLeft;
-    // }
-    //
-    // renderScene = (route, navigator) => {
-    //     this.navigator = navigator;
-    //     global.Navgator = navigator;
-    //     let Component = route.component;
-    //     return (
-    //         <Component navigator={navigator} route={route} passProps={route.passProps}/>
-    //     )
-    // }
-
     onBackAndroid = () => {
-        const routers = this.navigator.getCurrentRoutes();
+        const routers = this.props.nav.routes;
         if (routers.length > 1) {
-            this.navigator.pop();
+            G_NavUtil.pop()
             return true;
         }
         let now = new Date().getTime();

@@ -12,9 +12,14 @@ const initialNavState = fromJS(AppStackNavigator.router.getStateForAction(Naviga
 })));
 
 const navState = (state = initialNavState, action) => {
-        //TLog("nextState----------------action",action)
-        let nextState = state.merge(AppStackNavigator.router.getStateForAction(action, state.toJS()));
-        //TLog("nextState----------------",nextState)
+    let nextState=null
+    if(action.type.indexOf("Navigation/")>-1)
+    {
+        TLog("nextState----------------action",action)
+         nextState = state.merge(AppStackNavigator.router.getStateForAction(action, state.toJS()));
+    }
+
+
         return nextState || state;
 }
 

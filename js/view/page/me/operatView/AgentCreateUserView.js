@@ -6,7 +6,6 @@ import {
     Switch,
 } from 'react-native';
 
-import {connect} from 'react-redux';
 import BaseView from "../../../componet/BaseView";
 import CreateHumanView from "./agentCreatUser/CreateHumanView";
 import CreateLinkView from "./agentCreatUser/CreateLinkView";
@@ -16,7 +15,7 @@ import MySegmentedControlTab from "../../../componet/tcustom/TSegmentedControlTa
 
 export default class AgentCreateUserView extends BaseView {
     static navigationOptions = ({navigation})=> ({
-        headerRight:<NavComomButton name={"查看链接"} navigation={navigation} isRightButton={true} />
+        headerRight:<NavComomButton name={"查看链接"} navigation={navigation} />
     })
 
 

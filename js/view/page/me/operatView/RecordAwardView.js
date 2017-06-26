@@ -9,7 +9,7 @@ import {
 
 import {connect} from 'react-redux';
 import BaseView from "../../../componet/BaseView";
-import AwardListView from "../../../componet/BaseListView";
+import TFlatList from "../../../componet/TFlatList";
 
 
 const mapStateToProps = state => {
@@ -24,6 +24,7 @@ export default class RecordAwardRView extends BaseView {
         super(props);
         this.state = {
             dataList: [],
+            pageSize:20,
         };
     }
 
@@ -44,7 +45,7 @@ export default class RecordAwardRView extends BaseView {
                         <Text style={styles.textHeadStyle}>奖金</Text>
                     </View>
                 </View>
-                <AwardListView dataList={this.state.dataList} loadMore={this._loadMore} renderRow={this._renderRow}/>
+                <TFlatList pageSize={this.state.pageSize}  dataList={this.state.dataList} loadMore={this._loadMore} renderRow={this._renderRow}/>
             </View>
         );
     }
@@ -55,10 +56,9 @@ export default class RecordAwardRView extends BaseView {
 
     componentDidMount() {
         HTTP_SERVER.GET_BET_WIN.body.page = 1;
-        HTTP_SERVER.GET_BET_WIN.body.pagesize = 15;
+        HTTP_SERVER.GET_BET_WIN.body.pagesize = this.state.pageSize;
         InteractionManager.runAfterInteractions(() => {
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.GET_BET_WIN, (result) => {
-                TLog("rowData------------------------------------",result.data);
                 if (result.data.data) {
                     this.setState({dataList: result.data.data});
                 }
@@ -66,13 +66,19 @@ export default class RecordAwardRView extends BaseView {
         });
     }
 
-    _loadMore = (callFinishBack) => {
-        HTTP_SERVER.GET_BET_WIN.body.page += 1;
-        HTTP_SERVER.GET_BET_WIN.body.pagesize = 15;
+
+    _loadMore = (callFinishBack,isFlush=false) => {
+        if(isFlush) {
+            HTTP_SERVER.GET_BET_WIN.body.page = 1;
+        }
+        else{
+            HTTP_SERVER.GET_BET_WIN.body.page += 1;
+        }
+
+        HTTP_SERVER.GET_BET_WIN.body.pagesize = this.state.pageSize;
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.GET_BET_WIN, (result) => {
             if (result.data.data) {
-                let arr = this.state.dataList.concat(result.data.data);
-                this.setState({dataList: arr})
+                this.setState({dataList:G_ArrayUtils.addComapreCopy(this.state.dataList,result.data.data)})
             }
             if(callFinishBack)
             {
@@ -81,11 +87,11 @@ export default class RecordAwardRView extends BaseView {
         })
     }
 
-    _renderRow = (rowData,section) => {
+    _renderRow = (rowData,index) => {
         let {gameModel}=this.props;
         let gameName= gameModel.getGameNameById(rowData.lottery_id);
         return (
-            <View>
+            <View key={"recorder"+index}>
                 <TouchableHighlight onPress={() => this.itemClick(rowData)} underlayColor='rgba(10,10,10,0.2)'>
                     <View style={styles.row}>
                         <View style={styles.itemContentStyle}>

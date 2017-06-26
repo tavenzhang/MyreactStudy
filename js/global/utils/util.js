@@ -1,7 +1,6 @@
 import {InteractionManager} from 'react-native';
 
 
-
 Date.prototype.Format = function (fmt) { //author: meizz
     var o = {
         "M+": this.getMonth() + 1, //月份
@@ -19,14 +18,14 @@ Date.prototype.Format = function (fmt) { //author: meizz
 }
 
 
-const DateUtil={
+const DateUtil = {
 
-    formatSecondDate:(secondNum:Number)=>{
-        let data= new Date(secondNum)
+    formatSecondDate: (secondNum: Number) => {
+        let data = new Date(secondNum)
         return data.Format("mm:ss");
     },
     //2017-02-22  15:47:00
-    formatRecodData:(date:Date)=>{
+    formatRecodData: (date: Date) => {
         return date.Format("yyyy-MM-dd hh:mm:ss");
     },
     /**
@@ -34,7 +33,7 @@ const DateUtil={
      * @param datetime
      * @returns {Number|*}
      */
-    datetime2Date:(datetime) => {
+    datetime2Date: (datetime) => {
         let tmp_datetime = datetime.replace(/:/g, '-');
         tmp_datetime = tmp_datetime.replace(/ /g, '-');
         let arr = tmp_datetime.split("-");
@@ -43,53 +42,70 @@ const DateUtil={
     },
     formatItemDateString(dataString)
     {
-        let newstr=dataString.replace(/-/g,   "/");
-        let  date = new Date(Date.parse(newstr));
-        let dataName=` ${date.getMonth() +1}月${date.getDate()}日 ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} `
+        let newstr = dataString.replace(/-/g, "/");
+        let date = new Date(Date.parse(newstr));
+        let dataName = ` ${date.getMonth() + 1}月${date.getDate()}日 ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} `
         return dataName
     },
     formatSimpleItemDateString(dataString)
     {
-        let newstr=dataString.replace(/-/g,   "/");
-        let  date = new Date(Date.parse(newstr));
-        let day=date.getDate()>9 ? `${date.getDate()}日`:`0${date.getDate()}日`;
-        let hour=date.getHours()>9 ? `${date.getHours()}`:`0${date.getHours()}`;
-        let min=date.getMinutes()>9 ? `${date.getMinutes()}`:`0${date.getMinutes()}`;
-        let dataName =` ${day} \n ${hour}:${min} `;
+        if (!dataString) return ""
+        let newstr = dataString.replace(/-/g, "/");
+        let date = new Date(Date.parse(newstr));
+        let day = date.getDate() > 9 ? `${date.getDate()}日` : `0${date.getDate()}日`;
+        let hour = date.getHours() > 9 ? `${date.getHours()}` : `0${date.getHours()}`;
+        let min = date.getMinutes() > 9 ? `${date.getMinutes()}` : `0${date.getMinutes()}`;
+        let dataName = ` ${day} \n ${hour}:${min} `;
         return dataName
     }
 }
 
 global.G_DateUtil = DateUtil;
 
-const StringUtil={
+const StringUtil = {
     //2017-02-22  15:47:00
-    formatBankCard:(str)=>{
+    formatBankCard: (str) => {
         let tempStr = str.substr(0, str.length - 4);
         tempStr = tempStr.replace(/./g, "*");
         tempStr += str.substr(str.length - 4);
-         return tempStr;
+        return tempStr;
     },
 }
-global.G_StringUtil=StringUtil;
+global.G_StringUtil = StringUtil;
 
 
-runAfterInteractions=(func)=>{
-    if(func)
-    {
-        InteractionManager.runAfterInteractions(()=>{
-            if(func)
-            {
+runAfterInteractions = (func) => {
+    if (func) {
+        InteractionManager.runAfterInteractions(() => {
+            if (func) {
                 func();
             }
         })
     }
 
 }
-global.G_RunAfterInteractions=runAfterInteractions
+global.G_RunAfterInteractions = runAfterInteractions
 
 
+global.G_ArrayUtils = {
+    addComapreCopy: (srcList, newList, proKey="id") => {
+        for (let item of  newList) {
+            let container = false;
+            for (let index in srcList) {
+                if (srcList[index][`${proKey}`] == item[`${proKey}`]) {
+                    container = true;
+                    srcList[index] = item;
+                    break;
+                }
+            }
+            if (!container) {
+                srcList.push(item)
+            }
+        }
+        return srcList.slice()
+    }
 
+}
 
 
 // Number.prototype.toFixed =function(len)
@@ -120,12 +136,12 @@ global.G_RunAfterInteractions=runAfterInteractions
 export const moneyFormat = (numold, s) => {
     let num = Number(numold),
         re = /(-?\d+)(\d{3})/,
-        n= s ? s : 2;
+        n = s ? s : 2;
 
     if (Number.prototype.toFixed) {
         num = (num).toFixed(n)
     } else {
-        let j = 1,b = 1;
+        let j = 1, b = 1;
         while (j >= n) {
             b = b * 10;
             j++;
@@ -198,7 +214,6 @@ export const obj2ser = objs => {
     }
     return str.substring(0, str.length - 1);
 }
-
 
 
 /**

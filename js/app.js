@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-    Navigator,
     View,
     StatusBar,
     Platform,
@@ -17,10 +16,12 @@ import Loading from "./view/componet/Loading";
 import SplashScreen from 'react-native-smart-splash-screen'
 import TabbarView from "./view/TabbarView";
 import ToastBoxView from "./view/componet/InfoBox/ToastBox";
+import {Navigator} from 'react-native-deprecated-custom-components';
 
 //定义全局Dispatch 方便使用
 const mapDispatchToProps = (dispatch) => {
     if(!G_InitRegistApp)
+        TLog("dispatch------mapDispatchToProps",dispatch!=null)
     {   ActDispatch.AppAct=bindActionCreators(ActDispatch.AppAct,dispatch);
         ActDispatch.FetchAct=bindActionCreators(ActDispatch.FetchAct,dispatch);
         ActDispatch.HomeAct=bindActionCreators(ActDispatch.HomeAct,dispatch);
@@ -60,7 +61,6 @@ export default class App extends React.Component {
     }
 
     componentDidMount() {
-
         SplashScreen.close({
             animationType: SplashScreen.animationType.scale,
             duration: 850,

@@ -7,7 +7,7 @@ import {
 } from 'react-native'
 import AIcon from 'react-native-vector-icons/FontAwesome';
 import BaseView from "../../componet/BaseView";
-import MsgListView from "../../componet/BaseListView";
+import TFlatList from "../../componet/TFlatList";
 
 export default class Notice extends BaseView {
     constructor(props) {
@@ -20,7 +20,7 @@ export default class Notice extends BaseView {
     renderBody() {
         return (
             <View style={G_Style.appContentView}>
-                <MsgListView dataList={this.state.dataList} loadMore={this.props.loadMore} renderRow={this._renderRow}/>
+                <TFlatList dataList={this.state.dataList}  renderRow={this._renderRow}/>
             </View>
         );
     }
@@ -39,6 +39,7 @@ export default class Notice extends BaseView {
     }
 
     _renderRow = (data) => {
+
         return (
             <View>
                 <TouchableHighlight onPress={() => this.itemClick(data)} underlayColor='rgba(10,10,10,0.2)'>

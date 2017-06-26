@@ -8,7 +8,7 @@ import TabNavigator from 'react-native-tab-navigator';
 import AIcon from 'react-native-vector-icons/FontAwesome';
 import Home from "./page/home/Home";
 import MyView from "./page/me/MyView";
-import Notice from "./page/award/GameResultList";
+import Notice from "./page/award/Award";
 import Discover from "./page/notice/Notice";
 
 const tabBarItems = [

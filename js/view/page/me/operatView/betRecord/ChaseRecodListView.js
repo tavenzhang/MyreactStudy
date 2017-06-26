@@ -4,7 +4,7 @@ import {
     Text, StyleSheet,
     TouchableHighlight,
 } from 'react-native';
-import BetListView from "../../../../componet/BaseListView";
+import TFlatList from "../../../../componet/TFlatList";
 import AIcon from 'react-native-vector-icons/FontAwesome';
 
 export default class ChaseRecodListView extends React.Component {
@@ -15,10 +15,10 @@ export default class ChaseRecodListView extends React.Component {
     }
 
     render() {
-        let ds = this.props.dataList;
+        let {pageSize,dataList}=this.props
         return (
             <View style={G_Style.appContentView}>
-                <BetListView dataList={ds} loadMore={this.props.loadMore} renderRow={this._renderRow}/>
+                <TFlatList pageSize={pageSize} dataList={dataList} loadMore={this.props.loadMore} renderRow={this._renderRow}/>
             </View>
         )
     }

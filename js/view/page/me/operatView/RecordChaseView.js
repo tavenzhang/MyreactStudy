@@ -35,6 +35,7 @@ export default class RecordChaseView extends BaseView {
             curGame: null,
             curPlay: null,
             curTime: null,
+            pageSize:20,
             dataList: [],
             gameList: [],
             timeList: [{name: "全部时间", date: ""},{name: "最近一周", date: lastWeekTime},{
@@ -130,7 +131,7 @@ export default class RecordChaseView extends BaseView {
                     </TouchableHighlight>
                 </View>
                 <View style={{flex: 1, backgroundColor: "yellow"}}>
-                    <ChaseRecodListView dataList={this.state.dataList} loadMore={this.loadMore} {...this.props}/>
+                    <ChaseRecodListView pageSize={this.state.pageSize} dataList={this.state.dataList} loadMore={this.loadMore} {...this.props}/>
                 </View>
                 <View style={{position: "absolute", zIndex: 6, top: 35}}>
                     {gameView}
@@ -143,7 +144,7 @@ export default class RecordChaseView extends BaseView {
 
     componentDidMount() {
         G_RunAfterInteractions(()=>{
-            this.loadMore(null, 1);
+            this.loadMore(null, true);
         })
     }
 
@@ -226,26 +227,26 @@ export default class RecordChaseView extends BaseView {
     }
 
 
-    loadMore = (callBack, forcePage = 0) => {
+    loadMore = (callBack, isFlush) => {
         HTTP_SERVER.CHASE_RECODE.body.bought_at_from = this.state.curTime ? this.state.curTime.date : "";
         HTTP_SERVER.CHASE_RECODE.body.bought_at_to = G_DateUtil.formatRecodData(new Date());
         HTTP_SERVER.CHASE_RECODE.body.lottery_id = this.state.curGame ? this.state.curGame.id : "";
         HTTP_SERVER.CHASE_RECODE.body.way_id = this.state.curPlay ? this.state.curPlay.id : "";
-        if (forcePage > 0) {
-            HTTP_SERVER.CHASE_RECODE.body.page = forcePage;
+        if (isFlush ) {
+            HTTP_SERVER.CHASE_RECODE.body.page = 1;
             this.setState({dataList: []});
         }
         else {
             HTTP_SERVER.CHASE_RECODE.body.page += 1;
         }
 
-        HTTP_SERVER.CHASE_RECODE.body.pagesize = 20;
+        HTTP_SERVER.CHASE_RECODE.body.pagesize = this.state.pageSize;
         G_RunAfterInteractions(()=>{
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.CHASE_RECODE, (result) => {
                 if (callBack) {
                     callBack()
                 }
-                let arr =this.state.dataList.concat(result.data.data);
+                let arr =G_ArrayUtils.addComapreCopy(this.state.dataList,result.data.data)
                 this.setState({dataList: arr});
             }, false);
         })

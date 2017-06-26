@@ -90,7 +90,6 @@ export  default  class TeamView extends  React.Component {
 
     componentDidMount() {
        this.onClickDateButton(0);
-
     }
 }
 
@@ -131,7 +130,5 @@ const styles = StyleSheet.create({
         marginTop:15,
         fontSize:14
     }
-
-
 });
 

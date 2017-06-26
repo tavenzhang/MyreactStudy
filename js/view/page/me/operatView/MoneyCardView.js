@@ -7,11 +7,12 @@ import {
 import {connect} from 'react-redux';
 import BaseView from "../../../componet/BaseView";
 import {HeaderPlusRightMenu} from "../../../componet/navBarMenu/HeaderMenu";
-import MyListView from "../../../componet/BaseListView";
+import TFlatList from "../../../componet/TFlatList";
 
 const mapStateToProps = state => {
     return {
         cardList:state.get("appState").get("cardList").toJS(),
+        pageSize:20
     }
 }
 
@@ -19,6 +20,9 @@ const mapStateToProps = state => {
 export default class MoneyCardView extends BaseView {
     constructor(props) {
         super(props);
+        this.state={
+            pageSize:20
+        }
     }
 
     getNavigationBarProps() {
@@ -30,22 +34,21 @@ export default class MoneyCardView extends BaseView {
     renderBody() {
        // TLog("cardList----------------------------");
         return (
-            <MyListView dataList={this.props.cardList} loadMore={this._loadMore} renderRow={this._renderRow}/>
+            <TFlatList pageSize={this.state.pageSize} dataList={this.props.cardList} loadMore={this._loadMore} renderRow={this._renderRow}/>
         );
     }
 
     componentDidMount() {
         G_RunAfterInteractions(()=>{
             HTTP_SERVER.LIST_BANGK_CARDS.body.page = 1;
-            HTTP_SERVER.LIST_BANGK_CARDS.body.pagesize = 15;
+            HTTP_SERVER.LIST_BANGK_CARDS.body.pagesize = this.state.pageSize;
             ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.LIST_BANGK_CARDS, ActionType.AppType.CARD_LIST_GET);
         })
     }
 
-
-    _loadMore = (callFinishBack) => {
-        HTTP_SERVER.LIST_BANGK_CARDS.body.page += 1;
-        HTTP_SERVER.LIST_BANGK_CARDS.body.pagesize = 15;
+    _loadMore = (callFinishBack,isFlush) => {
+        HTTP_SERVER.LIST_BANGK_CARDS.body.page  = isFlush ? 1: HTTP_SERVER.LIST_BANGK_CARDS.body.page+1;
+        HTTP_SERVER.LIST_BANGK_CARDS.body.pagesize = this.state.pageSize;
         ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.LIST_BANGK_CARDS,ActionType.AppType.CARD_LIST_GET, (result) => {
             if (callFinishBack) {
                 callFinishBack();

@@ -8,7 +8,7 @@ import {
 
 import AIcon from 'react-native-vector-icons/FontAwesome';
 import BaseView from "../../../componet/BaseView";
-import MsgListView from "../../../componet/BaseListView";
+import TFlatList from "../../../componet/TFlatList";
 
 
 export default class PersonMailView extends BaseView {
@@ -22,7 +22,7 @@ export default class PersonMailView extends BaseView {
     renderBody() {
         return (
             <View style={G_Style.appContentView}>
-                <MsgListView dataList={this.state.dataList} loadMore={this.props.loadMore} renderRow={this._renderRow}/>
+                <TFlatList dataList={this.state.dataList} renderRow={this._renderRow}/>
             </View>
         );
     }

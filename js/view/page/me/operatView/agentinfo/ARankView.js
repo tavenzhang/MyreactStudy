@@ -3,11 +3,12 @@ import React ,{PropTypes} from 'react';
 import {
     View,
     StyleSheet,
-    ListView,
     Text
 } from 'react-native';
 import BaseView from "../../../../componet/BaseView";
 import MySegmentedControlTab from "../../../../componet/tcustom/TSegmentedControlTab";
+import TFlatList from "../../../../componet/TFlatList";
+
 
 export  default  class ARankView extends  BaseView{
 
@@ -30,14 +31,11 @@ export  default  class ARankView extends  BaseView{
         return {title:"本月排名"}
     }
     renderBody() {
-            let ds= this.state.dataSource.cloneWithRows(this.state.dataList);
         return(<View>
                 <MySegmentedControlTab selectedTabIndex={this.state.selectedTabIndex} valueList={['投注额', '开户数',"净盈亏"]} onTabChange={this.onTabChange}/>
-                <ListView
-                    dataSource={ds}
+                <TFlatList
+                    dataList={this.state.dataList}
                     renderHeader={this._rendHeadView}
-                    renderRow={this._rendRow}
-                    enableEmptySections={true}
                 />
             </View>
         );

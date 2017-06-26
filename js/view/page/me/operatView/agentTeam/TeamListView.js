@@ -1,12 +1,11 @@
 import React from 'react';
 import {
     View,
-    ListView,
     StyleSheet,
     Text,
-    InteractionManager,
     TouchableHighlight
 } from 'react-native';
+import TFlatList from "../../../../componet/TFlatList";
 
 
 export default class TeamListView extends React.Component {
@@ -14,9 +13,6 @@ export default class TeamListView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (r1, r2) => r1 !== r2,
-            }),
             username: ''
         }
     }
@@ -38,13 +34,11 @@ export default class TeamListView extends React.Component {
         const {dataList}=this.props;
         TLog("-------rowData---------", dataList);
 
-        let ds = this.state.dataSource.cloneWithRows(dataList)
         return (<View style={[styles.defaultStyle]}>
-            <ListView
-                dataSource={ds}
+            <TFlatList
+                dataList={dataList}
                 renderHeader={this.renderHeadView}
                 renderRow={this.rendeRow}
-                enableEmptySections
             />
         </View>)
     }

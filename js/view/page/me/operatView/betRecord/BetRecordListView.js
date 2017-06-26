@@ -5,7 +5,7 @@ import {
     TouchableHighlight,
 } from 'react-native';
 
-import BetListView from "../../../../componet/BaseListView";
+import TFlatList from "../../../../componet/TFlatList";
 import AIcon from 'react-native-vector-icons/FontAwesome';
 
 export default class BetRecordListView extends React.Component {
@@ -17,7 +17,7 @@ export default class BetRecordListView extends React.Component {
         let ds = this.props.dataList;
         return (
             <View style={G_Style.appContentView}>
-                <BetListView dataList={ds} loadMore={this.props.loadMore} renderRow={this._renderRow}/>
+                <TFlatList dataList={ds} loadMore={this.props.loadMore} renderRow={this._renderRow}/>
             </View>
         )
     }

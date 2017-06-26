@@ -30,6 +30,37 @@ export default class XixingZuxuan12 extends SSC {
         }
     }
 
+    //生成单注随机数
+    createRandomNum() {
+
+        const me = this,
+            current = [],
+            {balls} = this.state;
+        me.setRandomArr();
+        //第一位
+        let i=me.getRandomNum();
+        current[0]=[i];
+        current[1]=[];
+        for (let j = 0; j < 2; j++) {
+            let i = me.getRandomNum();
+            current[1].push(i);
+        }
+        current[1].sort(function (a, b) {
+            return a > b ? 1 : -1;
+        })
+        return current;
+    }
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me = this;
+        let result = [],
+            nr = new Array();
+        result = me.combine(arr[1], 2);
+        nr.push(result[0].concat([arr[0],arr[0]]));
+
+        return nr;
+    }
     //设置rowtitle
     setRowTitle = () => ['二重号','单号'];
 

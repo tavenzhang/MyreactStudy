@@ -36,6 +36,31 @@ export default class WuxingZuxuanZuxuan30 extends SSC {
         let i = me.getRandomNum();
         me.selectBall(i, 1, 1);
     }
+    //生成单注随机数
+    createRandomNum() {
+        const me = this,
+            current = [],
+            {balls} = this.state;
+        me.setRandomArr();
+
+
+        current[0]=[];
+        //第一位
+        for (let j = 0; j < 2; j++) {
+            let i = me.getRandomNum();
+            current[0].push(i);
+        }
+        //第2位
+        let i = me.getRandomNum();
+        current[1]=[i];
+        return current;
+    }
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me = this;
+        return me.combine(arr, 2);
+    }
 
     //并设置 isBallsComplete
     checkBallIsComplete(){

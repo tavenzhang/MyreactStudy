@@ -30,6 +30,18 @@ export default class WuxingZuxuanZuxuan5 extends SSC {
             me.selectBall(i, j, 1);
         }
     }
+    //生成单注随机数
+    createRandomNum() {
+        const me = this,
+            current = [],
+            {balls} = this.state;
+        me.setRandomArr();
+        for (let j = 0; j < 2; j++) {
+            let i = me.getRandomNum();
+            current[j]=[i];
+        }
+        return current;
+    }
 
 
     //并设置 isBallsComplete

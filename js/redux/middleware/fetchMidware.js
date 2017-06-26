@@ -49,7 +49,8 @@ function fetchMiddleware(extraArgument) {
                         next(ActionEnum.AppAct.showBox(data.msg || "操作错误~",'error'));
                     }
                     else {
-                        if (action.callback) {
+                        if (action.callback && undefined !=  action.callback) {
+
                             try{
                                 action.callback(data);
                             }

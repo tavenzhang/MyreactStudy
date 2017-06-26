@@ -147,6 +147,11 @@ const mapStateToProps = state => {
         orderNum: state.get("gameState").get("orderList").count(),
         moneyUnit: state.get("gameState").get("moneyUnit"), //金额模式
         multiple: state.get("gameState").get("multiple"), //倍数
+
+        orderList: state.get("gameState").get("orderList"),
+        orderListNum: state.get("gameState").get("orderList").count(),
+
+        // balance: parseFloat(state.get("appState").getIn(['userData', 'data', 'available']))
        // balance: parseFloat(state.get("appState").getIn(['userData','data','available']));
         balance:state.get("appState").get("moneyBalance"),
     }

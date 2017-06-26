@@ -38,6 +38,31 @@ export default class WuxingZuxuanZuxuan20 extends SSC {
         }
     }
 
+    //生成单注随机数
+    createRandomNum() {
+        const me = this,
+            current = [],
+            {balls} = this.state;
+        me.setRandomArr();
+
+        //第一位
+        let i = me.getRandomNum();
+        current[0]=[i];
+        current[1]=[];
+        //第二位
+        for (let j = 0; j < 2; j++) {
+            let i = me.getRandomNum();
+            current[1].push(i);
+        }
+        return current;
+    }
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me = this;
+        return me.combine(arr, 2);
+    }
+
 
     //并设置 isBallsComplete
     checkBallIsComplete() {
@@ -64,6 +89,7 @@ export default class WuxingZuxuanZuxuan20 extends SSC {
         this.setState({isBallsComplete: false});
         return false;
     }
+
 
     //获取组合结果
     getLottery() {

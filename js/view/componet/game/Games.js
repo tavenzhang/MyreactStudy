@@ -175,10 +175,6 @@ export default class Games extends Component {
         let me = this,
             i = Math.floor(Math.random() * this.RandomArr.length);
         let Num = this.RandomArr[i];
-        // TLog('IIII=', i);
-        // TLog('this.RandomArr=', this.RandomArr);
-        // TLog('this.RandomArr=', this.RandomArr[i]);
-
         me.setRandomArr(i);
         return Num;
     }
@@ -693,7 +689,6 @@ export default class Games extends Component {
             {orderList, currentGameWay} = this.props,
             {balls} = this.state;
         let neworderList=orderList.toJS();
-            TLog('neworderList[0]____',neworderList);
 
         let allowTag,
             len = balls.length,

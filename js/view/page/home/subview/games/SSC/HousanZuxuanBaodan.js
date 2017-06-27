@@ -33,6 +33,23 @@ export default class HousanZuxuanBaodan extends SSC {
         }
     }
 
+    //生成单注随机数
+    createRandomNum() {
+        const me = this,
+            current = [],
+            {balls} = this.state;
+        me.setRandomArr();
+        let i = me.getRandomNum();
+        current[0] = [i];
+        return current;
+    }
+
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me=this;
+        return me.mathResult(arr[0], 0, 9);
+    }
     checkBallIsComplete(){
         let me = this,
             ball = me.state.balls[0],

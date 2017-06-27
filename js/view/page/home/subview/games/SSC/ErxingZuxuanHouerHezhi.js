@@ -16,41 +16,65 @@ export default class ErxingZuxuanHouerHezhi extends SSC {
 
     constructor(props) {
         super(props);
+        this.ballFirstStart = 0;
+
     }
 
     //设置球排列
     setBalls = () => [
-        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+        [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
     ];
 
-    setBallText = () => [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17];
+    setBallText = () => [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
 
 
     //设置rowtitle
     setRowTitle = () => ['选球']
+//生成单注随机数
+    createRandomNum() {
+        const me = this,
+            current = [],
+            {balls} = this.state;
+        me.setRandomArr();
+        let i = me.getRandomNum();
+        current[0] = [i];
+        return current;
+    }
+
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me = this;
+        let resultNum = [], len = arr[0].length,
+            numArr = arr[0], i = 0;
+        for (; i < len; i++) {
+            resultNum = resultNum.concat(me.mathResult(numArr[i], 0, 9));
+        }
+        return resultNum;
+    }
 
     buildBalls(row) {
         const me = this;
-        const {balls,ballText,rowTitle} = this.state;
-        if(balls.length > 0) {
+        const {balls, ballText, rowTitle} = this.state;
+        if (balls.length > 0) {
             const rows = balls.length,
                 len = balls[0].length,
                 ballTextLen = ballText.length,
                 ballTitleLen = rowTitle.length;
 
-            if(rows == ballTitleLen && len == ballTextLen) {
+            if (rows == ballTitleLen && len == ballTextLen) {
                 const ballWidth = (G_Theme.windowWidth - 20) / me.state.rowBallNumber;
                 return <View style={styles.ballBox}>
-                    {me.state.ballText.map((v,i) => {
-                        if(i > 0) {
-                            return <View  style={[styles.ballBtnBox,{width:ballWidth}]} key={i} >
+                    {me.state.ballText.map((v, i) => {
+                        if (i > 0) {
+                            return <View style={[styles.ballBtnBox, {width: ballWidth}]} key={i}>
                                 <Ball
                                     text={v}
                                     row={row}
                                     value={i}
                                     status={balls[row][i]}
-                                    onPress={(x,y,v)=>me.selectBall(x,y,v)}
-                                    />
+                                    onPress={(x, y, v) => me.selectBall(x, y, v)}
+                                />
                             </View>
                         }
                     })}
@@ -65,7 +89,7 @@ export default class ErxingZuxuanHouerHezhi extends SSC {
         }
     }
 
-    formatViewBalls(original){
+    formatViewBalls(original) {
         let me = this,
             result = [],
             len = original.length,
@@ -76,18 +100,18 @@ export default class ErxingZuxuanHouerHezhi extends SSC {
         return result.join('|');
     }
 
-    checkBallIsComplete(){
+    checkBallIsComplete() {
         let me = this,
             ball = me.state.balls[0],
             i = 0,
             len = ball.length,
             num = 0;
-        for(;i < len;i++){
-            if(ball[i] > 0){
+        for (; i < len; i++) {
+            if (ball[i] > 0) {
                 num++;
             }
         }
-        if(num >= 1){
+        if (num >= 1) {
             this.setState({isBallsComplete: true});
             return true;
         }
@@ -108,15 +132,15 @@ export default class ErxingZuxuanHouerHezhi extends SSC {
             arr = [],
             resultNum = [];
 
-        for(;i < len;i++){
-            if(ball[i] > 0){
+        for (; i < len; i++) {
+            if (ball[i] > 0) {
                 arr.push(i);
             }
         }
         //校验当前的面板
         //获取选中数字
-        if(me.checkBallIsComplete()){
-            for(var j=0;j < arr.length;j++){
+        if (me.checkBallIsComplete()) {
+            for (var j = 0; j < arr.length; j++) {
                 resultNum = resultNum.concat(me.mathResult(arr[j], 0, 9));
             }
             return resultNum;
@@ -125,10 +149,10 @@ export default class ErxingZuxuanHouerHezhi extends SSC {
     }
 
     //检测结果重复
-    checkResult(data, array){
+    checkResult(data, array) {
         //检查重复
         for (let i = array.length - 1; i >= 0; i--) {
-            if(array[i].join('') == data){
+            if (array[i].join('') == data) {
                 return false;
             }
         }
@@ -136,25 +160,25 @@ export default class ErxingZuxuanHouerHezhi extends SSC {
     }
 
     //计算各种结果
-    mathResult(sum, nBegin, nEnd){
+    mathResult(sum, nBegin, nEnd) {
         let me = this,
             arr = [],
             checkArray = [],
             _arr = [],
-            x,y,
+            x, y,
             has = {},
             key = '',
-            fn = function(a, b){
+            fn = function (a, b) {
                 return a - b;
             };
 
-        for (x=nBegin;x<=nEnd ;x++ ){
-            for (y=nBegin;y<=nEnd ;y++ ){
-                if(x+y == sum){
-                    _arr = [x,y];
+        for (x = nBegin; x <= nEnd; x++) {
+            for (y = nBegin; y <= nEnd; y++) {
+                if (x + y == sum) {
+                    _arr = [x, y];
                     key = _arr.sort(fn).join(',');
-                    if(!has[key] && x != y){
-                        arr.push([x,y]);
+                    if (!has[key] && x != y) {
+                        arr.push([x, y]);
                         has[key] = true;
                     }
                 }
@@ -169,16 +193,16 @@ const styles = StyleSheet.create({
 
     ballBox: {
         flex: 1,
-        flexDirection : 'row',
-        flexWrap : 'wrap',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
         //paddingLeft: 20,
         //paddingRight: 20,
     },
 
     ballBtnBox: {
-        flexDirection : 'row',
-        justifyContent:"center",
-        alignItems:"center",
+        flexDirection: 'row',
+        justifyContent: "center",
+        alignItems: "center",
         height: 50
     },
 

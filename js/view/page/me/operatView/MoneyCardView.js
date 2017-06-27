@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import BaseView from "../../../componet/BaseView";
-import {NavAIcoButton} from "../../../componet/navBarMenu/HeaderMenu";
+import {NavButtonAIco} from "../../../componet/navBarMenu/HeaderMenu";
 import TFlatList from "../../../componet/TFlatList";
 
 const mapStateToProps = state => {
@@ -21,7 +21,7 @@ export default class MoneyCardView extends BaseView {
 
     static navigationOptions = ({navigation})=> ({
         title: "大厅",
-        headerRight:<NavAIcoButton navigation={navigation} icoName={G_EnumFontNames.plus}/> ,
+        headerRight:<NavButtonAIco navigation={navigation} icoName={G_EnumFontNames.plus}/> ,
     })
 
 

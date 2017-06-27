@@ -11,7 +11,7 @@ import BaseView from "../componet/BaseView";
 import AcountListView from "./me/subView/AcountListView";
 import ConfigView from "./home/subview/ConfigView";
 import {TButton} from "../componet/tcustom/button/TButton";
-import {NavComomButton} from "../componet/navBarMenu/HeaderMenu";
+import {NavButtonText} from "../componet/navBarMenu/HeaderMenu";
 
 export let ItemNameEnum = {
     //我的彩票
@@ -39,20 +39,18 @@ const mapStateToProps = state => {
     return {
         userData: state.get("appState").get("userData").toJS(),
         moneyBalance: state.get("appState").get("moneyBalance"),
-        nav: state.get("navState").toJS()
     }
 }
 
 @connect(mapStateToProps)
 export default class MyView extends BaseView {
-
     static navigationOptions = ({navigation})=> ({
         title: '我的',
         tabBarIcon: ({focused}) => {
             return <AIcon name='user' style={{ fontSize: 25, color:focused ? G_Theme.selectColor:G_Theme.gray}}/>
         },
-        headerLeft:<NavComomButton  isRightButton={false}  name={"设置"} navigation={navigation}/>,
-        headerRight: <NavComomButton  name={"注销"} navigation={navigation} visible={navigation.state.params&&navigation.state.params.isLogined}/>
+        headerLeft:<NavButtonText isRightButton={false} name={"设置"} navigation={navigation}/>,
+        headerRight: <NavButtonText name={"注销"} navigation={navigation} visible={navigation.state.params&&navigation.state.params.isLogined==true}/>
     })
 
     static dataListRecord = [{ico: "star", name: ItemNameEnum.awardFind}, {
@@ -190,9 +188,6 @@ export default class MyView extends BaseView {
         this.setState({modalVisible: visible});
     }
 
-    componentDidMount() {
-        this.props.navigation.setParams({isLogined:this.props.userData.isLogined});
-    }
 }
 
 const styles = StyleSheet.create({

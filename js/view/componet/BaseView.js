@@ -30,6 +30,7 @@ export default class BaseView extends Component {
         {
             G_Navigation = this.props.navigation
         }
+
     }
 
     renderNavigationBar() {
@@ -38,16 +39,19 @@ export default class BaseView extends Component {
 
     componentWillUpdate() {
         LayoutAnimation.configureNext(G_LayoutAnimationHelp.springNoDelete);
-
         if(!this.initRegist) {
             if(this.props.navigation) {
                 this.initRegist=true;
-                let {setParams}=this.props.navigation
-                setParams({onLeftPressed:this.onLeftPressed,onRightPressed:this.onRightPressed,onHeadPressed:this.onHeadPressed})
+                setTimeout(this.registProssHandle,500)
 
             }
         }
     }
+
+   registProssHandle=()=>{
+       this.props.navigation.setParams({onLeftPressed:this.onLeftPressed,onRightPressed:this.onRightPressed,onHeadPressed:this.onHeadPressed})
+   }
+
 
     render() {
         return (

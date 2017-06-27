@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 import BaseView from "../../../componet/BaseView";
 import TeamListView from "./agentTeam/TeamListView"
 import AgentFindView from "./agentTeam/AgentFindView";
-import {NavComomButton} from "../../../componet/navBarMenu/HeaderMenu";
+import {NavButtonText} from "../../../componet/navBarMenu/HeaderMenu";
 
 const mapStateToProps = state => {
     return {
@@ -19,7 +19,7 @@ const mapStateToProps = state => {
 @connect(mapStateToProps)
 export default class AgentTeamView extends BaseView {
     static navigationOptions = ({navigation})=> ({
-        headerRight:<NavComomButton style={{
+        headerRight:<NavButtonText style={{
             marginLeft: 20,
             paddingHorizontal: 8,
             paddingVertical: 4,
@@ -35,22 +35,7 @@ export default class AgentTeamView extends BaseView {
             dataList:[],
             modalVisible: false
         }
-        this.resetData=this.resetData.bind(this);
     }
-
-    // getNavigationBarProps() {
-    //     return {
-    //         rightView: this.navRigntView
-    //     };
-    // }
-
-    // navRigntView = () => {
-    //     return (
-    //         <View >
-    //             <Text>查询</Text>
-    //         </View>
-    //     )
-    // }
 
     onRightPressed() {
         this.setState({modalVisible: true});
@@ -61,7 +46,7 @@ export default class AgentTeamView extends BaseView {
         this._getSource(this.state.searchData);
     }
     _getSource(searchData) {
-        TLog("HTTP_SERVER------------------------------------", HTTP_SERVER.AgentProfit);
+
         G_RunAfterInteractions(() => {
             HTTP_SERVER.AgentTeamUser.body.page = 1;
             HTTP_SERVER.AgentTeamUser.body.pagesize = 15;
@@ -78,23 +63,25 @@ export default class AgentTeamView extends BaseView {
         });
     }
 
-    resetData(data) {
-        TLog('[[[[[[[]]]]]]',data);
+    onHideModal=()=> {
+        this.setState({modalVisible: false});
+    }
+
+    onFindPress=(data)=>{
+      TLog('onFindPress---------',data);
         this.setState({modalVisible: false, searchData: data});
         this._getSource(data);
-        return true;
     }
+
 
 
 
     renderBody() {
         let {userData} = this.props.navigation.state.params
-        const {searchData}=this.state;
-        TLog('[[[[[[[searchData]]]]]]',searchData);
-
-
+       // const {searchData}=this.state;
+       // TLog('[[[[[[[searchData]]]]]]',searchData);
         return (<View>
-            <AgentFindView visible={this.state.modalVisible}  hideViewHandle={this.resetData}/>
+            <AgentFindView onFindPress={this.onFindPress} visible={this.state.modalVisible}  hideViewHandle={this.onHideModal}/>
             <TeamListView userData={userData}  dataList={this.state.dataList} {...this.state}/>
         </View>)
     }

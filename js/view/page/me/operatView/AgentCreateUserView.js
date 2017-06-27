@@ -9,13 +9,13 @@ import {
 import BaseView from "../../../componet/BaseView";
 import CreateHumanView from "./agentCreatUser/CreateHumanView";
 import CreateLinkView from "./agentCreatUser/CreateLinkView";
-import {NavComomButton} from "../../../componet/navBarMenu/HeaderMenu";
+import {NavButtonText} from "../../../componet/navBarMenu/HeaderMenu";
 import MySegmentedControlTab from "../../../componet/tcustom/TSegmentedControlTab";
 
 
 export default class AgentCreateUserView extends BaseView {
     static navigationOptions = ({navigation})=> ({
-        headerRight:<NavComomButton name={"查看链接"} navigation={navigation} />
+        headerRight:<NavButtonText name={"查看链接"} navigation={navigation} />
     })
 
 

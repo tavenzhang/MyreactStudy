@@ -3,9 +3,10 @@ import {
     View,
     Text,
     StyleSheet,
-    ScrollView,
 } from 'react-native';
 import BaseView from "../../../../../componet/BaseView";
+import TFlatList from "../../../../../componet/TFlatList"
+
 
 export default class Game_SSC_TREND extends BaseView {
     static propTypes={
@@ -18,10 +19,11 @@ export default class Game_SSC_TREND extends BaseView {
         this.state = {
             dataList: [],
         }
+        this.count = 0;
     }
 
     render() {
-        let count = 0;
+
         let {dataList} =this.props
         return (
             <View style={G_Style.appContentView}>
@@ -40,34 +42,37 @@ export default class Game_SSC_TREND extends BaseView {
                     }
 
                 </View>
-                <ScrollView style={{width:G_Theme.windowWidth}}>
-                    {
-                        dataList.map((item, key) => {
-                            count++;
-                            let backColor = count % 2 != 0 ? "white": "#ddd";
-                            if(item.bgColor)
-                            {
-                                backColor=item.bgColor
-                            }
-                            return (<View style={{flexDirection: "row", backgroundColor: backColor}}  key={`dataList${key}`}>
-                                    <View style={[styles.textCp, {flex: 2, justifyContent:"center", alignItems:"center"}]}>
-                                        <Text style={[styles.text]} numberOfLines={2}>{item.title}</Text>
-                                    </View>
-                                    {
-                                        item.ballList.map((ballItem, ballKey) => {
-                                            return (
-                                                <View style={[G_Style.appContentView,{backgroundColor: backColor}]} key={`ballItem${ballKey}`}>
-                                                    {this.renderItem(ballItem, ballKey)}
-                                                </View>)
-                                        })
-                                    }
-                                </View>
-                            )
-                        })
-                    }
-                </ScrollView>
+                <TFlatList getItemLayout={this.getItemLayout} initialNumToRender={20} dataList={dataList} renderRow={this.rendRowBall}/>
             </View>
         );
+    }
+
+    getItemLayout=(data, index) => (
+        // 120 是被渲染 item 的高度 ITEM_HEIGHT。
+        {length: 30, offset: 0 * index, index}
+    )
+
+    rendRowBall=(item)=>{
+        this.count++;
+        let backColor =  this.count % 2 != 0 ? "white": "#ddd";
+        if(item.bgColor)
+        {
+            backColor=item.bgColor
+        }
+        return (<View style={{flexDirection: "row", backgroundColor: backColor}} >
+                <View style={[styles.textCp, {flex: 2, justifyContent:"center", alignItems:"center"}]}>
+                    <Text style={[styles.text]} numberOfLines={2}>{item.title}</Text>
+                </View>
+                {
+                    item.ballList.map((ballItem, ballKey) => {
+                        return (
+                            <View style={[G_Style.appContentView,{backgroundColor: backColor}]} key={`ballItem${ballKey}`}>
+                                {this.renderItem(ballItem, ballKey)}
+                            </View>)
+                    })
+                }
+            </View>
+        )
     }
 
     renderItem = (data, ballKey) => {
@@ -130,9 +135,4 @@ var styles = StyleSheet.create({
         textAlign:"center",
     },
 
-    itemStyle: {
-        // 尺寸
-        width: 1000,
-        height: 200
-    },
 });

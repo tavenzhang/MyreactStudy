@@ -12,7 +12,7 @@ export default class WuxingZhixuanFushi extends SSC {
 
     //设置球排列
     setBalls = () => [
-        [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
+        [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
     ];
     //设置rowtitle
     setRowTitle = () => ['不定位'];
@@ -21,23 +21,44 @@ export default class WuxingZhixuanFushi extends SSC {
         const me = this;
         let len = 0;
         me.setRandomArr();
-        for(let j=0;j<2;j++){
-            let i=me.getRandomNum();
+        for (let j = 0; j < 2; j++) {
+            let i = me.getRandomNum();
             me.selectBall(i, 0, 1);
         }
     }
-    checkBallIsComplete(){
+
+    //生成单注随机数
+    createRandomNum() {
+        const me = this,
+            current = [];
+        me.setRandomArr();
+        current[0]=[];
+        for (let j = 0; j < 2; j++) {
+            let i = me.getRandomNum();
+            current[0].push(i);
+        }
+        return current;
+    }
+
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me = this;
+        return me.combine(arr[0], 2);
+    }
+
+    checkBallIsComplete() {
         let me = this,
             ball = me.state.balls[0],
             i = 0,
             len = ball.length,
             num = 0;
-        for(;i < len;i++){
-            if(ball[i] > 0){
+        for (; i < len; i++) {
+            if (ball[i] > 0) {
                 num++;
             }
         }
-        if(num >= 2){
+        if (num >= 2) {
             this.setState({isBallsComplete: true});
             return true;
         }
@@ -46,22 +67,22 @@ export default class WuxingZhixuanFushi extends SSC {
     }
 
     //获取组合结果
-    getLottery(){
+    getLottery() {
         let me = this,
             ball = me.state.balls[0],
             i = 0,
             len = ball.length,
             arr = [];
 
-        for(;i < len;i++){
-            if(ball[i] > 0){
+        for (; i < len; i++) {
+            if (ball[i] > 0) {
                 arr.push(i);
             }
         }
 
         //校验当前的面板
         //获取选中数字
-        if(me.checkBallIsComplete()){
+        if (me.checkBallIsComplete()) {
             return me.combine(arr, 2);
         }
 

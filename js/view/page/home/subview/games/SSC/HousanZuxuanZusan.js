@@ -28,6 +28,47 @@ export default class HousanZuxuanZusan extends SSC {
     //设置rowtitle
     setRowTitle = () => ['组三'];
 
+    //生成单注随机数
+    createRandomNum() {
+        const me = this,
+            current = [],
+            {balls} = this.state;
+        me.setRandomArr();
+        current[0]=[];
+        for (let j = 0; j < 2; j++) {
+            let i = me.getRandomNum();
+            current[0].push(i);
+        }
+        return current;
+    }
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me = this;
+        let result = [],
+            saveNum=[],
+            checkNum=[];
+        arr=arr[0];
+        //存储单号组合
+        // result = me.combination(arr);
+
+        for(let c=0;c<arr.length;c++){
+            checkNum =[];
+            saveNum = arr.concat();
+            checkNum.push([[arr[c],arr[c]].join('')]);
+            saveNum.splice(c, 1)
+            checkNum.push(saveNum);
+            result = result.concat(me.combination(checkNum));
+        }
+
+        for (let k = 0; k < result.length; k++) {
+            result[k] = result[k].join('').split('');
+        }
+
+        return result;
+
+    }
+
     //并设置 isBallsComplete
     checkBallIsComplete(){
         const me = this;

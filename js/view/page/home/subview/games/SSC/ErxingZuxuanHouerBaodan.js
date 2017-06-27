@@ -16,7 +16,23 @@ export default class ErxingZuxuanHouerBaodan extends SSC {
 
     //设置rowtitle
     setRowTitle = () => ['选球']
+//生成单注随机数
+    createRandomNum() {
+        const me = this,
+            current = [],
+            {balls} = this.state;
+        me.setRandomArr();
+        let i = me.getRandomNum();
+        current[0] = [i];
+        return current;
+    }
 
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me = this;
+        return me.mathResult(arr[0], 0, 9);
+    }
     setBallData(x, y, value) {
         const me = this;
         const {balls} = this.state;

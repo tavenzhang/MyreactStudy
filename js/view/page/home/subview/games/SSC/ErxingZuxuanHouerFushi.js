@@ -27,6 +27,29 @@ export default class ErxingZuxuanHouerFushi extends SSC {
             me.selectBall(i, 0, 1);
         }
     }
+    //生成单注随机数
+    createRandomNum() {
+        const me = this,
+            current = [],
+            {balls} = this.state;
+        me.setRandomArr();
+        current[0]=[];
+        for(let j=0;j<2;j++){
+            let i = me.getRandomNum();
+            current[0].push(i);
+        }
+        return current;
+    }
+
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me=this;
+        let resultNum=[];
+        resultNum = me.combine(arr[0], 2);
+
+        return resultNum;
+    }
     getLottery(isGetNum){
         let me = this,
             data = me.state.balls[0],

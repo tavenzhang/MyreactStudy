@@ -20,6 +20,29 @@ export default class ErxingZhixuanQianerHezhi extends SSC {
     //设置rowtitle
     setRowTitle = () => ['选球']
 
+//生成单注随机数
+    createRandomNum() {
+        const me = this,
+            current = [],
+            {balls} = this.state;
+        me.setRandomArr();
+        let i = me.getRandomNum();
+        current[0] = [i];
+        return current;
+    }
+
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me = this;
+        let resultNum = [], len = arr[0].length,
+            numArr = arr[0], i = 0;
+        for (; i < len; i++) {
+            resultNum = resultNum.concat(me.mathResult(numArr[i], 0, 9));
+        }
+        return resultNum;
+    }
+
     formatViewBalls(original){
         let me = this,
             result = [],

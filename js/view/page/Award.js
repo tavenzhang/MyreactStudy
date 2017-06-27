@@ -8,9 +8,9 @@ import {
 
 import {connect} from 'react-redux';
 import AIcon from 'react-native-vector-icons/FontAwesome';
-import NumberCircle from "../../componet/NumberCircle";
-import BaseView from "../../componet/BaseView";
-import TFlatList from "../../componet/TFlatList";
+import NumberCircle from "../componet/NumberCircle";
+import BaseView from "../componet/BaseView";
+import TFlatList from "../componet/TFlatList";
 
 const mapStateToProps = state => {
     return {

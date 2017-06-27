@@ -1,7 +1,7 @@
 import React, { Component,PropTypes } from 'react'
 import {
     TouchableWithoutFeedback,
-    Modal
+    Modal, StatusBar
 } from 'react-native';
 
 
@@ -26,7 +26,6 @@ export default class MyModalView extends Component {
                 visible={visible}
                 onRequestClose={hideModal ? hideModal:()=>{}}
                 hardwareAccelerated={true}
-
             >
                 <TouchableWithoutFeedback onPress={hideModal}>
                     {this.props.children}

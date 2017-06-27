@@ -8,7 +8,6 @@ import {
 
 import BaseView from "../../../../componet/BaseView";
 import ModalDropdown from 'react-native-modal-dropdown';
-import Button from "react-native-button";
 import BankCityModel from "../../../../../redux/model/BankCityModel";
 import {TButton} from "../../../../componet/tcustom/button/TButton";
 
@@ -28,7 +27,6 @@ export default class EditCardAddView extends BaseView {
     }
 
     renderBody() {
-
         let backList = this.state.bankCityModel ? this.state.bankCityModel.bankList : [];
         let princeList = this.state.bankCityModel ? this.state.bankCityModel.princeList : [];
         let cityList = [];
@@ -203,6 +201,7 @@ export default class EditCardAddView extends BaseView {
             HTTP_SERVER.BANK_CARD_MODIFY_STEP_2.body.city_id=this.state.cityData.id;
             HTTP_SERVER.BANK_CARD_MODIFY_STEP_2.body.branch=this.state.brunchName;
            let params = this.props.navigation.state.params
+
             HTTP_SERVER.BANK_CARD_MODIFY_STEP_2.url= HTTP_SERVER.BANK_CARD_MODIFY_STEP_2.formatUrl.replace("#id",params.id);
              ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.BANK_CARD_MODIFY_STEP_2, (result) => {
                  if(result.isSuccess)

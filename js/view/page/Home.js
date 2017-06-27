@@ -2,10 +2,10 @@ import React from 'react';
 import {
     View,
 } from 'react-native';
-import BaseView from "../../componet/BaseView";
+import BaseView from "../componet/BaseView";
 import {connect} from 'react-redux';
-import GameList from "./subview/GameList";
-import MyBannerSwiper from "../../componet/MyBannerSwiper";
+import GameList from "./home/subview/GameList";
+import MyBannerSwiper from "../componet/MyBannerSwiper";
 import AIcon from 'react-native-vector-icons/FontAwesome';
 
 const mapStateToProps = state => {
@@ -31,14 +31,14 @@ export default class Home extends BaseView {
         super(props);
         this.state =
             {
-                domain:""
-        };
-
+               showBanner:false
+          };
     }
 
     renderBody() {
-        let {bannerList, gameModel, playModel,userData} = this.props;
+        let {bannerList, gameModel} = this.props;
         let gameList = gameModel.gameInfoList;
+        gameList = gameList ? gameList :[];
         bannerList = [{
             url: `${G_SERVERADDR}/i/home/home_activity_banne1r3.jpg`,
             name: "活动1",
@@ -55,9 +55,8 @@ export default class Home extends BaseView {
 
         return (
             <View style={G_Style.appContentView} >
-                {/*<ConfigView modalVisible={this.state.modalVisible} setModalVisible={this.setModalVisible}/>*/}
-                <MyBannerSwiper dataList={bannerList} {...this.props} />
-                <GameList dataList={gameList} gameModel={gameModel} playModel={playModel} userData={userData}/>
+                {this.state.showBanner||G_PLATFORM_IOS ? <MyBannerSwiper dataList={bannerList} {...this.props} />:null}
+                <GameList dataList={gameList} {...this.props} />
             </View>
         );
     }
@@ -74,6 +73,7 @@ export default class Home extends BaseView {
             ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.GET_DATA_DEATIL, ActionType.AppType.MOBILE_TYPES_RESULT);
             //ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.GET_BANG_CITY_INFO,ActionType.AppType.BANG_CITY_INFO,false);
         })
+       !G_PLATFORM_IOS ? setTimeout(()=>{this.setState({showBanner:true})},1000):null;
     }
 
 }

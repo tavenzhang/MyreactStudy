@@ -5,8 +5,7 @@ import {
     Text, TouchableOpacity
 } from 'react-native';
 import BaseView from "../../../../componet/BaseView";
-import {GAME_DERAIL, NavAIcoButton} from "../../../../componet/navBarMenu/HeaderMenu";
-import {TButton} from "../../../../componet/tcustom/button/TButton";
+import {NavAIcoButton} from "../../../../componet/navBarMenu/HeaderMenu";
 import HeadMenuListView from "./HeadMenuListView";
 import MoreMenu from "../../../../componet/MoreMenu";
 import BannerView from "./BannerView";
@@ -23,7 +22,7 @@ export default class BaseGameView extends BaseView {
         TLog("getGameTitle------",getGameTitle)
         return {
             headerTitle: onHeadPressed && getGameTitle ?
-                <TouchableOpacity onPress={() => onHeadPressed()}><View style={[{flexDirection: "row"}]}>
+                <TouchableOpacity style={{alignSelf:"center"}} onPress={() => onHeadPressed()}><View style={[{flexDirection: "row"}]}>
                     <Text key={'title'} style={styles.title}>{getGameTitle()}</Text>
                     <AIcon color="white" style={{marginLeft: 5}} size={16}
                            name={G_EnumFontNames.list_arrow_desc}/>

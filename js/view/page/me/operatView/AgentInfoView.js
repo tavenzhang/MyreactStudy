@@ -10,7 +10,7 @@ import BaseView from "../../../componet/BaseView";
 import MoneyView from "./agentinfo/MoneyView";
 import TeamView from "./agentinfo/TeamView";
 import AssignView from "./agentinfo/AssignView";
-import {NavComomButton, NavRightRank} from "../../../componet/navBarMenu/HeaderMenu";
+import {NavComomButton} from "../../../componet/navBarMenu/HeaderMenu";
 
 const mapStateToProps = state => {
     return {

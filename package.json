@@ -20,7 +20,7 @@
     "react": "16.0.0-alpha.6",
     "react-addons-pure-render-mixin": "^15.5.2",
     "react-immutable-render-mixin": "^0.9.7",
-    "react-native": "0.44.0",
+    "react-native": "^0.44.3",
     "react-native-button": "^1.7.1",
     "react-native-code-push": "^2.1.0-beta",
     "react-native-datepicker": "^1.5.1",

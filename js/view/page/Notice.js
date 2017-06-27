@@ -6,8 +6,8 @@ import {
     TouchableHighlight
 } from 'react-native'
 import AIcon from 'react-native-vector-icons/FontAwesome';
-import BaseView from "../../componet/BaseView";
-import TFlatList from "../../componet/TFlatList";
+import BaseView from "../componet/BaseView";
+import TFlatList from "../componet/TFlatList";
 
 export default class Notice extends BaseView {
 

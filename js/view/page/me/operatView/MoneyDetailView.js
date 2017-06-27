@@ -6,30 +6,6 @@ import BaseView from "../../../componet/BaseView";
 import connect from "react-redux/src/components/connect";
 import MoneyChangeHistoryView from "./myMoney/MoneyChangeHistoryView";
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    page: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    tabStyle:{
-        //zIndex:0,
-        //backgroundColor:"white",
-        height:40,
-    },
-    labelStyle:{
-        color:"black",
-    },
-    indicatorStyle:{
-       backgroundColor:"red",
-    },
-    tabViewStyle:{
-        backgroundColor:"white",
-    }
-});
 
 
 const mapStateToProps = state => {
@@ -39,7 +15,6 @@ const mapStateToProps = state => {
         playModel:state.get("appState").get("playModel"),
     }
 }
-
 @connect(mapStateToProps)
 export default class MoneyDetailView extends BaseView {
     constructor(props)
@@ -56,7 +31,6 @@ export default class MoneyDetailView extends BaseView {
             ],
         };
     }
-
 
     _handleChangeTab = (index) => {
         this.setState({index});
@@ -96,3 +70,27 @@ export default class MoneyDetailView extends BaseView {
         );
     }
 }
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    page: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    tabStyle:{
+        //zIndex:0,
+        //backgroundColor:"white",
+        height:40,
+    },
+    labelStyle:{
+        color:"black",
+    },
+    indicatorStyle:{
+        backgroundColor:"red",
+    },
+    tabViewStyle:{
+        backgroundColor:"white",
+    }
+});

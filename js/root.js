@@ -8,6 +8,8 @@ import  uitls from "./global/utils/util";
 import  AnimationHelp from "./global/animationHelp";
 import  route   from "./global/route";
 import  native   from "./global/nativeExtent";
+import  enumString   from "./global/enumString";
+
 import React  from 'react';
 import { Provider } from 'react-redux';
 

@@ -44,14 +44,11 @@ import LinkDetailView from "../view/page/me/operatView/agentCreatUser/LinkDetail
 import AssignChangeView from "../view/page/me/operatView/agentAssign/AssignChangeView";
 
 
-global.Navgator = null;
-
 import {TabNavigator} from 'react-navigation';
-import Home from "../view/page/home/Home";
-import Award from "../view/page/award/Award";
-import MyView from "../view/page/me/MyView";
-import Notice from "../view/page/notice/Notice";
-import StackNavigator from "react-navigation/lib-rn/navigators/StackNavigator";
+import Home from "../view/page/Home";
+import Award from "../view/page/Award";
+import MyView from "../view/page/MyView";
+import Notice from "../view/page/Notice";
 import BaseGameView from "../view/page/home/subview/games/BaseGameView";
 
 
@@ -161,7 +158,7 @@ global.G_NavAppOptionsConfig = {
         showIcon: true,
         swipeEnabled: false,
         animationEnabled: true,
-        //headerTitleStyle:{ backgroundColor: 'red'},
+        headerTitleStyle:{alignSelf: "center"},
         headerStyle: {backgroundColor: '#d7213c'},
     },
     mode: 'card',
@@ -257,12 +254,12 @@ global.G_NavUtil = {
         lastView=null
         G_Navigation.goBack();
     },
-    popN: (n = 1) => {
-        G_Navigation.popN(n)
-    },
-    popToRoute: (data) => {
-        G_Navigation.popToRoute(data);
-    }
+    // popN: (n = 1) => {
+    //     G_Navigation.popN(n)
+    // },
+    // popToRoute: (data) => {
+    //     G_Navigation.popToRoute(data);
+    // }
 }
 
 

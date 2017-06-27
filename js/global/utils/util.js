@@ -18,7 +18,7 @@ Date.prototype.Format = function (fmt) { //author: meizz
 }
 
 
-const DateUtil = {
+global.G_DateUtil= {
 
     formatSecondDate: (secondNum: Number) => {
         let data = new Date(secondNum)
@@ -60,9 +60,9 @@ const DateUtil = {
     }
 }
 
-global.G_DateUtil = DateUtil;
 
-const StringUtil = {
+
+global.G_StringUtil =  {
     //2017-02-22  15:47:00
     formatBankCard: (str) => {
         let tempStr = str.substr(0, str.length - 4);
@@ -70,10 +70,9 @@ const StringUtil = {
         tempStr += str.substr(str.length - 4);
         return tempStr;
     },
-}
-global.G_StringUtil = StringUtil;
+};
 
-runAfterInteractions = (func,isInteractionManager=false) => {
+global.G_RunAfterInteractions = (func,isInteractionManager=false) => {
     if(isInteractionManager)
     {
         InteractionManager.runAfterInteractions(() => {
@@ -88,7 +87,6 @@ runAfterInteractions = (func,isInteractionManager=false) => {
         }
     }
 }
-global.G_RunAfterInteractions = runAfterInteractions
 
 
 global.G_ArrayUtils = {

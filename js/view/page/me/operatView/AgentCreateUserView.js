@@ -9,7 +9,7 @@ import {
 import BaseView from "../../../componet/BaseView";
 import CreateHumanView from "./agentCreatUser/CreateHumanView";
 import CreateLinkView from "./agentCreatUser/CreateLinkView";
-import {NavComomButton, NavRightLink} from "../../../componet/navBarMenu/HeaderMenu";
+import {NavComomButton} from "../../../componet/navBarMenu/HeaderMenu";
 import MySegmentedControlTab from "../../../componet/tcustom/TSegmentedControlTab";
 
 
@@ -29,11 +29,6 @@ export default class AgentCreateUserView extends BaseView {
         };
     }
 
-    getNavigationBarProps() {
-        return {
-            rightView: NavRightLink
-        };
-    }
 
     onRightPressed(){
         G_NavUtil.pushToView(G_NavViews.LinkListView());

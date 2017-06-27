@@ -7,10 +7,11 @@ import {
 import AIcon from 'react-native-vector-icons/FontAwesome';
 import {connect} from 'react-redux';
 import Button from 'react-native-button';
-import BaseView from "../../componet/BaseView";
-import AcountListView from "./subView/AcountListView";
-import ConfigView from "../home/subview/ConfigView";
-import {TButton} from "../../componet/tcustom/button/TButton";
+import BaseView from "../componet/BaseView";
+import AcountListView from "./me/subView/AcountListView";
+import ConfigView from "./home/subview/ConfigView";
+import {TButton} from "../componet/tcustom/button/TButton";
+import {NavComomButton} from "../componet/navBarMenu/HeaderMenu";
 
 export let ItemNameEnum = {
     //我的彩票
@@ -50,14 +51,8 @@ export default class MyView extends BaseView {
         tabBarIcon: ({focused}) => {
             return <AIcon name='user' style={{ fontSize: 25, color:focused ? G_Theme.selectColor:G_Theme.gray}}/>
         },
-        headerLeft: <TButton textStyle={{fontSize:16}} viewStyle={{marginLeft:10}} btnName="设置" onPress={()=>{
-            let {onLeftPressed} = navigation.state.params;
-            onLeftPressed()
-        }}/>,
-        headerRight:<TButton textStyle={{fontSize:16}}  visible={navigation.state.params&&navigation.state.params.isLogined} viewStyle={{marginRight:10}} btnName="注销" onPress={()=>{
-            let {onRightPressed} = navigation.state.params;
-            onRightPressed()
-        }}/>
+        headerLeft:<NavComomButton  isRightButton={false}  name={"设置"} navigation={navigation}/>,
+        headerRight: <NavComomButton  name={"注销"} navigation={navigation} visible={navigation.state.params&&navigation.state.params.isLogined}/>
     })
 
     static dataListRecord = [{ico: "star", name: ItemNameEnum.awardFind}, {
@@ -98,7 +93,6 @@ export default class MyView extends BaseView {
         this.isLogin = this.props.userData.isLogined
     }
 
-
     onLeftPressed() {
         this.setState({modalVisible: true});
     }
@@ -107,10 +101,6 @@ export default class MyView extends BaseView {
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LOGIN_OUT, () => {
             ActDispatch.AppAct.loginOut();
         })
-    }
-
-    componentWillReceiveProps() {
-        TLog("componentWillReceiveProps---------------------")
     }
 
     componentWillUpdate(){
@@ -126,7 +116,6 @@ export default class MyView extends BaseView {
 
     renderBody() {
         let {userData, moneyBalance} = this.props;
-       // TLog("nav-------------",this.props.nav);
         let dataList = {
             "我的彩票": MyView.dataListRecord,
             "账户资金": MyView.dataListMoney,

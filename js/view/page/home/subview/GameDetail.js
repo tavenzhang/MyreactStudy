@@ -20,10 +20,6 @@ export default class GameDetail extends React.Component {
     // 构造
     constructor(props) {
         super(props);
-        // 初始状态
-        this.state = {
-            dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
-        }
     }
 
     render() {
@@ -100,7 +96,7 @@ export default class GameDetail extends React.Component {
     }
 }
 
-const gridSize = Math.floor(G_Theme.windowWidth / 2)
+
 var styles = StyleSheet.create({
     sp: {
         flexDirection: 'row',
@@ -109,10 +105,12 @@ var styles = StyleSheet.create({
         borderBottomColor: '#e5e5e5',
         paddingBottom: 10,
         paddingTop: 10,
+        flexWrap:"wrap",
+        backgroundColor:G_Theme.homeGameBg
     },
     itemRow: {
         flexDirection: 'row',
-        width: gridSize,
+        width: Math.floor(G_Theme.windowWidth / 2),
         paddingLeft: 20,
         paddingRight: 10,
     },

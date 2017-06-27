@@ -5,7 +5,6 @@ import {
 import Storage from 'react-native-storage';
 import Toast from 'react-native-root-toast';
 
-const GlobalKey = "global";
 
 
 // export const DataStore = new Storage({

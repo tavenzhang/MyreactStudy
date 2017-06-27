@@ -36,6 +36,19 @@ global.G_Theme = {
     textInpuntH: G_PLATFORM_IOS ? 30 : 40,
     halfGrayAlpha: 'rgba(52, 52, 52, 0.5)',
     bgPbg: "rgb(208,199,160)",
+    homeGameBg:'rgba(244,241,228,1)',
+    triangle: {
+        width: 0,
+        height: 0,
+        backgroundColor: 'transparent',
+        borderStyle: 'solid',
+        borderLeftWidth: 4,
+        borderRightWidth: 4,
+        borderBottomWidth: 8,
+        borderLeftColor: 'transparent',
+        borderRightColor: 'transparent',
+        borderBottomColor: 'rgba(255,0,0,0.6)'
+    }
 };
 
 
@@ -57,14 +70,6 @@ global.G_Style = StyleSheet.create({
 });
 
 
-global.G_EnumFontNames = {
-    list_arrow_desc: "sort-desc",
-    list_arrow_up: "sort-up",
-    plus: "plus",
-    angleRight: "angle-right",
-    infoCircle: "info-circle",
-    bars: 'bars'
-}
 
 
 

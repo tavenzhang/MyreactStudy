@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import BaseView from "../../../componet/BaseView";
-import {HeaderPlusRightMenu} from "../../../componet/navBarMenu/HeaderMenu";
+import {NavAIcoButton} from "../../../componet/navBarMenu/HeaderMenu";
 import TFlatList from "../../../componet/TFlatList";
 
 const mapStateToProps = state => {
@@ -18,6 +18,13 @@ const mapStateToProps = state => {
 
 @connect(mapStateToProps)
 export default class MoneyCardView extends BaseView {
+
+    static navigationOptions = ({navigation})=> ({
+        title: "大厅",
+        headerRight:<NavAIcoButton navigation={navigation} icoName={G_EnumFontNames.plus}/> ,
+    })
+
+
     constructor(props) {
         super(props);
         this.state={
@@ -25,14 +32,8 @@ export default class MoneyCardView extends BaseView {
         }
     }
 
-    getNavigationBarProps() {
-        return {rightView: HeaderPlusRightMenu}
-    }
-
-
 
     renderBody() {
-       // TLog("cardList----------------------------");
         return (
             <TFlatList pageSize={this.state.pageSize} dataList={this.props.cardList} loadMore={this._loadMore} renderRow={this._renderRow}/>
         );

@@ -30,6 +30,7 @@ export  default  class ARankView extends  BaseView{
                 <TFlatList
                     dataList={this.state.dataList}
                     renderHeader={this._rendHeadView}
+                    renderRow={this._rendRow}
                 />
             </View>
         );

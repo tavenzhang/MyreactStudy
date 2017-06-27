@@ -5,7 +5,7 @@ import {
     TouchableHighlight,
     ListView
 } from 'react-native';
-import {ItemNameEnum} from "../MyView";
+import {ItemNameEnum} from "../../MyView";
 import * as PropTypes from "react/lib/ReactPropTypes";
 import AIcon from 'react-native-vector-icons/FontAwesome';
 

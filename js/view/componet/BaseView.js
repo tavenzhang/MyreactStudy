@@ -19,8 +19,6 @@ export default class BaseView extends Component {
 
     constructor(props) {
         super(props);
-        this.getNavigationBarProps = this.getNavigationBarProps.bind(this);
-        this.renderNavigationBar = this.renderNavigationBar.bind(this);
         this.renderBody = this.renderBody.bind(this);
         this.onLeftPressed = this.onLeftPressed.bind(this);
         this.onRightPressed = this.onRightPressed.bind(this);
@@ -34,27 +32,19 @@ export default class BaseView extends Component {
         }
     }
 
-    getNavigationBarProps () {
-        return {
-        };
-    }
-
-
     renderNavigationBar() {
-
         return null
     }
 
     componentWillUpdate() {
         LayoutAnimation.configureNext(G_LayoutAnimationHelp.springNoDelete);
 
-        if(!this.initRegist)
-        {
-            if(this.props.navigation)
-            {
+        if(!this.initRegist) {
+            if(this.props.navigation) {
+                this.initRegist=true;
                 let {setParams}=this.props.navigation
                 setParams({onLeftPressed:this.onLeftPressed,onRightPressed:this.onRightPressed,onHeadPressed:this.onHeadPressed})
-                this.initRegist=true;
+
             }
         }
     }

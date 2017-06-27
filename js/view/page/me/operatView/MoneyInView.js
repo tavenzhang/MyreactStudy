@@ -1,26 +1,14 @@
 
 import React from 'react';
 import {
-    View,
-    StyleSheet,
-
+    View
 } from 'react-native';
-
-import {connect} from 'react-redux';
 import BaseView from "../../../componet/BaseView";
-import {NavRightLink} from "../../../componet/navBarMenu/HeaderMenu";
 import BankInView from "./moneyIn/BankInView";
 import ThirdInView from "./moneyIn/ThirdInView";
 import MySegmentedControlTab from "../../../componet/tcustom/TSegmentedControlTab";
 
 
-const mapStateToProps = state => {
-    return {
-        // gameModel:state.get("appState").get("gameModel"),
-    }
-}
-
-@connect(mapStateToProps)
 export default class MoneyInView extends BaseView {
     constructor(props) {
         super(props)
@@ -30,16 +18,7 @@ export default class MoneyInView extends BaseView {
         };
     }
 
-    getNavigationBarProps() {
-        return {
-            rightView: NavRightLink
-        };
-    }
 
-
-    onRightPressed(){
-        G_NavUtil.pushToView(G_NavViews.LinkListView());
-    }
 
     renderBody() {
         return (<View>

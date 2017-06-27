@@ -65,6 +65,14 @@ export default class MoneyOuterView extends BaseView {
                 </View>
                 <View style={{flexDirection: "row"}}>
                     <View style={styles.trLeft}>
+                        <Text style={styles.textLeft}>免费提现次数:</Text>
+                    </View>
+                    <View style={styles.trRight}>
+                        <Text style={styles.cellMargin}>{this.state.dataInfo.withdraw_no_fee_num}</Text>
+                    </View>
+                </View>
+                <View style={{flexDirection: "row"}}>
+                    <View style={styles.trLeft}>
                         <Text style={styles.textLeft}>今日已提现次数:</Text>
                     </View>
                     <View style={styles.trRight}>

@@ -11,11 +11,13 @@ export class NavButtonView extends React.PureComponent {
     static propTypes = {
         navigation: PropTypes.any,
         isRightButton:PropTypes.bool,
-        style:PropTypes.object
+        style:PropTypes.object,
+        visible:PropTypes.bool
     }
 
     static defaultProps={
-        isRightButton:true
+        isRightButton:true,
+        visible:true
     }
 
     onPress = () => {
@@ -29,30 +31,29 @@ export class NavButtonView extends React.PureComponent {
         }
     }
     render() {
-        let {isRightButton,style} = this.props
+        let {isRightButton,style,visible} = this.props
         let custStyle={
             marginLeft:isRightButton ? 0:15,
             marginRight:isRightButton ? 15:0
         }
-        return (<TouchableOpacity  onPress={this.onPress}>
+        return (visible ? <TouchableOpacity  onPress={this.onPress}>
             <View style={[custStyle,style]}>
                 {this.props.children}
             </View>
-        </TouchableOpacity>)
+        </TouchableOpacity> :null)
     }
 }
 
 
 
 
-export class
-
-NavComomButton extends React.PureComponent {
+export class NavComomButton extends React.PureComponent {
     static propTypes = {
         name: PropTypes.string,
         navigation: PropTypes.any,
         isRightButton:PropTypes.bool,
-        style:PropTypes.object
+        style:PropTypes.object,
+        visible:PropTypes.bool
     }
     render() {
 
@@ -68,17 +69,18 @@ NavComomButton extends React.PureComponent {
 
 export class NavAIcoButton extends React.PureComponent {
     static propTypes = {
-        name: PropTypes.string,
         navigation: PropTypes.any,
         isRightButton:PropTypes.bool,
         icoName:PropTypes.string,
-        style:PropTypes.object
+        style:PropTypes.object,
+        visible:PropTypes.bool,
+        fontStyle:PropTypes.bool,
     }
 
     render() {
-        let {icoName}=this.props
+        let {icoName,fontStyle}=this.props
         return  (<NavButtonView {...this.props}>
-                    <AIcon color="white" size={23} name={icoName}/>
+                    <AIcon style={[{fontSize:25, color:"white"},fontStyle]} name={icoName}/>
                 </NavButtonView>)
     }
 }
@@ -86,27 +88,7 @@ export class NavAIcoButton extends React.PureComponent {
 
 
 
-export class HeaderPlusRightMenu extends React.PureComponent {
-    render() {
-        return (<AIcon color="white" size={23} name={G_EnumFontNames.plus}/>)
-    }
-}
 
-
-
-
-export class GAME_DERAIL extends React.PureComponent {
-    render() {
-        return <AIcon name={G_EnumFontNames.bars} style={styles.barRightIcon}/>
-    }
-}
-
-
-export class NavRightRank extends React.PureComponent {
-    render() {
-        return <NavComomButton name={"本月排名"}/>
-    }
-}
 export class NavRightLink extends React.PureComponent {
     render() {
         return <NavComomButton name={"查看链接"}/>

@@ -12,7 +12,6 @@ export default class SanlianhaoDanxuan extends K3 {
         this.isShowOperate = false;
         this.ballTextArray = ['123', '234', '345','456'];
     }
-
     //设置球排列
     setBalls = () => [
         [-1,-1,-1,-1],

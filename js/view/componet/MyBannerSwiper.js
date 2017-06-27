@@ -18,7 +18,6 @@ export default class MyBannerSwiper extends React.Component {
 
     render() {
         const {dataList}= this.props
-
         return (
             <Swiper
                 height={100}

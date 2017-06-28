@@ -10,7 +10,7 @@ import BaseView from "../../../componet/BaseView";
 import MoneyView from "./agentinfo/MoneyView";
 import TeamView from "./agentinfo/TeamView";
 import AssignView from "./agentinfo/AssignView";
-import {NavComomButton} from "../../../componet/navBarMenu/HeaderMenu";
+import {NavButtonText} from "../../../componet/navBarMenu/HeaderMenu";
 
 const mapStateToProps = state => {
     return {
@@ -22,7 +22,7 @@ const mapStateToProps = state => {
 export default class AgentInfoView extends BaseView {
 
     static navigationOptions =     ({navigation})=> ({
-        headerRight:<NavComomButton name={"本月排名"} navigation={navigation} isRightButton={true} />
+        headerRight:<NavButtonText name={"本月排名"} navigation={navigation} isRightButton={true} />
     })
 
 
@@ -53,6 +53,9 @@ export default class AgentInfoView extends BaseView {
                 this.setState({agentData: data.data})
             })
         })
+
+        // let {setParams}=this.props.navigation
+        // setParams({onLeftPressed:this.onLeftPressed,onRightPressed:this.onRightPressed,onHeadPressed:this.onHeadPressed})
     }
 }
 

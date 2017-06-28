@@ -43,7 +43,7 @@ export default class L115Trend extends BaseView {
     render() {
         return (
             <TabViewAnimated
-                //lazy={true}
+                lazy={true}
                 style={styles.container}
                 navigationState={this.state}
                 renderScene={this._renderScene}

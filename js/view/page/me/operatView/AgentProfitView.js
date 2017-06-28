@@ -7,12 +7,12 @@ import {
 import BaseView from "../../../componet/BaseView";
 import AgentSearchView from "./agentProfit/AgentSearchView";
 import ProfitListView from "./agentProfit/ProfitListView";
-import {NavComomButton} from "../../../componet/navBarMenu/HeaderMenu";
+import {NavButtonText} from "../../../componet/navBarMenu/HeaderMenu";
 
 
 export default class AgentProfitView extends BaseView {
     static navigationOptions = ({navigation})=> ({
-        headerRight:<NavComomButton style={{
+        headerRight:<NavButtonText style={{
             marginLeft: 20,
             paddingHorizontal: 8,
             paddingVertical: 4,
@@ -31,8 +31,6 @@ export default class AgentProfitView extends BaseView {
             oAgentSumPerDay: [],
             dataList: [],
         }
-        this.resetData = this.resetData.bind(this);
-
     }
 
 
@@ -63,21 +61,26 @@ export default class AgentProfitView extends BaseView {
         });
     }
 
-    resetData(data) {
-        TLog('[[[[[[[]]]]]]',data);
+    onHideModal=()=> {
+        this.setState({modalVisible: false});
+    }
+
+    onFindPress=(data)=>{
+        TLog('onFindPress---------',data);
         this.setState({modalVisible: false, searchData: data});
         this._getSource(data);
-        return true;
     }
+
+
 
     renderBody() {
         let {userData} = this.props.navigation.state.params;
         const {searchData} = this.state;
         return (<View>
-            <AgentSearchView visible={this.state.modalVisible} username={searchData ? searchData.username : ''}
+            <AgentSearchView onFindPress={this.onFindPress} visible={this.state.modalVisible} username={searchData ? searchData.username : ''}
                              is_agent={searchData ? searchData.is_agent : ''}
                              date_from={searchData ? searchData.date_from : ''}
-                             date_to={searchData ? searchData.date_to : ''} hideViewHandle={this.resetData}/>
+                             date_to={searchData ? searchData.date_to : ''} hideViewHandle={this.onHideModal}/>
             <ProfitListView userData={userData}  {...this.state}/>
 
         </View>)

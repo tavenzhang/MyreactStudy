@@ -37,7 +37,7 @@ export default class SSCTrend extends BaseView {
     render() {
         return (
             <TabViewAnimated
-                //lazy={true}
+                lazy={true}
                 style={styles.container}
                 navigationState={this.state}
                 renderScene={this._renderScene}
@@ -67,6 +67,8 @@ export default class SSCTrend extends BaseView {
     _handleChangeTab = (index) => {
         this.setState({index});
     };
+
+
 
     _renderHeader = (props) => {
         return <TabBar style={styles.tabViewStyle} {...props} tabStyle={styles.tabStyle} labelStyle={styles.labelStyle}

@@ -5,29 +5,28 @@ import {
     Text, TouchableOpacity
 } from 'react-native';
 import BaseView from "../../../../componet/BaseView";
-import {NavAIcoButton} from "../../../../componet/navBarMenu/HeaderMenu";
+import {NavButtonAIco} from "../../../../componet/navBarMenu/HeaderMenu";
 import HeadMenuListView from "./HeadMenuListView";
 import MoreMenu from "../../../../componet/MoreMenu";
 import BannerView from "./BannerView";
 import AIcon from 'react-native-vector-icons/FontAwesome';
 
-
-
-
 export default class BaseGameView extends BaseView {
 
     static navigationOptionsGame = ({navigation}) => {
-        let {onHeadPressed,getGameTitle,onRightPressed} = navigation.state.params
-        TLog("onHeadPressed-----",onHeadPressed)
-        TLog("getGameTitle------",getGameTitle)
+        let {onHeadPressed,getGameTitle} = navigation.state.params
+        //TLog("onHeadPressed-----",onHeadPressed)
+        //TLog("getGameTitle------",getGameTitle)
         return {
             headerTitle: onHeadPressed && getGameTitle ?
-                <TouchableOpacity style={{alignSelf:"center"}} onPress={() => onHeadPressed()}><View style={[{flexDirection: "row"}]}>
+                <TouchableOpacity style={{alignSelf:"center"}} onPress={() => onHeadPressed()}>
+                    <View style={[{flexDirection: "row"}]}>
                     <Text key={'title'} style={styles.title}>{getGameTitle()}</Text>
                     <AIcon color="white" style={{marginLeft: 5}} size={16}
                            name={G_EnumFontNames.list_arrow_desc}/>
-                </View></TouchableOpacity> : null,
-            headerRight: <NavAIcoButton navigation={navigation} icoName={G_EnumFontNames.bars} isRightButton={true}/>
+                </View>
+                </TouchableOpacity> : null,
+            headerRight: <NavButtonAIco navigation={navigation} icoName={G_EnumFontNames.bars} isRightButton={true}/>
         }
     }
 
@@ -79,14 +78,14 @@ export default class BaseGameView extends BaseView {
         const {currentGameWay} = this.state;
         this.gameName=name;
         let gameName = name;
-        if (this.state.selectItem) {
-            if (currentGameWay.parent_parent_name_cn) {
-                gameName = "[" + currentGameWay.parent_parent_name_cn + "]-" + this.state.selectItem.name;
-            }
-            else {
-                gameName = "[" + name + "]-" + this.state.selectItem.name;
-            }
-        }
+        // if (this.state.selectItem) {
+        //     if (currentGameWay.parent_parent_name_cn) {
+        //         gameName = "[" + currentGameWay.parent_parent_name_cn + "]-" + this.state.selectItem.name;
+        //     }
+        //     else {
+        //         gameName = "[" + name + "]-" + this.state.selectItem.name;
+        //     }
+        // }
         return gameName;
     }
 
@@ -112,7 +111,7 @@ export default class BaseGameView extends BaseView {
         if(!this.registFuc)
         {
             this.registFuc=true;
-            this.props.navigation.setParams({getGameTitle:this.getGameTitle,onHeadPressed:this.onHeadPressed})
+            this.props.navigation.setParams({getGameTitle:this.getGameTitle})
         }
 
     }
@@ -145,6 +144,7 @@ export default class BaseGameView extends BaseView {
 
 
     componentDidMount() {
+        super.componentDidMount()
         this.requetGameData();
         HttpUtil.flushMoneyBalance();
     }
@@ -158,7 +158,7 @@ export default class BaseGameView extends BaseView {
         HTTP_SERVER.GET_GAME_DETAIL.url = HTTP_SERVER.GET_GAME_DETAIL.formatUrl.replace(/#id/g, id);
         G_RunAfterInteractions(() => {
             ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.GET_GAME_DETAIL, ActionType.GameType.SET_GAMECONFIG, data => {
-                if (`${data.isSuccess}` != "404") {
+                if (data.isSuccess) {
                     const pd = data.data;
                     this.setState({
                         bet_max_prize_group: parseInt(pd.bet_max_prize_group),
@@ -188,11 +188,7 @@ export default class BaseGameView extends BaseView {
                         this.clickMenuItem(defaultGame);
                     }
                 } else {
-                    G_AlertUtil.showWithDestructive("", "当前游戏获取数据出错，请稍后再尝试", [{
-                        text: "返回大厅", onPress: () => {
-                            G_NavUtil.pop()
-                        }
-                    }, {text: "了解"}])
+                    ActDispatch.AppAct.showErrorBox("当前游戏获取数据出错，请稍后再尝试");
                 }
 
             }, false, true);

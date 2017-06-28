@@ -3,9 +3,8 @@ import {
     View,
     Text,
     StyleSheet,
-    ScrollView,
 } from 'react-native';
-import BaseView from "../../../../../componet/BaseView";
+import TFlatList from "../../../../../componet/TFlatList"
 
 export default class L115_detail extends React.Component {
     static propTypes={
@@ -18,10 +17,10 @@ export default class L115_detail extends React.Component {
         this.state = {
             dataList: [],
         }
+        this.count =0;
     }
 
     render() {
-        let count = 0;
         let {dataList} =this.props
         return (
             <View style={G_Style.appContentView}>
@@ -38,41 +37,37 @@ export default class L115_detail extends React.Component {
                             )
                         })
                     }
-
                 </View>
-                <ScrollView style={{width:G_Theme.windowWidth}}>
-                    {
-                        dataList.map((item, key) => {
-                            count++;
-                            let backColor = count % 2 != 0 ? "white": "#ddd";
-                            if(item.bgColor)
-                            {
-                                backColor=item.bgColor
-                            }
-                            return (<View style={{flexDirection: "row", backgroundColor: backColor}}  key={`dataList${key}`}>
-                                    <View style={[styles.textCp, {flex: 2, justifyContent:"center", alignItems:"center"}]}>
-                                        <Text style={[styles.text]} numberOfLines={2}>{item.title}</Text>
-                                    </View>
-                                    {
-                                        item.ballList.map((ballItem, ballKey) => {
-                                            return (
-                                                <View style={[G_Style.appContentView,{backgroundColor: backColor}]} key={`ballItem${ballKey}`}>
-                                                    {this.renderItem(ballItem, ballKey)}
-                                                </View>)
-                                        })
-                                    }
-                                </View>
-                            )
-                        })
-                    }
-                </ScrollView>
+                <TFlatList initialNumToRender={20} dataList={dataList} renderRow={this.rendRowBall}/>
             </View>
         );
     }
 
+    rendRowBall =(item)=> {
+        this.count++;
+        let backColor = this.count % 2 != 0 ? "white": "#ddd";
+        if(item.bgColor) {
+            backColor=item.bgColor
+        }
+        return (<View style={{flexDirection: "row", backgroundColor: backColor}}>
+                <View style={[styles.textCp, {flex: 2, justifyContent:"center", alignItems:"center"}]}>
+                    <Text style={[styles.text]} numberOfLines={2}>{item.title}</Text>
+                </View>
+                {
+                    item.ballList.map((ballItem, ballKey) => {
+                        return (
+                            <View style={[G_Style.appContentView,{backgroundColor: backColor}]} key={`ballItem${ballKey}`}>
+                                {this.renderItem(ballItem, ballKey)}
+                            </View>)
+                    })
+                }
+            </View>
+        )
+
+    }
+
     renderItem = (data, ballKey) => {
         let contentView = null;
-        //{backgroundColor:"red", borderRadius:50}
         if(data instanceof  Array)
         {
             let array=data;
@@ -101,15 +96,8 @@ export default class L115_detail extends React.Component {
                     <Text style={styles.text} >{data}</Text>
                 </View>
             </View>
-
         }
-
-
         return contentView;
-
-    }
-
-    componentDidMount() {
 
     }
 

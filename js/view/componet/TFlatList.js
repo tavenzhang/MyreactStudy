@@ -22,10 +22,12 @@ export default class TFlatList extends React.Component {
         getItemLayout:PropTypes.any,
         keyExtractor:PropTypes.any,
         pageSize:PropTypes.any,
+        initialNumToRender:PropTypes.number
     }
 
     static defaultProps={
-        pageSize:15
+        pageSize:15,
+        initialNumToRender:10
     }
 
 
@@ -52,7 +54,7 @@ export default class TFlatList extends React.Component {
     // )}
 
     render() {
-        let {dataList,renderHeader,getItemLayout,keyExtractor}=this.props;
+        let {dataList,renderHeader,getItemLayout,keyExtractor,initialNumToRender}=this.props;
         return (
             <View style={G_Style.appContentView}>
                 <FlatList
@@ -64,7 +66,7 @@ export default class TFlatList extends React.Component {
                     ListFooterComponent={this._renderFooter}
                     onEndReached={this._onFootFlush}
                     onEndReachedThreshold={0.1}
-                    initialNumToRender={10}
+                    initialNumToRender={initialNumToRender}
                     onRefresh={this._onRefresh}
                     refreshing={this.state.isRefreshing}
                 />

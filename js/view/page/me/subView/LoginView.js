@@ -74,13 +74,13 @@ export default class LoginView extends BaseView {
 
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LOGIN_IN, (data) => {
                 if (data.isSuccess) {
-                    G_NavUtil.pop();
+                    G_MyStorage.setItem(G_EnumStroeKeys.USR_DATA, JSON.stringify(bodyData),()=>G_NavUtil.pop());
                     ActDispatch.AppAct.loginReault(data);
                 } else {
                     ActDispatch.AppAct.showBox(data.Msg);
                 }
             },false,true)
-        G_MyStorage.setItem(G_EnumStroeKeys.USR_DATA, JSON.stringify(bodyData));
+
     }
 }
 

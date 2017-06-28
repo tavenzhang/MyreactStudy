@@ -14,6 +14,7 @@ export default class AgentSearchView extends React.Component {
     static propTypes = {
         visible: PropTypes.bool,
         hideViewHandle: PropTypes.func,
+        onFindPress:PropTypes.func
     }
 
     constructor(props) {
@@ -34,7 +35,7 @@ export default class AgentSearchView extends React.Component {
     }
 
     render() {
-        let {visible} = this.props;
+        let {visible,onFindPress} = this.props;
         return (
             <MyModalView visible={visible} hideModal={this.onFindConfirm}>
                 <View style={{flex: 1, justifyContent: "center", backgroundColor: "rgba(50, 50, 50,0.2)"}}>
@@ -82,7 +83,7 @@ export default class AgentSearchView extends React.Component {
                             <Text style={{marginHorizontal: 10}}>至</Text>
                             <MyDatePicker  onDateSelect={(date_to)=>{this.setState({date_to:date_to})}}/>
                         </View>
-                        <TouchableOpacity onPress={this.onFindConfirm}>
+                        <TouchableOpacity onPress={()=>onFindPress(this.state)}>
                             <View style={{
                                 marginVertical: 20,
                                 paddingHorizontal: 10,

@@ -378,6 +378,7 @@ export default class Games extends Component {
     //检测选球是否完整，是否能形成有效的投注
     //并设置 isBallsComplete
     checkBallIsComplete(multiple) {
+        TLog('checkBallIsComplete',multiple);
         const me = this;
         const data = !!me.state.balls ? me.state.balls : [];
         let i = 0,
@@ -402,6 +403,7 @@ export default class Games extends Component {
                 return false;
             }
         }
+        TLog('12312432432423423423','444');
         this.setState({isBallsComplete: true});
         return true;
 

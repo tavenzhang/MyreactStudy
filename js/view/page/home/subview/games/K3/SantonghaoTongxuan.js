@@ -55,8 +55,10 @@ export default class SantonghaoDanxuan extends K3 {
 
         //校验当前的面板
         //获取选中数字
-        if(ball[0] > 0){
-            nr = [0]
+        if (me.checkBallIsComplete()) {
+            if (ball[0] > 0) {
+                nr = [0]
+            }
         }
         return nr;
     }

@@ -46,8 +46,10 @@ export default class SanlianhaoDanxuan extends K3 {
         }
 
         if(num > 0){
+            this.setState({isBallsComplete: true});
             return true;
         }
+        this.setState({isBallsComplete: false});
         return false;
     }
 

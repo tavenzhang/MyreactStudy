@@ -20,6 +20,25 @@ export default class Dingweidan extends L115 {
     //设置rowtitle
     setRowTitle = () => ['一位','二位','三位'];
 
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me = this;
+        let i=0,j=0,len=arr.length,len2,result=[];
+
+        for (i = 0; i < len; i++) {
+            len2 = arr[i].length;
+            //result[i] = [];
+            for(j = 0;j < len2;j++){
+                if(arr[i][j] > 0){
+                    result.push(j);
+                }
+            }
+        }
+        return result;
+
+    }
+
     checkBallIsComplete() {
         let me = this,
             ball = me.state.balls,

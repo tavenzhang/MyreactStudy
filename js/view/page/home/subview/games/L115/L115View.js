@@ -57,6 +57,8 @@ const mapStateToProps = state => {
         orderNum: state.get("gameState").get("orderList").count(),
         moneyUnit: state.get("gameState").get("moneyUnit"), //金额模式
         multiple: state.get("gameState").get("multiple"), //倍数
+        orderList: state.get("gameState").get("orderList"),
+        orderListNum: state.get("gameState").get("orderList").count(),
        // balance: parseFloat(state.get("appState").getIn(['userData','data','available']));
         balance:state.get("appState").get("moneyBalance"),
     }
@@ -87,10 +89,10 @@ export default class L115View extends BaseGameView {
 
             //前二
             case "107":
-                return  <ErmaZhixuanFushi {...this.props} {...this.state} />
+                return  <ErmaZuxuanFushi {...this.props} {...this.state} />
 
             case "111":
-                return  <ErmaZuxuanFushi {...this.props} {...this.state} />
+                return  <ErmaZhixuanFushi {...this.props} {...this.state} />
 
             case "120":
                 return  <ErmaZuxuanDantuo {...this.props} {...this.state} />

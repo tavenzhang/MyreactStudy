@@ -15,6 +15,7 @@ export default class QuweiDingdanshuang extends L115 {
 
     constructor(props) {
         super(props);
+        this.ballFirstStart=1;
         this.state.rowBallNumber = 3; //一行几个球
     }
 
@@ -46,6 +47,24 @@ export default class QuweiDingdanshuang extends L115 {
         return result.join('|');
     }
 
+    makePostParameter(original) {
+        let me = this,
+            result = [],
+            tempArr = [],
+            k=0,
+            i = 0;
+
+        for(; k < original.length; k++) {
+            tempArr[k]  = [];
+            for(let j = 0; j < original[k].length; j++ ) {
+                tempArr[k][j] = original[k][j];
+            }
+            result = result.concat(tempArr[k].join(' '));
+        }
+
+
+        return result.join('|');
+    }
     buildUI(){
         const me = this;
         const ballstyle = {
@@ -71,6 +90,7 @@ export default class QuweiDingdanshuang extends L115 {
             ball_num['' + i] ? result.push(ball_num['' + i]) : result.push(i);
         }
         data['ball'] = result.join('');
+        return data;
     }
 
 

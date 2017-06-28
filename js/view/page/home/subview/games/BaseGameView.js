@@ -144,7 +144,7 @@ export default class BaseGameView extends BaseView {
 
 
     componentDidMount() {
-        super.componentDidMount()
+        // super.componentDidMount()
         this.requetGameData();
         HttpUtil.flushMoneyBalance();
     }

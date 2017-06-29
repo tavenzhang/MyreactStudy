@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import GameList from "./home/subview/GameList";
 import MyBannerSwiper from "../componet/MyBannerSwiper";
 import AIcon from 'react-native-vector-icons/FontAwesome';
+import {NavButtonText} from "../componet/navBarMenu/HeaderMenu";
 
 const mapStateToProps = state => {
     return {
@@ -22,9 +23,10 @@ export default class Home extends BaseView {
 
     static navigationOptions = ({navigation})=> ({
         title: "大厅",
-        tabBarIcon: ({tintColor, focused}) => {
+        tabBarIcon: ({focused}) => {
             return <AIcon name='home' style={{ fontSize: 25, color:focused ? G_Theme.selectColor:G_Theme.gray}}/>
         },
+        headerRight:<NavButtonText name={"客服"} navigation={navigation}/>,
     })
 
     constructor(props) {
@@ -33,6 +35,10 @@ export default class Home extends BaseView {
             {
                showBanner:false
           };
+    }
+
+    onRightPressed(){
+        G_NavUtil.pushToView(G_NavViews.ADView({data:"http://104.250.140.242:82/im/text/4028838b5ac815e3015ac81645f90000.html",title:"客服"}))
     }
 
     renderBody() {
@@ -54,7 +60,7 @@ export default class Home extends BaseView {
         }]
 
         return (
-            <View style={G_Style.appContentView} >
+            <View style={[G_Style.appContentView,{backgroundColor:"#f1f1f1"}]} >
                 {this.state.showBanner||G_PLATFORM_IOS ? <MyBannerSwiper dataList={bannerList} {...this.props} />:null}
                 <GameList dataList={gameList} {...this.props} />
             </View>

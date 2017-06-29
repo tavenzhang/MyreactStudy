@@ -61,7 +61,9 @@ global.G_Style = StyleSheet.create({
     },
     appContentView: {
         flex:1,
-        backgroundColor: "#f1f1f1"    },
+        //backgroundColor: "#f1f1f1"   ,
+        backgroundColor:"white"
+    },
     appContentCenterView: {
         flex: 1,
         justifyContent: "center",

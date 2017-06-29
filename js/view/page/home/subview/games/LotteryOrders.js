@@ -114,6 +114,7 @@ export default class LotteryOrders extends BaseView {
         const me = this;
         let total = 0,
             totalMoney = 0,
+
         tracetimes=!traceTimes?1:traceTimes,
         tracemultiple=!traceMultiple?1:traceMultiple;
 

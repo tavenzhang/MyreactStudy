@@ -30,7 +30,26 @@ export default class QiansanZuxuanFushi extends KL10 {
             me.selectBall(i, 0, 1);
         }
     }
+    //生成单注随机数
+    createRandomNum() {
+        const me = this,
+            {balls} = this.state,
+            current = [];
+        me.setRandomArr();
+        current[0]=[];
+        for (let j = 0; j < 3; j++) {
+            let i = me.getRandomNum();
+            current[0].push(i);
+        }
+        return current;
+    }
 
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me = this;
+        return me.combine(arr[0], 3);
+    }
     checkBallIsComplete() {
         const me = this;
         const balls = this.state.balls;

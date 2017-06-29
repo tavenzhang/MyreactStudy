@@ -53,6 +53,33 @@ export default class RenxuanDantuo2z2 extends KL10 {
         }
     }
 
+    //生成单注随机数
+    createRandomNum() {
+        const me = this,
+            current = [];
+        me.setRandomArr();
+        for (let j = 0; j < 2; j++) {
+            let i = me.getRandomNum();
+            current[j]=[i];
+        }
+        return current;
+    }
+
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me = this;
+        let result=[],nr=[];
+        //存储单号组合
+        result = me.combine(arr[1], 1);
+
+        //加上单号各种组合
+        for (let s = 0; s < result.length; s++) {
+            nr.push(result[s].concat(arr[0]));
+        }
+
+        return nr;
+    }
     checkBallIsComplete() {
 
         let me = this,

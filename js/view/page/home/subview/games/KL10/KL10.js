@@ -38,6 +38,18 @@ export default class KL10 extends Games {
         }
     }
 
+    //生成单注随机数
+    createRandomNum() {
+        const me = this,
+            {balls} = this.state,
+            current = [];
+        me.setRandomArr();
+        for (let j = 0; j < balls.length; j++) {
+            let i = me.getRandomNum();
+            current[j]=[i];
+        }
+        return current;
+    }
     makePostParameter(original) {
         let me = this,
             result = [],

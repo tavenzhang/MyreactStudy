@@ -22,6 +22,20 @@ export default class YixingDingweidanFushi extends D3 {
     //设置rowtitle
     setRowTitle = () => ['百位','十位','个位'];
 
+
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me=this;
+        let result=[];
+        for(let i = 0,len = arr.length;i < len;i++){
+            for(let j = 0,len2 = arr[i].length;j < len2;j++){
+                result.push([arr[i][j]]);
+            }
+        }
+        return result;
+
+    }
     getLottery(isGetNum){
         let me = this,
             data = this.state.balls,

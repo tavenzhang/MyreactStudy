@@ -16,6 +16,7 @@ export default class QiansanZuxuanHezhi extends D3 {
 
     constructor(props) {
         super(props);
+        this.ballFirstStart=1;
     }
 
     //设置球排列
@@ -29,6 +30,16 @@ export default class QiansanZuxuanHezhi extends D3 {
     //设置rowtitle
     setRowTitle = () => ['选球']
 
+
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me=this;
+        let resultNum=[] ;
+        resultNum = resultNum.concat(me.mathResult(arr[0], 0, 9));
+        return resultNum;
+
+    }
     buildBalls(row) {
         const me = this;
         const {balls,ballText,rowTitle} = this.state;

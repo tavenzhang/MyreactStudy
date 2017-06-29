@@ -28,6 +28,40 @@ export default class SanxingZuxuanZusan extends D3 {
             me.selectBall(i, 0, 1);
         }
     }
+    // //生成单注随机数
+    createRandomNum() {
+        const me = this,
+            {balls} = this.state,
+            current = [];
+        current[0]=[];
+        me.setRandomArr();
+        for (let j = 0; j < 2; j++) {
+            let i = me.getRandomNum();
+            current[0].push(i);
+        }
+        return current;
+    }
+
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me=this;
+        let result=[],checkNum=[],saveNum=[];
+        for(let c=0;c<arr[0].length;c++){
+            checkNum =[];
+            saveNum = arr[0].concat();
+            checkNum.push([[arr[0][c],arr[0][c]].join('')]);
+            saveNum.splice(c, 1)
+            checkNum.push(saveNum);
+            result = result.concat(me.combination(checkNum));
+        }
+
+        for (let k = 0; k < result.length; k++) {
+            result[k] = result[k].join('').split('');
+        };
+
+        return result;
+    }
     //并设置 isBallsComplete
     checkBallIsComplete(){
         const me = this;

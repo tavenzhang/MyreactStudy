@@ -47,8 +47,6 @@ export default class Dingweidan extends PK10 {
             }
 
         }
-
-        TLog('current', current);
         return current;
     }
 

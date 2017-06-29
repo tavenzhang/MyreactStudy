@@ -20,6 +20,17 @@ export default class SanxingZhixuanHezhi extends D3 {
     //设置rowtitle
     setRowTitle = () => ['选球']
 
+
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me=this;
+        let resultNum=[] ;
+        resultNum = resultNum.concat(me.mathResult(arr[0], 0, 9));
+
+        return resultNum;
+
+    }
     formatViewBalls(original){
         let me = this,
             result = [],

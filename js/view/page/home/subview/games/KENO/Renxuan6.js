@@ -32,6 +32,27 @@ export default class Renxuan6 extends KENO {
             me.selectBall(i, 0, 1);
         }
     }
+    // //生成单注随机数
+    createRandomNum() {
+        const me = this,
+            {balls} = this.state,
+            current = [];
+        current[0]=[];
+        me.setRandomArr();
+        for (let j = 0; j < 6; j++) {
+            let i = me.getRandomNum();
+            current[0].push(i);
+        }
+        return current;
+    }
+
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me=this;
+        return me.combine(arr[0], 6);
+
+    }
 
     //设置可选择的随机数组
     setRandomArr(num) {
@@ -47,6 +68,7 @@ export default class Renxuan6 extends KENO {
         }
 
     }
+
     //获取随机
     getRandomNum() {
         let me = this,

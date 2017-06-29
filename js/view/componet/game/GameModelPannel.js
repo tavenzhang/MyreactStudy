@@ -13,7 +13,6 @@ import MoneyUnit from './MoneyUnit';
 import MultipleBtnGrounp from "./MultipleBtnGrounp";
 import CleanBalls from "./CleanBalls";
 import SelectAutoOne from "./SelectAutoOne";
-import {TButton} from "../tcustom/button/TButton";
 
 
 export default class GameModelPannel extends Component {
@@ -34,7 +33,7 @@ export default class GameModelPannel extends Component {
 
     render() {
         const me = this;
-        const {moneyUnit, multiple, maxMultiple, isShowMoneyUnit, isRandomSelect, checkBallIsComplete, cleanBall, randomSelcet} = this.props;
+        const {moneyUnit, multiple, maxMultiple, isShowMoneyUnit, checkBallIsComplete, cleanBall} = this.props;
         return (<View>
                 <View style={styles.moneyOperateBox}>
                     {/*<CleanBalls cleanBall={cleanBall}/>*/}
@@ -46,8 +45,7 @@ export default class GameModelPannel extends Component {
                     {isShowMoneyUnit ? me.showMoneyUnit(moneyUnit) : null}
 
                 </View>
-                <TButton visible={isRandomSelect} containerStyle={[styles.multipleTextBox]}
-                         textStyle={{color: "rgb(100,100,100)"}} btnName={"随机(摇一摇)"} onPress={randomSelcet}/>
+
             </View>
         );
 

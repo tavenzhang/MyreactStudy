@@ -16,6 +16,8 @@ import GameModelPannel from "./GameModelPannel";
 import GamePriceModelPannel from "./GamePriceModelPannel";
 import BallOperateBtn from "./BallOperateBtn";
 import RNShakeEvent from 'react-native-shake-event';
+import {TButton} from "../tcustom/button/TButton";
+
 //
 // const mapStateToProps = state => {
 //     TLog('----------->',state)
@@ -560,6 +562,9 @@ export default class Games extends Component {
         }
         return (
             <View style={{flex: 1}}>
+                <TButton visible={this.isRandomSelect}
+                         containerStyle={[styles.randButton]}
+                         textStyle={{color: "rgb(100,100,100)"}} btnName={"随机(摇一摇)"} onPress={this.randomSelcet}/>
                 <ScrollView style={styles.ballOperate}>
                     {me.buildUI()}
                     <View style={styles.controlPanel}>
@@ -567,8 +572,7 @@ export default class Games extends Component {
                             moneyUnit={moneyUnit}
                             multiple={multiple}
                             cleanBall={this.clearAllBall}
-                            isRandomSelect={this.isRandomSelect}
-                            randomSelcet={this.randomSelcet}
+                           
                             checkBallIsComplete={this.checkBallIsComplete}
                             isShowMoneyUnit={this.isShowMoneyUnit}
                             maxMultiple={currentGameWay.max_multiple}
@@ -855,5 +859,16 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 5,
         //justifyContent: 'space-between'
+    },
+    randButton:{
+        alignSelf: "flex-end",//width: 100,
+        marginTop: 1,
+        height: 30,
+        paddingTop:5,
+        paddingHorizontal: 20,
+        borderWidth: 1,
+        borderColor: G_Theme.gray,
+        backgroundColor: "transparent"
     }
+
 });

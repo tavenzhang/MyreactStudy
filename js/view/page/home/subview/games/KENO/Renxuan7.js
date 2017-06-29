@@ -33,6 +33,27 @@ export default class Renxuan7 extends KENO {
         }
     }
 
+    // //生成单注随机数
+    createRandomNum() {
+        const me = this,
+            {balls} = this.state,
+            current = [];
+        current[0]=[];
+        me.setRandomArr();
+        for (let j = 0; j < 7; j++) {
+            let i = me.getRandomNum();
+            current[0].push(i);
+        }
+        return current;
+    }
+
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me=this;
+        return me.combine(arr[0], 7);
+
+    }
     setRandomArr(num) {
         let me = this,
             balls = me.state.balls[0];

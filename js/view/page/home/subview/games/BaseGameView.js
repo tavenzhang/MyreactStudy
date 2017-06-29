@@ -14,15 +14,15 @@ import AIcon from 'react-native-vector-icons/FontAwesome';
 export default class BaseGameView extends BaseView {
 
     static navigationOptionsGame = ({navigation}) => {
-        let {onHeadPressed,getGameTitle} = navigation.state.params
+        let {onHeadPressed, gameTitle} = navigation.state.params
         return {
-            headerTitle: onHeadPressed && getGameTitle ?
-                <TouchableOpacity style={{alignSelf:"center"}} onPress={() => onHeadPressed()}>
+            headerTitle: onHeadPressed && gameTitle ?
+                <TouchableOpacity style={{alignSelf: "center"}} onPress={() => onHeadPressed()}>
                     <View style={[{flexDirection: "row"}]}>
-                    <Text key={'title'} style={styles.title}>{getGameTitle()}</Text>
-                    <AIcon color="white" style={{marginLeft: 5}} size={16}
-                           name={G_EnumFontNames.list_arrow_desc}/>
-                </View>
+                        <Text key={'title'} style={styles.title}>{gameTitle}</Text>
+                        <AIcon color="white" style={{marginLeft: 5}} size={16}
+                               name={G_EnumFontNames.list_arrow_desc}/>
+                    </View>
                 </TouchableOpacity> : null,
             headerRight: <NavButtonAIco navigation={navigation} icoName={G_EnumFontNames.bars} isRightButton={true}/>
         }
@@ -59,14 +59,14 @@ export default class BaseGameView extends BaseView {
         this.onMoreMenuSelect = this.onMoreMenuSelect.bind(this)
         this.getGameTitle = this.getGameTitle.bind(this);
         this.getGameWays = this.getGameWays.bind(this);
-        this.registFuc=false
+        this.registFuc = false
     }
 
 
     getGameTitle() {
         const {name} = this.props.navigation.state.params;
         const {currentGameWay} = this.state;
-        this.gameName=name;
+        this.gameName = name;
         let gameName = name;
         if (this.state.selectItem) {
             if (currentGameWay.parent_parent_name_cn) {
@@ -81,8 +81,8 @@ export default class BaseGameView extends BaseView {
 
     getGameWays() {
         const {series_id, playModel} = this.props.navigation.state.params;
-        let list = playModel.getPlayByGid(series_id).arrayList
-        TLog("getGameWays----", list)
+        let list = playModel.getPlayByGid(series_id).arrayList;
+        // TLog("getGameWays----", list)
         return list;
     }
 
@@ -96,24 +96,22 @@ export default class BaseGameView extends BaseView {
         this.setState({isShowMenu: !this.state.isShowMenu});
     }
 
-    componentWillUpdate(){
+    componentWillUpdate() {
         super.componentWillUpdate();
-        if(!this.registFuc)
-        {
-            this.registFuc=true;
-            this.props.navigation.setParams({getGameTitle:this.getGameTitle})
-        }
-
+        // if(!this.registFuc) {
+        //     this.registFuc=true;
+        // }
     }
+
     renderBody() {
-        const {currentGameWay, currentNumber, defaultMethodId} = this.state;
+        const {currentGameWay, defaultMethodId} = this.state;
         const {series_id} = this.props.navigation.state.params;
         let subView = this.state.selectItem ? this.onRenderSubView(this.state.selectItem) : null;
         let menuDataList = this.getMoreMenuData();
         return (defaultMethodId > 0) ? (
             <View style={G_Style.appContentView}>
                 <BannerView {...this.state} dateHistoryList={this.state.history_lotterys} prize={currentGameWay.prize}
-                            series_id={series_id}  onTimeHanlde={this.requetGameData}/>
+                            series_id={series_id} onTimeHanlde={this.requetGameData}/>
                 {subView}
                 <MoreMenu
                     ref="moreMenu"
@@ -160,7 +158,6 @@ export default class BaseGameView extends BaseView {
                         traceMaxTimes: pd.traceMaxTimes,
                         history_lotterys: pd.history_lotterys.split(","),
                     });
-
                     if (!this.state.selectItem && pd.defaultMethodId) {
                         const defaultGame = {"id": pd.defaultMethodId + '', "name": pd.defaultMethod_cn}
                         this.clickMenuItem(defaultGame);
@@ -175,6 +172,7 @@ export default class BaseGameView extends BaseView {
 
 
     clickMenuItem = (data) => {
+      //  TLog("clickMenuItem--", data);
         const {gameMethodHash, isRequestGameWay, currentGameWay} = this.state;
         const {id, playModel} = this.props.navigation.state.params;
         if (currentGameWay.id != data.id) {
@@ -183,6 +181,8 @@ export default class BaseGameView extends BaseView {
                     isShowMenu: false,
                     selectItem: data,
                     currentGameWay: gameMethodHash[data.id]
+                }, () => {
+                    this.props.navigation.setParams({gameTitle: this.getGameTitle()})
                 });
             }
             else {
@@ -204,7 +204,11 @@ export default class BaseGameView extends BaseView {
                             isShowMenu: false,
                             isRequestGameWay: false,
                             selectItem: data
+                        }, () => {
+                            this.props.navigation.setParams({gameTitle: this.getGameTitle()})
                         });
+
+
                     });
                 }
             }
@@ -235,7 +239,7 @@ export default class BaseGameView extends BaseView {
                 }))
                 break;
             case 3:
-                G_NavUtil.pushToView(G_NavViews.SSC_History({lottery_name:this.gameName, lottery_id: id}))
+                G_NavUtil.pushToView(G_NavViews.SSC_History({lottery_name: this.gameName, lottery_id: id}))
                 break;
             default:
                 break;

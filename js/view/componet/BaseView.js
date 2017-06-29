@@ -42,7 +42,6 @@ export default class BaseView extends Component {
                 this.initRegist=true;
                 this.registProssHandle();
                 //setTimeout(this.registProssHandle,1000)
-
             }
         }
     }

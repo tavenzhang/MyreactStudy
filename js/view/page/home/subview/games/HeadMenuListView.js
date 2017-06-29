@@ -4,9 +4,9 @@ import {
     Text,
     StyleSheet,
     TouchableHighlight,
-    ListView,
     TouchableWithoutFeedback,
 } from 'react-native';
+import TFlatList from "../../../../componet/TFlatList";
 
 export default class HeadMenuListView extends React.Component {
 
@@ -20,21 +20,15 @@ export default class HeadMenuListView extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (r1, r2) => r1 !== r2,
-            }),
-        }
     }
-
 
     render() {
         let {menuDataList, rootStyle} = this.props
-        let ds = this.state.dataSource.cloneWithRows(menuDataList);
         return (<View style={rootStyle}>
             <View style={{flex: 2}}>
-                <ListView
-                    dataSource={ds}
+                <TFlatList
+                    dataList={menuDataList}
+                    dataSource={menuDataList}
                     renderRow={this._renderRow}
                     style={{backgroundColor: "white"}}
                 />
@@ -47,6 +41,7 @@ export default class HeadMenuListView extends React.Component {
     }
 
     _renderRow = (rowData) => {
+        let {selectItem} =this.props
         return (
             <View
                 style={{flexDirection: "row", margin: 5, borderBottomWidth: 1}}>
@@ -62,10 +57,10 @@ export default class HeadMenuListView extends React.Component {
                 }}>
                     {rowData.children.map((item, index) => {
                         let selectItemStyle = null
-                        if (this.props.selectItem && this.props.selectItem.id == item.id) {
+                        if (selectItem&&selectItem.id == item.id) {
                             selectItemStyle = {borderWidth: 1, backgroundColor: "yellow"};
                         }
-                        return (<TouchableHighlight key={index * 999} onPress={() => this.props.clickMenuItem(item)}
+                        return (<TouchableHighlight key={index * 999} onPress={() => this.props.clickMenuItem({...item})}
                                                     underlayColor='rgba(10,10,10,0.2)'>
                             <View style={[{
                                 padding: 5,

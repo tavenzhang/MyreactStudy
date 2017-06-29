@@ -227,7 +227,7 @@ export default class RecordBetView extends BaseView {
 
     loadMore = (callBack, isFlush) => {
         HTTP_SERVER.BET_RECODE.body.bought_at_from = this.state.curTime ? this.state.curTime.date : "";
-        HTTP_SERVER.BET_RECODE.body.bought_at_to = G_DateUtil.formatRecodData(new Date());
+        HTTP_SERVER.BET_RECODE.body.bought_at_to ="";
         HTTP_SERVER.BET_RECODE.body.lottery_id = this.state.curGame ? this.state.curGame.id : "";
         HTTP_SERVER.BET_RECODE.body.way_id = this.state.curPlay ? this.state.curPlay.id : "";
         if (isFlush) {

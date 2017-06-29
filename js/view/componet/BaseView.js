@@ -26,11 +26,9 @@ export default class BaseView extends Component {
         //this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
         this.initRegist=false;
-        if(this.props.navigation)
-        {
+        if(this.props.navigation) {
             G_Navigation = this.props.navigation
         }
-
     }
 
     renderNavigationBar() {
@@ -42,7 +40,8 @@ export default class BaseView extends Component {
         if(!this.initRegist) {
             if(this.props.navigation) {
                 this.initRegist=true;
-                setTimeout(this.registProssHandle,500)
+                this.registProssHandle();
+                //setTimeout(this.registProssHandle,1000)
 
             }
         }

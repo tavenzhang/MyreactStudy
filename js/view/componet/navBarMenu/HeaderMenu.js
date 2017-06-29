@@ -22,8 +22,8 @@ export class NavCommonView extends React.PureComponent {
     }
 
     onPress = () => {
-        let  {navigation,onHeadPressed,isRightButton,isHeadView}=this.props;
-        let {onRightPressed,onLeftPressed} = navigation.state.params;
+        let  {navigation,isRightButton,isHeadView}=this.props;
+        let {onRightPressed,onLeftPressed,onHeadPressed} = navigation.state.params;
         if(isHeadView)
         {
             onHeadPressed()
@@ -94,8 +94,5 @@ export class NavButtonAIco extends React.PureComponent {
 
 
 
-const styles = StyleSheet.create({
-
-})
 
 

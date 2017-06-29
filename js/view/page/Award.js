@@ -98,16 +98,18 @@ export default class Award extends BaseView {
     }
 
     itemClick = (data) => {
+        TLog("itemClick--------",data)
         switch(data.series_name)
         {
             case "SSC":
                 G_NavUtil.pushToView(G_NavViews.SSC_History({...data}));
                 break;
             case "11-5":
+            case "PK10":
                 G_NavUtil.pushToView(G_NavViews.G_11_5_History({...data}));
                 break;
             default:
-                G_AlertUtil.show("","敬请期待！")
+                G_NavUtil.pushToView(G_NavViews.SSC_History({...data}));
                 break;
         }
     }

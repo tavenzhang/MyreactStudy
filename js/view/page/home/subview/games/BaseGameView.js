@@ -15,8 +15,6 @@ export default class BaseGameView extends BaseView {
 
     static navigationOptionsGame = ({navigation}) => {
         let {onHeadPressed,getGameTitle} = navigation.state.params
-        //TLog("onHeadPressed-----",onHeadPressed)
-        //TLog("getGameTitle------",getGameTitle)
         return {
             headerTitle: onHeadPressed && getGameTitle ?
                 <TouchableOpacity style={{alignSelf:"center"}} onPress={() => onHeadPressed()}>
@@ -64,28 +62,20 @@ export default class BaseGameView extends BaseView {
         this.registFuc=false
     }
 
-    // getNavigationBarProps() {
-    //     this.gameName = this.getGameTitle();
-    //     return {
-    //         // titleView: this.renderNavTitleView,
-    //         rightView: GAME_DERAIL
-    //     };
-    // }
-
 
     getGameTitle() {
         const {name} = this.props.navigation.state.params;
         const {currentGameWay} = this.state;
         this.gameName=name;
         let gameName = name;
-        // if (this.state.selectItem) {
-        //     if (currentGameWay.parent_parent_name_cn) {
-        //         gameName = "[" + currentGameWay.parent_parent_name_cn + "]-" + this.state.selectItem.name;
-        //     }
-        //     else {
-        //         gameName = "[" + name + "]-" + this.state.selectItem.name;
-        //     }
-        // }
+        if (this.state.selectItem) {
+            if (currentGameWay.parent_parent_name_cn) {
+                gameName = "[" + currentGameWay.parent_parent_name_cn + "]-" + this.state.selectItem.name;
+            }
+            else {
+                gameName = "[" + name + "]-" + this.state.selectItem.name;
+            }
+        }
         return gameName;
     }
 
@@ -119,13 +109,11 @@ export default class BaseGameView extends BaseView {
         const {currentGameWay, currentNumber, defaultMethodId} = this.state;
         const {series_id} = this.props.navigation.state.params;
         let subView = this.state.selectItem ? this.onRenderSubView(this.state.selectItem) : null;
-        let dim = (this.state.currentNumberTime - this.state.currentTime) * 1000;
-        dim = dim > 0 ? dim : 0;
         let menuDataList = this.getMoreMenuData();
         return (defaultMethodId > 0) ? (
             <View style={G_Style.appContentView}>
-                <BannerView dateHistoryList={this.state.history_lotterys} time={dim} prize={currentGameWay.prize}
-                            series_id={series_id} currentNumber={currentNumber}/>
+                <BannerView {...this.state} dateHistoryList={this.state.history_lotterys} prize={currentGameWay.prize}
+                            series_id={series_id}  onTimeHanlde={this.requetGameData}/>
                 {subView}
                 <MoreMenu
                     ref="moreMenu"
@@ -144,13 +132,8 @@ export default class BaseGameView extends BaseView {
 
 
     componentDidMount() {
-        super.componentDidMount()
         this.requetGameData();
         HttpUtil.flushMoneyBalance();
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.timeId);
     }
 
     requetGameData = () => {
@@ -177,12 +160,7 @@ export default class BaseGameView extends BaseView {
                         traceMaxTimes: pd.traceMaxTimes,
                         history_lotterys: pd.history_lotterys.split(","),
                     });
-                    let dim = (this.state.currentNumberTime - this.state.currentTime);
-                    clearInterval(this.timeId);
-                    if (dim > 0) {
-                        this.timeId = setInterval(this.countTime, 1000);
-                    }
-                    //const {defaultMethodId} = this.state;
+
                     if (!this.state.selectItem && pd.defaultMethodId) {
                         const defaultGame = {"id": pd.defaultMethodId + '', "name": pd.defaultMethod_cn}
                         this.clickMenuItem(defaultGame);
@@ -195,18 +173,6 @@ export default class BaseGameView extends BaseView {
         })
     }
 
-    //倒计时显示
-    countTime = () => {
-        let dim = (this.state.currentNumberTime - this.state.currentTime);
-        if (dim > 0) {
-            this.setState({currentTime: this.state.currentTime + 1})
-        }
-        else {
-            clearInterval(this.timeId);
-            ActDispatch.AppAct.showBox(`当前第${this.state.currentNumber}期已经结束，新一期即将开始!`);
-            this.requetGameData();
-        }
-    }
 
     clickMenuItem = (data) => {
         const {gameMethodHash, isRequestGameWay, currentGameWay} = this.state;

@@ -47,19 +47,6 @@ export  default class GameList extends React.Component {
             }
         }
 
-
-        // let newList = []
-        // if (seriesList.length > 0) {
-        //     let tempArr = null;
-        //     for (let i = 0; i < seriesList.length; i++) {
-        //
-        //             if (i % 2 == 0) {
-        //                 tempArr = [];
-        //                 newList.push(tempArr);
-        //             }
-        //             tempArr.push(seriesList[i]);
-        //     }
-        // }
         return (
             <View style={[G_Style.appContentView, styles.gameListBox]}>
                 <TFlatList dataList={this._handDataList(seriesList)} renderRow={this._rendRowSeries}/>
@@ -67,7 +54,7 @@ export  default class GameList extends React.Component {
         )
     }
 
-    //每9个为一页 分页处理
+    //每2个为一行 分页处理
     _handDataList = (srcList) => {
         let newList = []
         if (srcList.length > 0) {
@@ -96,7 +83,6 @@ export  default class GameList extends React.Component {
                     subView = <TFlatList dataList={this._handDataList(item.dataList)} renderRow={this._rendRowGameDetail}/>
                 }
             }
-
         }
 
         return <View>
@@ -109,11 +95,11 @@ export  default class GameList extends React.Component {
                         <View style={[styles.itemRow, splitIcon]}>
                             <Image style={styles.thumb} source={HOME_ICONS[rowData.sid]}/>
                             <View>
-                                <Text style={rowData.open == "1" ? styles.text : styles.textNoOpen}>
+                                <Text style={this.state.selectGameSid==rowData.sid ? styles.text : styles.textNoOpen}>
                                     {rowData.name + (rowData.dataList.length > 1 ? "系列" : "")}
                                 </Text>
-                                <Text style={styles.textDesc}>
-                                    {'火爆进行中'}
+                                <Text style={[styles.textDesc,{color:this.state.selectGameSid==rowData.sid ? "red":null}]}>
+                                    {'火爆开奖'}
                                 </Text>
                             </View>
                         </View>
@@ -183,8 +169,6 @@ const styles = StyleSheet.create({
     itemRow: {
         flexDirection: 'row',
         width: Math.floor(G_Theme.windowWidth / 2),
-        // paddingBottom: 10,
-        // paddingTop: 10,
         paddingLeft: 20,
         paddingRight: 10,
         paddingVertical:10
@@ -202,7 +186,7 @@ const styles = StyleSheet.create({
     text: {
         marginTop: 4,
         fontWeight: 'bold',
-        color: '#222',
+        color: 'red',
     },
     textDesc: {
         color: '#999',
@@ -210,7 +194,7 @@ const styles = StyleSheet.create({
         lineHeight: 20
     },
     textNoOpen: {
-        color: "gray",
+        color: "#222",
         marginTop: 5,
         fontWeight: 'bold'
     },

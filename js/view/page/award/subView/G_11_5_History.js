@@ -24,9 +24,7 @@ export default class G_11_5_History extends BaseView {
         this.next_id=0;
     }
 
-
     renderBody() {
-
         return (
             <View style={G_Style.appContentView}>
                 <TFlatList dataList={this.state.dataArray} loadMore={this.loadMore} renderRow={this._renderRow}/>

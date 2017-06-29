@@ -39,19 +39,22 @@ const mapStateToProps = state => {
     return {
         userData: state.get("appState").get("userData").toJS(),
         moneyBalance: state.get("appState").get("moneyBalance"),
+        nav: state.get("navState").toJS()
     }
 }
 
 @connect(mapStateToProps)
 export default class MyView extends BaseView {
-    static navigationOptions = ({navigation})=> ({
+    static navigationOptions = ({navigation})=> {
+
+        return {
         title: '我的',
         tabBarIcon: ({focused}) => {
             return <AIcon name='user' style={{ fontSize: 25, color:focused ? G_Theme.selectColor:G_Theme.gray}}/>
         },
         headerLeft:<NavButtonText isRightButton={false} name={"设置"} navigation={navigation}/>,
-        headerRight: <NavButtonText name={"注销"} navigation={navigation} visible={navigation.state.params&&navigation.state.params.isLogined==true}/>
-    })
+        headerRight: <NavButtonText name={"注销"} navigation={navigation} visible={navigation.state.params&&navigation.state.params.isLogined}/>
+    }}
 
     static dataListRecord = [{ico: "star", name: ItemNameEnum.awardFind}, {
         ico: "file-text",
@@ -88,11 +91,10 @@ export default class MyView extends BaseView {
         this.state={
             modalVisible: false,
         }
-        this.isLogin = this.props.userData.isLogined
     }
 
     onLeftPressed() {
-        this.setState({modalVisible: true});
+          this.setState({modalVisible: true});
     }
 
     onRightPressed() {
@@ -104,11 +106,10 @@ export default class MyView extends BaseView {
     componentWillUpdate(){
         super.componentWillUpdate();
         let {userData,navigation} = this.props;
-        let params=navigation.state.params
-        if(params&&this.isLogin != userData.isLogined)
+        if(this.isLogin != userData.isLogined)
         {
-            this.isLogin=userData.isLogined;
-            this.props.navigation.setParams({isLogined:userData.isLogined});
+            this.isLogin = userData.isLogined;
+           setTimeout(()=> navigation.setParams({isLogined:userData.isLogined}),1000)
         }
     }
 
@@ -186,6 +187,11 @@ export default class MyView extends BaseView {
 
     setModalVisible=(visible)=> {
         this.setState({modalVisible: visible});
+    }
+
+    componentDidMount() {
+        this.isLogin=this.props.userData.isLogined;
+        this.props.navigation.setParams({isLogined:this.isLogin})
     }
 
 }

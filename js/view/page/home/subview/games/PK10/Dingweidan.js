@@ -7,6 +7,7 @@ export default class Dingweidan extends PK10 {
 
     constructor(props) {
         super(props);
+        this.ballFirstStart = 1;
 
     }
 
@@ -25,7 +26,43 @@ export default class Dingweidan extends PK10 {
     ];
 
     //设置rowtitle
-    setRowTitle = () => ['冠军','亚军','季军','第四名','第五名','第六名','第七名','第八名','第九名','第十名'];
+    setRowTitle = () => ['冠军', '亚军', '季军', '第四名', '第五名', '第六名', '第七名', '第八名', '第九名', '第十名'];
+
+    // //生成单注随机数
+    createRandomNum() {
+        const me = this,
+            {balls} = this.state,
+            current = [];
+        me.setRandomArr();
+        let i = me.getRandomNum();
+        me.setRandomArr();
+        let j = me.getRandomNum();
+        current[i] = [j];
+
+        for (let s = 0; s < balls.length; s++) {
+            if (s == i) {
+                current[s] = [j];
+            } else {
+                current[s] = [];
+            }
+
+        }
+
+        TLog('current', current);
+        return current;
+    }
+
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        let result=[];
+        for (let j = 0; j < arr.length; j++) {
+            if (arr[j].length > 0) {
+                result.push(j);
+            }
+        }
+        return result;
+    }
 
     checkBallIsComplete() {
         let me = this,
@@ -37,8 +74,8 @@ export default class Dingweidan extends PK10 {
 
         for (i = 0; i < len; i++) {
             len2 = ball[i].length;
-            for(j =0;j < len2;j++){
-                if(ball[i][j] > 0){
+            for (j = 0; j < len2; j++) {
+                if (ball[i][j] > 0) {
                     this.setState({isBallsComplete: true});
                     return true;
                 }
@@ -63,8 +100,8 @@ export default class Dingweidan extends PK10 {
         for (i = 0; i < len; i++) {
             len2 = ball[i].length;
             //result[i] = [];
-            for(j = 0;j < len2;j++){
-                if(ball[i][j] > 0){
+            for (j = 0; j < len2; j++) {
+                if (ball[i][j] > 0) {
                     result.push(j);
                 }
             }

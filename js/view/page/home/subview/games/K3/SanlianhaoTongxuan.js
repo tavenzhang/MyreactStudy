@@ -12,15 +12,15 @@ export default class SanlianhaoTongxuan extends K3 {
 
     //设置球排列
     setBalls = () => [
-        [-1,-1]
+        [-1, -1]
     ];
 
-    setBallText = () => ['','通选'];
+    setBallText = () => ['', '通选'];
 
     //设置rowtitle
     setRowTitle = () => ['选球'];
 
-    formatViewBalls(original){
+    formatViewBalls(original) {
         let me = this,
             result = [],
             len = original.length,
@@ -35,7 +35,7 @@ export default class SanlianhaoTongxuan extends K3 {
     //获取总注数/获取组合结果
     //isGetNum=true 只获取数量，返回为数字
     //isGetNum=false 获取组合结果，返回结果为单注数组
-    getLottery(isGetNum){
+    getLottery(isGetNum) {
         let me = this,
             ball = me.state.balls[0],
             i = 0,
@@ -44,8 +44,10 @@ export default class SanlianhaoTongxuan extends K3 {
 
         //校验当前的面板
         //获取选中数字
-        if(ball[1] > 0){
-            nr = [0]
+        if (me.checkBallIsComplete()) {
+            if (ball[1] > 0) {
+                nr = [0]
+            }
         }
         return nr;
     }

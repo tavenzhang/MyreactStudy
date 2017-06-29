@@ -48,8 +48,10 @@ export default class SantonghaoDanxuan extends K3 {
         }
 
         if (num > 0) {
+            this.setState({isBallsComplete: true});
             return true;
         }
+        this.setState({isBallsComplete: false});
         return false;
     }
 

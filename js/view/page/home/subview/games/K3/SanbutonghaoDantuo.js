@@ -33,6 +33,38 @@ export default class ErbutonghaoDantuo extends K3 {
             me.selectBall(i, 1, 1);
         }
     }
+
+    //生成单注随机数
+    createRandomNum() {
+        const me = this,
+            current = [];
+        me.setRandomArr();
+        //第一位
+        let i = me.getRandomNum();
+        current[0]=[i];
+        current[1]=[];
+        //第二位
+        for (let j = 0; j < 2; j++) {
+            let i = me.getRandomNum();
+            current[1].push(i);
+        }
+        return current;
+    }
+
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me = this;
+        let nr = [], result = [];
+        //存储单号组合
+        result = me.combine(arr[1], 2);
+        //加上单号各种组合
+        for(let s=0;s<result.length;s++){
+            nr.push(result[s].concat(arr[0]));
+        }
+        return nr;
+    }
+
     setBallData(x, y, value) {
         const me = this;
         const data = me.state.balls;
@@ -102,9 +134,11 @@ export default class ErbutonghaoDantuo extends K3 {
             }
         }
         if(num >= 1 && oNum >= 1){
+            this.setState({isBallsComplete: true});
             return true;
         }
 
+        this.setState({isBallsComplete: false});
         return false;
     }
 

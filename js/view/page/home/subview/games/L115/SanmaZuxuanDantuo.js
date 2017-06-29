@@ -19,6 +19,49 @@ export default class SanmaZuxuanDantuo extends L115 {
 
     //设置rowtitle
     setRowTitle = () => ['胆码','拖码'];
+    //随机选一注
+    selectAutoOne() {
+        const me = this;
+        const {balls} = this.state;
+        me.setRandomArr();
+        let i=me.getRandomNum();
+        me.selectBall(i, 0, 1);
+        for (let j = 0; j < 2; j++) {
+            let i=me.getRandomNum();
+            me.selectBall(i, 1, 1);
+        }
+    }
+
+
+    //生成单注随机数
+    createRandomNum() {
+        const me = this,
+            {balls} = this.state,
+            current = [];
+        me.setRandomArr();
+        let i=me.getRandomNum();
+        current[0]=[i];
+        current[1]=[];
+        for (let j = 0; j < 2; j++) {
+            let i = me.getRandomNum();
+            current[1].push(i);
+        }
+        return current;
+    }
+
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me = this;
+        let result=[],
+            nr=[];
+        result = me.combine(arr[1], 2);
+//加上单号各种组合
+        for(let s=0;s<result.length;s++){
+            nr.push(result[s].concat(arr[0]));
+        }
+        return nr;
+    }
 
     checkBallIsComplete() {
         const me = this;

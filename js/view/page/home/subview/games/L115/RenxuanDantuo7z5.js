@@ -32,6 +32,38 @@ export default class RenxuanDantuo7z5 extends L115 {
             me.selectBall(i, 1, 1);
         }
     }
+
+    //生成单注随机数
+    createRandomNum() {
+        const me = this,
+            current = [];
+        me.setRandomArr();
+        //第一位
+        let i = me.getRandomNum();
+        current[0]=[i];
+        //第二位
+
+        current[1]=[];
+        for (let j = 0; j < 6; j++) {
+            let i = me.getRandomNum();
+            current[1].push(i);
+        }
+        return current;
+    }
+
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me = this;
+        let result=[],nr=[];
+        //存储单号组合
+        result = me.combine(arr[1], 6);
+        //加上单号各种组合
+        for (let s = 0; s < result.length; s++) {
+            nr.push(result[s].concat(arr[0]));
+        }
+        return nr;
+    }
     setBallData(x, y, value) {
         const me = this;
         const data = me.state.balls;

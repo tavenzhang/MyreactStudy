@@ -78,10 +78,14 @@ export default class Games extends Component {
         this.checkRandomBets = this.checkRandomBets.bind(this);
         this.createRandomNum = this.createRandomNum.bind(this);
         this.randomCombinLottery = this.randomCombinLottery.bind(this);
+        this.editSubmitData = this.editSubmitData.bind(this);
         this.isRandomSelect = true;//是否随机选择
 
     }
 
+    editSubmitData(data){
+        return data;
+    }
     componentWillMount() {
         const me = this;
         this.setState({
@@ -631,16 +635,16 @@ export default class Games extends Component {
         const me = this;
         const {prize_group} = this.state;
         const {moneyUnit, multiple, currentGameWay} = this.props;
-
-        let onePrice = currentGameWay.price,
+        let orderdata={},
+            onePrice = currentGameWay.price,
             lotterysOriginal = me.getOriginal();
-        TLog('lotterysOriginal', lotterysOriginal);
-        TLog('lotterys', lotterys);
+        // TLog('lotterysOriginal', lotterysOriginal);
+        // TLog('lotterys', lotterys);
 
         if (lotterys.length < 1) {
             return {};
         }
-        return {
+        orderdata= {
             //original:lotterysOriginal,
             //lotterys:lotterys,
             amount: lotterys.length * onePrice * multiple * moneyUnit,
@@ -655,6 +659,7 @@ export default class Games extends Component {
             multiple: multiple,
             gameName: currentGameWay.parent_parent_name_cn + currentGameWay.name_cn
         };
+        return me.editSubmitData(orderdata);
     }
 
 

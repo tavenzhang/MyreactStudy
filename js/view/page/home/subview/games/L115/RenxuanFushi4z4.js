@@ -27,6 +27,28 @@ export default class RenxuanFushi4z4 extends L115 {
             me.selectBall(i, 0, 1);
         }
     }
+
+    //生成单注随机数
+    createRandomNum() {
+        const me = this,
+            current = [];
+        me.setRandomArr();
+        current[0]=[];
+        for (let j = 0; j < 4; j++) {
+            let i = me.getRandomNum();
+            current[0].push(i);
+        }
+        return current;
+    }
+
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me = this;
+        return me.combine(arr[0], 4);
+    }
+
+
     checkBallIsComplete() {
         let me = this,
             ball = me.state.balls[0],

@@ -113,7 +113,9 @@ export default class LotteryOrders extends BaseView {
         const {randomLotterys} = navigation.state.params;
         const me = this;
         let total = 0,
-            totalMoney = 0;
+            totalMoney = 0,
+        tracetimes=!traceTimes?1:traceTimes,
+        tracemultiple=!traceMultiple?1:traceMultiple;
 
         const btnDisable = orderListNum == 0 ? styles.btnDisable : null;
         return (
@@ -181,7 +183,7 @@ export default class LotteryOrders extends BaseView {
                 />
                 <GameControlPannel
                     balance={balance}
-                    topDesc={`总计: ${total}注${traceTimes}期${traceMultiple}倍, 共${G_moneyFormat(totalMoney * traceTimes * traceMultiple)}元`}
+                    topDesc={`总计: ${total}注${tracetimes}期${tracemultiple}倍, 共${G_moneyFormat(totalMoney * traceTimes * traceMultiple)}元`}
                     btnEvent={() => {
                         if (orderListNum == 0) {
                             Alert.alert(

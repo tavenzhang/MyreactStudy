@@ -49,32 +49,32 @@ export default class GameTraceKeyBorad extends Component {
                     <TouchableOpacity style={styles.keyPanel} onPress={() => inputTrace(1)}>
                         <Text style={styles.key}>1</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.keyPanel} onPress={() => me.btnAction(2)}>
+                    <TouchableOpacity style={styles.keyPanel} onPress={() => inputTrace(2)}>
                         <Text style={styles.key}>2</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.keyPanel} onPress={() => me.btnAction(3)}>
+                    <TouchableOpacity style={styles.keyPanel} onPress={() => inputTrace(3)}>
                         <Text style={styles.key}>3</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.keyRow}>
-                    <TouchableOpacity style={styles.keyPanel} onPress={() => me.btnAction(4)}>
+                    <TouchableOpacity style={styles.keyPanel} onPress={() => inputTrace(4)}>
                         <Text style={styles.key}>4</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.keyPanel} onPress={() => me.btnAction(5)}>
+                    <TouchableOpacity style={styles.keyPanel} onPress={() => inputTrace(5)}>
                         <Text style={styles.key}>5</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.keyPanel} onPress={() => me.btnAction(6)}>
+                    <TouchableOpacity style={styles.keyPanel} onPress={() => inputTrace(6)}>
                         <Text style={styles.key}>6</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.keyRow}>
-                    <TouchableOpacity style={styles.keyPanel} onPress={() => me.btnAction(7)}>
+                    <TouchableOpacity style={styles.keyPanel} onPress={() => inputTrace(7)}>
                         <Text style={styles.key}>7</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.keyPanel} onPress={() => me.btnAction(8)}>
+                    <TouchableOpacity style={styles.keyPanel} onPress={() => inputTrace(8)}>
                         <Text style={styles.key}>8</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.keyPanel} onPress={() => me.btnAction(9)}>
+                    <TouchableOpacity style={styles.keyPanel} onPress={() => inputTrace(9)}>
                         <Text style={styles.key}>9</Text>
                     </TouchableOpacity>
                 </View>
@@ -82,10 +82,10 @@ export default class GameTraceKeyBorad extends Component {
                     <TouchableOpacity style={styles.keyPanelOK} onPress={() => me.btnOK()}>
                         <Text style={styles.keyOK} value='4'>确定</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.keyPanel} onPress={() => me.btnAction(0)}>
+                    <TouchableOpacity style={styles.keyPanel} onPress={() => inputTrace(0)}>
                         <Text style={styles.key} value='5'>0</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.keyPanelCanncel} onPress={() => me.btnAction(8)}>
+                    <TouchableOpacity style={styles.keyPanelCanncel} onPress={() => inputTrace(0,'sub')} >
                         <Text style={styles.key} value='6'>--</Text>
                     </TouchableOpacity>
                 </View>
@@ -102,9 +102,10 @@ export default class GameTraceKeyBorad extends Component {
 const styles = StyleSheet.create({
 
     traceKeyBoardPanel: {
+        backgroundColor:'#fff',
         flex: 1,
         position: 'absolute',
-        bottom: 90,
+        bottom: 88,
         width: G_Theme.windowWidth,
         borderTopWidth: 0.5,
         borderColor: G_Theme.grayDeep,

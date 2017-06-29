@@ -81,7 +81,7 @@ export default class GameTracemMultipleKeyBorad extends Component {
                     <TouchableOpacity style={styles.keyPanel} onPress={() => inputMultiple(0)}>
                         <Text style={styles.key} value='5'>0</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.keyPanelCanncel} onPress={() => inputMultiple(8)}>
+                    <TouchableOpacity style={styles.keyPanelCanncel} onPress={() => inputMultiple(0,'sub')}>
                         <Text style={styles.key} value='6'>--</Text>
                     </TouchableOpacity>
                 </View>
@@ -98,9 +98,10 @@ export default class GameTracemMultipleKeyBorad extends Component {
 const styles = StyleSheet.create({
 
     traceKeyBoardPanel: {
+        backgroundColor:'#fff',
         flex: 1,
         position: 'absolute',
-        bottom: 90,
+        bottom: 88,
         width: G_Theme.windowWidth,
         borderTopWidth: 0.5,
         borderColor: G_Theme.grayDeep,

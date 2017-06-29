@@ -59,11 +59,6 @@ export default class GameTracePannel extends Component {
         }
     }
 
-    inputTrace(num) {
-        const {traceTimes} = this.props;
-        this.setTrace(traceTimes + '' + num);
-
-    }
 
     serTraceInfo(data) {
         const {gameNumbers} = this.props;
@@ -72,13 +67,11 @@ export default class GameTracePannel extends Component {
             newGameNumbers = gameNumbers.toJS(),
             len = !data.traceTimes || data.traceTimes == 0 ? 1 : data.traceTimes;
 
-        for (; i <len; i++) {
-            traceInfo.push({traceNumber: newGameNumbers[i].number,traceMultiple: data.traceMultiple});
+        for (; i < len; i++) {
+            traceInfo.push({traceNumber: newGameNumbers[i].number, traceMultiple: data.traceMultiple});
         }
 
 
-        TLog('val.traceInfonumber', traceInfo);
-        TLog('val.len', len);
         data.traceInfo = traceInfo;
         ActDispatch.GameAct.setTrace(data);
     }
@@ -86,9 +79,9 @@ export default class GameTracePannel extends Component {
 
     setTrace(num) {
         const {traceTimes, traceMultiple} = this.props;
-        num =num? Number(num):1;
-        if(num>120){
-            num=120;
+        num = num ? Number(num) : '';
+        if (num && num > 120) {
+            num = 120;
         }
 
         this.serTraceInfo({isTrace: 1, traceTimes: num, traceMultiple: traceMultiple});
@@ -96,33 +89,68 @@ export default class GameTracePannel extends Component {
 
     setMultiple(num) {
         const {traceTimes, traceMultiple} = this.props;
-        num =num? Number(num):1;
-        if(num>99999){
-            num=99999;
+        num = num ? Number(num) : '';
+        if (num && num > 120) {
+            num = 120;
         }
         this.serTraceInfo({isTrace: 1, traceTimes: traceTimes, traceMultiple: num});
     }
 
     setIsShowKeyTrace(status) {
         this.setState({isShowKeyTrace: status});
+        const {traceTimes, traceMultiple} = this.props;
+        if (traceTimes == '' || traceTimes == 0) {
+            this.setTrace(1);
+        }
     }
 
     setIsShowKeyMultiple(status) {
+
         this.setState({isShowKeyMultiple: status});
-    }
-
-    inputMultiple(num) {
         const {traceTimes, traceMultiple} = this.props;
-
-        this.setMultiple(traceMultiple + '' + num);
+        if (traceMultiple == '' || traceMultiple == 0) {
+            this.setMultiple(1);
+        }
     }
+
+//输入最好期数
+    inputTrace(num, type = 'add') {
+        const {traceTimes} = this.props;
+        if (type == 'add') {
+            this.setTrace(traceTimes + '' + num);
+        } else {
+            // 删除
+            let trace = traceTimes + '';
+            TLog(traceTimes, trace.length);
+
+            if (trace.length > 0) {
+                this.setTrace(trace.substring(0, trace.length - 1));
+            }
+        }
+
+    }
+
+    //输入追号倍数
+    inputMultiple(num, type = 'add') {
+        const {traceTimes, traceMultiple} = this.props;
+        if (type == 'add') {
+            this.setMultiple(traceMultiple + '' + num);
+        } else {
+            // 删除
+            let trace = traceMultiple + '';
+            if (trace.length > 0) {
+                this.setMultiple(trace.substring(0, trace.length - 1));
+            }
+        }
+    }
+
 
     render() {
         const me = this;
         const {traceTimes, traceMultiple} = this.props;
-        const { isShowKeyTrace, isShowKeyMultiple} = this.state;
+        const {isShowKeyTrace, isShowKeyMultiple} = this.state;
         return (
-            <View>
+            <View >
                 <View style={styles.tracePanel}>
                     <View style={{flexDirection: 'row', flex: 1, borderRightWidth: 0.5}}>
                         <Text style={styles.lotterys}>追</Text>
@@ -137,7 +165,7 @@ export default class GameTracePannel extends Component {
                             onBlur={data => {
                                 me.setIsShowKeyTrace(false);
                             }}
-                            defaultValue={traceTimes+''}
+                            defaultValue={traceTimes + ''}
                             underlineColorAndroid={'transparent'}
                         />
                         <Text style={styles.lotterys}>期</Text>
@@ -155,7 +183,7 @@ export default class GameTracePannel extends Component {
                             onBlur={data => {
                                 me.setIsShowKeyMultiple(false);
                             }}
-                            defaultValue={traceMultiple+''}
+                            defaultValue={traceMultiple + ''}
                             underlineColorAndroid={'transparent'}
                         />
                         <Text style={styles.lotterys}>倍</Text>
@@ -187,12 +215,12 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         position: 'absolute',
-        bottom: 50,
+        bottom: 48,
         width: G_Theme.windowWidth,
         height: 40,
         borderTopWidth: 0.5,
         borderColor: G_Theme.grayDeep,
-
+        backgroundColor: '#fff',
         padding: 10,
         // justifyContent: 'space-between'
     },

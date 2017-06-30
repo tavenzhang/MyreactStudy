@@ -19,7 +19,6 @@ export default class Quwei extends KENO {
         this.isShowMoneyUnit = false;
         this.isShowGamePriceModelPannel = false;
         this.state.rowBallNumber = 4; //一行几个球
-
         this.clickMenuItem = props.clickMenuItem;
         this.state.gameMethod = [];
         this.currentGameWay = [];
@@ -38,17 +37,92 @@ export default class Quwei extends KENO {
         [-1, -1, -1, -1],
         [-1, -1, -1, -1, -1],
     ];
-    setBalls = () => [
-        [-1, -1, -1],
-        [-1, -1, -1],
-        [-1, -1, -1],
-        [-1, -1],
-        [-1, -1, -1, -1],
-        [-1, -1, -1, -1, -1],
-    ];
-
     //设置rowtitle
     setRowTitle = () => ['和值大小', '上下盘', '奇偶盘', '单双盘', '大小单双', '五行'];
+
+
+//随机选一注
+    selectAutoOne() {
+        const {gameMethod} = this.state;
+        const me = this;
+        let len = 0;
+        let i = Math.floor(Math.random() * 20);
+
+        gameMethod[0]['children'].map((children, y) => {
+            let clen = children.children.length;
+            for (let x = 0; x < clen; x++) {
+                len++;
+                if (len == i) {
+                    me.selectBall(x, y, 1, gameMethod[0].children[y].children[x]);
+                }
+            }
+
+            //
+        })
+    }
+
+    // //生成单注随机数
+    createRandomNum() {
+        const me = this,
+            current = [];
+        me.setRandomArr();
+        const {gameMethod} = this.state;
+        let len =0,
+            i = Math.floor(Math.random() * 20);
+
+
+        gameMethod[0]['children'].map((children, y) => {
+            let clen = children.children.length;
+            for (let x = 0; x < clen; x++) {
+                len++;
+                if (len == i) {
+                    this.currentGameWay = gameMethod[0].children[y].children[x];
+                    this.currentGameWay.parent_parent_name_cn= gameMethod[0].name_cn
+                    current[0] = [this.currentGameWay.valid_nums];
+                    return false;
+                }
+            }
+
+            //
+        })
+        return current;
+    }
+
+    //生成一个当前玩法的随机投注号码
+    //该处实现复式，子类中实现其他个性化玩法
+    //返回值： 按照当前玩法生成一注标准的随机投注单(order)
+    randomNum() {
+        const me = this,
+            {prize_group} = this.state,
+            {moneyUnit} = this.props;
+        let i = 0,
+            current = [],
+            order = [],
+            lotterys = [],
+            onePrice = this.currentGameWay.price,
+            original = [];
+        let multiple= this.currentGameWay.bet_min_amount>0?this.currentGameWay.bet_min_amount:1;
+
+        current = me.checkRandomBets();
+        original = current;
+        lotterys = me.randomCombinLottery(original);
+        order = {
+            amount: lotterys.length * onePrice * multiple * moneyUnit,
+            original: original,
+            // ball: me.makePostParameter(original),
+            // viewBalls: me.formatViewBalls(original),
+            ball: this.currentGameWay.valid_nums,
+            viewBalls: this.currentGameWay.series_way_name,
+            wayId: this.currentGameWay.id,
+            num: lotterys.length,
+            prize_group: prize_group,
+            onePrice: onePrice,
+            moneyunit: moneyUnit,
+            multiple: multiple,
+            gameName: this.currentGameWay.parent_parent_name_cn + this.currentGameWay.name_cn
+        };
+        return order;
+    }
 
     checkBallIsComplete(v = null) {
         let me = this,
@@ -66,8 +140,6 @@ export default class Quwei extends KENO {
             return false;
         }
         //检查倍数
-
-        TLog('检查');
 
         let {multiple} = this.props;
         if (v != null) {
@@ -108,7 +180,7 @@ export default class Quwei extends KENO {
             return {};
         }
         return {
-            //original:lotterysOriginal,
+            original: lotterysOriginal,
             //lotterys:lotterys,
             amount: lotterys.length * onePrice * multiple * moneyUnit,
             wayId: currentGameWay.id,
@@ -124,11 +196,12 @@ export default class Quwei extends KENO {
     }
 
     componentDidMount() {
-        let {id} = this.props.passProps
+        const {id} = this.props.navigation.state.params;
         HTTP_SERVER.MethodData.url = HTTP_SERVER.MethodData.formatUrl.replace(/#id/g, id);
         G_RunAfterInteractions(() => {
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.MethodData, (result) => {
                 if (result.data) {
+
                     // let arr = this.state.dataList.concat(result.data.data);
                     this.setState({gameMethod: result.data})
                 }
@@ -178,25 +251,6 @@ export default class Quwei extends KENO {
         }
     }
 
-//随机选一注
-    selectAutoOne() {
-        const {gameMethod} = this.state;
-        const me = this;
-        let len =0;
-        let i = Math.floor(Math.random() * 20);
-
-        gameMethod[0]['children'].map((children,y)=>{
-            let clen=children.children.length;
-            for (let x=0; x < clen; x++) {
-                len++;
-                if (len == i) {
-                    me.selectBall(x, y, 1, gameMethod[0].children[y].children[x]);
-                }
-            }
-
-        //
-        })
-    }
     //获取组合结果
     getLottery() {
         let me = this,

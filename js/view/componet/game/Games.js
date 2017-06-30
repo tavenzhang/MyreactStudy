@@ -562,17 +562,18 @@ export default class Games extends Component {
         }
         return (
             <View style={{flex: 1}}>
-                <TButton visible={this.isRandomSelect}
-                         containerStyle={[styles.randButton]}
-                         textStyle={{color: "rgb(100,100,100)"}} btnName={"随机(摇一摇)"} onPress={this.randomSelcet}/>
+
                 <ScrollView style={styles.ballOperate}>
+                    <TButton visible={this.isRandomSelect}
+                             containerStyle={[styles.randButton]}
+                             textStyle={{color: "rgb(100,100,100)"}} btnName={"随机(摇一摇)"} onPress={this.randomSelcet}/>
                     {me.buildUI()}
                     <View style={styles.controlPanel}>
                         <GameModelPannel
                             moneyUnit={moneyUnit}
                             multiple={multiple}
                             cleanBall={this.clearAllBall}
-                           
+
                             checkBallIsComplete={this.checkBallIsComplete}
                             isShowMoneyUnit={this.isShowMoneyUnit}
                             maxMultiple={currentGameWay.max_multiple}
@@ -698,6 +699,7 @@ export default class Games extends Component {
             {orderList, currentGameWay} = this.props,
             {balls} = this.state;
         let neworderList=orderList.toJS();
+TLog('neworderList', neworderList);
 
         let allowTag,
             len = balls.length,

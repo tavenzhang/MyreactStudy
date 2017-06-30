@@ -23,6 +23,7 @@ export default class QUWEI extends LUCKY {
         this.state.gameMethod = [];
         this.clickMenuItem = props.clickMenuItem;
         this.currentGameWay = [];
+        this.parent_name_cn=null;
     }
 
     //
@@ -86,14 +87,12 @@ export default class QUWEI extends LUCKY {
 
         const me = this;
         me.setBallData(x, y, v)
-        TLog('daadada', data);
         if (v == 1) {
             this.currentGameWay = data;
             this.clickMenuItem(this.currentGameWay);
             this.setState({selectItem: data.id});
         }
         const lotteryNums = me.getLottery();
-        TLog('data', data);
         this.setState({lotterys: lotteryNums});
 
     }
@@ -107,6 +106,63 @@ export default class QUWEI extends LUCKY {
         me.selectBall(i, 0, 1, gameMethod[i]);
     }
 
+    // //生成单注随机数
+    createRandomNum() {
+        const me = this,
+            current = [];
+        me.setRandomArr();
+        const {gameMethod} = this.state;
+        let len = gameMethod.length;
+        let i = Math.floor(Math.random() * len);
+        current[0]=[i];
+        this.currentGameWay = gameMethod[i];
+
+        return current;
+    }
+
+    //生成一个当前玩法的随机投注号码
+    //该处实现复式，子类中实现其他个性化玩法
+    //返回值： 按照当前玩法生成一注标准的随机投注单(order)
+    randomNum() {
+        const me = this,
+            {prize_group} = this.state,
+            {moneyUnit} = this.props;
+        let i = 0,
+            current = [],
+            order = [],
+            lotterys = [],
+            onePrice = this.currentGameWay.price,
+            original = [];
+        let multiple= this.currentGameWay.bet_min_amount>0?this.currentGameWay.bet_min_amount:1;
+
+        current = me.checkRandomBets();
+        original = current;
+        lotterys = me.randomCombinLottery(original);
+        order = {
+            amount: lotterys.length * onePrice * multiple * moneyUnit,
+            original:original,
+            // ball: me.makePostParameter(original),
+            // viewBalls: me.formatViewBalls(original),
+            ball: this.currentGameWay.valid_nums,
+            viewBalls: this.currentGameWay.series_way_name,
+            wayId: this.currentGameWay.id,
+            num: lotterys.length,
+            prize_group: prize_group,
+            onePrice: onePrice,
+            moneyunit: moneyUnit,
+            multiple: multiple,
+            gameName: this.parent_name_cn + this.currentGameWay.name_cn
+        };
+        return order;
+    }
+
+    // 组合随机注单组合方法
+    // //子类实现
+    // randomCombinLottery(arr) {
+    //     const me=this;
+    //     return me.combine(arr[0], 2);
+    //
+    // }
     setBallData(x, y, value) {
 
         const me = this;
@@ -151,12 +207,15 @@ export default class QUWEI extends LUCKY {
     }
 
     componentDidMount() {
-        let {id} = this.props.passProps
+        const {id} = this.props.navigation.state.params;
+
         HTTP_SERVER.MethodData.url = HTTP_SERVER.MethodData.formatUrl.replace(/#id/g, id);
         G_RunAfterInteractions(() => {
-            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.MethodData, (result) => {
+            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.MethodData, result => {
                 if (result.data) {
                     // let arr = this.state.dataList.concat(result.data.data);
+                    // TLog('result.data[0].children[0]',result.data[0].children[0]);
+                    this.parent_name_cn=result.data[0].children[0].name_cn;
                     this.setState({gameMethod: result.data[0].children[0].children})
                 }
             })
@@ -167,9 +226,7 @@ export default class QUWEI extends LUCKY {
         const me = this;
         const {prize_group} = this.state;
         const {moneyUnit, multiple, currentGameWay} = this.props;
-        TLog('multiple', multiple);
-        TLog('moneyUnit', moneyUnit);
-        TLog('currentGameWay', currentGameWay);
+
         let onePrice = currentGameWay.price,
             lotterysOriginal = me.getOriginal();
 
@@ -181,8 +238,11 @@ export default class QUWEI extends LUCKY {
             //lotterys:lotterys,
             amount: lotterys.length * onePrice * multiple * moneyUnit,
             wayId: currentGameWay.id,
-            ball: me.makePostParameter(lotterysOriginal),
-            viewBalls: me.formatViewBalls(lotterysOriginal),
+            original:lotterysOriginal,
+            // ball: me.makePostParameter(lotterysOriginal),
+            // viewBalls: me.formatViewBalls(lotterysOriginal),
+            ball: this.currentGameWay.valid_nums,
+            viewBalls: this.currentGameWay.series_way_name,
             num: lotterys.length,
             prize_group: prize_group,
             onePrice: onePrice,

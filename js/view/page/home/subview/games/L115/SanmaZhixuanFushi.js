@@ -33,15 +33,12 @@ export default class SanmaZhixuanFushi extends L115 {
         for (; i < len; i++) {
             if (ball[0][i] > 0) {
                 firstNum++;
-            }else if (ball[1][i] > 0) {
+            }if (ball[1][i] > 0) {
                 secondNum++;
-            }else if (ball[2][i] > 0) {
+            }if (ball[2][i] > 0) {
                 thirdNum++;
             }
         }
-        TLog('firstNum',firstNum);
-        TLog('secondNum',secondNum);
-        TLog('thirdNum',thirdNum);
         //二重号大于1 && 单号大于3
         if (firstNum >= 1 && secondNum >= 1 && thirdNum >= 1) {
             this.setState({isBallsComplete: true});

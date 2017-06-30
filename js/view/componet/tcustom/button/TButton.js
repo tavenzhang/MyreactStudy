@@ -69,7 +69,7 @@ export class TButton extends React.Component {
         if (errMsg && errMsg != "") {
             myDisable = true;
         }
-        TLog("containerStyle----" + btnName, containerStyle)
+        // TLog("containerStyle----" + btnName, containerStyle)
         return (visible ? <View style={[viewStyle]}>
                 {errMsg ?
                     <Text style={{color: "red", alignSelf: "center", marginBottom: 5}}>{`(${errMsg})`}</Text> : null}

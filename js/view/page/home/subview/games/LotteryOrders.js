@@ -123,7 +123,7 @@ export default class LotteryOrders extends BaseView {
         tracemultiple=!traceMultiple?1:traceMultiple;
 
         const btnDisable = orderListNum == 0 ? styles.btnDisable : null;
-        let topDesc=<Text>总计: {total}注{tracetimes}期{tracemultiple}倍, 共<Text style={{color: "red"}}> {G_moneyFormat(totalMoney * traceTimes * traceMultiple)}</Text>元</Text>
+        // let topDesc=<Text>总计: {total}注{tracetimes}期{tracemultiple}倍, 共<Text style={{color: "red"}}> {G_moneyFormat(totalMoney * traceTimes * traceMultiple)}</Text>元</Text>
 
         return (
             <View style={[G_Style.appContentView]}>

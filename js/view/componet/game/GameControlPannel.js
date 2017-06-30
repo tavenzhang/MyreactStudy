@@ -21,7 +21,7 @@ export default class GameControlPannel extends Component {
         btnEvent : PropTypes.func,
         btnIconEvent : PropTypes.func,
         btnName : PropTypes.string,
-        topDesc : PropTypes.string,
+        topDesc : PropTypes.object,
         btnDisable: PropTypes.bool
     };
 
@@ -31,7 +31,7 @@ export default class GameControlPannel extends Component {
         unitPrice : 2,
         balance : 0,
         btnName : '确 定',
-        topDesc : '',
+        topDesc : <Text/>,
         btnDisable : true
     };
 

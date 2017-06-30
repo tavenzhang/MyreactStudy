@@ -18,7 +18,7 @@ export default class SanmaZhixuanFushi extends L115 {
     ];
 
     //设置rowtitle
-    setRowTitle = () => ['一位','二位','三位'];
+    setRowTitle = () => ['一位1','二位','三位'];
 
     checkBallIsComplete() {
         const me = this;
@@ -33,11 +33,9 @@ export default class SanmaZhixuanFushi extends L115 {
         for (; i < len; i++) {
             if (ball[0][i] > 0) {
                 firstNum++;
-            }
-            if (ball[1][i] > 0) {
+            }if (ball[1][i] > 0) {
                 secondNum++;
-            }
-            if (ball[2][i] > 0) {
+            }if (ball[2][i] > 0) {
                 thirdNum++;
             }
         }
@@ -111,13 +109,18 @@ export default class SanmaZhixuanFushi extends L115 {
             //计算注数
             total *= rowNum;
         }
-        this.setState({isBallsComplete: true});
         //返回注数
         if (isGetNum) {
             return total;
         }
 
-        return me.filterErrorData(me.combination(result));
+        let arr=me.filterErrorData(me.combination(result));
+        if(arr.length>0){
+            this.setState({isBallsComplete: true});
+        }else{
+            this.setState({isBallsComplete: false});
+        }
+        return arr;
     }
 
 }

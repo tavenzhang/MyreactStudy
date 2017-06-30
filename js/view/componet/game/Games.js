@@ -34,24 +34,25 @@ export default class Games extends Component {
     constructor(props) {
         super(props);
         this.state =
-            {
-                currentNumber: props.currentNumber,
-                currentNumberTime: props.currentNumberTime,
-                currentTime: props.currentTime,
-                gameNumbers: props.gameNumbers,
-                noIssue: props.noIssue,
-                series_identifier: props.series_identifier,
-                traceMaxTimes: props.traceMaxTimes,
-                history_lotterys: props.history_lotterys,
-                prize_group: props.bet_min_prize_group || props.user_prize_group,
-                balls: [],
-                ballText: [],
-                rowTitle: [],
-                isBallsComplete: false,
-                lotterys: [],
-                isSelect: false,
-                rowBallNumber: 5, //一行几个球
-            };
+        {
+            currentNumber: props.currentNumber,
+            currentNumberTime: props.currentNumberTime,
+            currentTime: props.currentTime,
+            gameNumbers: props.gameNumbers,
+            noIssue: props.noIssue,
+            series_identifier: props.series_identifier,
+            traceMaxTimes: props.traceMaxTimes,
+            history_lotterys: props.history_lotterys,
+            prize_group: props.prize ,
+            user_prize_group: props.user_prize_group,
+            balls: [],
+            ballText: [],
+            rowTitle: [],
+            isBallsComplete: false,
+            lotterys: [],
+            isSelect: false,
+            rowBallNumber: 5, //一行几个球
+        };
         this.randomBetsNum = 500;
         this.RandomArr = [];
         this.ballSpecialTitle = [];
@@ -90,6 +91,7 @@ export default class Games extends Component {
     }
     componentWillMount() {
         const me = this;
+        const { bet_max_prize_group } = this.props;
         this.setState({
             rowTitle: me.setRowTitle(),
             ballText: me.setBallText(),
@@ -99,6 +101,9 @@ export default class Games extends Component {
             me.randomSelcet();
             Vibration.vibrate();
         });
+
+        //初始化奖金组值
+        ActDispatch.GameAct.updatePrize(bet_max_prize_group);
     }
 
     componentWillUnmount() {
@@ -306,7 +311,7 @@ export default class Games extends Component {
                                     value={i}
                                     status={balls[row][i]}
                                     onPress={(x, y, v) => me.selectBall(x, y, v)}
-                                />
+                                    />
                             </View>
                         }
                     })}
@@ -341,7 +346,7 @@ export default class Games extends Component {
                                     status={balls[row][i]}
                                     onPress={(x, y, v) => me.selectBall(x, y, v)}
                                     //textStyle={styles.ballText}
-                                />
+                                    />
                             </View>
                         }
                     })}
@@ -481,7 +486,7 @@ export default class Games extends Component {
             j = 0,
             len2 = 0,
             result = [],
-            //总注数
+        //总注数
             total = 1,
             rowNum = 0;
         // tellmett：这里是将各行的球数相乘，得到总注数（特殊的注数计算，不走这里）
@@ -518,7 +523,7 @@ export default class Games extends Component {
     }
 
     changeReBetRate(v) {
-        this.setState({prize_group: v});
+        ActDispatch.GameAct.updatePrize(v);
     }
 
     beforeAddBallsToBasket() {
@@ -544,39 +549,40 @@ export default class Games extends Component {
 
     render() {
         const me = this;
-        const {lotterys, prize_group, isBallsComplete} = me.state;
+        const {lotterys, isBallsComplete,user_prize_group} = me.state;
         const {orderNum, moneyUnit, multiple, balance, bet_max_prize_group, bet_min_prize_group, diff_grize_group, series_amount, currentGameWay} = me.props;
         const operTopDesc = `${lotterys.length}注 * ${multiple}倍 = ${G_moneyFormat(lotterys.length * multiple * currentGameWay.price * moneyUnit)}元`;
 
         let modePriceOperate = null;
         if (bet_min_prize_group && bet_max_prize_group) {
-            modePriceOperate = this.isShowGamePriceModelPannel ? <GamePriceModelPannel
-                value={prize_group}
+            modePriceOperate = me.isShowGamePriceModelPannel ? <GamePriceModelPannel
+                //value={prize_group}
                 bet_max_prize_group={bet_max_prize_group}
                 bet_min_prize_group={bet_min_prize_group}
                 diff_grize_group={diff_grize_group}
                 series_amount={series_amount}
+                user_prize_group={user_prize_group}
                 onChange={v => me.changeReBetRate(v)}
-            />
+                />
                 : null;
         }
         return (
             <View style={{flex: 1}}>
-                <TButton viewStyle={{position:"absolute", right:10,zIndex:12}} visible={this.isRandomSelect}
-                         containerStyle={[styles.randButton]}
-                         textStyle={{color: "rgb(100,100,100)"}} btnName={"随机(摇一摇)"} onPress={this.randomSelcet}/>
                 <ScrollView style={styles.ballOperate}>
+                    <TButton visible={this.isRandomSelect}
+                             containerStyle={[styles.randButton]}
+                             textStyle={{color: "rgb(100,100,100)"}} btnName={"随机(摇一摇)"} onPress={this.randomSelcet}/>
                     {me.buildUI()}
                     <View style={styles.controlPanel}>
                         <GameModelPannel
                             moneyUnit={moneyUnit}
                             multiple={multiple}
                             cleanBall={this.clearAllBall}
-                           
+
                             checkBallIsComplete={this.checkBallIsComplete}
                             isShowMoneyUnit={this.isShowMoneyUnit}
                             maxMultiple={currentGameWay.max_multiple}
-                        />
+                            />
                         {modePriceOperate}
                     </View>
 
@@ -594,7 +600,7 @@ export default class Games extends Component {
                     btnIconName='cart-plus'
                     btnDisable={ !isBallsComplete }
                     btnIconDisable={ orderNum > 0 ? false : true }
-                />
+                    />
             </View>
         );
     }
@@ -698,11 +704,12 @@ export default class Games extends Component {
             {orderList, currentGameWay} = this.props,
             {balls} = this.state;
         let neworderList=orderList.toJS();
+TLog('neworderList', neworderList);
 
         let allowTag,
             len = balls.length,
             rowLen = balls[0].length,
-            // //生成单数随机数
+        // //生成单数随机数
             current = me.createRandomNum();
         allowTag = hash == undefined ? true : false;
         hash = hash || {};

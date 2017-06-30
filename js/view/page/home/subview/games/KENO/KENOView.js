@@ -26,6 +26,7 @@ const mapStateToProps = state => {
         orderListNum: state.get("gameState").get("orderList").count(),
         // balance: parseFloat(state.get("appState").getIn(['userData','data','available']));
         balance: state.get("appState").get("moneyBalance"),
+        prize: state.get("gameState").get("prize"), //奖金组
     }
 }
 
@@ -95,7 +96,7 @@ export default class L115View extends BaseGameView {
             case '179':
             case '180':
             case '182':
-            // case '183':
+            case '183':
                 return <Quwei {...this.props} {...this.state}  clickMenuItem={this.clickMenuItem} />
 
             default:

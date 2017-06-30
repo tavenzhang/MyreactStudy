@@ -15,7 +15,6 @@ import {
 
 
 import navState from '../reducer/NavReducer';
-
 import homeState from  '../reducer/HomeReducer';
 import appState from  '../reducer/AppReducer';
 import noticState from  '../reducer/NoticeReducer';

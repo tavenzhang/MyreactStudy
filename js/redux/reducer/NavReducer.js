@@ -1,8 +1,7 @@
 import {fromJS} from 'immutable';
-import {NavigationActions,StackNavigator} from 'react-navigation';
-
+import {NavigationActions} from 'react-navigation';
+import StackNavigator from "react-navigation/lib-rn/navigators/StackNavigator";
 export const AppStackNavigator = StackNavigator(G_NavAppRoutConfig,G_NavAppOptionsConfig);
-
 const initialNavState = fromJS(AppStackNavigator.router.getStateForAction(NavigationActions.reset({
     index: 0,
     actions: [
@@ -13,12 +12,15 @@ const initialNavState = fromJS(AppStackNavigator.router.getStateForAction(Naviga
 })));
 
 const navState = (state = initialNavState, action) => {
-        // console.log("preState----------------",AppStackNavigator.router)
-        let nextState = state.merge(AppStackNavigator.router.getStateForAction(action, state.toJS()));
-        //  const nextState = AppStackNavigator.router.getStateForAction(action, state);
-        // Simply return the original `state` if `nextState` is null or undefined.
-        //TLog("nextState----------------",nextState)
-        return nextState || state;
+    let nextState=null
+    if(action.type.indexOf("Navigation/")>-1)
+    {
+        //TLog("nextState----------------action",action)
+        nextState = state.merge(AppStackNavigator.router.getStateForAction(action, state.toJS()));
+        // TLog("nextState----------------after",nextState)
+    }
+
+    return nextState || state;
 }
 
 export default navState

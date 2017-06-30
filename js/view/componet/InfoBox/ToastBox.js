@@ -1,48 +1,60 @@
-/**
- * Created by soga on 16/10/25.
- */
 import React, {Component, PropTypes} from 'react';
-import Toast from 'react-native-root-toast';
+import {
+    Text,
+    View,
+    StyleSheet
+} from 'react-native';
 
-class ToastBox extends Component {
 
+export default class ToastBoxView extends Component {
     constructor(props) {
         super(props);
-        let {open, msg, style}=props;
-        this.state = {
-            open: open,
-            msg: msg,
-            style: style
-        }
     }
 
     static propTypes = {
-        open: PropTypes.bool,
+        visible: PropTypes.bool,
         msg: PropTypes.string,
         onClose: PropTypes.func,
-        style: PropTypes.string
+        isError: PropTypes.any
     };
 
     render() {
-        return (
-            <Toast
-                visible={true}
-                position={Toast.positions.CENTER}
-                shadow={true}
-                animation={true}
-                hideOnPress={true}
-                onHidden={() => {
-                    this.props.onClose();
-                }}
-            >{this.props.msg}</Toast>
-        )
+        let {msg,isError}=this.props
+        return (<View style={styles.viewStyle} pointerEvents={"none"}>
+            <View style={[styles.textSp,{}]}>
+                <Text style={{color: isError ? "red":"yellow"}} numberOfLines={3}>{msg}</Text>
+            </View>
+        </View>)
     }
-
 
     componentDidMount() {
-        this.time=setTimeout(()=>{
-            this.props.onClose();
-        },2000)
+        this.time = setTimeout(this.hideView, G_PLATFORM_IOS ? 3000:4000)
+    }
+
+    componentWillUnMount() {
+        clearTimeout(this.time)
+    }
+
+    hideView = () => {
+        ActDispatch.AppAct.hideBox()
     }
 }
-export default ToastBox;
+
+
+const styles = StyleSheet.create({
+    viewStyle: {
+        position: "absolute",
+        zIndex: 111,
+        width: G_Theme.windowWidth,
+        height: G_Theme.windowHeight,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    textSp:{
+        paddingVertical: 10,
+        paddingHorizontal: 25,
+        backgroundColor:"rgba(100,100,100,0.8)",
+        borderRadius:10
+    },
+})
+

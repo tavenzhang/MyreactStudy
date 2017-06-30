@@ -2,18 +2,14 @@ import React from 'react';
 import {
     View,
     StatusBar,
-    Text,
-    Platform,
     BackAndroid,
     UIManager,
     ToastAndroid
 } from 'react-native';
-import {Navigator} from 'react-native-deprecated-custom-components';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import Loading from "./view/componet/Loading";
-import ToastBox from "./view/componet/InfoBox/ToastBox";
-import TabbarView from "./view/page/TabbarView";
+import TLoading from "./view/componet/TLoading";
+import ToastBoxView from "./view/componet/InfoBox/ToastBox";
 
 import {addNavigationHelpers} from 'react-navigation';
 import {AppStackNavigator} from "./redux/reducer/NavReducer";
@@ -35,6 +31,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = state => {
     return {
         isLoading: state.get("fetchState").get("requesting"),
+        isModal:state.get("fetchState").get("isModal"),
         infoBox: state.get("appState").get("infoBox").toJS(),
         nav: state.get("navState").toJS()
     }
@@ -43,52 +40,64 @@ const mapStateToProps = state => {
 @connect(mapStateToProps, mapDispatchToProps)
 export default class App extends React.Component {
 
-    // //节点渲染以后
-    // componentWillMount() {
-    //     if (!G_PLATFORM_IOS) {
-    //         BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
-    //     }
-    //     //andorid setLayoutAnimatio 必须加入
-    //     if (Platform.OS === 'android') {
-    //         UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
-    //     }
-    // }
-
-    // componentWillUnmount() {
-    //     if (Platform.OS === 'android') {
-    //         BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid);
-    //     }
-    //  }
-
     render() {
         let {isLoading,isModal,infoBox} =this.props
+        G_NavState = this.props.nav;
         return (
-        <View style={{width:G_Theme.windowWidth,height:G_Theme.windowHeight}}>
-            <AppStackNavigator navigation={addNavigationHelpers({
-                dispatch: this.props.dispatch,
-                state: this.props.nav,
-            })}/>
-            {isLoading ? <Loading />:null }
-        </View>
+            <View style={{flex:1}}>
+                <StatusBar
+                    barStyle='default'
+                    backgroundColor='transparent'
+                    translucent={true}
+                    hidden={G_PLATFORM_IOS ? false : true}
+                />
+                <AppStackNavigator navigation={addNavigationHelpers({
+                    dispatch: this.props.dispatch,
+                    state: this.props.nav,
+                })}/>
+                <TLoading visible={isLoading} isModal={isModal} />
+                {infoBox.show ? <ToastBoxView isError={infoBox.isError}
+                                              visible={infoBox.show}
+                                              msg={infoBox.msg}
+                                              style={infoBox.style}/>:null}
+            </View>
         );
     }
 
 
-    // onBackAndroid = () => {
-    //     const routers = this.navigator.getCurrentRoutes();
-    //     if (routers.length > 1) {
-    //         this.navigator.pop();
-    //         return true;
-    //     }
-    //     let now = new Date().getTime();
-    //     if (now - this.lastClickTime < 2500) {//2.5秒内点击后退键两次推出应用程序
-    //         ActDispatch.AppAct.app_data_reset();
-    //         return false;//控制权交给原生
-    //     }
-    //     this.lastClickTime = now;
-    //     ToastAndroid.show("再按一次退出",ToastAndroid.SHORT);
-    //     return true;
-    // }
+    //节点渲染以后
+    componentWillMount() {
+        if (!G_PLATFORM_IOS) {
+            BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
+        }
+        //andorid setLayoutAnimatio 必须加入
+        if (!G_PLATFORM_IOS) {
+            UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+        }
+    }
+
+    componentWillUnmount() {
+        if (!G_PLATFORM_IOS) {
+            BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid);
+        }
+     }
+
+
+    onBackAndroid = () => {
+        const routers = this.navigator.getCurrentRoutes();
+        if (routers.length > 1) {
+            this.navigator.pop();
+            return true;
+        }
+        let now = new Date().getTime();
+        if (now - this.lastClickTime < 2500) {//2.5秒内点击后退键两次推出应用程序
+            ActDispatch.AppAct.app_data_reset();
+            return false;//控制权交给原生
+        }
+        this.lastClickTime = now;
+        ToastAndroid.show("再按一次退出",ToastAndroid.SHORT);
+        return true;
+    }
 }
 
 

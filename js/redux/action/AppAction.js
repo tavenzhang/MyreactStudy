@@ -20,18 +20,19 @@ export const AppAct={
         }
     ),
 
-    showBox: (msg, style = 'success') => ({
+    showBox: (msg, isError=false) => ({
         type: ActionType.AppType.SHOW_INFOBOX,
         msg,
-        style
+        isError
     }),
     hideBox: data => ({
         type: ActionType.AppType.HIDE_INFOBOX,
+        isError:false
     }),
-    showErrorBox: (msg, style = 'error') => ({
+    showErrorBox: (msg, isError=true) => ({
         type: ActionType.AppType.SHOW_INFOBOX,
         msg,
-        style,
+        isError,
     }),
     app_data_reset:()=>({
         type: ActionType.AppType.APP_BACK_RESET,

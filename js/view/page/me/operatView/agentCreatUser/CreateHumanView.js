@@ -74,7 +74,7 @@ export default class CreateHumanView extends React.Component {
                     <View>
                         <TTextInput value={this.state.userNameText}
                                     style={styles.textStyle}
-                                    placeholder={"设置登录账户"}
+                                    placeholder={"设置登陆账户"}
                                     onChangeText={(userNameText) => {
                                         this.setState({userNameText})
                                     }}
@@ -83,7 +83,7 @@ export default class CreateHumanView extends React.Component {
                         <TTextInput value={this.state.pwdText}
                                     viewStyle={{marginTop:3}}
                                         style={styles.textStyle}
-                                    placeholder={"设置登录密码"}
+                                    placeholder={"设置登陆密码"}
                                     secureTextEntry={true}
                                     onChangeText={(pwdText) => {
                                         this.setState({pwdText})

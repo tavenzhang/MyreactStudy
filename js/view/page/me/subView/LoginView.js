@@ -20,7 +20,6 @@ export default class LoginView extends BaseView {
             nameText: "",
             pwdText: ""
         };
-
     }
 
     renderBody() {

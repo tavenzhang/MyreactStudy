@@ -17,6 +17,7 @@ const mapStateToProps = state => {
         orderListNum: state.get("gameState").get("orderList").count(),
         // balance: parseFloat(state.get("appState").getIn(['userData','data','available']));
         balance: state.get("appState").get("moneyBalance"),
+        prize: state.get("gameState").get("prize"), //奖金组
     }
 }
 

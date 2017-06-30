@@ -107,10 +107,35 @@ export default class BaseGameView extends BaseView {
         const {series_id} = this.props.navigation.state.params;
         let subView = this.state.selectItem ? this.onRenderSubView(this.state.selectItem) : null;
         let menuDataList = this.getMoreMenuData();
+        const {moneyUnit,prize} = this.props;
+
+        let maxGrounp = currentGameWay['max_group'],
+            fullPrize = currentGameWay['full_prize'],
+            price = 0;
+
+        if(prize) {
+            if( series_id == 1 || series_id == 3) { //时时彩,3d
+                price = prize / 2000 * fullPrize;
+
+                if(maxGrounp < 1960) {
+                    price = maxGrounp / 1960 * price;
+                }
+            }
+            else { // 2/4/6/7
+                price = fullPrize * (prize - 1960 + maxGrounp) / 2000;
+            }
+        }
+
+        price = price * moneyUnit;
+
         return (defaultMethodId > 0) ? (
             <View style={G_Style.appContentView}>
-                <BannerView {...this.state} dateHistoryList={this.state.history_lotterys} prize={currentGameWay.prize}
-                            series_id={series_id} onTimeHanlde={this.requetGameData}/>
+                <BannerView
+                    {...this.state}
+                    dateHistoryList={this.state.history_lotterys}
+                    prize={price}
+                    series_id={series_id} onTimeHanlde={this.requetGameData
+                    }/>
                 {subView}
                 <MoreMenu
                     ref="moreMenu"
@@ -118,7 +143,7 @@ export default class BaseGameView extends BaseView {
                     contentStyle={{right: 20}}
                     onMoreMenuSelect={this.onMoreMenuSelect}
                     buttonRect={{x: G_Theme.windowWidth - 60, y: -50, width: 40, height: 40}}
-                />
+                    />
                 {this.state.isShowMenu &&
                 <HeadMenuListView selectItem={this.state.selectItem} onHeadPressed={this.onHeadPressed}
                                   menuDataList={this.gameMenu}
@@ -171,7 +196,7 @@ export default class BaseGameView extends BaseView {
 
 
     clickMenuItem = (data) => {
-      //  TLog("clickMenuItem--", data);
+        //  TLog("clickMenuItem--", data);
         const {gameMethodHash, isRequestGameWay, currentGameWay} = this.state;
         const {id, playModel} = this.props.navigation.state.params;
         if (currentGameWay.id != data.id) {

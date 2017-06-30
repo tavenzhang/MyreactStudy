@@ -107,13 +107,17 @@ export default class ErmaZhixuanFushi extends L115 {
             //计算注数
             total *= rowNum;
         }
-        this.setState({isBallsComplete: true});
         //返回注数
         if (isGetNum) {
             return total;
         }
-
-        return me.filterErrorData(me.combination(result));
+        let arr=me.filterErrorData(me.combination(result));
+        if(arr.length>0){
+            this.setState({isBallsComplete: true});
+        }else{
+            this.setState({isBallsComplete: false});
+        }
+        return arr;
     }
 
 }

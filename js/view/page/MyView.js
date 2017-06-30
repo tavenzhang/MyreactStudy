@@ -39,21 +39,20 @@ const mapStateToProps = state => {
     return {
         userData: state.get("appState").get("userData").toJS(),
         moneyBalance: state.get("appState").get("moneyBalance"),
-        nav: state.get("navState").toJS()
     }
 }
 
 @connect(mapStateToProps)
 export default class MyView extends BaseView {
-    static navigationOptions = ({navigation})=> {
-
+    static navigationOptions = ({navigation,screenProps})=> {
+        let {userData}=screenProps
         return {
         title: '我的',
         tabBarIcon: ({focused}) => {
             return <AIcon name='user' style={{ fontSize: 25, color:focused ? G_Theme.selectColor:G_Theme.gray}}/>
         },
         headerLeft:<NavButtonText isRightButton={false} name={"设置"} navigation={navigation}/>,
-        headerRight: <NavButtonText name={"注销"} navigation={navigation} visible={navigation.state.params&&navigation.state.params.isLogined}/>
+        headerRight: <NavButtonText name={"注销"} navigation={navigation} visible={userData.isLogined}/>
     }}
 
     static dataListRecord = [{ico: "star", name: ItemNameEnum.awardFind}, {
@@ -100,18 +99,10 @@ export default class MyView extends BaseView {
     onRightPressed() {
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LOGIN_OUT, () => {
             ActDispatch.AppAct.loginOut();
+            G_NavUtil.pushToView(G_NavViews.LoginView())
         })
     }
 
-    componentWillUpdate(){
-        super.componentWillUpdate();
-        let {userData,navigation} = this.props;
-        if(this.isLogin != userData.isLogined)
-        {
-            this.isLogin = userData.isLogined;
-           setTimeout(()=> navigation.setParams({isLogined:userData.isLogined}),1000)
-        }
-    }
 
     renderBody() {
         let {userData, moneyBalance} = this.props;
@@ -161,7 +152,7 @@ export default class MyView extends BaseView {
         } else {
             infoView = <View style={styles.headContent}>
                 <Text style={{textAlign: "center", lineHeight: 20}}>您还未登录，
-                    <Text onPress={this.clickLogin} style={{color: "red"}}>登录</Text>登陆后可查看更多信息
+                    <Text onPress={this.clickLogin} style={{color: "red"}}>登录</Text>后可查看更多信息
                 </Text>
                 <Button
                     containerStyle={styles.button}

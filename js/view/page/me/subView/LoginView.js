@@ -43,7 +43,7 @@ export default class LoginView extends BaseView {
                                        value={this.state.pwdText}
                                        onChangeText={(pwdText) => this.setState({pwdText})}/>
                     </View>
-                    <TButton errMsg={this.onErrMsg()} containerStyle={{padding:5,margin: 20}} btnName={"登录"} onPress={this.clickLogin}/>
+                    <TButton errMsg={this.onErrMsg()} containerStyle={{margin: 20}} btnName={"登录"} onPress={this.clickLogin}/>
                 </View>
             </View>
         );

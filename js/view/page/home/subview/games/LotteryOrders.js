@@ -180,8 +180,7 @@ export default class LotteryOrders extends BaseView {
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
-                <GameTracePannel
-                />
+                <GameTracePannel/>
                 <GameControlPannel
                     balance={balance}
                     topDesc={`总计: ${total}注${tracetimes}期${tracemultiple}倍, 共${G_moneyFormat(totalMoney * traceTimes * traceMultiple)}元`}

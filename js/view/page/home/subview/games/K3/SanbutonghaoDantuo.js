@@ -7,7 +7,6 @@ export default class ErbutonghaoDantuo extends K3 {
 
     constructor(props) {
         super(props);
-
     }
 
     //设置球排列

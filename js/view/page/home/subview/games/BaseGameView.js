@@ -59,7 +59,6 @@ export default class BaseGameView extends BaseView {
         this.onMoreMenuSelect = this.onMoreMenuSelect.bind(this)
         this.getGameTitle = this.getGameTitle.bind(this);
         this.getGameWays = this.getGameWays.bind(this);
-        this.registFuc = false
     }
 
 

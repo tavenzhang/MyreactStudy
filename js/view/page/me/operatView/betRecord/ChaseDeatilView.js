@@ -1,13 +1,9 @@
-/**
- * Created by thomas on 2017/3/10.
- */
 import React from 'react';
 import {
     View,
     Text,
 } from 'react-native';
 import BaseView from "../../../../componet/BaseView";
-import DetailListView from "../../../../componet/TFlatList";
 
 export  default class BetDetailView extends BaseView {
 
@@ -19,8 +15,7 @@ export  default class BetDetailView extends BaseView {
     }
 
     renderBody() {
-
-        let {gameModel,typesModel} = this.props.navigation.state.params;
+        let {gameModel,appModel} = this.props.navigation.state.params;
         let  gameName = gameModel.getGameNameById(this.state.data.lottery_id)
         let dataList= this.state.data.detail_list ? this.state.data.detail_list.data:[];
         return (<View style={[G_Style.appContentView]}>
@@ -37,7 +32,7 @@ export  default class BetDetailView extends BaseView {
                 <Text>追号号码:  {this.state.data.bet_number}</Text>
             </View>
             <View>
-                <Text>模式:   {typesModel.getACoefficients(this.state.data.coefficient)}</Text>
+                <Text>模式:   {appModel.getACoefficients(this.state.data.coefficient)}</Text>
             </View>
             <View>
                 <Text>金额:   {this.state.data.amount}元</Text>
@@ -49,7 +44,7 @@ export  default class BetDetailView extends BaseView {
                 <Text>中奖号码:   {this.state.data.winning_number}</Text>
             </View>
             <View>
-                <Text>追号状态:   {typesModel.getATraceStatuss(this.state.data.status)}</Text>
+                <Text>追号状态:   {appModel.getATraceStatuss(this.state.data.status)}</Text>
             </View>
             <View>
                 <Text>购彩时间:  {this.state.data.bought_at}</Text>

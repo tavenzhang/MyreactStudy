@@ -49,25 +49,80 @@ export class TButton extends React.Component {
         errMsg: PropTypes.any
     }
 
+    static defaultProps = {
+        disabledStyle: {backgroundColor: "gray", color: "white"},
+        textStyle: {fontSize: 14, color: "white", textAlign: "center"},
+        containerStyle: {
+            backgroundColor: "#d7213c",
+            borderRadius: 8,
+            paddingVertical: 8,
+            paddingHorizontal: 5,
+            alignItems: "center",
+
+        },
+        visible: true
+    }
+
     render() {
         const {visible, containerStyle, viewStyle, onPress, errMsg, btnName, textStyle, disabledStyle, disable} = this.props;
         let myDisable = disable;
         if (errMsg && errMsg != "") {
             myDisable = true;
         }
-        return (visible || visible == null ?
-            <View style={[viewStyle]}>
+        TLog("containerStyle----" + btnName, containerStyle)
+        return (visible ? <View style={[viewStyle]}>
                 {errMsg ?
                     <Text style={{color: "red", alignSelf: "center", marginBottom: 5}}>{`(${errMsg})`}</Text> : null}
                 <Button containerStyle={[{
-                    backgroundColor: myDisable ? "gray" : `#d7213c`, borderRadius: 5,
-                    paddingVertical: 8, paddingHorizontal: 5, alignItems: "center"
-                }, containerStyle]} disabled={myDisable}
-                        style={[{fontSize: 14, color: "white", textAlign: "center"}, textStyle]}
-                        styleDisabled={[{backgroundColor: "gray", color: "white"}, disabledStyle]} onPress={onPress}>
+                    backgroundColor: myDisable ? "gray" : "#d7213c", borderRadius: 10,
+                    paddingVertical: 5, paddingHorizontal: 5,
+                }, containerStyle]}
+                        disabled={myDisable}
+                        style={textStyle}
+                        styleDisabled={[disabledStyle]} onPress={onPress}>
                     {btnName}
                 </Button>
             </View> : null)
+    }
+}
+
+
+export class TButtonView extends React.Component {
+    static propTypes = {
+        visible: PropTypes.bool,
+        btnName: PropTypes.string,
+        onPress: PropTypes.func,
+        disable: PropTypes.bool,
+        containerStyle: PropTypes.any,
+        viewStyle: PropTypes.any,
+        textStyle: PropTypes.any,
+        disabledStyle: PropTypes.any,
+    }
+
+    static defaultProps = {
+        disabledStyle: {backgroundColor: "gray", color: "white"},
+        textStyle: {fontSize: 14, color: "white", textAlign: "center"},
+        containerStyle: {
+            backgroundColor: "#d7213c",
+            borderRadius: 8,
+            paddingVertical: 8,
+            paddingHorizontal: 5,
+            alignItems: "center"
+        },
+        visible: true
+    }
+
+    render() {
+        const {visible, containerStyle, onPress, btnName, textStyle, disabledStyle, disable} = this.props;
+        TLog("containerStyle----" + btnName, containerStyle)
+        return (visible ?
+            <Button containerStyle={[containerStyle,
+                {backgroundColor: disable ? "gray" : null}]}
+                    disabled={disable}
+                    style={textStyle}
+                    styleDisabled={[disabledStyle]} onPress={onPress}>
+                {btnName!="" ? btnName:this.props.children}
+            </Button> : null)
 
     }
 }

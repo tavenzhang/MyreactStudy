@@ -81,7 +81,6 @@ export default class AddValidView extends BaseView {
                             onChangeText={(password) => this.setState({password: password})}
                             value={this.state.password}
                             secureTextEntry={true}
-                            keyboardType={'numeric'}
                         />
                     </View>
                 </View>

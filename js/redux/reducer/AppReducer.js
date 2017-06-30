@@ -1,6 +1,6 @@
 import GameModel from "../model/GameModel";
 import PlayModel from "../model/PlayModel";
-import MobileTypes from "../model/MobileTypesModel";
+import AppModel from "../model/AppModel";
 import {fromJS} from 'immutable';
 import BankCityModel from "../model/BankCityModel";
 
@@ -17,7 +17,7 @@ const initAppState = fromJS({
     playsDic: {arrayList: []},
     gameModel: new GameModel (),
     playModel: new PlayModel(),
-    typesModel:new MobileTypes(),
+    appModel:new AppModel(),
     bankCityModel:new BankCityModel(),
     cardList:[],
     moneyBalance:0
@@ -65,7 +65,7 @@ const appState = (state = initAppState, action) => {
         case ActionType.AppType.PLAY_LIST_RESULT:
             return state.merge({playModel: new PlayModel(action.httpResult.data)});
         case ActionType.AppType.MOBILE_TYPES_RESULT:
-            return state.merge({typesModel: new MobileTypes(action.httpResult)});
+            return state.merge({appModel: new AppModel(action.httpResult)});
         case ActionType.AppType.BANG_CITY_INFO:
             return state.merge({bankCityModel: new BankCityModel(action.httpResult)});
         case ActionType.AppType.CARD_LIST_GET:

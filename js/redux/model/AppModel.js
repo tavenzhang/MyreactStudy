@@ -1,4 +1,4 @@
-export  default class MobileTypesModel {
+export  default class AppModel {
 
     constructor(data) {
         if (data) {
@@ -11,6 +11,7 @@ export  default class MobileTypesModel {
        let obj=this.data.data.aCoefficients;
         return  obj[`${cof}`];
     }
+
 
     getATransactionType(type) {
         let obj=this.data.data.aTransactionTypes;

@@ -131,7 +131,6 @@ export default class AddCardView extends BaseView {
                             autoFocus={true}
                             onChangeText={(careNumRepeat) => this.setState({careNumRepeat})}
                             value={this.state.careNumRepeat}
-                            secureTextEntry={true}
                             keyboardType={'numeric'}
                         />
                     </View>

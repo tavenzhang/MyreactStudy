@@ -1,6 +1,3 @@
-/**
- * Created by soga on 2017/4/17.
- */
 
 import React, {Component, PropTypes} from 'react';
 import {
@@ -14,6 +11,8 @@ import {connect} from 'react-redux';
 
 import GameTraceKeyBorad from "./GameTraceKeyBorad";
 import GameTracemMultipleKeyBorad from "./GameTracemMultipleKeyBorad";
+import TModalView from "../tcustom/modal/TModalView";
+import {TButtonView} from "../tcustom/button/TButton";
 
 const mapStateToProps = state => {
     return {
@@ -24,7 +23,6 @@ const mapStateToProps = state => {
     }
 }
 @connect(mapStateToProps)
-
 export default class GameTracePannel extends Component {
     constructor(props) {
         super(props);
@@ -152,56 +150,39 @@ export default class GameTracePannel extends Component {
         return (
             <View >
                 <View style={styles.tracePanel}>
-                    <View style={{flexDirection: 'row', flex: 1, borderRightWidth: 0.5}}>
+                    <View style={{flexDirection: 'row', flex: 1, borderRightWidth: 0.5,alignItems:"center", justifyContent:"center"}}>
                         <Text style={styles.lotterys}>追</Text>
-                        <TextInput
-                            style={styles.textInput}
-                            onChangeText={text => {
-                                me.setTrace(text)
-                            }}
-                            onFocus={data => {
-                                me.setIsShowKeyTrace(true);
-                            }}
-                            onBlur={data => {
-                                me.setIsShowKeyTrace(false);
-                            }}
-                            defaultValue={traceTimes + ''}
-                            underlineColorAndroid={'transparent'}
-                        />
+                        <TButtonView btnName={traceTimes} onPress={()=>{
+                            me.setIsShowKeyTrace(!this.state.isShowKeyTrace)
+                        }}  textStyle={styles.textInput}/>
                         <Text style={styles.lotterys}>期</Text>
                     </View>
-                    <View style={{flexDirection: 'row', flex: 1, paddingLeft: 20}}>
+                    <View style={{flexDirection: 'row', flex: 1, paddingLeft: 20, alignItems:"center", justifyContent:"center"}}>
                         <Text style={styles.lotterys}>投注</Text>
-                        <TextInput
-                            style={styles.textInput}
-                            onChangeText={text => {
-                                me.setMultiple(text)
-                            }}
-                            onFocus={data => {
-                                me.setIsShowKeyMultiple(true);
-                            }}
-                            onBlur={data => {
-                                me.setIsShowKeyMultiple(false);
-                            }}
-                            defaultValue={traceMultiple + ''}
-                            underlineColorAndroid={'transparent'}
-                        />
+                        <TButtonView btnName={traceMultiple} onPress={()=>me.setIsShowKeyMultiple(!this.state.isShowKeyMultiple)}  textStyle ={styles.textInput}/>
                         <Text style={styles.lotterys}>倍</Text>
                     </View>
                 </View>
-                {isShowKeyTrace ? <GameTraceKeyBorad
-                    {...this.state}
-                    inputTrace={me.inputTrace}
-                    setTrace={me.setTrace}
-                    OK={me.setIsShowKeyTrace}
+                <TModalView visible={isShowKeyTrace} onPressModal={()=>me.setIsShowKeyTrace(false)}  >
+                    <View style={{flex: 1, justifyContent: "center", backgroundColor: "rgba(50, 50, 50,0.2)"}}>
+                        <GameTraceKeyBorad
+                            {...this.state}
+                            inputTrace={me.inputTrace}
+                            setTrace={me.setTrace}
+                            OK={me.setIsShowKeyTrace}
 
-                /> : null}
-                {isShowKeyMultiple ? <GameTracemMultipleKeyBorad
-                    {...this.state}
-                    OK={me.setIsShowKeyMultiple}
-                    inputMultiple={me.inputMultiple}
-                    setMultiple={me.setMultiple}
-                /> : null}
+                        />
+                    </View>
+                </TModalView>
+                <TModalView visible={isShowKeyMultiple} onPressModal={()=>this.setIsShowKeyMultiple(false)}  >
+                    <View style={{flex: 1, justifyContent: "center", backgroundColor: "rgba(50, 50, 50,0.2)"}}>
+                    <GameTracemMultipleKeyBorad
+                        {...this.state}
+                        OK={me.setIsShowKeyMultiple}
+                        inputMultiple={me.inputMultiple}
+                        setMultiple={me.setMultiple}
+                    /></View>
+                </TModalView>
             </View>
         );
     }
@@ -240,15 +221,14 @@ const styles = StyleSheet.create({
 
     lotterys: {
         fontSize: 12,
-        marginTop: 5,
+
     },
     textInput: {
         height: 25,
         borderRadius: 5,
         width: 70,
         textAlign: 'center',
-        marginLeft: 10,
-        marginRight: 10,
+        marginHorizontal: 10,
         borderWidth: 0.5,
         borderColor: G_Theme.grayDeep,
 

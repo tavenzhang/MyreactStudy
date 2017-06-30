@@ -8,7 +8,6 @@ import {
 
 import {connect} from 'react-redux';
 
-//import Loading from "../../../componet/Loading";
 import BaseView from "../../../componet/BaseView";
 
 // const mapStateToProps = state => {
@@ -18,7 +17,7 @@ import BaseView from "../../../componet/BaseView";
 // }
 //
 // @connect(mapStateToProps)
-export default class ADView extends BaseView {
+export default class TWebView extends BaseView {
 
 
 

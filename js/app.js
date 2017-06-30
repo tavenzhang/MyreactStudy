@@ -36,7 +36,8 @@ const mapStateToProps = state => {
         isLoading: state.get("fetchState").get("requesting"),
         isModal:state.get("fetchState").get("isModal"),
         infoBox: state.get("appState").get("infoBox").toJS(),
-        nav: state.get("navState").toJS()
+        nav: state.get("navState").toJS(),
+        userData: state.get("appState").get("userData").toJS(),
     }
 }
 
@@ -83,7 +84,7 @@ export default class App extends React.Component {
                 <AppStackNavigator navigation={addNavigationHelpers({
                     dispatch: this.props.dispatch,
                     state: this.props.nav,
-                })}/>
+                })} screenProps={{userData:this.props.userData}}/>
                 <Loading visible={isLoading} isModal={isModal} />
                 {infoBox.show ? <ToastBoxView isError={infoBox.isError}
                                               visible={infoBox.show}

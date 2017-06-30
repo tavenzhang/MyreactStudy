@@ -88,8 +88,8 @@ export default class BannerView extends BaseView {
                             color: "red",
                             fontWeight: "bold"
                         }}>{G_DateUtil.formatSecondDate(dim)}</Text></Text></View>
-                        <View ref="moreMenuButton"><Text
-                            style={styles.timeBannerText}>玩法奖金:{G_moneyFormat(prize)}元</Text></View>
+                        <View ref="moreMenuButton" style={{flexDirection: "row"}}><Text
+                            style={styles.timeBannerText}>玩法奖金:<Text style={{color: "red",fontWeight: "bold"}}>{G_moneyFormat(prize)}</Text>元</Text></View>
                     </View>
                     {historyView}
                     {!this.state.showHistory ?<AIcon color="gray" style={{marginTop: -10,alignSelf:"center", backgroundColor:"transparent"}} size={16}
@@ -159,5 +159,9 @@ const styles = StyleSheet.create({
         height: 40,
         borderBottomColor: "#ddd",
         borderBottomWidth: 1,
+    },
+    moneyText:{
+        fontSize: 12,
+        color:G_Theme.primary
     }
 });

@@ -107,6 +107,9 @@ export default class LotteryOrders extends BaseView {
             }
         })
     }
+    getTotalText(total,tracetimes,tracemultiple,totalMoney){
+        return <Text>总计: {total}注{tracetimes}期{tracemultiple}倍, 共<Text style={{color: "red"}}> {G_moneyFormat(totalMoney * tracetimes * tracemultiple)}</Text>元</Text>
+    }
 
     renderBody() {
 
@@ -120,6 +123,8 @@ export default class LotteryOrders extends BaseView {
         tracemultiple=!traceMultiple?1:traceMultiple;
 
         const btnDisable = orderListNum == 0 ? styles.btnDisable : null;
+        let topDesc=<Text>总计: {total}注{tracetimes}期{tracemultiple}倍, 共<Text style={{color: "red"}}> {G_moneyFormat(totalMoney * traceTimes * traceMultiple)}</Text>元</Text>
+
         return (
             <View style={[G_Style.appContentView]}>
                 <View style={styles.btnGrounp}>
@@ -184,7 +189,7 @@ export default class LotteryOrders extends BaseView {
                 <GameTracePannel/>
                 <GameControlPannel
                     balance={balance}
-                    topDesc={`总计: ${total}注${tracetimes}期${tracemultiple}倍, 共${G_moneyFormat(totalMoney * traceTimes * traceMultiple)}元`}
+                    topDesc={this.getTotalText(total,tracetimes,tracemultiple,totalMoney)}
                     btnEvent={() => {
                         if (orderListNum == 0) {
                             Alert.alert(

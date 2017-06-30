@@ -73,7 +73,7 @@ export default class GameControlPannel extends Component {
                         <Text style={styles.lotterys}>{topDesc}</Text>
                     </View>
                     <View>
-                        <Text style={styles.money}>可用余额:{G_moneyFormat(balance)}元</Text>
+                        <Text style={styles.money}>可用余额<Text style={{color: "red"}}> {G_moneyFormat(balance)}</Text>元</Text>
                     </View>
                 </View>
                 <View style={{flexDirection : 'row'}}>

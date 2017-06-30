@@ -551,7 +551,8 @@ export default class Games extends Component {
         const me = this;
         const {lotterys, isBallsComplete,user_prize_group} = me.state;
         const {orderNum, moneyUnit, multiple, balance, bet_max_prize_group, bet_min_prize_group, diff_grize_group, series_amount, currentGameWay} = me.props;
-        const operTopDesc = `${lotterys.length}注 * ${multiple}倍 = ${G_moneyFormat(lotterys.length * multiple * currentGameWay.price * moneyUnit)}元`;
+        const operTopDesc = <Text>{lotterys.length}注 * {multiple}倍 =
+            <Text style={{color: "red"}}> {G_moneyFormat(lotterys.length * multiple * currentGameWay.price * moneyUnit)}</Text>元</Text>;
 
         let modePriceOperate = null;
         if (bet_min_prize_group && bet_max_prize_group) {

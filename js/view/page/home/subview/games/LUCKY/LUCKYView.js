@@ -15,6 +15,7 @@ const mapStateToProps = state => {
         multiple: state.get("gameState").get("multiple"), //倍数
         // balance: parseFloat(state.get("appState").getIn(['userData','data','available']));
         balance: state.get("appState").get("moneyBalance"),
+        prize: state.get("gameState").get("prize"), //奖金组
     }
 }
 

@@ -28,23 +28,29 @@ export default class GamePriceModelPannel extends Component {
 
     constructor(props) {
         super(props);
-        //this.state = {
-        //    rebat : props.bet_min_prize_group, //返点
-        //}
+        this.state = {
+            rebat : props.bet_max_prize_group, //返点
+        }
     }
 
     render() {
-        const { bet_max_prize_group, bet_min_prize_group, series_amount, diff_grize_group, onChange, value } = this.props;
-
+        const { bet_max_prize_group, bet_min_prize_group, series_amount, diff_grize_group, onChange, value, user_prize_group } = this.props;
+        const { rebat } = this.state;
         return (
             <View style={{flexDirection : 'row'}}>
                 <View style={styles.priceControlTitleBox}>
                     <Text style={styles.priceControlTitle}>奖金调节</Text>
                 </View>
                 <Slider
-                    value={value}
+                    value={rebat}
                     onSlidingComplete={(value) => {}}
-                    onValueChange={ value => onChange(value)}
+                    onValueChange={ value => {
+                        this.setState({rebat: value});
+                        //onChange(value)
+                    }}
+                    onSlidingComplete={ value => {
+                        onChange(value)
+                    }}
                     style={styles.slider}
                     minimumValue={bet_min_prize_group}
                     maximumValue={bet_max_prize_group}
@@ -52,7 +58,7 @@ export default class GamePriceModelPannel extends Component {
                     step={diff_grize_group}
                     />
                 <View style={styles.priceDataBox}>
-                    <Text style={styles.priceData}>{value} / {((bet_max_prize_group-value)*100/series_amount).toFixed(2)}%</Text>
+                    <Text style={styles.priceData}>{rebat} / {((user_prize_group - rebat)*100/series_amount).toFixed(2)}%</Text>
                 </View>
             </View>
         );

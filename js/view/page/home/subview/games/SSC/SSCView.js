@@ -139,11 +139,6 @@ import QuweiSijifacai from "./QuweiSijifacai";
 import connect from "react-redux/src/components/connect";
 
 const mapStateToProps = state => {
-    //const balls = state.get("gameState").get("balls").toArray();
-    //let newBalls = []
-    //balls.map((v,i) => {
-    //    newBalls[i] = v.toArray();
-    //});
     return {
         //balls: newBalls,
         orderNum: state.get("gameState").get("orderList").count(),
@@ -152,6 +147,7 @@ const mapStateToProps = state => {
         orderList: state.get("gameState").get("orderList"),
         orderListNum: state.get("gameState").get("orderList").count(),
         balance:state.get("appState").get("moneyBalance"),
+        prize: state.get("gameState").get("prize"), //奖金组
     }
 }
 

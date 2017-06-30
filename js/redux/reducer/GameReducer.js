@@ -11,6 +11,7 @@ const initGameState = fromJS({
     traceInfo:[],//追号数据
     gameNumbers: [],
     orderList: [], //订单数据
+    prize: null, //用户选择的奖金组
     moneyUnit: 1, //金额模式
     multiple: 1, //倍数
 })
@@ -43,6 +44,9 @@ const gameState = (state = initGameState, action) => {
             }
         case gType.SET_BALLS:
             return state.merge({balls: action.data})
+
+        case gType.UPDATE_PRIZE:
+            return state.merge({prize: action.data})
 
         case gType.SET_MONEYUNIT:
             return state.merge({moneyUnit:action.data})

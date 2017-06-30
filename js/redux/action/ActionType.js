@@ -33,6 +33,7 @@ export const ActionType = {
         SET_MULTIPLE: "GameType/SET_MULTIPLE",
         SET_GAMECONFIG: "GameType/SET_GAMECONFIG",
         SET_TRACE: "GameType/SET_TRACE",
+        UPDATE_PRIZE: "GameType/UPDATE_PRIZE",
     },
 }
 global.ActionType=ActionType;

@@ -8,7 +8,6 @@ import {
     combineReducers
 } from 'redux-immutable';
 
-import homeState from  '../reducer/HomeReducer';
 import appState from  '../reducer/AppReducer';
 import noticState from  '../reducer/NoticeReducer';
 import gameState from  '../reducer/GameReducer';
@@ -27,22 +26,12 @@ middleware = applyMiddleware(fetchMiddleware);
 let rootReducer = combineReducers({
     navState,
     fetchState,
-    homeState,
     appState,
     gameState,
     noticState,
 });
 
 const initialState = Map({});
-
-//debug
-//if (module.hot) {
-//    const devToolsExtension = window.devToolsExtension;
-//
-//    if (typeof devToolsExtension === 'function') {
-//        middleware = compose(middleware, devToolsExtension())
-//    }
-//}
 
 export default function configureStore(preloadedState = initialState) {
     const enhancer = compose(

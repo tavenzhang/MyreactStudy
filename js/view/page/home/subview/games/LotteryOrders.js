@@ -100,6 +100,7 @@ export default class LotteryOrders extends BaseView {
             if (data.isSuccess) {
                 //清空购彩篮
                 ActDispatch.GameAct.delOrder();
+                HttpUtil.flushMoneyBalance();//体现余额 改变
                 //返回选球页
                 setTimeout(() => G_NavUtil.pop(), 1500);
 
@@ -180,8 +181,7 @@ export default class LotteryOrders extends BaseView {
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
-                <GameTracePannel
-                />
+                <GameTracePannel/>
                 <GameControlPannel
                     balance={balance}
                     topDesc={`总计: ${total}注${tracetimes}期${tracemultiple}倍, 共${G_moneyFormat(totalMoney * traceTimes * traceMultiple)}元`}

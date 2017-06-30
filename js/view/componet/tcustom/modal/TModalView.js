@@ -1,7 +1,7 @@
 import React, { Component,PropTypes } from 'react'
 import {
     TouchableWithoutFeedback,
-    Modal, StatusBar
+    Modal
 } from 'react-native';
 
 
@@ -11,7 +11,7 @@ export default class MyModalView extends Component {
         defaultDate: PropTypes.any,
         visible: PropTypes.bool,
         hideModal:PropTypes.func,
-        hideModal: PropTypes.func,
+        onPressModal:PropTypes.func,
     }
 
     static defaultProps={
@@ -22,7 +22,7 @@ export default class MyModalView extends Component {
     }
 
     render(){
-        let {visible,hideModal}=this.props
+        let {visible,hideModal,onPressModal}=this.props
         return (
             <Modal
                 animationType={"fade"}
@@ -31,7 +31,7 @@ export default class MyModalView extends Component {
                 onRequestClose={hideModal}
                 hardwareAccelerated={true}
             >
-                <TouchableWithoutFeedback onPress={hideModal}>
+                <TouchableWithoutFeedback onPress={onPressModal}>
                     {this.props.children}
                 </TouchableWithoutFeedback>
             </Modal>

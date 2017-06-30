@@ -9,7 +9,7 @@ import PersonPwdView from "../view/page/me/operatView/PersonPwdView";
 import PersonMailView from "../view/page/me/operatView/PersonMailView";
 import LoginView from "../view/page/me/subView/LoginView";
 import SSC_History from "../view/page/award/subView/SSC_History";
-import ADView from "../view/page/home/subview/ADView";
+import TWebView from "../view/page/home/subview/TWebView";
 import AddCardView from "../view/page/me/operatView/cardManage/AddCardView";
 import BetDetailView from "../view/page/me/operatView/betRecord/BetDetailView";
 import ChaseDeatilView from "../view/page/me/operatView/betRecord/ChaseDeatilView";
@@ -115,7 +115,7 @@ global.G_NavAppRoutConfig = {
     PersonPwdView: createNavScreen(PersonPwdView),
     PersonMailView: createNavScreen(PersonMailView),
     SSC_History: createNavScreen(SSC_History),
-    ADView: createNavScreen(ADView),
+    TWebView: createNavScreen(TWebView),
     AddCardView: createNavScreen(AddCardView),
     BetDetailView: createNavScreen(BetDetailView),
     ChaseDeatilView: createNavScreen(ChaseDeatilView),
@@ -165,7 +165,6 @@ global.G_NavAppOptionsConfig = {
 }
 
 
-
 //  sceneAnimation: Navigator.SceneConfigs.FloatFromBottom
 //跳转页面集中控制 方便管理 和自定义动画
 let pushView = (component, passProps = null,title=null) => {
@@ -177,7 +176,7 @@ let pushView = (component, passProps = null,title=null) => {
 }
 
 global.G_NavViews = {
-    ADView: (data) => pushView("ADView", data,data.title),
+    TWebView: (data) => pushView("TWebView", data,data.title),
     //登陆
     LoginView: (data = {}) => pushView("LoginView", data,"登录"),
     //ssc 游戏详情
@@ -217,7 +216,7 @@ global.G_NavViews = {
     //游戏重启时时彩玩法
     SSCView: (data) => pushView("SSCView", data),
     //号码篮
-    LotteryOrders: (data) => pushView("LotteryOrders", data),
+    LotteryOrders: (data) => pushView("LotteryOrders", data,"购彩篮"),
     AddCardView: (data) => pushView("AddCardView", data),
     //add step one
     AddValidView: (data) => pushView("AddValidView", data),

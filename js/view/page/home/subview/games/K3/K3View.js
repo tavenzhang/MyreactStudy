@@ -92,6 +92,4 @@ export default class K3View extends BaseGameView {
         }
     }
 
-
-
 }

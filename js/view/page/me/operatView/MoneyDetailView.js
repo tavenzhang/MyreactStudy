@@ -10,7 +10,7 @@ import MoneyChangeHistoryView from "./myMoney/MoneyChangeHistoryView";
 
 const mapStateToProps = state => {
     return {
-        typesModel:state.get("appState").get("typesModel"),
+        appModel:state.get("appState").get("appModel"),
         gameModel:state.get("appState").get("gameModel"),
         playModel:state.get("appState").get("playModel"),
     }

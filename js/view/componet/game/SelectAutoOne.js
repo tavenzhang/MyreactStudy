@@ -21,7 +21,6 @@ export default class SelectAutoOne extends React.Component {
 
 
     render() {
-
         const me = this;
         const {randomSelct} = this.props;
 

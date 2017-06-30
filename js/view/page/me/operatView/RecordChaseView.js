@@ -20,7 +20,7 @@ const mapStateToProps = state => {
     return {
         gameModel:state.get("appState").get("gameModel"),
         playModel:state.get("appState").get("playModel"),
-        typesModel:state.get("appState").get("typesModel"),
+        app:state.get("appState").get("app"),
     }
 }
 @connect(mapStateToProps)

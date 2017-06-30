@@ -11,7 +11,7 @@ import {NavButtonText} from "../componet/navBarMenu/HeaderMenu";
 
 const mapStateToProps = state => {
     return {
-        bannerList: state.get("homeState").get("gameModel"),
+        appModel:state.get("appState").get("appModel"),
         gameModel: state.get("appState").get("gameModel"),
         playModel: state.get("appState").get("playModel"),
         userData: state.get("appState").get("userData").toJS(),
@@ -31,21 +31,21 @@ export default class Home extends BaseView {
 
     constructor(props) {
         super(props);
-        this.state =
-            {
+        this.state = {
                showBanner:false
           };
     }
 
     onRightPressed(){
-        G_NavUtil.pushToView(G_NavViews.ADView({data:"http://104.250.140.242:82/im/text/4028838b5ac815e3015ac81645f90000.html",title:"客服"}))
+        let {appModel}=this.props;
+        G_NavUtil.pushToView(G_NavViews.TWebView({data:appModel.data.qs_link,title:"客服"}))
     }
 
     renderBody() {
-        let {bannerList, gameModel} = this.props;
+        let {gameModel} = this.props;
         let gameList = gameModel.gameInfoList;
         gameList = gameList ? gameList :[];
-        bannerList = [{
+        let bannerList = [{
             url: `${G_SERVERADDR}/i/home/home_activity_banne1r3.jpg`,
             name: "活动1",
             data: "http://www.baidu.com"
@@ -58,9 +58,8 @@ export default class Home extends BaseView {
             name: "活动3",
             data: "http://www.google.com"
         }]
-
         return (
-            <View style={[G_Style.appContentView,{backgroundColor:"#f1f1f1"}]} >
+            <View style={[G_Style.appContentView,{backgroundColor:"#f1f1f1"}]}>
                 {this.state.showBanner||G_PLATFORM_IOS ? <MyBannerSwiper dataList={bannerList} {...this.props} />:null}
                 <GameList dataList={gameList} {...this.props} />
             </View>

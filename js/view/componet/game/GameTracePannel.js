@@ -142,7 +142,6 @@ export default class GameTracePannel extends Component {
         }
     }
 
-
     render() {
         const me = this;
         const {traceTimes, traceMultiple} = this.props;

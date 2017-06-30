@@ -39,7 +39,7 @@ export class TButton extends React.Component {
 
     static propTypes = {
         visible: PropTypes.bool,
-        btnName: PropTypes.string,
+        btnName: PropTypes.any,
         onPress: PropTypes.func,
         disable: PropTypes.bool,
         containerStyle: PropTypes.any,
@@ -69,7 +69,6 @@ export class TButton extends React.Component {
         if (errMsg && errMsg != "") {
             myDisable = true;
         }
-        TLog("containerStyle----" + btnName, containerStyle)
         return (visible ? <View style={[viewStyle]}>
                 {errMsg ?
                     <Text style={{color: "red", alignSelf: "center", marginBottom: 5}}>{`(${errMsg})`}</Text> : null}
@@ -90,7 +89,7 @@ export class TButton extends React.Component {
 export class TButtonView extends React.Component {
     static propTypes = {
         visible: PropTypes.bool,
-        btnName: PropTypes.string,
+        btnName: PropTypes.any,
         onPress: PropTypes.func,
         disable: PropTypes.bool,
         containerStyle: PropTypes.any,
@@ -114,7 +113,6 @@ export class TButtonView extends React.Component {
 
     render() {
         const {visible, containerStyle, onPress, btnName, textStyle, disabledStyle, disable} = this.props;
-        TLog("containerStyle----" + btnName, containerStyle)
         return (visible ?
             <Button containerStyle={[containerStyle,
                 {backgroundColor: disable ? "gray" : null}]}

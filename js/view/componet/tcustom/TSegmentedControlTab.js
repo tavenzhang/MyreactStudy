@@ -3,7 +3,6 @@ import {
     StyleSheet,
     View,
 } from 'react-native';
-import SegmentedControlTab from "react-native-segmented-control-tab";
 import { SegmentedControls } from 'react-native-radio-buttons'
 
 export default class MySegmentedControlTab extends React.Component {

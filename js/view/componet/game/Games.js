@@ -46,7 +46,6 @@ export default class Games extends Component {
             series_identifier: props.series_identifier,
             traceMaxTimes: props.traceMaxTimes,
             history_lotterys: props.history_lotterys,
-            prize_group: props.prize ,
             user_prize_group: props.user_prize_group,
             balls: [],
             ballText: [],
@@ -656,8 +655,7 @@ export default class Games extends Component {
 
     getResultData(lotterys) {
         const me = this;
-        const {prize_group} = this.state;
-        const {moneyUnit, multiple, currentGameWay} = this.props;
+        const {moneyUnit, multiple, currentGameWay,prize} = this.props;
         let orderdata={},
             onePrice = currentGameWay.price,
             lotterysOriginal = me.getOriginal();
@@ -676,7 +674,7 @@ export default class Games extends Component {
             ball: me.makePostParameter(lotterysOriginal),
             viewBalls: me.formatViewBalls(lotterysOriginal),
             num: lotterys.length,
-            prize_group: prize_group,
+            prize_group: prize,
             onePrice: onePrice,
             moneyunit: moneyUnit,
             multiple: multiple,
@@ -770,8 +768,7 @@ TLog('neworderList', neworderList);
     //返回值： 按照当前玩法生成一注标准的随机投注单(order)
     randomNum() {
         const me = this,
-            {prize_group} = this.state,
-            {moneyUnit, multiple, currentGameWay} = this.props;
+            {moneyUnit, multiple, currentGameWay,prize} = this.props;
         let i = 0,
             current = [],
             order = [],
@@ -792,7 +789,7 @@ TLog('neworderList', neworderList);
             viewBalls: me.formatViewBalls(original),
             wayId: currentGameWay.id,
             num: lotterys.length,
-            prize_group: prize_group,
+            prize_group: prize,
             onePrice: onePrice,
             moneyunit: moneyUnit,
             multiple: multiple,

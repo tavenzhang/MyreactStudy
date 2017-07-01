@@ -8,6 +8,8 @@ import {
     ScrollView,
     StyleSheet,
     Vibration,
+    Image,
+    TouchableHighlight
 } from 'react-native';
 import {connect} from 'react-redux';
 import Ball from "./Ball";
@@ -17,6 +19,7 @@ import GamePriceModelPannel from "./GamePriceModelPannel";
 import BallOperateBtn from "./BallOperateBtn";
 import RNShakeEvent from 'react-native-shake-event';
 import {TButton} from "../tcustom/button/TButton";
+import {Icon_yaoyiyao} from "../../../assets/index";
 
 //
 // const mapStateToProps = state => {
@@ -569,10 +572,19 @@ export default class Games extends Component {
         }
         return (
             <View style={{flex: 1}}>
-                <ScrollView style={styles.ballOperate}>
-                    <TButton visible={this.isRandomSelect}
-                             containerStyle={[styles.randButton]}
-                             textStyle={{color: "rgb(100,100,100)"}} btnName={"随机(摇一摇)"} onPress={this.randomSelcet}/>
+                {
+                    this.isRandomSelect ?
+                        <TouchableHighlight onPress={this.randomSelcet} style={{zIndex:10}}>
+                            <View style={styles.yaoyiyao}>
+                                <Image
+                                    style={styles.yaoyiyaoImg}
+                                    source={Icon_yaoyiyao}
+                                    />
+                                <Text style={styles.yaoyiyaoText}>随机</Text>
+                            </View>
+                        </TouchableHighlight> : null
+                }
+                <ScrollView style={[styles.ballOperate]}>
                     {me.buildUI()}
                     <View style={styles.controlPanel}>
                         <GameModelPannel
@@ -822,6 +834,31 @@ const styles = StyleSheet.create({
         //paddingRight: 20,
     },
     gameBox: {},
+    yaoyiyao: {
+        flexDirection: 'column',
+        height: 35,
+        width: 30,
+        position: 'absolute',
+        alignItems: "center",
+        right: 2,
+        top: -5,
+        justifyContent: "center",
+        backgroundColor: '#ff5722',
+        borderRadius: 4,
+        zIndex: 100
+    },
+    yaoyiyaoImg: {
+        flexDirection: 'row',
+        height: 20,
+        width: 30,
+        alignItems: "center",
+        justifyContent: "center",
+        resizeMode: 'contain'
+    },
+    yaoyiyaoText: {
+        fontSize: 8,
+        marginTop: 2,
+    },
     ballBtnBox: {
         flexDirection: 'row',
         justifyContent: "center",
@@ -843,6 +880,7 @@ const styles = StyleSheet.create({
     gameRow: {
         flexWrap: 'wrap',
         margin: 10,
+        zIndex: 1,
         backgroundColor: '#fff',
         marginBottom: 0,
         borderRadius: 8

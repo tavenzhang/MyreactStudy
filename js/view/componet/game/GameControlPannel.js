@@ -21,7 +21,7 @@ export default class GameControlPannel extends Component {
         btnEvent : PropTypes.func,
         btnIconEvent : PropTypes.func,
         btnName : PropTypes.string,
-        topDesc : PropTypes.string,
+        topDesc : PropTypes.object,
         btnDisable: PropTypes.bool
     };
 
@@ -31,7 +31,7 @@ export default class GameControlPannel extends Component {
         unitPrice : 2,
         balance : 0,
         btnName : '确 定',
-        topDesc : '',
+        topDesc : <Text/>,
         btnDisable : true
     };
 
@@ -73,7 +73,7 @@ export default class GameControlPannel extends Component {
                         <Text style={styles.lotterys}>{topDesc}</Text>
                     </View>
                     <View>
-                        <Text style={styles.money}>可用余额:{G_moneyFormat(balance)}元</Text>
+                        <Text style={styles.money}>可用余额<Text style={{color: "red"}}> {G_moneyFormat(balance)}</Text>元</Text>
                     </View>
                 </View>
                 <View style={{flexDirection : 'row'}}>

@@ -157,15 +157,15 @@ export default class MyView extends BaseView {
             </View>
         } else {
             infoView = <View style={styles.headContent}>
-                <Text style={{textAlign: "center", lineHeight: 20}}>您还未登录，
-                    <Text onPress={this.clickLogin} style={{color: "red"}}>登录</Text>后可查看更多信息
+                <Text style={{textAlign: "center", lineHeight: 20}}>您还未登陆，
+                    <Text onPress={this.clickLogin} style={{color: "red"}}>登陆</Text>后可查看更多信息
                 </Text>
                 <Button
                     containerStyle={styles.button}
                     style={{fontSize: 14, color: 'white'}}
                     styleDisabled={{color: '#fff'}}
                     onPress={this.clickLogin}>
-                    登录
+                    登陆
                 </Button>
             </View>
         }

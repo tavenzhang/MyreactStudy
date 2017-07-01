@@ -43,7 +43,6 @@ export default class GamePriceModelPannel extends Component {
                 </View>
                 <Slider
                     value={rebat}
-                    onSlidingComplete={(value) => {}}
                     onValueChange={ value => {
                         this.setState({rebat: value});
                         //onChange(value)

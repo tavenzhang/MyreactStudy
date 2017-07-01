@@ -90,7 +90,7 @@ export default class GameDetail extends React.Component {
             }
         }
         else{
-            ActDispatch.AppAct.showErrorBox("请先登录，才能开始游戏！");
+            ActDispatch.AppAct.showErrorBox("请先登陆，才能开始游戏！");
             G_NavUtil.pushToView(G_NavViews.LoginView());
          }
     }

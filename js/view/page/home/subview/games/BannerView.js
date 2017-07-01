@@ -134,13 +134,10 @@ export default class BannerView extends BaseView {
 
     //根据游戏类型格式化某些显示
     getFormatBallText = (sid, stext, index) => {
-        let result = "";
         let arr = []
         if (!stext) {
             return null;
         }
-        TLog('stext', stext);
-        TLog('sid', sid);
         switch (sid) {
             case 1:
                 arr = stext.split("");

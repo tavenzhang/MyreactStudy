@@ -66,27 +66,27 @@ export default class LotteryOrders extends BaseView {
 
         const {gameId, orderList, lottery_items, traceInfo, isTrace, traceTimes, traceMultiple} = this.props;
         let submitData = {
-            gameId: gameId,
-            isTrace: isTrace,
-            traceWinStop: 1,
-            traceStopValue: 1,
-            balls: orderList,
-            // amount:amount
-        },
+                gameId: gameId,
+                isTrace: isTrace,
+                traceWinStop: 1,
+                traceStopValue: 1,
+                balls: orderList,
+                // amount:amount
+            },
             newTraceInfo = traceInfo.toJS();
         submitData['orders'] = {};
 
         ////非追号
-        if (isTrace ==0) {
+        if (isTrace == 0) {
             //获得当前期号，将期号作为键
             submitData['orders'][lottery_items] = 1;
             //总金额
         } else {
             //追号
-            for (let j=0; j < traceTimes; j++) {
-                let number=newTraceInfo[j].traceNumber,
-                multiple=newTraceInfo[j].traceMultiple;
-                submitData['orders'][number]  =multiple;
+            for (let j = 0; j < traceTimes; j++) {
+                let number = newTraceInfo[j].traceNumber,
+                    multiple = newTraceInfo[j].traceMultiple;
+                submitData['orders'][number] = multiple;
             }
         }
         //总金额
@@ -107,39 +107,41 @@ export default class LotteryOrders extends BaseView {
             }
         })
     }
-    getTotalText(total,tracetimes,tracemultiple,totalMoney){
-        return <Text>总计: {total}注{tracetimes}期{tracemultiple}倍, 共<Text style={{color: "red"}}> {G_moneyFormat(totalMoney * tracetimes * tracemultiple)}</Text>元</Text>
+
+    getTotalText(total, tracetimes, tracemultiple, totalMoney) {
+        return <Text>总计: {total}注{tracetimes}期{tracemultiple}倍, 共<Text
+            style={{color: "red"}}> {G_moneyFormat(totalMoney * tracetimes * tracemultiple)}</Text>元</Text>
     }
+
 
     renderBody() {
 
-        const {orderList, balance, orderListNum, isTrace, traceTimes, traceMultiple,navigation} = this.props;
-        const {randomLotterys} = navigation.state.params;
+        const {orderList, balance, orderListNum, isTrace, traceTimes, traceMultiple, navigation} = this.props;
+        const {randomLotterys, isRandomOrder} = navigation.state.params;
         const me = this;
         let total = 0,
             totalMoney = 0,
 
-        tracetimes=!traceTimes?1:traceTimes,
-        tracemultiple=!traceMultiple?1:traceMultiple;
-
+            tracetimes = !traceTimes ? 1 : traceTimes,
+            tracemultiple = !traceMultiple ? 1 : traceMultiple;
+        TLog('{isRandomOrder}', isRandomOrder)
         const btnDisable = orderListNum == 0 ? styles.btnDisable : null;
         // let topDesc=<Text>总计: {total}注{tracetimes}期{tracemultiple}倍, 共<Text style={{color: "red"}}> {G_moneyFormat(totalMoney * traceTimes * traceMultiple)}</Text>元</Text>
-
+        let randomLotteryOne = isRandomOrder ? <Button
+            btnName="机选1注"
+            onPress={() => randomLotterys(1)}
+            leftIcon="plus-circle"
+        /> : null;
+        let randomLotteryFive = isRandomOrder ? <Button
+            btnName="机选5注"
+            onPress={() => randomLotterys(5)}
+            leftIcon="plus-circle"
+        /> : null;
         return (
             <View style={[G_Style.appContentView]}>
                 <View style={styles.btnGrounp}>
-                    <Button
-                        btnName="机选1注"
-                        onPress={() => randomLotterys(1)}
-                        leftIcon="plus-circle"
-                    />
-
-                    <Button
-                        btnName="机选5注"
-                        onPress={() => randomLotterys(5)}
-                        leftIcon="plus-circle"
-                    />
-
+                    {randomLotteryOne}
+                    {randomLotteryFive}
                     <Button
                         btnName="继续选号"
                         onPress={() => G_NavUtil.pop()}
@@ -189,7 +191,7 @@ export default class LotteryOrders extends BaseView {
                 <GameTracePannel/>
                 <GameControlPannel
                     balance={balance}
-                    topDesc={this.getTotalText(total,tracetimes,tracemultiple,totalMoney)}
+                    topDesc={this.getTotalText(total, tracetimes, tracemultiple, totalMoney)}
                     btnEvent={() => {
                         if (orderListNum == 0) {
                             Alert.alert(

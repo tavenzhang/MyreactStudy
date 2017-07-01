@@ -102,7 +102,7 @@ export default class LotteryOrders extends BaseView {
                 ActDispatch.GameAct.delOrder();
                 HttpUtil.flushMoneyBalance();//体现余额 改变
                 //返回选球页
-                setTimeout(() => G_NavUtil.pop(), 1500);
+                setTimeout(() => G_NavUtil.pop(), 1000);
 
             }
         })

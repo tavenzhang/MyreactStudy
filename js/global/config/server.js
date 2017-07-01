@@ -134,7 +134,8 @@ global.HTTP_SERVER = {
             account_name: "",
             account: "",
             account_confirmation: "",
-            fund_password: ""
+            fund_password: "",
+            point:""
         }
     },
     //添加银行卡 step1验证旧银行卡信息:

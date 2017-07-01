@@ -13,6 +13,8 @@ export const ActionType = {
         CARD_LIST_GET:"app/CARD_LIST_GET",
         MONEY_ACCOUNT__CHANGE:"app/MONEY_ACCOUNT__CHANGE",
         APP_BACK_RESET:"app/APP_BACK_RESET",
+        PWD_FOUND_SET: "app/PWD_FOUND_SET",
+        PWD_LOGIN_SET: "app/PWD_LOGIN_SET",
     },
     FetchType: {
         FETCH_REQUEST: "fetch/REQUEST",

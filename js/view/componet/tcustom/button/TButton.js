@@ -5,7 +5,9 @@ import React, {PropTypes} from 'react';
 import {
     Text,
     StyleSheet,
-    View
+    View,
+    Image,
+    TouchableHighlight
 } from 'react-native';
 
 import Button from "react-native-button";
@@ -46,7 +48,8 @@ export class TButton extends React.Component {
         viewStyle: PropTypes.any,
         textStyle: PropTypes.any,
         disabledStyle: PropTypes.any,
-        errMsg: PropTypes.any
+        errMsg: PropTypes.any,
+        imgBtnSrc: PropTypes.any
     }
 
     static defaultProps = {
@@ -57,30 +60,37 @@ export class TButton extends React.Component {
             borderRadius: 8,
             paddingVertical: 8,
             paddingHorizontal: 5,
-            alignItems: "center",
-
+            alignItems: "center"
         },
         visible: true
     }
 
     render() {
-        const {visible, containerStyle, viewStyle, onPress, errMsg, btnName, textStyle, disabledStyle, disable} = this.props;
+        const {visible, containerStyle, viewStyle, onPress, errMsg, btnName, textStyle, disabledStyle, disable, imgBtnSrc, imgStyle} = this.props;
         let myDisable = disable;
         if (errMsg && errMsg != "") {
             myDisable = true;
         }
+
+        let btn = <Button containerStyle={[{backgroundColor: myDisable ? "gray" : "#d7213c", borderRadius: 10,paddingVertical: 5, paddingHorizontal: 5}, containerStyle]}
+                          disabled={myDisable}
+                          style={textStyle}
+                          styleDisabled={[disabledStyle]} onPress={onPress}>
+            {btnName}
+        </Button>
+
+        if(imgBtnSrc) {
+            btn = <TouchableHighlight onPress={onPress}>
+                        <Image
+                            style={[styles.imgStyle,imgStyle]}
+                            source={imgBtnSrc}
+                            />
+                    </TouchableHighlight>
+        }
+
         return (visible ? <View style={[viewStyle]}>
-                {errMsg ?
-                    <Text style={{color: "red", alignSelf: "center", marginBottom: 5}}>{`(${errMsg})`}</Text> : null}
-                <Button containerStyle={[{
-                    backgroundColor: myDisable ? "gray" : "#d7213c", borderRadius: 10,
-                    paddingVertical: 5, paddingHorizontal: 5,
-                }, containerStyle]}
-                        disabled={myDisable}
-                        style={textStyle}
-                        styleDisabled={[disabledStyle]} onPress={onPress}>
-                    {btnName}
-                </Button>
+                {errMsg ? <Text style={{color: "red", alignSelf: "center", marginBottom: 5}}>{`(${errMsg})`}</Text> : null}
+                {btn}
             </View> : null)
     }
 }
@@ -124,3 +134,14 @@ export class TButtonView extends React.Component {
 
     }
 }
+
+
+const styles = StyleSheet.create({
+    imgStyle: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
+        resizeMode: 'contain'
+    },
+})

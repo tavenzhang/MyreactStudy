@@ -5,6 +5,7 @@ import AIcon from "react-native-vector-icons/FontAwesome";
 import BaseView from "../../../componet/BaseView";
 import connect from "react-redux/src/components/connect";
 import MySegmentedControlTab from "../../../componet/tcustom/TSegmentedControlTab";
+import {TButton} from "../../../componet/tcustom/button/TButton";
 
 const mapStateToProps = state => {
     return {
@@ -71,20 +72,15 @@ export default class PersonPwdView extends BaseView {
                             underlineColorAndroid={'transparent'}
                         />
                     </View>
-                    <Button
+                    <TButton
                         containerStyle={{
-                            padding: 5,
                             margin: 10,
-                            overflow: 'hidden',
-                            borderRadius: 3,
-                            backgroundColor: '#d7213c'
                         }}
-                        style={{fontSize: 14, color: "white"}}
-                        styleDisabled={{color: '#fff'}}
-                        onPress={()=>this.onCommitAction()}>
-                        {this.state.selectedTabIndex ? "资金密码" : "登陆密码"}
-                        提交
-                    </Button>
+                        errMsg={this.onErrValid()}
+                        onPress={this.onCommitAction}
+                        btnName={`${this.state.selectedTabIndex ? "资金密码" : "登陆密码"}提交`}
+                    />
+
                 </View>
             </View>
         );
@@ -100,22 +96,24 @@ export default class PersonPwdView extends BaseView {
         })
     }
 
-    onCommitAction = () => {
-        if (this.state.oldPwd == ""&&(this.isSetFundPwd||this.state.selectedTabIndex==0)) {
-            {
-                ActDispatch.AppAct.showErrorBox("原密码不能为空.")
-            }
+    onErrValid=()=> {
+        let msg = null;
+        if (this.state.oldPwd == "" && (this.isSetFundPwd || this.state.selectedTabIndex == 0)) {
+            msg = "原密码不能为空."
         }
         else if (this.state.newPwd == "") {
-            ActDispatch.AppAct.showErrorBox("新密码不能为空.");
+            msg = "新密码不能为空."
         }
         else if (this.state.repeatPwd == "") {
-            ActDispatch.AppAct.showErrorBox("确认密码不能为空.")
+            msg = "确认密码不能为空."
         }
         else if (this.state.newPwd != this.state.repeatPwd) {
-            ActDispatch.AppAct.showErrorBox("确认密码与新密码不一致.")
+            msg = "确认密码与新密码不一致."
+        }
+        return msg
+    }
 
-        } else {
+    onCommitAction = () => {
             if (this.state.selectedTabIndex == 0)//修改登陆密码
             {
                 HTTP_SERVER.PWD_LOGIN.body.old_password = this.state.oldPwd;
@@ -130,12 +128,11 @@ export default class PersonPwdView extends BaseView {
                 }, false)
             }
             else {//修改资金密码
-                if (this.isSetFundPwd)
-                {
+                if (this.isSetFundPwd) {
                     HTTP_SERVER.PWD_FUND.body.old_fund_password = this.state.oldPwd;
                     HTTP_SERVER.PWD_FUND.body.fund_password = this.state.newPwd;
                     HTTP_SERVER.PWD_FUND.body.fund_password_confirmation = this.state.repeatPwd;
-                    ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.PWD_FUND, (data) => {
+                    ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.PWD_FUND,ActionType.AppType.PWD_FOUND_SET,(data) => {
                         ActDispatch.AppAct.showErrorBox(data.Msg);
                         if(data.isSuccess)
                         {
@@ -159,7 +156,6 @@ export default class PersonPwdView extends BaseView {
 
             }
 
-        }
     }
 
 }

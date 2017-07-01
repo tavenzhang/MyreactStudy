@@ -95,12 +95,6 @@ export default class BaseGameView extends BaseView {
         this.setState({isShowMenu: !this.state.isShowMenu});
     }
 
-    componentWillUpdate() {
-        super.componentWillUpdate();
-        // if(!this.registFuc) {
-        //     this.registFuc=true;
-        // }
-    }
 
     renderBody() {
         const {currentGameWay, defaultMethodId} = this.state;
@@ -151,7 +145,6 @@ export default class BaseGameView extends BaseView {
             </View>
         ) : null
     }
-
 
     componentDidMount() {
         this.requetGameData();

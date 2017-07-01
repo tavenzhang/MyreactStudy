@@ -138,6 +138,7 @@ export default class EditCardAddView extends BaseView {
                     </View>
                 </View>
                 <TButton viewStyle={{
+                    padding: 8,
                     margin: 25,
                 }}
                          btnName={"更新"}
@@ -233,6 +234,7 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         fontSize: 14,
         flex: 2,
+        borderBottomWidth: 0.2,
     },
     dropdown_1: {
         flex: 1,

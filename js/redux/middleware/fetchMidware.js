@@ -58,18 +58,19 @@ function fetchMiddleware(extraArgument) {
                                 TLog(`callback error<----------${action.url}:`,err);
                             }
                         }
-                        if(action.endAction)
-                        {
-                            next({type:action.endAction,httpResult:data});
+                        //if(data.isSuccess&&action.endAction){
+                        if(action.endAction){
+                              next({type:action.endAction,httpResult:data});
                         }
+
                         if(data.Msg)//警告提示信息
                         {
                             if(data.isSuccess){
                                 next(ActionEnum.AppAct.showBox(data.Msg));
+
                             }
                             else{
-                                if(data.type=="loginTimeout")//登陆超时
-                                {
+                                if(data.type=="loginTimeout") {
                                     next(ActionEnum.AppAct.showErrorBox("请登陆后 再做此操作！"));
                                     next(ActionEnum.AppAct.loginOut());
                                     G_NavUtil.pushToView(G_NavViews.LoginView());

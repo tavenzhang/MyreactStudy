@@ -8,7 +8,7 @@ const initAppState = fromJS({
     requesting: false,
     fail: false,
     success: true,
-    userData: {isLogined:false},
+    userData:{isLogined:false,data:{is_set_fund_password:55}},
     infoBox: {
         show: false, //是否显示
         msg: "",//显示内容
@@ -38,12 +38,12 @@ const appState = (state = initAppState, action) => {
                 success: true
             });
         case ActionType.AppType.MONEY_ACCOUNT__CHANGE:
-            TLog("ActionType.AppType.MONEY_ACCOUNT__CHANGE----",action.httpResult.data)
+            //TLog("ActionType.AppType.MONEY_ACCOUNT__CHANGE----",action.httpResult.data)
             return state.merge({moneyBalance:parseFloat(action.httpResult.data.available)});
         case ActionType.AppType.LOGIN_RESULT:
-            return state.merge({userData: {...action.data,isLogined:true},moneyBalance:Number(action.data.data.available)});
+            return state.merge({userData:fromJS({...action.data,isLogined:true}),moneyBalance:Number(action.data.data.available)});
         case ActionType.AppType.LOG_OUT:
-            return state.merge({userData: {isLogined:false},moneyBalance:0});
+            return state.merge({userData: fromJS({isLogined:false}),moneyBalance:0});
         case ActionType.AppType.SHOW_INFOBOX:
             return state.merge({infoBox: {
                     show: true,
@@ -83,6 +83,10 @@ const appState = (state = initAppState, action) => {
            // TLog("ActionType.AppType.CARD_LIST_GET---",tempList)
             return state.merge({cardList:tempList});
         case ActionType.AppType.APP_BACK_RESET:
+            return state.merge(initAppState);
+        case ActionType.AppType.PWD_FOUND_SET:
+            return state.setIn(["userData","data","is_set_fund_password"],1);
+        case ActionType.AppType.PWD_LOGIN_SET:
             return state.merge(initAppState);
         default:
             return state;

@@ -27,7 +27,6 @@ export default class DelCardView extends BaseView {
                 <View style={{height: G_Theme.windowHeight / 3, backgroundColor: "white", paddingLeft: 10}}>
                     <Text style={{
                         fontSize: 14,
-                        color: G_Theme.gray,
                         margin: 10,
                         alignSelf:"center"
                     }}>卡号:  {params.accountEny}</Text>
@@ -78,7 +77,8 @@ export default class DelCardView extends BaseView {
                 </View>
                 <TButton btnName={"删除"}
                          viewStyle={{
-                             margin: 30,
+                             padding: 8,
+                             margin: 25,
                          }}
                         errMsg={this.onErrMsg()}
                          onPress={this.clickNext}
@@ -137,6 +137,7 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         fontSize: 14,
         flex: 2,
+        borderBottomWidth: 0.2,
     }
 
 });

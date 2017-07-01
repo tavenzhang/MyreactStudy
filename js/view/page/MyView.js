@@ -99,7 +99,13 @@ export default class MyView extends BaseView {
     onRightPressed() {
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LOGIN_OUT, () => {
             ActDispatch.AppAct.loginOut();
-            G_NavUtil.pushToView(G_NavViews.LoginView())
+            if(G_PLATFORM_IOS) {
+
+                G_NavUtil.pushToView(G_NavViews.LoginView())
+            }else{
+                setTimeout(()=>{ G_NavUtil.pushToView(G_NavViews.LoginView())},500)
+            }
+
         })
     }
 

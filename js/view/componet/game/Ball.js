@@ -55,6 +55,12 @@ const styles = StyleSheet.create({
     ballSelected: {
         backgroundColor:G_Theme.primary,
     },
+    ballDesc: {
+        backgroundColor:'#fff',
+        borderWidth:0.5,
+        borderColor:G_Theme.primary,
+
+    },
 
     ballSelectedText: {
         color: '#fff',

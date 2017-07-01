@@ -8,6 +8,7 @@ import {
 import BaseView from "../../../../componet/BaseView";
 import TFlatList from "../../../../componet/TFlatList";
 import AIcon from 'react-native-vector-icons/FontAwesome';
+import Ball from "../../../../componet/game/Ball";
 
 export default class BannerView extends BaseView {
     static propTypes = {
@@ -17,7 +18,7 @@ export default class BannerView extends BaseView {
         prize: PropTypes.any,
         currentNumber: PropTypes.any,
         series_id: PropTypes.any,
-        leftTime:PropTypes.number,
+        leftTime: PropTypes.number,
         onTimeHanlde: PropTypes.func,
     }
 
@@ -25,20 +26,18 @@ export default class BannerView extends BaseView {
         super(props);
         this.state = {
             showHistory: false,
-            currentTime:0
+            currentTime: 0
         }
-        this.count=1
+        this.count = 1
     }
 
-    componentWillUpdate(nextProps, nextState)
-    {
+    componentWillUpdate(nextProps, nextState) {
         super.componentWillUpdate()
-        let {currentNumberTime,currentTime}=nextProps;
-        if(currentNumberTime&&this.currentNumberTime!=currentNumberTime)
-        {
-            TLog("currentNumberTime----"+currentNumberTime,currentTime)
-            this.currentNumberTime=currentNumberTime;
-            this.setState({currentTime},()=>{
+        let {currentNumberTime, currentTime} = nextProps;
+        if (currentNumberTime && this.currentNumberTime != currentNumberTime) {
+            TLog("currentNumberTime----" + currentNumberTime, currentTime)
+            this.currentNumberTime = currentNumberTime;
+            this.setState({currentTime}, () => {
                 let dim = (this.currentNumberTime - this.state.currentTime);
                 clearInterval(this.timeId);
                 if (dim > 0) {
@@ -50,7 +49,7 @@ export default class BannerView extends BaseView {
 
     //倒计时显示
     countTime = () => {
-        let {onTimeHanlde}=this.props
+        let {onTimeHanlde} = this.props
 
         let dim = (this.currentNumberTime - this.state.currentTime);
         if (dim > 0) {
@@ -67,15 +66,16 @@ export default class BannerView extends BaseView {
         let {dateHistoryList, currentNumber, prize} = this.props
         let historyView = null;
         let dim = (this.currentNumberTime - this.state.currentTime) * 1000;
-         dim = dim > 0 ? dim : 0;
-         //TLog("dateHistoryList---",dateHistoryList)
-        if (this.state.showHistory&&dateHistoryList&&dateHistoryList[0]!="") {
+        dim = dim > 0 ? dim : 0;
+        let {series_id} = this.props
+        let height = series_id == 4 ? 230 : 122;
+        if (this.state.showHistory && dateHistoryList && dateHistoryList[0] != "") {
             historyView =
-                <View style={{height:100, width:G_Theme.windowWidth}}>
-                <TFlatList
-                     dataList={dateHistoryList}
-                    renderRow={this._renderRow}
-                />
+                <View style={{height: height, width: G_Theme.windowWidth, borderWidth: 0.5, borderColor: G_Theme.gray}}>
+                    <TFlatList
+                        dataList={dateHistoryList}
+                        renderRow={this._renderRow}
+                    />
                 </View>
         }
         return (
@@ -89,48 +89,149 @@ export default class BannerView extends BaseView {
                             fontWeight: "bold"
                         }}>{G_DateUtil.formatSecondDate(dim)}</Text></Text></View>
                         <View ref="moreMenuButton" style={{flexDirection: "row"}}><Text
-                            style={styles.timeBannerText}>玩法奖金:<Text style={{color: "red",fontWeight: "bold"}}>{G_moneyFormat(prize)}</Text>元</Text></View>
+                            style={styles.timeBannerText}>玩法奖金:<Text
+                            style={{color: "red", fontWeight: "bold"}}>{G_moneyFormat(prize)}</Text>元</Text></View>
                     </View>
                     {historyView}
-                    {!this.state.showHistory ?<AIcon color="gray" style={{marginTop: -10,alignSelf:"center", backgroundColor:"transparent"}} size={16}
-                           name={G_EnumFontNames.list_arrow_desc}/>:null}
+                    {!this.state.showHistory ? <AIcon color="gray" style={{
+                        marginTop: -10,
+                        alignSelf: "center",
+                        backgroundColor: "transparent"
+                    }} size={16}
+                                                      name={G_EnumFontNames.list_arrow_desc}/> : null}
                 </View>
             </TouchableWithoutFeedback>
         )
     }
 
     _renderRow = (rowData, index) => {
+        const me = this;
         let rowDataArr = rowData.split("=");
-        let bgColor = index % 2 == 0 ? "gray" : "white";
+        // let bgColor = G_Theme.gray;
+
         let {series_id} = this.props
-        let ballText = this.getFormatBallText(series_id,rowDataArr[1]);
+        let height = series_id == 4 ? 44 : 22;//基诺  20个球
+        let marginTop = series_id == 4 ? 17 : 5;//基诺  20个球
+        let ballText = this.getFormatBallText(series_id, rowDataArr[1], index);
         return (
-            <View   style={{flexDirection: "row", backgroundColor: bgColor, paddingVertical:1}}>
-                <Text>{`${rowDataArr[0]}期号码    ${ballText}`}</Text>
+            <View style={{
+                flexDirection: "row",
+                paddingVertical: 1,
+                height: height,
+                paddingTop: 2,
+                paddingLeft: 10
+            }}>
+                <Text style={{
+                    fontSize: 12,
+                    color: G_Theme.grayDeep,
+                    marginTop: marginTop,
+                    flex: 3,
+                }}>{`${rowDataArr[0]}期号码`}</Text>
+                {ballText}
             </View>
         );
     }
 
     //根据游戏类型格式化某些显示
-    getFormatBallText=(sid, stext)=>{
-        let result="";
-        let arr=null
-        switch (sid)
-        {
-           case "1":
-               arr=stext.split("");
-               result=arr.join(" ");
-               break;
-           case "2":
-               result=stext;
-               break;
+    getFormatBallText = (sid, stext, index) => {
+        let arr = []
+        if (!stext) {
+            return null;
+        }
+        switch (sid) {
+            case 1:
+                arr = stext.split("");
+                break;
+            case 7:
+            case 8:
+            case 2:
+                arr = stext.split(" ");
+                break;
+            case 4:
+                arr = stext.split(",");
+                return this.buildKenoBall(arr, index);
+                break;
             default:
-                arr=stext.split("");
-                result=arr.join(" ");
+                arr = stext.split("");
                 break;
 
         }
-        return result;
+        return this.buildBall(arr, index, sid);
+    }
+    //吉诺选球
+    buildKenoBall(ballText, index) {
+        const me = this;
+        let ballWidth = 24;
+        let j = 0;
+        let k = 0;
+        return <View style={{flex: 7}}>
+
+            <View style={styles.ballBox}>
+                {ballText.map((v, i) => {
+                    j++;
+                    if (j > 10) {
+                        return false;
+                    }
+                    if (index == 0) {
+                        return me._firstRow(ballWidth, i, v);
+                    }
+                    return me._ballRow(ballWidth, i, v);
+                })}
+            </View>
+            <View style={[styles.ballBox, {marginTop: 5}]}>
+                {ballText.map((v, i) => {
+                    k++;
+                    if (k <= 10) {
+                        return;
+                    }
+                    if (index == 0) {
+                        return me._firstRow(ballWidth, i, v);
+                    }
+                    return me._ballRow(ballWidth, i, v);
+                })}
+            </View>
+        </View>
+    }
+
+
+//近期开奖记录的选球
+    buildBall(ballText, index) {
+        const me = this;
+        let ballWidth = 25;
+        let radios = 11;
+
+        return <View style={[styles.ballBox, {flex: 7}]}>
+            {ballText.map((v, i) => {
+                if (index > 0) {
+                    return me._ballRow(ballWidth, i, v);
+                } else {
+                    return me._firstRow(ballWidth, i, v);
+                }
+            })}
+        </View>
+    }
+
+    _ballRow(ballWidth, i, v) {
+        return <View style={[styles.ballBtnBox, {width: ballWidth}]} key={i}>
+            <Text style={{color: G_Theme.primary}}>{v}</Text>
+        </View>
+    }
+
+    _firstRow(ballWidth, i, v) {
+        let radios = 11;
+        return <View style={[styles.ballBtnBox, {width: ballWidth}]} key={i}>
+            <Ball
+                radius={radios}
+                text={v}
+                row='1'
+                value={i}
+                textStyle={styles.ballText}
+                status='1'
+                onPress={(x, y, v) => {
+                    return false
+                }}
+            />
+        </View>
     }
 
     componentDidMount() {
@@ -160,8 +261,35 @@ const styles = StyleSheet.create({
         borderBottomColor: "#ddd",
         borderBottomWidth: 1,
     },
-    moneyText:{
+    moneyText: {
         fontSize: 12,
-        color:G_Theme.primary
-    }
+        color: G_Theme.primary
+    },
+    ballBtnBox: {
+        flexDirection: 'row',
+        justifyContent: "center",
+        alignItems: "center",
+        height: 30
+    },
+    ballBox: {
+        flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+    },
+    ball: {
+        backgroundColor: G_Theme.gray,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 2,
+    },
+    ballText: {
+        color: "#fff",
+        fontWeight: 'normal',
+        fontSize: 12
+    },
+    balldesc: {
+        color: G_Theme.grayDeep,
+        fontWeight: 'normal',
+        fontSize: 12
+    },
 });

@@ -178,7 +178,7 @@ let pushView = (component, passProps = null,title=null) => {
 global.G_NavViews = {
     TWebView: (data) => pushView("TWebView", data,data.title),
     //登陆
-    LoginView: (data = {}) => pushView("LoginView", data,"登录"),
+    LoginView: (data = {}) => pushView("LoginView", data,"登陆"),
     //ssc 游戏详情
     SSC_History: (data) => pushView("SSC_History", data,data.lottery_name),
     //11-5 游戏详情

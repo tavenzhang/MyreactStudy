@@ -4,6 +4,7 @@ import {
     Text,
 } from 'react-native';
 import BaseView from "../../../../componet/BaseView";
+import TFlatList from "../../../../componet/TFlatList";
 
 export  default class BetDetailView extends BaseView {
 
@@ -13,7 +14,7 @@ export  default class BetDetailView extends BaseView {
             data: {}
         }
     }
-
+c
     renderBody() {
         let {gameModel,appModel} = this.props.navigation.state.params;
         let  gameName = gameModel.getGameNameById(this.state.data.lottery_id)

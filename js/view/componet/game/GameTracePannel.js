@@ -158,7 +158,7 @@ export default class GameTracePannel extends Component {
                     </View>
                     <View style={{flexDirection: 'row', flex: 1, paddingLeft: 20, alignItems:"center", justifyContent:"center"}}>
                         <Text style={styles.lotterys}>投注</Text>
-                        <TButtonView btnName={traceMultiple} onPress={()=>me.setIsShowKeyMultiple(!this.state.isShowKeyMultiple)}  textStyle ={styles.textInput}/>
+                        <TButtonView  btnName={traceMultiple} onPress={()=>me.setIsShowKeyMultiple(!this.state.isShowKeyMultiple)}  textStyle ={styles.textInput}/>
                         <Text style={styles.lotterys}>倍</Text>
                     </View>
                 </View>
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 48,
         width: G_Theme.windowWidth,
-        height: 40,
+        height: 45,
         borderTopWidth: 0.5,
         borderColor: G_Theme.grayDeep,
         backgroundColor: '#fff',
@@ -223,13 +223,13 @@ const styles = StyleSheet.create({
 
     },
     textInput: {
-        height: 25,
-        borderRadius: 5,
-        width: 70,
-        textAlign: 'center',
-        marginHorizontal: 10,
         borderWidth: 0.5,
         borderColor: G_Theme.grayDeep,
-
+        borderRadius: 5,
+        marginHorizontal:5,
+        height: 22,
+        width: 80,
+        textAlign: 'center',
+        marginHorizontal: 10,
     }
 });

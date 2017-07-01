@@ -21,6 +21,7 @@ export default class AddCardView extends BaseView {
             provinceData: null,
             cityData: null,
             bankCityModel: null,
+            point:""
         }
     }
 
@@ -82,15 +83,27 @@ export default class AddCardView extends BaseView {
                     </View>
                     <View style={{flex: 1, alignItems: "center", flexDirection: "row"}}>
                         <View style={{width: G_Theme.windowWidth * 1 / 3, alignItems: "flex-end"}}>
+                            <Text >分行名称: </Text>
+                        </View>
+                        <TextInput
+                            style={styles.cardInput}
+                            autoCapitalize="none"
+                            placeholder={"请输入分行名称"}
+                            autoFocus={true}
+                            onChangeText={(brunchName) => this.setState({brunchName})}
+                            value={this.state.brunchName}
+                        />
+                    </View>
+                    <View style={{flex: 1, alignItems: "center", flexDirection: "row"}}>
+                        <View style={{width: G_Theme.windowWidth * 1 / 3, alignItems: "flex-end"}}>
                             <Text >支行名称: </Text>
                         </View>
                         <TextInput
                             style={styles.cardInput}
                             autoCapitalize="none"
                             placeholder={"请输入支行名称"}
-                            autoFocus={true}
-                            onChangeText={(brunchName) => this.setState({brunchName})}
-                            value={this.state.brunchName}
+                            onChangeText={(point) => this.setState({point})}
+                            value={this.state.point}
                         />
                     </View>
                     <View style={{flex: 1, alignItems: "center", flexDirection: "row"}}>
@@ -101,7 +114,6 @@ export default class AddCardView extends BaseView {
                             style={styles.cardInput}
                             autoCapitalize="none"
                             placeholder={"请输入开户人姓名"}
-                            autoFocus={true}
                             onChangeText={(countName) => this.setState({countName: countName})}
                             value={this.state.countName}
                         />
@@ -114,7 +126,6 @@ export default class AddCardView extends BaseView {
                             style={styles.cardInput}
                             autoCapitalize="none"
                             placeholder={"请输入银行卡卡号"}
-                            autoFocus={true}
                             onChangeText={(careNumText) => this.setState({careNumText: careNumText})}
                             value={this.state.careNumText}
                             keyboardType={'numeric'}
@@ -128,24 +139,23 @@ export default class AddCardView extends BaseView {
                             style={styles.cardInput}
                             autoCapitalize="none"
                             placeholder={"确认您的银行卡号"}
-                            autoFocus={true}
                             onChangeText={(careNumRepeat) => this.setState({careNumRepeat})}
                             value={this.state.careNumRepeat}
                             keyboardType={'numeric'}
                         />
                     </View>
                 </View>
-                <TButton viewStyle={{
-                    margin: 25,
-                }}
+                <TButton
+                    viewStyle={{margin:20}}
                          btnName={"添加"}
                          errMsg={this.onValid()}
-                         onPress={this.clickNext}/>
+                         onPress={this.clickNext}
+                containerStyle={{marginHorizontal:20}}/>
             </View>
         );
     }
 
-    rendDropRow = (rowData, rowID, highlighted) => {
+    rendDropRow = (rowData) => {
         return (<View style={{
             margin: 10,
             flex: 1,
@@ -192,6 +202,7 @@ export default class AddCardView extends BaseView {
             HTTP_SERVER.BANK_CARD_ADD_STEP_2.body.account_confirmation = this.state.careNumRepeat;
             HTTP_SERVER.BANK_CARD_ADD_STEP_2.body.account = this.state.careNumText;
             HTTP_SERVER.BANK_CARD_ADD_STEP_2.body.bank_id = this.state.bankData.id;
+             HTTP_SERVER.BANK_CARD_ADD_STEP_2.body.point = this.state.point
             HTTP_SERVER.BANK_CARD_ADD_STEP_2.body.province_id = this.state.provinceData.id;
             HTTP_SERVER.BANK_CARD_ADD_STEP_2.body.city_id = this.state.cityData.id;
             HTTP_SERVER.BANK_CARD_ADD_STEP_2.body.branch = this.state.brunchName;
@@ -199,7 +210,7 @@ export default class AddCardView extends BaseView {
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.BANK_CARD_ADD_STEP_2, (result) => {
                 if (result.isSuccess) {
                     if (params.isStep2) {
-                        G_NavUtil.popN(2);
+                        G_NavUtil.pop();
                     }
                     else {
                         G_NavUtil.pop();
@@ -221,9 +232,12 @@ const styles = StyleSheet.create({
     },
     cardInput: {
         width: G_Theme.windowWidth * 2 / 3,
-        marginLeft: 20,
+
         fontSize: 14,
         flex: 2,
+        borderBottomWidth: 0.2,
+        paddingLeft: 10,
+
     },
     dropdown_1: {
         flex: 1,

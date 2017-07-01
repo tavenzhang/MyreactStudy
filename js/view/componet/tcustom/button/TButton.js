@@ -58,7 +58,6 @@ export class TButton extends React.Component {
             paddingVertical: 8,
             paddingHorizontal: 5,
             alignItems: "center",
-
         },
         visible: true
     }
@@ -72,10 +71,9 @@ export class TButton extends React.Component {
         return (visible ? <View style={[viewStyle]}>
                 {errMsg ?
                     <Text style={{color: "red", alignSelf: "center", marginBottom: 5}}>{`(${errMsg})`}</Text> : null}
-                <Button containerStyle={[{
-                    backgroundColor: myDisable ? "gray" : "#d7213c", borderRadius: 10,
+                <Button containerStyle={[{borderRadius: 10,
                     paddingVertical: 5, paddingHorizontal: 5,
-                }, containerStyle]}
+                }, containerStyle,{ backgroundColor: myDisable ? "gray" : "#d7213c"}]}
                         disabled={myDisable}
                         style={textStyle}
                         styleDisabled={[disabledStyle]} onPress={onPress}>

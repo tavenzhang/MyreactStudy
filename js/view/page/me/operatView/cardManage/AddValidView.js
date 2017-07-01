@@ -85,6 +85,7 @@ export default class AddValidView extends BaseView {
                     </View>
                 </View>
                 <TButton viewStyle={{
+                    padding: 8,
                     margin: 25,
                 }}
                          btnName={"下一步"}

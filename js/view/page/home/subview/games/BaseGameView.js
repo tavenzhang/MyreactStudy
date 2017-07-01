@@ -180,7 +180,7 @@ export default class BaseGameView extends BaseView {
                         series_identifier: pd.series_identifier,
                         series_amount: pd.series_amount,
                         traceMaxTimes: pd.traceMaxTimes,
-                        history_lotterys: pd.history_lotterys.split(","),
+                        history_lotterys: pd.history_lotterys.split("-"),
                     });
                     if (!this.state.selectItem && pd.defaultMethodId) {
                         const defaultGame = {"id": pd.defaultMethodId + '', "name": pd.defaultMethod_cn}

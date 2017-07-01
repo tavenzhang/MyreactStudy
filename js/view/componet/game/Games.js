@@ -83,6 +83,8 @@ export default class Games extends Component {
         this.randomCombinLottery = this.randomCombinLottery.bind(this);
         this.editSubmitData = this.editSubmitData.bind(this);
         this.isRandomSelect = true;//是否随机选择
+        this.isRandomOrder=true;//允许随机下注
+
 
     }
 
@@ -649,8 +651,6 @@ export default class Games extends Component {
         let orderdata={},
             onePrice = currentGameWay.price,
             lotterysOriginal = me.getOriginal();
-        // TLog('lotterysOriginal', lotterysOriginal);
-        // TLog('lotterys', lotterys);
 
         if (lotterys.length < 1) {
             return {};
@@ -705,7 +705,6 @@ export default class Games extends Component {
             {orderList, currentGameWay} = this.props,
             {balls} = this.state;
         let neworderList=orderList.toJS();
-TLog('neworderList', neworderList);
 
         let allowTag,
             len = balls.length,
@@ -770,8 +769,6 @@ TLog('neworderList', neworderList);
         current = me.checkRandomBets();
         original = current;
         lotterys = me.randomCombinLottery(original);
-        TLog('original--rand', original);
-        TLog('lotterys--rand', lotterys);
 
         order = {
             amount: lotterys.length * onePrice * multiple * moneyUnit,

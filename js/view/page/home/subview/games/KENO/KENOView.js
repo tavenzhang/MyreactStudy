@@ -96,7 +96,7 @@ export default class L115View extends BaseGameView {
             case '179':
             case '180':
             case '182':
-            // case '183':
+            case '183':
                 return <Quwei {...this.props} {...this.state}  clickMenuItem={this.clickMenuItem} />
 
             default:

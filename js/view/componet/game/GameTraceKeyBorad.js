@@ -86,7 +86,7 @@ export default class GameTraceKeyBorad extends Component {
                         <Text style={styles.key} value='5'>0</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.keyPanelCanncel} onPress={() => inputTrace(0,'sub')} >
-                        <Text style={styles.key} value='6'>--</Text>
+                        <Text style={styles.keyOK} value='6'>删除</Text>
                     </TouchableOpacity>
                 </View>
 

@@ -568,7 +568,7 @@ export default class Games extends Component {
         }
         return (
             <View style={{flex: 1}}>
-                <TButton viewStyle={{position:"absolute", right:10,zIndex:12}} visible={this.isRandomSelect}
+                <TButton visible={this.isRandomSelect}
                          containerStyle={[styles.randButton]}
                          textStyle={{color: "rgb(100,100,100)"}} btnName={"随机(摇一摇)"} onPress={this.randomSelcet}/>
                 <ScrollView style={styles.ballOperate}>

@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         //borderBottomColor: '#ccc',
         //borderBottomWidth: 0.5,
-        backgroundColor: '#d7213c',
+        backgroundColor: '#d22f2f',
     },
     subView:{
         flex: 1,

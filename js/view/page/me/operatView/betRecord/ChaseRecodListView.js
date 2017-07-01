@@ -24,7 +24,7 @@ export default class ChaseRecodListView extends React.Component {
     }
 
     _renderRow = (rowData) => {
-        let {gameModel} = this.props;
+        let {gameModel,appModel} = this.props;
         let gameName = gameModel.getGameNameById(rowData.lottery_id);
         return (
             <View>
@@ -39,7 +39,7 @@ export default class ChaseRecodListView extends React.Component {
 
                         </View>
                         <View style={styles.itemContentStyle}>
-                            <Text style={styles.textItemStyle} >{rowData.status}</Text>
+                            <Text style={[styles.textItemStyle,{color:"red"}]} >{appModel.getATraceStatus(rowData.status)}</Text>
                         </View>
                         <View style={styles.itemContentStyle}>
                             <AIcon name={"angle-right"}

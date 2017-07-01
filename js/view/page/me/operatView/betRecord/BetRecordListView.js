@@ -23,7 +23,7 @@ export default class BetRecordListView extends React.Component {
     }
 
     _renderRow = (rowData) => {
-        let {gameModel} = this.props;
+        let {gameModel,appModel} = this.props;
         let dataName = G_DateUtil.formatItemDateString(rowData.bought_at);
         let gameName = gameModel.getGameNameById(rowData.lottery_id);
         return (
@@ -40,7 +40,7 @@ export default class BetRecordListView extends React.Component {
 
                         </View>
                         <View style={styles.itemContentStyle}>
-                            <Text style={styles.textItemStyle}>{rowData.status}</Text>
+                            <Text style={[styles.textItemStyle,{color:"red"}]}>{appModel.getAProjectStatus(rowData.status)}</Text>
                         </View>
                         <View style={styles.itemContentStyle}>
                             <AIcon name={"angle-right"}
@@ -53,8 +53,7 @@ export default class BetRecordListView extends React.Component {
     }
 
     itemClick = (data) => {
-        let {gameModel} = this.props;
-        G_NavUtil.pushToView(G_NavViews.BetDetailView({...data, title: "投注详情", gameModel: gameModel}));
+        G_NavUtil.pushToView(G_NavViews.BetDetailView({...data, title: "投注详情",...this.props}));
     }
 }
 

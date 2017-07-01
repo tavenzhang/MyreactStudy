@@ -19,7 +19,7 @@ export  default class BetDetailView extends BaseView {
     }
 
     renderBody() {
-        let {gameModel} = this.props.navigation.state.params
+        let {gameModel,appModel} = this.props.navigation.state.params
         let  gameName = gameModel.getGameNameById(this.state.data.lottery_id)
 
         return (<View style={[G_Style.appContentView]}>
@@ -48,7 +48,7 @@ export  default class BetDetailView extends BaseView {
                 <Text>中奖号码:   {this.state.data.winning_number}</Text>
             </View>
             <View>
-                <Text>开奖状态:   {this.state.data.status}</Text>
+                <Text>开奖状态:  {appModel.getAProjectStatus(this.state.data.status)}</Text>
             </View>
             <View>
                 <Text>购彩时间:  {this.state.data.bought_at}</Text>

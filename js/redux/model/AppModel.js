@@ -30,7 +30,7 @@ export  default class AppModel {
         return  obj[`${draw}`];
     }
 
-    getATraceStatuss(trace)
+    getATraceStatus(trace)
     {
         let obj=this.data.data.aTraceStatus;
         return  obj[`${trace}`];

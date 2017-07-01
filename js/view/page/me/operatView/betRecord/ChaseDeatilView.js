@@ -45,7 +45,7 @@ c
                 <Text>中奖号码:   {this.state.data.winning_number}</Text>
             </View>
             <View>
-                <Text>追号状态:   {appModel.getATraceStatuss(this.state.data.status)}</Text>
+                <Text>追号状态:   {appModel.getATraceStatus(this.state.data.status)}</Text>
             </View>
             <View>
                 <Text>购彩时间:  {this.state.data.bought_at}</Text>

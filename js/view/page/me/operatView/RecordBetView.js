@@ -21,6 +21,7 @@ const mapStateToProps = state => {
     return {
         gameModel:state.get("appState").get("gameModel"),
         playModel:state.get("appState").get("playModel"),
+        appModel:state.get("appState").get("appModel"),
     }
 }
 
@@ -131,7 +132,7 @@ export default class RecordBetView extends BaseView {
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 1, backgroundColor: "yellow"}}>
-                    <BetRecordListView pageSize={this.state.pageSize} dataList={this.state.dataList} loadMore={this.loadMore} gameModel={gameModel}/>
+                    <BetRecordListView pageSize={this.state.pageSize} dataList={this.state.dataList} loadMore={this.loadMore} {...this.props}/>
                 </View>
                 <View style={{position: "absolute", zIndex: 6, top: 35}}>
                     {gameView}

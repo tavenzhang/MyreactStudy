@@ -5,7 +5,6 @@ import {
     , StyleSheet,
     TouchableOpacity
 } from 'react-native';
-
 import {connect} from 'react-redux';
 import AIcon from 'react-native-vector-icons/FontAwesome';
 import NumberCircle from "../componet/NumberCircle";
@@ -45,33 +44,17 @@ export default class Award extends BaseView {
     }
 
     componentDidMount() {
-        G_RunAfterInteractions(()=>{
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_ALL_Lottery,(data)=>{
                 if(data.isSuccess)
                 {
                     this.setState({dataArray:data.data});
                 }
             })
-        })
     }
 
-
-    _renderRow = (rowData,index) => {
+    _renderRow = (rowData) => {
         let itemContentView = [];
-        let lotteryList=[];
-        switch(rowData.series_name) {
-            case "SSC":
-            case "K3":
-                lotteryList=rowData.win_number.split("");
-                break;
-            case "11-5":
-                lotteryList=rowData.win_number.split(" ");
-                break;
-            default:
-                lotteryList=rowData.win_number.split(" ");
-                break;
-        }
-
+        let lotteryList = this.onHandleWinner(rowData.series_name,rowData.win_number);
         if (lotteryList.length>0) {
             lotteryList.map((item, index) => {
                 itemContentView.push(<NumberCircle key={`${index}w`} data={item} color="#f00" radius={16}
@@ -97,19 +80,37 @@ export default class Award extends BaseView {
         );
     }
 
-    itemClick = (data) => {
-        TLog("itemClick--------",data)
-        switch(data.series_name)
-        {
+    onHandleWinner=(series_name,numStr)=>{
+        let lotteryList=[];
+        switch(series_name) {
             case "SSC":
-                G_NavUtil.pushToView(G_NavViews.SSC_History({...data}));
+            case "K3":
+            case "LUCKY":
+            case "3D":
+                lotteryList=numStr.split("");
                 break;
             case "11-5":
-            case "PK10":
-                G_NavUtil.pushToView(G_NavViews.G_11_5_History({...data}));
+                lotteryList=numStr.split(" ");
+                break;
+            case  "KENO":
+                lotteryList=numStr.split(",")
                 break;
             default:
-                G_NavUtil.pushToView(G_NavViews.SSC_History({...data}));
+                lotteryList=numStr.split(" ");
+                break;
+        }
+        return lotteryList;
+    }
+
+    itemClick = (data) => {
+        TLog("itemClick--------",data);
+        switch(data.series_name)
+        {
+             case "11-5":
+                G_NavUtil.pushToView(G_NavViews.G_11_5_History({...data,onHandleWinner:this.onHandleWinner}));
+                break;
+            default:
+                G_NavUtil.pushToView(G_NavViews.SSC_History({...data,onHandleWinner:this.onHandleWinner}));
                 break;
         }
     }

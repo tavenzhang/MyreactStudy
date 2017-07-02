@@ -37,8 +37,7 @@ export default class G_11_5_History extends BaseView {
     }
 
 
-    loadMore = (callBack, forcePage = 1) => {
-       G_RunAfterInteractions(()=>{
+    loadMore = (callBack, isFlushHeader) => {
            const {lottery_id} = this.props.navigation.state.params;
            HTTP_SERVER.notice_Lottery_Hisotry.url= `${HTTP_SERVER.notice_Lottery_Hisotry.formatUrl}/${lottery_id}/${this.next_id}`
            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_Lottery_Hisotry,(result)=>{
@@ -51,13 +50,13 @@ export default class G_11_5_History extends BaseView {
                    }
                }
            })
-       })
     }
 
 
     _renderRow = (rowData) => {
+        let {series_name,onHandleWinner}=this.props.navigation.state.params
+        let lotteryList=onHandleWinner(series_name,rowData.win_number)
         let itemContentView = [];
-        let lotteryList=rowData.win_number.split(" ");
         if (lotteryList.length>0) {
             lotteryList.map((item, index) => {
                 itemContentView.push(<NumberCircle key={`${index}w`} data={item} color="#f00" radius={16}
@@ -65,26 +64,18 @@ export default class G_11_5_History extends BaseView {
             })
         }
         return (
-            <TouchableHighlight onPress={() => this.itemClick(rowData)} underlayColor='rgba(0,0,0,0)'>
+           // <TouchableHighlight onPress={() => this.itemClick(rowData)} underlayColor='rgba(0,0,0,0)'>
                 <View style={styles.row}>
                     <View style={{flexDirection: "row", paddingTop: 5, alignItems: "center"}}>
                         <Text style={{fontSize: 12, color: "#666", marginLeft: 10}}>{`第${rowData.issue}期`}</Text>
                         <Text style={{fontSize: 12, color: "#666", marginLeft: 10}}>{rowData.offical_time}</Text>
                     </View>
-                    <View style={{flexDirection: "row", justifyContent: "space-between", marginVertical: 5}}>
-                        <View style={{marginTop: 5, justifyContent: "center", flexDirection: "row"}}>
+                    <View style={{marginVertical: 5, marginLeft: 10,flexWrap: "wrap",flexDirection: "row"}}>
                             {itemContentView}
                         </View>
-                        {/*<AIcon name="angle-right" style={styles.iconNormal}/>*/}
-                    </View>
                 </View>
-            </TouchableHighlight>
+            //</TouchableHighlight>
         );
-    }
-
-    itemClick = (data) => {
-       // TLog("Award----", data)
-        // NavUtil.pushToView(G_NavViews.SSC_History({...data,title:data.name}));
     }
 
 }

@@ -4,7 +4,6 @@ import {
     Text
     , StyleSheet, Image,
 } from 'react-native'
-import AIcon from 'react-native-vector-icons/FontAwesome';
 import TView from "../componet/TView";
 import TTabBarItem from "../componet/tabItem/TTabBarItem";
 import {ImgAbuotMe, ImgTabbar} from "../../assets/index";
@@ -23,7 +22,6 @@ const mapStateToProps = state => {
 
 @connect(mapStateToProps)
 export default class AboutMe extends TView {
-
     static navigationOptions = {
         title: " ",
         tabBarLabel: ' ',

@@ -3,8 +3,7 @@ import {
     StyleSheet,
     View,
 } from 'react-native';
-import SegmentedControlTab from "react-native-segmented-control-tab";
-
+import { SegmentedControls } from 'react-native-radio-buttons'
 
 export default class MySegmentedControlTab extends React.Component {
     static propTypes={
@@ -25,15 +24,17 @@ export default class MySegmentedControlTab extends React.Component {
     render() {
         let {valueList,onTabChange,tabsContainerStyle,tabStyle,activeTabStyle,selectedTabIndex}=this.props
         return (
-            <View>
-                <SegmentedControlTab
-                    values={valueList}
-                    onTabPress={onTabChange}
-                    tabsContainerStyle={[styles.defaltContainStyle,tabsContainerStyle]}
-                    tabStyle={[styles.defaultTabStyle,tabStyle]}
-                    selectedIndex={selectedTabIndex}
-                    activeTabStyle={[styles.defaultActiveTabStyle,activeTabStyle]}
-                    borderRadius={10}
+            <View >
+                <SegmentedControls
+                    backTint={"rgb(200,200,200)"}
+                    selectedTint= {'black'}
+                    tint= {'white'}
+                    options={ valueList }
+                    onSelection={onTabChange}
+                    selectedOption={valueList[selectedTabIndex]}
+                    containerStyle={[styles.defaltContainStyle,tabsContainerStyle]}
+                    optionStyle={{fontSize:14, fontWeight:"bold", color:"red"}}
+                    optionContainerStyle={[{flex: 1},tabStyle]}
                 />
             </View>
         )
@@ -44,12 +45,9 @@ const styles = StyleSheet.create({
         marginLeft: 40,
         marginRight: 40,
         alignSelf: "center",
-        margin: 5
-    },
-    defaultTabStyle:{
-        borderColor: "#a52a2a",
-        borderWidth: G_PLATFORM_IOS ? StyleSheet.hairlineWidth:1,
-        borderStyle: G_PLATFORM_IOS ? "dashed":"solid",
+        margin: 5,
+        borderColor: "gray",
+        borderWidth: G_PLATFORM_IOS ? 1:1,
     },
     defaultActiveTabStyle:{
         backgroundColor: "#a52a2a",

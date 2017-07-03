@@ -1,4 +1,4 @@
-package com.tcp.nativeExtention;
+package com.tforest.nativeExtention;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -16,8 +16,8 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.flurry.android.FlurryAgent;
 import com.microsoft.codepush.react.CodePush;
-import com.tcp.MainActivity;
-import com.tcp.MainApplication;
+import com.tforest.MainActivity;
+import com.tforest.MainApplication;
 
 import org.json.JSONStringer;
 

@@ -4,6 +4,8 @@ import Album from "../view/page/Album";
 import AbuoutMe from "../view/page/AbuoutMe";
 import LoginWelcomVIew from "../view/page/abuoutMe/LoginWelcomVIew";
 import LoginReginView from "../view/page/abuoutMe/LoginReginView";
+import MusicView from "../view/page/home/MusicView";
+import PlayMusicView from "../view/page/album/PlayMusicView";
 
 let tabMyNavigator = TabNavigator({
         Home: {
@@ -22,6 +24,7 @@ let tabMyNavigator = TabNavigator({
         tabBarPosition: 'bottom', // 显示在底端，android 默认是显示在页面顶端的
         swipeEnabled: false, // 禁止左右滑动
         backBehavior: 'home', // 按 back 键是否跳转到第一个 Tab， none 为不跳转
+        //lazy:true,
         tabBarOptions: {
             activeTintColor: 'red', // 文字和图片选中颜色
             inactiveTintColor: '#999', // 文字和图片默认颜色
@@ -40,7 +43,8 @@ let myNavigationOptions = ({navigation}) => {
     let {title, name} = navigation.state.params;
     title = title || name;
     if (!title) {
-        title = navigation.state.routeName
+       // title = navigation.state.routeName
+        title=' '
     }
     return {title}
 }
@@ -54,6 +58,8 @@ global.G_NavAppRoutConfig = {
     Main: {screen: tabMyNavigator},
     LoginWelcomVIew: createNavScreen(LoginWelcomVIew),
     LoginReginView: createNavScreen(LoginReginView),
+    MusicView:createNavScreen(MusicView),
+    PlayMusicView:createNavScreen(PlayMusicView),
 }
 
 global.G_NavAppOptionsConfig = {
@@ -65,9 +71,10 @@ global.G_NavAppOptionsConfig = {
         animationEnabled: true,
         //headerTitleStyle: {backgroundColor: 'red'},
         headerStyle: {backgroundColor: G_Theme.TGreen},
+        headerBackTitle:null
     },
     mode: 'card',
-   // headerMode:"float"
+    headerMode:"screen"
 }
 
 

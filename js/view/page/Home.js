@@ -27,9 +27,9 @@ const mapStateToProps = state => {
 @connect(mapStateToProps)
 export default class Home extends TView {
     static navigationOptions = (data) => ({
-        title: "",
-        tabBarLabel: '',
-        tabBarIcon: ({tintColor, focused}) => {
+        title: " ",
+        tabBarLabel: ' ',
+        tabBarIcon: ({focused}) => {
             return <TTabBarItem selected={focused} icoImg={ImgTabbar.home_gray} icoSelectImg={ImgTabbar.home}/>
         },
         header:<HeaderSearchView/>
@@ -55,15 +55,15 @@ export default class Home extends TView {
 
         this.bannerList = [{
             url: ImgHome.banner,
-            name: "活动1",
+            name: "大海之声",
             data: "http://www.baidu.com"
         }, {
             url: ImgHome.banner,
-            name: "活动2",
+            name: "雨中漫步",
             data: "http://www.baidu.com"
         }, {
             url: ImgHome.banner,
-            name: "活动3",
+            name: "休闲时刻",
             data: "http://www.google.com"
         }]
     }
@@ -94,7 +94,7 @@ export default class Home extends TView {
                                 width: G_Theme.windowWidth / 3,
                                 padding: 20,
                                 height: 120,
-                            }} img={item.img} text={item.name} key={index} onPress={this.onPressMenu}/>)
+                            }} img={item.img} text={item.name} key={index} onPress={()=>this.onPressMenuBtn(item)}/>)
                         })
                     }
                 </View>
@@ -102,18 +102,19 @@ export default class Home extends TView {
 
         </View>
     }
-    onPressMenu=()=>{
 
+    onPressMenuBtn=(data)=>{
+        G_NavUtil.pushToView("MusicView",data);
     }
 
     componentDidMount() {
         !G_PLATFORM_IOS ? setTimeout(() => {
             this.setState({showBanner: true})
-        }, 1000) : null;
+        }, 500) : null;
     }
 
     onPressBanner = (data) => {
-        //this.setState({modalVisible: true});
+        G_NavUtil.pushToView("MusicView",data);
     }
 }
 const styles = StyleSheet.create({

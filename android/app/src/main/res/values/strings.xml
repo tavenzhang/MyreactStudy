@@ -1,4 +1,4 @@
 <resources>
     <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">n</string>
-    <string name="app_name">TForest</string>
+    <string name="app_name">口袋森林</string>
 </resources>

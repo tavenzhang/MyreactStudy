@@ -1,5 +1,6 @@
 import  ActionType   from "./redux/action/ActionType";
 import  action   from "./global/action";
+import  stringEnum   from "./global/stringEnum";
 import  style from "./global/config/style";
 import  server from "./global/config/server";
 import  storage from "./global/utils/storage";
@@ -38,16 +39,16 @@ export default class Root extends React.Component {
 
 
     componentDidMount() {
-        // G_MyStorage.getItem(G_EnumStroeKeys.CODE_PUSH, (data) => {
-        //     if(data&&data!="") {
-        //         let codePush = JSON.parse(data);
-        //         T_CheckCodePush(codePush.server,codePush.keyStr);
-        //     }else{
-        //         let codePush={};
-        //         codePush.keyStr= G_PLATFORM_IOS ? "RcWB1BblFfzejm9MhYIIRMtAfa2V4ksvOXqog":"OESoJepwvYUVO5JLX51iJl3LHucn4ksvOXqog"; //Staging
-        //         codePush.server="http://104.250.145.227:3000";
-        //         T_CheckCodePush(codePush.server,codePush.keyStr);
-        //     }
-        // })
+        G_MyStorage.getItem(G_EnumStroeKeys.CODE_PUSH, (data) => {
+            if(data&&data!="") {
+                let codePush = JSON.parse(data);
+                T_CheckCodePush(codePush.server,codePush.keyStr);
+            }else{
+                let codePush={};
+                codePush.keyStr= G_PLATFORM_IOS ? "FFqqKq9Mo6ta1zwnRbZa45nDEbyG4ksvOXqog":"XimWKsXFwnW9i0cy4k4NtgVfdXu24ksvOXqog"; //Staging
+                codePush.server="http://104.250.145.227:3000";
+                T_CheckCodePush(codePush.server,codePush.keyStr);
+            }
+        })
     }
 }

@@ -57,7 +57,7 @@ static BOOL isProduction = true;
       [[[[[FlurrySessionBuilder new] withLogLevel:FlurryLogLevelAll]
           withCrashReporting:YES] withSessionContinueSeconds:10]
           withAppVersion:@"0.1.2"];
-  [Flurry startSession:@"CN8QMWM9JDX8FKF67FRV" withSessionBuilder:builder];
+  [Flurry startSession:@"M6598SZGX2N43FDPK7F7" withSessionBuilder:builder];
 }
 - (void)registAppPush:(UIApplication *)application
     didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

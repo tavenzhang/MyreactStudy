@@ -17,7 +17,7 @@ Date.prototype.Format = function (fmt) { //author: meizz
 }
 
 
-const DateUtil={
+const G_DataUtil={
 
     formatSecondDate:(secondNum:Number)=>{
         let data= new Date(secondNum)
@@ -58,7 +58,7 @@ const DateUtil={
     }
 }
 
-global.G_DateUtil = DateUtil;
+global.G_DateUtil = G_DataUtil;
 
 const StringUtil={
     //2017-02-22  15:47:00

@@ -2,7 +2,7 @@ import React from 'react';
 import {
     View,
     StatusBar,
-    BackAndroid,
+    BackHandler,
     UIManager,
     ToastAndroid
 } from 'react-native';
@@ -46,7 +46,7 @@ export default class App extends React.Component {
         return (
             <View style={{flex:1}}>
                 <StatusBar
-                    barStyle='default'
+                    barStyle='light-content'
                     backgroundColor='transparent'
                     translucent={true}
                     hidden={G_PLATFORM_IOS ? false : true}
@@ -68,7 +68,7 @@ export default class App extends React.Component {
     //节点渲染以后
     componentWillMount() {
         if (!G_PLATFORM_IOS) {
-            BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
+            BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
         }
         //andorid setLayoutAnimatio 必须加入
         if (!G_PLATFORM_IOS) {
@@ -78,15 +78,14 @@ export default class App extends React.Component {
 
     componentWillUnmount() {
         if (!G_PLATFORM_IOS) {
-            BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid);
+            BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
         }
      }
 
 
     onBackAndroid = () => {
-        const routers = this.navigator.getCurrentRoutes();
-        if (routers.length > 1) {
-            this.navigator.pop();
+        if (G_NavState.routes.length > 1) {
+            G_NavUtil.pop()
             return true;
         }
         let now = new Date().getTime();

@@ -46,6 +46,8 @@ export default class TSwiper extends React.Component {
                             />
                             <View style={{position:"absolute",flex:1,zIndex:5, justifyContent:'center', alignItems:"center"}}>
                                 <TouchableOpacity  onPress={()=>{
+                                    TLog("TouchableOpacity-----",banner);
+                                    console.log("onPress-----",onPress)
                                     onPress(banner);
                                 }}>
                                 <Image

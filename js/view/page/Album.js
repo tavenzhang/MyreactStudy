@@ -4,20 +4,22 @@ import {
     Text
     , StyleSheet,
     ListView,
-    TouchableHighlight
+    Image, TouchableOpacity
 } from 'react-native';
 
 import {connect} from 'react-redux';
 import AIcon from 'react-native-vector-icons/FontAwesome';
 import TView from "../componet/TView";
 import TTabBarItem from "../componet/tabItem/TTabBarItem";
-import {ImgTabbar} from "../../assets/index";
+import {ImgAblum, ImgTabbar} from "../../assets/index";
 import HeaderSearchView from "./home/HeaderSearchView";
+import TFlatList from "../componet/TFlatList";
+import {TButtonView} from "../componet/button/TButton";
 
 const mapStateToProps = state => {
     return {
-       // noticeList: state.get("noticState").get("noticeList"),
-      //  awardMondy: state.get("noticState").get("awardMondy")
+        // noticeList: state.get("noticState").get("noticeList"),
+        //  awardMondy: state.get("noticState").get("awardMondy")
     }
 }
 
@@ -27,87 +29,79 @@ export default class Album extends TView {
         title: "",
         tabBarLabel: '',
         // Note: By default the icon is only shown on iOS. Search the showIcon option below.
-        tabBarIcon: ({tintColor, focused}) => {
+        tabBarIcon: ({focused}) => {
             return <TTabBarItem selected={focused} icoImg={ImgTabbar.albumn_gray} icoSelectImg={ImgTabbar.albumn}/>
         },
-        header:<HeaderSearchView/>
+        header: <HeaderSearchView/>
     }
+
     constructor(props) {
         super(props);
         this.state = {
-            dataSource: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}),
-            dataArray:[]
+            dataArray: [{
+                name: "丛林夜曲",
+                num: 8,
+                musics: [{img: ImgAblum.demo1}, {img: ImgAblum.demo2}, {img: ImgAblum.demo1}, {img: ImgAblum.demo2}]
+            }, {
+                name: "雨中漫步",
+                num: 11,
+                musics: [{img: ImgAblum.demo1}, {img: ImgAblum.demo2}, {img: ImgAblum.demo1}, {img: ImgAblum.demo2}]
+            },
+                {
+                    name: "侧耳听水",
+                    num: 8,
+                    musics: [{img: ImgAblum.demo1}, {img: ImgAblum.demo2}, {img: ImgAblum.demo1}, {img: ImgAblum.demo2}]
+                }, {
+                    name: "大海之声",
+                    num: 8,
+                    musics: [{img: ImgAblum.demo1}, {img: ImgAblum.demo2}, {img: ImgAblum.demo1}, {img: ImgAblum.demo2}]
+                },]
         };
     }
 
     renderBody() {
-        let ds = this.state.dataSource.cloneWithRows(this.state.dataArray);
         return (
             <View style={G_Style.appContentView}>
-                <ListView
-                    dataSource={ds}
+                <TFlatList
+                    dataList={this.state.dataArray}
                     renderRow={this._renderRow}
-                    enableEmptySections={true}
                 />
             </View>
         );
     }
 
     componentDidMount() {
-        // G_RunAfterInteractions(()=>{
-        //     ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_ALL_Lottery,(data)=>{
-        //         if(data.isSuccess)
-        //         {
-        //             this.setState({dataArray:data.data});
-        //         }
-        //     })
-        // })
+
     }
 
 
-
-    _renderRow = (rowData) => {
-        let itemContentView = [];
-        let lotteryList=[];
-        switch(rowData.series_name)
-        {
-            case "SSC":
-                lotteryList=rowData.win_number.split("");
-                break;
-            case "11-5":
-                lotteryList=rowData.win_number.split(" ");
-                break;
-        }
-
-        if (lotteryList.length>0) {
-            lotteryList.map((item, index) => {
-                itemContentView.push(<NumberCircle key={`${index}w`} data={item} color="#f00" radius={16}
-                                                   dim={index == 0 ? 0 : 4}/>);
-            })
-        }
+    _renderRow = (item) => {
         return (
-            <TouchableHighlight onPress={() => this.itemClick(rowData)} underlayColor='rgba(0,0,0,0)'>
-                <View style={styles.row}>
-                    <View style={{flexDirection: "row", paddingTop: 5, alignItems: "center"}}>
-                        <Text style={{fontSize: 16, color: "#f00"}}>{rowData.lottery_name}</Text>
-                        <Text style={{fontSize: 12, color: "#666", marginLeft: 10}}>{`第${rowData.issue}期`}</Text>
-                        <Text style={{fontSize: 12, color: "#666", marginLeft: 10}}>{rowData.offical_time}</Text>
-                    </View>
-                    <View style={{flexDirection: "row", justifyContent: "space-between", marginVertical:15}}>
-                        <View style={{marginTop: 5, justifyContent: "center", flexDirection: "row"}}>
-                            {itemContentView}
+            <View style={{marginHorizontal: 20, marginBottom: 20}}>
+                <View style={{flexDirection: "row", justifyContent: "space-between", marginBottom: 10}}>
+                    <Text style={{fontSize: 18, fontWeight: "bold", color: "#666"}}>{item.name}</Text>
+                    <TButtonView onPress={() => this.onPreeAbulm(item)}>
+                        <View style={{flexDirection: "row", alignItems: "center"}}>
+                            <Text>{item.num}</Text>
+                            <Image resizeMode={"center"} source={ImgAblum.ablumWave}/>
                         </View>
-                        <AIcon name="angle-right" style={styles.iconNormal}/>
-                    </View>
+                    </TButtonView>
                 </View>
-            </TouchableHighlight>
+                <View style={{flexDirection: "row", justifyContent: "space-between"}}>
+                    {item.musics.map((item, index) => {
+                        return <TouchableOpacity onPress={this.onPreeMusic} key={index} style={{flex: 1}}>
+                            <Image source={item.img} style={{
+                                width: 80, height: 160, borderRadius: (index == 0 || index == 3) ? 5 : 0
+                            }}/></TouchableOpacity>
+                    })}
+                </View>
+            </View>
         );
     }
 
     itemClick = (data) => {
-       TLog("itemClick-----",data)
-        switch(data.series_name)
-        {
+        TLog("itemClick-----", data)
+        switch (data.series_name) {
             case "SSC":
                 G_NavUtil.pushToView(G_NavViews.SSC_History({...data}));
                 break;
@@ -115,6 +109,14 @@ export default class Album extends TView {
                 G_NavUtil.pushToView(G_NavViews.G_11_5_History({...data}));
                 break;
         }
+    }
+
+    onPreeAbulm = (data) => {
+        G_NavUtil.pushToView("MusicView", data);
+    }
+
+    onPreeMusic = () => {
+        G_NavUtil.pushToView("PlayMusicView", {title: " "})
     }
 }
 

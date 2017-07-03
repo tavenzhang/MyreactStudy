@@ -1,4 +1,4 @@
-package com.tcp.nativeExtention;
+package com.tforest.nativeExtention;
 
 
 import com.facebook.react.ReactPackage;

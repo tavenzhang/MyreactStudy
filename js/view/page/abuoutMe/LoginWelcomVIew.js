@@ -7,11 +7,15 @@ import {
 } from 'react-native';
 import TView from "../../componet/TView";
 import {ImgAbuotMe} from "../../../assets/index";
-import {TButton} from "../../componet/button/TButton";
+import {TButton, TButtonFont} from "../../componet/button/TButton";
+import NavHeaderBar from "../../componet/NavHeaderBar";
 
 export  default class LoginWelcomVIew extends TView {
-    static navigationOptions = (data) => ({
-        header:<View style={{position: "absolute"}}><Text>2222</Text></View>
+    static navigationOptions = ({navigation}) => ({
+        // header:<View style={{position: "absolute", left:0, top:0,zIndex:3}}>
+        //     <TButtonFont style={{fontSize:30, marginLeft:15,color:"white", marginTop:15, fontWeight:"bold"}} fontName={G_EnumFontNames.Header_Arrow} onPress={G_NavUtil.pop}/>
+        //     </View>
+        header:<NavHeaderBar navigation={navigation} rightBtnName={"登录"}/>
     })
     render () {
         return (
@@ -25,6 +29,7 @@ export  default class LoginWelcomVIew extends TView {
         );
     }
 }
+
 const styles = StyleSheet.create({
    btn:{
        width:G_Theme.windowWidth*3/4,

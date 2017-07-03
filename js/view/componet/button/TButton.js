@@ -88,6 +88,11 @@ export class TButtonSimpleText extends React.Component {
         disabledStyle:PropTypes.any,
     }
 
+  static defaultProps ={
+      containerStyle: {backgroundColor:"transparent"},
+      textStyle:{backgroundColor:"transparent", color:"white"},
+    }
+
     render() {
         const {containerStyle,onPress, btnName,textStyle,disabledStyle,disable} = this.props;
         return (
@@ -102,16 +107,42 @@ export class TButtonImg extends React.PureComponent {
         img:PropTypes.any,
         onPress:PropTypes.func,
         style:PropTypes.object,
-        text:PropTypes.string
+        text:PropTypes.string,
+        resizeMode:PropTypes.string
+    }
+
+    static defaultProps={
+        resizeMode:"center"
     }
 
     render()
     {
-        let {img,onPress,text,style}=this.props
+        let {img,onPress,text,style,resizeMode}=this.props
        return  (<TouchableOpacity style={[style]} onPress={onPress}>
-              <Image resizeMode={"center"}  source={img} style={{ flex:1} }/>
+              <Image resizeMode={resizeMode}  source={img} style={{ flex:1} }/>
            {text ? <Text>{text}</Text>:null}
+        </TouchableOpacity>)
+    }
+}
+
+export class TButtonFont extends React.PureComponent {
+    static  propTypes={
+        onPress:PropTypes.func,
+        style:PropTypes.object,
+        fontName:PropTypes.string
+    }
+
+    static defaultProps={
+        style:{fontSize:20, color:"white", fontWeight:"bold"}
+    }
+
+    render()
+    {
+        let {onPress,style,fontName}=this.props
+        return  (<TouchableOpacity style={{backgroundColor:"transparent"}} onPress={onPress}>
+              <AIcon style={style} name={fontName} />
         </TouchableOpacity>)
     }
 
 }
+

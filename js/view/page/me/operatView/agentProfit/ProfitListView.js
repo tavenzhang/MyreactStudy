@@ -84,7 +84,7 @@ export default class ProfitListView extends React.Component {
         G_NavUtil.pushToView(G_NavViews.ProfitView({
             title: '盈亏详情',
             profitData: profitData,
-            formatMoney:this.formatMoney,
+            formatMoney: this.formatMoney,
         }));
     }
 
@@ -135,15 +135,24 @@ export default class ProfitListView extends React.Component {
                         </View>
                         <View style={[styles.itemContentStyle, {flex: 2}]}>
                             <Text style={[styles.textItemStyle]}
-                                  numberOfLines={1}>投注: {this.formatMoney(oSelfProfit.turnover)}</Text>
+                                  numberOfLines={1}>投注:
+                                <Text style={[{color: 'red'}]}> {this.formatMoney(oSelfProfit.turnover)}</Text>
+                            </Text>
                             <Text style={[styles.textItemStyle]}
-                                  numberOfLines={1}>返点: {this.formatMoney(oSelfProfit.commission)}</Text>
+                                  numberOfLines={1}>返点:
+                                <Text style={[{color: 'red'}]}> {this.formatMoney(oSelfProfit.commission)}</Text>
+                            </Text>
                         </View>
                         <View style={[styles.itemContentStyle, {flex: 2}]}>
                             <Text style={[styles.textItemStyle]}
-                                   numberOfLines={1}>中奖: {this.formatMoney(oSelfProfit.prize) +''}</Text>
+                                  numberOfLines={1}>中奖:
+                                <Text style={[{color: 'red'}]}> {this.formatMoney(oSelfProfit.prize)}</Text>
+                            </Text>
                             <Text style={[styles.textItemStyle]}
-                                  numberOfLines={1}>盈亏: {this.formatMoney(oSelfProfit.profit_loss)}</Text>
+                                  numberOfLines={1}>盈亏:
+                                <Text
+                                    style={[{color: oSelfProfit.profit_loss > 0 ? 'red' : 'green'}]}> {this.formatMoney(oSelfProfit.profit_loss)}</Text>
+                            </Text>
                         </View>
                         <View style={styles.itemContentStyle}>
                             <AIcon name={"angle-right"}
@@ -170,14 +179,24 @@ export default class ProfitListView extends React.Component {
                         </View>
                         <View style={[styles.itemContentStyle, {flex: 2}]}>
                             <Text style={[styles.textItemStyle]}
-                                  numberOfLines={1}>投注: {this.formatMoney(oAgentSumPerDay.team_turnover)}</Text>
+                                  numberOfLines={1}>投注:
+                                <Text style={[{color: 'red'}]}>{this.formatMoney(oAgentSumPerDay.team_turnover)}</Text>
+                            </Text>
                             <Text style={[styles.textItemStyle]}
-                                  numberOfLines={1}>返点: {this.formatMoney(oAgentSumPerDay.team_commission)}</Text>
+                                  numberOfLines={1}>返点:
+                                <Text
+                                    style={[{color: 'red'}]}>{this.formatMoney(oAgentSumPerDay.team_commission)}</Text>
+                            </Text>
                         </View>
                         <View style={[styles.itemContentStyle, {flex: 2}]}>
-                            <Text style={styles.textItemStyle} numberOfLines={1}>中奖: {this.formatMoney(oAgentSumPerDay.team_prize)}</Text>
+                            <Text style={styles.textItemStyle} numberOfLines={1}>中奖:
+                                <Text style={[{color: 'red'}]}>{this.formatMoney(oAgentSumPerDay.team_prize)}</Text>
+                            </Text>
                             <Text style={[styles.textItemStyle]}
-                                  numberOfLines={1}>盈亏: {this.formatMoney(oAgentSumPerDay.team_profit_loss)}</Text>
+                                  numberOfLines={1}>盈亏:
+                                <Text
+                                    style={[{color: oAgentSumPerDay.team_profit_loss > 0 ? 'red' : 'green'}]}> {this.formatMoney(oAgentSumPerDay.team_profit_loss)}</Text>
+                            </Text>
                         </View>
                         <View style={styles.itemContentStyle}>
                             <AIcon name={"angle-right"}
@@ -202,14 +221,18 @@ export default class ProfitListView extends React.Component {
                     </View>
                     <View style={[styles.itemContentStyle, {flex: 2}]}>
                         <Text style={[styles.textItemStyle]}
-                              numberOfLines={1}>投注: {this.formatMoney(data.team_turnover)}</Text>
+                              numberOfLines={1}>投注: <Text
+                            style={[{color: 'red'}]}> {this.formatMoney(data.team_turnover)}</Text></Text>
                         <Text style={[styles.textItemStyle]}
-                              numberOfLines={1}>返点: {this.formatMoney(data.team_commission)}</Text>
+                              numberOfLines={1}>返点: <Text
+                            style={[{color: 'red'}]}> {this.formatMoney(data.team_commission)}</Text></Text>
                     </View>
                     <View style={[styles.itemContentStyle, {flex: 2}]}>
-                        <Text style={styles.textItemStyle} numberOfLines={1}>中奖: {this.formatMoney(data.team_prize)}</Text>
-                        <Text style={[styles.textItemStyle]}
-                              numberOfLines={1}>盈亏: {this.formatMoney(data.team_profit_loss)}</Text>
+                        <Text style={styles.textItemStyle} numberOfLines={1}>中奖: <Text
+                            style={[{color: 'red'}]}> {this.formatMoney(data.team_prize)}</Text></Text>
+                        <Text style={[styles.textItemStyle,]}
+                              numberOfLines={1}>盈亏:<Text
+                            style={[{color: data.team_profit_loss > 0 ? 'red' : 'green'}]}> {this.formatMoney(data.team_profit_loss)}</Text></Text>
                     </View>
                     <View style={styles.itemContentStyle}>
                         <AIcon name={"angle-right"}

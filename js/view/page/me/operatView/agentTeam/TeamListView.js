@@ -60,12 +60,12 @@ export default class TeamListView extends React.Component {
             {/*<TouchableHighlight key={data.id} onPress={() => this.item(data.username)} underlayColor='rgba(0,0,0,0)'>*/}
             <Text style={[styles.contentText,]}>{data.username}</Text>
             {/*</TouchableHighlight>*/}
-            <Text style={[styles.contentText]}>{data.prize_group}</Text>
+            <Text style={[styles.contentText,{color:'#B8860B'}]}>{data.prize_group}</Text>
             <Text style={[styles.contentText]}>{data.sub_user_counts}</Text>
-            <Text style={[styles.contentText]}>{data.profit}</Text>
-            <Text style={[styles.contentText]}>{data.turnover}</Text>
+            <Text style={[styles.contentText,{color:data.profit>0?'red':'green'}]}>{ G_DateUtil.formatMoney(data.profit)}</Text>
+            <Text style={[styles.contentText,{color:'red'}]}>{ G_DateUtil.formatMoney(data.turnover)}</Text>
 
-            <TouchableHighlight style={{padding: 2,marginRight:5,marginLeft:5 , flex: 1,
+            <TouchableHighlight style={{margin:5,padding: 2 , flex: 1,
                 overflow: 'hidden',
                 borderRadius: 10,
                 backgroundColor: '#d7213c'}} onPress={() => this.item(data.username)} underlayColor='rgba(0,0,0,0)'>
@@ -81,20 +81,19 @@ const styles = StyleSheet.create({
         borderColor: '#ccc',
         flexDirection: "row",
         height:40,
-        paddingTop:5,
-        paddingBottom:5,
+        justifyContent: "center",
 
     },
     defaultStyle: {
         flexDirection: "row"
     },
     textStyle: {
+        justifyContent: "center",
+        textAlign:'center',
         width: 150,
         left: 10,
         fontSize: 14,
         height: G_Theme.textInpuntH,
-        marginRight: 15,
-        paddingLeft: 5
     },
     headText: {
         lineHeight:40,
@@ -104,6 +103,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     contentText: {
+        lineHeight:40,
         padding: 2,
         flex: 1,
         fontSize: 12,

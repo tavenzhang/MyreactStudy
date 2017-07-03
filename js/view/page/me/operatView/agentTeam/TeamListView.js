@@ -77,7 +77,7 @@ export default class TeamListView extends React.Component {
 }
 const styles = StyleSheet.create({
     row:{
-        borderBottomWidth:0.5,
+        borderBottomWidth:1,
         borderColor: '#ccc',
         flexDirection: "row",
         height:40,
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
         paddingLeft: 5
     },
     headText: {
-        padding: 2,
+        lineHeight:40,
         flex: 1,
         borderColor: "#ccc",
         textAlign: "center",

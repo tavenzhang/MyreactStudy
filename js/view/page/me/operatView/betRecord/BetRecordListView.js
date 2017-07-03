@@ -11,6 +11,8 @@ import AIcon from 'react-native-vector-icons/FontAwesome';
 export default class BetRecordListView extends React.Component {
     constructor(props) {
         super(props);
+        this.lastMonth = null;
+        this.lastDay = null;
     }
 
     render() {
@@ -23,26 +25,45 @@ export default class BetRecordListView extends React.Component {
     }
 
     _renderRow = (rowData) => {
-        let {gameModel,appModel} = this.props;
+        TLog('rowData',rowData);
+
+        let {gameModel, appModel} = this.props;
         let dataName = G_DateUtil.formatItemDateString(rowData.bought_at);
-        let gameName = gameModel.getGameNameById(rowData.lottery_id);
+        let month = G_DateUtil.formatMonth(rowData.bought_at),
+            day = G_DateUtil.formatDay(rowData.bought_at);
+        if (this.lastMonth == month && this.lastDay == day) {
+            month = '';
+            day = '';
+        } else {
+            this.lastMonth = month;
+            this.lastDay = day;
+        }
+        let gameName = gameModel.getGameNameById(rowData.lottery_id),
+         statusColor = rowData.status == 3 ? G_Theme.primary : G_Theme.grayDeep,
+            amount=G_DateUtil.formatMoney(rowData.amount);
         return (
             <View>
                 <TouchableHighlight onPress={() => this.itemClick(rowData)} underlayColor='rgba(10,10,10,0.2)'>
                     <View style={styles.row}>
-                        <View style={[styles.itemContentStyle, {flex: 1}]}>
-                            <Text style={styles.textItemStyle} numberOfLines={2}>{dataName}</Text>
+                        <View style={[styles.itemContentStyle,month==''?'':styles.record,{flex: 1}]}>
+                            <Text style={[styles.textItemStyle,{ color:G_Theme.primary}]} numberOfLines={1}>{month}</Text>
+                            <Text style={[styles.textItemStyle, {fontSize: 16, color:G_Theme.primary, fontWeight: "bold",}]}
+                                  numberOfLines={1}>{day} </Text>
                         </View>
-                        <View style={[styles.itemContentStyle, {flex: 2}]}>
+                        <View style={[styles.itemContentStyle, styles.record, {flex: 5}]}>
                             <Text style={styles.textItemStyle}>{gameName}</Text>
+                            {/*<Text style={{fontSize: 12, color: "gray", marginTop: 5}} numberOfLines={1}>{`投注号码:${rowData.bet_number}`}</Text>*/}
                             <Text style={{fontSize: 12, color: "gray", marginTop: 5}}
-                                  numberOfLines={1}>{`投注号码:${rowData.bet_number}`}</Text>
+                                  numberOfLines={1}>{`${amount}元    ${rowData.bet_number}`}</Text>
 
                         </View>
-                        <View style={styles.itemContentStyle}>
-                            <Text style={[styles.textItemStyle,{color:"red"}]}>{appModel.getAProjectStatus(rowData.status)}</Text>
+                        <View style={[styles.itemContentStyle, styles.record,{flex: 2}]}>
+                            <Text style={[styles.textItemStyle, {
+                                fontWeight: 'bold',
+                                color: statusColor
+                            }]}>{appModel.getAProjectStatus(rowData.status)}</Text>
                         </View>
-                        <View style={styles.itemContentStyle}>
+                        <View style={[styles.itemContentStyle, styles.record]}>
                             <AIcon name={"angle-right"}
                                    style={{fontSize: 25, alignSelf: "center", color: "gray"}}/>
                         </View>
@@ -53,7 +74,7 @@ export default class BetRecordListView extends React.Component {
     }
 
     itemClick = (data) => {
-        G_NavUtil.pushToView(G_NavViews.BetDetailView({...data, title: "投注详情",...this.props}));
+        G_NavUtil.pushToView(G_NavViews.BetDetailView({...data, title: "投注详情", ...this.props}));
     }
 }
 
@@ -66,7 +87,7 @@ const styles = StyleSheet.create({
     },
     itemContentStyle: {
         flex: 1,
-        alignItems: "center",
+        // alignItems: "center",
         justifyContent: "center"
         // borderWidth: 1
     },
@@ -87,9 +108,15 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         height: 50,
-        borderBottomWidth: 0.5,
+        // borderBottomWidth: 1,
         marginLeft: 10,
-        borderColor: "gray",
+        // borderColor: G_Theme.gray,
+        // borderWidth: 1,
+    },
+    record: {
+        borderTopWidth: 1,
+        // marginLeft: 10,
+        borderColor: G_Theme.gray,
         // borderWidth: 1,
     },
 

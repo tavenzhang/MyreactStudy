@@ -22,6 +22,7 @@ const mapStateToProps = state => {
         gameModel:state.get("appState").get("gameModel"),
         playModel:state.get("appState").get("playModel"),
         appModel:state.get("appState").get("appModel"),
+        commonModel:state.get("appState").get("commonModel"),
     }
 }
 
@@ -279,7 +280,7 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         height: 40,
-        borderBottomColor: "#ddd",
+        borderBottomColor: G_Theme.gray,
         borderBottomWidth: 1,
     },
 });

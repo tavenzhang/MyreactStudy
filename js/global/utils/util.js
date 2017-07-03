@@ -47,6 +47,27 @@ global.G_DateUtil= {
         let dataName = ` ${date.getMonth() + 1}月${date.getDate()}日 ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} `
         return dataName
     },
+    formatShortDateString(dataString)
+    {
+        let newstr = dataString.replace(/-/g, "/");
+        let date = new Date(Date.parse(newstr));
+        let dataName = `${date.getMonth() + 1}月${date.getDate()}日`
+        return dataName
+    },
+    formatMonth(dataString)
+    {
+        let newstr = dataString.replace(/-/g, "/");
+        let date = new Date(Date.parse(newstr));
+        let dataName = `${date.getMonth() + 1}月`
+        return dataName
+    },
+    formatDay(dataString)
+    {
+        let newstr = dataString.replace(/-/g, "/");
+        let date = new Date(Date.parse(newstr));
+        let dataName = `${date.getDate()}`
+        return dataName
+    },
     formatSimpleItemDateString(dataString)
     {
         if (!dataString) return ""
@@ -57,6 +78,33 @@ global.G_DateUtil= {
         let min = date.getMinutes() > 9 ? `${date.getMinutes()}` : `0${date.getMinutes()}`;
         let dataName = ` ${day} \n ${hour}:${min} `;
         return dataName
+    },
+    //处理钱
+    formatMoney(num) {
+
+        var num = Number(num),
+            re = /(-?\d+)(\d{3})/,
+            n = arguments[1] ? arguments[1] : 2;
+        if (Number.prototype.toFixed) {
+            num = (num).toFixed(n)
+        } else {
+            var j = 1;
+            var b = 1;
+            while (j >= n) {
+                b = b * 10;
+                j++;
+            }
+            num = Math.round(num * b) / b
+        }
+        num = '' + num;
+        arr = num.split('.')
+        while (re.test(arr[0])) {
+            arr[0] = arr[0].replace(re, "$1,$2")
+        }
+        if (!!arr[1]) {
+            num = arr[0] + '.' + arr[1];
+        }
+        return num
     }
 }
 

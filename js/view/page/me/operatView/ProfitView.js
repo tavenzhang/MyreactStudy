@@ -52,7 +52,7 @@ export default class AgentProfitView extends BaseView {
             <View style={G_Style.appView}>
                 <View style={[styles.profitRow]}>
                     <View style={[styles.itemContentStyle]}>
-                        <Text style={styles.textItemName}>{profitData.username}</Text>
+                        <Text style={[styles.content,styles.textItemName]}>{profitData.username}</Text>
                     </View>
 
                 </View>
@@ -60,14 +60,14 @@ export default class AgentProfitView extends BaseView {
                     <View style={[styles.itemContentStyle,{paddingLeft: 30}]}>
                         <Text style={[styles.textMoney]}
                               numberOfLines={1}>充值总额: </Text>
-                        <Text style={[{paddingLeft:10}]}>{formatMoney(profitData.deposit)}</Text>
+                        <Text style={[{paddingLeft:10},styles.content]}>{formatMoney(profitData.deposit)}</Text>
 
                     </View>
                     <View style={[styles.itemContentStyle]}>
 
                         <Text style={[styles.textMoney]}
                               numberOfLines={1}>提现总额:</Text>
-                        <Text style={[{paddingLeft:10}]}>{formatMoney(profitData.withdrawal)}</Text>
+                        <Text style={[{paddingLeft:10},styles.content]}>{formatMoney(profitData.withdrawal)}</Text>
 
                     </View>
                 </View>
@@ -75,14 +75,14 @@ export default class AgentProfitView extends BaseView {
                     <View style={[styles.itemContentStyle, {paddingLeft: 30}]}>
                         <Text style={[styles.textMoney]}
                               numberOfLines={1}>投注总额: </Text>
-                        <Text style={[{paddingLeft:10}]}>{formatMoney(profitData.turnover)}</Text>
+                        <Text style={[{paddingLeft:10},styles.content]}>{formatMoney(profitData.turnover)}</Text>
 
                     </View>
                     <View style={[styles.itemContentStyle]}>
 
                         <Text style={[styles.textMoney]}
                               numberOfLines={1}>派奖总额:</Text>
-                        <Text style={[{paddingLeft:10}]}>{formatMoney(profitData.prize)}</Text>
+                        <Text style={[{paddingLeft:10},styles.content]}>{formatMoney(profitData.prize)}</Text>
 
                     </View>
                 </View>
@@ -90,26 +90,26 @@ export default class AgentProfitView extends BaseView {
                     <View style={[styles.itemContentStyle, {paddingLeft: 30}]}>
                         <Text style={[styles.textMoney]}
                               numberOfLines={1}>游戏盈亏: </Text>
-                        <Text style={[{paddingLeft:10}]}>{formatMoney(profitData.profit)}</Text>
+                        <Text style={[{paddingLeft:10},styles.content]}>{formatMoney(profitData.profit)}</Text>
 
                     </View>
                     <View style={[styles.itemContentStyle]}>
 
                         <Text style={[styles.textMoney]}
                               numberOfLines={1}>返点总额:</Text>
-                        <Text style={[{paddingLeft:10}]}>{formatMoney(profitData.commission)}</Text>
+                        <Text style={[{paddingLeft:10},styles.content]}>{formatMoney(profitData.commission)}</Text>
                     </View>
                 </View>
                 <View style={[styles.profitRow]}>
                     <View style={[styles.itemContentStyle, {paddingLeft: 30}]}>
                         <Text style={[styles.textMoney]}
                              >促销红利:</Text>
-                        <Text style={[{paddingLeft:10}]}
+                        <Text style={[{paddingLeft:10},styles.content]}
                         >{formatMoney(profitData.dividend)}</Text>
                     </View>
                     <View style={[styles.itemContentStyle]}>
                         <Text style={[styles.textMoney]}>净盈亏:</Text>
-                        <Text style={[profitData.profit_loss>0?{color:'red'}:{color:'green'},{paddingLeft:10}]}
+                        <Text style={[styles.content,profitData.profit_loss>0?{color:'red'}:{color:'green'},{paddingLeft:10}]}
                              >{formatMoney(profitData.profit_loss)}</Text>
                     </View>
                 </View>
@@ -120,20 +120,28 @@ export default class AgentProfitView extends BaseView {
 
 const styles = StyleSheet.create({
     textMoney:{
-     color:'#ccc'
+     color:G_Theme.black
     },
     profitRow: {
         width: G_Theme.windowWidth,
-        height: 50,
-        paddingTop: 5,
-        paddingBottom: 5,
+        height: 70,
+        // paddingTop: 5,
+        // paddingBottom: 5,
         flexDirection: "row",
-        borderBottomWidth: 0.5,
+        borderBottomWidth: 1,
         borderColor: '#ccc',
 
     },
     textItemName: {
         textAlign: "center",
+        color:G_Theme.black,
+
+    },
+    content:{
+        fontSize:16,
+        fontWeight:'bold',
+        color:G_Theme.primary,
+        justifyContent: "center",
 
     },
 
@@ -141,13 +149,12 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         flex: 1,
         justifyContent: "center",
-        borderLeftWidth: 0.5,
+        borderLeftWidth: 1,
         borderColor: '#ccc',
     },
 
     textContent: {
         marginLeft: 20
-
     },
     inputContain: {
         marginLeft: 20,

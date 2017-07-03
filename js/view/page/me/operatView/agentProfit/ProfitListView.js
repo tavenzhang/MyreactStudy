@@ -140,7 +140,8 @@ export default class ProfitListView extends React.Component {
                                   numberOfLines={1}>返点: {this.formatMoney(oSelfProfit.commission)}</Text>
                         </View>
                         <View style={[styles.itemContentStyle, {flex: 2}]}>
-                            <Text style={styles.textItemStyle}>中奖: {this.formatMoney(oSelfProfit.prize)}</Text>
+                            <Text style={[styles.textItemStyle]}
+                                   numberOfLines={1}>中奖: {this.formatMoney(oSelfProfit.prize) +''}</Text>
                             <Text style={[styles.textItemStyle]}
                                   numberOfLines={1}>盈亏: {this.formatMoney(oSelfProfit.profit_loss)}</Text>
                         </View>
@@ -174,7 +175,7 @@ export default class ProfitListView extends React.Component {
                                   numberOfLines={1}>返点: {this.formatMoney(oAgentSumPerDay.team_commission)}</Text>
                         </View>
                         <View style={[styles.itemContentStyle, {flex: 2}]}>
-                            <Text style={styles.textItemStyle}>中奖: {this.formatMoney(oAgentSumPerDay.team_prize)}</Text>
+                            <Text style={styles.textItemStyle} numberOfLines={1}>中奖: {this.formatMoney(oAgentSumPerDay.team_prize)}</Text>
                             <Text style={[styles.textItemStyle]}
                                   numberOfLines={1}>盈亏: {this.formatMoney(oAgentSumPerDay.team_profit_loss)}</Text>
                         </View>
@@ -206,7 +207,7 @@ export default class ProfitListView extends React.Component {
                               numberOfLines={1}>返点: {this.formatMoney(data.team_commission)}</Text>
                     </View>
                     <View style={[styles.itemContentStyle, {flex: 2}]}>
-                        <Text style={styles.textItemStyle}>中奖: {this.formatMoney(data.team_prize)}</Text>
+                        <Text style={styles.textItemStyle} numberOfLines={1}>中奖: {this.formatMoney(data.team_prize)}</Text>
                         <Text style={[styles.textItemStyle]}
                               numberOfLines={1}>盈亏: {this.formatMoney(data.team_profit_loss)}</Text>
                     </View>
@@ -221,29 +222,7 @@ export default class ProfitListView extends React.Component {
 
     formatMoney(num) {
 
-        var num = Number(num),
-            re = /(-?\d+)(\d{3})/,
-            n = arguments[1] ? arguments[1] : 2;
-        if (Number.prototype.toFixed) {
-            num = (num).toFixed(n)
-        } else {
-            var j = 1;
-            var b = 1;
-            while (j >= n) {
-                b = b * 10;
-                j++;
-            }
-            num = Math.round(num * b) / b
-        }
-        num = '' + num;
-        arr = num.split('.')
-        while (re.test(arr[0])) {
-            arr[0] = arr[0].replace(re, "$1,$2")
-        }
-        if (!!arr[1]) {
-            num = arr[0] + '.' + arr[1];
-        }
-        return num
+        return G_DateUtil.formatMoney(num);
     }
 }
 const styles = StyleSheet.create({
@@ -271,7 +250,7 @@ const styles = StyleSheet.create({
         paddingTop: 5,
         paddingBottom: 5,
         flexDirection: "row",
-        borderBottomWidth: 0.5,
+        borderBottomWidth: 1,
         borderColor: '#ccc',
 
     },

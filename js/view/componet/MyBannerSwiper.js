@@ -25,7 +25,7 @@ export default class MyBannerSwiper extends React.Component {
                 autoplay={true}
                 dot={<View style={styles.customDot} />}
                 activeDot={<View style={styles.customActiveDot} />}
-                showsPagination={false}
+                showsPagination={true}
                 paginationStyle={{
                         bottom: 5
                     }}

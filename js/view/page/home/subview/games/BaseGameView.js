@@ -69,10 +69,11 @@ export default class BaseGameView extends BaseView {
         let gameName = name;
         if (this.state.selectItem) {
             if (currentGameWay.parent_parent_name_cn) {
-                gameName = "[" + currentGameWay.parent_parent_name_cn + "]-" + this.state.selectItem.name;
+                gameName = "[" + currentGameWay.parent_parent_name_cn + "]-" + this.state.selectItem.name_cn;
             }
             else {
-                gameName = "[" + name + "]-" + this.state.selectItem.name;
+
+                gameName = "[" + name + "]-" + this.state.selectItem.name_cn;
             }
         }
         return gameName;
@@ -176,7 +177,7 @@ export default class BaseGameView extends BaseView {
                         history_lotterys: pd.history_lotterys.split("-"),
                     });
                     if (!this.state.selectItem && pd.defaultMethodId) {
-                        const defaultGame = {"id": pd.defaultMethodId + '', "name": pd.defaultMethod_cn}
+                        const defaultGame = {"id": pd.defaultMethodId + '', "name_cn": pd.defaultMethod_cn}
                         this.clickMenuItem(defaultGame);
                     }
                 } else {
@@ -209,11 +210,8 @@ export default class BaseGameView extends BaseView {
                     ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.GET_GAME_WAY, d => {
                         const pd = d.data;
                         gameMethodHash[pd.id] = pd;
-                        if (pd.name_cn) {
-                            data.name = pd.name_cn;
-                        }
-                        else {
-                            data.name = playModel.getWayNameById(data.id)
+                        if (pd.name_cn ==null) {
+                            data.name_cn = playModel.getWayNameById(data.id)
                         }
                         this.setState({
                             currentGameWay: pd,
@@ -224,7 +222,6 @@ export default class BaseGameView extends BaseView {
                         }, () => {
                             this.props.navigation.setParams({gameTitle: this.getGameTitle()})
                         });
-
 
                     });
                 }

@@ -49,41 +49,51 @@ global.T_CheckCodePush = (serverName, keyStr) => {
         if (__DEV__) {
             // debug模式
         } else {
+            CodePush.sync({
+                deploymentKey: keyStr,
+                updateDialog: {
+                    optionalIgnoreButtonLabel: '稍后',
+                    optionalInstallButtonLabel: '马上更新',
+                    optionalUpdateMessage: '有新版本了，是否更新？',
+                    title: '更新提示'
+                },
+                installMode: CodePush.InstallMode.IMMEDIATE
+            })
             // release模式
-            CodePush.checkForUpdate()
-                .then( (update) =>{
-                    if( !update ){
-                        TLog("codePush--------","app是最新版了")
-                        CodePush.sync({
-                            deploymentKey: keyStr,
-                            updateDialog: {
-                                optionalIgnoreButtonLabel: '稍后',
-                                optionalInstallButtonLabel: '马上更新',
-                                optionalUpdateMessage: '有新版本了，是否更新？',
-                                title: '更新提示'
-                            },
-                            installMode: CodePush.InstallMode.IMMEDIATE
-                        })
-                    }else {
-                        TLog("codePush--------",update)
-                        CodePush.sync({
-                            deploymentKey: keyStr,
-                            updateDialog: {
-                                optionalIgnoreButtonLabel: '稍后',
-                                optionalInstallButtonLabel: '马上更新',
-                                optionalUpdateMessage: '有新版本了，是否更新？',
-                                title: '更新提示'
-                            },
-                            installMode: CodePush.InstallMode.IMMEDIATE
-                        })
-                        let codePush={};
-                        codePush.keyStr=keyStr;
-                        codePush.server=serverName;
-                        G_MyStorage.setItem(G_EnumStroeKeys.CODE_PUSH,JSON.stringify(codePush));
-                    }
-                }).catch((err)=>{
-                TLog("codePush-------error-",err);
-            });
+            // CodePush.checkForUpdate()
+            //     .then( (update) =>{
+            //         if( !update ){
+            //             TLog("codePush--------","app是最新版了")
+            //             CodePush.sync({
+            //                 deploymentKey: keyStr,
+            //                 updateDialog: {
+            //                     optionalIgnoreButtonLabel: '稍后',
+            //                     optionalInstallButtonLabel: '马上更新',
+            //                     optionalUpdateMessage: '有新版本了，是否更新？',
+            //                     title: '更新提示'
+            //                 },
+            //                 installMode: CodePush.InstallMode.IMMEDIATE
+            //             })
+            //         }else {
+            //             TLog("codePush--------",update)
+            //             CodePush.sync({
+            //                 deploymentKey: keyStr,
+            //                 updateDialog: {
+            //                     optionalIgnoreButtonLabel: '稍后',
+            //                     optionalInstallButtonLabel: '马上更新',
+            //                     optionalUpdateMessage: '有新版本了，是否更新？',
+            //                     title: '更新提示'
+            //                 },
+            //                 installMode: CodePush.InstallMode.IMMEDIATE
+            //             })
+            //             let codePush={};
+            //             codePush.keyStr=keyStr;
+            //             codePush.server=serverName;
+            //             G_MyStorage.setItem(G_EnumStroeKeys.CODE_PUSH,JSON.stringify(codePush));
+            //         }
+            //     }).catch((err)=>{
+            //     TLog("codePush-------error-",err);
+            // });
         }
     }
 

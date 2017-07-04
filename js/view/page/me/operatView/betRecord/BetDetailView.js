@@ -62,9 +62,12 @@ export  default class BetDetailView extends BaseView {
                 <Text style={[styles.text, styles.winNumber]}>{data.winning_number}</Text>
             </View>
 
-            <View style={[styles.profitRow,{borderColor: G_Theme.gray,borderWidth:1, backgroundColor: '#fff',}]}>
+            <View style={[styles.profitRow,{borderColor: G_Theme.gray,backgroundColor: '#fff',}]}>
                 <Text style={styles.title}>投注号码:</Text>
-                <Text style={[styles.text, styles.betNumber]}>{data.bet_number}</Text>
+                <Text style={[styles.text,{color:G_Theme.grayDeep}]}>{data.title}  <Text style={{color:G_Theme.grayDeep}}>{data.multiple}倍</Text></Text>
+            </View>
+            <View style={[styles.profitRow,{borderColor: G_Theme.gray,borderWidth:1, backgroundColor: '#fff',}]}>
+                <Text style={[styles.text, styles.betNumber]}>{data.bet_number} </Text>
             </View>
 
             <View style={{flexDirection: "row", marginTop:20}}>

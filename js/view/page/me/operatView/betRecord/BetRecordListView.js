@@ -25,7 +25,6 @@ export default class BetRecordListView extends React.Component {
     }
 
     _renderRow = (rowData) => {
-        TLog('rowData',rowData);
 
         let {gameModel, appModel} = this.props;
         let dataName = G_DateUtil.formatItemDateString(rowData.bought_at);
@@ -54,19 +53,22 @@ export default class BetRecordListView extends React.Component {
                             <Text style={styles.textItemStyle}>{gameName}</Text>
                             {/*<Text style={{fontSize: 12, color: "gray", marginTop: 5}} numberOfLines={1}>{`投注号码:${rowData.bet_number}`}</Text>*/}
                             <Text style={{fontSize: 12, color: "gray", marginTop: 5}}
-                                  numberOfLines={1}>{`${amount}元    ${rowData.bet_number}`}</Text>
+                                  numberOfLines={1}>{`${amount}元    ${rowData.title}`}</Text>
 
                         </View>
                         <View style={[styles.itemContentStyle, styles.record,{flex: 2}]}>
                             <Text style={[styles.textItemStyle, {
+                                fontSize:16,
                                 fontWeight: 'bold',
-                                color: statusColor
-                            }]}>{appModel.getAProjectStatus(rowData.status)}</Text>
+                                color: statusColor,
+                                paddingRight:3
+                            }]}>{appModel.getAProjectStatus(rowData.status)}&nbsp;&nbsp;
+                            <AIcon name={"angle-right"} style={{fontSize: 25, paddingTop:2, alignSelf: "center", color: "gray"}}/></Text>
                         </View>
-                        <View style={[styles.itemContentStyle, styles.record]}>
-                            <AIcon name={"angle-right"}
-                                   style={{fontSize: 25, alignSelf: "center", color: "gray"}}/>
-                        </View>
+                        {/*<View style={[styles.itemContentStyle, styles.record]}>*/}
+                            {/*<AIcon name={"angle-right"}*/}
+                                   {/*style={{fontSize: 25, alignSelf: "center", color: "gray"}}/>*/}
+                        {/*</View>*/}
                     </View>
                 </TouchableHighlight>
             </View>

@@ -41,4 +41,22 @@ global.G_LayoutAnimationHelp={
         //     property: LayoutAnimation.Properties.scaleXY,
         // }
     },
+    springFadeDelete : {
+        duration: 600,
+        create: {
+            //type: LayoutAnimation.Types.spring,
+            type:LayoutAnimation.Types.spring,
+             //property: LayoutAnimation.Properties.scaleXY,
+            property:LayoutAnimation.Properties.opacity,
+            springDamping: 0.9,
+        },
+        update: {
+            type: LayoutAnimation.Types.spring,
+            springDamping: 0.6,
+        },
+        // delete:{
+        //     type: LayoutAnimation.Types.spring,
+        //     property: LayoutAnimation.Properties.scaleXY,
+        // }
+    }
 }

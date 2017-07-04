@@ -60,22 +60,22 @@ export default class AboutMe extends TView {
                 </View>
                 <View style={{flexDirection: "row", marginTop: 20}}>
                     <View style={styles.btnMenuSp}>
-                        <Text style={{height: 20, fontWeight:"bold", fontSize:16}}>0</Text>
+                        <Text style={{fontWeight:"bold", fontSize:16}}>0</Text>
                         <Text style={styles.textMunu}>喜欢</Text>
                     </View>
                     <View style={styles.btnMenuSp}>
-                        <Text style={{height: 20,fontWeight:"bold",fontSize:16}}>0</Text>
+                        <Text style={{fontWeight:"bold",fontSize:16}}>0</Text>
                         <Text style={styles.textMunu}>下载</Text>
                     </View>
                     <TButtonView containerStyle={[styles.btnMenuSp]}>
-                        <View>
-                            <Image resizeMode={"center"} source={ImgAbuotMe.config} style={{width: 30, height: 20}}/>
+                        <View style={{alignItems:"center"}}>
+                            <Image  resizeMode={"center"}  source={ImgAbuotMe.config}/>
                             <Text style={styles.textMunu}>设置</Text>
                         </View>
                     </TButtonView>
                     <TButtonView containerStyle={[styles.btnMenuSp]}>
-                        <View>
-                            <Image resizeMode={"center"} source={ImgAbuotMe.vip_gray} style={{width: 30, height: 20}}/>
+                        <View style={{alignItems:"center"}}>
+                            <Image resizeMode={"center"} source={ImgAbuotMe.vip_gray} />
                             <Text style={styles.textMunu}>会员</Text>
                         </View>
                     </TButtonView>
@@ -99,7 +99,9 @@ const styles = StyleSheet.create({
     btnMenuSp: {
         alignItems: "center",
         marginRight: 40,
-        marginLeft: 15
+        marginLeft: 15,
+        justifyContent: "center",
+        height:30,
     },
     textMunu: {
         marginTop: 10

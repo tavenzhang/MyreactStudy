@@ -67,6 +67,7 @@ export default class App extends React.Component {
 
     //节点渲染以后
     componentWillMount() {
+        TLog("componentWillMount--")
         if (!G_PLATFORM_IOS) {
             BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
         }

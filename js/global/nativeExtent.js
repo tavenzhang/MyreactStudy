@@ -13,10 +13,10 @@ global.TLog = (name = null, obj = []) => {
         obj="function"
     }
     if (G_PLATFORM_IOS) {
-        if(G_ENV_DEBUG) {
+       // if(G_ENV_DEBUG) {
 
             INativeModule.logClass("myLog", name + " \n" + JSON.stringify(obj));
-        }
+      //  }
     }
     else {
         ANativeModule.logClass("myLog", name + " \n" + JSON.stringify(obj));
@@ -54,30 +54,20 @@ global.T_CheckCodePush = (serverName, keyStr) => {
             // debug模式
         } else {
             // release模式
-            CodePush.checkForUpdate()
-                .then( (update) =>{
-                    if( !update ){
-                        TLog("codePush--------","app是最新版了")
-                    }else {
-                        TLog("codePush--------",update)
-                        CodePush.sync({
-                            deploymentKey: keyStr,
-                            updateDialog: {
-                                optionalIgnoreButtonLabel: '稍后',
-                                optionalInstallButtonLabel: '马上更新',
-                                optionalUpdateMessage: '有新版本了，是否更新？',
-                                title: '更新提示'
-                            },
-                            installMode: CodePush.InstallMode.IMMEDIATE
-                        })
-                        let codePush={};
-                        codePush.keyStr=keyStr;
-                        codePush.server=serverName;
-                        G_MyStorage.setItem(G_EnumStroeKeys.CODE_PUSH,JSON.stringify(codePush));
-                    }
-                }).catch((err)=>{
-                TLog("codePush-------error-",err);
-            });
+            CodePush.sync({
+                deploymentKey: keyStr,
+                updateDialog: {
+                    optionalIgnoreButtonLabel: '稍后',
+                    optionalInstallButtonLabel: '马上更新',
+                    optionalUpdateMessage: '有新版本了，是否更新？',
+                    title: '更新提示'
+                },
+                installMode: CodePush.InstallMode.IMMEDIATE
+            })
+            let codePush={};
+            codePush.keyStr=keyStr;
+            codePush.server=serverName;
+            G_MyStorage.setItem(G_EnumStroeKeys.CODE_PUSH,JSON.stringify(codePush));
         }
     }
 

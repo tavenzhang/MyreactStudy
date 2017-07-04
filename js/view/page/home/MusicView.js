@@ -4,7 +4,8 @@ import {
     View,
     StyleSheet,
     Text,
-    Image
+    Image,
+    LayoutAnimation
 } from 'react-native';
 
 import TView from "../../componet/TView";
@@ -21,7 +22,7 @@ export default class MusicView extends TView{
         headerStyle:{backgroundColor:"white",shadowOffset:null,elevation:null},
         headerTitleStyle:{color:G_Theme.grayDeep},
         headerTintColor:G_Theme.grayDeep,
-        headerRight:<TButtonImg  img={ImgHome.wave}/>
+        headerRight:<TButtonImg styleImg={{height:25, width:40, marginRight:20}}  img={ImgHome.wave}/>
     }
 
     constructor(props)
@@ -40,6 +41,10 @@ export default class MusicView extends TView{
             {img:src2,dec:"哈哈哈"},{img:src2,dec:"哈哈哈"}]
     }
 
+    componentWillUpdate(){
+        LayoutAnimation.configureNext(G_LayoutAnimationHelp.springFadeDelete);
+    }
+
     render() {
         return (
             <View style={[G_Style.appContentView]}>
@@ -49,14 +54,19 @@ export default class MusicView extends TView{
                                           valueList={this.tabList}
                      onTabChange={this.onTabChange}/>
                 </View>
+                {
+                    this.state.tabIndex ==0 ?    <HomeListView renderHeader={this.onRenderHeader} dataList={this.homeList}/>:null
+                }
+                {
+                    this.state.tabIndex ==1 ?    <HomeListView renderHeader={this.onRenderHeader} dataList={this.homeList2}/>:null
+                }
 
-                <HomeListView renderHeader={this.onRenderHeader} dataList={this.state.tabIndex ==0 ? this.homeList:this.homeList2}/>
             </View>
         );
     }
 
     onRenderHeader=()=>{
-        return <Image resizeMode={"center"} source={ImgMusic.musicHint}style={{alignSelf:"center"}} />
+        return <Image  resizeMode={"center"}  source={ImgMusic.musicHint} style={{alignSelf:"center"}} />
     }
 
     onTabChange=(data,tabIndex)=>{

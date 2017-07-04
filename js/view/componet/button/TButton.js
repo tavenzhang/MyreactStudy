@@ -107,6 +107,7 @@ export class TButtonImg extends React.PureComponent {
         img:PropTypes.any,
         onPress:PropTypes.func,
         style:PropTypes.object,
+        styleImg:PropTypes.object,
         text:PropTypes.string,
         resizeMode:PropTypes.string
     }
@@ -117,9 +118,9 @@ export class TButtonImg extends React.PureComponent {
 
     render()
     {
-        let {img,onPress,text,style,resizeMode}=this.props
+        let {img,onPress,text,style,resizeMode,styleImg}=this.props
        return  (<TouchableOpacity style={[style]} onPress={onPress}>
-              <Image resizeMode={resizeMode}  source={img} style={{ flex:1} }/>
+              <Image resizeMode={resizeMode}  source={img} style={styleImg}/>
            {text ? <Text>{text}</Text>:null}
         </TouchableOpacity>)
     }

@@ -83,7 +83,7 @@ export default class Album extends TView {
                     <TButtonView onPress={() => this.onPreeAbulm(item)}>
                         <View style={{flexDirection: "row", alignItems: "center"}}>
                             <Text>{item.num}</Text>
-                            <Image resizeMode={"center"} source={ImgAblum.ablumWave}/>
+                            <Image  resizeMode={"center"} style={{ marginLeft:2}} source={ImgAblum.ablumWave}/>
                         </View>
                     </TButtonView>
                 </View>

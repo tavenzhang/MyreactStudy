@@ -34,7 +34,7 @@ export let ImgHome = {
     mail: require('./home/mail.png'),
     mirHint: require('./home/mirHint.png'),
     mirphohe: require('./home/mirphohe.png'),
-    find: require('./home/find.png'),
+    find: require('./home/findx.png'),
     banner: require('./home/banner.png'),
     player: require('./home/player.png')
 }
@@ -43,7 +43,7 @@ export let ImgHome = {
 export let ImgAbuotMe = {
     person_gray: require('./me/person_gray.png'),
     head_big: require('./me/head_big.png'),
-    vip: require('./me/vip.png'),
+    vip: require('./me/vip@2x.png'),
     vip_gray: require('./me/vip_gray.png'),
     config: require('./me/config.png'),
     login_welcom: require('./me/login/welcom_bg.png'),
@@ -51,7 +51,7 @@ export let ImgAbuotMe = {
 }
 
 export let ImgAblum = {
-    demo1: require('./album/demo1.png'),
+    demo1: require('./album/demo1x.png'),
     demo2: require('./album/demo2.png'),
     ablumWave: require('./album/wave.png'),
 }

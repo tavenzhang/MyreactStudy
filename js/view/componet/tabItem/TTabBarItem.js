@@ -12,22 +12,21 @@ export default class TTabBarItem extends Component {
         selected:PropTypes.bool
     }
     static defaultProps={
-        resizeMode:"cover"
+        resizeMode:"center"
     }
 
     render (){
        let  {icoImg,icoSelectImg,selected,resizeMode}=this.props
         return (<View style={{flex:1,justifyContent:"center", marginTop:G_PLATFORM_IOS ? 15:0}}>
-            {selected ? <Image  source={icoSelectImg} style={styles.icon}/>:<Image resizeMode={resizeMode} source={icoImg} style={styles.icon}/>}
+            {selected ? <Image resizeMode={resizeMode}  source={icoSelectImg} style={styles.icon}/>:<Image resizeMode={resizeMode} source={icoImg} style={styles.icon}/>}
         </View>)
     }
 
 }
 const styles = StyleSheet.create({
     icon: {
-        width:42,
-        height:42,
-        //resizeMode:Image.resizeMode.center
+        // width:30,
+        // height:30,
         // alignSelf:"center"
     },
 

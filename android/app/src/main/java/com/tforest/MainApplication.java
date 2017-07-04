@@ -13,7 +13,6 @@ import com.jadsonlourenco.RNShakeEvent.RNShakeEventPackage;
 import com.avishayil.rnrestart.ReactNativeRestartPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.microsoft.codepush.react.CodePush;
-import cn.jpush.reactnativejpush.JPushPackage;
 import com.jadsonlourenco.RNShakeEvent.RNShakeEventPackage;
 import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage;
 import cn.jpush.reactnativejpush.JPushPackage;

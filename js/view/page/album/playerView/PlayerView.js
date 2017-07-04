@@ -28,13 +28,13 @@ export default class PlayerView extends React.Component {
     render() {
         let playControlView=null;
         playControlView=  <View style={{position:"absolute",bottom: 0,left:0, width:G_Theme.windowWidth}}>
-            <View style={{backgroundColor:"white", height:90, alignItems:"center"}}>
+            <View style={{backgroundColor:"white", height:75, alignItems:"center"}}>
                 <View style={{flexDirection:"row", marginHorizontal: 60,alignItems: "center",justifyContent: "space-between",alignSelf: "stretch",flex:1}}>
-                    <Text>HQ {this.state.curTime}</Text>
+                    <Text style={{width:75}}>HQ {this.state.curTime}</Text>
                     {
-                       this.state.isPlaying ? <TButtonImg  onPress={this.pauseMusic} img={SoundMusic.pause}/>:<TButtonImg  onPress={this.play} img={SoundMusic.play}/>
+                       this.state.isPlaying ? <TButtonImg   onPress={this.pauseMusic} img={SoundMusic.pause}/>:<TButtonImg onPress={this.play} img={SoundMusic.play}/>
                     }
-                    <TButtonImg  onPress={this.onClickShare}  img={SoundMusic.sharebtn}/>
+                    <TButtonImg   onPress={this.onClickShare}  img={SoundMusic.sharebtn}/>
                 </View>
             </View>
         </View>

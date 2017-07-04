@@ -37,24 +37,24 @@ export default class Games extends Component {
     constructor(props) {
         super(props);
         this.state =
-        {
-            currentNumber: props.currentNumber,
-            currentNumberTime: props.currentNumberTime,
-            currentTime: props.currentTime,
-            gameNumbers: props.gameNumbers,
-            noIssue: props.noIssue,
-            series_identifier: props.series_identifier,
-            traceMaxTimes: props.traceMaxTimes,
-            history_lotterys: props.history_lotterys,
-            user_prize_group: props.user_prize_group,
-            balls: [],
-            ballText: [],
-            rowTitle: [],
-            isBallsComplete: false,
-            lotterys: [],
-            isSelect: false,
-            rowBallNumber: 5, //一行几个球
-        };
+            {
+                currentNumber: props.currentNumber,
+                currentNumberTime: props.currentNumberTime,
+                currentTime: props.currentTime,
+                gameNumbers: props.gameNumbers,
+                noIssue: props.noIssue,
+                series_identifier: props.series_identifier,
+                traceMaxTimes: props.traceMaxTimes,
+                history_lotterys: props.history_lotterys,
+                user_prize_group: props.user_prize_group,
+                balls: [],
+                ballText: [],
+                rowTitle: [],
+                isBallsComplete: false,
+                lotterys: [],
+                isSelect: false,
+                rowBallNumber: 5, //一行几个球
+            };
         this.randomBetsNum = 500;
         this.RandomArr = [];
         this.ballSpecialTitle = [];
@@ -85,32 +85,41 @@ export default class Games extends Component {
         this.randomCombinLottery = this.randomCombinLottery.bind(this);
         this.editSubmitData = this.editSubmitData.bind(this);
         this.isRandomSelect = true;//是否随机选择
-        this.isRandomOrder=true;//允许随机下注
+        this.isRandomOrder = true;//允许随机下注
 
 
     }
 
-    editSubmitData(data){
+    editSubmitData(data) {
         return data;
     }
+
     componentWillMount() {
         const me = this;
-        const { bet_max_prize_group } = this.props;
+        const {bet_max_prize_group} = this.props;
         this.setState({
             rowTitle: me.setRowTitle(),
             ballText: me.setBallText(),
             balls: me.setBalls()
         });
-        RNShakeEvent.addEventListener('shake', () => {
-            me.randomSelcet();
-            Vibration.vibrate();
-        });
+
 
         //初始化奖金组值
         ActDispatch.GameAct.updatePrize(bet_max_prize_group);
     }
+    componentDidMount(){
+        // TLog('ddunmount','++++++++++++++++++++');
+        const me=this;
+
+        RNShakeEvent.addEventListener('shake', () => {
+
+            me.randomSelcet();
+            Vibration.vibrate();
+        });
+    }
 
     componentWillUnmount() {
+        // TLog('ddunmount','__________');
         RNShakeEvent.removeEventListener('shake');
     }
 
@@ -129,7 +138,9 @@ export default class Games extends Component {
         const me = this;
         for (let j = 0; j < balls.length; j++) {
             for (let i = 0; i < balls[j].length; i++) {
-                me.selectBall(i, j, -1);
+                if (balls[j][i] > 0) {
+                    me.selectBall(i, j, -1);
+                }
             }
         }
 
@@ -139,10 +150,10 @@ export default class Games extends Component {
 //随机选球
     randomSelcet() {
         //如果有选球先清空
-        if (this.checkIsSelectBall()) {
-            this.clearAllBall();
-        }
-        this.selectAutoOne();
+        //if (this.checkIsSelectBall()) {
+        this.clearAllBall();
+        //}
+         this.selectAutoOne();
     }
 
     //随机选一注
@@ -315,7 +326,7 @@ export default class Games extends Component {
                                     value={i}
                                     status={balls[row][i]}
                                     onPress={(x, y, v) => me.selectBall(x, y, v)}
-                                    />
+                                />
                             </View>
                         }
                     })}
@@ -350,7 +361,7 @@ export default class Games extends Component {
                                     status={balls[row][i]}
                                     onPress={(x, y, v) => me.selectBall(x, y, v)}
                                     //textStyle={styles.ballText}
-                                    />
+                                />
                             </View>
                         }
                     })}
@@ -490,7 +501,7 @@ export default class Games extends Component {
             j = 0,
             len2 = 0,
             result = [],
-        //总注数
+            //总注数
             total = 1,
             rowNum = 0;
         // tellmett：这里是将各行的球数相乘，得到总注数（特殊的注数计算，不走这里）
@@ -553,10 +564,11 @@ export default class Games extends Component {
 
     render() {
         const me = this;
-        const {lotterys, isBallsComplete,user_prize_group} = me.state;
+        const {lotterys, isBallsComplete, user_prize_group} = me.state;
         const {orderNum, moneyUnit, multiple, balance, bet_max_prize_group, bet_min_prize_group, diff_grize_group, series_amount, currentGameWay} = me.props;
         const operTopDesc = <Text>{lotterys.length}注 * {multiple}倍 =
-            <Text style={{color: "red"}}> {G_moneyFormat(lotterys.length * multiple * currentGameWay.price * moneyUnit)}</Text>元</Text>;
+            <Text
+                style={{color: "red"}}> {G_moneyFormat(lotterys.length * multiple * currentGameWay.price * moneyUnit)}</Text>元</Text>;
 
         let modePriceOperate = null;
         if (bet_min_prize_group && bet_max_prize_group) {
@@ -568,19 +580,19 @@ export default class Games extends Component {
                 series_amount={series_amount}
                 user_prize_group={user_prize_group}
                 onChange={v => me.changeReBetRate(v)}
-                />
+            />
                 : null;
         }
         return (
             <View style={{flex: 1}}>
                 {
                     this.isRandomSelect ?
-                        <TouchableHighlight onPress={this.randomSelcet} style={{zIndex:10}}>
+                        <TouchableHighlight onPress={this.randomSelcet} style={{zIndex: 10}}>
                             <View style={styles.yaoyiyao}>
                                 <Image
                                     style={styles.yaoyiyaoImg}
                                     source={Icon_yaoyiyao}
-                                    />
+                                />
                                 <Text style={styles.yaoyiyaoText}>随机</Text>
                             </View>
                         </TouchableHighlight> : null
@@ -596,7 +608,7 @@ export default class Games extends Component {
                             checkBallIsComplete={this.checkBallIsComplete}
                             isShowMoneyUnit={this.isShowMoneyUnit}
                             maxMultiple={currentGameWay.max_multiple}
-                            />
+                        />
                         {modePriceOperate}
                     </View>
 
@@ -608,13 +620,16 @@ export default class Games extends Component {
                         me.addBallsToBasket();
                     }}
                     btnIconEvent={() => {
-                        G_NavUtil.pushToView(G_NavViews.LotteryOrders({randomLotterys: me.randomLotterys,isRandomOrder:me.isRandomOrder}));
+                        G_NavUtil.pushToView(G_NavViews.LotteryOrders({
+                            randomLotterys: me.randomLotterys,
+                            isRandomOrder: me.isRandomOrder
+                        }));
                     }}
                     btnIconEventDesc={orderNum}
                     btnIconName='cart-plus'
                     btnDisable={ !isBallsComplete }
                     btnIconDisable={ orderNum > 0 ? false : true }
-                    />
+                />
             </View>
         );
     }
@@ -657,20 +672,20 @@ export default class Games extends Component {
 
     getResultData(lotterys) {
         const me = this;
-        const {moneyUnit, multiple, currentGameWay,prize} = this.props;
-        let orderdata={},
+        const {moneyUnit, multiple, currentGameWay, prize} = this.props;
+        let orderdata = {},
             onePrice = currentGameWay.price,
             lotterysOriginal = me.getOriginal();
 
         if (lotterys.length < 1) {
             return {};
         }
-        orderdata= {
+        orderdata = {
             //original:lotterysOriginal,
             //lotterys:lotterys,
             amount: lotterys.length * onePrice * multiple * moneyUnit,
             wayId: currentGameWay.id,
-            original:lotterysOriginal,
+            original: lotterysOriginal,
             ball: me.makePostParameter(lotterysOriginal),
             viewBalls: me.formatViewBalls(lotterysOriginal),
             num: lotterys.length,
@@ -702,6 +717,7 @@ export default class Games extends Component {
         // })
         return current;
     }
+
     //组合随机注单组合方法
     //子类实现
     randomCombinLottery(arr) {
@@ -714,12 +730,12 @@ export default class Games extends Component {
         const me = this,
             {orderList, currentGameWay} = this.props,
             {balls} = this.state;
-        let neworderList=orderList.toJS();
+        let neworderList = orderList.toJS();
 
         let allowTag,
             len = balls.length,
             rowLen = balls[0].length,
-        // //生成单数随机数
+            // //生成单数随机数
             current = me.createRandomNum();
         allowTag = hash == undefined ? true : false;
         hash = hash || {};
@@ -761,13 +777,12 @@ export default class Games extends Component {
     }
 
 
-
     //生成一个当前玩法的随机投注号码
     //该处实现复式，子类中实现其他个性化玩法
     //返回值： 按照当前玩法生成一注标准的随机投注单(order)
     randomNum() {
         const me = this,
-            {moneyUnit, multiple, currentGameWay,prize} = this.props;
+            {moneyUnit, multiple, currentGameWay, prize} = this.props;
         let i = 0,
             current = [],
             order = [],
@@ -781,7 +796,7 @@ export default class Games extends Component {
 
         order = {
             amount: lotterys.length * onePrice * multiple * moneyUnit,
-            original:original,
+            original: original,
             ball: me.makePostParameter(original),
             viewBalls: me.formatViewBalls(original),
             wayId: currentGameWay.id,
@@ -900,11 +915,11 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         //justifyContent: 'space-between'
     },
-    randButton:{
+    randButton: {
         alignSelf: "flex-end",//width: 100,
         marginTop: 1,
         height: 30,
-        paddingTop:5,
+        paddingTop: 5,
         paddingHorizontal: 20,
         borderWidth: 1,
         borderColor: G_Theme.gray,

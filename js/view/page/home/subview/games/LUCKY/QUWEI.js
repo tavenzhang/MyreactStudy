@@ -212,6 +212,8 @@ export default class QUWEI extends LUCKY {
     }
 
     componentDidMount() {
+        super.componentDidMount();
+
         const {id} = this.props.navigation.state.params;
 
         HTTP_SERVER.MethodData.url = HTTP_SERVER.MethodData.formatUrl.replace(/#id/g, id);

@@ -107,20 +107,24 @@ export default class Games extends Component {
         //初始化奖金组值
         ActDispatch.GameAct.updatePrize(bet_max_prize_group);
     }
-    componentDidMount(){
+
+    componentDidMount() {
         // TLog('ddunmount','++++++++++++++++++++');
-        const me=this;
+        const me = this;
+        if (this.isRandomSelect) {
+            RNShakeEvent.addEventListener('shake', () => {
 
-        RNShakeEvent.addEventListener('shake', () => {
-
-            me.randomSelcet();
-            Vibration.vibrate();
-        });
+                me.randomSelcet();
+                Vibration.vibrate();
+            });
+        }
     }
 
     componentWillUnmount() {
         // TLog('ddunmount','__________');
-        RNShakeEvent.removeEventListener('shake');
+        if (this.isRandomSelect) {
+            RNShakeEvent.removeEventListener('shake');
+        }
     }
 
     //设置球排列
@@ -153,7 +157,7 @@ export default class Games extends Component {
         //if (this.checkIsSelectBall()) {
         this.clearAllBall();
         //}
-         this.selectAutoOne();
+        this.selectAutoOne();
     }
 
     //随机选一注
@@ -603,6 +607,7 @@ export default class Games extends Component {
                         <GameModelPannel
                             moneyUnit={moneyUnit}
                             multiple={multiple}
+                            bet_min_prize_group={bet_min_prize_group}
                             cleanBall={this.clearAllBall}
 
                             checkBallIsComplete={this.checkBallIsComplete}

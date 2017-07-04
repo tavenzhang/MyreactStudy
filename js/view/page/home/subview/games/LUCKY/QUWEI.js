@@ -23,7 +23,7 @@ export default class QUWEI extends LUCKY {
         this.state.gameMethod = [];
         this.clickMenuItem = props.clickMenuItem;
         this.currentGameWay = [];
-        this.parent_name_cn=null;
+        this.parent_name_cn = null;
     }
 
     //
@@ -56,25 +56,25 @@ export default class QUWEI extends LUCKY {
             return false;
         }
         //检查倍数
-
-
-        let {multiple} = this.props;
+        //
+        //
         if (v != null) {
-            multiple = v;
+            let multiple = v;
+            if (this.currentGameWay && this.currentGameWay.bet_max_amount > -1) {
+                if (multiple > this.currentGameWay.bet_max_amount) {
+                    this.setState({isBallsComplete: false});
+                    return false;
+                }
+            }
+            if (this.currentGameWay && this.currentGameWay.bet_min_amount > -1) {
+                if (multiple < this.currentGameWay.bet_min_amount) {
+                    this.setState({isBallsComplete: false});
+                    return false;
+                }
+            }
         }
 
-        if (this.currentGameWay && this.currentGameWay.bet_max_amount > -1) {
-            if (multiple > this.currentGameWay.bet_max_amount) {
-                this.setState({isBallsComplete: false});
-                return false;
-            }
-        }
-        if (this.currentGameWay && this.currentGameWay.bet_min_amount > -1) {
-            if (multiple < this.currentGameWay.bet_min_amount) {
-                this.setState({isBallsComplete: false});
-                return false;
-            }
-        }
+
 
 
         this.setState({isBallsComplete: true});
@@ -84,13 +84,18 @@ export default class QUWEI extends LUCKY {
 
 
     selectBall(x, y, v, data) {
-
+        const {multiple} = this.props;
         const me = this;
         me.setBallData(x, y, v)
         if (v == 1) {
             this.currentGameWay = data;
             this.clickMenuItem(this.currentGameWay);
             this.setState({selectItem: data.id});
+            //设置最小倍数
+            if (data.bet_min_amount > 0 && data.bet_min_amount > multiple) {
+                ActDispatch.GameAct.setMultiple(data.bet_min_amount);
+            }
+
         }
         const lotteryNums = me.getLottery();
         this.setState({lotterys: lotteryNums});
@@ -114,7 +119,7 @@ export default class QUWEI extends LUCKY {
         const {gameMethod} = this.state;
         let len = gameMethod.length;
         let i = Math.floor(Math.random() * len);
-        current[0]=[i];
+        current[0] = [i];
         this.currentGameWay = gameMethod[i];
 
         return current;
@@ -126,28 +131,28 @@ export default class QUWEI extends LUCKY {
     randomNum() {
         const me = this,
             {prize_group} = this.state,
-            {moneyUnit} = this.props;
+            {moneyUnit,prize} = this.props;
         let i = 0,
             current = [],
             order = [],
             lotterys = [],
             onePrice = this.currentGameWay.price,
             original = [];
-        let multiple= this.currentGameWay.bet_min_amount>0?this.currentGameWay.bet_min_amount:1;
+        let multiple = this.currentGameWay.bet_min_amount > 0 ? this.currentGameWay.bet_min_amount : 1;
 
         current = me.checkRandomBets();
         original = current;
         lotterys = me.randomCombinLottery(original);
         order = {
             amount: lotterys.length * onePrice * multiple * moneyUnit,
-            original:original,
+            original: original,
             // ball: me.makePostParameter(original),
             // viewBalls: me.formatViewBalls(original),
             ball: this.currentGameWay.valid_nums,
             viewBalls: this.currentGameWay.series_way_name,
             wayId: this.currentGameWay.id,
             num: lotterys.length,
-            prize_group: prize_group,
+            prize_group: prize,
             onePrice: onePrice,
             moneyunit: moneyUnit,
             multiple: multiple,
@@ -215,7 +220,7 @@ export default class QUWEI extends LUCKY {
                 if (result.data) {
                     // let arr = this.state.dataList.concat(result.data.data);
                     // TLog('result.data[0].children[0]',result.data[0].children[0]);
-                    this.parent_name_cn=result.data[0].children[0].name_cn;
+                    this.parent_name_cn = result.data[0].children[0].name_cn;
                     this.setState({gameMethod: result.data[0].children[0].children})
                 }
             })
@@ -225,7 +230,7 @@ export default class QUWEI extends LUCKY {
     getResultData(lotterys) {
         const me = this;
         const {prize_group} = this.state;
-        const {moneyUnit, multiple, currentGameWay} = this.props;
+        const {moneyUnit, multiple, currentGameWay,prize} = this.props;
 
         let onePrice = currentGameWay.price,
             lotterysOriginal = me.getOriginal();
@@ -238,13 +243,13 @@ export default class QUWEI extends LUCKY {
             //lotterys:lotterys,
             amount: lotterys.length * onePrice * multiple * moneyUnit,
             wayId: currentGameWay.id,
-            original:lotterysOriginal,
+            original: lotterysOriginal,
             // ball: me.makePostParameter(lotterysOriginal),
             // viewBalls: me.formatViewBalls(lotterysOriginal),
             ball: this.currentGameWay.valid_nums,
             viewBalls: this.currentGameWay.series_way_name,
             num: lotterys.length,
-            prize_group: prize_group,
+            prize_group: prize,
             onePrice: onePrice,
             moneyunit: moneyUnit,
             multiple: multiple,
@@ -328,55 +333,56 @@ export default class QUWEI extends LUCKY {
 }
 
 
-const styles = StyleSheet.create({
+const
+    styles = StyleSheet.create({
 
-    ballBox: {
-        flex: 1,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        //paddingLeft: 20,
-        //paddingRight: 20,
-    },
-    ballBtnBoxQuwei: {
-        //flexDirection: 'row',
-        justifyContent: "center",
-        alignItems: "center",
-        height: 80
-    },
-    ballBtnBox: {
-        //flexDirection: 'row',
-        justifyContent: "center",
-        alignItems: "center",
-        height: 80
-    },
+        ballBox: {
+            flex: 1,
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            //paddingLeft: 20,
+            //paddingRight: 20,
+        },
+        ballBtnBoxQuwei: {
+            //flexDirection: 'row',
+            justifyContent: "center",
+            alignItems: "center",
+            height: 80
+        },
+        ballBtnBox: {
+            //flexDirection: 'row',
+            justifyContent: "center",
+            alignItems: "center",
+            height: 80
+        },
 
-    gameRow: {
-        flexWrap: 'wrap',
-        margin: 10,
-        backgroundColor: '#fff',
-        marginBottom: 0,
-        borderRadius: 8
-    },
-    gameRowTitle: {
-        width: 60,
-        height: 18,
-        backgroundColor: G_Theme.primary,
-        justifyContent: "center",
-        alignItems: "center",
-        marginLeft: 1,
-        marginTop: 6,
-        marginBottom: 10,
-    },
-    gameRowTitleText: {
-        color: '#fff',
-        fontSize: 12
-    },
-    controlPanel: {
-        flex: 1,
-        padding: 10,
-        marginTop: 10,
-        marginBottom: 5,
-        //justifyContent: 'space-between'
-    }
+        gameRow: {
+            flexWrap: 'wrap',
+            margin: 10,
+            backgroundColor: '#fff',
+            marginBottom: 0,
+            borderRadius: 8
+        },
+        gameRowTitle: {
+            width: 60,
+            height: 18,
+            backgroundColor: G_Theme.primary,
+            justifyContent: "center",
+            alignItems: "center",
+            marginLeft: 1,
+            marginTop: 6,
+            marginBottom: 10,
+        },
+        gameRowTitleText: {
+            color: '#fff',
+            fontSize: 12
+        },
+        controlPanel: {
+            flex: 1,
+            padding: 10,
+            marginTop: 10,
+            marginBottom: 5,
+            //justifyContent: 'space-between'
+        }
 
-});
+    });

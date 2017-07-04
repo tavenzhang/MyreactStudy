@@ -67,7 +67,7 @@ export default class Quwei extends KENO {
             current = [];
         me.setRandomArr();
         const {gameMethod} = this.state;
-        let len =0,
+        let len = 0,
             i = Math.floor(Math.random() * 20);
 
 
@@ -77,7 +77,7 @@ export default class Quwei extends KENO {
                 len++;
                 if (len == i) {
                     this.currentGameWay = gameMethod[0].children[y].children[x];
-                    this.currentGameWay.parent_parent_name_cn= gameMethod[0].name_cn
+                    this.currentGameWay.parent_parent_name_cn = gameMethod[0].name_cn
                     current[0] = [this.currentGameWay.valid_nums];
                     return false;
                 }
@@ -94,14 +94,14 @@ export default class Quwei extends KENO {
     randomNum() {
         const me = this,
             {prize_group} = this.state,
-            {moneyUnit} = this.props;
+            {moneyUnit, prize} = this.props;
         let i = 0,
             current = [],
             order = [],
             lotterys = [],
             onePrice = this.currentGameWay.price,
             original = [];
-        let multiple= this.currentGameWay.bet_min_amount>0?this.currentGameWay.bet_min_amount:1;
+        let multiple = this.currentGameWay.bet_min_amount > 0 ? this.currentGameWay.bet_min_amount : 1;
 
         current = me.checkRandomBets();
         original = current;
@@ -115,7 +115,7 @@ export default class Quwei extends KENO {
             viewBalls: this.currentGameWay.series_way_name,
             wayId: this.currentGameWay.id,
             num: lotterys.length,
-            prize_group: prize_group,
+            prize_group: prize,
             onePrice: onePrice,
             moneyunit: moneyUnit,
             multiple: multiple,
@@ -129,36 +129,39 @@ export default class Quwei extends KENO {
             ball = me.state.balls,
             num = 0;
         for (let row in ball) {
-            if (ball[row].length > 0) {
-                num++;
+
+            for (let s in ball[row]) {
+
+                if (ball[row][s] > 0) {
+                    num++;
+                }
             }
 
         }
+
 
         if (num < 1) {
             this.setState({isBallsComplete: false});
             return false;
         }
-        //检查倍数
-
-        let {multiple} = this.props;
+        // //检查倍数
+        // let {multiple} = this.props;//
         if (v != null) {
-            multiple = v;
-        }
+            let multiple = v;
+            if (this.currentGameWay && this.currentGameWay.bet_max_amount > -1) {
+                if (multiple > this.currentGameWay.bet_max_amount) {
 
-        if (this.currentGameWay && this.currentGameWay.bet_max_amount > -1) {
-            if (multiple > this.currentGameWay.bet_max_amount) {
-                this.setState({isBallsComplete: false});
-                return false;
+                    this.setState({isBallsComplete: false});
+                    return false;
+                }
+            }
+            if (this.currentGameWay && this.currentGameWay.bet_min_amount > -1) {
+                if (multiple < this.currentGameWay.bet_min_amount) {
+                    this.setState({isBallsComplete: false});
+                    return false;
+                }
             }
         }
-        if (this.currentGameWay && this.currentGameWay.bet_min_amount > -1) {
-            if (multiple < this.currentGameWay.bet_min_amount) {
-                this.setState({isBallsComplete: false});
-                return false;
-            }
-        }
-
         this.setState({isBallsComplete: true});
         return true;
 
@@ -168,11 +171,7 @@ export default class Quwei extends KENO {
     getResultData(lotterys) {
         const me = this;
         const {prize_group} = this.state;
-        const {moneyUnit, multiple, currentGameWay} = this.props;
-        TLog('multiple', multiple);
-        TLog('moneyUnit', moneyUnit);
-        TLog('currentGameWay', currentGameWay);
-        TLog('lotterysOriginal', lotterysOriginal);
+        const {moneyUnit, multiple, currentGameWay, prize} = this.props;
         let onePrice = currentGameWay.price,
             lotterysOriginal = me.getOriginal();
 
@@ -187,7 +186,7 @@ export default class Quwei extends KENO {
             ball: this.currentGameWay.valid_nums,
             viewBalls: this.currentGameWay.series_way_name,
             num: 1,
-            prize_group: prize_group,
+            prize_group: prize,
             onePrice: onePrice,
             moneyunit: moneyUnit,
             multiple: multiple,
@@ -210,16 +209,21 @@ export default class Quwei extends KENO {
     }
 
     selectBall(x, y, v, data) {
+        const {multiple} = this.props;
+
+
         const me = this;
         me.setBallData(x, y, v)
         if (v == 1) {
             this.currentGameWay = data;
             this.clickMenuItem(data);
             this.setState({selectItem: data.id});
-
+            //设置最小倍数
+            if (data.bet_min_amount > 0 && data.bet_min_amount > multiple) {
+                ActDispatch.GameAct.setMultiple(data.bet_min_amount);
+            }
         }
         const lotteryNums = me.getLottery();
-        TLog('lotteryNums----2', lotteryNums);
         this.setState({lotterys: lotteryNums});
 
     }

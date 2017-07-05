@@ -45,8 +45,8 @@ export default class BetRecordListView extends React.Component {
                 <TouchableHighlight onPress={() => this.itemClick(rowData)} underlayColor='rgba(10,10,10,0.2)'>
                     <View style={styles.row}>
                         <View style={[styles.itemContentStyle,month==''?'':styles.record,{flex: 1}]}>
-                            <Text style={[styles.textItemStyle,{ color:G_Theme.primary}]} numberOfLines={1}>{month}</Text>
-                            <Text style={[styles.textItemStyle, {fontSize: 16, color:G_Theme.primary, fontWeight: "bold",}]}
+                            <Text style={[styles.textItemStyle,{ fontSize: 16,color:G_Theme.primary,alignSelf:'center',}]} numberOfLines={1}>{month}</Text>
+                            <Text style={[styles.textItemStyle, {fontSize: 20, color:G_Theme.primary, alignSelf:'center',fontWeight: "bold",}]}
                                   numberOfLines={1}>{day} </Text>
                         </View>
                         <View style={[styles.itemContentStyle, styles.record, {flex: 5}]}>

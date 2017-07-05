@@ -41,9 +41,6 @@ export default class MusicView extends TView{
             {img:src2,dec:"哈哈哈"},{img:src2,dec:"哈哈哈"}]
     }
 
-    componentWillUpdate(){
-        LayoutAnimation.configureNext(G_LayoutAnimationHelp.springFadeDelete);
-    }
 
     render() {
         return (

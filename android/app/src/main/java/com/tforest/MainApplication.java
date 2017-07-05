@@ -15,7 +15,7 @@ import com.RNFetchBlob.RNFetchBlobPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.jadsonlourenco.RNShakeEvent.RNShakeEventPackage;
 import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage;
-import cn.jpush.reactnativejpush.JPushPackage;
+//import cn.jpush.reactnativejpush.JPushPackage;
 import com.avishayil.rnrestart.ReactNativeRestartPackage;
 import com.flurry.android.FlurryAgent;
 import com.facebook.react.ReactNativeHost;
@@ -59,7 +59,7 @@ public class MainApplication extends Application implements ReactApplication {
             new RNShakeEventPackage(),
               new VectorIconsPackage(),
               new RCTSplashScreenPackage(),
-              new JPushPackage(SHUTDOWN_TOAST, SHUTDOWN_LOG),
+             // new JPushPackage(SHUTDOWN_TOAST, SHUTDOWN_LOG),
               new ReactNativeRestartPackage(),
               myCodePush,
               new ANativePackage()

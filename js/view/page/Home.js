@@ -82,7 +82,7 @@ export default class Home extends TView {
         return <View style={{flex:1}}>
                     <View style={{justifyContent: "center", alignItems: "center", marginTop:20}}>
                         <Image resizeMode={"center"} source={ImgHome.mirphohe}/>
-                        <Text style={{marginTop: 10, fontSize: 12, color: "gra2y"}}>带上耳机,聆听自然的宁静</Text>
+                        <Text style={{marginTop: 10, fontSize: 12, color: "gray"}}>带上耳机,聆听自然的宁静</Text>
                     </View>
                    <View style={[G_Style.appContentCenterView]}>
                         <View style={{flexDirection: "row", flexWrap: "wrap"}}>
@@ -93,8 +93,8 @@ export default class Home extends TView {
                                         alignItems: "center",
                                         width: G_Theme.windowWidth / 3,
                                         padding: 20,
-                                        height:130
-                                    }} resizeMode={"center"} img={item.img} text={item.name} key={index} onPress={()=>this.onPressMenuBtn(item)}/>)
+                                        height:120
+                                    }} styleImg={{marginBottom:5}} img={item.img} text={item.name} key={index} onPress={()=>this.onPressMenuBtn(item)}/>)
                                 })
                             }
                         </View>

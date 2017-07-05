@@ -14,3 +14,8 @@ react-native run-ios --configuration Release
 code-push release-react tcpTest-ios  ios  --description '新版本测试'
 code-push release-react tcpTest-android android   --description '新版本测试'
 code-push release-react tcpTest-android android  -m true  --description '新版本测试'
+
+react-native bundle --platform 平台 --entry-file 启动文件 --bundle-output 打包js输出文件 --assets-dest 资源输出目录 --dev 是否调试。
+react-native bundle --platform ios --entry-file index.ios.js --bundle-output ./bundle/main.jsbundle --dev false
+
+ code-push release tcpTest-android /Users/thomas/Desktop/taven  1.0.1 --description "1.0" --mandatory true

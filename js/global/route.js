@@ -81,7 +81,7 @@ global.G_NavAppOptionsConfig = {
 global.G_InitRegistApp = false;
 global.G_Navigation = null;
 global.G_NavState = null;
-
+global.G_MusicNow={};
 global.G_NavUtil = {
     pushToView: (componet: String, params) => {
         // TLog("G_Navigation--pushToView==="+componet,G_Navigation)

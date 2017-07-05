@@ -19,7 +19,7 @@ export default class HeaderSearchView extends React.PureComponent {
         return (
             <View style={{flexDirection: "row", paddingHorizontal: 10,alignItems:"center", paddingTop: 25, paddingBottom: 15,backgroundColor:"white"}}>
                 <TButtonImg  img={ImgHome.mail} />
-                <View style={{flexDirection: "rw", flex: 1, marginHorizontal:20}}>
+                <View style={{flexDirection: "row", flex: 1, marginHorizontal:20}}>
                     <TTextInput placeholder={""} viewStyle={{
                         borderRadius: 5, flex: 1,
                         marginHorizontal: 10, backgroundColor: "#ddd"

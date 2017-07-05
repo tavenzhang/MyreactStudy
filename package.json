@@ -9,7 +9,7 @@
     "release-ios": "code-push release-react tcp-ios ios  --description  ios新版本 ",
     "release-android": "code-push release-react tcp-android android  --description android新版本",
     "bundle-ios": "react-native bundle --entry-file index.ios.js  --platform ios --dev false --bundle-output ./ios/bundle/index.ios.jsbundle --assets-dest ./ios/bundle",
-    "bundle-android": "react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/",
+    "bundle-android": "react-native bundle --platform android --dev false --entry-file index.android.js --bundle-output /Users/thomas/Desktop/taven/index.android.bundle --assets-dest /Users/thomas/Desktop/taven/",
     "apk": "cd android && ./gradlew assembleRelease  && cd .."
   },
   "dependencies": {

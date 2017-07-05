@@ -48,15 +48,22 @@ platform :ios do
 
   # You can define as many lanes as you want
    desc "hot release"
-  lane :hot_release do
-     #match
-     gym(
-     scheme: "TForest",
-     clean:true,
-     output_directory: "./hot_release",
-     output_name: "TForest",
-     export_method:"ad-hoc"
+  lane :release_hot do
+      match(force:true,
+           type:"adhoc",
      )
+       cert
+       sigh(force:true,
+       adhoc:true)
+      gym(
+      scheme: "TForest",
+      clean:true,
+      output_directory: "./fastlane/hot_release",
+      output_name: "TForest",
+      export_method:"ad-hoc",
+      configuration:"Release"
+      )
+      system ("fir publish hot_release/TForest.ipa")
   end
 
   desc "Take screenshots"

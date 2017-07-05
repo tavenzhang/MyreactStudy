@@ -2,17 +2,16 @@ import React, {PropTypes} from 'react';
 import {
     View
     , StyleSheet,
-    TouchableHighlight,
-    TouchableOpacity,
+
+    LayoutAnimation,
     Image,
     Text
 } from 'react-native'
 import TFlatList from "../../../componet/TFlatList";
-import TView from "../../../componet/TView";
 import {TButtonImg} from "../../../componet/button/TButton";
 import {ImgHome, ImgMusic} from "../../../../assets/index";
 
-export default class HomeListView extends TView {
+export default class HomeListView extends React.PureComponent {
     static  propTypes = {
         dataList: PropTypes.any,
         renderHeader: PropTypes.func
@@ -32,9 +31,6 @@ export default class HomeListView extends TView {
     }
 
     _renderRow = (item, index) => {
-        //{img:"http://img.zcool.cn/community/01ef25586f541da801219c77359c63.png",
-        //people:111,heart:i*200,
-        //    dec:"禅修冥想,禅修冥想,禅修冥想,禅修冥想,禅修冥想,禅修冥想,禅修冥想"}
         TLog("data--------", item)
         return (
             <View style={{alignSelf:"center", justifyContent: "center",marginHorizontal: 40}} key={index}>
@@ -43,7 +39,7 @@ export default class HomeListView extends TView {
                     <TButtonImg
                                 onPress={() => {
                                     this.itemClick(item)
-                                }} img={ImgHome.player} style={{position: "absolute"}}/>
+                                }} img={ImgHome.player} style={{position: "absolute",left:10,top:10}}/>
                     <View style={{
                         position: "absolute",
                         flexDirection: "row",

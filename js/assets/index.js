@@ -3,12 +3,12 @@
  */
 
 export let ImgTabbar = {
-    albumn:require('./tabBar/album@2x.png'),
-    albumn_gray:require('./tabBar/album_gray@2x.png'),
-    home:require('./tabBar/home@2x.png'),
-    home_gray:require('./tabBar/home_gray@2x.png'),
-    me:require('./tabBar/me@2x.png'),
-    me_gary:require('./tabBar/me_gray@2x.png'),
+    albumn:require('./tabBar/album.png'),
+    albumn_gray:require('./tabBar/album_gray.png'),
+    home:require('./tabBar/home.png'),
+    home_gray:require('./tabBar/home_gray.png'),
+    me:require('./tabBar/me.png'),
+    me_gary:require('./tabBar/me_gray.png'),
 }
 
 export let ImgHome = {
@@ -22,7 +22,7 @@ export let ImgHome = {
     mail: require('./home/mail.png'),
     mirHint: require('./home/mirHint.png'),
     mirphohe: require('./home/mirphohe.png'),
-    find: require('./home/findx.png'),
+    find: require('./home/find.png'),
     banner: require('./home/banner.png'),
     player: require('./home/player.png')
 }
@@ -35,11 +35,11 @@ export let ImgAbuotMe = {
     vip_gray: require('./me/vip_gray.png'),
     config: require('./me/config.png'),
     login_welcom: require('./me/login/welcom_bg.png'),
-    welcome: require('./me/login/welcom@2x.png'),
+    welcome: require('./me/login/welcom.png'),
 }
 
 export let ImgAblum = {
-    demo1: require('./album/demo1x.png'),
+    demo1: require('./album/demo1.png'),
     demo2: require('./album/demo2.png'),
     ablumWave: require('./album/wave.png'),
 }
@@ -53,7 +53,7 @@ export let ImgMusic = {
 }
 
 export let SoundMusic = {
-    music: require('./music/music.mp3'),
+    music: require('./raw/music.mp3'),
     playViewbtn: require('./music/playViewbtn.png'),
     sharebtn:require('./music/player/share.png'),
     play:require('./music/player/player.png'),

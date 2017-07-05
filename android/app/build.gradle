@@ -105,12 +105,26 @@ android {
             include "armeabi-v7a", "x86"
         }
     }
+
+      signingConfigs {
+            release {
+                storeFile file('/Users/thomas/Desktop/TForest/TForest/android/app/thomas.jks')
+                storePassword '111111'
+                keyAlias 'thomas'
+                keyPassword '111111'
+            }
+        }
+
     buildTypes {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+             signingConfig signingConfigs.release
+
         }
     }
+
+
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->

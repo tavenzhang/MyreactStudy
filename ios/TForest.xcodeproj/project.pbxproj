@@ -54,7 +54,6 @@
 		E5711E80BC4E0260087DC739 /* Pods_TForest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B45F527F3D4174ECC450E26 /* Pods_TForest.framework */; };
 		E92D2E3D1EDEB9BB00AC09AB /* INativeModule.m in Sources */ = {isa = PBXBuildFile; fileRef = E92D2E3A1EDEB9BB00AC09AB /* INativeModule.m */; };
 		E92D2E3E1EDEB9BB00AC09AB /* NSLoggerSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92D2E3C1EDEB9BB00AC09AB /* NSLoggerSupport.swift */; };
-		E967DAA61F0A503E00D3D34A /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E967DAA51F0A503E00D3D34A /* music.mp3 */; };
 		E9AC858322D34D5CB37FE8E4 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4C65FB9C2D6E4931ABB2B15C /* Ionicons.ttf */; };
 		F097F9E2A49C4198B6B8A0C7 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A9EF0828ADF94C51ACBBDBDA /* MaterialCommunityIcons.ttf */; };
 /* End PBXBuildFile section */
@@ -359,7 +358,6 @@
 		E92D2E391EDEB9BB00AC09AB /* INativeModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INativeModule.h; sourceTree = "<group>"; };
 		E92D2E3A1EDEB9BB00AC09AB /* INativeModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INativeModule.m; sourceTree = "<group>"; };
 		E92D2E3C1EDEB9BB00AC09AB /* NSLoggerSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLoggerSupport.swift; sourceTree = "<group>"; };
-		E967DAA51F0A503E00D3D34A /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = music.mp3; path = TForest/music.mp3; sourceTree = "<group>"; };
 		EADD966634F15C258EF9DBFE /* Pods-TForest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TForest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TForest/Pods-TForest.debug.xcconfig"; sourceTree = "<group>"; };
 		EFD278AD1B1E40B782F9E4CA /* RNShare.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNShare.xcodeproj; path = "../node_modules/react-native-share/ios/RNShare.xcodeproj"; sourceTree = "<group>"; };
 		F5CCFC8B0E9D4711B6FBABEE /* RCTRestart.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTRestart.xcodeproj; path = "../node_modules/react-native-restart/ios/RCTRestart.xcodeproj"; sourceTree = "<group>"; };
@@ -517,7 +515,6 @@
 		13B07FAE1A68108700A75B9A /* TForest */ = {
 			isa = PBXGroup;
 			children = (
-				E967DAA51F0A503E00D3D34A /* music.mp3 */,
 				E92D2E381EDEB9BB00AC09AB /* rnExtent */,
 				E92D2E3B1EDEB9BB00AC09AB /* swift */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -1193,7 +1190,6 @@
 				E9AC858322D34D5CB37FE8E4 /* Ionicons.ttf in Resources */,
 				F097F9E2A49C4198B6B8A0C7 /* MaterialCommunityIcons.ttf in Resources */,
 				520F3573F6554BABA915C035 /* MaterialIcons.ttf in Resources */,
-				E967DAA61F0A503E00D3D34A /* music.mp3 in Resources */,
 				AC0EDA3078EF4DD9B3169B60 /* Octicons.ttf in Resources */,
 				DA62988375DE4EF98B4EDAAD /* SimpleLineIcons.ttf in Resources */,
 				6D0394E3188E4923BAD78F72 /* Zocial.ttf in Resources */,
@@ -1258,7 +1254,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		EE5298FB6C6BFB9088999735 /* [CP] Copy Pods Resources */ = {

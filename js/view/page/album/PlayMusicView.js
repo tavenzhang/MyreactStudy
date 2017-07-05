@@ -26,7 +26,7 @@ export default class PlayMusicView extends TView {
             width: G_Theme.windowWidth
         },
         headerTitleStyle: {color: G_Theme.grayDeep},
-        headerRight: <TButtonImg img={ImgHome.wave} styleImg={{width:40, height:30, marginRight:20}}/>,
+        headerRight: <TButtonImg img={ImgHome.wave} styleImg={{marginRight:20}}/>,
         headerTintColor: "white",
     }
 

@@ -47,9 +47,9 @@ This will also make sure the profile is up to date
 fastlane ios release
 ```
 Deploy a new version to the App Store
-### ios hot_release
+### ios release_hot
 ```
-fastlane ios hot_release
+fastlane ios release_hot
 ```
 hot release
 ### ios screenshot

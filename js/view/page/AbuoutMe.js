@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
         marginRight: 40,
         marginLeft: 15,
         justifyContent: "center",
-        height:30,
+        height:45,
     },
     textMunu: {
         marginTop: 10

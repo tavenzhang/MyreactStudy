@@ -59,7 +59,7 @@ export default class QuweiDingdanshuang extends L115 {
             for(let j = 0; j < original[k].length; j++ ) {
                 tempArr[k][j] = original[k][j];
             }
-            result = result.concat(tempArr[k].join(' '));
+            result = result.concat(tempArr[k].join(''));
         }
 
 
@@ -89,7 +89,7 @@ export default class QuweiDingdanshuang extends L115 {
         for(let i=0; i < numArr.length; i++) {
             ball_num['' + i] ? result.push(ball_num['' + i]) : result.push(i);
         }
-        data['ball'] = result.join('');
+        data['ball'] = result.join(' ');
         return data;
     }
 

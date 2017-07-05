@@ -132,7 +132,7 @@ export default class ErbutonghaoDantuo extends K3 {
                 num++;
             }
         }
-        if(num >= 1 && oNum >= 1){
+        if(num >= 2 && oNum >= 1){
             this.setState({isBallsComplete: true});
             return true;
         }

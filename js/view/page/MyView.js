@@ -6,7 +6,6 @@ import {
 } from 'react-native';
 import AIcon from 'react-native-vector-icons/FontAwesome';
 import {connect} from 'react-redux';
-import Button from 'react-native-button';
 import BaseView from "../componet/BaseView";
 import AcountListView from "./me/subView/AcountListView";
 import ConfigView from "./home/subview/ConfigView";
@@ -160,13 +159,10 @@ export default class MyView extends BaseView {
                 <Text style={{textAlign: "center", lineHeight: 20}}>您还未登陆，
                     <Text onPress={this.clickLogin} style={{color: "red"}}>登陆</Text>后可查看更多信息
                 </Text>
-                <Button
+                <TButton
                     containerStyle={styles.button}
-                    style={{fontSize: 14, color: 'white'}}
-                    styleDisabled={{color: '#fff'}}
-                    onPress={this.clickLogin}>
-                    登陆
-                </Button>
+                    onPress={this.clickLogin}
+                btnName={"登陆"}/>
             </View>
         }
         return (
@@ -190,7 +186,6 @@ export default class MyView extends BaseView {
         this.isLogin=this.props.userData.isLogined;
         this.props.navigation.setParams({isLogined:this.isLogin})
     }
-
 }
 
 const styles = StyleSheet.create({

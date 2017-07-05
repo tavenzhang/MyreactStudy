@@ -213,6 +213,9 @@ export default class BaseGameView extends BaseView {
                         if (pd.name_cn ==null) {
                             data.name_cn = playModel.getWayNameById(data.id)
                         }
+                        else{
+                            data.name_cn =pd.name_cn
+                        }
                         this.setState({
                             currentGameWay: pd,
                             gameMethodHash: gameMethodHash,

@@ -47,7 +47,6 @@ export default class Notice extends BaseView {
     }
 
     _renderRow = (data) => {
-
         return (
             <View>
                 <TouchableHighlight onPress={() => this.itemClick(data)} underlayColor='rgba(10,10,10,0.2)'>
@@ -64,6 +63,7 @@ export default class Notice extends BaseView {
             </View>
         );
     }
+
     itemClick = (data) => {
         G_NavUtil.pushToView(G_NavViews.NoticeDeailView({...data, title: data.title}));
     }

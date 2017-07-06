@@ -151,14 +151,14 @@ export default class GameTracePannel extends Component {
                 <View style={styles.tracePanel}>
                     <View style={{flexDirection: 'row', flex: 1, borderRightWidth: 0.5,alignItems:"center", justifyContent:"center"}}>
                         <Text style={styles.lotterys}>追</Text>
-                        <TButtonView btnName={traceTimes} onPress={()=>{
+                        <TButtonView btnName={traceTimes==''?' ':traceTimes} onPress={()=>{
                             me.setIsShowKeyTrace(!this.state.isShowKeyTrace)
                         }}  textStyle={styles.textInput}/>
                         <Text style={styles.lotterys}>期</Text>
                     </View>
                     <View style={{flexDirection: 'row', flex: 1, paddingLeft: 20, alignItems:"center", justifyContent:"center"}}>
                         <Text style={styles.lotterys}>投注</Text>
-                        <TButtonView  btnName={traceMultiple} onPress={()=>me.setIsShowKeyMultiple(!this.state.isShowKeyMultiple)}  textStyle ={styles.textInput}/>
+                        <TButtonView  btnName={traceMultiple==''?' ':traceMultiple} onPress={()=>me.setIsShowKeyMultiple(!this.state.isShowKeyMultiple)}  textStyle ={styles.textInput}/>
                         <Text style={styles.lotterys}>倍</Text>
                     </View>
                 </View>

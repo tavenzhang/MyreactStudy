@@ -8,9 +8,7 @@ export default class ErxingZuxuanHouerDanshi extends SSCDanshi {
     constructor(props) {
         super(props);
 
-        this.state.normalTips = ['说明：',
-            '支持常见的各种单式格式，间隔符如： 换行符 回车 逗号 分号等',
-            '',
+        this.state.normalTips = ['说明：支持常见的各种单式格式','间隔符如： 换行符 回车 逗号 分号等',
             '格式范例：12 23 18 13 98'
         ].join('\n')
     }

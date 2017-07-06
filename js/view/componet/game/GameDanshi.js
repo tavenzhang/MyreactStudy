@@ -71,6 +71,7 @@ export default class GameDanshi extends Games {
 
         return <View style={styles.uiBox}>
             <Text style={styles.uiBoxTitleText}>请在下方的输入框内输入或粘贴投注内容</Text>
+            <Text style={[styles.uiBoxTitleText,{fontSize:12}]}>{this.state.normalTips}</Text>
             <TextInput
                 style={styles.textarea}
                 multiline={true}
@@ -78,10 +79,10 @@ export default class GameDanshi extends Games {
                 onChangeText={text => {
                     this.setState({text: text})
                     const lotterys = me.checkBallIsComplete(null, text);
+                    TLog('lotterys',lotterys);
                     this.setState({lotterys: lotterys});
                 }}
-                placeholder={this.state.normalTips}
-                keyboardType='numeric'
+                keyboardType='numbers-and-punctuation'
                 //onBlur={ text => me.checkBallIsComplete(text)}
                 value={text}/>
             <View style={styles.btnGrounp}>
@@ -178,7 +179,9 @@ export default class GameDanshi extends Games {
             has = {},
             result = [];
         if (!data) {
-            return false;
+            this.setState({isBallsComplete: false});
+
+            return [];
         }
         ballData.sameData = [];
         ballData.errorData = [];

@@ -15,14 +15,17 @@ const ListType = {
     GameList: "33",
     PlayList: "22",
     TimeList: "11",
+    Won:'3',
+    Process:'0',
+    All:'',
 }
 
 const mapStateToProps = state => {
     return {
-        gameModel:state.get("appState").get("gameModel"),
-        playModel:state.get("appState").get("playModel"),
-        appModel:state.get("appState").get("appModel"),
-        commonModel:state.get("appState").get("commonModel"),
+        gameModel: state.get("appState").get("gameModel"),
+        playModel: state.get("appState").get("playModel"),
+        appModel: state.get("appState").get("appModel"),
+        commonModel: state.get("appState").get("commonModel"),
     }
 }
 
@@ -35,11 +38,12 @@ export default class RecordBetView extends BaseView {
         let lastMonth = G_DateUtil.formatRecodData(new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000));
         let lastTowMonth = G_DateUtil.formatRecodData(new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000));
         this.state = {
+            status:ListType.All,
             curGame: null,
             curPlay: null,
             curTime: null,
             dataList: [],
-            pageSize:20,
+            pageSize: 20,
             timeList: [{name: "全部时间", date: ""}, {name: "最近一周", date: lastWeekTime}, {
                 name: "最近一个月",
                 date: lastMonth
@@ -50,9 +54,9 @@ export default class RecordBetView extends BaseView {
 
     renderBody() {
         let {gameModel, playModel} = this.props;
-        let gameList=[{name: "全部彩种", id: "", series_id: ""}].concat(gameModel.gameInfoList)
+        let gameList = [{name: "全部彩种", id: "", series_id: ""}].concat(gameModel.gameInfoList)
         let playList = [{name: "全部玩法", id: ""}];
-           if (this.state.curGame) {
+        if (this.state.curGame) {
             let mod = playModel.getPlayByGid(this.state.curGame.series_id)
             if (mod) {
                 playList = mod.arrayList;
@@ -84,10 +88,10 @@ export default class RecordBetView extends BaseView {
                     style={{
                         flexDirection: "row",
                         height: 35,
-                        borderBottomColor: G_Theme.gray, borderBottomWidth:1
+                        borderBottomColor: G_Theme.gray, borderBottomWidth: 1
                     }}>
                     <TouchableOpacity style={[styles.touchTabButton, gameStyle]}
-                                        onPress={() => this.onPressMenu(ListType.GameList)}
+                                      onPress={() => this.onPressMenu(ListType.GameList)}
                     >
                         <View style={{flexDirection: "row"}}>
                             <Text
@@ -102,7 +106,7 @@ export default class RecordBetView extends BaseView {
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.touchTabButton, playStyle]}
-                                        onPress={() => this.onPressMenu(ListType.PlayList)}
+                                      onPress={() => this.onPressMenu(ListType.PlayList)}
                     >
                         <View style={{flexDirection: "row", alignItems: "center"}}>
                             <Text
@@ -117,7 +121,7 @@ export default class RecordBetView extends BaseView {
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.touchTabButton, timeStyle]}
-                                        onPress={() => this.onPressMenu(ListType.TimeList)}
+                                      onPress={() => this.onPressMenu(ListType.TimeList)}
                     >
                         <View style={{flexDirection: "row"}}>
                             <Text
@@ -132,8 +136,29 @@ export default class RecordBetView extends BaseView {
                         </View>
                     </TouchableOpacity>
                 </View>
+                <View style={{
+                        flexDirection: "row",
+                        height: 35,
+                    backgroundColor:G_Theme.gray,
+
+                        borderColor: G_Theme.gray, borderBottomWidth: 1
+                    }}>
+                    <TouchableOpacity style={[styles.touchTabButton, timeStyle,styles.searchTab,this.state.status==ListType.All?styles.selectedSearch:null,]}
+                                      onPress={() => this.clickMenuItem([], ListType.All)}>
+                        <Text style={[this.state.status==ListType.All?styles.selectedText:null,{fontSize:16}]}>全部</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.touchTabButton, timeStyle,styles.searchTab,this.state.status==ListType.Won?styles.selectedSearch:null]}
+                                      onPress={() => this.clickMenuItem([], ListType.Won)}>
+                        <Text style={[this.state.status==ListType.Won?styles.selectedText:null,{fontSize:16}]}>已中奖</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.touchTabButton, timeStyle,styles.searchTab,this.state.status==ListType.Process?styles.selectedSearch:null]}
+                                      onPress={() => this.clickMenuItem([], ListType.Process)}>
+                        <Text style={[this.state.status==ListType.Process?styles.selectedText:null,{fontSize:16}]}>待开奖</Text>
+                    </TouchableOpacity>
+                </View>
                 <View style={{flex: 1, backgroundColor: "yellow"}}>
-                    <BetRecordListView pageSize={this.state.pageSize} dataList={this.state.dataList} loadMore={this.loadMore} {...this.props}/>
+                    <BetRecordListView pageSize={this.state.pageSize} dataList={this.state.dataList}
+                                       loadMore={this.loadMore} {...this.props}/>
                 </View>
                 <View style={{position: "absolute", zIndex: 6, top: 35}}>
                     {gameView}
@@ -145,7 +170,7 @@ export default class RecordBetView extends BaseView {
     }
 
     componentDidMount() {
-        G_RunAfterInteractions(()=>{
+        G_RunAfterInteractions(() => {
             this.loadMore(null, true);
         })
     }
@@ -216,22 +241,45 @@ export default class RecordBetView extends BaseView {
     clickMenuItem = (data, listType) => {
         switch (listType) {
             case ListType.TimeList:
-                this.setState({curClickType: "", curTime: data},()=>{ this.loadMore(null, 1)});
+                this.setState({curClickType: "", curTime: data}, () => {
+                    this.loadMore(null, 1)
+                });
                 break;
             case ListType.GameList: //重新选择了游戏 需要重制游戏类型
-                this.setState({curClickType: "", curGame: data, curPlay: null},()=>{ this.loadMore(null, 1)});
+                this.setState({curClickType: "", curGame: data, curPlay: null}, () => {
+                    this.loadMore(null, 1)
+                });
                 break;
             case ListType.PlayList:
-                this.setState({curClickType: "", curPlay: data},()=>{this.loadMore(null, 1)});
+                this.setState({curClickType: "", curPlay: data}, () => {
+                    this.loadMore(null, 1)
+                });
+                break;
+            case ListType.All:
+                this.setState({status:''}, () => {
+                    this.loadMore(null, 1)
+                });
+                break;
+            case ListType.Won:
+                this.setState({status:ListType.Won}, () => {
+                    this.loadMore(null, 1)
+                });
+                break;
+
+            case ListType.Process:
+                this.setState({status:ListType.Process}, () => {
+                    this.loadMore(null, 1)
+                });
                 break;
         }
     }
 
     loadMore = (callBack, isFlush) => {
         HTTP_SERVER.BET_RECODE.body.bought_at_from = this.state.curTime ? this.state.curTime.date : "";
-        HTTP_SERVER.BET_RECODE.body.bought_at_to ="";
+        HTTP_SERVER.BET_RECODE.body.bought_at_to = "";
         HTTP_SERVER.BET_RECODE.body.lottery_id = this.state.curGame ? this.state.curGame.id : "";
         HTTP_SERVER.BET_RECODE.body.way_id = this.state.curPlay ? this.state.curPlay.id : "";
+        HTTP_SERVER.BET_RECODE.body.status = this.state.status ? this.state.status : "";
         if (isFlush) {
             HTTP_SERVER.BET_RECODE.body.page = 1;
             this.setState({dataList: []});
@@ -244,7 +292,7 @@ export default class RecordBetView extends BaseView {
             if (callBack) {
                 callBack()
             }
-            let arr = G_ArrayUtils.addComapreCopy(this.state.dataList,result.data.data);
+            let arr = G_ArrayUtils.addComapreCopy(this.state.dataList, result.data.data);
             this.setState({dataList: arr});
         }, false);
     }
@@ -283,4 +331,15 @@ const styles = StyleSheet.create({
         borderBottomColor: G_Theme.gray,
         borderBottomWidth: 1,
     },
+    searchTab:{
+        // borderRightWidth:1,
+        borderColor:G_Theme.grayDeep,
+    },
+    selectedSearch:{
+        backgroundColor:'#fff'
+    },
+    selectedText:{
+        color:G_Theme.primary
+    }
+
 });

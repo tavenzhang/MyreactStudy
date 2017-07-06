@@ -59,7 +59,9 @@ export default class MyView extends BaseView {
         }
     }
 
-    static dataListRecord = [{ico: "star", name: ItemNameEnum.awardFind}, {
+    static dataListRecord = [
+        // {ico: "star", name: ItemNameEnum.awardFind},//中奖查询 移到投注记录里面
+        {
         ico: "file-text",
         name: ItemNameEnum.betRecord
     }, {ico: "file-text-o", name: ItemNameEnum.chaseRecode}];

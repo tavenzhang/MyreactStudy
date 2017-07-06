@@ -3,6 +3,7 @@ import {
     View,
     Text
     , StyleSheet,
+    Image,
     TouchableHighlight
 } from 'react-native';
 import AIcon from 'react-native-vector-icons/FontAwesome';
@@ -13,6 +14,7 @@ import ConfigView from "./home/subview/ConfigView";
 import {TButton} from "../componet/tcustom/button/TButton";
 import {NavButtonText} from "../componet/navBarMenu/HeaderMenu";
 import TouchableItem from "../../../node_modules/react-navigation/lib-rn/views/TouchableItem";
+import {Icon_touxaing} from "../../assets/index";
 
 export let ItemNameEnum = {
     //我的彩票
@@ -141,84 +143,86 @@ export default class MyView extends BaseView {
                 };
             }
             infoView = <View style={[styles.headContent]}>
-                <View style={styles.rowSp}>
-                    <View style={{flexDirection: "row", alignItems: "center",}}>
-                        <Text style={[styles.username]}>{userData.data.nickname}</Text>
-                        <View style={styles.agentBar}>
-                            <Text style={styles.agentText}>
-                                {userData.data.user_type > 0 ? "代理" : "玩家"}
-                            </Text>
-                        </View>
+                <TouchableHighlight style={[styles.operationPannel]} underlayColor={G_Theme.gray}
+                                    onPress={() => {
+                                        G_NavUtil.pushToView(G_NavViews.PersonMailView({
+                                            title: ItemNameEnum.msgNotice,
+                                            defaultIndex: 0
+
+                                        }));
+                                    }}>
+                    <View style={[styles.Operation,{left:-1}]}>
+                        <AIcon name={MyView.dataListPerson[1].ico}
+                               style={[styles.IconOperation]}/>
+                    </View>
+
+                </TouchableHighlight>
+                <TouchableHighlight style={[styles.operationPannel]} underlayColor={G_Theme.gray} onPress={() => {
+                    G_NavUtil.pushToView(G_NavViews.PersonPwdView({
+                        title: ItemNameEnum.pwdMange,
+                        defaultIndex: 0
+                    }));
+                }}>
+                    <View style={[styles.Operation,{right:-1}]}>
+                        <AIcon name={MyView.dataListPerson[0].ico}
+                               style={styles.IconOperation}/>
+                    </View>
+
+                </TouchableHighlight>
+                <View style={[styles.rowSp, {paddingTop: 10}]}>
+                    <View style={styles.touxiang}>
+                        <Image style={styles.IconTouxiang} source={Icon_touxaing}/>
+                    </View>
+
+                </View>
+                <View style={[styles.rowSp,]}>
+                    <Text >{userData.data.nickname}</Text>
+                    <View style={styles.agentBar}>
+                        <Text style={styles.agentText}>
+                            {userData.data.user_type > 0 ? "代理" : "玩家"}
+                        </Text>
                     </View>
                 </View>
-                <View style={styles.rowSp}>
-                    <View style={{flexDirection: "row", alignItems: "center",}}>
-                        <Text style={[{fontSize: 14}]}>{userData.data.username}</Text>
-                        <TouchableHighlight style={{marginLeft: 5}} onPress={() => {
-                            G_NavUtil.pushToView(G_NavViews.PersonPwdView({
-                                title: ItemNameEnum.pwdMange,
-                                defaultIndex: 0
-                            }));
-                        }}>
-                            <AIcon name={MyView.dataListPerson[0].ico}
-                                   style={{fontSize: 14, margin: 2, alignSelf: "center", color: G_Theme.grayDeep}}/>
-                        </TouchableHighlight>
-                        <TouchableHighlight style={{marginLeft: 5}} onPress={() => {
-                            G_NavUtil.pushToView(G_NavViews.PersonMailView({
-                                title: ItemNameEnum.msgNotice,
-                                defaultIndex: 0
-                            }));
-                        }}>
-                            <AIcon name={MyView.dataListPerson[1].ico}
-                                   style={{
-                                       fontSize: 15,
-                                       alignSelf: "center",
-                                       color: userData.data.unread_msg_count > 0 ? G_Theme.primary : G_Theme.grayDeep
-                                   }}/>
-                        </TouchableHighlight>
-                    </View>
+                <View style={[styles.rowSp]}>
+
+                    <Text style={[{fontSize: 12}]}>账号:{userData.data.username}</Text>
+
+
                 </View>
                 <View style={styles.rowSp}>
-                    <View style={{flexDirection: "row", alignItems: "center",}}>
+                    {/*<View style={{flexDirection: "row", height: 50, alignItems: "center",}}>*/}
+                    <View style={{flexDirection: "row", flex: 1}}>
                         <Text style={[{fontSize: 14, color: G_Theme.grayDeep}]}>奖金组: </Text>
                         <Text style={[{fontSize: 14}]}>{userData.data.user_forever_prize_group} </Text>
-
                     </View>
-                </View>
-                <View style={styles.rowSp}>
-                    <View style={{flexDirection: "row", alignItems: "center",}}>
+                    <View style={{flexDirection: "row", flex: 1}}>
                         <Text style={{
-                            fontSize: 12,
+                            fontSize: 14,
                             color: G_Theme.grayDeep
                         }}>余额:</Text>
-                        <Text style={{fontSize: 12,}}>{G_DateUtil.formatMoney(moneyBalance)} </Text>
-                        <Text style={{fontSize: 12, color: G_Theme.grayDeep}}>元 </Text>
+                        <Text style={{fontSize: 14,}}>{G_DateUtil.formatMoney(moneyBalance)} </Text>
+                        <Text style={{fontSize: 14, color: G_Theme.grayDeep}}>元 </Text>
+                        {/*</View>*/}
+
+
                     </View>
-                    {/*<Text style={{textAlign: "center"}}><Text*/}
-                    {/*style={styles.titleSyle}>资金密码: </Text>{userData.data.is_set_fund_password ? "已设置" : "未设置"}*/}
-                    {/*</Text>*/}
+
                 </View>
+
 
                 <View style={[styles.rowSp, {
                     alignItems: 'flex-end',
-                    height: 60,
                     borderTopColor: G_Theme.gray,
                     borderTopWidth: 1,
-                    // paddingTop: 5
                 }]}>
                     <View style={[styles.commonBar]}>
 
                         <TouchableHighlight onPress={() => {
                             G_NavUtil.pushToView(G_NavViews.MoneyInView());
                         }}>
-
                             <View style={{flexDirection: "row",}}>
                                 <AIcon name={MyView.dataListMoney[2].ico}
-                                       style={{
-                                           fontSize: 16,
-                                           alignSelf: "center",
-                                           color: G_Theme.primary
-                                       }}/>
+                                       style={styles.commonIcon}/>
                                 <Text style={styles.commonText}>充值</Text>
 
                             </View>
@@ -232,11 +236,7 @@ export default class MyView extends BaseView {
                         }}>
                             <View style={{flexDirection: "row",}}>
                                 <AIcon name={MyView.dataListMoney[1].ico}
-                                       style={{
-                                           fontSize: 16,
-                                           alignSelf: "center",
-                                           color: G_Theme.primary
-                                       }}/>
+                                       style={styles.commonIcon}/>
                                 <Text style={styles.commonText}>提现</Text>
 
                             </View>
@@ -255,11 +255,7 @@ export default class MyView extends BaseView {
                         }}>
                             <View style={{flexDirection: "row",}}>
                                 <AIcon name={MyView.dataListMoney[0].ico}
-                                       style={{
-                                           fontSize: 16,
-                                           alignSelf: "center",
-                                           color: G_Theme.primary
-                                       }}/>
+                                       style={styles.commonIcon}/>
                                 <Text style={styles.commonText}>转账</Text>
 
                             </View>
@@ -268,7 +264,7 @@ export default class MyView extends BaseView {
                 </View>
             </View>
         } else {
-            infoView = <View style={styles.headContent}>
+            infoView = <View style={[styles.headContent, {justifyContent: "center",}]}>
                 <Text style={{textAlign: "center", lineHeight: 20}}>您还未登陆，
                     <Text onPress={this.clickLogin} style={{color: "red"}}>登陆</Text>后可查看更多信息
                 </Text>
@@ -305,36 +301,65 @@ const styles = StyleSheet.create({
     agentBar: {
         backgroundColor: G_Theme.primary,
         paddingTop: 2,
-        borderRadius: 10,
-        width: 45,
-        height: 20,
+        borderRadius: 8,
+        width: 40,
+        height: 16,
         overflow: 'hidden'
     },
-    agentText: {color: '#fff', fontSize: 14, textAlign: 'center', width: 45},
-    username: {fontSize: 18,},
+    agentText: {color: '#fff', fontSize: 12, textAlign: 'center', width: 40},
+    // username: {fontSize: 18,},
 
     commonBar: {borderColor: G_Theme.gray, alignItems: 'center', flex: 1,},
-    commonText: {fontSize: 16,
+    commonText: {
+        fontSize: 16,
         // color: G_Theme.grayDeep,
-        marginLeft: 5,},
+        marginLeft: 5,
+    },
+    commonIcon: {
+        fontSize: 16,
+        alignSelf: "center",
+        color: G_Theme.primary
+    },
+    touxiang: {
+        flex: 1, height: 70, alignItems: 'center'
+    },
+    IconTouxiang: {
+        width: 50,
+        height: 50,
+        margin: 5,
+        borderRadius: 25,
+    },
+    operationPannel: {
+        zIndex: 10
+        // position: 'absolute',
+        // top: 3,
 
+    },
+    Operation: {
+        width: 30, height: 30,
+        position: 'absolute',
+        top: 3,
+    },
+    IconOperation: {
+        fontSize: 25,
+        alignSelf: "center",
+        color: G_Theme.primary,
+
+    },
     headContent: {
         margin: 10,
-        height: 120,
+        height: 170,
         elevation: 2,
-        justifyContent: "center",
+        // justifyContent: "center",
     },
     rowSp: {
         flexDirection: "row",
-        justifyContent: "space-around",
+        // justifyContent: "space-around",
         alignItems: "center",
+        alignSelf: "center",
         flex: 1
     },
 
-    titleSyle: {
-
-        fontWeight: "bold",
-    },
     button: {
         width: 100,
         padding: 5,

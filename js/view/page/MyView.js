@@ -153,7 +153,7 @@ export default class MyView extends BaseView {
                 </View>
                 <View style={styles.rowSp}>
                     <View style={{flexDirection: "row", alignItems: "center",}}>
-                        <Text style={[{fontSize: 14, color: G_Theme.grayDeep}]}>账号({userData.data.username}) </Text>
+                        <Text style={[{fontSize: 14}]}>{userData.data.username}</Text>
                         <TouchableHighlight style={{marginLeft: 5}} onPress={() => {
                             G_NavUtil.pushToView(G_NavViews.PersonPwdView({
                                 title: ItemNameEnum.pwdMange,
@@ -314,7 +314,9 @@ const styles = StyleSheet.create({
     username: {fontSize: 18,},
 
     commonBar: {borderColor: G_Theme.gray, alignItems: 'center', flex: 1,},
-    commonText: {fontSize: 16, color: G_Theme.grayDeep, marginLeft: 5,},
+    commonText: {fontSize: 16,
+        // color: G_Theme.grayDeep,
+        marginLeft: 5,},
 
     headContent: {
         margin: 10,

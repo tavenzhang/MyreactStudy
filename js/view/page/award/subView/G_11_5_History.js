@@ -33,7 +33,7 @@ export default class G_11_5_History extends BaseView {
     }
 
     componentDidMount() {
-        this.loadMore(null,0);
+        setTimeout(()=>{ this.loadMore(null,0)},500)
     }
 
 

@@ -34,12 +34,10 @@ export default class SSC_History extends BaseView {
     }
 
     componentDidMount() {
-        G_RunAfterInteractions(()=>{
-            this.loadMore(null,true);
-        })
+        setTimeout(()=>{ this.loadMore(null)},500)
     }
 
-    loadMore = (callBack, isFlush) => {
+    loadMore = (callBack) => {
         //TLog("this.props.navigation.state.params---",this.props.navigation.state.params)
         const {lottery_id} = this.props.navigation.state.params;
         HTTP_SERVER.notice_Lottery_Hisotry.url= `${HTTP_SERVER.notice_Lottery_Hisotry.formatUrl}/${lottery_id}/${this.next_id}`

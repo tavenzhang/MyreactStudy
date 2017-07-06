@@ -53,7 +53,7 @@ global.T_CheckCodePush = (serverName, keyStr) => {
             CodePush.checkForUpdate()
                 .then( (update) =>{
                     if( !update ){
-                        TLog("codePush--------","app是最新版了")
+                        TLog("codePush--------"+update,"app是最新版了")
                         CodePush.sync({
                             deploymentKey: keyStr,
                             updateDialog: {
@@ -65,7 +65,7 @@ global.T_CheckCodePush = (serverName, keyStr) => {
                             installMode: CodePush.InstallMode.IMMEDIATE
                         })
                     }else {
-                        TLog("codePush--------",update)
+                        TLog("codePush--------=="+update,"更新同步")
                         CodePush.sync({
                             deploymentKey: keyStr,
                             updateDialog: {

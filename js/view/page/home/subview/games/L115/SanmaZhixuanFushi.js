@@ -18,7 +18,7 @@ export default class SanmaZhixuanFushi extends L115 {
     ];
 
     //设置rowtitle
-    setRowTitle = () => ['一位1','二位','三位'];
+    setRowTitle = () => ['一位','二位','三位'];
 
     checkBallIsComplete() {
         const me = this;

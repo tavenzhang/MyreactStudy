@@ -79,7 +79,6 @@ export default class LinkListView extends BaseView {
     }
 
     _onDeleteLink=(data)=>{
-
         G_RunAfterInteractions(()=>{
             HTTP_SERVER.AgentUserDelLink.url=HTTP_SERVER.AgentUserDelLink.formatUrl.replace("#id",data.id);
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentUserDelLink,(result)=>{
@@ -104,7 +103,6 @@ export default class LinkListView extends BaseView {
     _onDetailLink=(data)=>{
         G_NavUtil.pushToView(G_NavViews.LinkDetailView({content:data}))
     }
-
 }
 
 const  styles = StyleSheet.create({

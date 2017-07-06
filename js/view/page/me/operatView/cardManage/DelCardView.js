@@ -6,7 +6,7 @@ import {
     Alert
 } from 'react-native';
 import BaseView from "../../../../componet/BaseView";
-import Button from "react-native-button";
+
 import {TButton} from "../../../../componet/tcustom/button/TButton";
 
 export default class DelCardView extends BaseView {
@@ -77,8 +77,7 @@ export default class DelCardView extends BaseView {
                 </View>
                 <TButton btnName={"删除"}
                          viewStyle={{
-                             padding: 8,
-                             margin: 25,
+                             margin: 30,
                          }}
                         errMsg={this.onErrMsg()}
                          onPress={this.clickNext}

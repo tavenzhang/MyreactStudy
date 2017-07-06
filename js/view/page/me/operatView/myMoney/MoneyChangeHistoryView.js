@@ -108,7 +108,7 @@ export default class MoneyChangeHistoryView extends React.Component {
                             <Text style={{fontSize:12,color:G_Theme.grayDeep, marginTop:5}} >{playName}</Text>
                         </View>
                         <View style={[styles.itemContentStyle,{flex:2}]}>
-                            <Text style={styles.textItemStyle}>{parseInt(rowData.available)}</Text>
+                            <Text style={styles.textItemStyle}>{ parseFloat(rowData.available).toFixed(1)}</Text>
                         </View>
                     </View>
                 </TouchableHighlight>

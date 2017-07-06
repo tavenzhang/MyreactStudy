@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         height:40,
         justifyContent: "center",
+        alignItems:"center"
 
     },
     defaultStyle: {
@@ -103,7 +104,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     contentText: {
-        lineHeight:40,
         padding: 2,
         flex: 1,
         fontSize: 12,

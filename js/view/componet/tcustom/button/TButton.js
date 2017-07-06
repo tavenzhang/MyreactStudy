@@ -49,30 +49,31 @@ export class TButton extends React.Component {
         textStyle: PropTypes.any,
         disabledStyle: PropTypes.any,
         errMsg: PropTypes.any,
-        imgBtnSrc: PropTypes.any
+        imgBtnSrc: PropTypes.any,
+        defaultContainStyle: PropTypes.any,
     }
 
     static defaultProps = {
         disabledStyle: {backgroundColor: "gray", color: "white"},
         textStyle: {fontSize: 14, color: "white", textAlign: "center"},
-        containerStyle: {
-            backgroundColor: "#d7213c",
-            borderRadius: 8,
-            paddingVertical: 8,
-            paddingHorizontal: 5,
+        defaultContainStyle: {
+            borderRadius: 6,
+            paddingVertical: 6,
+            paddingHorizontal: 10,
             alignItems: "center"
         },
-        visible: true
+        visible: true,
+        errMsg:""
     }
 
     render() {
-        const {visible, containerStyle, viewStyle, onPress, errMsg, btnName, textStyle, disabledStyle, disable, imgBtnSrc, imgStyle} = this.props;
+        const {visible, containerStyle,defaultContainStyle, viewStyle, onPress, errMsg, btnName, textStyle, disabledStyle, disable, imgBtnSrc, imgStyle} = this.props;
         let myDisable = disable;
         if (errMsg && errMsg != "") {
             myDisable = true;
         }
 
-        let btn = <Button containerStyle={[{backgroundColor: myDisable ? "gray" : "#d7213c", borderRadius: 10,paddingVertical: 5, paddingHorizontal: 5}, containerStyle]}
+        let btn = <Button containerStyle={[defaultContainStyle,{backgroundColor: myDisable ? "gray" : "#d7213c"}, containerStyle]}
                           disabled={myDisable}
                           style={textStyle}
                           styleDisabled={[disabledStyle]} onPress={onPress}>

@@ -55,7 +55,7 @@ export default class RecordBetView extends BaseView {
            if (this.state.curGame) {
             let mod = playModel.getPlayByGid(this.state.curGame.series_id)
             if (mod) {
-                playList = mod.arrayList;
+                playList.push(mod.arrayList);
             }
         }
         let gameBtnName = this.state.curGame ? this.state.curGame.name : gameList[0].name;

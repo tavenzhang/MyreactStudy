@@ -188,7 +188,7 @@ export default class MyView extends BaseView {
 
                 <View style={[styles.rowSp, {
                     alignItems: 'flex-end',
-                    height: 60,
+                    height: 50,
                     borderTopColor: G_Theme.gray,
                     borderTopWidth: 1,
                     // paddingTop: 5
@@ -199,7 +199,7 @@ export default class MyView extends BaseView {
                             G_NavUtil.pushToView(G_NavViews.MoneyInView());
                         }}>
 
-                            <View style={{ paddingTop:20,flexDirection: "row",}}>
+                            <View style={{ flexDirection: "row",}}>
                                 <AIcon name={MyView.dataListMoney[2].ico}
                                        style={{
                                            fontSize: 15,
@@ -217,7 +217,7 @@ export default class MyView extends BaseView {
                         <TouchableHighlight onPress={() => {
                             G_NavUtil.pushToView(G_NavViews.MoneyOuterView());
                         }}>
-                            <View style={{ paddingTop:20,flexDirection: "row",}}>
+                            <View style={{ flexDirection: "row",}}>
                                 <AIcon name={MyView.dataListMoney[1].ico}
                                        style={{
                                            fontSize: 15,
@@ -240,7 +240,7 @@ export default class MyView extends BaseView {
                                 username: userData.data.username
                             }));
                         }}>
-                            <View style={{ paddingTop:20,flexDirection: "row",}}>
+                            <View style={{ flexDirection: "row",}}>
                                 <AIcon name={MyView.dataListMoney[0].ico}
                                        style={{
                                            fontSize: 15,
@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
     agentText: {color: '#fff', fontSize: 14, textAlign: 'center', width: 45},
     username: {fontSize: 18,},
 
-    commonBar: {borderColor: G_Theme.gray, alignItems: 'center',flex: 1, },
+    commonBar: {borderColor: G_Theme.gray, alignItems: 'center',flex: 1,},
     commonText:{fontSize: 14, color: G_Theme.grayDeep,marginLeft:5,},
 
     headContent: {

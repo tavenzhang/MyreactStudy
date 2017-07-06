@@ -73,7 +73,24 @@ export  default class BetDetailView extends BaseView {
                 <View style={styles.profitRow}>
                     <Text style={styles.title}>订单金额:</Text>
                     <Text
-                        style={[styles.text, styles.winStatus,{color: G_Theme.grayDeep}]}>{G_DateUtil.formatMoney(data.amount)}元</Text>
+                        style={[styles.text, styles.winStatus,{color: G_Theme.primary}]}>{G_DateUtil.formatMoney(data.amount)}元</Text>
+                </View><View style={styles.profitRow}>
+                    <Text style={styles.title}>完成金额:</Text>
+                    <Text
+                        style={[styles.text, styles.winStatus,{color: G_Theme.primary}]}>{G_DateUtil.formatMoney(data.amount)}元</Text>
+                </View><View style={styles.profitRow}>
+                    <Text style={styles.title}>取消金额:</Text>
+                    <Text
+                        style={[styles.text, styles.winStatus,{color: G_Theme.primary}]}>{G_DateUtil.formatMoney(data.amount)}元</Text>
+                </View>
+
+                <View style={styles.profitRow}>
+                    <Text style={styles.title}>返点:</Text>
+                    <Text style={[styles.text,]}>1090-1.0003%</Text>
+                </View>
+                <View style={styles.profitRow}>
+                    <Text style={styles.title}>中奖后终止任务:</Text>
+                    <Text style={[styles.text,]}>是</Text>
                 </View>
                 <View style={[styles.profitRow, {borderColor: G_Theme.gray, backgroundColor: '#fff',}]}>
                     <Text style={styles.title}>追号号码:</Text>
@@ -166,7 +183,7 @@ const styles = StyleSheet.create({
     title: {
         paddingHorizontal: 10,
         // textAlign: 'right',
-        flex: 2
+        flex: 4
     },
     textgameName: {
         lineHeight: 30,

@@ -39,7 +39,7 @@ export default class MoneyTransferView extends BaseView {
                 <View style={G_Style.appView}>
                     <View style={{flex: 1, marginLeft: 40, marginRight: 40, marginTop: 40}}>
                         <View style={styles.inputContain}>
-                            <Text>账户余额: {parseInt(params.money)}</Text>
+                            <Text>账户余额: {G_DateUtil.formatMoney(params.money)}元</Text>
                         </View>
                         <View style={styles.inputContain}>
                             <Text>收款账号:</Text>
@@ -82,6 +82,7 @@ export default class MoneyTransferView extends BaseView {
 
                         </View>
                         <View style={styles.inputContain}>
+                            <Text>完整卡号:</Text>
                             <TTextInput style={styles.textStyle} onChangeText={(cardNum) => this.setState({cardNum})}
                                         value={this.state.cardNum} keyboardType={"numeric"} maxLength={20}
                                         placeholder={"请输入验证银行卡完整卡号"}

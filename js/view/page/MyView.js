@@ -3,6 +3,7 @@ import {
     View,
     Text
     , StyleSheet,
+    TouchableHighlight
 } from 'react-native';
 import AIcon from 'react-native-vector-icons/FontAwesome';
 import {connect} from 'react-redux';
@@ -11,6 +12,7 @@ import AcountListView from "./me/subView/AcountListView";
 import ConfigView from "./home/subview/ConfigView";
 import {TButton} from "../componet/tcustom/button/TButton";
 import {NavButtonText} from "../componet/navBarMenu/HeaderMenu";
+import TouchableItem from "../../../node_modules/react-navigation/lib-rn/views/TouchableItem";
 
 export let ItemNameEnum = {
     //我的彩票
@@ -43,16 +45,17 @@ const mapStateToProps = state => {
 
 @connect(mapStateToProps)
 export default class MyView extends BaseView {
-    static navigationOptions = ({navigation,screenProps})=> {
-        let {userData}=screenProps
+    static navigationOptions = ({navigation, screenProps}) => {
+        let {userData} = screenProps
         return {
-        title: '我的',
-        tabBarIcon: ({focused}) => {
-            return <AIcon name='user' style={{ fontSize: 25, color:focused ? G_Theme.selectColor:G_Theme.gray}}/>
-        },
-        headerLeft:<NavButtonText isRightButton={false} name={"设置"} navigation={navigation}/>,
-        headerRight: <NavButtonText name={"注销"} navigation={navigation} visible={userData.isLogined}/>
-    }}
+            title: '我的',
+            tabBarIcon: ({focused}) => {
+                return <AIcon name='user' style={{fontSize: 25, color: focused ? G_Theme.selectColor : G_Theme.gray}}/>
+            },
+            headerLeft: <NavButtonText isRightButton={false} name={"设置"} navigation={navigation}/>,
+            headerRight: <NavButtonText name={"注销"} navigation={navigation} visible={userData.isLogined}/>
+        }
+    }
 
     static dataListRecord = [{ico: "star", name: ItemNameEnum.awardFind}, {
         ico: "file-text",
@@ -81,28 +84,32 @@ export default class MyView extends BaseView {
     static dataListTopAgent = [{ico: "info-circle", name: ItemNameEnum.agentInfo}, {
         ico: "user-circle",
         name: ItemNameEnum.agentCreate
-    }, {ico: "shekel", name: ItemNameEnum.agentAssignMoney},{ico: "cubes", name: ItemNameEnum.agentTeam}, {ico: "book", name: ItemNameEnum.agentProfit}];
+    }, {ico: "shekel", name: ItemNameEnum.agentAssignMoney}, {ico: "cubes", name: ItemNameEnum.agentTeam}, {
+        ico: "book",
+        name: ItemNameEnum.agentProfit
+    }];
 
-    constructor(props)
-    {
+    constructor(props) {
         super(props)
-        this.state={
+        this.state = {
             modalVisible: false,
         }
     }
 
     onLeftPressed() {
-          this.setState({modalVisible: true});
+        this.setState({modalVisible: true});
     }
 
     onRightPressed() {
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LOGIN_OUT, () => {
             ActDispatch.AppAct.loginOut();
-            if(G_PLATFORM_IOS) {
+            if (G_PLATFORM_IOS) {
 
                 G_NavUtil.pushToView(G_NavViews.LoginView())
-            }else{
-                setTimeout(()=>{ G_NavUtil.pushToView(G_NavViews.LoginView())},500)
+            } else {
+                setTimeout(() => {
+                    G_NavUtil.pushToView(G_NavViews.LoginView())
+                }, 500)
             }
 
         })
@@ -119,7 +126,7 @@ export default class MyView extends BaseView {
         let infoView = null;
         if (userData.isLogined) {
             //0：palyer 1：agent 2：topAgent
-            if (userData.data.user_type == 1||userData.data.user_type == 2)//1表示是代理用户 才可以转账
+            if (userData.data.user_type == 1 || userData.data.user_type == 2)//1表示是代理用户 才可以转账
             {
                 dataList = {
                     "代理中心": MyView.dataListTopAgent,
@@ -129,30 +136,94 @@ export default class MyView extends BaseView {
                 };
             }
             infoView = <View style={[styles.headContent]}>
-                    <View style={styles.rowSp}>
-                        <Text><Text
-                            style={styles.titleSyle}>用户名: </Text>{userData.data.username}
-                        </Text>
-                        <Text><Text
-                            style={styles.titleSyle}>昵称: </Text>{userData.data.nickname}
-                        </Text>
+                <View style={styles.rowSp}>
+                    <View style={{flexDirection: "row", alignItems: "center",}}>
+                        <Text style={[styles.username]}>{userData.data.nickname}</Text>
+                        <View style={styles.agentBar}>
+                            <Text style={styles.agentText}>
+                                {userData.data.user_type > 0 ? "代理" : "玩家"}
+                            </Text>
+                        </View>
                     </View>
-                    <View style={styles.rowSp}>
-                        <Text><Text
-                            style={styles.titleSyle}>账户总额: </Text>{parseInt(moneyBalance)}
-                        </Text>
-                        <Text style={{textAlign: "center"}}><Text
-                            style={styles.titleSyle}>资金密码: </Text>{userData.data.is_set_fund_password ? "已设置" : "未设置"}
-                        </Text>
+                </View>
+                <View style={styles.rowSp}>
+                    <View style={{flexDirection: "row", alignItems: "center",}}>
+                        <Text style={[{fontSize: 12}]}>账号({userData.data.username}) </Text>
+                        <TouchableHighlight style={{marginLeft: 5}} onPress={() => {
+                            G_NavUtil.pushToView(G_NavViews.PersonPwdView({
+                                title: ItemNameEnum.pwdMange,
+                                defaultIndex: 0
+                            }));
+                        }}>
+                            <AIcon name={MyView.dataListPerson[0].ico}
+                                   style={{fontSize: 15, margin: 2, alignSelf: "center", color: G_Theme.grayDeep}}/>
+                        </TouchableHighlight>
                     </View>
-                    <View style={styles.rowSp}>
-                        <Text><Text
-                            style={styles.titleSyle}>用户类型: </Text>{userData.data.user_type>0 ? "代理":"玩家"}
-                        </Text>
-                        <Text><Text
-                            style={styles.titleSyle}>未读消息: </Text>{userData.data.unread_msg_count}
-                        </Text>
+                </View>
+                <View style={styles.rowSp}>
+                    <View style={{flexDirection: "row", alignItems: "center",}}>
+                        <Text style={{
+                            fontSize: 12,
+                            color: G_Theme.grayDeep
+                        }}>余额:{G_DateUtil.formatMoney(moneyBalance)}元 </Text>
+
+                        <TouchableHighlight style={{marginLeft: 5}} onPress={() => {
+                            G_NavUtil.pushToView(G_NavViews.PersonMailView({
+                                title: ItemNameEnum.msgNotice,
+                                defaultIndex: 0
+                            }));
+                        }}>
+                            <AIcon name={MyView.dataListPerson[1].ico}
+                                   style={{
+                                       fontSize: 15,
+                                       alignSelf: "center",
+                                       color: userData.data.unread_msg_count > 0 ? G_Theme.primary : G_Theme.grayDeep
+                                   }}/>
+                        </TouchableHighlight>
                     </View>
+                    {/*<Text style={{textAlign: "center"}}><Text*/}
+                    {/*style={styles.titleSyle}>资金密码: </Text>{userData.data.is_set_fund_password ? "已设置" : "未设置"}*/}
+                    {/*</Text>*/}
+                </View>
+
+                <View style={[styles.rowSp, {
+                    alignItems: 'flex-end',
+                    height: 30,
+                    borderTopColor: G_Theme.gray,
+                    borderTopWidth: 1,
+                    // paddingTop: 5
+                }]}>
+                    <View style={[styles.commonBar]}>
+                        <TouchableHighlight  onPress={() => {
+                            G_NavUtil.pushToView(G_NavViews.MoneyInView());
+                        }}>
+                            <Text style={styles.commonText}>充值</Text>
+                        </TouchableHighlight>
+                    </View>
+                    <View style={[styles.commonBar,{
+                        borderLeftWidth: 1,
+                    }]}>
+                        <TouchableHighlight onPress={() => {
+                            G_NavUtil.pushToView(G_NavViews.MoneyOuterView());
+                        }}>
+                            <Text style={styles.commonText}>提现</Text>
+                        </TouchableHighlight>
+                    </View>
+                    <View style={[styles.commonBar,{
+                        borderLeftWidth: 1,
+                    }]}>
+                        <TouchableHighlight onPress={() => {
+                            G_NavUtil.pushToView(G_NavViews.MoneyTransferView({
+                                title: '转账',
+                                money: moneyBalance,
+                                // uid: userData.data.user_id,
+                                username: userData.data.username
+                            }));
+                        }}>
+                            <Text style={styles.commonText}>转账</Text>
+                        </TouchableHighlight>
+                    </View>
+                </View>
             </View>
         } else {
             infoView = <View style={styles.headContent}>
@@ -162,7 +233,7 @@ export default class MyView extends BaseView {
                 <TButton
                     containerStyle={styles.button}
                     onPress={this.clickLogin}
-                btnName={"登陆"}/>
+                    btnName={"登陆"}/>
             </View>
         }
         return (
@@ -175,39 +246,47 @@ export default class MyView extends BaseView {
     }
 
     clickLogin = () => {
-            G_NavUtil.pushToView(G_NavViews.LoginView());
+        G_NavUtil.pushToView(G_NavViews.LoginView());
     }
 
-    setModalVisible=(visible)=> {
+    setModalVisible = (visible) => {
         this.setState({modalVisible: visible});
     }
 
     componentDidMount() {
-        this.isLogin=this.props.userData.isLogined;
-        this.props.navigation.setParams({isLogined:this.isLogin})
+        this.isLogin = this.props.userData.isLogined;
+        this.props.navigation.setParams({isLogined: this.isLogin})
     }
 }
 
 const styles = StyleSheet.create({
+    agentBar: {
+        backgroundColor: G_Theme.primary,
+        paddingTop: 2,
+        borderRadius: 10,
+        width: 45,
+        height: 20,
+        overflow: 'hidden'
+    },
+    agentText: {color: '#fff', fontSize: 14, textAlign: 'center', width: 45},
+    username: {fontSize: 18,},
+    commonBar: {borderColor: G_Theme.gray, alignItems: 'center',flex: 1, paddingTop: 5},
+    commonText:{fontSize: 20, color: G_Theme.grayDeep},
     headContent: {
         margin: 10,
-        height: 80,
-        borderRadius: 10,
-        borderColor: "#aaa",
-        borderWidth: 1,
-        shadowColor: "gray",
+        height: 120,
         elevation: 2,
         justifyContent: "center",
-        shadowOffset: {width: 2, height: 2},
-        shadowOpacity: 0.6
     },
-    rowSp:{
+    rowSp: {
         flexDirection: "row",
         justifyContent: "space-around",
         alignItems: "center",
         flex: 1
     },
+
     titleSyle: {
+
         fontWeight: "bold",
     },
     button: {
@@ -216,6 +295,6 @@ const styles = StyleSheet.create({
         marginTop: 10,
         borderRadius: 5,
         backgroundColor: '#d7213c',
-        alignSelf:"center"
+        alignSelf: "center"
     }
 });

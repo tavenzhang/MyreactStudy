@@ -188,16 +188,27 @@ export default class MyView extends BaseView {
 
                 <View style={[styles.rowSp, {
                     alignItems: 'flex-end',
-                    height: 30,
+                    height: 60,
                     borderTopColor: G_Theme.gray,
                     borderTopWidth: 1,
                     // paddingTop: 5
                 }]}>
                     <View style={[styles.commonBar]}>
+
                         <TouchableHighlight  onPress={() => {
                             G_NavUtil.pushToView(G_NavViews.MoneyInView());
                         }}>
-                            <Text style={styles.commonText}>充值</Text>
+
+                            <View style={{ paddingTop:20,flexDirection: "row",}}>
+                                <AIcon name={MyView.dataListMoney[2].ico}
+                                       style={{
+                                           fontSize: 15,
+                                           alignSelf: "center",
+                                           color: G_Theme.primary
+                                       }}/>
+                                <Text style={styles.commonText}>充值</Text>
+
+                            </View>
                         </TouchableHighlight>
                     </View>
                     <View style={[styles.commonBar,{
@@ -206,7 +217,16 @@ export default class MyView extends BaseView {
                         <TouchableHighlight onPress={() => {
                             G_NavUtil.pushToView(G_NavViews.MoneyOuterView());
                         }}>
-                            <Text style={styles.commonText}>提现</Text>
+                            <View style={{ paddingTop:20,flexDirection: "row",}}>
+                                <AIcon name={MyView.dataListMoney[1].ico}
+                                       style={{
+                                           fontSize: 15,
+                                           alignSelf: "center",
+                                           color: G_Theme.primary
+                                       }}/>
+                                <Text style={styles.commonText}>提现</Text>
+
+                            </View>
                         </TouchableHighlight>
                     </View>
                     <View style={[styles.commonBar,{
@@ -220,7 +240,16 @@ export default class MyView extends BaseView {
                                 username: userData.data.username
                             }));
                         }}>
-                            <Text style={styles.commonText}>转账</Text>
+                            <View style={{ paddingTop:20,flexDirection: "row",}}>
+                                <AIcon name={MyView.dataListMoney[0].ico}
+                                       style={{
+                                           fontSize: 15,
+                                           alignSelf: "center",
+                                           color: G_Theme.primary
+                                       }}/>
+                                <Text style={styles.commonText}>转账</Text>
+
+                            </View>
                         </TouchableHighlight>
                     </View>
                 </View>
@@ -270,8 +299,10 @@ const styles = StyleSheet.create({
     },
     agentText: {color: '#fff', fontSize: 14, textAlign: 'center', width: 45},
     username: {fontSize: 18,},
-    commonBar: {borderColor: G_Theme.gray, alignItems: 'center',flex: 1, paddingTop: 5},
-    commonText:{fontSize: 20, color: G_Theme.grayDeep},
+
+    commonBar: {borderColor: G_Theme.gray, alignItems: 'center',flex: 1, },
+    commonText:{fontSize: 14, color: G_Theme.grayDeep,marginLeft:5,},
+
     headContent: {
         margin: 10,
         height: 120,

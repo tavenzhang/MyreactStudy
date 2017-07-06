@@ -11,10 +11,10 @@ import TFlatList from "../componet/TFlatList";
 
 export default class Notice extends BaseView {
 
-    static navigationOptions = ({navigation})=> ({
+    static navigationOptions = ({navigation}) => ({
         title: '通知',
         tabBarIcon: ({tintColor, focused}) => {
-            return <AIcon name='reorder' style={{ fontSize: 25, color:focused ? G_Theme.selectColor:G_Theme.gray}}/>
+            return <AIcon name='reorder' style={{fontSize: 25, color: focused ? G_Theme.selectColor : G_Theme.gray}}/>
         },
     })
 
@@ -28,14 +28,14 @@ export default class Notice extends BaseView {
     renderBody() {
         return (
             <View style={G_Style.appContentView}>
-                <TFlatList dataList={this.state.dataList}  renderRow={this._renderRow}/>
+                <TFlatList dataList={this.state.dataList} renderRow={this._renderRow}/>
             </View>
         );
     }
 
     componentDidMount() {
         if (this.state.dataList.length <= 0) {
-            G_RunAfterInteractions(()=>{
+            G_RunAfterInteractions(() => {
                 ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.GET_LIST_SYSTEM, (result) => {
                     if (result.data.data) {
                         let arr = this.state.dataList.concat(result.data.data);
@@ -51,8 +51,9 @@ export default class Notice extends BaseView {
             <View>
                 <TouchableHighlight onPress={() => this.itemClick(data)} underlayColor='rgba(10,10,10,0.2)'>
                     <View style={styles.row}>
-                        <View style={[styles.itemContentStyle, {flex: 3, alignItems:"center"}]}>
+                        <View style={[styles.itemContentStyle, {flex: 3,justifyContent:'center' }]}>
                             <Text style={styles.textHeadStyle}>{data.title}</Text>
+                            <Text style={styles.textTime}>发布时间：{G_DateUtil.formatymdDateString(data.created_at)}</Text>
                         </View>
                         <View style={styles.itemContentStyle}>
                             <AIcon name={G_EnumFontNames.angleRight}
@@ -65,7 +66,7 @@ export default class Notice extends BaseView {
     }
 
     itemClick = (data) => {
-        G_NavUtil.pushToView(G_NavViews.NoticeDeailView({...data, title: data.title}));
+        G_NavUtil.pushToView(G_NavViews.NoticeDeailView({...data, title: '公告详情'}));
     }
 }
 
@@ -79,24 +80,26 @@ const styles = StyleSheet.create({
     },
     itemContentStyle: {
         flex: 1,
-        alignItems: "center",
         justifyContent: "center"
     },
     textHeadStyle: {
         fontSize: 14,
-        fontWeight: "bold",
-
     },
     textItemStyle: {
         fontSize: 12,
         color: "gray"
     },
+    textTime: {
+        marginTop: 5,
+        fontSize: 12,
+        color: G_Theme.grayDeep,
+    },
     row: {
         flexDirection: 'row',
-        height: 50,
-        borderBottomWidth: 0.5,
-        marginLeft: 10,
-        borderColor: "gray",
+        height: 60,
+        borderBottomWidth: 1,
+        paddingLeft: 20,
+        borderColor: G_Theme.gray,
         // borderWidth: 1,
     },
 

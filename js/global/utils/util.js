@@ -47,6 +47,13 @@ global.G_DateUtil= {
         let dataName = ` ${date.getMonth() + 1}月${date.getDate()}日 ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} `
         return dataName
     },
+    formatymdDateString(dataString)
+    {
+        let newstr = dataString.replace(/-/g, "/");
+        let date = new Date(Date.parse(newstr));
+        let dataName = `${date.getFullYear() }年${date.getMonth() + 1}月${date.getDate()}日`
+        return dataName
+    },
     formatShortDateString(dataString)
     {
         let newstr = dataString.replace(/-/g, "/");

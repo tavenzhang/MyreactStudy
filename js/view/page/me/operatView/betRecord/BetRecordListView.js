@@ -24,7 +24,7 @@ export default class BetRecordListView extends React.Component {
         )
     }
 
-    _renderRow = (rowData) => {
+    _renderRow = (rowData,index) => {
 
         let {gameModel, appModel} = this.props;
         let dataName = G_DateUtil.formatItemDateString(rowData.bought_at);
@@ -44,19 +44,19 @@ export default class BetRecordListView extends React.Component {
             <View>
                 <TouchableHighlight onPress={() => this.itemClick(rowData)} underlayColor='rgba(10,10,10,0.2)'>
                     <View style={styles.row}>
-                        <View style={[styles.itemContentStyle,month==''?'':styles.record,{flex: 1}]}>
+                        <View style={[styles.itemContentStyle,index==0||month==''?'':styles.record,{flex: 1}]}>
                             <Text style={[styles.textItemStyle,{ fontSize: 16,color:G_Theme.primary,alignSelf:'center',}]} numberOfLines={1}>{month}</Text>
                             <Text style={[styles.textItemStyle, {fontSize: 20, color:G_Theme.primary, alignSelf:'center',fontWeight: "bold",}]}
                                   numberOfLines={1}>{day} </Text>
                         </View>
-                        <View style={[styles.itemContentStyle, styles.record, {flex: 5}]}>
+                        <View style={[styles.itemContentStyle, index==0?'':styles.record, {flex: 5}]}>
                             <Text style={styles.textItemStyle}>{gameName}</Text>
                             {/*<Text style={{fontSize: 12, color: "gray", marginTop: 5}} numberOfLines={1}>{`投注号码:${rowData.bet_number}`}</Text>*/}
                             <Text style={{fontSize: 12, color: "gray", marginTop: 5}}
                                   numberOfLines={1}>{`${amount}元    ${rowData.title}`}</Text>
 
                         </View>
-                        <View style={[styles.itemContentStyle, styles.record,{flex: 2}]}>
+                        <View style={[styles.itemContentStyle, index==0?'':styles.record,{flex: 2}]}>
                             <Text style={[styles.textItemStyle, {
                                 fontSize:16,
                                 fontWeight: 'bold',

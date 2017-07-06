@@ -139,7 +139,7 @@ export default class RecordBetView extends BaseView {
                 <View style={{
                         flexDirection: "row",
                         height: 35,
-                    backgroundColor:G_Theme.gray,
+                    backgroundColor:'#fff',
 
                         borderColor: G_Theme.gray, borderBottomWidth: 1
                     }}>
@@ -333,9 +333,11 @@ const styles = StyleSheet.create({
     },
     searchTab:{
         // borderRightWidth:1,
-        borderColor:G_Theme.grayDeep,
+        borderColor:'#fff',
     },
     selectedSearch:{
+        borderColor:G_Theme.primary,
+        borderBottomWidth:2,
         backgroundColor:'#fff'
     },
     selectedText:{

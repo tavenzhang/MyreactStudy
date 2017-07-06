@@ -336,7 +336,7 @@ const styles = StyleSheet.create({
 
     },
     Operation: {
-        width: 30, height: 30,
+        width: 50, height: 50,
         position: 'absolute',
         top: 3,
     },

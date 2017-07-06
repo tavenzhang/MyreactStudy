@@ -26,24 +26,36 @@ export default class ChaseRecodListView extends React.Component {
     _renderRow = (rowData) => {
         let {gameModel,appModel} = this.props;
         let gameName = gameModel.getGameNameById(rowData.lottery_id);
+
+        TLog('rowData',rowData);
+        let statusColor=rowData.status==1?G_Theme.grayDeep:G_Theme.primary;
+
         return (
             <View>
                 <TouchableHighlight onPress={() => this.itemClick(rowData)} underlayColor='rgba(10,10,10,0.2)'>
                     <View style={styles.row}>
                         <View style={[styles.itemContentStyle,{flex:2}]}>
                             <Text style={styles.textItemStyle}>{gameName}</Text>
+                            <Text style={[styles.textItemStyle,styles.desc]}>{rowData.title}</Text>
                         </View>
-                        <View style={[styles.itemContentStyle,{flex:2}]}>
-                            <Text style={styles.textItemStyle}>{rowData.title}</Text>
-                            <Text style={{fontSize: 12,color:"gray", marginTop:5}} numberOfLines={1}>{`投注号码:${rowData.bet_number}`}</Text>
+                        <View style={[styles.itemContentStyle,{flex:3}]}>
+                            <Text style={styles.textItemStyle} numberOfLines={1}>已完成:2</Text>
+
+                            <Text style={[styles.desc]}>总追号:1</Text>
 
                         </View>
-                        <View style={styles.itemContentStyle}>
-                            <Text style={[styles.textItemStyle,{color:"red"}]} >{appModel.getATraceStatus(rowData.status)}</Text>
+                        <View style={[styles.itemContentStyle,{flex:2}]}>
+                            <Text style={[styles.textItemStyle,{fontSize:16,
+                                fontWeight: 'bold',
+                                color: statusColor,
+                                paddingRight:3}]} >{appModel.getATraceStatus(rowData.status)}</Text>
+
                         </View>
-                        <View style={styles.itemContentStyle}>
+
+                        <View style={[styles.itemContentStyle,{flex: 1 }]}>
+
                             <AIcon name={"angle-right"}
-                                   style={{fontSize: 25, alignSelf:"center",color:"gray"}}/>
+                                   style={{fontSize: 25, paddingTop:2, alignSelf: "center", color: "gray"}}/>
                         </View>
                     </View>
                 </TouchableHighlight>
@@ -64,9 +76,10 @@ const styles = StyleSheet.create({
     },
     itemContentStyle: {
         flex: 1,
-        alignItems: "center",
         justifyContent: "center"
     },
+    desc:{
+        fontSize: 12,color:"gray", marginTop:5    },
     textHeadStyle: {
         fontSize: 14,
         fontWeight: "bold",

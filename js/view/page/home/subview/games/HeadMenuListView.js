@@ -7,7 +7,7 @@ import {
     TouchableWithoutFeedback,
 } from 'react-native';
 import TFlatList from "../../../../componet/TFlatList";
-
+//游戏头部玩法列表
 export default class HeadMenuListView extends React.Component {
 
     static propTypes = {
@@ -24,13 +24,13 @@ export default class HeadMenuListView extends React.Component {
 
     render() {
         let {menuDataList, rootStyle} = this.props
-        return (<View style={rootStyle}>
+        return (<View style={[rootStyle]}>
             <View style={{flex: 2}}>
                 <TFlatList
                     dataList={menuDataList}
                     dataSource={menuDataList}
                     renderRow={this._renderRow}
-                    style={{backgroundColor: "white"}}
+                    style={{backgroundColor: "#ccc"}}
                 />
             </View>
             <TouchableWithoutFeedback onPress={this.props.onHeadPressed}><View style={{
@@ -43,30 +43,19 @@ export default class HeadMenuListView extends React.Component {
     _renderRow = (rowData) => {
         let {selectItem} =this.props
         return (
-            <View
-                style={{flexDirection: "row", margin: 5, borderBottomWidth: 1}}>
+            <View style={styles.wayBar}>
                 <View style={G_Style.appContentCenterView}>
                     <Text>{rowData.name}</Text>
                 </View>
-                <View style={{
-                    flex: 5,
-                    justifyContent: "flex-start",
-                    alignItems: 'flex-start',
-                    flexDirection: "row",
-                    flexWrap: "wrap"
-                }}>
+                <View style={styles.methodBar}>
                     {rowData.children.map((item, index) => {
-                        let selectItemStyle = null
+                        let selectItemStyle = false
                         if (selectItem&&selectItem.id == item.id) {
-                            selectItemStyle = {borderWidth: 1, backgroundColor: "yellow"};
+                            selectItemStyle = true;
                         }
                         return (<TouchableHighlight key={index * 999} onPress={() => this.props.clickMenuItem({...item})}
                                                     underlayColor='rgba(10,10,10,0.2)'>
-                            <View style={[{
-                                padding: 5,
-                                marginHorizontal: 5,
-                                marginBottom: 1
-                            }, selectItemStyle]}><Text>{item.name}</Text>
+                            <View style={[styles.Item, selectItemStyle?styles.selectedItem:null]}><Text style={{textAlign:'center',color:selectItemStyle?'#fff':null,}}>{item.name}</Text>
                             </View>
                         </TouchableHighlight>)
                     })
@@ -76,3 +65,36 @@ export default class HeadMenuListView extends React.Component {
         );
     }
 }
+
+
+const styles = StyleSheet.create({
+    wayBar:{
+        flexDirection: "row", borderBottomWidth: 1,padding:10,
+        borderColor:G_Theme.gray,
+        // backgroundColor:'#ebebeb',
+
+
+    },methodBar:{
+        flex: 5,
+        justifyContent: "flex-start",
+        alignItems: 'flex-start',
+        flexDirection: "row",
+        flexWrap: "wrap"
+    },
+
+    selectedItem: {
+        borderColor:G_Theme.primary,
+        backgroundColor:G_Theme.primary,
+
+    },
+    Item:{
+        backgroundColor:'#fff',
+        width:120,
+        padding: 5,
+        marginHorizontal: 5,
+        marginBottom: 2,
+        borderWidth:1,
+        borderColor:G_Theme.gray,
+        borderRadius:10,
+    }
+})

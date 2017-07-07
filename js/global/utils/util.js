@@ -47,6 +47,25 @@ global.G_DateUtil= {
         let dataName = ` ${date.getMonth() + 1}月${date.getDate()}日 ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} `
         return dataName
     },
+//友好时间格式，如果是今天，显示是分秒， 如果不是今天 ，显示年月日
+    formatFrendlyDateString(dataString)
+    {
+        let Tdate = new Date();
+        let Tday = Tdate.getDay();
+        let Tmonth = Tdate.getMonth();
+        let Tyear = Tdate.getFullYear();
+
+        let newstr = dataString.replace(/-/g, "/");
+        let date = new Date(Date.parse(newstr));
+        let dataName='';
+        if(date.getDay()==Tdate.getDay()&&date.getMonth()==Tdate.getMonth()&&date.getFullYear()==Tdate.getFullYear()){//今天
+             dataName = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} `
+        }else{
+            dataName = `${date.getFullYear() }年${date.getMonth() + 1}月${date.getDate()}日`
+        }
+
+        return dataName
+    },
     formatymdDateString(dataString)
     {
         let newstr = dataString.replace(/-/g, "/");

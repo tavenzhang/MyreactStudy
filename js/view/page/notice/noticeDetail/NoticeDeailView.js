@@ -26,7 +26,6 @@ export  default class NoticeDeailView extends BaseView {
                 typeName = typeInfo[key];
             }
         }
-        TLog('typeName', typeName);
         return (
             <View style={[G_Style.appContentView,{backgroundColor:G_Theme.gray}]}>
                 <View style={styles.titleBar}>

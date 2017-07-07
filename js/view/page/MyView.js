@@ -31,7 +31,7 @@ export let ItemNameEnum = {
     pwdMange: "密码管理",
     msgNotice: "消息通知",
     //代理中心
-    agentInfo: "代理信息",
+    agentInfo: "代理中心",
     agentCreate: "账号开户",
     agentAssignMoney: "高点配额",
     agentTeam: "团队管理",
@@ -66,8 +66,8 @@ export default class MyView extends BaseView {
         name: ItemNameEnum.betRecord
     }, {ico: "file-text-o", name: ItemNameEnum.chaseRecode}];
 
-    static dataListMoney = [{ico: "cny", name: ItemNameEnum.myMoney}, {ico: "meetup", name: ItemNameEnum.outerMoney}, {
-        ico: "money",
+    static dataListMoney = [{ico: "exchange", name: ItemNameEnum.myMoney}, {ico: "money", name: ItemNameEnum.outerMoney}, {
+        ico: "cny",
         name: ItemNameEnum.inMoney
     }, {ico: "credit-card", name: ItemNameEnum.cardMange}];
     static dataListMoeny_Agent = [

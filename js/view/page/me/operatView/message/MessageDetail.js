@@ -26,17 +26,23 @@ export  default class MessageDetail extends BaseView {
             }
         }
 
-        return (<View style={[G_Style.appContentView]}>
-            <View>
-                <Text>标题:   {this.state.data.msg_title}</Text>
+        return (<View style={[G_Style.appView]}>
+            <View style={{padding:5}}>
+                <Text style={{fontSize:12,color:G_Theme.grayDeep}}> {this.state.data.updated_at}</Text>
+                <Text style={{fontSize:12,color:G_Theme.grayDeep}}>【{typeName}】 </Text>
             </View>
-            <View>
-                <Text>收件时间:   {this.state.data.updated_at}</Text>
+            <View style={{padding:5,borderColor:G_Theme.gray,borderBottomWidth:1}}>
+                <Text style={{textAlign:'center',fontSize:16}}>{this.state.data.msg_title}</Text>
             </View>
-            <View>
-                <Text>邮件类型: 【{typeName}】 </Text>
+            <View style={{
+              margin:5,padding:10,
+            }} >
+                <Text style={{fontSize:14,lineHeight:30}}>{`      ${this.state.data.content}`}</Text>
             </View>
-           <WebView source={{html:this.state.data.content}}  automaticallyAdjustContentInsets={false} />
+
+           {/*<WebView source={{html:this.state.data.content}}  style={{*/}
+               {/*borderWidth:1,borderColor:G_Theme.gray,margin:5*/}
+           {/*}} automaticallyAdjustContentInsets={false} />*/}
         </View>);
     }
 

@@ -44,12 +44,22 @@ export default class Award extends BaseView {
     }
 
     componentDidMount() {
-            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_ALL_Lottery,(data)=>{
-                if(data.isSuccess)
-                {
-                    this.setState({dataArray:data.data});
-                }
-            })
+        if(G_PLATFORM_IOS)
+        {
+            this.onRequest();
+        }
+        else{
+            setTimeout(this.onRequest,300)
+        }
+    }
+
+    onRequest=()=>{
+      ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_ALL_Lottery,(data)=>{
+            if(data.isSuccess)
+            {
+                this.setState({dataArray:data.data});
+            }
+        })
     }
 
     _renderRow = (rowData) => {

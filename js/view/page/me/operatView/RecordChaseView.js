@@ -53,7 +53,7 @@ export default class RecordChaseView extends BaseView {
         if (this.state.curGame) {
             let mod = playModel.getPlayByGid(this.state.curGame.series_id)
             if (mod) {
-                playList = mod.arrayList;
+                playList= playList.concat(mod.arrayList)
             }
         }
         let gameBtnName = this.state.curGame ? this.state.curGame.name : gameList[0].name;
@@ -231,10 +231,9 @@ export default class RecordChaseView extends BaseView {
         HTTP_SERVER.CHASE_RECODE.body.bought_at_from = this.state.curTime ? this.state.curTime.date : "";
         HTTP_SERVER.CHASE_RECODE.body.bought_at_to = ""
         HTTP_SERVER.CHASE_RECODE.body.lottery_id = this.state.curGame ? this.state.curGame.id : "";
-        HTTP_SERVER.CHASE_RECODE.body.way_id = this.state.curPlay ? this.state.curPlay.id : "";
+        HTTP_SERVER.CHASE_RECODE.body.way_group_id = this.state.curPlay ? this.state.curPlay.id : "";
         if (isFlush ) {
             HTTP_SERVER.CHASE_RECODE.body.page = 1;
-            this.setState({dataList: []});
         }
         else {
             HTTP_SERVER.CHASE_RECODE.body.page += 1;

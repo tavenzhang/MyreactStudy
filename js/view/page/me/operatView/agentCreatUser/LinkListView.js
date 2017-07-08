@@ -104,13 +104,12 @@ export default class LinkListView extends BaseView {
         Clipboard.setString(data);
         G_AlertUtil.show("", "复制成功！")
     }
-
-    _onDeleteLink = (data) => {
-
-        G_RunAfterInteractions(() => {
-            HTTP_SERVER.AgentUserDelLink.url = HTTP_SERVER.AgentUserDelLink.formatUrl.replace("#id", data.id);
-            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentUserDelLink, (result) => {
-                if (result.isSuccess) {
+    _onDeleteLink=(data)=>{
+        G_RunAfterInteractions(()=>{
+            HTTP_SERVER.AgentUserDelLink.url=HTTP_SERVER.AgentUserDelLink.formatUrl.replace("#id",data.id);
+            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentUserDelLink,(result)=>{
+                if(result.isSuccess)
+                {
                     TLog("G_RunAfterInteractions");
                     let list = this.state.dataList.concat();
                     for (let index in list) {
@@ -129,7 +128,6 @@ export default class LinkListView extends BaseView {
     _onDetailLink = (data) => {
         G_NavUtil.pushToView(G_NavViews.LinkDetailView({content: data,aStatus:this.state.aStatus}))
     }
-
 }
 
 const styles = StyleSheet.create({

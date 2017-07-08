@@ -67,6 +67,14 @@ export default class App extends React.Component {
             duration: 850,
             delay: 500,
         })
+        G_MyStorage.getItem(G_EnumStroeKeys.CODE_PUSH, (data) => {
+           if(data&&data!="") {
+               let codePush = JSON.parse(data);
+               T_CheckCodePush(codePush.server,codePush.keyStr,T_TryCodePushConfig,true);
+            }else{
+                T_TryCodePushConfig()
+            }
+        })
     }
 
     render() {

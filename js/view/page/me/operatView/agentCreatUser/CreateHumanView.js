@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
         width: 200,
         left: 10,
         fontSize: 14,
-        height: 30,
+        height: G_PLATFORM_IOS ? 30:40,
         borderWidth: 1,
         borderRadius: 5,
         textAlign: "center"

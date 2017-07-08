@@ -49,7 +49,8 @@ public class MainApplication extends Application implements ReactApplication {
 
         @Override
         protected List<ReactPackage> getPackages() {
-            myCodePush = new CodePush("OESoJepwvYUVO5JLX51iJl3LHucn4ksvOXqog", MainApplication.this, BuildConfig.DEBUG, "http://104.250.145.227:3000");
+            //myCodePush = new CodePush("OESoJepwvYUVO5JLX51iJl3LHucn4ksvOXqog", MainApplication.this, BuildConfig.DEBUG, "http://104.250.145.227:3000");
+            myCodePush = new CodePush("", MainApplication.this, BuildConfig.DEBUG, "");
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
             new VectorIconsPackage(),

@@ -99,7 +99,6 @@ export default class MoneyChangeHistoryView extends React.Component {
                         <View style={[styles.itemContentStyle,{flex:2}]}>
                             <Text style={[styles.textItemStyle,{color:rowData.is_income ? "green":"red"}]}>{money}</Text>
                         </View>
-
                         <View style={[styles.itemContentStyle,{flex:2}]}>
                             <Text style={styles.textItemStyle}>{appModel.getATransactionType(rowData.type_id)}</Text>
                         </View>
@@ -108,7 +107,7 @@ export default class MoneyChangeHistoryView extends React.Component {
                             <Text style={{fontSize:12,color:G_Theme.grayDeep, marginTop:5}} >{playName}</Text>
                         </View>
                         <View style={[styles.itemContentStyle,{flex:2}]}>
-                            <Text style={styles.textItemStyle}>{parseInt(rowData.available)}</Text>
+                            <Text style={styles.textItemStyle}  numberOfLines={2}>{rowData.available}</Text>
                         </View>
                     </View>
                 </TouchableHighlight>

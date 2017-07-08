@@ -9,34 +9,20 @@ import TFlatList from "../../../../componet/TFlatList";
 import AIcon from 'react-native-vector-icons/FontAwesome';
 
 export default class BetRecordListView extends React.Component {
-    constructor(props) {
-        super(props);
-        this.lastMonth = null;
-        this.lastDay = null;
-    }
 
     render() {
-        let ds = this.props.dataList;
         return (
             <View style={G_Style.appContentView}>
-                <TFlatList dataList={ds} loadMore={this.props.loadMore} renderRow={this._renderRow}/>
+                <TFlatList dataList={this.props.dataList} loadMore={this.props.loadMore} renderRow={this._renderRow}/>
             </View>
         )
     }
 
     _renderRow = (rowData,index) => {
 
+        TLog("rowData----",rowData)
         let {gameModel, appModel} = this.props;
         let dataName = G_DateUtil.formatItemDateString(rowData.bought_at);
-        let month = G_DateUtil.formatMonth(rowData.bought_at),
-            day = G_DateUtil.formatDay(rowData.bought_at);
-        if (this.lastMonth == month && this.lastDay == day) {
-            month = '';
-            day = '';
-        } else {
-            this.lastMonth = month;
-            this.lastDay = day;
-        }
         let gameName = gameModel.getGameNameById(rowData.lottery_id),
          statusColor = rowData.status == 3 ? G_Theme.primary : G_Theme.grayDeep,
             amount=G_DateUtil.formatMoney(rowData.amount);
@@ -44,10 +30,11 @@ export default class BetRecordListView extends React.Component {
             <View>
                 <TouchableHighlight onPress={() => this.itemClick(rowData)} underlayColor='rgba(10,10,10,0.2)'>
                     <View style={styles.row}>
-                        <View style={[styles.itemContentStyle,index==0||month==''?'':styles.record,{flex: 1}]}>
-                            <Text style={[styles.textItemStyle,{ fontSize: 16,color:G_Theme.primary,alignSelf:'center',}]} numberOfLines={1}>{month}</Text>
+
+                        <View style={[styles.itemContentStyle,index==0||rowData.month==''?'':styles.record,{flex: 1}]}>
+                            <Text style={[styles.textItemStyle,{ fontSize: 16,color:G_Theme.primary,alignSelf:'center',}]} numberOfLines={1}>{rowData.month}</Text>
                             <Text style={[styles.textItemStyle, {fontSize: 20, color:G_Theme.primary, alignSelf:'center',fontWeight: "bold",}]}
-                                  numberOfLines={1}>{day} </Text>
+                                  numberOfLines={1}>{rowData.day} </Text>
                         </View>
                         <View style={[styles.itemContentStyle, index==0?'':styles.record, {flex: 5}]}>
                             <Text style={styles.textItemStyle}>{gameName}</Text>

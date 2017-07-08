@@ -76,7 +76,8 @@ export default class LinkDetailView extends BaseView {
         </View>)
     }
 
-}
+
+    }
 
 const  styles = StyleSheet.create({
     titleStyle:{

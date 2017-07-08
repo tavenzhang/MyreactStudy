@@ -2,11 +2,9 @@ import React from 'react';
 import {
     View
     , StyleSheet,
-
 } from 'react-native';
 
 import AIcon from 'react-native-vector-icons/FontAwesome';
-
 import md5 from "react-native-md5";
 import BaseView from "../../../componet/BaseView";
 import {TTextInput} from "../../../componet/tcustom/textInput/TTextInput";
@@ -42,7 +40,7 @@ export default class LoginView extends BaseView {
                                        value={this.state.pwdText}
                                        onChangeText={(pwdText) => this.setState({pwdText})}/>
                     </View>
-                    <TButton errMsg={this.onErrMsg()} containerStyle={{margin: 20}} btnName={"登陆"} onPress={this.clickLogin}/>
+                    <TButton errMsg={this.onErrMsg()} viewStyle={{marginTop:20}} containerStyle={{margin: 20}} btnName={"登陆"} onPress={this.clickLogin}/>
                 </View>
             </View>
         );

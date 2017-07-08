@@ -2,6 +2,8 @@ import React, {PropTypes} from 'react';
 import {
     View,
     Text, StyleSheet,
+    Clipboard,
+    TouchableHighlight,
 } from 'react-native';
 
 
@@ -16,16 +18,15 @@ export default class LinkDetailView extends BaseView {
 
     }
 
+    _onClicpLink = (data) => {
+        Clipboard.setString(data);
+        G_AlertUtil.show("", "复制成功！")
+    }
     renderBody() {
         let {content,aStatus}=this.props.navigation.state.params;
         let validstr= content.valid_days ? `${content.valid_days}天`:"永久";
         TLog("content-----",content)
-        const price_group = JSON.parse(content.prize_group_sets);
-        const nowDate = Date.parse(new Date()),
-            expirtDate = G_DateUtil.datetime2unix(content.expired_at);
-        if (nowDate > expirtDate) {
-            content.status = 2; //过期
-        }
+     
         return (<View style={G_Style.appContentView}>
 
             <View style={{height:100 ,borderBottomColor:G_Theme.gray,paddingTop:20,paddingBottom:20,}}>
@@ -35,6 +36,7 @@ export default class LinkDetailView extends BaseView {
 
             <View style={{height:25 ,borderBottomColor:G_Theme.gray,flexDirection:'row'}}>
                 <Text style={[{flex:1,textAlign:'center'}]} numberOfLines={1}>{content.is_agent ? "代理":"玩家"}</Text>
+                <Text style={[{flex:1,textAlign:'center'}]} numberOfLines={1}>{content.price_group[0].prize_group}</Text>
                 <Text style={{flex:1,textAlign:'center',fontSize:16,color:content.status == 2 || content.status == 1 ? G_Theme.grayDeep : G_Theme.primary}} numberOfLines={1}>{aStatus[content.status]}</Text>
                 <Text style={{flex:1,textAlign:'center'}} numberOfLines={1}>{validstr}</Text>
 
@@ -42,16 +44,21 @@ export default class LinkDetailView extends BaseView {
             <View style={{height:25 ,borderBottomColor:G_Theme.gray,borderBottomWidth:1,flexDirection:'row'}}>
 
                 <Text style={[{flex:1,textAlign:'center',fontSize:12,color:G_Theme.grayDeep}]}>是否代理</Text>
+                <Text style={[{flex:1,textAlign:'center',fontSize:12,color:G_Theme.grayDeep}]}>奖金组</Text>
                 <Text style={{flex:1,textAlign:'center',fontSize:12,color:G_Theme.grayDeep}} >状态</Text>
                 <Text style={{flex:1,textAlign:'center',fontSize:12,color:G_Theme.grayDeep}}> 有效期</Text>
 
 
             </View>
+            <TouchableHighlight   onPress={() => {
+                this._onClicpLink(data.url)
+            }}>
 
             <View style={{height:70 ,borderColor:G_Theme.primary,backgroundColor:G_Theme.primary,padding:10,borderWidth:1,flexDirection:'row'}}>
                 <Text style={{color:'#fff',}}numberOfLines={2}>{content.url}</Text>
 
             </View>
+            </TouchableHighlight>
             <View style={{height:30 ,borderBottomColor:G_Theme.gray,padding:5,borderBottomWidth:1,flexDirection:'row'}}>
                 <Text style={styles.titleStyle}> 渠道:</Text>
                 <Text style={styles.descStyle}>  {content.channel}</Text>

@@ -79,6 +79,7 @@ export default class LinkListView extends BaseView {
                     奖金组:{data.price_group[0].prize_group}
                 </Text>
             </View>
+
             <View style={[styles.contentView, {flex: 5,}]}>
                 <Text numberOfLines={2} style={{lineHeight: 20}} onPress={() => {
                     this._onClicpLink(data.url)

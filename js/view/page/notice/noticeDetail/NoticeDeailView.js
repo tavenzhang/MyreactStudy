@@ -48,6 +48,10 @@ export  default class NoticeDeailView extends BaseView {
             })
         })
     }
+
+    componentWillUnmount(){
+        ActDispatch.FetchAct.canCelVoFetch( HTTP_SERVER.GET_SYSTEM_DETAIL)
+    }
 }
 
 const styles = StyleSheet.create({

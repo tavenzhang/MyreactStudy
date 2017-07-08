@@ -19,7 +19,8 @@ export const ActionType = {
     FetchType: {
         FETCH_REQUEST: "fetch/REQUEST",
         FETCH_SUCCEED: "fetch/SUCCEED",
-        FETCH_FAILED: "fetch/FAILED"
+        FETCH_FAILED: "fetch/FAILED",
+        FETCH_CANCEL: "fetch/FETCH_CANCEL"
     },
     HomeType: {
         BANNERS_RESULT: "home/GET_BANNERS",

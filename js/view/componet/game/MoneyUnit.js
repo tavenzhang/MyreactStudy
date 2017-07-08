@@ -2,14 +2,13 @@
  * Created by soga on 2017/4/21.
  */
 
-import React, {PropTypes} from 'react';
+import React ,{PropTypes} from 'react';
 import {
     View,
     Text,
     StyleSheet,
     TouchableOpacity
 } from 'react-native';
-
 
 export default class MoneyUnit extends React.Component {
 

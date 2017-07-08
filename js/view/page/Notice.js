@@ -46,6 +46,10 @@ export default class Notice extends BaseView {
         }
     }
 
+    componentWillUnmount(){
+        ActDispatch.FetchAct.canCelFetch(HTTP_SERVER.GET_LIST_SYSTEM);
+    }
+
     _renderRow = (data) => {
         return (
             <View>

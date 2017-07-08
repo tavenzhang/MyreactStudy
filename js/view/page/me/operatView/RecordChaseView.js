@@ -215,13 +215,13 @@ export default class RecordChaseView extends BaseView {
         TLog("click--------------------data",data);
         switch (listType) {
             case ListType.TimeList:
-                this.setState({curClickType: "", curTime: data},()=>{ this.loadMore(null, 1)});
+                this.setState({curClickType: "", curTime: data,dataList:[]},()=>{ this.loadMore(null, 1)});
                 break;
             case ListType.GameList: //重新选择了游戏 需要重制游戏类型
-                this.setState({curClickType: "", curGame: data, curPlay: null},()=>{ this.loadMore(null, 1)});
+                this.setState({curClickType: "", curGame: data, curPlay: null,dataList:[]},()=>{ this.loadMore(null, 1)});
                 break;
             case ListType.PlayList:
-                this.setState({curClickType: "", curPlay: data},()=>{this.loadMore(null, 1)});
+                this.setState({curClickType: "", curPlay: data,dataList:[]},()=>{this.loadMore(null, 1)});
                 break;
         }
     }

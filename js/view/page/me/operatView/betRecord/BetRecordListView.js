@@ -20,7 +20,7 @@ export default class BetRecordListView extends React.Component {
 
     _renderRow = (rowData,index) => {
 
-        TLog("rowData----",rowData)
+       // TLog("rowData----",rowData)
         let {gameModel, appModel} = this.props;
         let dataName = G_DateUtil.formatItemDateString(rowData.bought_at);
         let gameName = gameModel.getGameNameById(rowData.lottery_id),

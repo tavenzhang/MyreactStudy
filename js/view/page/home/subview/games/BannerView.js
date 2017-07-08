@@ -234,9 +234,7 @@ export default class BannerView extends BaseView {
         </View>
     }
 
-    componentDidMount() {
 
-    }
 
     componentWillUnmount() {
         clearInterval(this.timeId);

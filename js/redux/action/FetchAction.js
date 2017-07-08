@@ -1,6 +1,5 @@
-
 export const FetchAct = {
-    fetchWithResult:(url ,callback = null,requestType="GET",requestData=null,isHideHint = true, isModal=false,isHideError = false, isText=false) => ({
+    fetchWithResult: (url, callback = null, requestType = "GET", requestData = null, isHideHint = true, isModal = false, isHideError = false, isText = false) => ({
         type: ActionType.FetchType.FETCH_REQUEST,
         isHideError,
         isHideHint,
@@ -11,11 +10,11 @@ export const FetchAct = {
         requestData,
         requestType
     }),
-    fetchVoWithResult:(dataVo,callback = null,isHideHint = false,isModal=false, isHideError = false, isText=false)=>({
+    fetchVoWithResult: (dataVo, callback = null, isHideHint = false, isModal = false, isHideError = false, isText = false) => ({
             type: ActionType.FetchType.FETCH_REQUEST,
-            url:`${G_SERVERADDR}${dataVo.url}`,
-            requestType:dataVo.method ? dataVo.method:"GET",
-            requestData:dataVo.body,
+            url: `${G_SERVERADDR}${dataVo.url}`,
+            requestType: dataVo.method ? dataVo.method : "GET",
+            requestData: dataVo.body,
             isModal,
             isHideError,
             isHideHint,
@@ -23,11 +22,11 @@ export const FetchAct = {
             isText,
         }
     ),
-    fetchVoWithAction:(dataVo,endAction,callback = null,isHideHint = false,isModal=false, isHideError = false, isText=false)=>({
+    fetchVoWithAction: (dataVo, endAction, callback = null, isHideHint = false, isModal = false, isHideError = false, isText = false) => ({
             type: ActionType.FetchType.FETCH_REQUEST,
-            url:`${G_SERVERADDR}${dataVo.url}`,
-            requestType:dataVo.method ? dataVo.method:"GET",
-            requestData:dataVo.body,
+            url: `${G_SERVERADDR}${dataVo.url}`,
+            requestType: dataVo.method ? dataVo.method : "GET",
+            requestData: dataVo.body,
             isModal,
             isHideError,
             isHideHint,
@@ -36,11 +35,21 @@ export const FetchAct = {
             isText,
         }
     ),
-    noticeFail:(data)=>({
+    noticeFail: (data) => ({
         type: ActionType.FetchType.FETCH_FAILED,
         data
     }),
-    noticeSuccess:()=>({
+    noticeSuccess: () => ({
         type: ActionType.FetchType.FETCH_SUCCEED
-    })
+    }),
+    canCelFetch: (url, body = null) => ({
+        url, body,
+        type: ActionType.FetchType.FETCH_CANCEL
+    } ),
+    canCelVoFetch: (dataVo) => ({
+            url: `${G_SERVERADDR}${dataVo.url}`,
+            body: dataVo.body,
+            type: ActionType.FetchType.FETCH_CANCEL
+        }
+    )
 }

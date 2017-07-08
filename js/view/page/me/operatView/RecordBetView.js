@@ -170,9 +170,11 @@ export default class RecordBetView extends BaseView {
     }
 
     componentDidMount() {
-        G_RunAfterInteractions(() => {
             this.loadMore(null, true);
-        })
+    }
+
+    componentWillUnmount(){
+        ActDispatch.FetchAct.canCelVoFetch(HTTP_SERVER.BET_RECODE);
     }
 
     onPressMenu = (btnType) => {
@@ -241,33 +243,33 @@ export default class RecordBetView extends BaseView {
     clickMenuItem = (data, listType) => {
         switch (listType) {
             case ListType.TimeList:
-                this.setState({curClickType: "", curTime: data}, () => {
+                this.setState({curClickType: "", curTime: data,dataList: []}, () => {
                     this.loadMore(null, 1)
                 });
                 break;
             case ListType.GameList: //重新选择了游戏 需要重制游戏类型
-                this.setState({curClickType: "", curGame: data, curPlay: null}, () => {
+                this.setState({curClickType: "", curGame: data, curPlay: null,dataList: []}, () => {
                     this.loadMore(null, 1)
                 });
                 break;
             case ListType.PlayList:
-                this.setState({curClickType: "", curPlay: data}, () => {
+                this.setState({curClickType: "", curPlay: data,dataList: []}, () => {
                     this.loadMore(null, 1)
                 });
                 break;
             case ListType.All:
-                this.setState({status:''}, () => {
+                this.setState({status:'',dataList: []}, () => {
                     this.loadMore(null, 1)
                 });
                 break;
             case ListType.Won:
-                this.setState({status:ListType.Won}, () => {
+                this.setState({status:ListType.Won,dataList: []}, () => {
                     this.loadMore(null, 1)
                 });
                 break;
 
             case ListType.Process:
-                this.setState({status:ListType.Process}, () => {
+                this.setState({status:ListType.Process,dataList: []}, () => {
                     this.loadMore(null, 1)
                 });
                 break;

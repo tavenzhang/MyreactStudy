@@ -9,7 +9,7 @@ import  AnimationHelp from "./global/animationHelp";
 import  route   from "./global/route";
 import  native   from "./global/nativeExtent";
 import  enumString   from "./global/enumString";
-
+//import PerfMonitor from 'react-native/Libraries/Performance/RCTRenderingPerf';
 import React  from 'react';
 import { Provider } from 'react-redux';
 
@@ -32,6 +32,12 @@ export default class Root extends React.Component {
     }
 
     componentDidMount() {
-
+        // PerfMonitor.toggle();
+        // setTimeout(() => {
+        //     PerfMonitor.start();
+        //     setTimeout(() => {
+        //         PerfMonitor.stop();
+        //     }, 20000);
+        // }, 5000);
     }
 }

@@ -6,7 +6,6 @@ import {
     TouchableOpacity
 } from 'react-native'
 import AIcon from 'react-native-vector-icons/FontAwesome';
-
 export class NavCommonView extends React.PureComponent {
     static propTypes = {
         navigation: PropTypes.any,

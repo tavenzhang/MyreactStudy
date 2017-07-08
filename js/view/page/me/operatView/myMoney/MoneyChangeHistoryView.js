@@ -13,6 +13,7 @@ export default class MoneyChangeHistoryView extends React.Component {
         this.state = {
             dataList: [],
         };
+        TLog("MoneyChangeHistoryView-----");
     }
 
     render() {
@@ -54,8 +55,9 @@ export default class MoneyChangeHistoryView extends React.Component {
         })
     }
 
-    componentDidUnMount() {
-        this.onMount=false;
+    componentWillUnmount(){
+        let {httpService} = this.props
+        ActDispatch.FetchAct.canCelVoFetch(httpService)
     }
 
     _loadMore = (callFinishBack,isFlush) => {

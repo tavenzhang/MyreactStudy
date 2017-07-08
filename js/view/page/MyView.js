@@ -266,7 +266,7 @@ export default class MyView extends BaseView {
                 </View>
             </View>
         } else {
-            infoView = <View style={[styles.headContent, {justifyContent: "center",}]}>
+            infoView = <View style={[styles.headContent, {justifyContent: "center",height:userData.isLogined ? 170:100}]}>
                 <Text style={{textAlign: "center", lineHeight: 20}}>您还未登陆，
                     <Text onPress={this.clickLogin} style={{color: "red"}}>登陆</Text>后可查看更多信息
                 </Text>

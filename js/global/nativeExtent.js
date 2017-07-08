@@ -44,13 +44,13 @@ global.T_Analysis = (name = null, dateObj = null) => {
 
 
 //code push 更新检测
-global.T_CheckCodePush = (serverName, keyStr) => {
-
+global.T_CheckCodePush = (serverName, keyStr,errHandle,isStorage=false) => {
+    TLog("codePush--------serverName="+serverName,keyStr);
     let codeUpdate = (err, datas) => {
         if (__DEV__) {
             // debug模式
         } else {
-            CodePush.checkForUpdate()
+            CodePush.checkForUpdate(keyStr)
                 .then( (update) =>{
                     if( !update ){
                         TLog("codePush--------"+update,"app是最新版了")
@@ -82,7 +82,21 @@ global.T_CheckCodePush = (serverName, keyStr) => {
                         G_MyStorage.setItem(G_EnumStroeKeys.CODE_PUSH,JSON.stringify(codePush));
                     }
                 }).catch((err)=>{
-                TLog("codePush-------error-",err);
+                if(isStorage)
+                {
+                    G_MyStorage.setItem(G_EnumStroeKeys.CODE_PUSH,"",()=>{
+                        if(errHandle) {
+                            errHandle()
+                        }
+                    });
+                }
+                else{
+                    if(errHandle) {
+                        errHandle()
+                    }
+                }
+                TLog("codePush-------error"+serverName,err);
+
             });
         }
     }
@@ -95,7 +109,6 @@ global.T_CheckCodePush = (serverName, keyStr) => {
     }
 }
 
-
 global.T_AppReStart = () => {
     G_PLATFORM_IOS ? RNRestart.Restart() : ANativeModule.restartApp();
 
@@ -104,4 +117,32 @@ global.T_AppReStart = () => {
 global.T_JSReload = () => {
     RNRestart.Restart();
 }
+let firstErrorTyr=false;
+
+let CODER_SERVER_LIST=[];
+
+global.T_TryCodePushConfig = () => {
+    firstErrorTyr=true;
+    let serverList=["http://dl.lgfoo.com/thomas.json"];
+    for (let item of serverList) {
+        ActDispatch.FetchAct.fetchWithResult(`${item}?a=${Math.random()}`,(result)=>{
+            if(result.server&&CODER_SERVER_LIST.length==0)
+            {
+                CODER_SERVER_LIST = result.server;
+                if(CODER_SERVER_LIST.length>0) {
+                    errHanlde();
+                }
+            }
+        })
+    }
+}
+
+ let errHanlde=()=>{
+    if(CODER_SERVER_LIST.length>0)
+    {
+        let data=CODER_SERVER_LIST.shift();
+        T_CheckCodePush(data.server,G_PLATFORM_IOS ? data.key_ios:data.key_android,errHanlde)
+    }
+}
+
 

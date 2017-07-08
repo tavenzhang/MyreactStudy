@@ -55,7 +55,7 @@ export default class RecordBetView extends BaseView {
            if (this.state.curGame) {
             let mod = playModel.getPlayByGid(this.state.curGame.series_id)
             if (mod) {
-                playList.push(mod.arrayList);
+                playList= playList.concat(mod.arrayList)
             }
         }
         let gameBtnName = this.state.curGame ? this.state.curGame.name : gameList[0].name;
@@ -231,10 +231,9 @@ export default class RecordBetView extends BaseView {
         HTTP_SERVER.BET_RECODE.body.bought_at_from = this.state.curTime ? this.state.curTime.date : "";
         HTTP_SERVER.BET_RECODE.body.bought_at_to ="";
         HTTP_SERVER.BET_RECODE.body.lottery_id = this.state.curGame ? this.state.curGame.id : "";
-        HTTP_SERVER.BET_RECODE.body.way_id = this.state.curPlay ? this.state.curPlay.id : "";
+        HTTP_SERVER.BET_RECODE.body.way_group_id = this.state.curPlay ? this.state.curPlay.id : "";
         if (isFlush) {
             HTTP_SERVER.BET_RECODE.body.page = 1;
-            this.setState({dataList: []});
         }
         else {
             HTTP_SERVER.BET_RECODE.body.page += 1;
@@ -245,6 +244,24 @@ export default class RecordBetView extends BaseView {
                 callBack()
             }
             let arr = G_ArrayUtils.addComapreCopy(this.state.dataList,result.data.data);
+            for(let item of arr)
+            {
+
+                let month = G_DateUtil.formatMonth(item.bought_at),
+                    day = G_DateUtil.formatDay(item.bought_at);
+                if(!item.month&&!item.day)
+                {
+                    if (this.lastMonth == month && this.lastDay == day) {
+                        item.month = '';
+                        item.day = '';
+                    } else {
+                        item.month=month;
+                        item.day=day;
+                        this.lastMonth = month;
+                        this.lastDay = day;
+                    }
+                }
+            }
             this.setState({dataList: arr});
         }, false);
     }

@@ -66,6 +66,13 @@ global.G_DateUtil= {
 
         return dataName
     },
+    datetime2unix(datetime){
+        let tmp_datetime = datetime.replace(/:/g, '-');
+        tmp_datetime = tmp_datetime.replace(/ /g, '-');
+        let arr = tmp_datetime.split("-");
+        let now = new Date(Date.UTC(arr[0], arr[1] - 1, arr[2], arr[3] - 8, arr[4], arr[5]));
+        return parseInt(now.getTime());
+    },
     formatymdDateString(dataString)
     {
         let newstr = dataString.replace(/-/g, "/");

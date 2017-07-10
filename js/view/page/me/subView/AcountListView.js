@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{PropTypes} from 'react';
 import {
     View,
     Text, StyleSheet,
@@ -6,7 +6,7 @@ import {
     ListView
 } from 'react-native';
 import {ItemNameEnum} from "../../MyView";
-import * as PropTypes from "react/lib/ReactPropTypes";
+
 import AIcon from 'react-native-vector-icons/FontAwesome';
 
 export default class AcountListView extends React.Component {

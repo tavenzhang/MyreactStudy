@@ -299,18 +299,14 @@ export default class RecordBetView extends BaseView {
 
                 let month = G_DateUtil.formatMonth(item.bought_at),
                     day = G_DateUtil.formatDay(item.bought_at);
-                if(!item.month&&!item.day)
-                {
-                    if (this.lastMonth == month && this.lastDay == day) {
-                        item.month = '';
-                        item.day = '';
-                    } else {
-                        item.month=month;
-                        item.day=day;
-                        this.lastMonth = month;
-                        this.lastDay = day;
+                   item.month = '';
+                   item.day = '';
+                      if (this.lastMonth != month || this.lastDay != day) {
+                          item.month=month;
+                          item.day=day;
+                          this.lastMonth = month;
+                          this.lastDay = day;
                     }
-                }
             }
             this.setState({dataList: arr});
         }, false);

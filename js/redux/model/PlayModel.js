@@ -34,6 +34,27 @@ export  default class PlayModel {
         return this.data[`${id}`];
     }
 
+    getSeriesByWayId(lottorid) {
+        let name = "";
+        let seletItem=null;
+        for (let key in this.data) {
+            for (let keySub1 in this.data[key].arrayList) {
+                let item = this.data[key].arrayList[keySub1]
+                        if (item["children"]) {
+                            for (let subKey2 in item["children"]) {
+                                let dataItem = item["children"][subKey2];
+                                if (parseInt(dataItem["id"]) == parseInt(lottorid)) {
+                                    name = dataItem.name;
+                                    seletItem =this.data[key];
+                                     break
+                                }
+                            }
+                        }
+            }
+        }
+        return seletItem;
+    }
+
     getWayNameById(wayId) {
         let name = "";
         for (let key in this.data) {

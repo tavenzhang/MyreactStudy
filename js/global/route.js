@@ -8,7 +8,7 @@ import MoneyCardView from "../view/page/me/operatView/MoneyCardView";
 import PersonPwdView from "../view/page/me/operatView/PersonPwdView";
 import PersonMailView from "../view/page/me/operatView/PersonMailView";
 import LoginView from "../view/page/me/subView/LoginView";
-import SSC_History from "../view/page/award/subView/SSC_History";
+import SSC_History from "../view/page/award/SSC_History";
 import TWebView from "../view/page/home/subview/TWebView";
 import AddCardView from "../view/page/me/operatView/cardManage/AddCardView";
 import BetDetailView from "../view/page/me/operatView/betRecord/BetDetailView";
@@ -29,7 +29,6 @@ import PK10View from "../view/page/home/subview/games/PK10/PK10View";
 import KENOView from "../view/page/home/subview/games/KENO/KENOView";
 import K3View from "../view/page/home/subview/games/K3/K3View";
 import LUCKYView from "../view/page/home/subview/games/LUCKY/LUCKYView";
-import G_11_5_History from "../view/page/award/subView/G_11_5_History";
 import TrendView from "../view/page/home/subview/trend/TrendView";
 import AgentProfitView from "../view/page/me/operatView/AgentProfitView";
 import ProfitView from "../view/page/me/operatView/ProfitView";
@@ -135,7 +134,6 @@ global.G_NavAppRoutConfig = {
     KENOView: createNavScreen(KENOView),
     K3View: createNavScreen(K3View),
     LUCKYView: createNavScreen(LUCKYView),
-    G_11_5_History: createNavScreen(G_11_5_History),
     TrendView: createNavScreen(TrendView),
     AgentProfitView: createNavScreen(AgentProfitView),
     ProfitView: createNavScreen(ProfitView),
@@ -181,8 +179,6 @@ global.G_NavViews = {
     LoginView: (data = {}) => pushView("LoginView", data,"登陆"),
     //ssc 游戏详情
     SSC_History: (data) => pushView("SSC_History", data,data.lottery_name),
-    //11-5 游戏详情
-    G_11_5_History: (data) => pushView("G_11_5_History",data,data.lottery_name),
 
     //个人中心页面
     RecordAwardView: (data = {}) => pushView("RecordAwardView", data),

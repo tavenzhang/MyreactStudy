@@ -1,19 +1,23 @@
-import React ,{PropTypes}from 'react';
+import React,{PropTypes} from 'react';
 import {
     View,
     Text
     , StyleSheet,
-    TouchableHighlight
 } from 'react-native';
-import BaseView from "../../../componet/BaseView";
-import TFlatList from "../../../componet/TFlatList";
-import NumberCircle from "../../../componet/NumberCircle";
+import BaseView from "../../componet/BaseView";
+import TFlatList from "../../componet/TFlatList";
+import NumberCircle from "../../componet/NumberCircle";
+import connect from "react-redux/src/components/connect";
+const mapStateToProps = state => {
+    return {
+        gameModel: state.get("appState").get("gameModel"),
+    }
+}
+@connect(mapStateToProps)
+export default class SSC_History extends BaseView {
 
-
-export default class G_11_5_History extends BaseView {
-
-    static propTypes = {
-        lottery_name: PropTypes.string,
+    static propTypes={
+        lottery_id:PropTypes.any
     }
 
     constructor(props) {
@@ -24,6 +28,7 @@ export default class G_11_5_History extends BaseView {
         this.next_id=0;
     }
 
+
     renderBody() {
         return (
             <View style={G_Style.appContentView}>
@@ -33,30 +38,30 @@ export default class G_11_5_History extends BaseView {
     }
 
     componentDidMount() {
-        setTimeout(()=>{ this.loadMore(null,0)},500)
+        setTimeout(()=>{ this.loadMore(null)},500)
     }
 
+    loadMore = (callBack) => {
+        const {lottery_id} = this.props.navigation.state.params;
+        HTTP_SERVER.notice_Lottery_Hisotry.url= `${HTTP_SERVER.notice_Lottery_Hisotry.formatUrl}/${lottery_id}/${this.next_id}`
+        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_Lottery_Hisotry,(result)=>{
+            if(result.isSuccess)
+            {
+                this.next_id= result.data.next_id;
+                this.setState({dataArray:this.state.dataArray.concat(result.data.list)})
 
-    loadMore = (callBack, isFlushHeader) => {
-           const {lottery_id} = this.props.navigation.state.params;
-           HTTP_SERVER.notice_Lottery_Hisotry.url= `${HTTP_SERVER.notice_Lottery_Hisotry.formatUrl}/${lottery_id}/${this.next_id}`
-           ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_Lottery_Hisotry,(result)=>{
-               if(result.isSuccess)
-               {
-                   this.next_id = result.data.next_id;
-                   this.setState({dataArray:this.state.dataArray.concat(result.data.list)})
-                   if (callBack) {
-                       callBack();
-                   }
-               }
-           })
+                if(callBack) {
+                    callBack();
+                }
+            }
+        })
     }
-
 
     _renderRow = (rowData) => {
-        let {series_name,onHandleWinner}=this.props.navigation.state.params
-        let lotteryList=onHandleWinner(series_name,rowData.win_number)
-        let itemContentView = [];
+        const {lottery_id} = this.props.navigation.state.params;
+        const {gameModel}=this.props
+        let lotteryList=G_GAME_OnHandleWinnerNum(gameModel.getSeriesIdById(lottery_id),rowData.win_number)
+        let itemContentView=[]
         if (lotteryList.length>0) {
             lotteryList.map((item, index) => {
                 itemContentView.push(<NumberCircle key={`${index}w`} data={item} color="#f00" radius={16}
@@ -64,20 +69,20 @@ export default class G_11_5_History extends BaseView {
             })
         }
         return (
-           // <TouchableHighlight onPress={() => this.itemClick(rowData)} underlayColor='rgba(0,0,0,0)'>
                 <View style={styles.row}>
                     <View style={{flexDirection: "row", paddingTop: 5, alignItems: "center"}}>
                         <Text style={{fontSize: 12, color: "#666", marginLeft: 10}}>{`第${rowData.issue}期`}</Text>
                         <Text style={{fontSize: 12, color: "#666", marginLeft: 10}}>{rowData.offical_time}</Text>
                     </View>
-                    <View style={{marginVertical: 5, marginLeft: 10,flexWrap: "wrap",flexDirection: "row"}}>
+                        <View style={{marginVertical: 5, marginLeft: 10,flexWrap: "wrap",flexDirection: "row"}}>
                             {itemContentView}
                         </View>
                 </View>
-            //</TouchableHighlight>
         );
     }
 
+    itemClick = (data) => {
+    }
 }
 
 

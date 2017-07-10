@@ -5,6 +5,7 @@ import  server from "./global/config/server";
 import  storage from "./global/utils/storage";
 import  alertUtil from "./global/utils/alertUtil";
 import  uitls from "./global/utils/util";
+import  GameConfig from "./global/GameConfig";
 import  AnimationHelp from "./global/animationHelp";
 import  route   from "./global/route";
 import  native   from "./global/nativeExtent";

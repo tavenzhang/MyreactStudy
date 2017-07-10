@@ -10,6 +10,16 @@ import BaseView from "../../../componet/BaseView";
 
 export  default class NoticeDeailView extends BaseView {
 
+    static navigationOptions = ({navigation}) => {
+        let {titleName, created_at} = navigation.state.params
+        return {
+            headerTitle:  titleName&&created_at ? <View style={styles.titleBar}>
+                     <Text style={{fontSize:16,color:"white", fontWeight:"bold"}}>{titleName} </Text>
+                      <Text style={{fontSize:12,color:"#ddd"}}>发布时间:{created_at} </Text>
+                    </View>:null
+        }
+    }
+
     constructor(props) {
         super(props)
         this.state = {
@@ -28,10 +38,6 @@ export  default class NoticeDeailView extends BaseView {
         }
         return (
             <View style={[G_Style.appContentView,{backgroundColor:G_Theme.gray}]}>
-                <View style={styles.titleBar}>
-                    <Text style={{fontSize:16,}}>{data.title} </Text>
-                    <Text style={{fontSize:12,color:G_Theme.grayDeep}}>发布时间:{data.created_at} </Text>
-                </View>
                 <WebView style={{backgroundColor:G_Theme.primary}} source={{html: data.content}} automaticallyAdjustContentInsets={false}/>
             </View>
         );
@@ -43,7 +49,8 @@ export  default class NoticeDeailView extends BaseView {
         G_RunAfterInteractions(() => {
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.GET_SYSTEM_DETAIL, (result) => {
                 if (result.data) {
-                    this.setState({data: result.data})
+                    this.setState({data: result.data});
+                    this.props.navigation.setParams({titleName:result.data.title,created_at:result.data.created_at})
                 }
             })
         })
@@ -56,13 +63,9 @@ export  default class NoticeDeailView extends BaseView {
 
 const styles = StyleSheet.create({
     titleBar: {
-        padding:10,
-        borderBottomWidth: 1,
         alignItems:'center',
-        backgroundColor:'#fff',
         justifyContent: "center",
-        height:50,
-        borderColor:G_Theme.gray,
+
     },
 
 })

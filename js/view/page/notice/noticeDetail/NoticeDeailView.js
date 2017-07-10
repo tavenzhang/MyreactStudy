@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 import BaseView from "../../../componet/BaseView";
 
-
 export  default class NoticeDeailView extends BaseView {
 
     static navigationOptions = ({navigation}) => {
@@ -38,7 +37,7 @@ export  default class NoticeDeailView extends BaseView {
         }
         return (
             <View style={[G_Style.appContentView,{backgroundColor:G_Theme.gray}]}>
-                <WebView style={{backgroundColor:G_Theme.primary}} source={{html: data.content}} automaticallyAdjustContentInsets={false}/>
+                <WebView style={{backgroundColor:"white"}} source={{html: data.content}} automaticallyAdjustContentInsets={false}/>
             </View>
         );
     }
@@ -65,7 +64,7 @@ const styles = StyleSheet.create({
     titleBar: {
         alignItems:'center',
         justifyContent: "center",
-
+        alignSelf:"center"
     },
 
 })

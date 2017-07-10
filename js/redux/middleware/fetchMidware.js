@@ -42,9 +42,7 @@ function fetchMiddleware(extraArgument) {
                 }
                 requestHeader.body = JSON.stringify(requestData);
             }
-            else {
-                requestHeader.body=""
-            }
+
             TLog("http---------->" + action.url,requestHeader.body);
             let keyFetch=action.url+requestHeader.body;
             if(!FetchMap.get(keyFetch))

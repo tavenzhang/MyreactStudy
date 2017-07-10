@@ -226,7 +226,6 @@ export default class RecordChaseView extends BaseView {
         }
     }
 
-
     loadMore = (callBack, isFlush) => {
         HTTP_SERVER.CHASE_RECODE.body.bought_at_from = this.state.curTime ? this.state.curTime.date : "";
         HTTP_SERVER.CHASE_RECODE.body.bought_at_to = ""
@@ -240,7 +239,6 @@ export default class RecordChaseView extends BaseView {
         }
 
         HTTP_SERVER.CHASE_RECODE.body.pagesize = this.state.pageSize;
-        G_RunAfterInteractions(()=>{
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.CHASE_RECODE, (result) => {
                 if (callBack) {
                     callBack()
@@ -248,7 +246,7 @@ export default class RecordChaseView extends BaseView {
                 let arr =G_ArrayUtils.addComapreCopy(this.state.dataList,result.data.data)
                 this.setState({dataList: arr});
             }, false);
-        })
+
     }
 }
 

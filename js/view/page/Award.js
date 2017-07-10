@@ -47,7 +47,7 @@ export default class Award extends BaseView {
             this.onRequest();
         }
         else{
-            setTimeout(this.onRequest,300)
+            setTimeout(this.onRequest,360)
         }
     }
 
@@ -95,9 +95,6 @@ export default class Award extends BaseView {
         TLog("itemClick--------",data);
         switch(data.series_name)
         {
-           //  case "11-5":
-               // G_NavUtil.pushToView(G_NavViews.G_11_5_History({...data}));
-              //  break;
             default:
                 G_NavUtil.pushToView(G_NavViews.SSC_History({...data,...this.props}));
                 break;

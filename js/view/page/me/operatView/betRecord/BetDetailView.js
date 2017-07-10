@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import BaseView from "../../../../componet/BaseView";
 import {HOME_ICONS} from "../../../../../assets/index";
+import {TButton} from "../../../../componet/tcustom/button/TButton";
 
 
 export  default class BetDetailView extends BaseView {
@@ -51,7 +52,6 @@ export  default class BetDetailView extends BaseView {
 
             </View>
 
-
             <View style={styles.profitRow}>
                 <Text style={styles.title}>订单状态:</Text>
                 <Text
@@ -79,24 +79,34 @@ export  default class BetDetailView extends BaseView {
                 <Text style={[styles.text, styles.gameHeadText,{flex:2}]}>订单时间:</Text>
                 <Text style={[styles.text, styles.gameHeadText,{flex:8,textAlign:'left'}]}>{data.bought_at}</Text>
             </View>
-
-
+            {
+                data.status==0 ? <TButton onPress={this.onCanCelBet} containerStyle={{marginHorizontal: 40, marginTop:20}} btnName={"撤销追号"}/>:null
+            }
         </View>);
     }
 
     componentDidMount() {
         let {id} = this.props.navigation.state.params;
         HTTP_SERVER.BET_DETAIL.url = HTTP_SERVER.BET_DETAIL.formatUrl.replace(/#id/g, id);
-        G_RunAfterInteractions(() => {
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.BET_DETAIL, (result) => {
                 if (result.data) {
                     // let arr = this.state.dataList.concat(result.data.data);
                     this.setState({data: result.data})
                 }
             })
-        })
+        }
 
+    onCanCelBet=()=>{
+        let {id} = this.props.navigation.state.params;
+        HTTP_SERVER.BET_CanCel.url = HTTP_SERVER.BET_CanCel.formatUrl.replace(/#id/g, id);
+        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.BET_CanCel, (result) => {
+            if (result.isSuccess) {
+                // let arr = this.state.dataList.concat(result.data.data);
+              G_NavUtil.pop();
+            }
+        })
     }
+
 }
 const styles = StyleSheet.create({
     profitRow: {

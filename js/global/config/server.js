@@ -53,6 +53,8 @@ global.HTTP_SERVER = {
             pagesize: 20
         }
     },
+    //m撤单POST /mobile-projects/{id}/drop
+    BET_CanCel: {url: "", formatUrl: `/mobile-projects/#id/drop`, method: METHOD_POST, body: {}},
     BET_DETAIL: {url: "", formatUrl: `/mobile-projects/#id/view`, method: METHOD_POST, body: {page: 1, pagesize: 20}},
     //追号记录
     CHASE_RECODE: {
@@ -74,6 +76,8 @@ global.HTTP_SERVER = {
     },
     //追号详情
     CHASE_DETAIL: {url: "", formatUrl: `/mobile-traces/#id/view`, method: METHOD_POST, body: {}},
+    // /mobile-traces/{id}/cannel
+    CHASE_CANCEL: {url: "", formatUrl: `/mobile-traces/#id/cannel`, method: METHOD_POST, body: {}},
     //获取站内信列表
     LETTER_LIST: {url: `/mobile-station-letters`, method: METHOD_POST, body: {}},
     LETTER_DETAIL: {url: "", formatUrl: `/mobile-station-letters/#id/view`, method: METHOD_POST, body: {}},

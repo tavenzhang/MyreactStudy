@@ -44,6 +44,7 @@ global.G_GAME_OnHandleWinnerNum=(sid,numStr)=>{
         case 2://"11-5"
         case 7://pk10
         case 8://KL10
+        case 9://
             lotteryList=numStr.split(" ");
             break;
         case 4://KENO

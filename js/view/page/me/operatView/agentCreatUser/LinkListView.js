@@ -80,19 +80,21 @@ export default class LinkListView extends BaseView {
                 </Text>
             </View>
 
-            <View style={[styles.contentView, {flex: 5,}]}>
+            <View style={[styles.contentView, {flex: 6,}]}>
                 <Text numberOfLines={2} style={{lineHeight: 20}} onPress={() => {
                     this._onClicpLink(data.url)
                 }}>{data.url}</Text>
             </View>
-            <TouchableHighlight onPress={() => {
-                this._onDetailLink(data)
-            }}>
+
                 <View style={[styles.contentView, {flex: 2}]}>
+                    <TouchableHighlight onPress={() => {
+                        this._onDetailLink(data)
+                    }}>
                     <AIcon name={"angle-right"}
                            style={{fontSize: 25, alignSelf: "center", color: G_Theme.primary}}/>
+                    </TouchableHighlight>
                 </View>
-            </TouchableHighlight>
+
 
         </View>)
     }

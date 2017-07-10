@@ -10,6 +10,7 @@ import {
 import BaseView from "../../../../componet/BaseView";
 import TFlatList from "../../../../componet/TFlatList";
 import {HOME_ICONS} from "../../../../../assets/index";
+import {TButton} from "../../../../componet/tcustom/button/TButton";
 
 
 export  default class BetDetailView extends BaseView {
@@ -29,8 +30,6 @@ export  default class BetDetailView extends BaseView {
         this.gameName = gameName;
         let dataList = this.state.data.detail_list ? this.state.data.detail_list.data : [];
         const {data} = this.state;
-        TLog('trace dtat', data)
-
         let series_id = gameModel.getSeriesIdById(data.lottery_id)
         let coefficient = appModel.getACoefficients(data.coefficient);
         let isFinish = data.status == 1 ? true : false;
@@ -117,9 +116,10 @@ export  default class BetDetailView extends BaseView {
                             textAlign: 'left'
                         }]}>{data.created_at}</Text>
                 </View>
-
-
-                <TFlatList dataList={dataList} loadMore={this.loadMore} renderRow={this._renderRow}/>
+                {/*<TFlatList dataList={dataList} loadMore={this.loadMore} renderRow={this._renderRow}/>*/}
+                {
+                    data.status==0 ? <TButton onPress={this.onChaseCanel} containerStyle={{marginHorizontal: 40, marginTop:20}} btnName={"撤销追号"}/>:null
+                }
             </View>
         );
     }
@@ -127,48 +127,29 @@ export  default class BetDetailView extends BaseView {
     componentDidMount() {
         let {id} = this.props.navigation.state.params
         HTTP_SERVER.CHASE_DETAIL.url = HTTP_SERVER.CHASE_DETAIL.formatUrl.replace(/#id/g, id);
-        G_RunAfterInteractions(() => {
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.CHASE_DETAIL, (result) => {
                 if (result.data) {
                     // let arr = this.state.dataList.concat(result.data.data);
                     this.setState({data: result.data})
                 }
             })
+        }
+
+
+    onChaseCanel=()=>{
+        let {id} = this.props.navigation.state.params
+        HTTP_SERVER.CHASE_CANCEL.url=HTTP_SERVER.CHASE_CANCEL.formatUrl.replace(/#id/g, id);
+        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.CHASE_CANCEL, (result) => {
+            if (result.isSuccess) {
+                // let arr = this.state.dataList.concat(result.data.data);
+               // this.setState({data: result.data})
+                G_NavUtil.pop();
+            }
+            else{
+                ActDispatch.AppAct.showErrorBox("撤销失败！")
+            }
         })
     }
-
-    loadMore = (callBack, forcePage = 0) => {
-
-    }
-
-    _renderRow = (rowData,index) => {
-        TLog("rowData----", rowData);
-        return (
-            <View>
-                {/*<TouchableHighlight onPress={() => this.itemClick(rowData)} underlayColor='rgba(10,10,10,0.2)'>*/}
-                    {/*<View style={styles.row}>*/}
-                        {/*<View style={[styles.itemContentStyle, {flex: 2}]}>*/}
-                            {/*<Text style={styles.textItemStyle}>{this.gameName}</Text>*/}
-                        {/*</View>*/}
-                        {/*<View style={[styles.itemContentStyle, {flex: 2}]}>*/}
-                            {/*<Text style={styles.textItemStyle}>{rowData.title}</Text>*/}
-                            {/*<Text style={{fontSize: 12, color: "gray", marginTop: 5}}*/}
-                                  {/*numberOfLines={1}>{`投注号码:${rowData.bet_number}`}</Text>*/}
-                        {/*</View>*/}
-                        {/*<View style={styles.itemContentStyle}>*/}
-                            {/*<Text style={styles.textItemStyle}>{rowData.status}</Text>*/}
-                        {/*</View>*/}
-                        {/*<View style={styles.itemContentStyle}>*/}
-                            {/*<AIcon name={"angle-right"}*/}
-                                   {/*style={{fontSize: 25, alignSelf: "center", color: "gray"}}/>*/}
-                        {/*</View>*/}
-                    {/*</View>*/}
-                {/*</TouchableHighlight>*/}
-            </View>
-        );
-    }
-
-
 }
 const styles = StyleSheet.create({
     profitRow: {

@@ -19,8 +19,6 @@ export default class BetRecordListView extends React.Component {
     }
 
     _renderRow = (rowData,index) => {
-
-       // TLog("rowData----",rowData)
         let {gameModel, appModel} = this.props;
         let dataName = G_DateUtil.formatItemDateString(rowData.bought_at);
         let gameName = gameModel.getGameNameById(rowData.lottery_id),
@@ -48,9 +46,9 @@ export default class BetRecordListView extends React.Component {
                                 fontSize:16,
                                 fontWeight: 'bold',
                                 color: statusColor,
-                                paddingRight:3
+                                marginRight: 10,
                             }]}>{appModel.getAProjectStatus(rowData.status)}&nbsp;&nbsp;
-                            <AIcon name={"angle-right"} style={{fontSize: 25, paddingTop:2, alignSelf: "center", color: "gray"}}/></Text>
+                            <AIcon name={"angle-right"} style={{fontSize: 20, color: "gray"}}/></Text>
                         </View>
                         {/*<View style={[styles.itemContentStyle, styles.record]}>*/}
                             {/*<AIcon name={"angle-right"}*/}
@@ -61,7 +59,6 @@ export default class BetRecordListView extends React.Component {
             </View>
         );
     }
-
     itemClick = (data) => {
         G_NavUtil.pushToView(G_NavViews.BetDetailView({...data, title: "投注详情", ...this.props}));
     }
@@ -76,7 +73,7 @@ const styles = StyleSheet.create({
     },
     itemContentStyle: {
         flex: 1,
-        // alignItems: "center",
+        //alignItems: "center",
         justifyContent: "center"
         // borderWidth: 1
     },
@@ -107,7 +104,5 @@ const styles = StyleSheet.create({
         // marginLeft: 10,
         borderColor: G_Theme.gray,
         // borderWidth: 1,
-    },
-
-
+    }
 });

@@ -6,8 +6,6 @@ import {
     TouchableHighlight,
 } from 'react-native';
 
-
-import Button from "react-native-button";
 import BaseView from "../../../../componet/BaseView";
 
 export default class LinkDetailView extends BaseView {

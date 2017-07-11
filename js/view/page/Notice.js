@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
     },
     textHeadStyle: {
         fontSize: 14,
+        color:"black"
     },
     textItemStyle: {
         fontSize: 12,

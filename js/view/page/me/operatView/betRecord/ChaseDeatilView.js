@@ -48,10 +48,10 @@ export  default class BetDetailView extends BaseView {
                     </View>
                     <View style={{flexDirection: "row", marginTop: 5}}>
                         <Text
-                            style={[styles.text, styles.gameHeadText, styles.winNumber]}> {G_DateUtil.formatMoney(data.amount)}元</Text>
+                            style={[styles.text, styles.gameHeadText, styles.winNumber]}> {data.total_issues} 期</Text>
                         <Text
-                            style={[styles.text, styles.gameHeadText, styles.winNumber]}> {data.prize ? G_DateUtil.formatMoney(data.prize) : 0}元</Text>
-                        <Text style={[styles.text, styles.gameHeadText, styles.winNumber]}> {coefficient}</Text>
+                            style={[styles.text, styles.gameHeadText, styles.winNumber]}> {data.finished_issues} 期</Text>
+                        <Text style={[styles.text, styles.gameHeadText, styles.winNumber]}> {data.canceled_issues} 期</Text>
                     </View>
                 </View>
                 <View style={styles.profitRow}>

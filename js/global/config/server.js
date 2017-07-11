@@ -16,7 +16,6 @@ global.HTTP_SERVER = {
     GET_GAME_LIST_INFO: {url: `/mobile-lotteries/lottery-series`},
     //获取玩法列表
     GET_PLAY_LIST_INFO: {url: `/mobile-lotteries/series-way-groups`},
-
     //获取游戏种类相关数据
     GET_GAME_DETAIL: {url: '', formatUrl: `/mobile-lotteries/lottery-info/#id`, method: METHOD_POST, body: {}},
     //获取游戏的所有玩法
@@ -77,7 +76,7 @@ global.HTTP_SERVER = {
     //追号详情
     CHASE_DETAIL: {url: "", formatUrl: `/mobile-traces/#id/view`, method: METHOD_POST, body: {}},
     // /mobile-traces/{id}/cannel
-    CHASE_CANCEL: {url: "", formatUrl: `/mobile-traces/#id/cannel`, method: METHOD_POST, body: {}},
+    CHASE_CANCEL: {url: "", formatUrl: `/mobile-traces/#id/cancel`, method: METHOD_POST, body: {}},
     //获取站内信列表
     LETTER_LIST: {url: `/mobile-station-letters`, method: METHOD_POST, body: {}},
     LETTER_DETAIL: {url: "", formatUrl: `/mobile-station-letters/#id/view`, method: METHOD_POST, body: {}},

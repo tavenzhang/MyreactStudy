@@ -129,8 +129,7 @@ export default class BaseGameView extends BaseView {
                     {...this.state}
                     dateHistoryList={this.state.history_lotterys}
                     prize={price}
-                    series_id={series_id} onTimeHanlde={this.requetGameData
-                    }/>
+                    series_id={series_id} onTimeHanlde={this.requetGameData}/>
                 {subView}
                 <MoreMenu
                     ref="moreMenu"

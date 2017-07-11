@@ -28,7 +28,7 @@ export default class LoginView extends BaseView {
                         style={styles.inputContain}>
                         <AIcon name="user-o" style={styles.iconUser}/>
                         <TTextInput    placeholder={"输入账号"}
-                                       autoFocus={true}
+                                       autoFocus={G_PLATFORM_IOS ? true:false}
                                        value={this.state.nameText}
                                        onChangeText={(nameText) => this.setState({nameText})}
                                     />
@@ -71,8 +71,9 @@ export default class LoginView extends BaseView {
 
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LOGIN_IN, (data) => {
                 if (data.isSuccess) {
-                    G_MyStorage.setItem(G_EnumStroeKeys.USR_DATA, JSON.stringify(bodyData),()=>G_NavUtil.pop());
                     ActDispatch.AppAct.loginReault(data);
+                    G_MyStorage.setItem(G_EnumStroeKeys.USR_DATA, JSON.stringify(bodyData),()=>G_NavUtil.pop());
+
                 } else {
                     ActDispatch.AppAct.showBox(data.Msg);
                 }

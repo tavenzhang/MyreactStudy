@@ -39,9 +39,9 @@ export default class ChaseRecodListView extends React.Component {
                             <Text style={[styles.textItemStyle,styles.desc]}>{rowData.title}</Text>
                         </View>
                         <View style={[styles.itemContentStyle,{flex:3}]}>
-                            <Text style={styles.textItemStyle} numberOfLines={1}>已完成:2</Text>
+                            <Text style={styles.textItemStyle} numberOfLines={1}>已完成:{rowData.finished_issues}</Text>
 
-                            <Text style={[styles.desc]}>总追号:1</Text>
+                            <Text style={[styles.desc]}>总追号:{rowData.total_issues}</Text>
 
                         </View>
                         <View style={[styles.itemContentStyle,{flex:2}]}>

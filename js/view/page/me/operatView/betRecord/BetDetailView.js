@@ -80,7 +80,7 @@ export  default class BetDetailView extends BaseView {
                 <Text style={[styles.text, styles.gameHeadText,{flex:8,textAlign:'left'}]}>{data.bought_at}</Text>
             </View>
             {
-                data.status==0 ? <TButton onPress={this.onCanCelBet} containerStyle={{marginHorizontal: 40, marginTop:20}} btnName={"撤销追号"}/>:null
+                data.allow_cancel&&data.status==0 ? <TButton onPress={this.onCanCelBet} containerStyle={{marginHorizontal: 40, marginTop:20}} btnName={"撤销投注"}/>:null
             }
         </View>);
     }

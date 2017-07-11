@@ -22,7 +22,8 @@ export default class TFlatList extends React.Component {
         getItemLayout:PropTypes.any,
         keyExtractor:PropTypes.any,
         pageSize:PropTypes.any,
-        initialNumToRender:PropTypes.number
+        initialNumToRender:PropTypes.number,
+        styleView:PropTypes.object
     }
 
     static defaultProps={
@@ -54,9 +55,9 @@ export default class TFlatList extends React.Component {
     // )}
 
     render() {
-        let {dataList,renderHeader,getItemLayout,keyExtractor,initialNumToRender}=this.props;
+        let {dataList,renderHeader,getItemLayout,keyExtractor,initialNumToRender,styleView}=this.props;
         return (
-            <View style={[G_Style.appContentView,{backgroundColor:'white'}]}>
+            <View style={[G_Style.appContentView,{backgroundColor:'white'},styleView]}>
                 <FlatList
                     getItemLayout={getItemLayout}
                     data={dataList}

@@ -22,17 +22,17 @@ const makeCancelable = (promise) => {
 function fetchMiddleware(extraArgument) {
     return store => next => action => {
         let {dispatch,getState}=store
-        let resHttp="";
+        let resHttp = "";
         if (action.type == ActionType.FetchType.FETCH_REQUEST) {
             let requestType = action.requestType || 'POST';
             let requestData = action.requestData;
             const requestHeader = {
                 method: requestType,
                 headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "PHONEUA":G_PLATFORM_IOS ? "iPhone":"Android",
                 }
             }
-
             if (requestType == 'POST') {
                 let userData=getState().get("appState").get("userData");
                 requestData = requestData ? requestData:{};
@@ -42,8 +42,7 @@ function fetchMiddleware(extraArgument) {
                 }
                 requestHeader.body = JSON.stringify(requestData);
             }
-
-            TLog("http---------->" + action.url,requestHeader.body);
+            TLog("http----------->" + action.url,requestHeader.body);
             let keyFetch=action.url+requestHeader.body;
             if(!FetchMap.get(keyFetch))
             {
@@ -54,7 +53,7 @@ function fetchMiddleware(extraArgument) {
                     .then(res => {
                         FetchMap.set(keyFetch,null);
                         res=res.replace(/;/g,   "");
-                        resHttp = res
+                        resHttp = res;
                         let data = JSON.parse(res);
                         TLog("http<--------------" + action.url,data);
                         //错误，显示错误信息
@@ -75,12 +74,10 @@ function fetchMiddleware(extraArgument) {
                             if(action.endAction){
                                 next({type:action.endAction,httpResult:data});
                             }
-
                             if(data.Msg)//警告提示信息
                             {
                                 if(data.isSuccess){
                                     next(ActionEnum.AppAct.showBox(data.Msg));
-
                                 }
                                 else{
                                     if(data.type=="loginTimeout") {
@@ -113,10 +110,8 @@ function fetchMiddleware(extraArgument) {
                     })
             }
         }
-        else if(action.type == ActionType.FetchType.FETCH_CANCEL)
-        {
-
-           let bodyStr =!action.body ? "":JSON.stringify(action.body);
+        else if(action.type == ActionType.FetchType.FETCH_CANCEL) {
+            let bodyStr =!action.body ? "":JSON.stringify(action.body);
             let key=action.url+bodyStr;
             let promise=FetchMap.get(key)
             if(promise) {

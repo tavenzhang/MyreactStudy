@@ -75,7 +75,7 @@ public class MainApplication extends Application implements ReactApplication {
         super.onCreate();
         new FlurryAgent.Builder()
                 .withLogEnabled(true)
-                .build(this, "X57HZCBG8MWMGDV2XQMN");
+                .build(this, "94MJYMXQZXMT5PFZF59W");
         XLog.init(LogLevel.ALL);
         SoLoader.init(this, false);
     }

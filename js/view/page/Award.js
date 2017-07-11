@@ -44,10 +44,10 @@ export default class Award extends BaseView {
     componentDidMount() {
         if(G_PLATFORM_IOS)
         {
-            this.onRequest();
+            setTimeout(this.onRequest,500)
         }
         else{
-            setTimeout(this.onRequest,360)
+            setTimeout(this.onRequest,500)
         }
     }
 
@@ -57,7 +57,7 @@ export default class Award extends BaseView {
             {
                 this.setState({dataArray:data.data});
             }
-        })
+        },true)
     }
 
     _renderRow = (rowData) => {

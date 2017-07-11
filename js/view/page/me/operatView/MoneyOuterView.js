@@ -32,13 +32,14 @@ export default class MoneyOuterView extends BaseView {
         if (this.state.pickValue && this.state.dataInfo) {
             let newList = this.state.dataInfo.bank_cards.filter((data) => data.id == this.state.pickValue)
             if (newList.length == 1) {
+                let name=G_StringUtil.formatBankCard(newList[0].account_name,2);
                 bankCountView = (<View style={{flexDirection: "row", marginBottom: 15}}>
                     <View style={styles.trLeft}>
                         <Text style={styles.textLeft}>开卡信息:</Text>
                     </View>
                     <View style={styles.trRight}>
                         <Text
-                            style={styles.cellMargin}>{`账户名:${newList[0].account_name}  ${newList[0].province}-${newList[0].city}`}</Text>
+                            style={styles.cellMargin}>{`账户名:${name}  ${newList[0].province}-${newList[0].city}`}</Text>
                     </View>
                 </View>)
             }
@@ -175,7 +176,7 @@ export default class MoneyOuterView extends BaseView {
 
     onRenderPickRow=()=>{
         let view=  this.state.dataInfo.bank_cards.map((item, index) => {
-            let name = `${item.account}[${item.bank}]`;
+            let name = `${G_StringUtil.formatBankCard(item.account)}[${item.bank}]`;
             return (<Picker.Item label={name} value={item.id} key={index + "item"}/>)
         })
         return view;

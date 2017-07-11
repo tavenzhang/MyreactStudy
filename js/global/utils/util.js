@@ -145,10 +145,10 @@ global.G_DateUtil= {
 
 global.G_StringUtil =  {
     //2017-02-22  15:47:00
-    formatBankCard: (str) => {
-        let tempStr = str.substr(0, str.length - 4);
+    formatBankCard: (str,num=4) => {
+        let tempStr = str.substr(0, str.length - num);
         tempStr = tempStr.replace(/./g, "*");
-        tempStr += str.substr(str.length - 4);
+        tempStr += str.substr(str.length - num);
         return tempStr;
     },
 };

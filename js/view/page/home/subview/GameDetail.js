@@ -32,11 +32,11 @@ export default class GameDetail extends React.Component {
                         <View style={[styles.itemRow,splitIcon]}>
                             <Image style={styles.thumb} source={HOME_ICONS[rowData.series_id]}/>
                             <View>
-                                <Text style={rowData.open == "1" ? styles.text : styles.textNoOpen}>
+                                <Text style={rowData.open == "1" &&!rowData.noIssue ? styles.text : styles.textNoOpen}>
                                     {rowData.name}
                                 </Text>
                                 <Text style={styles.textDesc}>
-                                    {rowData.open == "1" ? '火爆进行中' : '暂停销售'}
+                                    {rowData.open == "1"&&!rowData.noIssue  ? '火爆进行中' : '暂停销售'}
                                 </Text>
                             </View>
                         </View>
@@ -53,7 +53,7 @@ export default class GameDetail extends React.Component {
         //G_NavUtil.pushToView(G_NavViews.TrendView({title:`走势图`,lotteryId:data.id}))
         if(userData.isLogined)
         {
-            if (data.open == "1") {
+            if (data.open == "1"&&!data.noIssue) {
                 switch (data.series_id+'')
                 {
                     case "1":
@@ -86,7 +86,7 @@ export default class GameDetail extends React.Component {
                 }
             }
             else {
-                G_AlertUtil.show("当前游戏还在筹备中", "敬请期待！");
+                G_AlertUtil.show("当前游戏暂停销售", "敬请期待！");
             }
         }
         else{

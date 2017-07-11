@@ -591,8 +591,8 @@ export default class Games extends Component {
             <View style={{flex: 1}}>
                 {
                     this.isRandomSelect ?
-                        <TouchableHighlight onPress={this.randomSelcet} style={{zIndex: 10}}>
-                            <View style={styles.yaoyiyao}>
+                        <TouchableHighlight onPress={this.randomSelcet} style={styles.yaoyiyao}>
+                            <View style={{alignItems:"center"}}>
                                 <Image
                                     style={styles.yaoyiyaoImg}
                                     source={Icon_yaoyiyao}
@@ -850,21 +850,22 @@ const styles = StyleSheet.create({
     gameBox: {},
     yaoyiyao: {
         flexDirection: 'column',
-        height: 35,
-        width: 30,
+        height: 45,
+        width: 35,
         position: 'absolute',
         alignItems: "center",
         right: 2,
         top: -5,
+        zIndex: 100,
         justifyContent: "center",
         backgroundColor: '#ff5722',
         borderRadius: 4,
-        zIndex: 100
+
     },
     yaoyiyaoImg: {
         flexDirection: 'row',
-        height: 20,
-        width: 30,
+        height: 25,
+        width: 35,
         alignItems: "center",
         justifyContent: "center",
         resizeMode: 'contain'

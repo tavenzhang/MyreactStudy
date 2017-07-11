@@ -4,7 +4,7 @@ import {
     Text
     , StyleSheet,
     Image,
-    TouchableHighlight
+    TouchableOpacity
 } from 'react-native';
 import AIcon from 'react-native-vector-icons/FontAwesome';
 import {connect} from 'react-redux';
@@ -13,7 +13,6 @@ import AcountListView from "./me/subView/AcountListView";
 import ConfigView from "./home/subview/ConfigView";
 import {TButton} from "../componet/tcustom/button/TButton";
 import {NavButtonText} from "../componet/navBarMenu/HeaderMenu";
-import TouchableItem from "../../../node_modules/react-navigation/lib-rn/views/TouchableItem";
 import {Icon_touxaing} from "../../assets/index";
 
 export let ItemNameEnum = {
@@ -60,16 +59,12 @@ export default class MyView extends BaseView {
     }
 
     static dataListRecord = [
-        // {ico: "star", name: ItemNameEnum.awardFind},//中奖查询 移到投注记录里面
         {
-        ico: "file-text",
-        name: ItemNameEnum.betRecord
-    }, {ico: "file-text-o", name: ItemNameEnum.chaseRecode}];
+            ico: "file-text",
+            name: ItemNameEnum.betRecord
+        }, {ico: "file-text-o", name: ItemNameEnum.chaseRecode}];
 
-    static dataListMoney = [{ico: "exchange", name: ItemNameEnum.myMoney}, {ico: "money", name: ItemNameEnum.outerMoney}, {
-        ico: "cny",
-        name: ItemNameEnum.inMoney
-    }, {ico: "credit-card", name: ItemNameEnum.cardMange}];
+    static dataListMoney = [{ico: "exchange", name: ItemNameEnum.myMoney}, {ico: "credit-card", name: ItemNameEnum.cardMange}];
     static dataListMoeny_Agent = [
         {ico: "cny", name: ItemNameEnum.myMoney},
         //     {
@@ -145,37 +140,32 @@ export default class MyView extends BaseView {
                 };
             }
             infoView = <View style={[styles.headContent]}>
-                <TouchableHighlight style={[styles.operationPannel]} underlayColor={G_Theme.gray}
-                                    onPress={() => {
-                                        G_NavUtil.pushToView(G_NavViews.PersonMailView({
-                                            title: ItemNameEnum.msgNotice,
-                                            defaultIndex: 0
+                <View style={{flexDirection: "row", justifyContent: "space-between", width:G_Theme.windowWidth, paddingHorizontal:60, zIndex:15, position:"absolute"}}>
+                    <TouchableOpacity underlayColor={G_Theme.gray}
+                                        onPress={() => {
+                                            G_NavUtil.pushToView(G_NavViews.PersonMailView({
+                                                title: ItemNameEnum.msgNotice,
+                                                defaultIndex: 0
 
-                                        }));
-                                    }}>
-                    <View style={[styles.Operation,{left:-1}]}>
+                                            }));
+                                        }}>
                         <AIcon name={MyView.dataListPerson[1].ico}
                                style={[styles.IconOperation]}/>
-                    </View>
-
-                </TouchableHighlight>
-                <TouchableHighlight style={[styles.operationPannel]} underlayColor={G_Theme.gray} onPress={() => {
-                    G_NavUtil.pushToView(G_NavViews.PersonPwdView({
-                        title: ItemNameEnum.pwdMange,
-                        defaultIndex: 0
-                    }));
-                }}>
-                    <View style={[styles.Operation,{right:-1}]}>
+                    </TouchableOpacity>
+                    <TouchableOpacity underlayColor={G_Theme.gray} onPress={() => {
+                        G_NavUtil.pushToView(G_NavViews.PersonPwdView({
+                            title: ItemNameEnum.pwdMange,
+                            defaultIndex: 0
+                        }));
+                    }}>
                         <AIcon name={MyView.dataListPerson[0].ico}
                                style={styles.IconOperation}/>
-                    </View>
-
-                </TouchableHighlight>
+                    </TouchableOpacity>
+                </View>
                 <View style={[styles.rowSp, {paddingTop: 10}]}>
                     <View style={styles.touxiang}>
                         <Image style={styles.IconTouxiang} source={Icon_touxaing}/>
                     </View>
-
                 </View>
                 <View style={[styles.rowSp,]}>
                     <Text >{userData.data.nickname}</Text>
@@ -186,18 +176,15 @@ export default class MyView extends BaseView {
                     </View>
                 </View>
                 <View style={[styles.rowSp]}>
-
                     <Text style={[{fontSize: 12}]}>账号:{userData.data.username}</Text>
-
-
                 </View>
                 <View style={styles.rowSp}>
                     {/*<View style={{flexDirection: "row", height: 50, alignItems: "center",}}>*/}
-                    <View style={{flexDirection: "row", flex: 1}}>
+                    <View style={{flexDirection: "row", flex: 1, justifyContent:"center"}}>
                         <Text style={[{fontSize: 14, color: G_Theme.grayDeep}]}>奖金组: </Text>
                         <Text style={[{fontSize: 14}]}>{userData.data.user_forever_prize_group} </Text>
                     </View>
-                    <View style={{flexDirection: "row", flex: 1}}>
+                    <View style={{flexDirection: "row", flex: 1,justifyContent:"center"}}>
                         <Text style={{
                             fontSize: 14,
                             color: G_Theme.grayDeep
@@ -205,12 +192,8 @@ export default class MyView extends BaseView {
                         <Text style={{fontSize: 14,}}>{G_DateUtil.formatMoney(moneyBalance)} </Text>
                         <Text style={{fontSize: 14, color: G_Theme.grayDeep}}>元 </Text>
                         {/*</View>*/}
-
-
                     </View>
-
                 </View>
-
 
                 <View style={[styles.rowSp, {
                     alignItems: 'flex-end',
@@ -219,35 +202,35 @@ export default class MyView extends BaseView {
                 }]}>
                     <View style={[styles.commonBar]}>
 
-                        <TouchableHighlight onPress={() => {
+                        <TouchableOpacity onPress={() => {
                             G_NavUtil.pushToView(G_NavViews.MoneyInView());
                         }}>
                             <View style={{flexDirection: "row",}}>
-                                <AIcon name={MyView.dataListMoney[2].ico}
+                                <AIcon name={"cny"}
                                        style={styles.commonIcon}/>
                                 <Text style={styles.commonText}>充值</Text>
 
                             </View>
-                        </TouchableHighlight>
+                        </TouchableOpacity>
                     </View>
                     <View style={[styles.commonBar, {
                         borderLeftWidth: 1,
                     }]}>
-                        <TouchableHighlight onPress={() => {
+                        <TouchableOpacity onPress={() => {
                             G_NavUtil.pushToView(G_NavViews.MoneyOuterView());
                         }}>
                             <View style={{flexDirection: "row",}}>
-                                <AIcon name={MyView.dataListMoney[1].ico}
+                                <AIcon name={"money"}
                                        style={styles.commonIcon}/>
                                 <Text style={styles.commonText}>提现</Text>
 
                             </View>
-                        </TouchableHighlight>
+                        </TouchableOpacity>
                     </View>
                     <View style={[styles.commonBar, {
                         borderLeftWidth: 1,
                     }]}>
-                        <TouchableHighlight onPress={() => {
+                        <TouchableOpacity onPress={() => {
                             G_NavUtil.pushToView(G_NavViews.MoneyTransferView({
                                 title: '转账',
                                 money: moneyBalance,
@@ -256,25 +239,26 @@ export default class MyView extends BaseView {
                             }));
                         }}>
                             <View style={{flexDirection: "row",}}>
-                                <AIcon name={MyView.dataListMoney[0].ico}
+                                <AIcon name={"exchange"}
                                        style={styles.commonIcon}/>
                                 <Text style={styles.commonText}>转账</Text>
 
                             </View>
-                        </TouchableHighlight>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
         } else {
-            infoView = <View style={[styles.headContent, {justifyContent: "center",height:userData.isLogined ? 170:100}]}>
-                <Text style={{textAlign: "center", lineHeight: 20}}>您还未登陆，
-                    <Text onPress={this.clickLogin} style={{color: "red"}}>登陆</Text>后可查看更多信息
-                </Text>
-                <TButton
-                    containerStyle={styles.button}
-                    onPress={this.clickLogin}
-                    btnName={"登陆"}/>
-            </View>
+            infoView =
+                <View style={[styles.headContent, {justifyContent: "center", height: userData.isLogined ? 170 : 100}]}>
+                    <Text style={{textAlign: "center", lineHeight: 20}}>您还未登陆，
+                        <Text onPress={this.clickLogin} style={{color: "red"}}>登陆</Text>后可查看更多信息
+                    </Text>
+                    <TButton
+                        containerStyle={styles.button}
+                        onPress={this.clickLogin}
+                        btnName={"登陆"}/>
+                </View>
         }
         return (
             <View style={[G_Style.appContentView, {backgroundColor: "rgba(230,230,230,0.5)"}]}>
@@ -302,13 +286,13 @@ export default class MyView extends BaseView {
 const styles = StyleSheet.create({
     agentBar: {
         backgroundColor: G_Theme.primary,
-        paddingTop: 2,
-        borderRadius: 8,
-        width: 40,
-        height: 16,
-        overflow: 'hidden'
+        borderRadius: 4,
+        padding: 1,
+        paddingHorizontal: 5,
+        justifyContent:"center",
+        alignItems:"center"
     },
-    agentText: {color: '#fff', fontSize: 12, textAlign: 'center', width: 40},
+    agentText: {color: '#fff', fontSize: 12, textAlign: 'center',},
     // username: {fontSize: 18,},
 
     commonBar: {borderColor: G_Theme.gray, alignItems: 'center', flex: 1,},
@@ -332,13 +316,13 @@ const styles = StyleSheet.create({
         borderRadius: 25,
     },
     operationPannel: {
-        zIndex: 10
+        // zIndex: 11,
         // position: 'absolute',
         // top: 3,
 
     },
     Operation: {
-        width: 50, height: 50,
+        zIndex: 11,
         position: 'absolute',
         top: 3,
     },

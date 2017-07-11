@@ -35,7 +35,6 @@ export  default class GameList extends React.Component {
         for (let item of dataList) {
             let isAreadySeris = false;
             for (let sItem of seriesList) {
-
                 if (sItem.sid == item.series_id) {
                     sItem.dataList.push(item);
                     isAreadySeris = true;

@@ -8,9 +8,27 @@ export  default class GameModel {
         if (data) {
             this.data = data;
             for (let key in data) {
-                data[key].img = `${G_SERVERADDR}/dist/i/home/home_activity_banner.jpg`;
                 this.gameInfoList.push(data[key]);
             }
+            this.gameInfoList=this.gameInfoList.sort(this.sortGameFun)
+        }
+    }
+
+    sortGameFun(a,b){
+        let isDisableA=!a.open||a.noIssue;
+        let isDisableB=!b.open||b.noIssue;
+        if(isDisableA !=isDisableB)
+        {
+            if(isDisableA)
+            {
+                return 1;
+            }
+            else{
+                return -1;
+            }
+
+        }else{
+            return 0;
         }
     }
 

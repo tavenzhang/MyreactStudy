@@ -68,10 +68,10 @@ export default class BannerView extends BaseView {
         let dim = (this.currentNumberTime - this.state.currentTime) * 1000;
         dim = dim > 0 ? dim : 0;
         let {series_id} = this.props
-        let height = series_id == 4 ? 230 : 122;
+        let height = series_id == 4 ? 260 : 150;
         if (this.state.showHistory && dateHistoryList && dateHistoryList[0] != "") {
             historyView =
-                <View style={{height: height, width: G_Theme.windowWidth, borderWidth: 0.5, borderColor: G_Theme.gray}}>
+                <View style={{height: height,width: G_Theme.windowWidth, borderWidth: 0.5, justifyContent: "center",borderColor: G_Theme.gray}}>
                     <TFlatList
                         dataList={dateHistoryList}
                         renderRow={this._renderRow}
@@ -97,8 +97,7 @@ export default class BannerView extends BaseView {
                         marginTop: -10,
                         alignSelf: "center",
                         backgroundColor: "transparent"
-                    }} size={16}
-                                                      name={G_EnumFontNames.list_arrow_desc}/> : null}
+                    }} size={16}name={G_EnumFontNames.list_arrow_desc}/> : null}
                 </View>
             </TouchableWithoutFeedback>
         )
@@ -110,7 +109,7 @@ export default class BannerView extends BaseView {
         // let bgColor = G_Theme.gray;
 
         let {series_id} = this.props
-        let height = series_id == 4 ? 44 : 22;//基诺  20个球
+        let height = series_id == 4 ? 48 : 26;//基诺  20个球
         let marginTop = series_id == 4 ? 17 : 5;//基诺  20个球
         let ballText = this.getFormatBallText(series_id, rowDataArr[1], index);
         return (
@@ -118,14 +117,14 @@ export default class BannerView extends BaseView {
                 flexDirection: "row",
                 paddingVertical: 1,
                 height: height,
-                paddingTop: 2,
-                paddingLeft: 10
+                paddingLeft: 10,
+                alignItems:"center",
+                marginTop:2
             }}>
                 <Text style={{
                     fontSize: 12,
                     color: G_Theme.grayDeep,
-                    marginTop: marginTop,
-                    flex: 3,
+                    width:120
                 }}>{`${rowDataArr[0]}期号码`}</Text>
                 {ballText}
             </View>
@@ -178,7 +177,7 @@ export default class BannerView extends BaseView {
                     return me._ballRow(ballWidth, i, v);
                 })}
             </View>
-            <View style={[styles.ballBox, {marginTop: 5}]}>
+            <View style={[styles.ballBox, {marginTop: 2}]}>
                 {ballText.map((v, i) => {
                     k++;
                     if (k <= 10) {
@@ -219,7 +218,7 @@ export default class BannerView extends BaseView {
 
     _firstRow(ballWidth, i, v) {
         let radios = 11;
-        return <View style={[styles.ballBtnBox, {width: ballWidth}]} key={i}>
+        return <View style={[styles.ballBtnBox, {width: ballWidth, marginTop:3}]} key={i}>
             <Ball
                 radius={radios}
                 text={v}

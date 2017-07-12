@@ -38,6 +38,7 @@ const mapStateToProps = state => {
         infoBox: state.get("appState").get("infoBox").toJS(),
         nav: state.get("navState").toJS(),
         userData: state.get("appState").get("userData").toJS(),
+        routState:state.get("appState").get("routState").toJS(),
     }
 }
 
@@ -80,6 +81,7 @@ export default class App extends React.Component {
     render() {
         const {isLoading, infoBox,isModal} = this.props;
         G_NavState = this.props.nav;
+        G_NavRouteState =this.props.routState;
         return (
             <View style={{flex: 1}}>
                 <StatusBar

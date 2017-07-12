@@ -1,6 +1,6 @@
 //let SERVERADDR = "http://www.monkey.com";
-let SERVERADDR = "http://104.250.128.85:12311"
-// let SERVERADDR = "http://www.orchidf.com";
+//let SERVERADDR = "http://104.250.128.85:12311"
+let SERVERADDR = "http://www.orchidf.com";
 
 global.G_SERVERADDR = SERVERADDR;
 

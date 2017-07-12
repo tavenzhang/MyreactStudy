@@ -124,7 +124,7 @@ export default class BannerView extends BaseView {
                 <Text style={{
                     fontSize: 12,
                     color: G_Theme.grayDeep,
-                    width:120
+                    width:105
                 }}>{`${rowDataArr[0]}期号码`}</Text>
                 {ballText}
             </View>

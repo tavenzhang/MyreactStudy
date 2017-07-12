@@ -49,9 +49,7 @@ export  default class BetDetailView extends BaseView {
                     <Text style={[styles.text,styles.gameHeadText,{
                         color: G_Theme.grayDeep,}]}> {coefficient}</Text>
                 </View>
-
             </View>
-
             <View style={styles.profitRow}>
                 <Text style={styles.title}>订单状态:</Text>
                 <Text
@@ -86,6 +84,7 @@ export  default class BetDetailView extends BaseView {
     }
 
     componentDidMount() {
+        TLog("betDetailNew------")
         let {id} = this.props.navigation.state.params;
         HTTP_SERVER.BET_DETAIL.url = HTTP_SERVER.BET_DETAIL.formatUrl.replace(/#id/g, id);
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.BET_DETAIL, (result) => {
@@ -102,7 +101,7 @@ export  default class BetDetailView extends BaseView {
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.BET_CanCel, (result) => {
             if (result.isSuccess) {
                 // let arr = this.state.dataList.concat(result.data.data);
-              G_NavUtil.pop();
+              G_NavUtil.pop(true);
             }
         })
     }

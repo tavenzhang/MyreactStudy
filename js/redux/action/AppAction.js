@@ -36,5 +36,26 @@ export const AppAct={
     }),
     app_data_reset:()=>({
         type: ActionType.AppType.APP_BACK_RESET,
+    }),
+    app_route_state:(data)=>({
+        type:ActionType.AppType.ROUT_STATE,
+        data
+    }),
+    setStorgeUser:(name,pwd)=>({
+        type:ActionType.AppType.STORAGE_USER,
+        name,
+        pwd,
+    }),
+    setAwardList:(data)=>({
+        type:ActionType.AppType.AWARD_LIST,
+        data
+    }),
+    setNoticeList:(data)=>({
+        type:ActionType.AppType.NOTICE_LIST,
+        data
+    }),
+    showConfigModel:(visible=true)=>({
+        type:ActionType.AppType.SHOW_CONFIG_MODEL,
+        visible
     })
 }

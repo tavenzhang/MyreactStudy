@@ -67,10 +67,11 @@ let tabMyNavigator = TabNavigator({
     },
     {
         initialRouteName: 'Home',
-        animationEnabled: true, // 切换页面时不显示动画
+        animationEnabled: true, // 切换页面时显示动画
         tabBarPosition: 'bottom', // 显示在底端，android 默认是显示在页面顶端的
         swipeEnabled: false, // 禁止左右滑动
         backBehavior: 'home', // 按 back 键是否跳转到第一个 Tab， none 为不跳转
+        lazy:G_PLATFORM_IOS ? true:true,
         tabBarOptions: {
             activeTintColor: G_Theme.selectColor, // 文字和图片选中颜色
             inactiveTintColor: '#999', // 文字和图片默认颜色
@@ -237,7 +238,12 @@ global.G_NavViews = {
 global.G_InitRegistApp = false;
 global.G_Navigation = null;
 global.G_NavState = null;
+global.G_NavRouteState=null
 
+// let goBack=()=>{
+//     G_Navigation.goBack();
+//     G_Navigation.setParams({isFlush:true})
+// }
 global.G_NavUtil = {
     pushToView: (data) => {
        TLog("G_Navigation--pushToView==="+data.component,G_Navigation)
@@ -245,9 +251,10 @@ global.G_NavUtil = {
             G_Navigation.navigate(data.component, {...data.passProps});
        }
     },
-    pop: () => {
-        lastView=null
-        G_Navigation.goBack();
+    pop: (isFlush=true,data=null) => {
+        //避免goback 引起的多次didMound
+        ActDispatch.AppAct.app_route_state({isFlush,...data});
+        setTimeout(G_Navigation.goBack,200);
     },
     // popN: (n = 1) => {
     //     G_Navigation.popN(n)

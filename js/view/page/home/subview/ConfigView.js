@@ -25,12 +25,14 @@ export default class ConfigView extends BaseView {
     }
 
     render() {
+        let {modalVisible}=this.props
         return (
+        modalVisible ?
             <View>
                 <Modal
                     animationType={"slide"}
                     transparent={false}
-                    visible={this.props.modalVisible}
+                    visible={modalVisible}
                     onRequestClose={() => {
                         alert("Modal has been closed.")
                     }}
@@ -85,7 +87,7 @@ export default class ConfigView extends BaseView {
 
                     </View>
                 </Modal>
-            </View>
+            </View>:null
         );
     }
 

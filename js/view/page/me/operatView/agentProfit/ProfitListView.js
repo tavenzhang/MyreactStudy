@@ -151,7 +151,7 @@ export default class ProfitListView extends React.Component {
                             <Text style={[styles.textItemStyle]}
                                   numberOfLines={1}>盈亏:
                                 <Text
-                                    style={[{color: oSelfProfit.profit_loss > 0 ? 'red' : 'green'}]}> {this.formatMoney(oSelfProfit.profit_loss)}</Text>
+                                    style={[{color: oSelfProfit.profit > 0 ? 'red' : 'green'}]}> {this.formatMoney(oSelfProfit.profit)}</Text>
                             </Text>
                         </View>
                         <View style={styles.itemContentStyle}>
@@ -195,7 +195,7 @@ export default class ProfitListView extends React.Component {
                             <Text style={[styles.textItemStyle]}
                                   numberOfLines={1}>盈亏:
                                 <Text
-                                    style={[{color: oAgentSumPerDay.team_profit_loss > 0 ? 'red' : 'green'}]}> {this.formatMoney(oAgentSumPerDay.team_profit_loss)}</Text>
+                                    style={[{color: oAgentSumPerDay.team_profit > 0 ? 'red' : 'green'}]}> {this.formatMoney(oAgentSumPerDay.team_profit)}</Text>
                             </Text>
                         </View>
                         <View style={styles.itemContentStyle}>

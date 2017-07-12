@@ -9,14 +9,29 @@ import md5 from "react-native-md5";
 import BaseView from "../../../componet/BaseView";
 import {TTextInput} from "../../../componet/tcustom/textInput/TTextInput";
 import {TButton} from "../../../componet/tcustom/button/TButton";
+import connect from "react-redux/src/components/connect";
 
+const mapStateToProps = state => {
+    return {
+        storageUser:state.get("appState").get("storageUser").toJS(),
+    }
+}
+
+@connect(mapStateToProps)
 export default class LoginView extends BaseView {
 
     constructor(props) {
         super(props);
+        let nameText="";
+        let pwdText="";
+        let {name,pwd}=this.props.storageUser
+        if(name&&pwd) {
+            nameText=name;
+            pwdText=pwd;
+        }
         this.state = {
-            nameText: "",
-            pwdText: ""
+            nameText: nameText,
+            pwdText: pwdText
         };
     }
 
@@ -28,7 +43,7 @@ export default class LoginView extends BaseView {
                         style={styles.inputContain}>
                         <AIcon name="user-o" style={styles.iconUser}/>
                         <TTextInput    placeholder={"输入账号"}
-                                       autoFocus={G_PLATFORM_IOS ? true:false}
+                                       autoFocus={true}
                                        value={this.state.nameText}
                                        onChangeText={(nameText) => this.setState({nameText})}
                                     />
@@ -46,12 +61,7 @@ export default class LoginView extends BaseView {
         );
     }
 
-    componentDidMount() {
-       setTimeout (()=>G_MyStorage.getItem(G_EnumStroeKeys.USR_DATA, (data) => {
-            let udata=JSON.parse(data)
-            this.setState({nameText: udata.username,pwdText:udata.srcPwd});
-        }),500)
-    }
+
 
     onErrMsg=()=>{
         let msg =null;
@@ -72,7 +82,7 @@ export default class LoginView extends BaseView {
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LOGIN_IN, (data) => {
                 if (data.isSuccess) {
                     ActDispatch.AppAct.loginReault(data);
-                    G_MyStorage.setItem(G_EnumStroeKeys.USR_DATA, JSON.stringify(bodyData),()=>G_NavUtil.pop());
+                    G_MyStorage.setItem(G_EnumStroeKeys.USR_DATA, JSON.stringify(bodyData),()=>G_NavUtil.pop(true));
 
                 } else {
                     ActDispatch.AppAct.showBox(data.Msg);

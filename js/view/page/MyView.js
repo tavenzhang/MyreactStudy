@@ -10,10 +10,10 @@ import AIcon from 'react-native-vector-icons/FontAwesome';
 import {connect} from 'react-redux';
 import BaseView from "../componet/BaseView";
 import AcountListView from "./me/subView/AcountListView";
-import ConfigView from "./home/subview/ConfigView";
 import {TButton} from "../componet/tcustom/button/TButton";
 import {NavButtonText} from "../componet/navBarMenu/HeaderMenu";
 import {Icon_touxaing} from "../../assets/index";
+import ConfigView from "./home/subview/ConfigView";
 
 export let ItemNameEnum = {
     //我的彩票
@@ -41,11 +41,13 @@ const mapStateToProps = state => {
     return {
         userData: state.get("appState").get("userData").toJS(),
         moneyBalance: state.get("appState").get("moneyBalance"),
+        showConfigModel:state.get("appState").get("showConfigModel"),
     }
 }
 
 @connect(mapStateToProps)
 export default class MyView extends BaseView {
+
     static navigationOptions = ({navigation, screenProps}) => {
         let {userData} = screenProps
         return {
@@ -53,8 +55,19 @@ export default class MyView extends BaseView {
             tabBarIcon: ({focused}) => {
                 return <AIcon name='user' style={{fontSize: 25, color: focused ? G_Theme.selectColor : G_Theme.gray}}/>
             },
-            headerLeft: <NavButtonText isRightButton={false} name={"设置"} navigation={navigation}/>,
-            headerRight: <NavButtonText name={"注销"} navigation={navigation} visible={userData.isLogined}/>
+            headerLeft: <NavButtonText onClick={()=>ActDispatch.AppAct.showConfigModel(true)}  isRightButton={false} name={"设置"} navigation={navigation}/>,
+            headerRight: <NavButtonText onClick={()=>{
+                ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LOGIN_OUT, () => {
+                    ActDispatch.AppAct.loginOut();
+                    if (G_PLATFORM_IOS) {
+                        G_NavUtil.pushToView(G_NavViews.LoginView())
+                    } else {
+                        setTimeout(() => {
+                            G_NavUtil.pushToView(G_NavViews.LoginView())
+                        }, 500)
+                    }
+                })
+            }}  name={"注销"} navigation={navigation} visible={userData.isLogined}/>
         }
     }
 
@@ -98,30 +111,18 @@ export default class MyView extends BaseView {
         this.state = {
             modalVisible: false,
         }
+        TLog("MyView------------------constructor");
     }
 
-    onLeftPressed() {
+
+
+    onLeftPressed(){
         this.setState({modalVisible: true});
+       // showConfigModel
     }
-
-    onRightPressed() {
-        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LOGIN_OUT, () => {
-            ActDispatch.AppAct.loginOut();
-            if (G_PLATFORM_IOS) {
-
-                G_NavUtil.pushToView(G_NavViews.LoginView())
-            } else {
-                setTimeout(() => {
-                    G_NavUtil.pushToView(G_NavViews.LoginView())
-                }, 500)
-            }
-
-        })
-    }
-
 
     renderBody() {
-        let {userData, moneyBalance} = this.props;
+        let {userData, moneyBalance,showConfigModel} = this.props;
         let dataList = {
             "我的彩票": MyView.dataListRecord,
             "账户资金": MyView.dataListMoney,
@@ -179,7 +180,6 @@ export default class MyView extends BaseView {
                     <Text style={[{fontSize: 12}]}>账号:{userData.data.username}</Text>
                 </View>
                 <View style={styles.rowSp}>
-                    {/*<View style={{flexDirection: "row", height: 50, alignItems: "center",}}>*/}
                     <View style={{flexDirection: "row", flex: 1, justifyContent:"center"}}>
                         <Text style={[{fontSize: 14, color: G_Theme.grayDeep}]}>奖金组: </Text>
                         <Text style={[{fontSize: 14}]}>{userData.data.user_forever_prize_group} </Text>
@@ -191,7 +191,6 @@ export default class MyView extends BaseView {
                         }}>余额:</Text>
                         <Text style={{fontSize: 14,}}>{G_DateUtil.formatMoney(moneyBalance)} </Text>
                         <Text style={{fontSize: 14, color: G_Theme.grayDeep}}>元 </Text>
-                        {/*</View>*/}
                     </View>
                 </View>
 
@@ -260,9 +259,10 @@ export default class MyView extends BaseView {
                         btnName={"登陆"}/>
                 </View>
         }
+
         return (
             <View style={[G_Style.appContentView, {backgroundColor: "rgba(230,230,230,0.5)"}]}>
-                <ConfigView modalVisible={this.state.modalVisible} setModalVisible={this.setModalVisible}/>
+                <ConfigView modalVisible={showConfigModel} setModalVisible={this.setModalVisible}/>
                 {infoView}
                 <AcountListView dataList={dataList} userData={userData}/>
             </View>
@@ -273,14 +273,10 @@ export default class MyView extends BaseView {
         G_NavUtil.pushToView(G_NavViews.LoginView());
     }
 
-    setModalVisible = (visible) => {
-        this.setState({modalVisible: visible});
+    setModalVisible=(visible)=>{
+        ActDispatch.AppAct.showConfigModel(visible);
     }
 
-    componentDidMount() {
-        this.isLogin = this.props.userData.isLogined;
-        this.props.navigation.setParams({isLogined: this.isLogin})
-    }
 }
 
 const styles = StyleSheet.create({

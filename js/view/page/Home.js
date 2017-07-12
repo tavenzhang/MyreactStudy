@@ -8,6 +8,7 @@ import GameList from "./home/subview/GameList";
 import MyBannerSwiper from "../componet/MyBannerSwiper";
 import AIcon from 'react-native-vector-icons/FontAwesome';
 import {NavButtonText} from "../componet/navBarMenu/HeaderMenu";
+import ConfigView from "./home/subview/ConfigView";
 
 const mapStateToProps = state => {
     return {
@@ -32,13 +33,15 @@ export default class Home extends BaseView {
     constructor(props) {
         super(props);
         this.state = {
-               showBanner:false
+               showBanner:false,
           };
+
     }
+
 
     onRightPressed(){
         let {appModel}=this.props;
-        G_NavUtil.pushToView(G_NavViews.TWebView({data:appModel.data.qs_link,title:"客服"}))
+        G_NavUtil.pushToView(G_NavViews.TWebView({data:appModel.data.data.qs_link,title:"客服"}))
     }
 
     renderBody() {
@@ -76,5 +79,27 @@ export default class Home extends BaseView {
             ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.GET_DATA_DEATIL, ActionType.AppType.MOBILE_TYPES_RESULT);
         })
        !G_PLATFORM_IOS ? setTimeout(()=>{this.setState({showBanner:true})},1000):null;
+        setTimeout (()=>G_MyStorage.getItem(G_EnumStroeKeys.USR_DATA, (data) => {
+            if(data&&data!="")
+            {
+                let udata=JSON.parse(data)
+                if(udata)
+                {
+                    ActDispatch.AppAct.setStorgeUser(udata.username,udata.srcPwd);
+                }
+            }
+        }),2000)
+
+        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_ALL_Lottery,(data)=>{
+            if(data.isSuccess)
+            {
+                ActDispatch.AppAct.setAwardList(data.data);
+            }
+        })
+        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.GET_LIST_SYSTEM, (result) => {
+            if (result.data.data) {
+                ActDispatch.AppAct.setNoticeList(result.data.data);
+            }
+        });
     }
 }

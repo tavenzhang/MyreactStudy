@@ -14,6 +14,7 @@ import connect from "react-redux/src/components/connect";
 const mapStateToProps = state => {
     return {
         gameModel: state.get("appState").get("gameModel"),
+        awardList: state.get("appState").get("awardList").toJS(),
     }
 }
 @connect(mapStateToProps)
@@ -25,45 +26,30 @@ export default class Award extends BaseView {
         },
     })
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            dataArray:[]
-        };
-    }
 
     renderBody() {
-
+            let {awardList}=this.props
         return (
-            <View style={G_Style.appContentView}>
-                <TFlatList  dataList={this.state.dataArray}  renderRow={this._renderRow}/>
-            </View>
+             awardList.length>0  ? <View style={G_Style.appContentView}>
+                <TFlatList  dataList={awardList}  renderRow={this._renderRow}/>
+            </View>:null
         );
     }
 
-    componentDidMount() {
-        if(G_PLATFORM_IOS)
-        {
-            setTimeout(this.onRequest,500)
-        }
-        else{
-            setTimeout(this.onRequest,500)
-        }
-    }
 
-    onRequest=()=>{
-      ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_ALL_Lottery,(data)=>{
-            if(data.isSuccess)
-            {
-                this.setState({dataArray:data.data});
-            }
-        },true)
-    }
 
     _renderRow = (rowData) => {
         let {gameModel}=this.props
         let itemContentView = [];
-        let lotteryList = G_GAME_OnHandleWinnerNum(gameModel.getSeriesIdById(rowData.lottery_id),rowData.win_number);
+        let lotteryList =null;
+        if(rowData.series_id)
+        {
+            lotteryList = G_GAME_OnHandleWinnerNum(rowData.series_id,rowData.win_number)
+        }
+        else{
+            lotteryList  = G_GAME_OnHandleWinnerNum(gameModel.getSeriesIdById(rowData.lottery_id),rowData.win_number);
+        }
+
         if (lotteryList.length>0) {
             lotteryList.map((item, index) => {
                 itemContentView.push(<NumberCircle key={`${index}w`} data={item} color="#f00" radius={16}

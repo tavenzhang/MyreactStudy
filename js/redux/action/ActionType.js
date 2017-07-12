@@ -15,6 +15,11 @@ export const ActionType = {
         APP_BACK_RESET:"app/APP_BACK_RESET",
         PWD_FOUND_SET: "app/PWD_FOUND_SET",
         PWD_LOGIN_SET: "app/PWD_LOGIN_SET",
+        ROUT_STATE:"app/ROUT_STATE",
+        STORAGE_USER:"app/STORAGE_USER",
+        AWARD_LIST:"app/AWARD_List",
+        NOTICE_LIST:"app/NOTICE_LIST",
+        SHOW_CONFIG_MODEL:"app/SHOW_CONFIG_MODEL",
     },
     FetchType: {
         FETCH_REQUEST: "fetch/REQUEST",

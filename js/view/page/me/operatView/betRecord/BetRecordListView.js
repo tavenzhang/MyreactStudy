@@ -59,6 +59,7 @@ export default class BetRecordListView extends React.Component {
             </View>
         );
     }
+
     itemClick = (data) => {
         G_NavUtil.pushToView(G_NavViews.BetDetailView({...data, title: "投注详情", ...this.props}));
     }

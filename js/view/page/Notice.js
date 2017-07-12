@@ -8,12 +8,20 @@ import {
 import AIcon from 'react-native-vector-icons/FontAwesome';
 import BaseView from "../componet/BaseView";
 import TFlatList from "../componet/TFlatList";
+import connect from "react-redux/src/components/connect";
 
+
+const mapStateToProps = state => {
+    return {
+        noticeList: state.get("appState").get("noticeList").toJS(),
+    }
+}
+@connect(mapStateToProps)
 export default class Notice extends BaseView {
 
     static navigationOptions = ({navigation}) => ({
         title: '通知',
-        tabBarIcon: ({tintColor, focused}) => {
+        tabBarIcon: ({focused}) => {
             return <AIcon name='reorder' style={{fontSize: 25, color: focused ? G_Theme.selectColor : G_Theme.gray}}/>
         },
     })
@@ -26,28 +34,12 @@ export default class Notice extends BaseView {
     }
 
     renderBody() {
+        let {noticeList}=this.props
         return (
             <View style={G_Style.appContentView}>
-                <TFlatList dataList={this.state.dataList} renderRow={this._renderRow}/>
+                <TFlatList dataList={noticeList} renderRow={this._renderRow}/>
             </View>
         );
-    }
-
-    componentDidMount() {
-        if (this.state.dataList.length <= 0) {
-            G_RunAfterInteractions(() => {
-                ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.GET_LIST_SYSTEM, (result) => {
-                    if (result.data.data) {
-                        let arr = this.state.dataList.concat(result.data.data);
-                        this.setState({dataList: arr});
-                    }
-                });
-            })
-        }
-    }
-
-    componentWillUnmount(){
-        ActDispatch.FetchAct.canCelFetch(HTTP_SERVER.GET_LIST_SYSTEM);
     }
 
     _renderRow = (data) => {

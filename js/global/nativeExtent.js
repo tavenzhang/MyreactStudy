@@ -18,7 +18,6 @@ global.TLog = (name = null, obj = []) => {
         ANativeModule.logClass("myLog", name + " \n" + JSON.stringify(obj));
     }
 };
-;
 
 
 //移动端 统计分析 接口

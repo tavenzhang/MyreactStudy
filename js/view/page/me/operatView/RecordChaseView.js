@@ -143,10 +143,13 @@ export default class RecordChaseView extends BaseView {
     }
 
     componentDidMount() {
-        G_RunAfterInteractions(()=>{
-            this.loadMore(null, true);
-        })
+        this.loadMore(null, true);
     }
+
+    onForceFlushData (data){
+        this.loadMore(null, true);
+    }
+
 
     onPressMenu = (btnType) => {
         if (this.state.curClickType == btnType) {

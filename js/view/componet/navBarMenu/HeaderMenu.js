@@ -2,7 +2,6 @@ import React, {PropTypes} from 'react';
 import {
     View,
     Text,
-    StyleSheet,
     TouchableOpacity
 } from 'react-native'
 import AIcon from 'react-native-vector-icons/FontAwesome';
@@ -13,6 +12,7 @@ export class NavCommonView extends React.PureComponent {
         style:PropTypes.object,
         visible:PropTypes.bool,
         isHeadView:PropTypes.bool,
+        onClick:PropTypes.func,
     }
     static defaultProps={
         isRightButton:true,
@@ -21,20 +21,24 @@ export class NavCommonView extends React.PureComponent {
     }
 
     onPress = () => {
-        let  {navigation,isRightButton,isHeadView}=this.props;
-        let {onRightPressed,onLeftPressed,onHeadPressed} = navigation.state.params;
-        if(isHeadView)
-        {
-            onHeadPressed()
-        }else{
-            if(isRightButton) {
-                onRightPressed()
-            }
-            else{
-                onLeftPressed()
+        let  {navigation,isRightButton,isHeadView,onClick}=this.props;
+        console.log("onClick------------",onClick);
+        if(onClick) {
+            onClick();
+        }
+        else{
+            let {onRightPressed,onLeftPressed,onHeadPressed} = navigation.state.params;
+            if(isHeadView) {
+                onHeadPressed()
+            }else{
+                if(isRightButton) {
+                    onRightPressed()
+                }
+                else{
+                    onLeftPressed()
+                }
             }
         }
-
     }
     render() {
         let {isRightButton,style,visible} = this.props
@@ -60,9 +64,9 @@ export class NavButtonText extends React.PureComponent {
         visible:PropTypes.bool,
         textStyle:PropTypes.bool,
         isHeadView:PropTypes.bool,
+        onClick:PropTypes.func,
     }
     render() {
-
         let {name,textStyle} = this.props
         return (<NavCommonView {...this.props}>
                   <Text style={[{fontSize: 16, color: "white", fontWeight: "bold" },textStyle]}>
@@ -81,6 +85,7 @@ export class NavButtonAIco extends React.PureComponent {
         visible:PropTypes.bool,
         fontStyle:PropTypes.bool,
         isHeadView:PropTypes.bool,
+        onClick:PropTypes.func,
     }
 
     render() {

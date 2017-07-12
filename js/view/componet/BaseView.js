@@ -23,6 +23,7 @@ export default class BaseView extends Component {
         this.onLeftPressed = this.onLeftPressed.bind(this);
         this.onRightPressed = this.onRightPressed.bind(this);
         this.onHeadPressed=this.onHeadPressed.bind(this);
+        this.onForceFlushData=this.onForceFlushData.bind(this);
         //this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
         this.initRegist=false;
@@ -40,16 +41,21 @@ export default class BaseView extends Component {
         if(!this.initRegist) {
             if(this.props.navigation) {
                 this.initRegist=true;
-                this.registProssHandle();
-                //setTimeout(this.registProssHandle,1000)
+                this.registPressHandle();
+               // setTimeout(this.registPressHandle,1000)
             }
+        }
+        if(G_NavRouteState&&G_NavRouteState.isFlush)
+        {
+            ActDispatch.AppAct.app_route_state({isFlush:false})
+            this.onForceFlushData(G_NavRouteState);
         }
     }
 
-   registProssHandle=()=>{
+
+    registPressHandle=()=>{
        this.props.navigation.setParams({onLeftPressed:this.onLeftPressed,onRightPressed:this.onRightPressed,onHeadPressed:this.onHeadPressed})
    }
-
 
     render() {
         return (
@@ -61,7 +67,6 @@ export default class BaseView extends Component {
     }
 
     renderBody() {
-
     }
 
     onLeftPressed() {
@@ -74,6 +79,10 @@ export default class BaseView extends Component {
 
     onHeadPressed() {
         TLog('onHeadPressed');
+    }
+
+    onForceFlushData(data){
+        TLog("componentWillUpdate----onForceFlushData----")
     }
 
 

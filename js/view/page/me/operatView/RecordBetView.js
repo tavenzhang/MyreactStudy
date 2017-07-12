@@ -169,6 +169,10 @@ export default class RecordBetView extends BaseView {
         );
     }
 
+    onForceFlushData (){
+        this.loadMore(null, true);
+    }
+
     componentDidMount() {
             this.loadMore(null, true);
     }

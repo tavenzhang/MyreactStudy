@@ -17,7 +17,7 @@ const navState = (state = initialNavState, action) => {
     {
         //TLog("nextState----------------action",action)
          nextState = state.merge(AppStackNavigator.router.getStateForAction(action, state.toJS()));
-        //TLog("nextState----------------after",nextState)
+        // TLog("nextState----------------after",nextState)
     }
 
     return nextState || state;

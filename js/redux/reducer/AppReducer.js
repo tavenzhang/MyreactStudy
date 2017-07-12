@@ -20,7 +20,12 @@ const initAppState = fromJS({
     appModel:new AppModel(),
     bankCityModel:new BankCityModel(),
     cardList:[],
-    moneyBalance:0
+    moneyBalance:0,
+    routState:{isFlush:false},
+    storageUser:{},
+    awardList:[],
+    noticeList:[],
+    showConfigModel:false
 })
 
 const appState = (state = initAppState, action) => {
@@ -88,6 +93,16 @@ const appState = (state = initAppState, action) => {
             return state.setIn(["userData","data","is_set_fund_password"],1);
         case ActionType.AppType.PWD_LOGIN_SET:
             return state.merge(initAppState);
+        case ActionType.AppType.ROUT_STATE:
+            return state.merge({routState: action.data});
+        case ActionType.AppType.STORAGE_USER:
+            return state.merge({storageUser: action});
+        case ActionType.AppType.AWARD_LIST:
+            return state.merge({awardList: action.data});
+        case ActionType.AppType.NOTICE_LIST:
+            return state.merge({noticeList: action.data});
+        case ActionType.AppType.SHOW_CONFIG_MODEL:
+            return state.merge({showConfigModel: action.visible});
         default:
             return state;
     }

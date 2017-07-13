@@ -4,8 +4,6 @@ import {
     ListView,
     StyleSheet,
     Text,
-    Button,
-    InteractionManager,
     TouchableHighlight
 } from 'react-native';
 
@@ -25,7 +23,6 @@ export default class ProfitListView extends React.Component {
             dataList: [],
             username: ''
         }
-
     }
 
     clickSum() {
@@ -158,7 +155,6 @@ export default class ProfitListView extends React.Component {
                             <AIcon name={"angle-right"}
                                    style={{fontSize: 25, alignSelf: "center", color: "gray"}}/>
                         </View>
-
                     </View>
                 </TouchableHighlight>
             )

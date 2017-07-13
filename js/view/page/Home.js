@@ -90,16 +90,20 @@ export default class Home extends BaseView {
             }
         }),2000)
 
-        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_ALL_Lottery,(data)=>{
-            if(data.isSuccess)
-            {
-                ActDispatch.AppAct.setAwardList(data.data);
-            }
-        })
-        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.GET_LIST_SYSTEM, (result) => {
-            if (result.data.data) {
-                ActDispatch.AppAct.setNoticeList(result.data.data);
-            }
-        });
+        setTimeout(()=>{
+            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_ALL_Lottery,(data)=>{
+                if(data.isSuccess)
+                {
+                    ActDispatch.AppAct.setAwardList(data.data);
+                }
+            },true)
+            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.GET_LIST_SYSTEM, (result) => {
+                if (result.data.data) {
+                    ActDispatch.AppAct.setNoticeList(result.data.data);
+                }
+            },true);
+
+        },1000)
+
     }
 }

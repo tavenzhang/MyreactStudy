@@ -35,7 +35,6 @@ export default class Home extends BaseView {
         this.state = {
                showBanner:false,
           };
-
     }
 
 

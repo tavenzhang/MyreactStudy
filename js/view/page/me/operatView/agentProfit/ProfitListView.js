@@ -102,7 +102,8 @@ export default class ProfitListView extends React.Component {
             </View>)
         }
         return (
-            <View>
+            <View style={G_Theme.appContentCenterView}>
+               <Text>数据请求中 请稍等或稍后再尝试 ！</Text>
             </View>
         )
     }

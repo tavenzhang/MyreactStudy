@@ -2,8 +2,8 @@ import React,{PropTypes} from 'react';
 import {
     View,
     Text, StyleSheet,
-    TouchableHighlight,
-    ListView
+    ListView,
+    TouchableOpacity
 } from 'react-native';
 import {ItemNameEnum} from "../../MyView";
 
@@ -41,81 +41,88 @@ export default class AcountListView extends React.Component {
 
 
     itemClick = (data) => {
-        let {userData} = this.props
-        if (userData.isLogined) {
-            switch (data.name) {
-                case ItemNameEnum.awardFind:
-                    G_NavUtil.pushToView(G_NavViews.RecordAwardView({title: data.name}))
-                    break;
-                case ItemNameEnum.betRecord:
-                    G_NavUtil.pushToView(G_NavViews.RecordBetView({title: data.name}));
-                    break;
-                case ItemNameEnum.chaseRecode:
-                    G_NavUtil.pushToView(G_NavViews.RecordChaseView({title: data.name}));
-                    break;
-                case ItemNameEnum.myMoney:
-                    G_NavUtil.pushToView(G_NavViews.MoneyDetailView({title: data.name}));
-                    break;
-                case ItemNameEnum.inMoney:
-                    G_NavUtil.pushToView(G_NavViews.MoneyInView({title: data.name}));
-                    break;
-                case ItemNameEnum.outerMoney:
-                    G_NavUtil.pushToView(G_NavViews.MoneyOuterView({
-                        title: data.name,
-                        money: parseInt(userData.data.available),
-                        uid: userData.data.user_id,
-                        name:userData.data.username
-                    }));
-                    break;
-                case ItemNameEnum.pwdMange:
-                    G_NavUtil.pushToView(G_NavViews.PersonPwdView({title: data.name,defaultIndex:0}));
-                    break;
-                case ItemNameEnum.cardMange:
-                    if(userData.data.is_set_fund_password)
-                    {
-                        G_NavUtil.pushToView(G_NavViews.MoneyCardView({title: data.name}));
-                    }
-                    else{
-                        G_AlertUtil.showWithDestructive("", "请先设置资金密码", [
-                            {text: '设置密码', onPress: this.gotoFoundPwd,style:"destructive"},
-                            // {text: '取消',style:"cancel"},
-                            {text: '取消',style:"default"}
-                        ])
-                    }
-                    break;
-                case ItemNameEnum.msgNotice:
-                    G_NavUtil.pushToView(G_NavViews.PersonMailView({title: data.name}));
-                    break;
-                case ItemNameEnum.moneyTransfer:
-                    G_NavUtil.pushToView(G_NavViews.MoneyTransferView({
-                        title: data.name,
-                        money: parseInt(userData.data.available),
-                        uid: userData.data.user_id
-                    }));
-                    break;
-                case ItemNameEnum.agentProfit:
-                    G_NavUtil.pushToView(G_NavViews.AgentProfitView ({title: data.name}));
-                    break;
-                case ItemNameEnum.agentTeam:
-                    G_NavUtil.pushToView(G_NavViews.AgentTeamView ({title: data.name,userData:userData}));
-                    break;
-                case ItemNameEnum.agentInfo:
-                    G_NavUtil.pushToView(G_NavViews.AgentInfoView({title: data.name}));
-                    break;
-                case ItemNameEnum.agentAssignMoney:
-                    G_NavUtil.pushToView(G_NavViews.AgentAssignMoney ());
-                    break;
-                case ItemNameEnum.agentCreate:
-                    G_NavUtil.pushToView(G_NavViews.AgentCreateUserView ({title: data.name}));
-                    break;
-            }
+        let {userData} = this.props;
+        if(data.name==ItemNameEnum.aboutSystem)
+        {
+            G_NavUtil.pushToView(G_NavViews.SystemView({title: data.name}));
         }
         else {
-            G_AlertUtil.showWithDestructive("", "请先登陆", [
-                {text: '登陆', onPress: this.clickLogin,style:"destructive"},
-                {text: '取消'}
-            ])
+            if (userData.isLogined) {
+                switch (data.name) {
+                    case ItemNameEnum.awardFind:
+                        G_NavUtil.pushToView(G_NavViews.RecordAwardView({title: data.name}))
+                        break;
+                    case ItemNameEnum.betRecord:
+                        G_NavUtil.pushToView(G_NavViews.RecordBetView({title: data.name}));
+                        break;
+                    case ItemNameEnum.chaseRecode:
+                        G_NavUtil.pushToView(G_NavViews.RecordChaseView({title: data.name}));
+                        break;
+                    case ItemNameEnum.myMoney:
+                        G_NavUtil.pushToView(G_NavViews.MoneyDetailView({title: data.name}));
+                        break;
+                    case ItemNameEnum.inMoney:
+                        G_NavUtil.pushToView(G_NavViews.MoneyInView({title: data.name}));
+                        break;
+                    case ItemNameEnum.outerMoney:
+                        G_NavUtil.pushToView(G_NavViews.MoneyOuterView({
+                            title: data.name,
+                            money: parseInt(userData.data.available),
+                            uid: userData.data.user_id,
+                            name:userData.data.username
+                        }));
+                        break;
+                    case ItemNameEnum.pwdMange:
+                        G_NavUtil.pushToView(G_NavViews.PersonPwdView({title: data.name,defaultIndex:0}));
+                        break;
+                    case ItemNameEnum.cardMange:
+                        if(userData.data.is_set_fund_password)
+                        {
+                            G_NavUtil.pushToView(G_NavViews.MoneyCardView({title: data.name}));
+                        }
+                        else{
+                            G_AlertUtil.showWithDestructive("", "请先设置资金密码", [
+                                {text: '设置密码', onPress: this.gotoFoundPwd,style:"destructive"},
+                                // {text: '取消',style:"cancel"},
+                                {text: '取消',style:"default"}
+                            ])
+                        }
+                        break;
+                    case ItemNameEnum.msgNotice:
+                        G_NavUtil.pushToView(G_NavViews.PersonMailView({title: data.name}));
+                        break;
+                    case ItemNameEnum.moneyTransfer:
+                        G_NavUtil.pushToView(G_NavViews.MoneyTransferView({
+                            title: data.name,
+                            money: parseInt(userData.data.available),
+                            uid: userData.data.user_id
+                        }));
+                        break;
+                    case ItemNameEnum.agentProfit:
+                        G_NavUtil.pushToView(G_NavViews.AgentProfitView ({title: data.name}));
+                        break;
+                    case ItemNameEnum.agentTeam:
+                        G_NavUtil.pushToView(G_NavViews.AgentTeamView ({title: data.name,userData:userData}));
+                        break;
+                    case ItemNameEnum.agentInfo:
+                        G_NavUtil.pushToView(G_NavViews.AgentInfoView({title: data.name}));
+                        break;
+                    case ItemNameEnum.agentAssignMoney:
+                        G_NavUtil.pushToView(G_NavViews.AgentAssignMoney ());
+                        break;
+                    case ItemNameEnum.agentCreate:
+                        G_NavUtil.pushToView(G_NavViews.AgentCreateUserView ({title: data.name}));
+                        break;
+                }
+            }
+            else {
+                G_AlertUtil.showWithDestructive("", "请先登陆", [
+                    {text: '登陆', onPress: this.clickLogin,style:"destructive"},
+                    {text: '取消'}
+                ])
+            }
         }
+
     }
 
     _renderRow = (rowData, section, row) => {
@@ -131,29 +138,22 @@ export default class AcountListView extends React.Component {
             <Text style={{left: 20, fontSize: 15, color: 'gray'}}>{section}</Text>
         </View> : null;
         return (
-            <TouchableHighlight onPress={() => this.itemClick(rowData)} underlayColor='rgba(10,10,10,0.2)'>
+
                 <View>
                     {headView}
+                    <TouchableOpacity onPress={() => this.itemClick(rowData)}>
                     <View style={styles.row}>
                         <View style={{flexDirection: "row", alignItems: "center"}}>
-                            <AIcon name={rowData.ico} style={{color: G_Theme.grayDeep, fontSize: 20, width: 25}}/>
+                            <AIcon name={rowData.ico} style={rowData.name!=ItemNameEnum.aboutSystem ? styles.icoStyle1:styles.icoStyle2}/>
                             <Text style={{fontSize: 14, left: 20}}>{rowData.name}</Text>
                         </View>
                         <AIcon name={G_EnumFontNames.angleRight} style={styles.iconNormal}/>
                     </View>
+                    </TouchableOpacity>
                 </View>
-            </TouchableHighlight>
+
         );
     }
-    //为了去除section吸附效果 不用此函数
-    // _renderSectionHeader = (sectionData, sectionID, row) => {
-    //     return (
-    //         <View
-    //             style={{height:30, borderBottomWidth: 1,borderColor:"#ddd",backgroundColor: "#ddd" ,justifyContent: "center" }}>
-    //             <Text style={{left:20,fontSize: 15, color: 'gray'}}>{sectionID}</Text>
-    //         </View>
-    //     );
-    // }
     gotoFoundPwd=()=>{
         G_NavUtil.pushToView(G_NavViews.PersonPwdView({title:"密码管理",defaultIndex:1}));
     }
@@ -165,6 +165,17 @@ export default class AcountListView extends React.Component {
 
 
 const styles = StyleSheet.create({
+    icoStyle1:{
+        color: G_Theme.grayDeep,
+        fontSize: 20,
+        width: 25
+    },
+    icoStyle2:{
+        color: G_Theme.grayDeep,
+        fontSize: 18,
+        width: 25,
+        paddingLeft:10
+    },
     headContent2: {
         margin: 10,
         height: 100,
@@ -195,13 +206,6 @@ const styles = StyleSheet.create({
     },
     textStyle: {
         color: G_Theme.gray,
-    },
-    selectedTextStyle: {
-        color: G_Theme.primary,
-    },
-    iconPress: {
-        color: G_Theme.primary,
-        fontSize: 25
     },
     iconNormal: {
         color: G_Theme.gray,

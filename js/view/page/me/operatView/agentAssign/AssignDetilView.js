@@ -2,13 +2,13 @@ import React from 'react';
 import {
     View,
     Text, StyleSheet,
-    ListView,
     TouchableHighlight
 } from 'react-native';
 
 import BaseView from "../../../../componet/BaseView";
 import {TButtonProxy} from "../../../../componet/tcustom/button/TButton";
 import {TTextInput} from "../../../../componet/tcustom/textInput/TTextInput";
+import TFlatList from "../../../../componet/TFlatList";
 
 
 export default class AssignDetilView extends BaseView {
@@ -16,38 +16,22 @@ export default class AssignDetilView extends BaseView {
     constructor(props) {
         super(props);
         this.state = {
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (r1, r2) => r1 !== r2,
-            }),
             dataObj: null,
             userName: "",
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        G_MyStorage.getItem(G_EnumStroeKeys.FORCE_FLUSH_PROXY_MEONY, (data) => {
-            if (data && data != "false") {
-                G_MyStorage.setItem(G_EnumStroeKeys.FORCE_FLUSH_PROXY_MEONY, "false", () => {
-                    this.flushData(true);
-                    TLog("componentWillReceiveProps----G_EnumStroeKeys.FORCE_FLUSH_PROXY_MEONY");
-                })
-            } else {
-                TLog("componentWillReceiveProps----");
-            }
-        })
-    }
 
 
     renderBody() {
         let dataList = this.state.dataObj ? this.state.dataObj.dataList : []
-        let ds = this.state.dataSource.cloneWithRows(dataList);
         return (this.state.dataObj ? <View style={G_Style.appView}>
             <View style={{
-                flexDirection: "row", alignItems: "center", margin: 10,
+                flexDirection: "row", alignItems: "center", margin: 5, alignSelf: "center",marginBottom:20
             }}>
                 <Text>用户名:</Text>
                 <TTextInput value={this.state.userName}
-                            viewStyle={{borderBottomWidth: 1, marginHorizontal: 10, borderColor: "gray"}}
+                            viewStyle={{borderBottomWidth: 1, marginHorizontal: 10,borderColor: "gray"}}
                             style={styles.textStyle}
                             placeholder={"检索用户名"} onChangeText={(userName) => this.setState({userName})}/>
                 <TButtonProxy btnName='搜索'
@@ -69,17 +53,13 @@ export default class AssignDetilView extends BaseView {
             {/*})*/}
             {/*}*/}
             {/*/!*</View>*!/*/}
-            <ListView
-                dataSource={ds}
-                renderRow={this.rendeRow}
-                enableEmptySections={true}
-            />
+            <TFlatList styleView={{flex:1, borderTopWidth: 1,borderColor:G_Theme.gray}} dataList={dataList}   renderRow={this.rendeRow}/>
         </View> : null)
     }
 
 
     rendeRow = (data) => {
-        TLog('data', data);
+      //  TLog('data', data);
         return (<View style={{flexDirection: "row",borderBottomWidth:1,borderColor:G_Theme.gray,}}>
             <View style={[styles.contentView, {flex: 2}]}>
                 <Text style={[styles.contentText, {fontSize: 16,paddingLeft:5}]}> {data.info.username}</Text>
@@ -94,24 +74,22 @@ export default class AssignDetilView extends BaseView {
                 }]}>{`${data.info.forever_prize_group}(永久)`}</Text>
 
             </View>
-            {/*<View style={[styles.contentView, {flex: 2}]}>*/}
-            {/*</View>*/}
 
             <View style={[styles.contentView, {
                 flex: 5,
                 flexDirection: 'row',
                 flexWrap: 'wrap',
+                justifyContent:"flex-start",
+                alignItems:"center"
             }]}>
-
-
                 { data.groupList.map((item, index) => {
                     return item.editable ?
                         <TouchableHighlight
                             style={[{
                                 borderRadius: 20,
-                                width: 80,
                                 height: 30,
                                 padding: 5,
+                                paddingHorizontal: 10,
                                 margin: 3,
                                 backgroundColor: G_Theme.primary
                             }]}
@@ -125,8 +103,8 @@ export default class AssignDetilView extends BaseView {
                         :  <TouchableHighlight
                             style={[{
                                 borderRadius: 20,
-                                width: 80,
                                 height: 30,
+                                paddingHorizontal: 10,
                                 padding: 5,
                                 margin: 3,
                                 backgroundColor: G_Theme.gray
@@ -149,6 +127,11 @@ export default class AssignDetilView extends BaseView {
         this.flushData(false);
     }
 
+    onForceFlushData(data){
+        this.flushData(true);
+        TLog("onForceFlushData--asssDeatl");
+    }
+
     flushData = (isHideLoading, username = "") => {
         G_RunAfterInteractions(() => {
             HTTP_SERVER.AgentAssinList.body.username = username
@@ -163,6 +146,8 @@ export default class AssignDetilView extends BaseView {
                 }
                 dataObj.headList = headList;
                 let dataList = [];
+                TLog("dataObj.headList ----",dataObj.headList )
+                TLog("dataObj.aSubUsers ------", data.data.aSubUsers)
                 let obj = data.data.aSubUsers;
                 for (let key in obj) {
                     let temp = obj[key];
@@ -179,6 +164,7 @@ export default class AssignDetilView extends BaseView {
                     }
                     dataList.push(temp);
                 }
+                TLog("dataObj.dataList ---================-",dataList)
                 dataObj.dataList = dataList;
                 this.setState({dataObj})
             }, isHideLoading)
@@ -198,8 +184,8 @@ const styles = StyleSheet.create({
     textStyle: {
         width: 150,
         fontSize: 14,
-        height: 30,
         paddingLeft: 5,
+        height:G_PLATFORM_IOS ? 30 : 40
     },
     headText: {
         fontSize: 15,
@@ -220,7 +206,8 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         paddingHorizontal: 1,
         flex: 1,
-        // borderWidth: 1,
+        justifyContent: 'center',
+        alignItems: "center",// borderWidth: 1,
         borderColor: G_Theme.gray,
         // justifyContent: "center",
         // alignItems: "center",

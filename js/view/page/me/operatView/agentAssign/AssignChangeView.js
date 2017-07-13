@@ -4,11 +4,11 @@ import {
     Text, StyleSheet,
     TextInput,
     Picker,
-    ListView
 } from 'react-native';
 
 import BaseView from "../../../../componet/BaseView";
 import {TButtonProxy} from "../../../../componet/tcustom/button/TButton";
+import TFlatList from "../../../../componet/TFlatList";
 
 export default class AssignChangeView extends BaseView {
 
@@ -25,9 +25,6 @@ export default class AssignChangeView extends BaseView {
             dataObj: null,
             pickValue: groupData.value,
             reasionText: "",
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (r1, r2) => r1 !== r2,
-            }),
             dataList: [],
             isChange: false
         }
@@ -35,7 +32,6 @@ export default class AssignChangeView extends BaseView {
 
     renderBody() {
         let {groupData, data} = this.props.navigation.state.params;
-        let ds = this.state.dataSource.cloneWithRows(this.state.dataList);
         return (<View style={G_Style.appContentView}>
             <View style={styles.gridRow}>
                 <View style={styles.gridRowLeft}>
@@ -69,7 +65,7 @@ export default class AssignChangeView extends BaseView {
                 </View>
                 <View style={styles.gridRowRight}>
                     <Picker
-                        itemStyle={{fontSize: 13, width: 150, height: 120}}
+                        itemStyle={{fontSize: 13, width: 90, height: 120}}
                         mode={'dropdown'}
                         selectedValue={this.state.pickValue}
                         onValueChange={(pickValue) => {
@@ -100,11 +96,9 @@ export default class AssignChangeView extends BaseView {
                           containerStyle={{width: G_Theme.windowWidth * 2 / 3, alignSelf: "center", marginBottom: 10}}
                           onPress={this._onClickChange} btnName={"确认修改"}/>
 
-            <ListView
-                dataSource={ds}
+            <TFlatList dataList={this.state.dataList}
                 renderHeader={this._renderHeadView}
                 renderRow={this._rendeRow}
-                enableEmptySections
             />
         </View>)
     }
@@ -116,9 +110,15 @@ export default class AssignChangeView extends BaseView {
             HTTP_SERVER.AgentAssinPerson.body.prize_group = groupData.curGroup;
             HTTP_SERVER.AgentAssinPerson.body.user_id = data.object.id;
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentAssinPerson, (data) => {
-                let dataList = data.data.history;
-                dataList = dataList.reverse()
-                this.setState({dataList})
+                if(data&&data.data&&data.data.history)
+                {
+                    let dataList = data.data.history;
+                    dataList = dataList.reverse()
+                    this.setState({dataList})
+                }else{
+                    ActDispatch.AppAct.showErrorBox(data.error)
+                }
+
             },true)
         })
     }
@@ -158,9 +158,7 @@ export default class AssignChangeView extends BaseView {
         HTTP_SERVER.AgentAssinChange.body.subtract_num = dim < 0 ? Math.abs(dim) : 0;
         HTTP_SERVER.AgentAssinChange.body.note = this.state.reasionText;
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentAssinChange, () => {
-            G_MyStorage.setItem(G_EnumStroeKeys.FORCE_FLUSH_PROXY_MEONY,"true",()=>{
-                G_NavUtil.pop();
-            })
+            G_NavUtil.pop({name:G_RoutConfig.AssignDetilView.name});
         })
     }
 }

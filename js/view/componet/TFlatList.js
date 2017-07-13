@@ -2,16 +2,11 @@ import React,{PropTypes} from 'react';
 import {
     View,
     Animated,
-    RefreshControl,
     ActivityIndicator,
     FlatList,
 } from 'react-native';
 import {shouldComponentUpdate} from 'react-immutable-render-mixin';
 
-let canLoadMore = false;
-let oldLength=0;
-
-const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 export default class TFlatList extends React.Component {
     static propTypes={
@@ -27,7 +22,7 @@ export default class TFlatList extends React.Component {
     }
 
     static defaultProps={
-        pageSize:15,
+        pageSize:14,
         initialNumToRender:10
     }
 
@@ -40,6 +35,7 @@ export default class TFlatList extends React.Component {
         }
         this.finishLoadData.bind(this);
         this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
+        this.isStartScroll=false
     }
 
     _keyExtractor = (item, index) => index;
@@ -70,16 +66,21 @@ export default class TFlatList extends React.Component {
                     initialNumToRender={initialNumToRender}
                     onRefresh={this._onRefresh}
                     refreshing={this.state.isRefreshing}
+                    onScroll={this._onScroll}
                 />
             </View>
         );
     }
 
+    _onScroll=()=>{
+        this.isStartScroll=true
+    }
 
     _onFootFlush = ({distanceFromEnd}) => {
         let {dataList,loadMore,pageSize}=this.props;
+        TLog("_onFootFlush---");
         //TLog(`dataList= ${dataList.length}---FootFlushDic=${distanceFromEnd}----------pageSize=${pageSize}--------`,this.state)
-        if(dataList.length >= pageSize) {
+        if(this.isStartScroll&&dataList.length >= pageSize) {
             //oldLength= dataList.length;
             if(!this.state.showFootView)
             {

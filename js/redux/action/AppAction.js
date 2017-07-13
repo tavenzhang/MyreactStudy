@@ -37,8 +37,9 @@ export const AppAct={
     app_data_reset:()=>({
         type: ActionType.AppType.APP_BACK_RESET,
     }),
-    app_route_state:(data)=>({
+    app_route_state:(isFlush,data={})=>({
         type:ActionType.AppType.ROUT_STATE,
+        isFlush,
         data
     }),
     setStorgeUser:(name,pwd)=>({

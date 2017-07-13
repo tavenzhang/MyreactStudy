@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import MyDatePicker from "../../../../componet/tcustom/date/TDatePicker";
 import MyModalView from "../../../../componet/tcustom/modal/TModalView";
+import {TButton} from "../../../../componet/tcustom/button/TButton";
 export default class AgentFindView extends React.Component{
     static propTypes={
         visible:PropTypes.bool,
@@ -34,7 +35,7 @@ export default class AgentFindView extends React.Component{
     {
         let {visible,onFindPress} =this.props;
         return (
-            <MyModalView visible={visible} hideModal={this.onFindConfirm}>
+            <MyModalView visible={visible} hideModal={this.onFindConfirm} onPressModal={this.onFindConfirm}>
                 <View style={{flex:1,justifyContent: "center", backgroundColor:"rgba(50, 50, 50,0.2)"}}>
                     <View style={{ justifyContent: "center", alignItems: "center",backgroundColor: "white",
                     }}>
@@ -77,17 +78,22 @@ export default class AgentFindView extends React.Component{
                             <Text style={{marginHorizontal: 10}}>至</Text>
                             <MyDatePicker  onDateSelect={(date_to)=>{this.setState({date_to:date_to})}}/>
                         </View>
-                        <TouchableOpacity onPress={()=>onFindPress(this.state)}>
-                        <View style={{
-                            marginVertical: 20,
-                            paddingHorizontal: 10,
-                            paddingVertical: 6,
-                            backgroundColor: "rgb(208,199,160)",
-                            borderRadius: 5
-                        }}>
-                            <Text style={{color:"white"}}>查询</Text>
+                        <View style={{flexDirection:"row"}}>
+                            <TButton containerStyle={{
+                                marginVertical: 20,
+                                paddingHorizontal: 10,
+                                paddingVertical: 6,
+                                backgroundColor: "rgb(208,199,160)",
+                                borderRadius: 5
+                            }} btnName={"查询"} onPress={() => onFindPress(this.state)}/>
+                            <TButton viewStyle={{marginLeft:20}} containerStyle={{
+                                marginVertical: 20,
+                                paddingHorizontal: 10,
+                                paddingVertical: 6,
+                                backgroundColor: "red",
+                                borderRadius: 5
+                            }} btnName={"取消"} onPress={this.onFindConfirm}/>
                         </View>
-                    </TouchableOpacity>
                     </View>
                 </View>
             </MyModalView>

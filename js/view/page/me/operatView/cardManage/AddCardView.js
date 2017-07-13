@@ -218,10 +218,6 @@ export default class AddCardView extends BaseView {
                     HTTP_SERVER.LIST_BANGK_CARDS.page = 1;
                     ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.LIST_BANGK_CARDS, ActionType.AppType.CARD_LIST_GET);
                 }
-                else {
-                    //ActDispatch.AppAct.showErrorBox(result.Msg);
-                }
-
             })
     }
 }

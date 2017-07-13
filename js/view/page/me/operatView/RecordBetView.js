@@ -17,6 +17,8 @@ const ListType = {
     TimeList: "11",
     Won:'3',
     Process:'0',
+    Canceled:"1",
+    UnPrize:"2",
     All:'',
 }
 
@@ -43,7 +45,6 @@ export default class RecordBetView extends BaseView {
             curPlay: null,
             curTime: null,
             dataList: [],
-            pageSize: 20,
             timeList: [{name: "全部时间", date: ""}, {name: "最近一周", date: lastWeekTime}, {
                 name: "最近一个月",
                 date: lastMonth
@@ -147,17 +148,25 @@ export default class RecordBetView extends BaseView {
                                       onPress={() => this.clickMenuItem([], ListType.All)}>
                         <Text style={[this.state.status==ListType.All?styles.selectedText:null,{fontSize:16}]}>全部</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.touchTabButton, timeStyle,styles.searchTab,this.state.status==ListType.Won?styles.selectedSearch:null]}
-                                      onPress={() => this.clickMenuItem([], ListType.Won)}>
-                        <Text style={[this.state.status==ListType.Won?styles.selectedText:null,{fontSize:16}]}>已中奖</Text>
-                    </TouchableOpacity>
                     <TouchableOpacity style={[styles.touchTabButton, timeStyle,styles.searchTab,this.state.status==ListType.Process?styles.selectedSearch:null]}
                                       onPress={() => this.clickMenuItem([], ListType.Process)}>
                         <Text style={[this.state.status==ListType.Process?styles.selectedText:null,{fontSize:16}]}>待开奖</Text>
                     </TouchableOpacity>
+                    <TouchableOpacity style={[styles.touchTabButton, timeStyle,styles.searchTab,this.state.status==ListType.Won?styles.selectedSearch:null]}
+                                      onPress={() => this.clickMenuItem([], ListType.Won)}>
+                        <Text style={[this.state.status==ListType.Won?styles.selectedText:null,{fontSize:16}]}>已中奖</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.touchTabButton, timeStyle,styles.searchTab,this.state.status==ListType.UnPrize?styles.selectedSearch:null]}
+                                      onPress={() => this.clickMenuItem([], ListType.UnPrize)}>
+                        <Text style={[this.state.status==ListType.UnPrize?styles.selectedText:null,{fontSize:16}]}>未中奖</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.touchTabButton, timeStyle,styles.searchTab,this.state.status==ListType.Canceled?styles.selectedSearch:null]}
+                                      onPress={() => this.clickMenuItem([], ListType.Canceled)}>
+                        <Text style={[this.state.status==ListType.Canceled?styles.selectedText:null,{fontSize:16}]}>已撤单</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={{flex: 1, backgroundColor: "yellow"}}>
-                    <BetRecordListView pageSize={this.state.pageSize} dataList={this.state.dataList}
+                    <BetRecordListView  dataList={this.state.dataList}
                                        loadMore={this.loadMore} {...this.props}/>
                 </View>
                 <View style={{position: "absolute", zIndex: 6, top: 35}}>
@@ -169,8 +178,9 @@ export default class RecordBetView extends BaseView {
         );
     }
 
-    onForceFlushData (){
-        this.loadMore(null, true);
+    onForceFlushData (data){
+        TLog("onForceFlushData----",)
+        this.clickMenuItem([],this.state.status)
     }
 
     componentDidMount() {
@@ -262,21 +272,12 @@ export default class RecordBetView extends BaseView {
                 });
                 break;
             case ListType.All:
-                this.setState({status:'',dataList: []}, () => {
-                    this.loadMore(null, 1)
-                });
-                break;
             case ListType.Won:
-                this.setState({status:ListType.Won,dataList: []}, () => {
-                    this.loadMore(null, 1)
-                });
-                break;
-
             case ListType.Process:
-                this.setState({status:ListType.Process,dataList: []}, () => {
+            default:
+                this.setState({status:listType,dataList: []}, () => {
                     this.loadMore(null, 1)
                 });
-                break;
         }
     }
 
@@ -292,11 +293,13 @@ export default class RecordBetView extends BaseView {
         else {
             HTTP_SERVER.BET_RECODE.body.page += 1;
         }
-        HTTP_SERVER.BET_RECODE.body.pagesize = this.state.pageSize;
+        HTTP_SERVER.BET_RECODE.body.pagesize = 15;
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.BET_RECODE, (result) => {
             if (callBack) {
                 callBack()
             }
+            this.lastMonth="";
+            this.lastDay="";
             let arr = G_ArrayUtils.addComapreCopy(this.state.dataList,result.data.data);
             for(let item of arr)
             {

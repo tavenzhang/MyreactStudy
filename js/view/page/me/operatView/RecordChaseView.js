@@ -35,7 +35,6 @@ export default class RecordChaseView extends BaseView {
             curGame: null,
             curPlay: null,
             curTime: null,
-            pageSize:20,
             dataList: [],
             gameList: [],
             timeList: [{name: "全部时间", date: ""},{name: "最近一周", date: lastWeekTime},{
@@ -131,7 +130,7 @@ export default class RecordChaseView extends BaseView {
                     </TouchableHighlight>
                 </View>
                 <View style={{flex: 1, backgroundColor: "yellow"}}>
-                    <ChaseRecodListView pageSize={this.state.pageSize} dataList={this.state.dataList} loadMore={this.loadMore} {...this.props}/>
+                    <ChaseRecodListView  dataList={this.state.dataList} loadMore={this.loadMore} {...this.props}/>
                 </View>
                 <View style={{position: "absolute", zIndex: 6, top: 35}}>
                     {gameView}
@@ -142,12 +141,15 @@ export default class RecordChaseView extends BaseView {
         );
     }
 
+
     componentDidMount() {
         this.loadMore(null, true);
     }
 
     onForceFlushData (data){
-        this.loadMore(null, true);
+        this.setState({dataList: []},()=>{
+            this.loadMore(null, true);
+        })
     }
 
 
@@ -241,7 +243,7 @@ export default class RecordChaseView extends BaseView {
             HTTP_SERVER.CHASE_RECODE.body.page += 1;
         }
 
-        HTTP_SERVER.CHASE_RECODE.body.pagesize = this.state.pageSize;
+        HTTP_SERVER.CHASE_RECODE.body.pagesize = 15;
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.CHASE_RECODE, (result) => {
                 if (callBack) {
                     callBack()

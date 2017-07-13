@@ -203,7 +203,6 @@ export default class MoneyOuterView extends BaseView {
     }
 
     onFirmClick = () => {
-
             let newList = this.state.dataInfo.bank_cards.filter((data) => data.id == this.state.pickValue)
             HTTP_SERVER.MONEY_OUTER_1.body.account = newList[0].account;
             HTTP_SERVER.MONEY_OUTER_1.body.id = newList[0].id;

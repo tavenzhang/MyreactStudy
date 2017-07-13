@@ -20,7 +20,6 @@ export default class BetRecordListView extends React.Component {
 
     _renderRow = (rowData,index) => {
         let {gameModel, appModel} = this.props;
-        let dataName = G_DateUtil.formatItemDateString(rowData.bought_at);
         let gameName = gameModel.getGameNameById(rowData.lottery_id),
          statusColor = rowData.status == 3 ? G_Theme.primary : G_Theme.grayDeep,
             amount=G_DateUtil.formatMoney(rowData.amount);
@@ -50,10 +49,6 @@ export default class BetRecordListView extends React.Component {
                             }]}>{appModel.getAProjectStatus(rowData.status)}&nbsp;&nbsp;
                             <AIcon name={"angle-right"} style={{fontSize: 20, color: "gray"}}/></Text>
                         </View>
-                        {/*<View style={[styles.itemContentStyle, styles.record]}>*/}
-                            {/*<AIcon name={"angle-right"}*/}
-                                   {/*style={{fontSize: 25, alignSelf: "center", color: "gray"}}/>*/}
-                        {/*</View>*/}
                     </View>
                 </TouchableHighlight>
             </View>

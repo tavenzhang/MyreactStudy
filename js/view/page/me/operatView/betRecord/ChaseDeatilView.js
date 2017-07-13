@@ -135,15 +135,16 @@ export  default class BetDetailView extends BaseView {
             })
         }
 
+    componentWillUnmount() {
+        ActDispatch.FetchAct.canCelVoFetch(HTTP_SERVER.CHASE_DETAIL);
+    }
 
     onChaseCanel=()=>{
         let {id} = this.props.navigation.state.params
         HTTP_SERVER.CHASE_CANCEL.url=HTTP_SERVER.CHASE_CANCEL.formatUrl.replace(/#id/g, id);
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.CHASE_CANCEL, (result) => {
             if (result.isSuccess) {
-                // let arr = this.state.dataList.concat(result.data.data);
-               // this.setState({data: result.data})
-                G_NavUtil.pop();
+                G_NavUtil.pop({name:G_RoutConfig.RecordChaseView.name});
             }
             else{
                 ActDispatch.AppAct.showErrorBox("撤销失败！")

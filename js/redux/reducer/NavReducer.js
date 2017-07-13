@@ -1,7 +1,7 @@
 import {fromJS} from 'immutable';
 import {NavigationActions} from 'react-navigation';
 import StackNavigator from "react-navigation/lib-rn/navigators/StackNavigator";
-export const AppStackNavigator = StackNavigator(G_NavAppRoutConfig,G_NavAppOptionsConfig);
+export const AppStackNavigator = StackNavigator(G_RoutConfig,G_NavAppOptionsConfig);
 const initialNavState = fromJS(AppStackNavigator.router.getStateForAction(NavigationActions.reset({
     index: 0,
     actions: [
@@ -10,6 +10,8 @@ const initialNavState = fromJS(AppStackNavigator.router.getStateForAction(Naviga
         }),
     ],
 })));
+
+
 
 const navState = (state = initialNavState, action) => {
     let nextState=null

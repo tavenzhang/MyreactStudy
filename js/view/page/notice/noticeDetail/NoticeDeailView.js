@@ -45,14 +45,12 @@ export  default class NoticeDeailView extends BaseView {
     componentDidMount() {
         let {id} = this.props.navigation.state.params
         HTTP_SERVER.GET_SYSTEM_DETAIL.url = HTTP_SERVER.GET_SYSTEM_DETAIL.formatUrl.replace(/#id/g, id);
-        G_RunAfterInteractions(() => {
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.GET_SYSTEM_DETAIL, (result) => {
                 if (result.data) {
                     this.setState({data: result.data});
                     this.props.navigation.setParams({titleName:result.data.title,created_at:result.data.created_at})
                 }
             })
-        })
     }
 
     componentWillUnmount(){

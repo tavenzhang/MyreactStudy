@@ -36,6 +36,7 @@ export default class TeamListView extends React.Component {
 
         return (<View style={[styles.defaultStyle]}>
             <TFlatList
+                pageSize={5}
                 dataList={dataList}
                 renderHeader={this.renderHeadView}
                 renderRow={this.rendeRow}
@@ -65,10 +66,11 @@ export default class TeamListView extends React.Component {
             <Text style={[styles.contentText,{color:data.profit>0?'red':'green'}]}>{ G_DateUtil.formatMoney(data.profit)}</Text>
             <Text style={[styles.contentText,{color:'red'}]}>{ G_DateUtil.formatMoney(data.turnover)}</Text>
 
-            <TouchableHighlight style={{margin:5,padding: 2 , flex: 1,
-                overflow: 'hidden',
-                borderRadius: 10,
-                backgroundColor: '#d7213c'}} onPress={() => this.item(data.username)} underlayColor='rgba(0,0,0,0)'>
+            <TouchableHighlight style={{
+                padding: 5,
+                borderRadius: 5,
+                marginRight: 10,
+                backgroundColor: '#d7213c'}} onPress={() => this.item(data.username)} >
                 <Text style={[styles.contentButton]}>转账</Text>
             </TouchableHighlight>
 
@@ -111,8 +113,6 @@ const styles = StyleSheet.create({
         textAlign: "center"
     },
     contentButton: {
-        padding:5,
-        flex: 1,
         fontSize: 12,
         color:'#fff',
         textAlign: "center"

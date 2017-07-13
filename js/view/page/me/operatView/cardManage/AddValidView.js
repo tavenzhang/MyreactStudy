@@ -50,7 +50,7 @@ export default class AddValidView extends BaseView {
                         </View>
                         <TTextInput
                             viewStyle={styles.cardInput}
-                            placeholder={"请输入旧的银行卡开户人姓名"}
+                            placeholder={"请输入开户人姓名"}
                             autoFocus={true}
                             onChangeText={(countName) => this.setState({countName: countName})}
                             value={this.state.countName}

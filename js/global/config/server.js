@@ -3,6 +3,7 @@
 let SERVERADDR = "http://www.orchidf.com";
 
 global.G_SERVERADDR = SERVERADDR;
+global.G_APPVERSION="app_7_13"
 
 const METHOD_GET = "GET";
 const METHOD_POST = "POST";
@@ -33,7 +34,7 @@ global.HTTP_SERVER = {
     //获取可用资金 /mobile-users/user-account-info
     MOENY_USER_ACCOUNT: {url: `/mobile-users/user-account-info`, method: METHOD_POST, body: {}},
     //获取投注列表
-    GET_BET_WIN: {url: `/mobile-projects/get-win-bet`, method: METHOD_POST, body: {page: 1, pagesize: 20}},
+    GET_BET_WIN: {url: `/mobile-projects/get-win-bet`, method: METHOD_POST, body: {page: 1, pagesize: 15}},
     //2017-02-22  15:47:00 投注记录
     BET_RECODE: {
         url: `/mobile-projects`,
@@ -70,7 +71,7 @@ global.HTTP_SERVER = {
             username: "",
             user_id: "",
             page: 1,
-            pagesize: 20
+            pagesize: 15
         }
     },
     //追号详情
@@ -84,15 +85,15 @@ global.HTTP_SERVER = {
     GET_LIST_SYSTEM: {url: `/mobile-announcements`, method: METHOD_POST, body: {}},
     GET_SYSTEM_DETAIL: {url: "", formatUrl: `/mobile-announcements/#id/view`, method: METHOD_POST, body: {}},
     //资金全部明细
-    LIST_REANSACTON: {url: `/mobile-transactions/index`, method: METHOD_POST, body: {page: 1, pagesize: 20}},
+    LIST_REANSACTON: {url: `/mobile-transactions/index`, method: METHOD_POST, body: {page: 1, pagesize: 15}},
     //充值明细
-    LIST_ADD_MONEY: {url: `/mobile-transactions/my-deposit`, method: METHOD_POST, body: {page: 1, pagesize: 20}},
+    LIST_ADD_MONEY: {url: `/mobile-transactions/my-deposit`, method: METHOD_POST, body: {page: 1, pagesize: 15}},
     //提现帐变
-    LIST_DRAW: {url: `/mobile-transactions/my-withdraw`, method: METHOD_POST, body: {page: 1, pagesize: 20}},
+    LIST_DRAW: {url: `/mobile-transactions/my-withdraw`, method: METHOD_POST, body: {page: 1, pagesize: 15}},
     //派奖明细
-    LIST_AWARD_MONEY: {url: `/mobile-transactions/send-prize`, method: METHOD_POST, body: {page: 1, pagesize: 20}},
+    LIST_AWARD_MONEY: {url: `/mobile-transactions/send-prize`, method: METHOD_POST, body: {page: 1, pagesize: 15}},
     //转账明细
-    LIST_TRANSLATE_MONEY: {url: `/mobile-transactions/my-transfer`, method: METHOD_POST, body: {page: 1, pagesize: 20}},
+    LIST_TRANSLATE_MONEY: {url: `/mobile-transactions/my-transfer`, method: METHOD_POST, body: {page: 1, pagesize: 15}},
     // 修改登陆密码
     PWD_LOGIN: {
         url: `/mobile-users/password-management/0`,

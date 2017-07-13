@@ -10,11 +10,12 @@ import {
 } from 'react-native';
 import MyDatePicker from "../../../../componet/tcustom/date/TDatePicker";
 import MyModalView from "../../../../componet/tcustom/modal/TModalView";
+import {TButton} from "../../../../componet/tcustom/button/TButton";
 export default class AgentSearchView extends React.Component {
     static propTypes = {
         visible: PropTypes.bool,
         hideViewHandle: PropTypes.func,
-        onFindPress:PropTypes.func
+        onFindPress: PropTypes.func
     }
 
     constructor(props) {
@@ -23,21 +24,21 @@ export default class AgentSearchView extends React.Component {
             modalVisible: true,
             username: "",
             is_agent: null,
-            date_from:null,
-            date_to:null
+            date_from: null,
+            date_to: null
         }
         this.dateValidList = [{name: "所有玩家", value: ''},
             {name: "玩家", value: 0},
             {
-            name: "代理",
-            value: 1
-        }]
+                name: "代理",
+                value: 1
+            }]
     }
 
     render() {
-        let {visible,onFindPress} = this.props;
+        let {visible, onFindPress, hideViewHandle} = this.props;
         return (
-            <MyModalView visible={visible} hideModal={this.onFindConfirm}>
+            <MyModalView visible={visible} hideModal={this.onFindConfirm} onPressModal={this.onFindConfirm}>
                 <View style={{flex: 1, justifyContent: "center", backgroundColor: "rgba(50, 50, 50,0.2)"}}>
                     <View style={{
                         justifyContent: "center", alignItems: "center", backgroundColor: "white",
@@ -78,22 +79,30 @@ export default class AgentSearchView extends React.Component {
                         </View>
                         <View style={{flexDirection: "row", alignItems: "center"}}>
                             <Text style={{marginRight: 5}}>时间:</Text>
-                            <MyDatePicker onDateSelect={(date_from)=>{
-                                this.setState({date_from:date_from})}}/>
+                            <MyDatePicker onDateSelect={(date_from) => {
+                                this.setState({date_from: date_from})
+                            }}/>
                             <Text style={{marginHorizontal: 10}}>至</Text>
-                            <MyDatePicker  onDateSelect={(date_to)=>{this.setState({date_to:date_to})}}/>
+                            <MyDatePicker onDateSelect={(date_to) => {
+                                this.setState({date_to: date_to})
+                            }}/>
                         </View>
-                        <TouchableOpacity onPress={()=>onFindPress(this.state)}>
-                            <View style={{
+                        <View style={{flexDirection:"row"}}>
+                            <TButton containerStyle={{
                                 marginVertical: 20,
                                 paddingHorizontal: 10,
                                 paddingVertical: 6,
                                 backgroundColor: "rgb(208,199,160)",
                                 borderRadius: 5
-                            }}>
-                                <Text style={{color: "white"}}>搜索</Text>
-                            </View>
-                        </TouchableOpacity>
+                            }} btnName={"搜索"} onPress={() => onFindPress(this.state)}/>
+                            <TButton viewStyle={{marginLeft:20}} containerStyle={{
+                                marginVertical: 20,
+                                paddingHorizontal: 10,
+                                paddingVertical: 6,
+                                backgroundColor: "red",
+                                borderRadius: 5
+                            }} btnName={"取消"} onPress={this.onFindConfirm}/>
+                        </View>
                     </View>
                 </View>
             </MyModalView>

@@ -45,9 +45,9 @@ export default class BaseView extends Component {
                // setTimeout(this.registPressHandle,1000)
             }
         }
-        if(G_NavRouteState&&G_NavRouteState.isFlush)
+        if(G_NavRouteState&&G_NavRouteState.isFlush&&this.constructor.name==G_NavRouteState.name)
         {
-            ActDispatch.AppAct.app_route_state({isFlush:false})
+            ActDispatch.AppAct.app_route_state(false)
             this.onForceFlushData(G_NavRouteState);
         }
     }
@@ -82,7 +82,7 @@ export default class BaseView extends Component {
     }
 
     onForceFlushData(data){
-        TLog("componentWillUpdate----onForceFlushData----")
+        TLog("componentWillUpdate----onForceFlushData----",this.constructor.name)
     }
 
 

@@ -13,7 +13,7 @@ export default class MoneyChangeHistoryView extends React.Component {
         this.state = {
             dataList: [],
         };
-        TLog("MoneyChangeHistoryView-----");
+        TLog("MoneyChangeHistoryView-----")
     }
 
     render() {
@@ -46,16 +46,15 @@ export default class MoneyChangeHistoryView extends React.Component {
         let {httpService} = this.props
         httpService.body.page = 1;
         httpService.body.pagesize = 15;
-        G_RunAfterInteractions(()=>{
             ActDispatch.FetchAct.fetchVoWithResult(httpService, (result) => {
                 if (result.data.data) {
                     this.setState({dataList: result.data.data});
                 }
             })
-        })
     }
 
     componentWillUnmount(){
+        TLog("MoneyChangeHistoryView---componentWillUnmount--")
         let {httpService} = this.props
         ActDispatch.FetchAct.canCelVoFetch(httpService)
     }

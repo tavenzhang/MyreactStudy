@@ -49,6 +49,7 @@ import Award from "../view/page/Award";
 import MyView from "../view/page/MyView";
 import Notice from "../view/page/Notice";
 import BaseGameView from "../view/page/home/subview/games/BaseGameView";
+import SystemView from "../view/page/me/operatView/SystemView";
 
 
 let tabMyNavigator = TabNavigator({
@@ -95,59 +96,62 @@ let myNavigationOptions = ({navigation}) => {
     return {title}
 }
 
-const createNavScreen = (screen) => ({
+const createNavScreen = (screen,name) => ({
     screen,
     navigationOptions: myNavigationOptions,
+    name:name
 })
 
 
-global.G_NavAppRoutConfig = {
-    Main: {screen: tabMyNavigator},
-    LoginView: createNavScreen(LoginView),
-    BaseGameView:createNavScreen(BaseGameView),
-    RecordAwardView: createNavScreen(RecordAwardView),
-    RecordBetView: createNavScreen(RecordBetView),
-    RecordChaseView: createNavScreen(RecordChaseView),
-    MoneyDetailView: createNavScreen(MoneyDetailView),
-    MoneyInView: createNavScreen(MoneyInView),
-    MoneyOuterView: createNavScreen(MoneyOuterView),
-    MoneyCardView: createNavScreen(MoneyCardView),
-    PersonPwdView: createNavScreen(PersonPwdView),
-    PersonMailView: createNavScreen(PersonMailView),
-    SSC_History: createNavScreen(SSC_History),
-    TWebView: createNavScreen(TWebView),
-    AddCardView: createNavScreen(AddCardView),
-    BetDetailView: createNavScreen(BetDetailView),
-    ChaseDeatilView: createNavScreen(ChaseDeatilView),
-    MessageDetail: createNavScreen(MessageDetail),
-    NoticeDeailView: createNavScreen(NoticeDeailView),
-    LotteryOrders: createNavScreen(LotteryOrders),
-    DelCardView: createNavScreen(DelCardView),
-    AddValidView: createNavScreen(AddValidView),
-    EditCardView:createNavScreen(EditCardView),
-    EditCardAddView: createNavScreen(EditCardAddView),
-    MoneyTransferView: createNavScreen(MoneyTransferView),
-    L115View: createNavScreen(L115View),
-    SSCView: createNavScreen(SSCView),
-    D3View: createNavScreen(D3View),
-    KL10View: createNavScreen(KL10View),
-    PK10View: createNavScreen(PK10View),
-    KENOView: createNavScreen(KENOView),
-    K3View: createNavScreen(K3View),
-    LUCKYView: createNavScreen(LUCKYView),
-    TrendView: createNavScreen(TrendView),
-    AgentProfitView: createNavScreen(AgentProfitView),
-    ProfitView: createNavScreen(ProfitView),
-    AgentCreateUserView: createNavScreen(AgentCreateUserView),
-    AgentTeamView: createNavScreen(AgentTeamView),
-    AgentInfoView: createNavScreen(AgentInfoView),
-    AgentAssignMoneyView: createNavScreen(AgentAssignMoneyView),
-    ARankView: createNavScreen(ARankView),
-    AssignDetilView: createNavScreen(AssignDetilView),
-    LinkListView: createNavScreen(LinkListView),
-    LinkDetailView: createNavScreen(LinkDetailView),
-    AssignChangeView: createNavScreen(AssignChangeView),
-    LotteryOrders:createNavScreen(LotteryOrders),
+
+global.G_RoutConfig = {
+    Main: {screen: tabMyNavigator,name:"Main"},
+    LoginView: createNavScreen(LoginView,"LoginView"),
+    BaseGameView:createNavScreen(BaseGameView,"BaseGameView"),
+    RecordAwardView: createNavScreen(RecordAwardView,"RecordAwardView"),
+    RecordBetView: createNavScreen(RecordBetView,"RecordBetView"),
+    RecordChaseView: createNavScreen(RecordChaseView,"RecordChaseView"),
+    MoneyDetailView: createNavScreen(MoneyDetailView,"MoneyDetailView"),
+    MoneyInView: createNavScreen(MoneyInView,"MoneyInView"),
+    MoneyOuterView: createNavScreen(MoneyOuterView,"MoneyOuterView"),
+    MoneyCardView: createNavScreen(MoneyCardView,"MoneyCardView"),
+    PersonPwdView: createNavScreen(PersonPwdView,"PersonPwdView"),
+    PersonMailView: createNavScreen(PersonMailView,"PersonMailView"),
+    SSC_History: createNavScreen(SSC_History,"SSC_History"),
+    TWebView: createNavScreen(TWebView,"TWebView"),
+    AddCardView: createNavScreen(AddCardView,"AddCardView"),
+    BetDetailView: createNavScreen(BetDetailView,"BetDetailView"),
+    ChaseDeatilView: createNavScreen(ChaseDeatilView,"ChaseDeatilView"),
+    MessageDetail: createNavScreen(MessageDetail,"MessageDetail"),
+    NoticeDeailView: createNavScreen(NoticeDeailView,"NoticeDeailView"),
+    LotteryOrders: createNavScreen(LotteryOrders,"LotteryOrders"),
+    DelCardView: createNavScreen(DelCardView,"DelCardView"),
+    AddValidView: createNavScreen(AddValidView,"AddValidView"),
+    EditCardView:createNavScreen(EditCardView,"EditCardView"),
+    EditCardAddView: createNavScreen(EditCardAddView,"EditCardAddView"),
+    MoneyTransferView: createNavScreen(MoneyTransferView,"MoneyTransferView"),
+    L115View: createNavScreen(L115View,"L115View"),
+    SSCView: createNavScreen(SSCView,"SSCView"),
+    D3View: createNavScreen(D3View,"D3View"),
+    KL10View: createNavScreen(KL10View,"KL10View"),
+    PK10View: createNavScreen(PK10View,"PK10View"),
+    KENOView: createNavScreen(KENOView,"KENOView"),
+    K3View: createNavScreen(K3View,"K3View"),
+    LUCKYView: createNavScreen(LUCKYView,"LUCKYView"),
+    TrendView: createNavScreen(TrendView,'TrendView'),
+    AgentProfitView: createNavScreen(AgentProfitView,"AgentProfitView"),
+    ProfitView: createNavScreen(ProfitView,"ProfitView"),
+    AgentCreateUserView: createNavScreen(AgentCreateUserView,"AgentCreateUserView"),
+    AgentTeamView: createNavScreen(AgentTeamView,"AgentTeamView"),
+    AgentInfoView: createNavScreen(AgentInfoView,"AgentInfoView"),
+    AgentAssignMoneyView: createNavScreen(AgentAssignMoneyView,"AgentAssignMoneyView"),
+    ARankView: createNavScreen(ARankView,"ARankView"),
+    AssignDetilView: createNavScreen(AssignDetilView,"AssignDetilView"),
+    LinkListView: createNavScreen(LinkListView,"LinkListView"),
+    LinkDetailView: createNavScreen(LinkDetailView,"LinkDetailView"),
+    AssignChangeView: createNavScreen(AssignChangeView,"AssignChangeView"),
+    LotteryOrders:createNavScreen(LotteryOrders,"LotteryOrders"),
+    SystemView:createNavScreen(SystemView,"SystemView"),
 }
 
 global.G_NavAppOptionsConfig = {
@@ -232,6 +236,7 @@ global.G_NavViews = {
     LinkListView: (data = {}) => pushView("LinkListView", data,  "开户链接"),
     LinkDetailView: (data = {}) => pushView("LinkDetailView", data, "链接详情"),
     AssignChangeView: (data = {}) => pushView("AssignChangeView", data,  "修改配额"),
+    SystemView: (data = {}) => pushView("SystemView", data),
 }
 
 
@@ -251,9 +256,9 @@ global.G_NavUtil = {
             G_Navigation.navigate(data.component, {...data.passProps});
        }
     },
-    pop: (isFlush=true,data=null) => {
+    pop: (data={}) => {
         //避免goback 引起的多次didMound
-        ActDispatch.AppAct.app_route_state({isFlush,...data});
+        ActDispatch.AppAct.app_route_state(true,data);
         setTimeout(G_Navigation.goBack,200);
     },
     // popN: (n = 1) => {

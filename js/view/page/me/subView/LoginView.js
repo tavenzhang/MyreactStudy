@@ -43,7 +43,7 @@ export default class LoginView extends BaseView {
                         style={styles.inputContain}>
                         <AIcon name="user-o" style={styles.iconUser}/>
                         <TTextInput    placeholder={"输入账号"}
-                                       autoFocus={true}
+                                       autoFocus={this.state.nameText=="" ?true:false}
                                        value={this.state.nameText}
                                        onChangeText={(nameText) => this.setState({nameText})}
                                     />
@@ -78,17 +78,15 @@ export default class LoginView extends BaseView {
             bodyData.username = this.state.nameText;
             bodyData.srcPwd =this.state.pwdText;
             bodyData.password = md5.hex_md5(md5.hex_md5(md5.hex_md5(this.state.nameText + this.state.pwdText)));
-
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LOGIN_IN, (data) => {
                 if (data.isSuccess) {
                     ActDispatch.AppAct.loginReault(data);
-                    G_MyStorage.setItem(G_EnumStroeKeys.USR_DATA, JSON.stringify(bodyData),()=>G_NavUtil.pop(true));
+                    G_MyStorage.setItem(G_EnumStroeKeys.USR_DATA, JSON.stringify(bodyData),()=>G_NavUtil.pop());
 
                 } else {
                     ActDispatch.AppAct.showBox(data.Msg);
                 }
             },false,true)
-
     }
 }
 

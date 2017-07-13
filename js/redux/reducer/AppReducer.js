@@ -94,7 +94,7 @@ const appState = (state = initAppState, action) => {
         case ActionType.AppType.PWD_LOGIN_SET:
             return state.merge(initAppState);
         case ActionType.AppType.ROUT_STATE:
-            return state.merge({routState: action.data});
+            return state.merge({routState:{isFlush:action.isFlush,...action.data}});
         case ActionType.AppType.STORAGE_USER:
             return state.merge({storageUser: action});
         case ActionType.AppType.AWARD_LIST:

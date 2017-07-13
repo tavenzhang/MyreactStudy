@@ -84,7 +84,6 @@ export  default class BetDetailView extends BaseView {
     }
 
     componentDidMount() {
-        TLog("betDetailNew------")
         let {id} = this.props.navigation.state.params;
         HTTP_SERVER.BET_DETAIL.url = HTTP_SERVER.BET_DETAIL.formatUrl.replace(/#id/g, id);
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.BET_DETAIL, (result) => {
@@ -95,13 +94,19 @@ export  default class BetDetailView extends BaseView {
             })
         }
 
+    componentWillUnmount() {
+        ActDispatch.FetchAct.canCelVoFetch(HTTP_SERVER.BET_DETAIL);
+    }
+
     onCanCelBet=()=>{
         let {id} = this.props.navigation.state.params;
+        const {data} = this.state;
         HTTP_SERVER.BET_CanCel.url = HTTP_SERVER.BET_CanCel.formatUrl.replace(/#id/g, id);
+        TLog("onCanCelBet-----data",data)
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.BET_CanCel, (result) => {
             if (result.isSuccess) {
                 // let arr = this.state.dataList.concat(result.data.data);
-              G_NavUtil.pop(true);
+              G_NavUtil.pop({name:G_RoutConfig.RecordBetView.name,state:data.status});
             }
         })
     }

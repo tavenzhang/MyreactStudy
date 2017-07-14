@@ -1,18 +1,13 @@
 import React from "react";
 import {
     View,
-    Text
-    , StyleSheet,
-    Image,
-    TouchableOpacity
+    StyleSheet,
 } from 'react-native';
 import AIcon from 'react-native-vector-icons/FontAwesome';
 import {connect} from 'react-redux';
 import BaseView from "../componet/BaseView";
 import AcountListView from "./me/subView/AcountListView";
-import {TButton} from "../componet/tcustom/button/TButton";
 import {NavButtonText} from "../componet/navBarMenu/HeaderMenu";
-import {Icon_touxaing} from "../../assets/index";
 import ConfigView from "./home/subview/ConfigView";
 import {InfoView} from "./me/subView/InfoView";
 
@@ -21,12 +16,16 @@ export let ItemNameEnum = {
     awardFind: "中奖查询",
     betRecord: "投注记录",
     chaseRecode: "追号记录",
+    recordBack:"返点记录",
+    recordProfit:"分红记录",
     //资金管理
     myMoney: "资金明细",
     outerMoney: "账户提现",
     inMoney: "账户充值",
     moneyTransfer: "账户转账",
     cardMange: "银行卡管理",
+    assenBack:"分红返点",
+    applyMoney:"充提申请",
     // 个人信息
     pwdMange: "密码管理",
     msgNotice: "消息通知",
@@ -76,12 +75,16 @@ export default class MyView extends BaseView {
 
     static dataListRecord = [
         { ico: "file-text",   name: ItemNameEnum.betRecord
-        }, {ico: "file-text-o", name: ItemNameEnum.chaseRecode}];
+        }, {ico: "file-text-o", name: ItemNameEnum.chaseRecode},
+        {ico: "random", name: ItemNameEnum.recordBack},
+        {ico: "gift", name: ItemNameEnum.recordProfit}];
 
-    static dataListMoney = [{ico: "exchange", name: ItemNameEnum.myMoney}, {ico: "credit-card", name: ItemNameEnum.cardMange}];
+    static dataListMoney = [{ico: "exchange", name: ItemNameEnum.myMoney}, {ico: "credit-card", name: ItemNameEnum.cardMange},
+        {ico: "th-list", name: ItemNameEnum.applyMoney}];
     static dataListMoeny_Agent = [
         {ico: "cny", name: ItemNameEnum.myMoney},
-        {ico: "credit-card", name: ItemNameEnum.cardMange}];
+        {ico: "credit-card", name: ItemNameEnum.cardMange},
+        {ico: "th-list", name: ItemNameEnum.applyMoney}];
 
     static dataListPerson = [{ico: "lock", name: ItemNameEnum.pwdMange}, {
         ico: "envelope-o",

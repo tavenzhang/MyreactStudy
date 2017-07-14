@@ -6,8 +6,6 @@ import BaseView from "../../../componet/BaseView";
 import connect from "react-redux/src/components/connect";
 import MoneyChangeHistoryView from "./myMoney/MoneyChangeHistoryView";
 
-
-
 const mapStateToProps = state => {
     return {
         appModel:state.get("appState").get("appModel"),
@@ -27,8 +25,13 @@ export default class MoneyDetailView extends BaseView {
                 { key: '2', title: '充值' },
                 { key: '3', title: '提现' },
                 { key: '4', title: '派奖' },
-                { key: '5', title: '转账' }
+                { key: '5', title: '转账' },
             ],
+            dataList1:[],
+            dataList2:[],
+            dataList3:[],
+            dataList4:[],
+            dataList5:[],
         };
     }
 
@@ -43,15 +46,15 @@ export default class MoneyDetailView extends BaseView {
     _renderScene = ({ route }) => {
         switch (route.key) {
             case '1':
-                return <MoneyChangeHistoryView {...this.props} style={[ styles.page]} httpService={HTTP_SERVER.LIST_REANSACTON} />;
+                return <MoneyChangeHistoryView  dataList={this.state.dataList1} loadMore={this._loadMore} {...this.props} style={[ styles.page]} httpService={HTTP_SERVER.LIST_REANSACTON} />;
             case '2':
-                return <MoneyChangeHistoryView {...this.props} style={[ styles.page]} httpService={HTTP_SERVER.LIST_ADD_MONEY}/>;
+                return <MoneyChangeHistoryView dataList={this.state.dataList2} loadMore={this._loadMore}  {...this.props} style={[ styles.page]} httpService={HTTP_SERVER.LIST_ADD_MONEY}/>;
             case '3':
-                return <MoneyChangeHistoryView {...this.props} style={[ styles.page]} httpService={HTTP_SERVER.LIST_DRAW} />;
+                return <MoneyChangeHistoryView dataList={this.state.dataList3} loadMore={this._loadMore}  {...this.props} style={[ styles.page]} httpService={HTTP_SERVER.LIST_DRAW} />;
             case '4':
-                return <MoneyChangeHistoryView {...this.props} style={[ styles.page]} httpService={HTTP_SERVER.LIST_AWARD_MONEY} />;
+                return <MoneyChangeHistoryView dataList={this.state.dataList4} loadMore={this._loadMore}  {...this.props} style={[ styles.page]} httpService={HTTP_SERVER.LIST_AWARD_MONEY} />;
             case '5':
-                return <MoneyChangeHistoryView {...this.props} style={[ styles.page]} httpService={HTTP_SERVER.LIST_TRANSLATE_MONEY} />;
+                return <MoneyChangeHistoryView dataList={this.state.dataList5}  loadMore={this._loadMore}  {...this.props} style={[ styles.page]} httpService={HTTP_SERVER.LIST_TRANSLATE_MONEY} />;
            default:
                return null;
         }
@@ -69,6 +72,57 @@ export default class MoneyDetailView extends BaseView {
             />
         );
     }
+
+    componentDidMount(){
+        this._loadMore(HTTP_SERVER.LIST_REANSACTON,null,1);
+        this._loadMore(HTTP_SERVER.LIST_ADD_MONEY,null,1);
+        this._loadMore(HTTP_SERVER.LIST_DRAW,null,1);
+        this._loadMore(HTTP_SERVER.LIST_AWARD_MONEY,null,1);
+        this._loadMore(HTTP_SERVER.LIST_TRANSLATE_MONEY,null,1);
+    }
+
+    _loadMore = (httpService,callFinishBack,isFlush) => {
+        if(isFlush) {
+            httpService.body.page = 1;
+            httpService.body.pagesize = 15;
+        }
+        else{
+            httpService.body.page += 1;
+            httpService.body.pagesize = 15;
+        }
+        ActDispatch.FetchAct.fetchVoWithResult(httpService, (result) => {
+            if (result.data.data) {
+                let arr=null;
+                switch (httpService) {
+                    case HTTP_SERVER.LIST_REANSACTON:
+                        arr =   G_ArrayUtils.addComapreCopy(this.state.dataList1,result.data.data)
+                        this.setState({dataList1: arr})
+                        break;
+                    case HTTP_SERVER.LIST_ADD_MONEY:
+                        arr =   G_ArrayUtils.addComapreCopy(this.state.dataList2,result.data.data)
+                        this.setState({dataList2: arr})
+                        break;
+                    case HTTP_SERVER.LIST_DRAW:
+                        arr =   G_ArrayUtils.addComapreCopy(this.state.dataList3,result.data.data)
+                        this.setState({dataList3: arr})
+                        break;
+                    case HTTP_SERVER.LIST_AWARD_MONEY:
+                        arr =   G_ArrayUtils.addComapreCopy(this.state.dataList4,result.data.data)
+                        this.setState({dataList4: arr})
+                        break;
+                    case HTTP_SERVER.LIST_TRANSLATE_MONEY:
+                        arr =   G_ArrayUtils.addComapreCopy(this.state.dataList5,result.data.data)
+                        this.setState({dataList5: arr})
+                        break;
+                }
+
+            }
+            if(callFinishBack)
+            {
+                callFinishBack();
+            }
+        })
+    }
 }
 const styles = StyleSheet.create({
     container: {
@@ -81,7 +135,6 @@ const styles = StyleSheet.create({
     },
     tabStyle:{
         //zIndex:0,
-        //backgroundColor:"white",
         height:40,
     },
     labelStyle:{

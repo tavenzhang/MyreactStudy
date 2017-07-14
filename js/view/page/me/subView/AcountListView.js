@@ -113,6 +113,15 @@ export default class AcountListView extends React.Component {
                     case ItemNameEnum.agentCreate:
                         G_NavUtil.pushToView(G_NavViews.AgentCreateUserView ({title: data.name}));
                         break;
+                    case ItemNameEnum.assenBack:
+                            G_NavUtil.pushToView(G_NavViews.MoneyAssginBack ({title: data.name}));
+                            break;
+                    case ItemNameEnum.applyMoney:
+                        G_NavUtil.pushToView(G_NavViews.MoneyApply({title: data.name}));
+                        break;
+
+
+
                 }
             }
             else {

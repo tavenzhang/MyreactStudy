@@ -1,6 +1,6 @@
 //let SERVERADDR = "http://www.monkey.com";
-//let SERVERADDR = "http://104.250.128.85:12311"
-let SERVERADDR = "http://www.orchidf.com";
+let SERVERADDR = "http://104.250.128.85:12311"
+//let SERVERADDR = "http://www.orchidf.com";
 
 global.G_SERVERADDR = SERVERADDR;
 global.G_APPVERSION="app_7_13"
@@ -94,6 +94,10 @@ global.HTTP_SERVER = {
     LIST_AWARD_MONEY: {url: `/mobile-transactions/send-prize`, method: METHOD_POST, body: {page: 1, pagesize: 15}},
     //转账明细
     LIST_TRANSLATE_MONEY: {url: `/mobile-transactions/my-transfer`, method: METHOD_POST, body: {page: 1, pagesize: 15}},
+    //分红明细
+    LIST_ASSIGN_MONEY: {url: `/mobile-lotteries/user-bonuses`, method: METHOD_POST, body: {page: 1, pagesize: 15}},
+    //返点明细
+    LIST_BACK_MONEY: {url: `/mobile-lotteries/user-commission`, method: METHOD_POST, body: {page: 1, pagesize: 15}},
     // 修改登陆密码
     PWD_LOGIN: {
         url: `/mobile-users/password-management/0`,
@@ -182,6 +186,18 @@ global.HTTP_SERVER = {
         method: METHOD_POST,
         body: {card_number: "", card_id: "", fund_password: "", amount: 0, username: ""}
     },
+    //查看提现申请/mobile-withdrawals
+    MONEY_OUTER_APPLY: {url: "/mobile-withdrawals", method: METHOD_POST, body: {
+        request_time_from:"",
+        request_time_to:"",
+        page:1
+    }},
+    //充值申请 列表
+    MONEY_IN_APPLY: {url: "/mobile-recharges", method: METHOD_POST, body: {
+        request_time_from:"",
+        request_time_to:"",
+        page:1
+    }},
     //提现
     MONEY_OUTER_0: {url: "/mobile-withdrawals/withdraw/0", method: METHOD_POST, body: {}},
     //提现

@@ -41,15 +41,17 @@ import AssignDetilView from "../view/page/me/operatView/agentAssign/AssignDetilV
 import LinkListView from "../view/page/me/operatView/agentCreatUser/LinkListView";
 import LinkDetailView from "../view/page/me/operatView/agentCreatUser/LinkDetailView";
 import AssignChangeView from "../view/page/me/operatView/agentAssign/AssignChangeView";
-
-
+import SystemView from "../view/page/me/operatView/SystemView";
+import MoneyAssginBack from "../view/page/me/operatView/MoneyAssginBack";
+import MoneyApply from "../view/page/me/operatView/MoneyApply";
 import {TabNavigator} from 'react-navigation';
 import Home from "../view/page/Home";
 import Award from "../view/page/Award";
 import MyView from "../view/page/MyView";
 import Notice from "../view/page/Notice";
 import BaseGameView from "../view/page/home/subview/games/BaseGameView";
-import SystemView from "../view/page/me/operatView/SystemView";
+
+
 
 
 let tabMyNavigator = TabNavigator({
@@ -150,8 +152,10 @@ global.G_RoutConfig = {
     LinkListView: createNavScreen(LinkListView,"LinkListView"),
     LinkDetailView: createNavScreen(LinkDetailView,"LinkDetailView"),
     AssignChangeView: createNavScreen(AssignChangeView,"AssignChangeView"),
-    LotteryOrders:createNavScreen(LotteryOrders,"LotteryOrders"),
     SystemView:createNavScreen(SystemView,"SystemView"),
+    MoneyAssginBack:createNavScreen(MoneyAssginBack,"MoneyAssginBack"),
+    MoneyApply:createNavScreen(MoneyApply,"MoneyApply"),
+
 }
 
 global.G_NavAppOptionsConfig = {
@@ -184,7 +188,6 @@ global.G_NavViews = {
     LoginView: (data = {}) => pushView("LoginView", data,"登陆"),
     //ssc 游戏详情
     SSC_History: (data) => pushView("SSC_History", data,data.lottery_name),
-
     //个人中心页面
     RecordAwardView: (data = {}) => pushView("RecordAwardView", data),
     RecordBetView: (data = {}) => pushView("RecordBetView", data),
@@ -193,6 +196,9 @@ global.G_NavViews = {
     MoneyInView: (data = {}) => pushView("MoneyInView", data, "账户充值"),
     MoneyOuterView: (data = {}) => pushView("MoneyOuterView", data, "账户提现"),
     MoneyTransferView: (data) => pushView("MoneyTransferView", data, "账户转账"),
+    MoneyAssginBack:(data) => pushView("MoneyAssginBack", data, "返点分红"),
+    MoneyApply:(data) => pushView("MoneyApply", data),
+
     PersonPwdView: (data = {}) => pushView("PersonPwdView", data),
     MoneyCardView: (data = {}) => pushView("MoneyCardView", data),
     PersonMailView: (data = {}) => pushView("PersonMailView", data),
@@ -237,6 +243,7 @@ global.G_NavViews = {
     LinkDetailView: (data = {}) => pushView("LinkDetailView", data, "链接详情"),
     AssignChangeView: (data = {}) => pushView("AssignChangeView", data,  "修改配额"),
     SystemView: (data = {}) => pushView("SystemView", data),
+
 }
 
 

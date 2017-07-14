@@ -1,22 +1,24 @@
-import React from 'react';
+import React,{PropTypes} from 'react';
 import {
     View,
     Text, StyleSheet,
-    TouchableHighlight,
 } from 'react-native';
 
 import TFlatList from "../../../../componet/TFlatList";
 
 export default class MoneyChangeHistoryView extends React.Component {
+    static propTypes={
+        loadMore:PropTypes.func,
+        dataList:PropTypes.any
+    }
     constructor(props) {
         super(props);
         this.state = {
             dataList: [],
         };
-        TLog("MoneyChangeHistoryView-----")
     }
-
     render() {
+        let {dataList}=this.props
         return (
             <View style={G_Style.appContentView}>
                 <View style={styles.headRow}>
@@ -36,55 +38,35 @@ export default class MoneyChangeHistoryView extends React.Component {
                         <Text style={styles.textHeadStyle}>余额</Text>
                     </View>
                 </View>
-                <TFlatList dataList={this.state.dataList} loadMore={this._loadMore} renderRow={this._renderRow}/>
+                <TFlatList dataList={dataList} loadMore={this._loadMore} renderRow={this._renderRow}/>
             </View>
         );
     }
 
     componentDidMount() {
-        this.onMount=true;
-        let {httpService} = this.props
-        httpService.body.page = 1;
-        httpService.body.pagesize = 15;
-            ActDispatch.FetchAct.fetchVoWithResult(httpService, (result) => {
-                if (result.data.data) {
-                    this.setState({dataList: result.data.data});
-                }
-            })
+        // this.onMount=true;
+        // let {httpService} = this.props
+        // httpService.body.page = 1;
+        // httpService.body.pagesize = 15;
+        //     ActDispatch.FetchAct.fetchVoWithResult(httpService, (result) => {
+        //         if (result.data.data) {
+        //             this.setState({dataList: result.data.data});
+        //         }
+        //     })
     }
 
     componentWillUnmount(){
-        TLog("MoneyChangeHistoryView---componentWillUnmount--")
-        let {httpService} = this.props
-        ActDispatch.FetchAct.canCelVoFetch(httpService)
+        // TLog("MoneyChangeHistoryView---componentWillUnmount--")
+        // let {httpService} = this.props
+        // ActDispatch.FetchAct.canCelVoFetch(httpService)
     }
 
     _loadMore = (callFinishBack,isFlush) => {
-        let {httpService} = this.props;
-        if(isFlush) {
-            httpService.body.page = 1;
-            httpService.body.pagesize = 15;
-        }
-        else{
-            httpService.body.page += 1;
-            httpService.body.pagesize = 15;
-        }
-        ActDispatch.FetchAct.fetchVoWithResult(httpService, (result) => {
-            if (result.data.data) {
-                let arr =   G_ArrayUtils.addComapreCopy(this.state.dataList,result.data.data)
-                if(this.onMount){
-                    this.setState({dataList: arr})
-                }
-            }
-            if(callFinishBack)
-            {
-                callFinishBack();
-            }
-        })
+        let {loadMore,httpService}=this.props;
+        loadMore(httpService,callFinishBack,isFlush);
     }
 
-    _renderRow = (rowData,section) => {
-
+    _renderRow = (rowData) => {
         let {gameModel,playModel,appModel}=this.props;
         let gameName= gameModel.getGameNameById(rowData.lottery_id);
          let dateStr=   G_DateUtil.formatSimpleItemDateString(rowData.created_at);
@@ -92,7 +74,6 @@ export default class MoneyChangeHistoryView extends React.Component {
          let money= rowData.is_income ? `+${ parseInt(rowData.amount)}`:`-${ parseInt(rowData.amount)}`
 
         return (
-                <TouchableHighlight onPress={() => this.itemClick(rowData)} underlayColor='rgba(10,10,10,0.2)'>
                     <View style={styles.row}>
                         <View style={[styles.itemContentStyle,{flex:1}]}>
                             <Text style={styles.textItemStyle}>{dateStr}</Text>
@@ -111,13 +92,9 @@ export default class MoneyChangeHistoryView extends React.Component {
                             <Text style={styles.textItemStyle}  numberOfLines={2}>{rowData.available}</Text>
                         </View>
                     </View>
-                </TouchableHighlight>
         );
     }
 
-    itemClick = (data) => {
-
-    }
 }
 
 
@@ -144,14 +121,12 @@ const styles = StyleSheet.create({
     },
     headRow: {
         flexDirection: 'row',
-        height: 20,
+        height: 30,
         borderColor: "gray",
-        borderWidth: 0.5,
-        margin:5
     },
     row: {
         flexDirection: 'row',
-        height: 45,
+        height: 35,
         borderBottomWidth:0.5,
         borderColor: "gray",
     },

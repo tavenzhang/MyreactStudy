@@ -78,9 +78,9 @@ export default class TFlatList extends React.Component {
 
     _onFootFlush = ({distanceFromEnd}) => {
         let {dataList,loadMore,pageSize}=this.props;
-        TLog("_onFootFlush---");
         //TLog(`dataList= ${dataList.length}---FootFlushDic=${distanceFromEnd}----------pageSize=${pageSize}--------`,this.state)
         if(this.isStartScroll&&dataList.length >= pageSize) {
+            TLog("_onFootFlush---");
             //oldLength= dataList.length;
             if(!this.state.showFootView)
             {

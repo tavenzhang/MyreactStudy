@@ -52,16 +52,6 @@ export default class LotteryOrders extends BaseView {
         this.submitOrders = this.submitOrders.bind(this);
     }
 
-
-    getNavigationBarProps() {
-        return {
-            title: '购彩篮',
-            //rightView : () => {
-            //    return <Text>继续选号</Text>
-            //}
-        };
-    }
-
     submitOrders(amount) {
 
         const {gameId, orderList, lottery_items, traceInfo, isTrace, traceTimes, traceMultiple} = this.props;
@@ -211,13 +201,6 @@ export default class LotteryOrders extends BaseView {
         );
     }
 
-    componentDidMount() {
-
-    }
-
-    componentWillUnmount() {
-
-    }
 }
 
 const styles = StyleSheet.create({

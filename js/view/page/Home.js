@@ -70,8 +70,8 @@ export default class Home extends BaseView {
 
     componentDidMount() {
         G_MyStorage.getItem(G_EnumStroeKeys.DO_MAIN, (data) => {
-            if(data&&data!="") {
-                G_SERVERADDR=data;
+           if(data&&data!="") {
+               G_SERVERADDR=data;
             }
             ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.GET_GAME_LIST_INFO, ActionType.AppType.GAMELIST_RESULT);
             ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.GET_PLAY_LIST_INFO, ActionType.AppType.PLAY_LIST_RESULT);

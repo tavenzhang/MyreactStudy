@@ -45,7 +45,7 @@ export default class BaseView extends Component {
                // setTimeout(this.registPressHandle,1000)
             }
         }
-        if(G_NavRouteState&&G_NavRouteState.isFlush&&this.constructor.name==G_NavRouteState.name)
+        if(G_NavRouteState&&G_NavRouteState.isFlush&&this.constructor.name==G_NavRouteState.mod)
         {
             ActDispatch.AppAct.app_route_state(false)
             this.onForceFlushData(G_NavRouteState);

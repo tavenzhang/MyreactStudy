@@ -44,41 +44,41 @@ export default class AcountListView extends React.Component {
         let {userData} = this.props;
         if(data.name==ItemNameEnum.aboutSystem)
         {
-            G_NavUtil.pushToView(G_NavViews.SystemView({title: data.name}));
+            G_NavUtil.push(G_RoutConfig.SystemView,{title: data.name})
         }
         else {
             if (userData.isLogined) {
                 switch (data.name) {
                     case ItemNameEnum.awardFind:
-                        G_NavUtil.pushToView(G_NavViews.RecordAwardView({title: data.name}))
+                        G_NavUtil.push(G_RoutConfig.RecordAwardView,{title: data.name})
                         break;
                     case ItemNameEnum.betRecord:
-                        G_NavUtil.pushToView(G_NavViews.RecordBetView({title: data.name}));
+                        G_NavUtil.push(G_RoutConfig.RecordBetView,{title: data.name});
                         break;
                     case ItemNameEnum.chaseRecode:
-                        G_NavUtil.pushToView(G_NavViews.RecordChaseView({title: data.name}));
+                        G_NavUtil.push(G_RoutConfig.RecordChaseView,{title: data.name});
                         break;
                     case ItemNameEnum.myMoney:
-                        G_NavUtil.pushToView(G_NavViews.MoneyDetailView({title: data.name}));
+                        G_NavUtil.push(G_RoutConfig.MoneyDetailView,{title: data.name});
                         break;
                     case ItemNameEnum.inMoney:
-                        G_NavUtil.pushToView(G_NavViews.MoneyInView({title: data.name}));
+                        G_NavUtil.push(G_RoutConfig.MoneyInView,{title: data.name});
                         break;
                     case ItemNameEnum.outerMoney:
-                        G_NavUtil.pushToView(G_NavViews.MoneyOuterView({
+                        G_NavUtil.push(G_RoutConfig.MoneyOuterView,{
                             title: data.name,
                             money: parseInt(userData.data.available),
                             uid: userData.data.user_id,
                             name:userData.data.username
-                        }));
+                        });
                         break;
                     case ItemNameEnum.pwdMange:
-                        G_NavUtil.pushToView(G_NavViews.PersonPwdView({title: data.name,defaultIndex:0}));
+                        G_NavUtil.push(G_RoutConfig.PersonPwdView,{title: data.name,defaultIndex:0});
                         break;
                     case ItemNameEnum.cardMange:
                         if(userData.data.is_set_fund_password)
                         {
-                            G_NavUtil.pushToView(G_NavViews.MoneyCardView({title: data.name}));
+                            G_NavUtil.push(G_RoutConfig.MoneyCardView,{title: data.name});
                         }
                         else{
                             G_AlertUtil.showWithDestructive("", "请先设置资金密码", [
@@ -89,39 +89,36 @@ export default class AcountListView extends React.Component {
                         }
                         break;
                     case ItemNameEnum.msgNotice:
-                        G_NavUtil.pushToView(G_NavViews.PersonMailView({title: data.name}));
+                        G_NavUtil.push(G_RoutConfig.PersonMailView,{title: data.name});
                         break;
                     case ItemNameEnum.moneyTransfer:
-                        G_NavUtil.pushToView(G_NavViews.MoneyTransferView({
+                        G_NavUtil.push(G_RoutConfig.MoneyTransferView({
                             title: data.name,
                             money: parseInt(userData.data.available),
                             uid: userData.data.user_id
                         }));
                         break;
                     case ItemNameEnum.agentProfit:
-                        G_NavUtil.pushToView(G_NavViews.AgentProfitView ({title: data.name}));
+                        G_NavUtil.push(G_RoutConfig.AgentProfitView ({title: data.name}));
                         break;
                     case ItemNameEnum.agentTeam:
-                        G_NavUtil.pushToView(G_NavViews.AgentTeamView ({title: data.name,userData:userData}));
+                        G_NavUtil.push(G_RoutConfig.AgentTeamView({title: data.name,userData:userData}));
                         break;
                     case ItemNameEnum.agentInfo:
-                        G_NavUtil.pushToView(G_NavViews.AgentInfoView({title: data.name}));
+                        G_NavUtil.push(G_RoutConfig.AgentInfoView,{title: data.name});
                         break;
                     case ItemNameEnum.agentAssignMoney:
-                        G_NavUtil.pushToView(G_NavViews.AgentAssignMoney ());
+                        G_NavUtil.push(G_RoutConfig.AgentAssignMoneyView)
                         break;
                     case ItemNameEnum.agentCreate:
-                        G_NavUtil.pushToView(G_NavViews.AgentCreateUserView ({title: data.name}));
+                        G_NavUtil.push(G_RoutConfig.AgentCreateUserView,{title: data.name});
                         break;
-                    case ItemNameEnum.assenBack:
-                            G_NavUtil.pushToView(G_NavViews.MoneyAssginBack ({title: data.name}));
-                            break;
-                    case ItemNameEnum.applyMoney:
-                        G_NavUtil.pushToView(G_NavViews.MoneyApply({title: data.name}));
+                    case ItemNameEnum.recordBack:
+                        G_NavUtil.push(G_RoutConfig.RecordBackView,{title: data.name})
                         break;
-
-
-
+                    case ItemNameEnum.recordAssignProfit:
+                        G_NavUtil.push(G_RoutConfig.RecordAssginView,{title: data.name})
+                        break;
                 }
             }
             else {
@@ -163,12 +160,13 @@ export default class AcountListView extends React.Component {
 
         );
     }
+
     gotoFoundPwd=()=>{
-        G_NavUtil.pushToView(G_NavViews.PersonPwdView({title:"密码管理",defaultIndex:1}));
+        G_NavUtil.push(G_RoutConfig.PersonPwdView,{title:"密码管理",defaultIndex:1});
     }
 
     clickLogin = () => {
-        G_NavUtil.pushToView(G_NavViews.LoginView());
+        G_NavUtil.push(G_RoutConfig.login)
     }
 }
 

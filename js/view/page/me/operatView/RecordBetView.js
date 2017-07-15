@@ -2,13 +2,12 @@ import React from 'react';
 import {
     View,
     Text, StyleSheet,
-    TouchableHighlight,
     TouchableOpacity,
 } from 'react-native';
 import {connect} from 'react-redux';
 import AIcon from 'react-native-vector-icons/FontAwesome';
 import BaseView from "../../../componet/BaseView";
-import BetRecordListView from "./betRecord/BetRecordListView";
+import BetRecordListView from "./record/BetRecordListView";
 
 
 const ListType = {
@@ -27,7 +26,6 @@ const mapStateToProps = state => {
         gameModel: state.get("appState").get("gameModel"),
         playModel: state.get("appState").get("playModel"),
         appModel: state.get("appState").get("appModel"),
-        commonModel: state.get("appState").get("commonModel"),
     }
 }
 
@@ -217,14 +215,13 @@ export default class RecordBetView extends BaseView {
                             if (btnName == item.name) {
                                 selectColor = G_Theme.primary;
                             }
-                            return (<TouchableHighlight key={"menuView" + i}
+                            return (<TouchableOpacity key={"menuView" + i}
                                                         style={{
                                                             paddingHorizontal: 10,
                                                             paddingVertical: 6,
                                                             width: G_Theme.windowWidth / 3,
                                                             height: 35
                                                         }}
-                                                        underlayColor='rgba(0,0,0,0)'
                                                         onPress={() => this.clickMenuItem(item, listType)}>
                                 <View
                                     style={{
@@ -243,7 +240,7 @@ export default class RecordBetView extends BaseView {
                                             color: selectColor
                                         }}>{item.name}</Text>
                                 </View>
-                            </TouchableHighlight>)
+                            </TouchableOpacity>)
                         })
                     }
                 </View>

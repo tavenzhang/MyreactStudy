@@ -72,7 +72,7 @@ export default class PersonMailView extends BaseView {
     }
 
     itemClick = (data) => {
-        G_NavUtil.pushToView(G_NavViews.MessageDetail({...data, title: "信件详情"}));
+        G_NavUtil.push(G_RoutConfig.MessageDetail,{...data, title: "信件详情"});
     }
 
 }

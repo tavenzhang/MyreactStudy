@@ -158,7 +158,7 @@ export default class AssignChangeView extends BaseView {
         HTTP_SERVER.AgentAssinChange.body.subtract_num = dim < 0 ? Math.abs(dim) : 0;
         HTTP_SERVER.AgentAssinChange.body.note = this.state.reasionText;
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentAssinChange, () => {
-            G_NavUtil.pop({name:G_RoutConfig.AssignDetilView.name});
+            G_NavUtil.pop(G_RoutConfig.AssignDetilView);
         })
     }
 }

@@ -144,7 +144,7 @@ export  default class BetDetailView extends BaseView {
         HTTP_SERVER.CHASE_CANCEL.url=HTTP_SERVER.CHASE_CANCEL.formatUrl.replace(/#id/g, id);
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.CHASE_CANCEL, (result) => {
             if (result.isSuccess) {
-                G_NavUtil.pop({name:G_RoutConfig.RecordChaseView.name});
+                G_NavUtil.pop(G_RoutConfig.RecordChaseView);
             }
             else{
                 ActDispatch.AppAct.showErrorBox("撤销失败！")

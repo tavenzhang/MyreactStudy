@@ -198,7 +198,7 @@ export default class CreateLinkView extends React.Component {
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentUserLinkCreate, (data) => {
             if (data.isSuccess) {
                 ActDispatch.AppAct.showBox(`链接生成成功!`);
-                G_NavUtil.pushToView(G_NavViews.LinkListView())
+                G_NavUtil.push(G_RoutConfig.LinkListView);
             }
         })
     }

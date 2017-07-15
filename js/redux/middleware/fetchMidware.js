@@ -83,7 +83,7 @@ function fetchMiddleware(extraArgument) {
                                     if(data.type=="loginTimeout") {
                                         next(ActionEnum.AppAct.showErrorBox("请登陆后 再做此操作！"));
                                         next(ActionEnum.AppAct.loginOut());
-                                        G_NavUtil.pushToView(G_NavViews.LoginView());
+                                        G_NavUtil.push(G_RoutConfig.LoginView)
                                     }
                                     else{
                                         next(ActionEnum.AppAct.showErrorBox(data.Msg));

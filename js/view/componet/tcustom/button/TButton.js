@@ -9,7 +9,7 @@ import {
     Image,
     TouchableHighlight
 } from 'react-native';
-
+import AIcon from 'react-native-vector-icons/FontAwesome';
 import Button from "react-native-button";
 
 export class TButtonProxy extends React.PureComponent {
@@ -97,7 +97,7 @@ export class TButton extends React.Component {
 }
 
 
-export class TButtonView extends React.Component {
+export class TButtonView extends React.PureComponent {
     static propTypes = {
         visible: PropTypes.bool,
         btnName: PropTypes.any,
@@ -136,6 +136,17 @@ export class TButtonView extends React.Component {
     }
 }
 
+export  class TAIco extends React.PureComponent {
+    static propTypes = {
+        name:PropTypes.string,
+        style:PropTypes.any
+    }
+    render(){
+        let {name,style}=this.props
+        return  <AIcon name={name}
+                       style={style}/>
+    }
+}
 
 const styles = StyleSheet.create({
     imgStyle: {

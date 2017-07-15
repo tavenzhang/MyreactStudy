@@ -164,7 +164,6 @@ export default class AssignDetilView extends BaseView {
                     }
                     dataList.push(temp);
                 }
-                TLog("dataObj.dataList ---================-",dataList)
                 dataObj.dataList = dataList;
                 this.setState({dataObj})
             }, isHideLoading)
@@ -172,7 +171,7 @@ export default class AssignDetilView extends BaseView {
     }
 
     _onClikGroupBtn = (groupData, data) => {
-        G_NavUtil.pushToView(G_NavViews.AssignChangeView({groupData, data}))
+        G_NavUtil.push(G_RoutConfig.AssignChangeView,data,"修改配额")
     }
 
     _onSearchBtn = () => {

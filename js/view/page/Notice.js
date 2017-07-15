@@ -62,7 +62,7 @@ export default class Notice extends BaseView {
     }
 
     itemClick = (data) => {
-        G_NavUtil.pushToView(G_NavViews.NoticeDeailView({...data, title: '公告详情'}));
+        G_NavUtil.push(G_RoutConfig.NoticeDeailView,{...data, title: '公告详情'});
     }
 }
 

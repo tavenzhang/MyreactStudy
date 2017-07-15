@@ -48,19 +48,19 @@ export  default  class MoneyView extends React.Component {
 
     _gotoOutMoney=()=>{
         let {userData}=this.props
-        G_NavUtil.pushToView(G_NavViews.MoneyOuterView({
+        G_NavUtil.push(G_RoutConfig.MoneyOuterView,{
             money: parseInt(userData.data.available),
             uid: userData.data.user_id,
             name:userData.data.username
-        }))
+        })
     }
 
     _gotoTransMoney=()=>{
         let {userData}=this.props
-        G_NavUtil.pushToView(G_NavViews.MoneyTransferView({
+        G_NavUtil.push(G_RoutConfig.MoneyTransferView,{
             money: parseInt(userData.data.available),
             uid: userData.data.user_id
-        }));
+        });
     }
 }
 

@@ -24,12 +24,10 @@ export default class BetRecordListView extends React.Component {
          statusColor = rowData.status == 3 ? G_Theme.primary : G_Theme.grayDeep,
             amount=G_DateUtil.formatMoney(rowData.amount);
         return (
-            <View>
                 <TouchableHighlight onPress={() => this.itemClick(rowData)} underlayColor='rgba(10,10,10,0.2)'>
                     <View style={styles.row}>
-
                         <View style={[styles.itemContentStyle,index==0||rowData.month==''?'':styles.record,{flex: 1}]}>
-                            <Text style={[styles.textItemStyle,{ fontSize: 16,color:G_Theme.primary,alignSelf:'center',}]} numberOfLines={1}>{rowData.month}</Text>
+                            <Text style={[styles.textItemStyle,{ fontSize: 16,color:G_Theme.primary,alignSelf:'center',}]}>{rowData.month}</Text>
                             <Text style={[styles.textItemStyle, {fontSize: 20, color:G_Theme.primary, alignSelf:'center',fontWeight: "bold",}]}
                                   numberOfLines={1}>{rowData.day} </Text>
                         </View>
@@ -51,12 +49,11 @@ export default class BetRecordListView extends React.Component {
                         </View>
                     </View>
                 </TouchableHighlight>
-            </View>
         );
     }
 
     itemClick = (data) => {
-        G_NavUtil.pushToView(G_NavViews.BetDetailView({...data, title: "投注详情", ...this.props}));
+        G_NavUtil.push(G_RoutConfig.BetDetailView,{...data, title: "投注详情", ...this.props});
     }
 }
 

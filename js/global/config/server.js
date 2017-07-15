@@ -94,10 +94,34 @@ global.HTTP_SERVER = {
     LIST_AWARD_MONEY: {url: `/mobile-transactions/send-prize`, method: METHOD_POST, body: {page: 1, pagesize: 15}},
     //转账明细
     LIST_TRANSLATE_MONEY: {url: `/mobile-transactions/my-transfer`, method: METHOD_POST, body: {page: 1, pagesize: 15}},
-    //分红明细
-    LIST_ASSIGN_MONEY: {url: `/mobile-lotteries/user-bonuses`, method: METHOD_POST, body: {page: 1, pagesize: 15}},
-    //返点明细
-    LIST_BACK_MONEY: {url: `/mobile-lotteries/user-commission`, method: METHOD_POST, body: {page: 1, pagesize: 15}},
+    //分红记录
+    RECORD_ASSIGN_MONEY: {url: `/mobile-lotteries/user-bonuses`, method: METHOD_POST, body: {
+        bought_at_from: "",
+        bought_at_to: "",
+        issue: "",
+        serial_number: "",
+        lottery_id: "",
+        way_group_id:"",
+        way_id: "",
+        username: "",
+        user_id: "",
+        page: 1,
+        pagesize: 15
+    }},
+    //返点记录
+    RECORD_BACK_MONEY: {url: `/mobile-lotteries/user-commission`, method: METHOD_POST, body: {
+        bought_at_from: "",
+        bought_at_to: "",
+        issue: "",
+        serial_number: "",
+        lottery_id: "",
+        way_group_id:"",
+        way_id: "",
+        username: "",
+        user_id: "",
+        page: 1,
+        pagesize: 15
+    }},
     // 修改登陆密码
     PWD_LOGIN: {
         url: `/mobile-users/password-management/0`,

@@ -14,7 +14,11 @@ import MySegmentedControlTab from "../../../componet/tcustom/TSegmentedControlTa
 
 
 export default class AgentCreateUserView extends BaseView {
-    static navigationOptions = ({navigation})=> ({
+    static navigationOptions = {
+        title: "账号开户",
+    }
+
+        static navigationOptions = ({navigation})=> ({
         headerRight:<NavButtonText name={"查看链接"} navigation={navigation} />
     })
 
@@ -31,7 +35,7 @@ export default class AgentCreateUserView extends BaseView {
 
 
     onRightPressed(){
-        G_NavUtil.pushToView(G_NavViews.LinkListView());
+        G_NavUtil.push(G_RoutConfig.LinkListView);
     }
 
     renderBody() {

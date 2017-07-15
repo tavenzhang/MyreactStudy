@@ -17,14 +17,13 @@ export let ItemNameEnum = {
     betRecord: "投注记录",
     chaseRecode: "追号记录",
     recordBack:"返点记录",
-    recordProfit:"分红记录",
+    recordAssignProfit:"分红记录",
     //资金管理
     myMoney: "资金明细",
     outerMoney: "账户提现",
     inMoney: "账户充值",
     moneyTransfer: "账户转账",
     cardMange: "银行卡管理",
-    assenBack:"分红返点",
     applyMoney:"充提申请",
     // 个人信息
     pwdMange: "密码管理",
@@ -62,10 +61,10 @@ export default class MyView extends BaseView {
                 ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LOGIN_OUT, () => {
                     ActDispatch.AppAct.loginOut();
                     if (G_PLATFORM_IOS) {
-                        G_NavUtil.pushToView(G_NavViews.LoginView())
+                        G_NavUtil.push(G_RoutConfig.LoginView)
                     } else {
                         setTimeout(() => {
-                            G_NavUtil.pushToView(G_NavViews.LoginView())
+                            G_NavUtil.push(G_RoutConfig.LoginView)
                         }, 500)
                     }
                 })
@@ -77,7 +76,7 @@ export default class MyView extends BaseView {
         { ico: "file-text",   name: ItemNameEnum.betRecord
         }, {ico: "file-text-o", name: ItemNameEnum.chaseRecode},
         {ico: "random", name: ItemNameEnum.recordBack},
-        {ico: "gift", name: ItemNameEnum.recordProfit}];
+        {ico: "gift", name: ItemNameEnum.recordAssignProfit}];
 
     static dataListMoney = [{ico: "exchange", name: ItemNameEnum.myMoney}, {ico: "credit-card", name: ItemNameEnum.cardMange},
         {ico: "th-list", name: ItemNameEnum.applyMoney}];

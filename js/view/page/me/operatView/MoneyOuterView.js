@@ -16,6 +16,10 @@ import {TPicker} from "../../../componet/tcustom/picker/TPicker";
 
 
 export default class MoneyOuterView extends BaseView {
+    static navigationOptions={
+        title:"账户提现"
+    }
+
     constructor(props) {
         super(props);
         this.state = {

@@ -10,14 +10,13 @@ import TeamListView from "./agentTeam/TeamListView"
 import AgentFindView from "./agentTeam/AgentFindView";
 import {NavButtonText} from "../../../componet/navBarMenu/HeaderMenu";
 
-const mapStateToProps = state => {
-    return {
-        // gameModel:state.get("appState").get("gameModel"),
-    }
-}
 
-@connect(mapStateToProps)
 export default class AgentTeamView extends BaseView {
+
+    static navigationOptions = {
+        title: "团队管理",
+    }
+
     static navigationOptions = ({navigation})=> ({
         headerRight:<NavButtonText style={{
             marginLeft: 20,

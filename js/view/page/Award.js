@@ -82,7 +82,7 @@ export default class Award extends BaseView {
         switch(data.series_name)
         {
             default:
-                G_NavUtil.pushToView(G_NavViews.SSC_History({...data,...this.props}));
+                G_NavUtil.push(G_RoutConfig.SSC_History,{...data,...this.props});
                 break;
         }
     }

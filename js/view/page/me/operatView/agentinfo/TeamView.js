@@ -76,13 +76,13 @@ export  default  class TeamView extends  React.Component {
         switch (data)
         {
             case 0:
-                G_NavUtil.pushToView(G_NavViews.AgentProfitView());
+                G_NavUtil.push(G_RoutConfig.AgentProfitView)
                 break;
             case 1:
-                G_NavUtil.pushToView(G_NavViews.AgentTeamView());
+                G_NavUtil.push(G_RoutConfig.AgentTeamView)
                 break;
             case 2:
-                G_NavUtil.pushToView(G_NavViews.AgentCreateUserView());
+                G_NavUtil.push(G_RoutConfig.AgentCreateUserView)
                 break
 
         }

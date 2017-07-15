@@ -106,7 +106,7 @@ export  default class BetDetailView extends BaseView {
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.BET_CanCel, (result) => {
             if (result.isSuccess) {
                 // let arr = this.state.dataList.concat(result.data.data);
-              G_NavUtil.pop({name:G_RoutConfig.RecordBetView.name,state:data.status});
+              G_NavUtil.pop(G_RoutConfig.RecordBetView,{state:data.status});
             }
         })
     }

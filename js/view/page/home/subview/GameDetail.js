@@ -57,29 +57,29 @@ export default class GameDetail extends React.Component {
                 switch (data.series_id+'')
                 {
                     case "1":
-                        G_NavUtil.pushToView(G_NavViews.SSCView({...data, gameModel: gameModel, playModel: playModel}));
+                        G_NavUtil.push(G_RoutConfig.SSCView,({...data, gameModel: gameModel, playModel: playModel}));
                         break;
                     case "2":
-                        G_NavUtil.pushToView(G_NavViews.L115View({...data, gameModel: gameModel, playModel: playModel}));
+                        G_NavUtil.push(G_RoutConfig.L115View,({...data, gameModel: gameModel, playModel: playModel}));
                         break;
                     case "3":
-                        G_NavUtil.pushToView(G_NavViews.D3View({...data, gameModel: gameModel, playModel: playModel}));
+                        G_NavUtil.push(G_RoutConfig.D3View,({...data, gameModel: gameModel, playModel: playModel}));
                         break;
                     case "5":
-                        G_NavUtil.pushToView(G_NavViews.K3View({...data, gameModel: gameModel, playModel: playModel}));
+                        G_NavUtil.push(G_RoutConfig.K3View,({...data, gameModel: gameModel, playModel: playModel}));
                         break;
                     case "8":
-                        G_NavUtil.pushToView(G_NavViews.KL10View({...data, gameModel: gameModel, playModel: playModel}));
+                        G_NavUtil.push(G_RoutConfig.KL10View,({...data, gameModel: gameModel, playModel: playModel}));
                         break;
                     case "4":
-                        G_NavUtil.pushToView(G_NavViews.KENOView({...data, gameModel: gameModel, playModel: playModel}));
+                        G_NavUtil.push(G_RoutConfig.KENOView,({...data, gameModel: gameModel, playModel: playModel}));
                         break;
                     case "7":
-                        G_NavUtil.pushToView(G_NavViews.PK10View({...data, gameModel: gameModel, playModel: playModel}));
+                        G_NavUtil.push(G_RoutConfig.PK10View,({...data, gameModel: gameModel, playModel: playModel}));
                         break;
                     case "6"://幸运28
                         TLog("幸运28---",data);
-                        G_NavUtil.pushToView(G_NavViews.LUCKYView({...data, gameModel: gameModel, playModel: playModel}));
+                        G_NavUtil.push(G_RoutConfig.LUCKYView,({...data, gameModel: gameModel, playModel: playModel}));
                         break;
                     default :
                         TLog('gameseries_id',data.series_id)
@@ -91,7 +91,7 @@ export default class GameDetail extends React.Component {
         }
         else{
             ActDispatch.AppAct.showErrorBox("请先登陆，才能开始游戏！");
-            G_NavUtil.pushToView(G_NavViews.LoginView());
+            G_NavUtil.push(G_RoutConfig.LoginView)
          }
     }
 }

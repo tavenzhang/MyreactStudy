@@ -91,19 +91,19 @@ export default class MoneyCardView extends BaseView {
     }
 
     itemEditClcik=(data)=> {
-        G_NavUtil.pushToView(G_NavViews.EditCardView({title: "1. 验证银行卡",...data}));
+        G_NavUtil.push(G_RoutConfig.EditCardView,{title: "1. 验证银行卡",...data});
     }
 
     itemDeleteClcik=(data)=> {
-        G_NavUtil.pushToView(G_NavViews.DelCardView({title: "删除银行卡",...data}));
+        G_NavUtil.push(G_RoutConfig.DelCardView,{title: "删除银行卡",...data});
     }
 
     onRightPressed() {
         TLog("this.props.cardList---"+this.props.cardList.length)
         if(this.props.cardList.length<=0) {
-            G_NavUtil.pushToView(G_NavViews.AddCardView({title: "添加银行卡"}));
+            G_NavUtil.push(G_RoutConfig.AddCardView,{title: "添加银行卡"});
         }else {
-            G_NavUtil.pushToView(G_NavViews.AddValidView({title: "1. 验证银行卡",cardList:this.props.cardList}));
+            G_NavUtil.push(G_RoutConfig.AddValidView,{title: "1. 验证银行卡",cardList:this.props.cardList});
         }
     }
 }

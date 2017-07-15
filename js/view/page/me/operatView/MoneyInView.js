@@ -10,6 +10,10 @@ import MySegmentedControlTab from "../../../componet/tcustom/TSegmentedControlTa
 
 
 export default class MoneyInView extends BaseView {
+    static navigationOptions={
+        title:"账户充值"
+    }
+
     constructor(props) {
         super(props)
         this.state = {

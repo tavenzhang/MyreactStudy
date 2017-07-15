@@ -5,7 +5,6 @@ import {
 } from 'react-native';
 
 import TFlatList from "../../../../componet/TFlatList";
-
 export default class MoneyChangeHistoryView extends React.Component {
     static propTypes={
         loadMore:PropTypes.func,
@@ -43,17 +42,6 @@ export default class MoneyChangeHistoryView extends React.Component {
         );
     }
 
-    componentDidMount() {
-        // this.onMount=true;
-        // let {httpService} = this.props
-        // httpService.body.page = 1;
-        // httpService.body.pagesize = 15;
-        //     ActDispatch.FetchAct.fetchVoWithResult(httpService, (result) => {
-        //         if (result.data.data) {
-        //             this.setState({dataList: result.data.data});
-        //         }
-        //     })
-    }
 
     componentWillUnmount(){
         // TLog("MoneyChangeHistoryView---componentWillUnmount--")

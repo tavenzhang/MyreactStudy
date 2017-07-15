@@ -19,6 +19,9 @@ const mapStateToProps = state => {
 
 @connect(mapStateToProps)
 export default class LoginView extends BaseView {
+    static navigationOptions = {
+        title: "登录",
+    }
 
     constructor(props) {
         super(props);
@@ -82,6 +85,7 @@ export default class LoginView extends BaseView {
                 if (data.isSuccess) {
                     ActDispatch.AppAct.loginReault(data);
                     G_MyStorage.setItem(G_EnumStroeKeys.USR_DATA, JSON.stringify(bodyData),()=>G_NavUtil.pop());
+                    ActDispatch.AppAct.setStorgeUser(this.state.nameText,this.state.pwdText);
 
                 } else {
                     ActDispatch.AppAct.showBox(data.Msg);

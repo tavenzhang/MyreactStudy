@@ -26,7 +26,7 @@ export default class AgentInfoView extends BaseView {
 
 
     onRightPressed(){
-       G_NavUtil.pushToView(G_NavViews.ARankView());
+       G_NavUtil.push(G_RoutConfig.ARankView,null,"本月排名");
     }
 
     constructor(props) {

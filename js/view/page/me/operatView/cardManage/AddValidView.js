@@ -147,7 +147,7 @@ export default class AddValidView extends BaseView {
             HTTP_SERVER.BANK_CARD_ADD_STEP_0.body.fund_password = this.state.password.trim();
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.BANK_CARD_ADD_STEP_0, (result) => {
                 if (result.isSuccess) {
-                    G_NavUtil.pushToView(G_NavViews.AddCardView({title: "2. 添加新银行卡", isStep2: true}));
+                    G_NavUtil.push(G_RoutConfig.AddCardView,({title: "2. 添加新银行卡", isStep2: true}));
                 }
                 else {
                     // ActDispatch.AppAct.showErrorBox(result.Msg);

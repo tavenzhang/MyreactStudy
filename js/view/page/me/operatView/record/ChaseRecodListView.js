@@ -2,7 +2,7 @@ import React from 'react';
 import {
     View,
     Text, StyleSheet,
-    TouchableHighlight,
+    TouchableOpacity
 } from 'react-native';
 import TFlatList from "../../../../componet/TFlatList";
 import AIcon from 'react-native-vector-icons/FontAwesome';
@@ -11,7 +11,6 @@ export default class ChaseRecodListView extends React.Component {
 
     constructor(props) {
         super(props);
-        this.itemClick=this.itemClick.bind(this);
     }
 
     render() {
@@ -26,22 +25,21 @@ export default class ChaseRecodListView extends React.Component {
     _renderRow = (rowData) => {
         let {gameModel,appModel} = this.props;
         let gameName = gameModel.getGameNameById(rowData.lottery_id);
-
-        TLog('rowData',rowData);
         let statusColor=rowData.status==1?G_Theme.grayDeep:G_Theme.primary;
-
         return (
-            <View>
-                <TouchableHighlight onPress={() => this.itemClick(rowData)} underlayColor='rgba(10,10,10,0.2)'>
+                <TouchableOpacity onPress={() => this.itemClick(rowData)}>
                     <View style={styles.row}>
-                        <View style={[styles.itemContentStyle,{flex:2}]}>
+                        <View style={[styles.itemContentStyle,{flex:3}]}>
                             <Text style={styles.textItemStyle}>{gameName}</Text>
                             <Text style={[styles.textItemStyle,styles.desc]}>{rowData.title}</Text>
                         </View>
                         <View style={[styles.itemContentStyle,{flex:3}]}>
                             <Text style={styles.textItemStyle} numberOfLines={1}>已完成:{rowData.finished_issues}</Text>
-
                             <Text style={[styles.desc]}>总追号:{rowData.total_issues}</Text>
+                        </View>
+                        <View style={[styles.itemContentStyle,{flex:2}]}>
+                            <Text style={[styles.textItemStyle,{fontSize:12,
+                              }]} >{rowData.bet_number}</Text>
 
                         </View>
                         <View style={[styles.itemContentStyle,{flex:2}]}>
@@ -49,22 +47,18 @@ export default class ChaseRecodListView extends React.Component {
                                 fontWeight: 'bold',
                                 color: statusColor,
                                 paddingRight:3}]} >{appModel.getATraceStatus(rowData.status)}</Text>
-
                         </View>
-
                         <View style={[styles.itemContentStyle,{flex: 1 }]}>
-
                             <AIcon name={"angle-right"}
                                    style={{fontSize: 25, paddingTop:2, alignSelf: "center", color: "gray"}}/>
                         </View>
                     </View>
-                </TouchableHighlight>
-            </View>
+                </TouchableOpacity>
         );
     }
 
     itemClick = (data) => {
-        G_NavUtil.pushToView(G_NavViews.ChaseDeatilView({...data,title:"追号详情",...this.props}));
+        G_NavUtil.push(G_RoutConfig.ChaseDeatilView,{...data,title:"追号详情",...this.props});
     }
 }
 

@@ -625,10 +625,10 @@ export default class Games extends Component {
                         me.addBallsToBasket();
                     }}
                     btnIconEvent={() => {
-                        G_NavUtil.pushToView(G_NavViews.LotteryOrders({
+                        G_NavUtil.push(G_RoutConfig.LotteryOrders,{
                             randomLotterys: me.randomLotterys,
                             isRandomOrder: me.isRandomOrder
-                        }));
+                        });
                     }}
                     btnIconEventDesc={orderNum}
                     btnIconName='cart-plus'

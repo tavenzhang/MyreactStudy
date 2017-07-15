@@ -19,12 +19,12 @@ export default class TeamListView extends React.Component {
 
     item(username) {
         const {userData}=this.props;
-        G_NavUtil.pushToView(G_NavViews.MoneyTransferView({
+        G_NavUtil.push(G_RoutConfig.MoneyTransferView,{
             title: '转账',
             money: parseInt(userData.data.available),
             uid: userData.data.user_id,
             username:username
-        }));
+        });
 
     }
 

@@ -20,7 +20,9 @@ const mapStateToProps = state => {
 
 @connect(mapStateToProps)
 export default class AgentAssignMoneyView extends BaseView {
-
+    static navigationOptions = {
+        title: "高点配额",
+    }
 
     constructor(props) {
         super(props);
@@ -93,7 +95,7 @@ export default class AgentAssignMoneyView extends BaseView {
     }
 
     clickDetailBtn = (data) => {
-        G_NavUtil.pushToView(G_NavViews.AssignDetilView(data));
+        G_NavUtil.push(G_RoutConfig.AssignDetilView,data,"配额详情");
     }
 }
 

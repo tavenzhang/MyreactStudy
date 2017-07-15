@@ -249,13 +249,13 @@ export default class BaseGameView extends BaseView {
                     ])
                 break;
             case 2:
-                G_NavUtil.pushToView(G_NavViews.TrendView({
+                G_NavUtil.push(G_RoutConfig.TrendView,{
                     title: `${gameModel.getGameNameById(id)}-走势图`,
                     lotteryId: id
-                }))
+                })
                 break;
             case 3:
-                G_NavUtil.pushToView(G_NavViews.SSC_History({lottery_name: this.gameName, lottery_id: id}))
+                G_NavUtil.push(G_RoutConfig.SSC_History,{lottery_name: this.gameName, lottery_id: id});
                 break;
             default:
                 break;

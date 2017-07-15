@@ -11,6 +11,9 @@ import BaseView from "../../../../componet/BaseView";
 import AIcon from 'react-native-vector-icons/FontAwesome';
 
 export default class LinkListView extends BaseView {
+    static  navigationOptions={
+        title:"开户链接"
+    }
     static propTypes = {
         isGentUser: PropTypes.any,
         groupDate: PropTypes.object
@@ -145,7 +148,7 @@ export default class LinkListView extends BaseView {
     }
 
     _onDetailLink = (data) => {
-        G_NavUtil.pushToView(G_NavViews.LinkDetailView({content: data, aStatus: this.state.aStatus}))
+        G_NavUtil.push(G_RoutConfig.LinkDetailView,{content: data, aStatus: this.state.aStatus},"链接详情")
     }
 }
 

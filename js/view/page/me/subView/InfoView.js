@@ -14,7 +14,6 @@ import MyView from "../../MyView";
 
 export class InfoView extends React.PureComponent {
 
-
     render() {
         let {userData, moneyBalance} = this.props;
         let infoView = null;
@@ -76,7 +75,7 @@ export class InfoView extends React.PureComponent {
                     <View style={[styles.commonBar]}>
 
                         <TouchableOpacity onPress={() => {
-                            G_NavUtil.pushToView(G_NavViews.MoneyInView());
+                            G_NavUtil.push(G_RoutConfig.MoneyInView);
                         }}>
                             <View style={{flexDirection: "row",}}>
                                 <AIcon name={"cny"}
@@ -90,7 +89,7 @@ export class InfoView extends React.PureComponent {
                         borderLeftWidth: 1,
                     }]}>
                         <TouchableOpacity onPress={() => {
-                            G_NavUtil.pushToView(G_NavViews.MoneyOuterView());
+                            G_NavUtil.push(G_RoutConfig.MoneyOuterView);
                         }}>
                             <View style={{flexDirection: "row",}}>
                                 <AIcon name={"money"}
@@ -104,12 +103,12 @@ export class InfoView extends React.PureComponent {
                         borderLeftWidth: 1,
                     }]}>
                         <TouchableOpacity onPress={() => {
-                            G_NavUtil.pushToView(G_NavViews.MoneyTransferView({
+                            G_NavUtil.push(G_RoutConfig.MoneyTransferView,{
                                 title: '转账',
                                 money: moneyBalance,
                                 // uid: userData.data.user_id,
                                 username: userData.data.username
-                            }));
+                            });
                         }}>
                             <View style={{flexDirection: "row",}}>
                                 <AIcon name={"exchange"}
@@ -137,21 +136,17 @@ export class InfoView extends React.PureComponent {
     }
 
     onPushMsgView = () => {
-        G_NavUtil.pushToView(G_NavViews.PersonMailView({
-            title: ItemNameEnum.msgNotice,
-            defaultIndex: 0
-        }))
+        G_NavUtil.push(G_RoutConfig.PersonMailView,{ title: ItemNameEnum.msgNotice,
+            defaultIndex: 0})
     }
 
     onPushPwdView = () => {
-        G_NavUtil.pushToView(G_NavViews.PersonPwdView({
-            title: ItemNameEnum.pwdMange,
-            defaultIndex: 0
-        }));
+        G_NavUtil.push(G_RoutConfig.PersonPwdView,{title: ItemNameEnum.pwdMange,
+            defaultIndex: 0})
     }
 
     clickLogin = () => {
-        G_NavUtil.pushToView(G_NavViews.LoginView());
+        G_NavUtil.push(G_RoutConfig.LoginView)
     }
 }
 

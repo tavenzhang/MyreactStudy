@@ -78,11 +78,11 @@ export default class ProfitListView extends React.Component {
     }
 
     view(profitData) {
-        G_NavUtil.pushToView(G_NavViews.ProfitView({
+        G_NavUtil.push(G_RoutConfig.ProfitView,{
             title: '盈亏详情',
             profitData: profitData,
             formatMoney: this.formatMoney,
-        }));
+        });
     }
 
     render() {

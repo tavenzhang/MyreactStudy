@@ -8,7 +8,7 @@ import GameList from "./home/subview/GameList";
 import MyBannerSwiper from "../componet/MyBannerSwiper";
 import AIcon from 'react-native-vector-icons/FontAwesome';
 import {NavButtonText} from "../componet/navBarMenu/HeaderMenu";
-import ConfigView from "./home/subview/ConfigView";
+
 
 const mapStateToProps = state => {
     return {
@@ -40,7 +40,7 @@ export default class Home extends BaseView {
 
     onRightPressed(){
         let {appModel}=this.props;
-        G_NavUtil.pushToView(G_NavViews.TWebView({data:appModel.data.data.qs_link,title:"客服"}))
+        G_NavUtil.push(G_RoutConfig.TWebView,{data:appModel.data.data.qs_link,title:"客服"})
     }
 
     renderBody() {

@@ -47,14 +47,11 @@ export default class RecordBackView extends BaseView {
         this.loadMore(null, true);
     }
 
-    _renderRow = (rowData,index) => {
-        TLog("_renderRow----",rowData);
+    _renderRow = (rowData) => {
         let {gameModel,appModel,playModel} = this.props;
         let gameName = gameModel.getGameNameById(rowData.lottery_id);
         let timeStr=G_DateUtil.formatSimpleItemDateString(rowData.created_at)
         let wayName=  playModel.getWayNameById(rowData.way_id);
-
-       // let statusColor=rowData.status==1?G_Theme.grayDeep:G_Theme.primary;
         return (
             <TouchableOpacity onPress={() => this.itemClick(rowData)}>
                 <View style={styles.row}>
@@ -71,6 +68,7 @@ export default class RecordBackView extends BaseView {
                     <View style={[styles.itemContentStyle,{flex:3, alignItems:"center"}]}>
                         <Text style={[styles.textItemStyle,{fontSize:14,
                             fontWeight: 'bold',}]} >{rowData.amount}</Text>
+                        <Text style={{color:rowData.status ? "green":"red", fontSize:12}}>{rowData.status ? "已发放":"等待中"}</Text>
                     </View>
                     <View style={[styles.itemContentStyle,{flex: 2 }]}>
                         <TAIco name={"angle-right"}
@@ -82,7 +80,7 @@ export default class RecordBackView extends BaseView {
     }
 
     itemClick = (data) => {
-      //  G_NavUtil.pushToView(G_NavViews.ChaseDeatilView({...data,title:"追号详情",...this.props}));
+        G_NavUtil.push(G_RoutConfig.BackDetailView,{data,...this.props},"返点详情");
     }
 
 

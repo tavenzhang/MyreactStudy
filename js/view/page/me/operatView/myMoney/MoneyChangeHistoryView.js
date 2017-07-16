@@ -109,12 +109,12 @@ const styles = StyleSheet.create({
     },
     headRow: {
         flexDirection: 'row',
-        height: 30,
+        height: 32,
         borderColor: "gray",
     },
     row: {
         flexDirection: 'row',
-        height: 35,
+        height: 45,
         borderBottomWidth:0.5,
         borderColor: "gray",
     },

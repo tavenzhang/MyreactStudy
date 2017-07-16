@@ -14,12 +14,10 @@ import MySegmentedControlTab from "../../../componet/tcustom/TSegmentedControlTa
 
 
 export default class AgentCreateUserView extends BaseView {
-    static navigationOptions = {
-        title: "账号开户",
-    }
 
         static navigationOptions = ({navigation})=> ({
-        headerRight:<NavButtonText name={"查看链接"} navigation={navigation} />
+        headerRight:<NavButtonText name={"查看链接"} navigation={navigation} />,
+            title: "账号开户",
     })
 
 

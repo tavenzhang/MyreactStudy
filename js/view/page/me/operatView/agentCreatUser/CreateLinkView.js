@@ -6,11 +6,10 @@ import {
     Slider,
     Picker
 } from 'react-native';
-
-import Button from "react-native-button";
 import {TPicker} from "../../../../componet/tcustom/picker/TPicker";
 import {TTextInput} from "../../../../componet/tcustom/textInput/TTextInput";
 import {TSlider} from "../../../../componet/tcustom/slider/TSlider";
+import {TButton} from "../../../../componet/tcustom/button/TButton";
 
 export default class CreateLinkView extends React.Component {
     static propTypes = {
@@ -49,7 +48,7 @@ export default class CreateLinkView extends React.Component {
             minGroup = !isGentUser ? groupDate.iPlayerMinPrizeGroup : groupDate.iAgentMinPrizeGroup;
             maxGroup = !isGentUser ? groupDate.iPlayerMaxPrizeGroup : groupDate.iAgentMaxPrizeGroup;
             minGroup = parseInt(minGroup);
-            maxGroup=  parseInt(maxGroup);
+            maxGroup = parseInt(maxGroup);
             minBacGroup = parseFloat(groupDate.bac_commission_proporty_min);
             maxBacGroup = parseFloat(groupDate.bac_commission_proporty);
             if (this.state.groundValue < minGroup) {
@@ -71,15 +70,16 @@ export default class CreateLinkView extends React.Component {
             else {
                 this.curBacGroupValue = this.state.groudBacValue;
             }
-            this.curBacGroupValue=this.curBacGroupValue.toFixed(4);
+            this.curBacGroupValue = this.curBacGroupValue.toFixed(4);
             percent = ((groupDate.iCurrentUserPrizeGroup - this.curGroupValue) * 100 / 2000 ).toFixed(2);
         }
 
 
         return (<View>
-                <View style={[styles.itemSp, {margin: 0}]}>
+                <View style={[styles.itemSp]}>
                     <Text style={{textAlign: "right", alignSelf: "center"}}>链接有效期</Text>
-                    <TPicker pickValue={this.state.pickValue} dataList={this.dateValidList} onValueChange={(data) => {
+                    <TPicker pickValue={this.state.pickValue} viewStyle={{flex: 1, paddingLeft: 60}}
+                             dataList={this.dateValidList} onValueChange={(data) => {
                         this.setState({pickValue: data})
                     } }/>
                 </View>
@@ -125,66 +125,66 @@ export default class CreateLinkView extends React.Component {
                 </View>
 
                 <View style={{
-                    width: G_Theme.windowWidth -100,
+                    width: G_Theme.windowWidth - 100,
                     flexDirection: "row",
-                    marginVertical: 10,
+                    marginTop: 5,
+                    marginBottom: 10,
                     alignItems: "center",
                 }}>
                     <Text style={{textAlign: "right"}}>设置奖金组</Text>
-                    <Text style={{color: "red", fontWeight: "bold", marginHorizontal: 10}}>{`${this.curGroupValue}`}</Text>
+                    <Text style={{
+                        color: "red",
+                        fontWeight: "bold",
+                        marginTop: 5,
+                        marginHorizontal: 10
+                    }}>{`${this.curGroupValue}`}</Text>
                     <Text>{` 预计平均返点率 ${percent}%`}</Text>
                 </View>
                 <TSlider slideValue={this.state.groundValue}
                          minValue={minGroup}
                          maxValue={maxGroup}
+                         disable={minGroup == maxGroup}
                          onValueChange={(groundValue) => {
                              this.setState({groundValue})
                          }}/>
                 <View style={{
                     flexDirection: "row",
-                    marginVertical: 8,
+                    marginBottom: 10,
                     alignItems: "center",
                 }}>
                     <Text style={{textAlign: "right"}}>百家乐奖金组:</Text>
-                    <Text style={{color: "red", fontWeight: "bold", left:10}}>{` ${this.curBacGroupValue} `}</Text>
+                    <Text style={{color: "red", fontWeight: "bold", left: 10}}>{` ${this.curBacGroupValue} `}</Text>
                 </View>
                 <TSlider slideValue={this.state.groudBacValue}
                          minValue={minBacGroup}
                          maxValue={maxBacGroup}
+                         disable={minBacGroup == maxBacGroup}
                          onValueChange={(groudBacValue) => {
                              this.setState({groudBacValue})
                          }}/>
-                <Button
+                <TButton
+                    btnName="生成链接"
                     containerStyle={{
-                        margin: 10,
-                        overflow: 'hidden',
                         borderRadius: 3,
                         backgroundColor: '#d7213c'
                     }}
-                    style={{fontSize: 14, color: "white", padding: 5}}
-                    styleDisabled={{color: '#fff', backgroundColor: "gray"}}
-                    onPress={this._onCreateLink} disabled={!this._onValidInput()}>
-                    生成链接
-                </Button>
+                    onPress={this._onCreateLink} errMsg={this._onValidInput()}/>
             </View>
         )
     }
 
     _onValidInput = () => {
+        let errMsg = null;
         let {groupDate} = this.props
-        let result = false
         if (this.state.textChannel == "") {
-            result = false
+            errMsg = "请输入推广渠道名称"
         }
         else if (this.state.textQQ1 == "" && this.state.textQQ2 == "" && this.state.textQQ3 == "") {
-            result = false;
+            errMsg = "请至少输入一个联系qq"
         } else if (groupDate == null) {
-            result = false;
+            errMsg = "奖金组数据错误"
         }
-        else {
-            result = true;
-        }
-        return result
+        return errMsg
     }
 
     _onCreateLink = () => {
@@ -210,17 +210,17 @@ const styles = StyleSheet.create({
         width: 200,
         left: 10,
         fontSize: 14,
-        height: G_PLATFORM_IOS ? 30:40,
+        height: G_PLATFORM_IOS ? 30 : 40,
         borderWidth: 1,
         borderRadius: 5,
         textAlign: "center",
-        marginVertical:1
+        marginVertical: 1
     },
     itemSp: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        marginVertical: 5
+        marginVertical: 3
     },
     icoPwd: {
         color: G_Theme.grayDeep,

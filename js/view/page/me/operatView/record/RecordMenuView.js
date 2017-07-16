@@ -22,6 +22,10 @@ export default class RecordMenuView extends React.PureComponent {
     static propTypes={
         onPressMenu:PropTypes.func,
         clickMenuItem:PropTypes.func,
+        isHideGame:PropTypes.bool
+    }
+    static defaultProps={
+        isHideGame:false
     }
 
     constructor(props) {
@@ -49,7 +53,7 @@ export default class RecordMenuView extends React.PureComponent {
     }
 
     render() {
-        let {gameModel, playModel} = this.props;
+        let {gameModel, playModel,isHideGame} = this.props;
         let gameList = [{name: "全部彩种", id: "", series_id: ""}].concat(gameModel.gameInfoList)
         let playList = [{name: "全部玩法", id: ""}];
         if (this.state.curGame) {
@@ -65,14 +69,14 @@ export default class RecordMenuView extends React.PureComponent {
         let timeView = this.state.curClickType == MenuListType.TimeList ? this.menuView(this.state.timeList, MenuListType.TimeList, timeBtnName) : null;
         let playView = this.state.curClickType == MenuListType.PlayList ? this.menuView(playList, MenuListType.PlayList, playBtnName) : null;
         return (
-            <View style={{position: "absolute", width:G_Theme.windowWidth ,zIndex: 6}}>
+            <View style={{position: "absolute", width:G_Theme.windowWidth ,zIndex: 112}}>
                 <View
                     style={{
                         flexDirection: "row",
                         height: 35,
                         borderBottomColor: G_Theme.gray, borderBottomWidth: 1
                     }}>
-                    <TouchableOpacity style={[styles.touchTabButton, gameView ? styles.tabSelectStyle:null]}
+                    {!isHideGame ? <TouchableOpacity style={[styles.touchTabButton, gameView ? styles.tabSelectStyle:null]}
                                       onPress={() => this.onPressMenu(MenuListType.GameList)}
                     >
                         <View style={{flexDirection: "row"}}>
@@ -85,8 +89,8 @@ export default class RecordMenuView extends React.PureComponent {
                                        top: -3
                                    }}/>
                         </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[styles.touchTabButton, playView ? styles.tabSelectStyle:null]}
+                    </TouchableOpacity>:null}
+                    {!isHideGame ?  <TouchableOpacity style={[styles.touchTabButton, playView ? styles.tabSelectStyle:null]}
                                       onPress={() => this.onPressMenu(MenuListType.PlayList)}
                     >
                         <View style={{flexDirection: "row", alignItems: "center"}}>
@@ -99,7 +103,7 @@ export default class RecordMenuView extends React.PureComponent {
                                        top: -3
                                    }}/>
                         </View>
-                    </TouchableOpacity>
+                    </TouchableOpacity>:null}
                     <TouchableOpacity style={[styles.touchTabButton, timeView? styles.tabSelectStyle:null]}
                                       onPress={() => this.onPressMenu(MenuListType.TimeList)}
                     >

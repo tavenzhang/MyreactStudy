@@ -99,10 +99,10 @@ export default class AcountListView extends React.Component {
                         }));
                         break;
                     case ItemNameEnum.agentProfit:
-                        G_NavUtil.push(G_RoutConfig.AgentProfitView ({title: data.name}));
+                        G_NavUtil.push(G_RoutConfig.AgentProfitView ,({title: data.name}));
                         break;
                     case ItemNameEnum.agentTeam:
-                        G_NavUtil.push(G_RoutConfig.AgentTeamView({title: data.name,userData:userData}));
+                        G_NavUtil.push(G_RoutConfig.AgentTeamView,({title: data.name,userData:userData}));
                         break;
                     case ItemNameEnum.agentInfo:
                         G_NavUtil.push(G_RoutConfig.AgentInfoView,{title: data.name});
@@ -118,6 +118,9 @@ export default class AcountListView extends React.Component {
                         break;
                     case ItemNameEnum.recordAssignProfit:
                         G_NavUtil.push(G_RoutConfig.RecordAssginView,{title: data.name})
+                        break;
+                    case ItemNameEnum.applyMoney:
+                        G_NavUtil.push(G_RoutConfig.MoneyApply,{title: data.name})
                         break;
                 }
             }
@@ -166,7 +169,7 @@ export default class AcountListView extends React.Component {
     }
 
     clickLogin = () => {
-        G_NavUtil.push(G_RoutConfig.login)
+        G_NavUtil.push(G_RoutConfig.LoginView)
     }
 }
 

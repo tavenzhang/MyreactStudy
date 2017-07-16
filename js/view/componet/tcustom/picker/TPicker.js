@@ -12,16 +12,19 @@ export class TPicker extends React.PureComponent {
         disable:PropTypes.bool,
         itemStyle:PropTypes.any,
         dataList:PropTypes.array,
-        onRenderRow:PropTypes.func
+        onRenderRow:PropTypes.func,
+        viewStyle:PropTypes.any
+    }
+    static  defaultProps={
+        viewStyle:{flex:1},
+        itemStyle:{fontSize: 13, height: 80, width:100}
     }
 
-
     render() {
-        const {dataList,itemStyle,onValueChange,pickValue,onRenderRow} = this.props;
-        return (
-            <View>
+        const {dataList,itemStyle,onValueChange,pickValue,onRenderRow,viewStyle} = this.props;
+        return(<View style={[viewStyle]}>
                 <Picker
-                    itemStyle={[{fontSize: 13, height: 100, width:120},itemStyle]}
+                    itemStyle={itemStyle}
                     mode={Picker.MODE_DROPDOWN}
                     selectedValue={pickValue}
                     onValueChange={(data) => {

@@ -64,8 +64,6 @@ export default class LoginView extends BaseView {
         );
     }
 
-
-
     onErrMsg=()=>{
         let msg =null;
         if (!this.state.nameText) {

@@ -41,6 +41,9 @@ const mapStateToProps = state => {
 }
 @connect(mapStateToProps)
 export default class LotteryOrders extends BaseView {
+    static navigationOptions={
+        title:"购彩篮"
+    }
 
     constructor(props) {
         super(props);

@@ -6,9 +6,8 @@ import {
     Slider,
 } from 'react-native';
 
-import Button from "react-native-button";
 import {TSlider} from "../../../../componet/tcustom/slider/TSlider";
-import {TButtonProxy} from "../../../../componet/tcustom/button/TButton";
+import {TButton, TButtonProxy} from "../../../../componet/tcustom/button/TButton";
 import {TTextInput} from "../../../../componet/tcustom/textInput/TTextInput";
 
 export default class CreateHumanView extends React.Component {
@@ -16,7 +15,6 @@ export default class CreateHumanView extends React.Component {
         isGentUser: PropTypes.any,
         groupDate: PropTypes.object
     }
-
 
     constructor(props) {
         super(props)
@@ -105,6 +103,7 @@ export default class CreateHumanView extends React.Component {
                 <TSlider slideValue={this.state.groundValue}
                          minValue={minGroup}
                          maxValue={maxGroup}
+                         disable={minGroup==maxGroup}
                          onValueChange={(groundValue) => {
                              this.setState({groundValue})
                          }}/>
@@ -119,39 +118,32 @@ export default class CreateHumanView extends React.Component {
                 <TSlider slideValue={this.state.groudBacValue}
                          minValue={minBacGroup}
                          maxValue={maxBacGroup}
+                         disable={minBacGroup==maxBacGroup}
                          onValueChange={(groudBacValue) => {
                              this.setState({groudBacValue})
                          }}/>
-                <Button
-                    containerStyle={{
+                <TButton
+                    btnName="立即开户"
+                    viewStyle={{
                         margin: 20,
-                        overflow: 'hidden',
-                        borderRadius: 3,
-                        backgroundColor: '#d7213c'
                     }}
-                    style={{fontSize: 14, color: "white", padding: 5}}
-                    styleDisabled={{backgroundColor: "gray"}}
-                    onPress={this._onCreateRequest} disabled={!this._onValidInput()}>
-                    立即开户
-                </Button>
+                    onPress={this._onCreateRequest} errMsg={this._onValidInput()}>
+                </TButton>
             </View>)
     }
 
     _onValidInput = () => {
         let {groupDate} = this.props
-        let result = false
+        let msg=null;
         if (this.state.userNameText == "") {
-            result = false
+            msg ="请输入登录用户名"
         }
         else if (this.state.pwdText == "") {
-            result = false;
+            msg="请输入登录密码"
         } else if (groupDate == null) {
-            result = false;
+            msg="奖金组数据错误"
         }
-        else {
-            result = true;
-        }
-        return result
+        return msg
     }
 
 

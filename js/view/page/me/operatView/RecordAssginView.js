@@ -12,6 +12,7 @@ import RecordMenuView, {MenuListType} from "./record/RecordMenuView";
 import TFlatList from "../../../componet/TFlatList";
 import {TAIco} from "../../../componet/tcustom/button/TButton";
 
+
 const mapStateToProps = state => {
     return {
         gameModel: state.get("appState").get("gameModel"),
@@ -19,7 +20,6 @@ const mapStateToProps = state => {
         appModel: state.get("appState").get("appModel"),
     }
 }
-
 @connect(mapStateToProps)
 export default class RecordAssginView extends BaseView {
 
@@ -37,7 +37,7 @@ export default class RecordAssginView extends BaseView {
         return (
             <View style={G_Style.appContentView}>
                 <RecordMenuView clickMenuItem={this.clickMenuItem} {...this.props}/>
-                <TFlatList styleView={{flex: 1, marginTop: 35}} renderRow={this._onRendRow} dataList={this.state.dataList} loadMore={this.loadMore}/>
+                <TFlatList styleView={{flex: 1, marginTop: 35}} renderRow={this._renderRow} dataList={this.state.dataList} loadMore={this.loadMore}/>
             </View>
         );
     }
@@ -45,32 +45,27 @@ export default class RecordAssginView extends BaseView {
     componentDidMount() {
         this.loadMore(null, true);
     }
-    _renderRow = (rowData,index) => {
-        TLog("_renderRow----",rowData);
-        //let {gameModel,appModel,playModel} = this.props;
-        //let gameName = gameModel.getGameNameById(rowData.lottery_id);
-       // let timeStr=G_DateUtil.formatSimpleItemDateString(rowData.created_at)
-        //let wayName=  playModel.getWayNameById(rowData.way_id);
 
-        // let statusColor=rowData.status==1?G_Theme.grayDeep:G_Theme.primary;
-        return (
-            <TouchableOpacity onPress={() => this.itemClick(rowData)}>
+    _renderRow = (rowData,index) => {
+        TLog("_renderRow----"+index,rowData);
+        let {appModel} = this.props;
+        return (<TouchableOpacity onPress={() => this.itemClick(rowData)}>
                 <View style={styles.row}>
-                    <View style={[styles.itemContentStyle,{flex:2}]}>
-                        {/*<Text style={styles.textItemStyle}>{timeStr}</Text>*/}
-                    </View>
                     <View style={[styles.itemContentStyle,{flex:3}]}>
-                        {/*<Text style={[styles.textItemStyle,{fontSize:14}]}>{gameName}</Text>*/}
-                        {/*<Text style={[styles.textItemStyle,{color:"gray", marginTop:5}]}>{wayName}</Text>*/}
+                        <Text style={[styles.textItemStyle,{fontSize:12}]}> 开始: {rowData.begin_date}</Text>
+                        <Text style={[styles.textItemStyle,{fontSize:12}]}> 结束: {rowData.end_date}</Text>
                     </View>
-                    <View style={[styles.itemContentStyle,{flex:1}]}>
-                        {/*<Text style={[styles.textItemStyle,]} >{ appModel.getACoefficients(rowData.coefficient)}</Text>*/}
+                    <View style={[styles.itemContentStyle,{flex:4}]}>
+                        <View>
+                        <Text style={[styles.textItemStyle,{fontSize:12}]}> 比例: {rowData.rate}%</Text>
+                        <Text style={[styles.textItemStyle,{fontSize:12}]}> 金额: {rowData.bonus}</Text>
+                        </View>
                     </View>
-                    <View style={[styles.itemContentStyle,{flex:3, alignItems:"center"}]}>
-                        <Text style={[styles.textItemStyle,{fontSize:14,
-                            fontWeight: 'bold',}]} >{rowData.amount}</Text>
+                    <View style={[styles.itemContentStyle,{flex:2}]}>
+                            <Text style={[styles.textItemStyle,{fontSize:14, color:"red", fontWeight:"bold"}]}> {appModel.getAWithdrawStatus(rowData.draw_status)}</Text>
+                            <Text style={[styles.textItemStyle,{fontSize:12,fontWeight:"bold",color:rowData.status ? "green":'red'}]}> {rowData.status ? "已领取":"未领取"}</Text>
                     </View>
-                    <View style={[styles.itemContentStyle,{flex: 2 }]}>
+                    <View style={[styles.itemContentStyle,{flex: 1}]}>
                         <TAIco name={"angle-right"}
                                style={{fontSize: 25, paddingTop:2, alignSelf: "center", color: "gray"}}/>
                     </View>
@@ -78,11 +73,11 @@ export default class RecordAssginView extends BaseView {
             </TouchableOpacity>
         );
     }
-    // onForceFlushData(data) {
-    //     this.setState({dataList: []}, () => {
-    //         this.loadMore(null, true);
-    //     })
-    // }
+
+    itemClick = (data) => {
+        G_NavUtil.push(G_RoutConfig.AssignDetailView,{data,...this.props},"分红详情");
+    }
+
     clickMenuItem = (data, listType) => {
         switch (listType) {
             case MenuListType.TimeList:
@@ -114,14 +109,14 @@ export default class RecordAssginView extends BaseView {
         else {
             HTTP_SERVER.RECORD_ASSIGN_MONEY.body.page += 1;
         }
-
-        HTTP_SERVER.RECORD_ASSIGN_MONEY.body.pagesize = 15;
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.RECORD_ASSIGN_MONEY, (result) => {
             if (callBack) {
                 callBack()
             }
+
             if(result.data.datas.data)
             {
+
                 let arr = G_ArrayUtils.addComapreCopy(this.state.dataList, result.data.datas.data)
                 this.setState({dataList: arr});
             }

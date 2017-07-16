@@ -171,7 +171,7 @@ export default class AssignDetilView extends BaseView {
     }
 
     _onClikGroupBtn = (groupData, data) => {
-        G_NavUtil.push(G_RoutConfig.AssignChangeView,data,"修改配额")
+        G_NavUtil.push(G_RoutConfig.AssignChangeView,{groupData,data},"修改配额")
     }
 
     _onSearchBtn = () => {

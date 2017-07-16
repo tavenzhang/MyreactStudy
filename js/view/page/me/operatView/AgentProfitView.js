@@ -11,11 +11,9 @@ import {NavButtonText} from "../../../componet/navBarMenu/HeaderMenu";
 
 
 export default class AgentProfitView extends BaseView {
-    static navigationOptions = {
-        title: "盈亏报表",
-    }
 
     static navigationOptions = ({navigation})=> ({
+        title: "盈亏报表",
         headerRight:<NavButtonText style={{
             marginLeft: 20,
             paddingHorizontal: 8,

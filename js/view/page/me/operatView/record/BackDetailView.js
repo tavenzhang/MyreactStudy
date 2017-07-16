@@ -6,78 +6,65 @@ import {
     Image,
 } from 'react-native';
 import BaseView from "../../../../componet/BaseView";
-import {HOME_ICONS} from "../../../../../assets/index";
-import {TButton} from "../../../../componet/tcustom/button/TButton";
+
 
 
 export  default class AssignDetailView extends BaseView {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            data: {}
-        }
-    }
-
     renderBody() {
-        let {gameModel, appModel} = this.props.navigation.state.params
-        return (<View></View>)
-        // const {data} = this.state;
-        // let gameName = gameModel.getGameNameById(data.lottery_id)
-        // let series_id = gameModel.getSeriesIdById(data.lottery_id)
-        // let coefficient = appModel.getACoefficients(data.coefficient);
-        // let isWin = data.status == 3 ? true : false;
-        // return (<View style={[G_Style.appContentView]}>
-        //     <View style={styles.gameHead}>
-        //         <View style={{flexDirection: "row"}}>
-        //             <Image style={styles.thumb} source={HOME_ICONS[series_id]}/>
-        //             <Text style={styles.textgameName}> {gameName}</Text>
-        //             <Text style={styles.textissueNum}> {data.issue}期</Text>
-        //         </View>
-        //
-        //         <View style={{flexDirection: "row", marginTop: 10}}>
-        //             <Text style={[styles.text, {flex: 3, textAlign: 'center'}]}>订单金额</Text>
-        //             <Text style={[styles.text, {flex: 3, textAlign: 'center'}]}>中奖奖金</Text>
-        //             <Text style={[styles.text, {flex: 3, textAlign: 'center'}]}>投注模式</Text>
-        //         </View>
-        //         <View style={{flexDirection: "row", marginTop: 5}}>
-        //             <Text style={[styles.text,styles.gameHeadText,styles.winNumber]}> {G_DateUtil.formatMoney(data.amount)}元</Text>
-        //             <Text style={[styles.text, styles.gameHeadText,styles.winNumber]}> {data.prize ? G_DateUtil.formatMoney(data.prize) : 0}元</Text>
-        //             <Text style={[styles.text,styles.gameHeadText,{
-        //                 color: G_Theme.grayDeep,}]}> {coefficient}</Text>
-        //         </View>
-        //     </View>
-        //     <View style={styles.profitRow}>
-        //         <Text style={styles.title}>订单状态:</Text>
-        //         <Text
-        //             style={[styles.text, styles.winStatus, {color: isWin ? G_Theme.primary : G_Theme.grayDeep}]}>{appModel.getAProjectStatus(data.status)}</Text>
-        //     </View>
-        //     <View style={styles.profitRow}>
-        //         <Text style={styles.title}>开奖号码:</Text>
-        //         <Text style={[styles.text, styles.winNumber]}>{data.winning_number}</Text>
-        //     </View>
-        //
-        //     <View style={[styles.profitRow,{borderColor: G_Theme.gray,backgroundColor: '#fff',}]}>
-        //         <Text style={styles.title}>投注号码:</Text>
-        //         <Text style={[styles.text,{color:G_Theme.grayDeep}]}>{data.title}  <Text style={{color:G_Theme.grayDeep}}>{data.multiple}倍</Text></Text>
-        //     </View>
-        //     <View style={[styles.profitRow,{borderColor: G_Theme.gray,borderWidth:1, backgroundColor: '#fff',}]}>
-        //         <Text style={[styles.text, styles.betNumber]}>{data.bet_number} </Text>
-        //     </View>
-        //
-        //     <View style={{flexDirection: "row", marginTop:20}}>
-        //         <Text style={[styles.text, styles.gameHeadText,{flex:2}]}>订单编号:</Text>
-        //         <Text style={[styles.text, styles.gameHeadText,{flex:8,textAlign:'left'}]}>{data.serial_number}</Text>
-        //     </View>
-        //
-        //     <View style={{flexDirection: "row", marginTop: 5}}>
-        //         <Text style={[styles.text, styles.gameHeadText,{flex:2}]}>订单时间:</Text>
-        //         <Text style={[styles.text, styles.gameHeadText,{flex:8,textAlign:'left'}]}>{data.bought_at}</Text>
-        //     </View>
-        //     {
-        //         data.allow_cancel&&data.status==0 ? <TButton onPress={this.onCanCelBet} containerStyle={{marginHorizontal: 40, marginTop:20}} btnName={"撤销投注"}/>:null
-        //     }
-        // </View>);
+        let {appModel,data,gameModel,playModel} = this.props.navigation.state.params;
+        let gameName = gameModel.getGameNameById(data.lottery_id);
+        let timeStr=G_DateUtil.formatSimpleItemDateString(data.created_at)
+        let wayName=  playModel.getWayNameById(data.way_id);
+        return (<View style={[G_Style.appContentView]}>
+            <View style={styles.profitRow}>
+                <Text style={styles.title}>用户名:</Text>
+                <Text
+                    style={[styles.text, styles.winStatus]}>{data.username}</Text>
+            </View>
+            <View style={styles.profitRow}>
+                <Text style={styles.title}>注单编号:</Text>
+                <Text
+                    style={[styles.text, styles.winStatus]}>{data.project_no}</Text>
+            </View>
+            <View style={styles.profitRow}>
+                <Text style={styles.title}>奖期:</Text>
+                <Text style={[styles.text, styles.winNumber]}>{data.issue}</Text>
+            </View>
+            <View style={styles.profitRow}>
+                <Text style={styles.title}>彩种玩法:</Text>
+                <Text style={[styles.text, styles.winNumber]}>{gameName} - {wayName}</Text>
+            </View>
+            <View style={styles.profitRow}>
+                <Text style={styles.title}>时间:</Text>
+                <Text style={[styles.text, styles.winNumber]}>{data.created_at}</Text>
+            </View>
+
+            <View style={[styles.profitRow,{borderColor: G_Theme.gray,backgroundColor: '#fff',}]}>
+                <Text style={styles.title}>模式:</Text>
+                <Text style={[styles.text,{color:G_Theme.grayDeep}]}> {appModel.getACoefficients(data.coefficient)}</Text>
+            </View>
+            <View style={[styles.profitRow,{borderColor: G_Theme.gray,backgroundColor: '#fff',}]}>
+                <Text style={styles.title}>倍数:</Text>
+                <Text style={[styles.text,{color:G_Theme.grayDeep}]}>{data.multiple} 倍</Text>
+            </View>
+            <View style={[styles.profitRow,{borderColor: G_Theme.gray,backgroundColor: '#fff',}]}>
+                <Text style={styles.title}>基础投注额:</Text>
+                <Text style={[styles.text,{color:G_Theme.grayDeep}]}>{data.base_amount}</Text>
+            </View>
+            <View style={styles.profitRow}>
+                <Text style={[styles.title]}>返点额:</Text>
+                <Text style={[styles.text,styles.winNumber]}>{data.amount}</Text>
+            </View>
+            <View style={styles.profitRow}>
+                <Text style={[styles.title]}>中奖次数:</Text>
+                <Text  style={[styles.text,styles.winNumber,{color:"green"}]}>{data.won_count}</Text>
+            </View>
+            <View style={styles.profitRow}>
+                <Text style={[styles.title]}>返点状态:</Text>
+                <Text style={[styles.text,styles.winNumber,{color:data.status ? "green":"red"}]}>{data.status ? "已发放":"等待中"}</Text>
+            </View>
+        </View>)
     }
 
     componentDidMount() {
@@ -122,7 +109,8 @@ const styles = StyleSheet.create({
     title: {
         paddingHorizontal: 10,
         // textAlign: 'right',
-        flex: 2
+        // textAlign: 'right',
+        width:120
     },
     textgameName: {
         lineHeight: 30,

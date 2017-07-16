@@ -1,6 +1,3 @@
-/**
- * Created by soga on 2017/4/19.
- */
 import React, {PropTypes} from 'react';
 import {
     Text,
@@ -60,7 +57,8 @@ export class TButton extends React.Component {
             borderRadius: 6,
             paddingVertical: 6,
             paddingHorizontal: 10,
-            alignItems: "center"
+            alignItems: "center",
+            backgroundColor:"#d7213c"
         },
         visible: true,
         errMsg:""
@@ -69,11 +67,15 @@ export class TButton extends React.Component {
     render() {
         const {visible, containerStyle,defaultContainStyle, viewStyle, onPress, errMsg, btnName, textStyle, disabledStyle, disable, imgBtnSrc, imgStyle} = this.props;
         let myDisable = disable;
+        let disableStyle=null;
         if (errMsg && errMsg != "") {
             myDisable = true;
         }
-
-        let btn = <Button containerStyle={[defaultContainStyle,{backgroundColor: myDisable ? "gray" : "#d7213c"}, containerStyle]}
+        if(myDisable)
+        {
+            disableStyle={backgroundColor:"gray"}
+        }
+        let btn = <Button containerStyle={[defaultContainStyle, containerStyle,disableStyle]}
                           disabled={myDisable}
                           style={textStyle}
                           styleDisabled={[disabledStyle]} onPress={onPress}>

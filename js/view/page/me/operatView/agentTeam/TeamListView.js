@@ -31,12 +31,13 @@ export default class TeamListView extends React.Component {
 
 
     render() {
-        const {dataList}=this.props;
+        const {dataList,curPage,totalPage}=this.props;
         TLog("-------rowData---------", dataList);
 
         return (<View style={[styles.defaultStyle]}>
             <TFlatList
-                pageSize={5}
+                curPage={curPage}
+                totalPage={totalPage}
                 dataList={dataList}
                 renderHeader={this.renderHeadView}
                 renderRow={this.rendeRow}

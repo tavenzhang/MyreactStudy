@@ -2,9 +2,6 @@ import React, {PropTypes} from 'react';
 import {
     View,
     Text, StyleSheet,
-    TextInput,
-    Slider,
-    Picker
 } from 'react-native';
 import {TPicker} from "../../../../componet/tcustom/picker/TPicker";
 import {TTextInput} from "../../../../componet/tcustom/textInput/TTextInput";
@@ -150,6 +147,7 @@ export default class CreateLinkView extends React.Component {
                 <View style={{
                     flexDirection: "row",
                     marginBottom: 10,
+                    marginTop: 5,
                     alignItems: "center",
                 }}>
                     <Text style={{textAlign: "right"}}>百家乐奖金组:</Text>
@@ -164,6 +162,7 @@ export default class CreateLinkView extends React.Component {
                          }}/>
                 <TButton
                     btnName="生成链接"
+                    viewStyle={{marginTop:2}}
                     containerStyle={{
                         borderRadius: 3,
                         backgroundColor: '#d7213c'
@@ -210,7 +209,7 @@ const styles = StyleSheet.create({
         width: 200,
         left: 10,
         fontSize: 14,
-        height: G_PLATFORM_IOS ? 30 : 40,
+        height: G_PLATFORM_IOS ? 30 : 35,
         borderWidth: 1,
         borderRadius: 5,
         textAlign: "center",
@@ -220,21 +219,10 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        marginVertical: 3
+        marginVertical: 2
     },
     icoPwd: {
         color: G_Theme.grayDeep,
         fontSize: 20,
     },
-    inputContain: {
-        paddingBottom: 5,
-        marginTop: 15,
-        paddingLeft: 5,
-        flexDirection: "row",
-        height: 40,
-        justifyContent: "flex-start",
-        alignItems: "center",
-        borderColor: 'gray',
-        borderBottomWidth: 0.5,
-    }
 });

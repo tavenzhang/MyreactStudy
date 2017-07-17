@@ -27,7 +27,9 @@ export default class RecordChaseView extends BaseView {
             curGame: null,
             curPlay: null,
             curTime: null,
-            dataList: []
+            dataList: [],
+            curPage:1,
+            totalPage:1
         }
 
     }
@@ -37,7 +39,7 @@ export default class RecordChaseView extends BaseView {
             <View style={G_Style.appContentView}>
                 <RecordMenuView clickMenuItem={this.clickMenuItem} {...this.props}/>
                 <View style={{flex: 1, marginTop: 35, backgroundColor: "yellow"}}>
-                    <ChaseRecodListView dataList={this.state.dataList} loadMore={this.loadMore} {...this.props}/>
+                    <ChaseRecodListView curPage={this.state.curPage} totalPage={this.state.totalPage} dataList={this.state.dataList} loadMore={this.loadMore} {...this.props}/>
                 </View>
             </View>
         );
@@ -92,7 +94,7 @@ export default class RecordChaseView extends BaseView {
                 callBack()
             }
             let arr = G_ArrayUtils.addComapreCopy(this.state.dataList, result.data.data)
-            this.setState({dataList: arr});
+            this.setState({dataList: arr,curPage:result.data.current_page,totalPage:result.data.last_page});
         }, false);
 
     }

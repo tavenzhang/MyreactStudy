@@ -2,12 +2,10 @@ import React, {PropTypes} from 'react';
 import {
     View,
     Text, StyleSheet,
-    TextInput,
-    Slider,
 } from 'react-native';
 
 import {TSlider} from "../../../../componet/tcustom/slider/TSlider";
-import {TButton, TButtonProxy} from "../../../../componet/tcustom/button/TButton";
+import {TButton} from "../../../../componet/tcustom/button/TButton";
 import {TTextInput} from "../../../../componet/tcustom/textInput/TTextInput";
 
 export default class CreateHumanView extends React.Component {
@@ -127,6 +125,7 @@ export default class CreateHumanView extends React.Component {
                     viewStyle={{
                         margin: 20,
                     }}
+                    containerStyle={{marginTop:10}}
                     onPress={this._onCreateRequest} errMsg={this._onValidInput()}>
                 </TButton>
             </View>)

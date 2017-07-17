@@ -25,7 +25,9 @@ export default class RecordBetView extends BaseView {
         super(props);
         this.state = {
             status:MenuListType.All,
-            dataList:[]
+            dataList:[],
+            curPage:1,
+            totalPage:1,
         }
     }
 
@@ -59,7 +61,7 @@ export default class RecordBetView extends BaseView {
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 1, backgroundColor: "yellow"}}>
-                    <BetRecordListView  dataList={this.state.dataList}
+                    <BetRecordListView  curPage={this.state.curPage} totalPage={this.state.totalPage} dataList={this.state.dataList}
                                        loadMore={this.loadMore} {...this.props}/>
                 </View>
                 <RecordMenuView clickMenuItem={this.clickMenuItem} {...this.props}/>
@@ -67,9 +69,11 @@ export default class RecordBetView extends BaseView {
         );
     }
 
-    onForceFlushData (data){
+    onForceFlushData(data){
+        TLog("onForceFlushData-----------this.state.status",this.state.status)
         this.clickMenuItem([],this.state.status);
     }
+
 
     componentDidMount() {
             this.loadMore(null, true);
@@ -141,7 +145,7 @@ export default class RecordBetView extends BaseView {
                           this.lastDay = day;
                     }
             }
-            this.setState({dataList: arr});
+            this.setState({dataList: arr,curPage:result.data.current_page,totalPage:result.data.last_page});
         }, false);
     }
 }

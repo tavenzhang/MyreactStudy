@@ -25,6 +25,8 @@ export default class RecordAwardRView extends BaseView {
         this.state = {
             dataList: [],
             pageSize:20,
+            curPage:1,
+            totalPage:1,
         };
     }
 
@@ -45,7 +47,7 @@ export default class RecordAwardRView extends BaseView {
                         <Text style={styles.textHeadStyle}>奖金</Text>
                     </View>
                 </View>
-                <TFlatList pageSize={this.state.pageSize}  dataList={this.state.dataList} loadMore={this._loadMore} renderRow={this._renderRow}/>
+                <TFlatList curPage={this.state.curPage} totalPage={this.state.totalPage}  dataList={this.state.dataList} loadMore={this._loadMore} renderRow={this._renderRow}/>
             </View>
         );
     }
@@ -60,7 +62,9 @@ export default class RecordAwardRView extends BaseView {
         InteractionManager.runAfterInteractions(() => {
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.GET_BET_WIN, (result) => {
                 if (result.data.data) {
-                    this.setState({dataList: result.data.data});
+                    this.setState({dataList: result.data.data,
+                        curPage:result.data.current_page,
+                        totalPage:result.data.last_page,});
                 }
             })
         });

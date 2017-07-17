@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{PropTypes} from 'react';
 import {
     View,
     Text, StyleSheet,
@@ -9,11 +9,16 @@ import TFlatList from "../../../../componet/TFlatList";
 import AIcon from 'react-native-vector-icons/FontAwesome';
 
 export default class BetRecordListView extends React.Component {
+    static propTypes={
+        dataList:PropTypes.any,
+        curPage:PropTypes.number,
+        totalPage:PropTypes.number,
+    }
 
     render() {
         return (
             <View style={G_Style.appContentView}>
-                <TFlatList dataList={this.props.dataList} loadMore={this.props.loadMore} renderRow={this._renderRow}/>
+                <TFlatList curPage={this.props.curPage} totalPage={this.props.totalPage}  dataList={this.props.dataList} loadMore={this.props.loadMore} renderRow={this._renderRow}/>
             </View>
         )
     }

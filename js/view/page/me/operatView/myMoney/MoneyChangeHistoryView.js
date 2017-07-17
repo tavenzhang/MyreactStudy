@@ -8,7 +8,9 @@ import TFlatList from "../../../../componet/TFlatList";
 export default class MoneyChangeHistoryView extends React.Component {
     static propTypes={
         loadMore:PropTypes.func,
-        dataList:PropTypes.any
+        dataList:PropTypes.any,
+        curPage:PropTypes.number,
+        totalPage:PropTypes.number
     }
     constructor(props) {
         super(props);
@@ -17,7 +19,7 @@ export default class MoneyChangeHistoryView extends React.Component {
         };
     }
     render() {
-        let {dataList}=this.props
+        let {dataList,curPage,totalPage}=this.props
         return (
             <View style={G_Style.appContentView}>
                 <View style={styles.headRow}>
@@ -37,17 +39,11 @@ export default class MoneyChangeHistoryView extends React.Component {
                         <Text style={styles.textHeadStyle}>余额</Text>
                     </View>
                 </View>
-                <TFlatList dataList={dataList} loadMore={this._loadMore} renderRow={this._renderRow}/>
+                <TFlatList totalPage={totalPage} curPage={curPage} dataList={dataList} loadMore={this._loadMore} renderRow={this._renderRow}/>
             </View>
         );
     }
 
-
-    componentWillUnmount(){
-        // TLog("MoneyChangeHistoryView---componentWillUnmount--")
-        // let {httpService} = this.props
-        // ActDispatch.FetchAct.canCelVoFetch(httpService)
-    }
 
     _loadMore = (callFinishBack,isFlush) => {
         let {loadMore,httpService}=this.props;

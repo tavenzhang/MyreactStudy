@@ -26,6 +26,8 @@ export default class AssignChangeView extends BaseView {
             pickValue: groupData.value,
             reasionText: "",
             dataList: [],
+            curPage:1,
+            totalPage:1,
             isChange: false
         }
     }
@@ -96,7 +98,7 @@ export default class AssignChangeView extends BaseView {
                           containerStyle={{width: G_Theme.windowWidth * 2 / 3, alignSelf: "center", marginBottom: 10}}
                           onPress={this._onClickChange} btnName={"确认修改"}/>
 
-            <TFlatList dataList={this.state.dataList}
+            <TFlatList curPage={this.state.curPage} totalPage={this.state.totalPage}  dataList={this.state.dataList}
                 renderHeader={this._renderHeadView}
                 renderRow={this._rendeRow}
             />
@@ -114,7 +116,7 @@ export default class AssignChangeView extends BaseView {
                 {
                     let dataList = data.data.history;
                     dataList = dataList.reverse()
-                    this.setState({dataList})
+                    this.setState({dataList,curPage:1,totalPage:1})
                 }else{
                     ActDispatch.AppAct.showErrorBox(data.error)
                 }

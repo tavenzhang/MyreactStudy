@@ -32,6 +32,9 @@ export default class AgentProfitView extends BaseView {
             oSelfProfit: {},
             oAgentSumPerDay: [],
             dataList: [],
+            curPage:1,
+            totalPage:1,
+
         }
     }
 
@@ -83,7 +86,7 @@ export default class AgentProfitView extends BaseView {
                              is_agent={searchData ? searchData.is_agent : ''}
                              date_from={searchData ? searchData.date_from : ''}
                              date_to={searchData ? searchData.date_to : ''} hideViewHandle={this.onHideModal}/>
-            <ProfitListView userData={userData}  {...this.state}/>
+            <ProfitListView curPage={this.state.curPage} totalPage={this.state.totalPage} userData={userData}  {...this.state}/>
 
         </View>)
     }

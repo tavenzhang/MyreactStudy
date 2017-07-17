@@ -52,7 +52,7 @@ export  default  class MoneyView extends React.Component {
             money: parseInt(userData.data.available),
             uid: userData.data.user_id,
             name:userData.data.username
-        })
+        },"提现")
     }
 
     _gotoTransMoney=()=>{
@@ -60,7 +60,7 @@ export  default  class MoneyView extends React.Component {
         G_NavUtil.push(G_RoutConfig.MoneyTransferView,{
             money: parseInt(userData.data.available),
             uid: userData.data.user_id
-        });
+        },"转账");
     }
 }
 

@@ -21,10 +21,9 @@ export default class LinkDetailView extends BaseView {
         G_AlertUtil.show("", "复制成功！")
     }
     renderBody() {
-        let {content,aStatus}=this.props.navigation.state.params;
+        let {content}=this.props.navigation.state.params;
         let validstr= content.valid_days ? `${content.valid_days}天`:"永久";
         TLog("content-----",content)
-     
         return (<View style={G_Style.appContentView}>
 
             <View style={{height:100 ,borderBottomColor:G_Theme.gray,paddingTop:20,paddingBottom:20,}}>
@@ -35,7 +34,7 @@ export default class LinkDetailView extends BaseView {
             <View style={{height:25 ,borderBottomColor:G_Theme.gray,flexDirection:'row'}}>
                 <Text style={[{flex:1,textAlign:'center'}]} numberOfLines={1}>{content.is_agent ? "代理":"玩家"}</Text>
                 <Text style={[{flex:1,textAlign:'center'}]} numberOfLines={1}>{content.price_group[0].prize_group}</Text>
-                <Text style={{flex:1,textAlign:'center',fontSize:16,color:content.status == 2 || content.status == 1 ? G_Theme.grayDeep : G_Theme.primary}} numberOfLines={1}>{aStatus[content.status]}</Text>
+                <Text style={{flex:1,textAlign:'center',fontSize:16,color:content.status == 2 || content.status == 1 ? G_Theme.grayDeep : G_Theme.primary}} numberOfLines={1}>{content.status}</Text>
                 <Text style={{flex:1,textAlign:'center'}} numberOfLines={1}>{validstr}</Text>
 
             </View>
@@ -49,7 +48,7 @@ export default class LinkDetailView extends BaseView {
 
             </View>
             <TouchableHighlight   onPress={() => {
-                this._onClicpLink(data.url)
+                this._onClicpLink(content.url)
             }}>
 
             <View style={{height:70 ,borderColor:G_Theme.primary,backgroundColor:G_Theme.primary,padding:10,borderWidth:1,flexDirection:'row'}}>

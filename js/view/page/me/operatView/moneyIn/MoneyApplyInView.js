@@ -2,30 +2,35 @@ import React,{PropTypes} from 'react';
 import {
     View,
     Text, StyleSheet,
+    TouchableOpacity
 } from 'react-native';
 
 import TFlatList from "../../../../componet/TFlatList";
+import {TAIco} from "../../../../componet/tcustom/button/TButton";
 
 export default class MoneyApplyInView extends React.Component {
    static propTypes={
        loadMore:PropTypes.func,
-       dataList:PropTypes.any
+       dataList:PropTypes.any,
+       curPage:PropTypes.number,
+       totalPage:PropTypes.number
     }
 
     render() {
-        let {dataList,loadMore}=this.props
+        let {dataList,loadMore,curPage,totalPage}=this.props
         return (
             <View style={G_Style.appContentView}>
                 <View style={styles.headRow}>
                     <View style={[styles.itemHeadStyle,{flex:1}]}>
                         <Text style={styles.textHeadStyle}>日期</Text>
                     </View>
+                    <View style={[styles.itemHeadStyle,{flex:2}]}>
+                        <Text style={styles.textHeadStyle}>编号</Text>
+                    </View>
                     <View style={[styles.itemHeadStyle,{flex:1}]}>
                         <Text style={styles.textHeadStyle}>金额</Text>
                     </View>
-                    <View style={[styles.itemHeadStyle,{flex:1}]}>
-                        <Text style={styles.textHeadStyle}>实际充值</Text>
-                    </View>
+
                     <View style={[styles.itemHeadStyle,{flex:1}]}>
                         <Text style={styles.textHeadStyle}>手续费</Text>
                     </View>
@@ -33,7 +38,7 @@ export default class MoneyApplyInView extends React.Component {
                         <Text style={styles.textHeadStyle}>状态</Text>
                     </View>
                 </View>
-                <TFlatList dataList={dataList} loadMore={loadMore} renderRow={this._renderRow}/>
+                <TFlatList curPage={curPage} totalPage={totalPage} dataList={dataList} loadMore={loadMore} renderRow={this._renderRow}/>
             </View>
         );
     }
@@ -44,25 +49,31 @@ export default class MoneyApplyInView extends React.Component {
 
         let dateStr=   G_DateUtil.formatSimpleItemDateString(rowData.pay_time);
         let real_amount = rowData.real_amount ?  rowData.real_amount:0
-        return (
-                <View style={styles.row}>
-                    <View style={[styles.itemContentStyle,{flex:2}]}>
+        return (<View style={styles.row}>
+                    <View style={[styles.itemContentStyle,{flex:1}]}>
                         <Text style={styles.textItemStyle}>{dateStr}</Text>
                     </View>
-                    <View style={[styles.itemContentStyle,{flex:2}]}>
+                <View style={[styles.itemContentStyle,{flex:2}]}>
+                    <Text style={styles.textItemStyle} numberOfLines={3}>{rowData.deposit_id}</Text>
+                </View>
+                    <View style={[styles.itemContentStyle,{flex:1}]}>
                         <Text style={[styles.textItemStyle]}>{rowData.amount}</Text>
                     </View>
-                    <View style={[styles.itemContentStyle,{flex:2}]}>
-                        <Text style={styles.textItemStyle}>{real_amount}</Text>
-                    </View>
-                    <View style={[styles.itemContentStyle,{flex:2}]}>
+
+                    <View style={[styles.itemContentStyle,{flex:1}]}>
                         <Text style={styles.textItemStyle}>{rowData.fee}</Text>
                     </View>
-                    <View style={[styles.itemContentStyle,{flex:2}]}>
+                    <View style={[styles.itemContentStyle,{flex:1, flexDirection:"row", alignItems:"center"}]}>
                         <Text style={[styles.textItemStyle,{color:rowData.status ? "green":"red"}]} >{appModel.getADepositStatus(rowData.status)}</Text>
+                        {/*<TAIco name={"angle-right"} style={{fontSize: 20, marginLeft: 10,fontWeight: "bold",color:"red"}}/>*/}
                     </View>
                 </View>
+        // </TouchableOpacity>     {/*<TouchableOpacity onPress={()=>this.onPress(rowData)}>*/}
         );
+    }
+
+    onPress=(data)=>{
+       G_NavUtil.push(G_RoutConfig.ApplyInDetailView,{data,...this.props},"充值申请详情")
     }
 }
 
@@ -95,7 +106,7 @@ const styles = StyleSheet.create({
     },
     row: {
         flexDirection: 'row',
-        height: 40,
+        height: 45,
         borderBottomWidth:0.5,
         borderColor: "gray",
 

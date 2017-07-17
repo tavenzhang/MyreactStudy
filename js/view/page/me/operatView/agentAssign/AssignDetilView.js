@@ -25,7 +25,7 @@ export default class AssignDetilView extends BaseView {
 
     renderBody() {
         let dataList = this.state.dataObj ? this.state.dataObj.dataList : []
-        return (this.state.dataObj ? <View style={G_Style.appView}>
+        return (this.state.dataObj ? <View style={G_Style.appContentView}>
             <View style={{
                 flexDirection: "row", alignItems: "center", margin: 5, alignSelf: "center",marginBottom:20
             }}>
@@ -38,22 +38,7 @@ export default class AssignDetilView extends BaseView {
                               containerStyle={{paddingHorizontal: 10, borderRadius: 5}}
                               onPress={this._onSearchBtn}/>
             </View>
-            {/*<View style={{flexDirection: "row"}}>*/}
-            {/*<View style={[styles.headView, {flex: 2}]}>*/}
-            {/*<Text style={styles.headText}>下级代理</Text>*/}
-            {/*</View>*/}
-            {/*/!*<View style={[styles.headView, {flex: 2}]}>*!/*/}
-            {/*/!*<Text style={styles.headText}>奖金组</Text>*!/*/}
-            {/*/!*</View>*!/*/}
-            {/*{*/}
-            {/*this.state.dataObj.headList.map((item, index) => {*/}
-            {/*return ( <View style={[styles.headView]} key={index}>*/}
-            {/*<Text style={styles.headText}>{item.prize_group}</Text>*/}
-            {/*</View>)*/}
-            {/*})*/}
-            {/*}*/}
-            {/*/!*</View>*!/*/}
-            <TFlatList styleView={{flex:1, borderTopWidth: 1,borderColor:G_Theme.gray}} dataList={dataList}   renderRow={this.rendeRow}/>
+            <TFlatList styleView={{flex:1,borderTopWidth: 1,borderColor:G_Theme.gray}} dataList={dataList}   renderRow={this.rendeRow}/>
         </View> : null)
     }
 

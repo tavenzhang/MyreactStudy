@@ -4,6 +4,7 @@ global.G_EnumFontNames = {
     plus: "plus",
     angleRight: "angle-right",
     infoCircle: "info-circle",
-    bars: 'bars'
+    bars: 'bars',
+    minusCircle:"minus-circle",
 }
 

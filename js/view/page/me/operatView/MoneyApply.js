@@ -24,7 +24,11 @@ export default class MoneyApply extends BaseView {
                 { key: '2', title: '提现申请' }
             ],
             dataListIn:[],
+            inCurPage:1,
+            inTotalPage:1,
             dataListOut:[],
+            outCurPage:1,
+            outTotalPage:1,
         };
     }
 
@@ -39,9 +43,9 @@ export default class MoneyApply extends BaseView {
     _renderScene = ({ route }) => {
         switch (route.key) {
             case '1':
-                return <MoneyApplyInView appModel={this.props.appModel}  dataList={this.state.dataListIn} style={styles.page} loadMore={this._loadMoreInView} />;
+                return <MoneyApplyInView curPage={this.state.inCurPage} totalPage={this.state.inTotalPage} appModel={this.props.appModel}  dataList={this.state.dataListIn} style={styles.page} loadMore={this._loadMoreInView} />;
             case '2':
-                return <MoneyApplyOutView appModel={this.props.appModel} dataList={this.state.dataListOut} style={styles.page} loadMore={this._loadMoreOutView} />;
+                return <MoneyApplyOutView curPage={this.state.outCurPage} totalPage={this.state.outTotalPage}  appModel={this.props.appModel} dataList={this.state.dataListOut} style={styles.page} loadMore={this._loadMoreOutView} />;
             default:
                 return null;
         }
@@ -78,7 +82,7 @@ export default class MoneyApply extends BaseView {
         ActDispatch.FetchAct.fetchVoWithResult(  HTTP_SERVER.MONEY_IN_APPLY, (result) => {
             if (result.data.data) {
                 let arr =  G_ArrayUtils.addComapreCopy(this.state.dataListIn,result.data.data)
-                    this.setState({dataListIn: arr})
+                    this.setState({dataListIn: arr,inCurPage:result.data.current_page,inTotalPage:result.data.last_page})
             }
             if(callFinishBack)
             {
@@ -99,7 +103,7 @@ export default class MoneyApply extends BaseView {
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.MONEY_OUTER_APPLY, (result) => {
             if (result.data.datas.data) {
                 let arr =  G_ArrayUtils.addComapreCopy(this.state.dataListOut,result.data.datas.data)
-                this.setState({dataListOut: arr})
+                this.setState({dataListOut: arr,outCurPage:result.data.datas.current_page,outTotalPage:result.data.datas.last_page})
             }
             if(callFinishBack)
             {

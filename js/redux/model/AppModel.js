@@ -26,7 +26,6 @@ export  default class AppModel {
 
     getAWithdrawStatus(draw)
     {
-        TLog("getAWithdrawStatus---",draw);
         let obj=this.data.data.aWithdrawStatus;
         return  obj[`${draw}`];
     }

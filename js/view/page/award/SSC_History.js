@@ -24,6 +24,7 @@ export default class SSC_History extends BaseView {
         super(props);
         this.state = {
             dataArray: [],
+            lastPage:1,
         };
         this.next_id=0;
     }
@@ -32,7 +33,7 @@ export default class SSC_History extends BaseView {
     renderBody() {
         return (
             <View style={G_Style.appContentView}>
-                <TFlatList dataList={this.state.dataArray} loadMore={this.loadMore} renderRow={this._renderRow}/>
+                <TFlatList curPage={1} totalPage={this.state.lastPage} dataList={this.state.dataArray} loadMore={this.loadMore} renderRow={this._renderRow}/>
             </View>
         );
     }
@@ -47,9 +48,9 @@ export default class SSC_History extends BaseView {
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_Lottery_Hisotry,(result)=>{
             if(result.isSuccess)
             {
+                let lastPage = this.next_id !=  result.data.next_id ? 2:1;
                 this.next_id= result.data.next_id;
-                this.setState({dataArray:this.state.dataArray.concat(result.data.list)})
-
+                this.setState({dataArray:this.state.dataArray.concat(result.data.list),lastPage:lastPage})
                 if(callBack) {
                     callBack();
                 }

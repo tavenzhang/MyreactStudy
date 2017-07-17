@@ -19,7 +19,6 @@ const initAppState = fromJS({
     playModel: new PlayModel(),
     appModel:new AppModel(),
     bankCityModel:new BankCityModel(),
-    cardList:[],
     moneyBalance:0,
     routState:{isFlush:false},
     storageUser:{},
@@ -73,20 +72,6 @@ const appState = (state = initAppState, action) => {
             return state.merge({appModel: new AppModel(action.httpResult)});
         case ActionType.AppType.BANG_CITY_INFO:
             return state.merge({bankCityModel: new BankCityModel(action.httpResult)});
-        case ActionType.AppType.CARD_LIST_GET:
-            let tempList= state.get("cardList");
-            if( action.httpResult.data.current_page == 1)
-            {
-                tempList= action.httpResult.data.data;
-            }
-            else{
-                if(action.httpResult.data.data)
-                {
-                    tempList=tempList.concat(action.httpResult.data.data);
-                }
-            }
-           // TLog("ActionType.AppType.CARD_LIST_GET---",tempList)
-            return state.merge({cardList:tempList});
         case ActionType.AppType.APP_BACK_RESET:
             return state.merge(initAppState);
         case ActionType.AppType.PWD_FOUND_SET:

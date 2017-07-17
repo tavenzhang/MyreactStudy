@@ -5,7 +5,6 @@ import {
     , StyleSheet,
 } from 'react-native';
 import TDropListComponet from "../../../componet/TDropListComponet";
-
 import BaseView from "../../../componet/BaseView";
 import AutoHideKeyBoardView from "../../../componet/AutoHideKeyBoardView";
 import {TTextInput} from "../../../componet/tcustom/textInput/TTextInput";
@@ -102,7 +101,6 @@ export default class MoneyTransferView extends BaseView {
 
     componentDidMount() {
         let  params= this.props.navigation.state.params
-        G_RunAfterInteractions(() => {
             HTTP_SERVER.TRANSFER_GETINFO.url = HTTP_SERVER.TRANSFER_GETINFO.formatUrl.replace("#id", params.uid);
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.TRANSFER_GETINFO, (result) => {
                 let dataList = result.data.aBankCards.map((item) => {
@@ -111,7 +109,6 @@ export default class MoneyTransferView extends BaseView {
                 })
                 this.setState({dropDataList: dataList});
             });
-        })
     }
 
     onDataValid =()=>{

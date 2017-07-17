@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{PropTypes} from 'react';
 import {
     View,
     Text, StyleSheet,
@@ -9,15 +9,17 @@ import AIcon from 'react-native-vector-icons/FontAwesome';
 
 export default class ChaseRecodListView extends React.Component {
 
-    constructor(props) {
-        super(props);
+    static propTypes={
+        dataList:PropTypes.any,
+        curPage:PropTypes.number,
+        totalPage:PropTypes.number,
     }
 
     render() {
-        let {pageSize,dataList}=this.props
+        let {pageSize,dataList,curPage,totalPage}=this.props
         return (
             <View style={G_Style.appContentView}>
-                <TFlatList pageSize={pageSize} dataList={dataList} loadMore={this.props.loadMore} renderRow={this._renderRow}/>
+                <TFlatList  curPage={curPage} totalPage={totalPage} pageSize={pageSize} dataList={dataList} loadMore={this.props.loadMore} renderRow={this._renderRow}/>
             </View>
         )
     }

@@ -98,7 +98,7 @@ export default class Home extends BaseView {
             },true)
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.GET_LIST_SYSTEM, (result) => {
                 if (result.data.data) {
-                    ActDispatch.AppAct.setNoticeList(result.data.data);
+                    ActDispatch.AppAct.setNoticeList(result.data);
                 }
             },true);
 

@@ -30,7 +30,9 @@ export default class RecordBackView extends BaseView {
             curGame: null,
             curPlay: null,
             curTime: null,
-            dataList: []
+            dataList: [],
+            curPage:1,
+            totalPage:1,
         }
     }
 
@@ -38,7 +40,7 @@ export default class RecordBackView extends BaseView {
         return (
             <View style={G_Style.appContentView}>
                 <RecordMenuView clickMenuItem={this.clickMenuItem} {...this.props}/>
-                <TFlatList styleView={{flex: 1, marginTop: 35}} renderRow={this._renderRow} dataList={this.state.dataList} loadMore={this.loadMore}/>
+                <TFlatList curPage={this.state.curPage} totalPage={this.state.totalPage} styleView={{flex: 1, marginTop: 35}} renderRow={this._renderRow} dataList={this.state.dataList} loadMore={this.loadMore}/>
             </View>
         );
     }
@@ -124,7 +126,8 @@ export default class RecordBackView extends BaseView {
             if(result.data.datas.data)
             {
                 let arr = G_ArrayUtils.addComapreCopy(this.state.dataList, result.data.datas.data)
-                this.setState({dataList: arr});
+                this.setState({dataList: arr, curPage:result.data.datas.current_page,
+                    totalPage:result.data.datas.last_page,});
             }
         }, false);
 

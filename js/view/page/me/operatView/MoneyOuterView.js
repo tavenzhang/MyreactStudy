@@ -13,6 +13,7 @@ import BaseView from "../../../componet/BaseView";
 import AutoHideKeyBoardView from "../../../componet/AutoHideKeyBoardView";
 import {TButton} from "../../../componet/tcustom/button/TButton";
 import {TPicker} from "../../../componet/tcustom/picker/TPicker";
+import {TTextInput} from "../../../componet/tcustom/textInput/TTextInput";
 
 
 export default class MoneyOuterView extends BaseView {
@@ -92,21 +93,19 @@ export default class MoneyOuterView extends BaseView {
                         <Text style={styles.cellMargin}>{parseInt(this.state.dataInfo.accounts.withdrawable)}</Text>
                     </View>
                 </View>
-                <View style={{flexDirection: "row", alignItems: "center"}}>
+                <View style={{flexDirection: "row", alignItems: "center", justifyContent:"center"}}>
                     <View style={styles.trLeft}>
                         <Text style={styles.textLeft}>收款银行卡信息:</Text>
                     </View>
-                    <View style={styles.trRight}>
-                        <TPicker itemStyle={{width:200, height:150}} pickValue={this.state.pickValue}
+                    <TPicker viewStyle={styles.trRight} itemStyle={{width:200, height:150}} pickValue={this.state.pickValue}
                                  onValueChange={(data) => {
                                                   this.setState({pickValue: data})
                                       } }
                                  onRenderRow={this.onRenderPickRow}
-                        />
-                    </View>
+                    />
                 </View>
                 {bankCountView}
-                <View style={{flexDirection: "row"}}>
+                <View style={{flexDirection: "row",alignItems: "center"}}>
                     <View style={styles.trLeft}>
                         <Text style={styles.textLeft}>提现金额:</Text>
                     </View>
@@ -116,7 +115,7 @@ export default class MoneyOuterView extends BaseView {
                         borderBottomWidth: 0.5,
                         borderColor: G_Theme.gray
                     }]}>
-                        <TextInput
+                        <TTextInput
                             style={styles.textStyle}
                             onChangeText={(money) => this.setState({money})}
                             value={this.state.money}
@@ -127,7 +126,7 @@ export default class MoneyOuterView extends BaseView {
                         />
                     </View>
                 </View>
-                <View style={{flexDirection: "row", marginVertical: 5, marginBottom:20}}>
+                <View style={{flexDirection: "row", alignItems: "center",marginVertical: 5, marginBottom:20}}>
                     <View style={styles.trLeft}>
                         <Text style={styles.textLeft}>资金密码:</Text>
                     </View>
@@ -137,7 +136,7 @@ export default class MoneyOuterView extends BaseView {
                         borderBottomWidth: 0.5,
                         borderColor: G_Theme.gray
                     }]}>
-                        <TextInput
+                        <TTextInput
                             style={styles.textStyle}
                             onChangeText={(pwdText) => this.setState({pwdText})}
                             value={this.state.newPwd}
@@ -180,7 +179,7 @@ export default class MoneyOuterView extends BaseView {
 
     onRenderPickRow=()=>{
         let view=  this.state.dataInfo.bank_cards.map((item, index) => {
-            let name = `${G_StringUtil.formatBankCard(item.account)}[${item.bank}]`;
+            let name = `${G_StringUtil.formatBankCard(item.account)}-${item.bank}`;
             return (<Picker.Item label={name} value={item.id} key={index + "item"}/>)
         })
         return view;

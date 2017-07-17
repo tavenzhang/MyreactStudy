@@ -21,11 +21,13 @@ export  default  class ARankView extends  BaseView{
         super(props);
         this.state = {
             selectedTabIndex: 0,
-            dataList:[]
+            saleList:[],
+            accountList:[],
+            profitList:[]
         };
     }
     renderBody() {
-        return(<View>
+        return(<View style={G_Style.appContentView}>
                 <MySegmentedControlTab selectedTabIndex={this.state.selectedTabIndex} valueList={['投注额', '开户数',"净盈亏"]} onTabChange={this.onTabChange}/>
                 <TFlatList
                     dataList={this.state.dataList}
@@ -61,18 +63,36 @@ export  default  class ARankView extends  BaseView{
 
     onTabChange=(item,index)=>{
        // 投注额（sale）,开户数（newaccount），净盈亏（profit）
-        let typeList = ["sale","newaccount","profit"];
-        this.setState({dataList:[],selectedTabIndex:index})
-        HTTP_SERVER.AgentInfoMonth.url= HTTP_SERVER.AgentInfoMonth.formatUrl.replace("#type",typeList[index]);
-        G_RunAfterInteractions(()=>{
-            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentInfoMonth,(data)=>{
-                this.setState({dataList:data})
-            })
-        })
+        let result=this.state.saleList;
+        switch (parseInt(index)) {
+            case 0:
+                result= this.state.saleList
+                break;
+            case 1:
+                result= this.state.accountList
+                break;
+            case 2:
+                result= this.state.profitList
+                break;
+        }
+        this.setState({dataList:result,selectedTabIndex:index});
     }
 
     componentDidMount() {
         this.onTabChange(null,0);
+       // let typeList = ["sale","newaccount","profit"];
+        HTTP_SERVER.AgentInfoMonth.url= HTTP_SERVER.AgentInfoMonth.formatUrl.replace("#type","sale");
+        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentInfoMonth,(data)=>{
+            this.setState({saleList:data,dataList:data})
+        })
+        HTTP_SERVER.AgentInfoMonth.url= HTTP_SERVER.AgentInfoMonth.formatUrl.replace("#type","newaccount");
+        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentInfoMonth,(data)=>{
+            this.setState({accountList:data})
+        },true)
+        HTTP_SERVER.AgentInfoMonth.url= HTTP_SERVER.AgentInfoMonth.formatUrl.replace("#type","profit");
+        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentInfoMonth,(data)=>{
+            this.setState({profitList:data})
+        },true)
     }
 
 }

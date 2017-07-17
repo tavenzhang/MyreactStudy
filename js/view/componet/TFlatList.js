@@ -18,12 +18,17 @@ export default class TFlatList extends React.Component {
         keyExtractor:PropTypes.any,
         pageSize:PropTypes.any,
         initialNumToRender:PropTypes.number,
-        styleView:PropTypes.object
+        styleView:PropTypes.object,
+        curPage:PropTypes.number,
+        totalPage:PropTypes.number,
+        dataS:PropTypes.any
     }
 
     static defaultProps={
         pageSize:14,
-        initialNumToRender:10
+        initialNumToRender:10,
+        curPage:1,
+        totalPage:1,
     }
 
 
@@ -72,16 +77,12 @@ export default class TFlatList extends React.Component {
         );
     }
 
-    _onScroll=()=>{
-        this.isStartScroll=true
-    }
 
     _onFootFlush = ({distanceFromEnd}) => {
-        let {dataList,loadMore,pageSize}=this.props;
-        //TLog(`dataList= ${dataList.length}---FootFlushDic=${distanceFromEnd}----------pageSize=${pageSize}--------`,this.state)
-        if(this.isStartScroll&&dataList.length >= pageSize) {
-            TLog("_onFootFlush---");
-            //oldLength= dataList.length;
+        let {loadMore,curPage,totalPage}=this.props;
+        TLog("_onFootFlush---curPage=="+curPage,totalPage);
+        if(curPage<totalPage) {
+
             if(!this.state.showFootView)
             {
                 this.setState({showFootView: true}, () => {
@@ -104,10 +105,10 @@ export default class TFlatList extends React.Component {
     }
 
     _renderFooter = () => {
-        if (!this.state.showFootView) {
+        let {curPage,totalPage}=this.props;
+        if (!this.state.showFootView||curPage>=totalPage) {
             return null;
         }
-        TLog("_renderFooter------")
         return (
             <View style={{height: 50, justifyContent: "center", alignItems: "center"}}>
                 <ActivityIndicator />

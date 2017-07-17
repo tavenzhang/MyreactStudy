@@ -29,7 +29,9 @@ export default class RecordAssginView extends BaseView {
             curGame: null,
             curPlay: null,
             curTime: null,
-            dataList: []
+            dataList: [],
+            curPage:1,
+            totalPage:1,
         }
     }
 
@@ -37,7 +39,7 @@ export default class RecordAssginView extends BaseView {
         return (
             <View style={G_Style.appContentView}>
                 <RecordMenuView clickMenuItem={this.clickMenuItem} {...this.props}/>
-                <TFlatList styleView={{flex: 1, marginTop: 35}} renderRow={this._renderRow} dataList={this.state.dataList} loadMore={this.loadMore}/>
+                <TFlatList totalPage={this.state.totalPage} curPage={this.state.curPage} styleView={{flex: 1, marginTop: 35}} renderRow={this._renderRow} dataList={this.state.dataList} loadMore={this.loadMore}/>
             </View>
         );
     }
@@ -113,12 +115,12 @@ export default class RecordAssginView extends BaseView {
             if (callBack) {
                 callBack()
             }
-
             if(result.data.datas.data)
             {
 
                 let arr = G_ArrayUtils.addComapreCopy(this.state.dataList, result.data.datas.data)
-                this.setState({dataList: arr});
+                this.setState({dataList: arr,   curPage:esult.data.datas.current_page,
+                    totalPage:last_page,});
             }
         }, false);
 

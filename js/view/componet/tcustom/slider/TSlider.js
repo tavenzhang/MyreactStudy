@@ -38,7 +38,7 @@ export class TSlider extends React.PureComponent {
                         disabled={G_PLATFORM_IOS ? disable:false}
                         onValueChange={onValueChange}/>
                 </View>
-                <View style={{flexDirection: "row", marginVertical: 15, justifyContent: "space-between"}}>
+                <View style={{flexDirection: "row", marginTop: 10,justifyContent: "space-between"}}>
                     <Text>{myMinValue}</Text>
                     <Text>{myMaxValue}</Text>
                 </View>

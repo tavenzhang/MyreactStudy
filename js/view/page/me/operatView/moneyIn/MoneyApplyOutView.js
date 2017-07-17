@@ -9,10 +9,12 @@ import TFlatList from "../../../../componet/TFlatList";
 export default class MoneyApplyOutView extends React.Component {
     static propTypes={
         loadMore:PropTypes.func,
-        dataList:PropTypes.any
+        dataList:PropTypes.any,
+        curPage:PropTypes.number,
+        totalPage:PropTypes.number
     }
     render() {
-        let {dataList,loadMore}=this.props
+        let {dataList,loadMore,curPage,totalPage}=this.props
         return (
             <View style={G_Style.appContentView}>
                 <View style={styles.headRow}>
@@ -32,7 +34,7 @@ export default class MoneyApplyOutView extends React.Component {
                         <Text style={styles.textHeadStyle}>状态</Text>
                     </View>
                 </View>
-                <TFlatList dataList={dataList} loadMore={loadMore} renderRow={this._renderRow}/>
+                <TFlatList  curPage={curPage} totalPage={totalPage} dataList={dataList} loadMore={loadMore} renderRow={this._renderRow}/>
             </View>
         );
     }

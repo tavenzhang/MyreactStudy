@@ -4,19 +4,9 @@ import {
     Text, StyleSheet,
     TouchableOpacity
 } from 'react-native';
-import {connect} from 'react-redux';
 import BaseView from "../../../componet/BaseView";
 import {NavButtonAIco} from "../../../componet/navBarMenu/HeaderMenu";
 import TFlatList from "../../../componet/TFlatList";
-
-const mapStateToProps = state => {
-    return {
-        cardList:state.get("appState").get("cardList").toJS(),
-        pageSize:20
-    }
-}
-
-@connect(mapStateToProps)
 export default class MoneyCardView extends BaseView {
 
     static navigationOptions = ({navigation})=> ({
@@ -28,29 +18,41 @@ export default class MoneyCardView extends BaseView {
     constructor(props) {
         super(props);
         this.state={
-            pageSize:20
+            curPage:1,
+            totalPage:1,
+            cardList:[]
         }
     }
 
 
     renderBody() {
         return (
-            <TFlatList pageSize={this.state.pageSize} dataList={this.props.cardList} loadMore={this._loadMore} renderRow={this._renderRow}/>
+            <TFlatList totalPage={this.state.totalPage} curPage={this.state.curPage} dataList={this.state.cardList} loadMore={this._loadMore} renderRow={this._renderRow}/>
         );
     }
 
     componentDidMount() {
-        G_RunAfterInteractions(()=>{
-            HTTP_SERVER.LIST_BANGK_CARDS.body.page = 1;
-            HTTP_SERVER.LIST_BANGK_CARDS.body.pagesize = this.state.pageSize;
-            ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.LIST_BANGK_CARDS, ActionType.AppType.CARD_LIST_GET);
+        this._loadMore(null,1)
+    }
+
+    onForceFlushData(data){
+        this.setState({curPage:1,totalPage:1,cardList:[]},()=>{
+            this._loadMore(null,1);
         })
     }
 
     _loadMore = (callFinishBack,isFlush) => {
         HTTP_SERVER.LIST_BANGK_CARDS.body.page  = isFlush ? 1: HTTP_SERVER.LIST_BANGK_CARDS.body.page+1;
         HTTP_SERVER.LIST_BANGK_CARDS.body.pagesize = this.state.pageSize;
-        ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.LIST_BANGK_CARDS,ActionType.AppType.CARD_LIST_GET, (result) => {
+        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LIST_BANGK_CARDS, (result) => {
+            if(result.data)
+            {
+                this.setState({
+                    curPage:result.data.current_page,
+                    totalPage:result.data.last_page,
+                    cardList: G_ArrayUtils.addComapreCopy(this.state.cardList,result.data.data)
+                })
+            }
             if (callFinishBack) {
                 callFinishBack();
             }
@@ -99,7 +101,7 @@ export default class MoneyCardView extends BaseView {
     }
 
     onRightPressed() {
-        TLog("this.props.cardList---"+this.props.cardList.length)
+
         if(this.props.cardList.length<=0) {
             G_NavUtil.push(G_RoutConfig.AddCardView,{title: "添加银行卡"});
         }else {

@@ -32,6 +32,8 @@ export default class AgentTeamView extends BaseView {
         this.state = {
             searchData: {username: '', is_agent: '', date_to: '', date_from: ''},
             dataList:[],
+            curPage:1,
+            totalPage:1,
             modalVisible: false
         }
     }
@@ -81,7 +83,7 @@ export default class AgentTeamView extends BaseView {
        // TLog('[[[[[[[searchData]]]]]]',searchData);
         return (<View>
             <AgentFindView onFindPress={this.onFindPress} visible={this.state.modalVisible}  hideViewHandle={this.onHideModal}/>
-            <TeamListView userData={userData}  dataList={this.state.dataList} {...this.state}/>
+            <TeamListView curPage={this.state.curPage} totalPage={this.state.totalPage} userData={userData}  dataList={this.state.dataList} {...this.state}/>
         </View>)
     }
 }

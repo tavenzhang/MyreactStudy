@@ -23,7 +23,6 @@ export default class MoneyInView extends BaseView {
     }
 
 
-
     renderBody() {
         return (<View>
             <MySegmentedControlTab selectedTabIndex={this.state.selectedTabIndex} valueList={['第三方充值','银行卡充值']} onTabChange={this.onTabChange}/>

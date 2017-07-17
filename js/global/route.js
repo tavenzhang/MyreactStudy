@@ -53,7 +53,8 @@ import RecordAssginView from "../view/page/me/operatView/RecordAssginView";
 import RecordBackView from "../view/page/me/operatView/RecordBackView";
 import AssignDetailView from "../view/page/me/operatView/record/AssignDetailView";
 import BackDetailView from "../view/page/me/operatView/record/BackDetailView";
-
+import ApplyInDetailView from "../view/page/me/operatView/moneyIn/ApplyInDetailView";
+import ApplyOuterDetailView from "../view/page/me/operatView/moneyIn/ApplyOuterDetailView";
 
 let tabMyNavigator = TabNavigator({
         Home: {
@@ -163,6 +164,8 @@ global.G_RoutConfig = {
     RecordBackView: createNavScreen(RecordBackView, "RecordBackView"),
     AssignDetailView: createNavScreen(AssignDetailView, "AssignDetailView"),
     BackDetailView: createNavScreen(BackDetailView, "BackDetailView"),
+    ApplyInDetailView: createNavScreen(ApplyInDetailView, "ApplyInDetailView"),
+    ApplyOuterDetailView:createNavScreen(ApplyOuterDetailView, "ApplyOuterDetailView"),
 }
 
 global.G_NavAppOptionsConfig = {
@@ -199,9 +202,9 @@ global.G_NavUtil = {
     pop: (componet,data = {}) => {
         //避免goback 引起的多次didMound
         if(componet) {
-            data.name=componet.name;
+            data.mod=componet.name;
         }else{
-            data.name="";
+            data.mod="";
         }
         ActDispatch.AppAct.app_route_state(true, data);
         setTimeout(G_Navigation.goBack, 200);

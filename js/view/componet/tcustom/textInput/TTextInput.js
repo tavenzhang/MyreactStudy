@@ -19,11 +19,12 @@ export class TTextInput extends React.Component {
         secureTextEntry:PropTypes.bool,
         autoFocus:PropTypes.bool,
         onfocus:PropTypes.func,
-        maxLength:PropTypes.number
+        maxLength:PropTypes.number,
+        onSubmitEditing:PropTypes.func
     }
 
     render() {
-        const {placeholder, maxLength,onfocus,style, autoFocus, viewStyle,secureTextEntry,onChangeText,multiline,keyboardType,value} = this.props;
+        const {onSubmitEditing,placeholder, maxLength,onfocus,style, autoFocus, viewStyle,secureTextEntry,onChangeText,multiline,keyboardType,value} = this.props;
         return (
             <View style={viewStyle}>
                 <TextInput
@@ -39,6 +40,7 @@ export class TTextInput extends React.Component {
                     keyboardType={keyboardType ? keyboardType :"default"}
                     underlineColorAndroid={'transparent'}
                     secureTextEntry={secureTextEntry ? secureTextEntry:false}
+                    onSubmitEditing={onSubmitEditing}
                 />
             </View>)
     }

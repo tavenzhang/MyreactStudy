@@ -1,22 +1,19 @@
 import React from 'react';
 import {
     View,
-    ListView,
     StyleSheet,
     Text,
     TouchableHighlight
 } from 'react-native';
 
 import AIcon from 'react-native-vector-icons/FontAwesome';
+import TFlatList from "../../../../componet/TFlatList";
 
 export default class ProfitListView extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (r1, r2) => r1 !== r2,
-            }),
             searchData: {},
             oSelfProfit: {},
             oAgentSumPerDay: [],
@@ -86,19 +83,19 @@ export default class ProfitListView extends React.Component {
     }
 
     render() {
-        let {dataList} = this.props;
-        let ds = this.state.dataSource.cloneWithRows(dataList)
+        let {dataList,curPage,totalPage} = this.props;
         if (dataList) {
             return (<View >
                 {this.rendeSum()}
                 {this.renderSelf()}
                 {this.renderDirect()}
-
-                <ListView
-                    dataSource={ds}
-                    renderRow={this.rendeRow}
-                    enableEmptySections
+                <TFlatList
+                     dataList={dataList}
+                     renderRow={this.rendeRow}
+                     curPage={curPage}
+                     totalPage={totalPage}
                 />
+
             </View>)
         }
         return (

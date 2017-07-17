@@ -17,13 +17,15 @@ export default class PersonMailView extends BaseView {
         this.state = {
             dataList: [],
             msgList:[],
+            curPage:1,
+            totalPage:1,
         };
     }
 
     renderBody() {
         return (
             <View style={G_Style.appContentView}>
-                <TFlatList dataList={this.state.dataList} renderRow={this._renderRow}/>
+                <TFlatList curPage={this.state.curPage} totalPage={this.state.totalPage} dataList={this.state.dataList} renderRow={this._renderRow}/>
             </View>
         );
     }
@@ -35,7 +37,8 @@ export default class PersonMailView extends BaseView {
                 ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LETTER_LIST, (result) => {
                     if (result.data.data) {
                         let arr = this.state.dataList.concat(result.data.data);
-                        this.setState({dataList: arr});
+                        this.setState({dataList: arr, curPage:result.data.current_page,
+                            totalPage:last_page});
                         this.setState({msgList: result.data.msg_type});
                     }
                 });

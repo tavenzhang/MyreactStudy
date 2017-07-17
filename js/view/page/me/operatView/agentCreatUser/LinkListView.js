@@ -2,11 +2,9 @@ import React, {PropTypes} from 'react';
 import {
     View,
     Text, StyleSheet,
-    Clipboard,
-    TouchableHighlight,
+    TouchableOpacity
 } from 'react-native';
 import TFlatList from "../../../../componet/TFlatList";
-import Button from "react-native-button";
 import BaseView from "../../../../componet/BaseView";
 import AIcon from 'react-native-vector-icons/FontAwesome';
 
@@ -39,43 +37,31 @@ export default class LinkListView extends BaseView {
     }
 
     renderHeadView = () => {
-        return (<View style={{flexDirection: "row"}}>
-            {/*<Text style={[styles.headView]}>类型</Text>*/}
-            {/*<Text style={[styles.headView,{flex:4}]}>复制链接</Text>*/}
-            {/*<Text style={[styles.headView,{flex:2}]}>操作</Text>*/}
+        return (<View>
         </View>)
     }
 
     rendeRow = (data) => {
 
-        // const price_group = JSON.parse(data.prize_group_sets);
-        // const nowDate = Date.parse(new Date()),
-        //     expirtDate = G_DateUtil.datetime2unix(data.expired_at);
-        // if (nowDate > expirtDate) {
-        //     data.status = 2; //过期
-        // }
-        // TLog('this.state.aStatus',this.state.aStatus);
         return (<View style={[styles.row, {backgroundColor: data.status == 2 || data.status == 1 ? '#ccc' : '#fff'}]}>
-            <TouchableHighlight onPress={() => {
+            <TouchableOpacity onPress={() => {
                 this._onDeleteLink(data)
             }}>
-                <View style={[styles.contentView, {flex: 1,}]}>
-                    <AIcon name={'minus-circle'}
-                           style={{fontSize: 20, color: G_Theme.grayDeep,}}/>
+                <View style={[styles.contentView, {flex: 2}]}>
+                    <AIcon name={G_EnumFontNames.minusCircle}
+                           style={{fontSize: 20, color:"red", marginLeft:14}}/>
                 </View>
-            </TouchableHighlight>
-            <View style={[styles.contentView, {flex: 2}]}>
-                <View style={{flexDirection: "row",}}>
+            </TouchableOpacity>
+            <View style={[styles.contentView, {flex: 3}]}>
+                <View>
                     <Text style={[styles.agentText]}>
-                        {data.is_agent > 0 ? "代理" : "玩家"}
+                     {data.is_agent > 0 ? "代理" : "玩家"}
                     </Text>
                     <Text style={{
                         fontSize: 12,
                         color: G_Theme.grayDeep,
                         lineHeight: 20,
-                        marginLeft: 3
-                    }}>{this.state.aStatus[data.status]}</Text>
-
+                    }}>有效期:{data.status}</Text>
                 </View>
 
                 <Text numberOfLines={1} style={{fontSize: 12, color: G_Theme.grayDeep, lineHeight: 20}}>
@@ -83,19 +69,17 @@ export default class LinkListView extends BaseView {
                 </Text>
             </View>
 
-            <View style={[styles.contentView, {flex: 6,}]}>
-                <Text numberOfLines={2} style={{lineHeight: 20}} onPress={() => {
-                    this._onClicpLink(data.url)
-                }}>{data.url}</Text>
+            <View style={[styles.contentView, {flex: 5}]}>
+                <Text numberOfLines={2} style={{lineHeight: 20}}>{data.url}</Text>
             </View>
 
                 <View style={[styles.contentView, {flex: 2}]}>
-                    <TouchableHighlight onPress={() => {
+                    <TouchableOpacity onPress={() => {
                         this._onDetailLink(data)
                     }}>
                     <AIcon name={"angle-right"}
-                           style={{fontSize: 25, alignSelf: "center", color: G_Theme.primary}}/>
-                    </TouchableHighlight>
+                           style={{fontSize: 25, fontWeight: "bold",alignSelf: "center",color:"red"}}/>
+                    </TouchableOpacity>
                 </View>
 
 
@@ -106,27 +90,29 @@ export default class LinkListView extends BaseView {
         G_RunAfterInteractions(() => {
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentUserLinkList, (data) => {
                 let result = data.data.datas.data;
-
                 for (let index in result) {
-                    const nowDate = Date.parse(new Date()),
+                    const nowDate = Date.parse(new Date());
+                    let  expirtDate=null;
+                    if(result[index].expired_at)
+                    {
                         expirtDate = G_DateUtil.datetime2unix(result[index].expired_at);
-                    if (nowDate > expirtDate) {
-                        result[index].status = 2; //过期
+                        if (nowDate > expirtDate) {
+                            result[index].status = "已过期"; //过期
+                        }
+                        else{
+                            result[index].status = Math.ceil((expirtDate-nowDate)/(1000*60*60*24))+"天";
+                        }
+                    }else{
+                        result[index].status="永久"
                     }
                     result[index].price_group = JSON.parse(result[index].prize_group_sets);
                 }
-
-
                 this.setState({dataList: result})
-                this.setState({aStatus: data.data.sources.aStatus})
+                // this.setState({aStatus: data.data.sources.aStatus})
             })
         })
     }
 
-    _onClicpLink = (data) => {
-        Clipboard.setString(data);
-        G_AlertUtil.show("", "复制成功！")
-    }
     _onDeleteLink = (data) => {
         G_RunAfterInteractions(() => {
             HTTP_SERVER.AgentUserDelLink.url = HTTP_SERVER.AgentUserDelLink.formatUrl.replace("#id", data.id);
@@ -148,22 +134,23 @@ export default class LinkListView extends BaseView {
     }
 
     _onDetailLink = (data) => {
-        G_NavUtil.push(G_RoutConfig.LinkDetailView,{content: data, aStatus: this.state.aStatus},"链接详情")
+        G_NavUtil.push(G_RoutConfig.LinkDetailView,{content: data},"链接详情")
     }
 }
 
 const styles = StyleSheet.create({
     row: {
-        flexDirection: "row", height: 60, borderBottomWidth: 1, borderBottomColor: G_Theme.gray
+        flexDirection: "row", height: 65, borderBottomWidth: 1, borderBottomColor: G_Theme.gray
     },
     agentText: {
         backgroundColor: G_Theme.primary,
-        paddingTop: 2,
+        padding: 2,
         borderRadius: 8,
         width: 40,
         height: 16,
-        overflow: 'hidden',
-        color: '#fff', fontSize: 12, textAlign: 'center', width: 40
+        justifyContent: "center",
+        alignItems: "center",
+        color: '#fff', fontSize: 12, textAlign: 'center',
     },
 
 
@@ -187,10 +174,8 @@ const styles = StyleSheet.create({
     },
     contentView: {
         flex: 1,
-        padding: 5,
-        // borderWidth: 1,
         borderColor: G_Theme.gray,
-        // alignItems:"center",
+        alignItems:"center",
         justifyContent: "center"
     }
 })

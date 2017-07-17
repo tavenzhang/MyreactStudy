@@ -12,16 +12,23 @@ import TFlatList from "../../../../componet/TFlatList";
 
 
 export default class AssignDetilView extends BaseView {
+    static navigationOptions={
+        title:"配额详情"
+    }
 
     constructor(props) {
         super(props);
+        let userName="";
+        let {params}=this.props.navigation.state;
+        if(params)
+        {
+            userName = params.userName;
+        }
         this.state = {
             dataObj: null,
-            userName: "",
+            userName
         }
     }
-
-
 
     renderBody() {
         let dataList = this.state.dataObj ? this.state.dataObj.dataList : []
@@ -114,12 +121,11 @@ export default class AssignDetilView extends BaseView {
 
     onForceFlushData(data){
         this.flushData(true);
-        TLog("onForceFlushData--asssDeatl");
     }
 
-    flushData = (isHideLoading, username = "") => {
+    flushData = (isHideLoading) => {
         G_RunAfterInteractions(() => {
-            HTTP_SERVER.AgentAssinList.body.username = username
+            HTTP_SERVER.AgentAssinList.body.username = this.state.userName
             HTTP_SERVER.AgentAssinList.body.prize_group = this.props.navigation.state.params.prize_group
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentAssinList, (data) => {
                 let dataObj = {}
@@ -131,8 +137,6 @@ export default class AssignDetilView extends BaseView {
                 }
                 dataObj.headList = headList;
                 let dataList = [];
-                TLog("dataObj.headList ----",dataObj.headList )
-                TLog("dataObj.aSubUsers ------", data.data.aSubUsers)
                 let obj = data.data.aSubUsers;
                 for (let key in obj) {
                     let temp = obj[key];
@@ -160,7 +164,7 @@ export default class AssignDetilView extends BaseView {
     }
 
     _onSearchBtn = () => {
-        this.flushData(false, this.state.userName);
+        this.flushData(false);
     }
 }
 

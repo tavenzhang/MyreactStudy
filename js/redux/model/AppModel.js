@@ -3,6 +3,12 @@ export  default class AppModel {
     constructor(data) {
         if (data) {
             this.data = data;
+            let obj=this.data.data.aTransactionTypes;
+            let resultList=[{name:"全部类型",value:""}];
+            for (let key in  obj){
+                resultList.push({name:obj[key],value:key})
+            }
+            this.getATransactionTypeList = resultList;
         }
     }
 

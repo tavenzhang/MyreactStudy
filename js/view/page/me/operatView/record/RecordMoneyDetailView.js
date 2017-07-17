@@ -6,58 +6,55 @@ import {
 } from 'react-native';
 import BaseView from "../../../../componet/BaseView";
 
-export  default class AssignDetailView extends BaseView {
+export  default class RecordMoneyDetailView extends BaseView {
 
     renderBody() {
-        let {appModel,data} = this.props.navigation.state.params
+        let {appModel,data,gameModel,playModel,userData} = this.props.navigation.state.params
+        let gameName= gameModel.getGameNameById(data.lottery_id);
+        let playName = playModel.getWayNameById(data.way_id);
+        let money= data.is_income ? `+${ parseInt(data.amount)}`:`-${ parseInt(data.amount)}`
+
         return (<View style={[G_Style.appContentView]}>
             <View style={styles.profitRow}>
                 <Text style={styles.title}>用户名:</Text>
                 <Text
-                    style={[styles.text, styles.winStatus]}>{data.username}</Text>
+                    style={[styles.text, styles.winStatus]}>{userData.data.nickname}</Text>
             </View>
             <View style={styles.profitRow}>
-                <Text style={styles.title}>开始日期:</Text>
+                <Text style={styles.title}>编号:</Text>
                 <Text
-                    style={[styles.text, styles.winStatus]}>{data.begin_date}</Text>
+                    style={[styles.text, styles.winStatus]}>{data.serial_number}</Text>
             </View>
             <View style={styles.profitRow}>
-                <Text style={styles.title}>结束日期:</Text>
-                <Text style={[styles.text, styles.winNumber]}>{data.end_date}</Text>
+                <Text style={[styles.title]}>账变类型:</Text>
+                <Text style={[styles.text,styles.winStatus]}>{appModel.getATransactionType(data.type_id)}</Text>
             </View>
             <View style={styles.profitRow}>
-                <Text style={styles.title}>审核状态:</Text>
-                <Text style={[styles.text, styles.winNumber]}>{appModel.getAWithdrawStatus(data.draw_status)}</Text>
-            </View>
-            <View style={styles.profitRow}>
-                <Text style={styles.title}>领取状态:</Text>
-                <Text style={[styles.text, styles.winNumber]}>{data.status ? "已领取":"未领取"}</Text>
+                <Text style={styles.title}>创建日期:</Text>
+                <Text style={[styles.text, styles.winNumber]}>{data.created_at}</Text>
             </View>
 
-            <View style={[styles.profitRow,{borderColor: G_Theme.gray,backgroundColor: '#fff',}]}>
-                <Text style={styles.title}>净盈亏:</Text>
-                <Text style={[styles.text,{color:G_Theme.grayDeep}]}>{data.profit}</Text>
-            </View>
-            <View style={[styles.profitRow,{borderColor: G_Theme.gray,backgroundColor: '#fff',}]}>
-                <Text style={styles.title}>总计盈亏:</Text>
-                <Text style={[styles.text,{color:G_Theme.grayDeep}]}>{data.total_profit}</Text>
-            </View>
-            <View style={[styles.profitRow,{borderColor: G_Theme.gray,backgroundColor: '#fff',}]}>
-                <Text style={styles.title}>销量:</Text>
-                <Text style={[styles.text,{color:G_Theme.grayDeep}]}>{data.turnover}</Text>
+            <View style={styles.profitRow}>
+                <Text style={styles.title}>模式:</Text>
+                <Text style={[styles.text, styles.winNumber]}>{appModel.getACoefficients(data.coefficient)}</Text>
             </View>
             <View style={styles.profitRow}>
-                <Text style={[styles.title]}>分红比例:</Text>
-                <Text style={[styles.text,styles.winNumber]}>{data.rate}%</Text>
+                <Text style={styles.title}>账户余额:</Text>
+                <Text style={[styles.text, styles.winNumber]}>{data.available}</Text>
             </View>
-            <View style={styles.profitRow}>
-                <Text style={[styles.title]}>分红:</Text>
-                <Text  style={[styles.text,styles.winNumber,{color:"green"}]}>{data.bonus}</Text>
+            <View style={[styles.profitRow,{borderColor: G_Theme.gray,backgroundColor: '#fff',}]}>
+                <Text style={styles.title}>金额:</Text>
+                <Text style={[styles.text,styles.winNumber]}>{money}</Text>
             </View>
-            <View style={styles.profitRow}>
-                <Text style={[styles.title]}>分红数量:</Text>
-                <Text style={[styles.text,styles.winNumber,{color:"green"}]}>{data.bonus_count}</Text>
+            <View style={[styles.profitRow,{borderColor: G_Theme.gray,backgroundColor: '#fff',}]}>
+                <Text style={styles.title}>游戏:</Text>
+                <Text style={[styles.text,styles.winStatus]}>{gameName}</Text>
             </View>
+            <View style={[styles.profitRow,{borderColor: G_Theme.gray,backgroundColor: '#fff',}]}>
+                <Text style={styles.title}>玩法:</Text>
+                <Text style={[styles.text,styles.winStatus]}>{playName}</Text>
+            </View>
+
         </View>);
     }
 

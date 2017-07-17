@@ -36,7 +36,7 @@ export default class MoneyDetailView extends BaseView {
             dataList3:[],
             curPage3:3,
             totalPage3:3,
-            dataList3:[],
+            dataList4:[],
             curPage4:4,
             totalPage4:4,
             dataList5:[],
@@ -84,7 +84,7 @@ export default class MoneyDetailView extends BaseView {
     }
 
     componentDidMount(){
-        this._loadMore(HTTP_SERVER.LIST_REANSACTON,null,1);
+         this._loadMore(HTTP_SERVER.LIST_REANSACTON,null,1);
         this._loadMore(HTTP_SERVER.LIST_ADD_MONEY,null,1);
         this._loadMore(HTTP_SERVER.LIST_DRAW,null,1);
         this._loadMore(HTTP_SERVER.LIST_AWARD_MONEY,null,1);
@@ -105,8 +105,11 @@ export default class MoneyDetailView extends BaseView {
                 let arr=null;
                 switch (httpService) {
                     case HTTP_SERVER.LIST_REANSACTON:
-                        arr =   G_ArrayUtils.addComapreCopy(this.state.dataList1,result.data.data)
-                        this.setState({dataList1: arr,curPage1:result.data.current_page ,totalPage1:result.data.last_page})
+                        if(result.isSuccess)
+                        {
+                            arr =   G_ArrayUtils.addComapreCopy(this.state.dataList1,result.data.data)
+                            this.setState({dataList1: arr,curPage1:result.data.current_page ,totalPage1:result.data.last_page})
+                        }
                         break;
                     case HTTP_SERVER.LIST_ADD_MONEY:
                         arr =   G_ArrayUtils.addComapreCopy(this.state.dataList2,result.data.data)

@@ -9,8 +9,8 @@ import BaseView from "../../../../componet/BaseView";
 import AIcon from 'react-native-vector-icons/FontAwesome';
 
 export default class LinkListView extends BaseView {
-    static  navigationOptions={
-        title:"开户链接"
+    static  navigationOptions = {
+        title: "开户链接"
     }
     static propTypes = {
         isGentUser: PropTypes.any,
@@ -22,6 +22,8 @@ export default class LinkListView extends BaseView {
         this.state = {
             dataList: [],
             aStatus: [],
+            curPage: 1,
+            totalPage: 1
         }
     }
 
@@ -29,6 +31,8 @@ export default class LinkListView extends BaseView {
 
         return (<View style={G_Style.appContentView}>
             <TFlatList
+                curPage={this.state.curPage}
+                totalPage={this.state.totalPage}
                 dataList={this.state.dataList}
                 renderHeader={this.renderHeadView}
                 renderRow={this.rendeRow}
@@ -49,13 +53,13 @@ export default class LinkListView extends BaseView {
             }}>
                 <View style={[styles.contentView, {flex: 2}]}>
                     <AIcon name={G_EnumFontNames.minusCircle}
-                           style={{fontSize: 20, color:"red", marginLeft:14}}/>
+                           style={{fontSize: 20, color: "red", marginLeft: 14}}/>
                 </View>
             </TouchableOpacity>
             <View style={[styles.contentView, {flex: 3}]}>
                 <View>
                     <Text style={[styles.agentText]}>
-                     {data.is_agent > 0 ? "代理" : "玩家"}
+                        {data.is_agent > 0 ? "代理" : "玩家"}
                     </Text>
                     <Text style={{
                         fontSize: 12,
@@ -63,24 +67,26 @@ export default class LinkListView extends BaseView {
                         lineHeight: 20,
                     }}>有效期:{data.status}</Text>
                 </View>
-
                 <Text numberOfLines={1} style={{fontSize: 12, color: G_Theme.grayDeep, lineHeight: 20}}>
                     奖金组:{data.price_group[0].prize_group}
                 </Text>
             </View>
 
             <View style={[styles.contentView, {flex: 5}]}>
-                <Text numberOfLines={2} style={{lineHeight: 20}}>{data.url}</Text>
+                <TouchableOpacity onPress={() => {
+                    this._onDetailLink(data)
+                }}>
+                    <Text numberOfLines={2} style={{lineHeight: 20}}>{data.url}</Text>
+                </TouchableOpacity>
             </View>
+            <TouchableOpacity  onPress={() => {
+                this._onDetailLink(data)
+            }}  style={[styles.contentView, {flex: 2}]}>
+            <View>
+                <AIcon name={"angle-right"} style={{fontSize: 25, fontWeight: "bold", alignSelf: "center", color: "red"}}/>
 
-                <View style={[styles.contentView, {flex: 2}]}>
-                    <TouchableOpacity onPress={() => {
-                        this._onDetailLink(data)
-                    }}>
-                    <AIcon name={"angle-right"}
-                           style={{fontSize: 25, fontWeight: "bold",alignSelf: "center",color:"red"}}/>
-                    </TouchableOpacity>
-                </View>
+            </View>
+            </TouchableOpacity>
 
 
         </View>)
@@ -89,27 +95,33 @@ export default class LinkListView extends BaseView {
     componentDidMount() {
         G_RunAfterInteractions(() => {
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentUserLinkList, (data) => {
-                let result = data.data.datas.data;
-                for (let index in result) {
-                    const nowDate = Date.parse(new Date());
-                    let  expirtDate=null;
-                    if(result[index].expired_at)
-                    {
-                        expirtDate = G_DateUtil.datetime2unix(result[index].expired_at);
-                        if (nowDate > expirtDate) {
-                            result[index].status = "已过期"; //过期
+                    if (data.data.datas) {
+                        let result = data.data.datas.data;
+                        for (let index in result) {
+                            const nowDate = Date.parse(new Date());
+                            let expirtDate = null;
+                            if (result[index].expired_at) {
+                                expirtDate = G_DateUtil.datetime2unix(result[index].expired_at);
+                                if (nowDate > expirtDate) {
+                                    result[index].status = "已过期"; //过期
+                                }
+                                else {
+                                    result[index].status = Math.ceil((expirtDate - nowDate) / (1000 * 60 * 60 * 24)) + "天";
+                                }
+                            } else {
+                                result[index].status = "永久"
+                            }
+                            result[index].price_group = JSON.parse(result[index].prize_group_sets);
                         }
-                        else{
-                            result[index].status = Math.ceil((expirtDate-nowDate)/(1000*60*60*24))+"天";
-                        }
-                    }else{
-                        result[index].status="永久"
+                        this.setState({
+                            dataList: G_ArrayUtils.addComapreCopy(this.state.dataList, result),
+                            curPage: data.data.datas.current_page,
+                            totalPage: data.data.datas.last_page
+                        })
+                        // this.setState({aStatus: data.data.sources.aStatus})
                     }
-                    result[index].price_group = JSON.parse(result[index].prize_group_sets);
                 }
-                this.setState({dataList: result})
-                // this.setState({aStatus: data.data.sources.aStatus})
-            })
+            )
         })
     }
 
@@ -134,7 +146,7 @@ export default class LinkListView extends BaseView {
     }
 
     _onDetailLink = (data) => {
-        G_NavUtil.push(G_RoutConfig.LinkDetailView,{content: data},"链接详情")
+        G_NavUtil.push(G_RoutConfig.LinkDetailView, {content: data}, "链接详情")
     }
 }
 
@@ -175,7 +187,7 @@ const styles = StyleSheet.create({
     contentView: {
         flex: 1,
         borderColor: G_Theme.gray,
-        alignItems:"center",
+        alignItems: "center",
         justifyContent: "center"
     }
 })

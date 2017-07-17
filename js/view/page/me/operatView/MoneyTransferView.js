@@ -9,36 +9,49 @@ import BaseView from "../../../componet/BaseView";
 import AutoHideKeyBoardView from "../../../componet/AutoHideKeyBoardView";
 import {TTextInput} from "../../../componet/tcustom/textInput/TTextInput";
 import {TButton} from "../../../componet/tcustom/button/TButton";
+import connect from "react-redux/src/components/connect";
 
+const mapStateToProps = state => {
+    return {
+        userData: state.get("appState").get("userData").toJS(),
+        moneyBalance: state.get("appState").get("moneyBalance"),
+    }
+}
+@connect(mapStateToProps)
 export default class MoneyTransferView extends BaseView {
+    static navigationOptions={
+        title:"账户转账"
+    }
+
     constructor(props) {
         super(props);
-        let agentName="";
-       let  params= this.props.navigation.state.params
-        if(params&&params.username)
+        let agentCount = "";
+        let money="";
+        let {params}=this.props.navigation.state;
+        if(params)
         {
-            agentName=params.username;
+            agentCount=params.username ? params.username : ""
+            money =params.money ? params.money:""
         }
         this.state = {
             pwdText: "",
-            agentCount: "",
+            agentCount,
             cardNum: "",
-            money: "",
+            money,
             dropDataList: [],
             dropSelectItem: null,
         };
     }
 
 
-
     renderBody() {
-        let  params= this.props.navigation.state.params
+        let {moneyBalance}=this.props
         return (
             <AutoHideKeyBoardView>
                 <View style={G_Style.appView}>
                     <View style={{flex: 1, marginLeft: 40, marginRight: 40, marginTop: 40}}>
                         <View style={styles.inputContain}>
-                            <Text>账户余额: {G_DateUtil.formatMoney(params.money)}元</Text>
+                            <Text>账户余额: {G_DateUtil.formatMoney(moneyBalance)} 元</Text>
                         </View>
                         <View style={styles.inputContain}>
                             <Text>收款账号:</Text>

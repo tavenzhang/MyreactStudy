@@ -3,6 +3,7 @@ import {
     View,
     Text, StyleSheet,
     TouchableOpacity,
+    ScrollView
 } from 'react-native';
 import AIcon from 'react-native-vector-icons/FontAwesome';
 import LayoutAnimation from "react-native/Libraries/LayoutAnimation/LayoutAnimation";
@@ -71,8 +72,7 @@ export default class RecordMenuView extends React.PureComponent {
         return (
             <View style={{position: "absolute", width:G_Theme.windowWidth ,zIndex: 112}}>
                 <View
-                    style={{
-                        flexDirection: "row",
+                    style={{flexDirection: "row",
                         height: 35,
                         borderBottomColor: G_Theme.gray, borderBottomWidth: 1
                     }}>
@@ -143,6 +143,7 @@ export default class RecordMenuView extends React.PureComponent {
     menuView = (data, listType, btnName) => {
         if (data) {
             return (
+            <ScrollView style={{height:500}}>
                 <View
                     style={{
                         flexDirection: "row",
@@ -186,7 +187,7 @@ export default class RecordMenuView extends React.PureComponent {
                         })
                     }
                 </View>
-            )
+            </ScrollView>)
         }
         else {
             return null

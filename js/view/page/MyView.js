@@ -18,6 +18,7 @@ export let ItemNameEnum = {
     chaseRecode: "追号记录",
     recordBack:"返点记录",
     recordAssignProfit:"分红记录",
+    recordMoney:"账变记录",
     //资金管理
     myMoney: "资金明细",
     outerMoney: "账户提现",
@@ -75,6 +76,7 @@ export default class MyView extends BaseView {
     static dataListRecord = [
         { ico: "file-text",   name: ItemNameEnum.betRecord
         }, {ico: "file-text-o", name: ItemNameEnum.chaseRecode},
+        {ico: "money", name: ItemNameEnum.recordMoney},
         {ico: "random", name: ItemNameEnum.recordBack},
         {ico: "gift", name: ItemNameEnum.recordAssignProfit}];
 

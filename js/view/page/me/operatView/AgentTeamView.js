@@ -41,49 +41,55 @@ export default class AgentTeamView extends BaseView {
     onRightPressed() {
         this.setState({modalVisible: true});
     }
-
-
     componentDidMount() {
-        this._getSource(this.state.searchData);
+       this.loadMore(null,1)
     }
-    _getSource(searchData) {
 
-        G_RunAfterInteractions(() => {
+    loadMore = (callBack, isFlush) => {
+        let searchData = this.state.searchData;
+        if(isFlush)
+        {
             HTTP_SERVER.AgentTeamUser.body.page = 1;
-            HTTP_SERVER.AgentTeamUser.body.pagesize = 15;
-            HTTP_SERVER.AgentTeamUser.body.username = !!searchData.username ? searchData.username : '';
-            HTTP_SERVER.AgentTeamUser.body.is_agent = !!searchData.is_agent ? searchData.is_agent : '';
-            HTTP_SERVER.AgentTeamUser.body.date_from = !!searchData.date_from ? searchData.date_from : '';
-            HTTP_SERVER.AgentTeamUser.body.date_to = !!searchData.date_to ? searchData.date_to : '';
-            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentTeamUser, (result) => {
-                TLog("rowData------------------------------------", result.data);
-                if (result.data) {
-                    this.setState({dataList: result.data.datas.data});
-                }
-            })
-        });
+        }else{
+            HTTP_SERVER.AgentTeamUser.body.page += 1;
+        }
+
+        HTTP_SERVER.AgentTeamUser.body.pagesize = 15;
+        HTTP_SERVER.AgentTeamUser.body.username = !!searchData.username ? searchData.username : '';
+        HTTP_SERVER.AgentTeamUser.body.is_agent = !!searchData.is_agent ? searchData.is_agent : '';
+        HTTP_SERVER.AgentTeamUser.body.date_from = !!searchData.date_from ? searchData.date_from : '';
+        HTTP_SERVER.AgentTeamUser.body.date_to = !!searchData.date_to ? searchData.date_to : '';
+        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentTeamUser, (result) => {
+            if (result.data) {
+                this.setState({dataList:G_ArrayUtils.addComapreCopy(this.state.dataList,result.data.datas.data),
+                    curPage:result.data.datas.currentPage,
+                    totalPage:result.data.datas.pages});
+            }
+            if(callBack)
+            {
+                callBack();
+            }
+        })
     }
+
 
     onHideModal=()=> {
         this.setState({modalVisible: false});
     }
 
     onFindPress=(data)=>{
-      TLog('onFindPress---------',data);
         this.setState({modalVisible: false, searchData: data});
         this._getSource(data);
     }
-
-
 
 
     renderBody() {
         let {userData} = this.props.navigation.state.params
        // const {searchData}=this.state;
        // TLog('[[[[[[[searchData]]]]]]',searchData);
-        return (<View>
+        return (<View style={G_Style.appContentView}>
             <AgentFindView onFindPress={this.onFindPress} visible={this.state.modalVisible}  hideViewHandle={this.onHideModal}/>
-            <TeamListView curPage={this.state.curPage} totalPage={this.state.totalPage} userData={userData}  dataList={this.state.dataList} {...this.state}/>
+            <TeamListView loadMore={this.loadMore} curPage={this.state.curPage} totalPage={this.state.totalPage} userData={userData}  dataList={this.state.dataList} {...this.state}/>
         </View>)
     }
 }

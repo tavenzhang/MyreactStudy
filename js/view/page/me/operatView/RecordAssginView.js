@@ -77,7 +77,7 @@ export default class RecordAssginView extends BaseView {
     }
 
     itemClick = (data) => {
-        G_NavUtil.push(G_RoutConfig.AssignDetailView,{data,...this.props},"分红详情");
+        G_NavUtil.push(G_RoutConfig.RecordAssignDetailView,{data,...this.props},"分红详情");
     }
 
     clickMenuItem = (data, listType) => {
@@ -115,8 +115,7 @@ export default class RecordAssginView extends BaseView {
             if (callBack) {
                 callBack()
             }
-            if(result.data.datas.data)
-            {
+            if(result.data.datas.data) {
 
                 let arr = G_ArrayUtils.addComapreCopy(this.state.dataList, result.data.datas.data)
                 this.setState({dataList: arr,   curPage:esult.data.datas.current_page,

@@ -3,7 +3,7 @@
 let SERVERADDR = "http://www.orchidf.com";
 
 global.G_SERVERADDR = SERVERADDR;
-global.G_APPVERSION="app_7_13"
+global.G_APPVERSION="app_7_17"
 
 const METHOD_GET = "GET";
 const METHOD_POST = "POST";
@@ -74,6 +74,22 @@ global.HTTP_SERVER = {
             pagesize: 15
         }
     },
+    //账变记录
+    LIST_REANSACTON: {url: `/mobile-transactions/index`, method: METHOD_POST, body: {
+        bought_at_from: "",
+        bought_at_to: "",
+        issue: "",
+        serial_number: "",
+        lottery_id: "",
+        way_group_id:"",
+        way_id: "",
+        username: "",
+        user_id: "",
+        page: 1,
+        pagesize: 15,
+        type_id:"",
+        serial_number:""
+    }},
     //追号详情
     CHASE_DETAIL: {url: "", formatUrl: `/mobile-traces/#id/view`, method: METHOD_POST, body: {}},
     // /mobile-traces/{id}/cannel
@@ -82,10 +98,9 @@ global.HTTP_SERVER = {
     LETTER_LIST: {url: `/mobile-station-letters`, method: METHOD_POST, body: {}},
     LETTER_DETAIL: {url: "", formatUrl: `/mobile-station-letters/#id/view`, method: METHOD_POST, body: {}},
     //获取系统公告
-    GET_LIST_SYSTEM: {url: `/mobile-announcements`, method: METHOD_POST, body: {}},
+    GET_LIST_SYSTEM: {url: `/mobile-announcements`, method: METHOD_GET, body: {}},
     GET_SYSTEM_DETAIL: {url: "", formatUrl: `/mobile-announcements/#id/view`, method: METHOD_POST, body: {}},
-    //资金全部明细
-    LIST_REANSACTON: {url: `/mobile-transactions/index`, method: METHOD_POST, body: {page: 1, pagesize: 15}},
+
     //充值明细
     LIST_ADD_MONEY: {url: `/mobile-transactions/my-deposit`, method: METHOD_POST, body: {page: 1, pagesize: 15}},
     //提现帐变

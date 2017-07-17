@@ -82,7 +82,6 @@ export default class TFlatList extends React.Component {
         let {loadMore,curPage,totalPage}=this.props;
         TLog("_onFootFlush---curPage=="+curPage,totalPage);
         if(curPage<totalPage) {
-
             if(!this.state.showFootView)
             {
                 this.setState({showFootView: true}, () => {

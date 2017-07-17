@@ -3,10 +3,10 @@ import {
     View,
     StyleSheet,
     Text,
-    TouchableHighlight
+    TouchableOpacity
 } from 'react-native';
 import TFlatList from "../../../../componet/TFlatList";
-
+import {TAIco} from "../../../../componet/tcustom/button/TButton";
 
 export default class TeamListView extends React.Component {
 
@@ -18,104 +18,117 @@ export default class TeamListView extends React.Component {
     }
 
     item(username) {
-        const {userData}=this.props;
-        G_NavUtil.push(G_RoutConfig.MoneyTransferView,{
+        const {userData} = this.props;
+        G_NavUtil.push(G_RoutConfig.MoneyTransferView, {
             title: '转账',
             money: parseInt(userData.data.available),
             uid: userData.data.user_id,
-            username:username
+            username: username
         });
-
     }
 
 
-
     render() {
-        const {dataList,curPage,totalPage}=this.props;
-        TLog("-------rowData---------", dataList);
-
-        return (<View style={[styles.defaultStyle]}>
+        const {dataList, curPage, totalPage,loadMore} = this.props;
+        return (
             <TFlatList
                 curPage={curPage}
                 totalPage={totalPage}
                 dataList={dataList}
                 renderHeader={this.renderHeadView}
                 renderRow={this.rendeRow}
-            />
-        </View>)
+                loadMore={loadMore}
+            />)
     }
-
 
     renderHeadView = () => {
         return (<View style={[styles.row]}>
-            <Text style={[styles.headText,]}>用户</Text>
-            <Text style={[styles.headText, {borderLeftWidth: 0}]}>奖金组</Text>
-            <Text style={[styles.headText, {borderLeftWidth: 0}]}>下级</Text>
-            <Text style={[styles.headText]}>净盈亏</Text>
-            <Text style={[styles.headText]}>月投注</Text>
-            <Text style={[styles.headText]}>操作</Text>
+            <View style={[styles.containView]}>
+                <Text style={[styles.headText]}>用户</Text>
+            </View>
+            <View style={styles.containView}>
+                <Text style={[styles.headText,{flex:1}]}>下级</Text>
+            </View>
+            <View style={styles.containView}>
+                <Text stle={[styles.headText,{flex:1}]}>奖金组</Text>
+            </View>
+            <View style={styles.containView}>
+                <Text style={[styles.headText]}>净盈亏</Text>
+            </View>
+            <View style={styles.containView}>
+                <Text style={[styles.headText]}>月投注</Text>
+            </View>
+
+            <View style={[styles.containView,{flex:1}]}>
+                <Text style={[styles.headText]}>详情</Text>
+            </View>
         </View>)
     }
 
     rendeRow = (data, section) => {
-        return (<View style={[styles.row]} >
-            {/*<TouchableHighlight key={data.id} onPress={() => this.item(data.username)} underlayColor='rgba(0,0,0,0)'>*/}
-            <Text style={[styles.contentText,]}>{data.username}</Text>
-            {/*</TouchableHighlight>*/}
-            <Text style={[styles.contentText,{color:'#B8860B'}]}>{data.prize_group}</Text>
-            <Text style={[styles.contentText]}>{data.sub_user_counts}</Text>
-            <Text style={[styles.contentText,{color:data.profit>0?'red':'green'}]}>{ G_DateUtil.formatMoney(data.profit)}</Text>
-            <Text style={[styles.contentText,{color:'red'}]}>{ G_DateUtil.formatMoney(data.turnover)}</Text>
+        return (<TouchableOpacity onPress={() => this.onPressItem(data)}>
+            <View style={[styles.row]}>
+                <View style={styles.containView}>
+                    <Text style={[styles.contentText,]}>{data.username}</Text>
+                </View>
+                <View style={[styles.containView,{flex:1}]}>
+                    <Text style={[styles.contentText]}>{data.sub_user_counts}</Text>
+                </View>
+                <View style={[styles.containView,{flex:1}]}>
+                    <Text style={[styles.contentText]}>{data.prize_group}</Text>
+                </View>
+                <View style={styles.containView}>
+                    <Text
+                        style={[styles.contentText, {color: data.profit > 0 ? 'red' : 'green'}]}>{ G_DateUtil.formatMoney(data.profit)}</Text>
+                </View>
+                <View style={styles.containView}>
+                    <Text style={[styles.contentText, {color: 'red'}]}>{ G_DateUtil.formatMoney(data.turnover)}</Text>
+                </View>
 
-            <TouchableHighlight style={{
-                padding: 5,
-                borderRadius: 5,
-                marginRight: 10,
-                backgroundColor: '#d7213c'}} onPress={() => this.item(data.username)} >
-                <Text style={[styles.contentButton]}>转账</Text>
-            </TouchableHighlight>
+                <View style={[styles.containView,{flex:1}]}>
+                    <TAIco name={"angle-right"} style={{fontSize: 20, color: "gray"}}/>
+                </View>
 
-        </View>)
+            </View></TouchableOpacity>)
+    }
+
+    onPressItem = (data) => {
+        G_NavUtil.push(G_RoutConfig.TeamDetailView,{data},"详情")
     }
 }
 const styles = StyleSheet.create({
-    row:{
-        borderBottomWidth:1,
+    containView: {
+        flex: 2,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    row: {
+        borderBottomWidth: 1,
         borderColor: '#ccc',
         flexDirection: "row",
-        height:40,
+        height: 40,
         justifyContent: "center",
-        alignItems:"center"
+        alignItems: "center"
 
-    },
-    defaultStyle: {
-        flexDirection: "row"
     },
     textStyle: {
         justifyContent: "center",
-        textAlign:'center',
+        textAlign: 'center',
         width: 150,
         left: 10,
         fontSize: 14,
         height: G_Theme.textInpuntH,
     },
     headText: {
-        lineHeight:40,
-        flex: 1,
-        borderColor: "#ccc",
-        textAlign: "center",
+        lineHeight: 40,
         fontWeight: "bold"
     },
     contentText: {
-        padding: 2,
-        flex: 1,
         fontSize: 12,
-        borderColor: '#ccc',
-        textAlign: "center"
     },
     contentButton: {
         fontSize: 12,
-        color:'#fff',
+        color: '#fff',
         textAlign: "center"
     }
 

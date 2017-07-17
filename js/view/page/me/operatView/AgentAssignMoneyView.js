@@ -35,7 +35,6 @@ export default class AgentAssignMoneyView extends BaseView {
         return (<View style={G_Style.appContentView}>
             <TFlatList
                 dataList={this.state.dataList}
-                renderHeader={this.renderHeadView}
                 renderRow={this.rendeRow}
             />
         </View>)
@@ -56,19 +55,6 @@ export default class AgentAssignMoneyView extends BaseView {
         })
     }
 
-    renderHeadView = () => {
-        return (
-            <View style={{flexDirection: "row"}}>
-                {/*<Text style={[styles.headView, {flex: 2}]}>我的高点配额</Text>*/}
-                {/*<Text style={[styles.headView, {borderLeftWidth: 0}]}>已用</Text>*/}
-                {/*<Text style={[styles.headView, {borderLeftWidth: 0}]}>未用</Text>*/}
-                {/*<Text style={styles.headView}>总量</Text>*/}
-                {/*<Button style={[styles.btnText,{fontWeight:"bold"}]} containerStyle={[styles.btnCpStyle,{paddingVertical: 15}]} onPress={() => {*/}
-                {/*this.clickDetailBtn({prize_group:""})*/}
-                {/*}}>全配</Button>*/}
-            </View>
-        )
-    }
 
     rendeRow = (data) => {
         return (

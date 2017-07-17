@@ -51,10 +51,13 @@ import Notice from "../view/page/Notice";
 import BaseGameView from "../view/page/home/subview/games/BaseGameView";
 import RecordAssginView from "../view/page/me/operatView/RecordAssginView";
 import RecordBackView from "../view/page/me/operatView/RecordBackView";
-import AssignDetailView from "../view/page/me/operatView/record/AssignDetailView";
+import RecordAssignDetailView from "../view/page/me/operatView/record/RecordAssignDetailView";
 import BackDetailView from "../view/page/me/operatView/record/BackDetailView";
 import ApplyInDetailView from "../view/page/me/operatView/moneyIn/ApplyInDetailView";
 import ApplyOuterDetailView from "../view/page/me/operatView/moneyIn/ApplyOuterDetailView";
+import RecordMoneyView from "../view/page/me/operatView/RecordMoneyView";
+import TeamDetailView from "../view/page/me/operatView/agentTeam/TeamDetailView";
+import RecordMoneyDetailView from "../view/page/me/operatView/record/RecordMoneyDetailView";
 
 let tabMyNavigator = TabNavigator({
         Home: {
@@ -162,10 +165,14 @@ global.G_RoutConfig = {
     MoneyApply: createNavScreen(MoneyApply, "MoneyApply"),
     RecordAssginView: createNavScreen(RecordAssginView, "RecordAssginView"),
     RecordBackView: createNavScreen(RecordBackView, "RecordBackView"),
-    AssignDetailView: createNavScreen(AssignDetailView, "AssignDetailView"),
+    RecordAssignDetailView: createNavScreen(RecordAssignDetailView, "RecordAssignDetailView"),
     BackDetailView: createNavScreen(BackDetailView, "BackDetailView"),
     ApplyInDetailView: createNavScreen(ApplyInDetailView, "ApplyInDetailView"),
     ApplyOuterDetailView:createNavScreen(ApplyOuterDetailView, "ApplyOuterDetailView"),
+    RecordMoneyView:createNavScreen(RecordMoneyView, "RecordMoneyView"),
+    TeamDetailView:createNavScreen(TeamDetailView, "TeamDetailView"),
+    RecordMoneyDetailView:createNavScreen(RecordMoneyDetailView, "RecordMoneyDetailView")
+
 }
 
 global.G_NavAppOptionsConfig = {

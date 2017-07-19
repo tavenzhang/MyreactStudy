@@ -28,6 +28,11 @@ export default class AssignDetilView extends BaseView {
             dataObj: null,
             userName
         }
+
+        this.registOnForceFlush(G_RoutConfig.AssignDetilView,(data)=>{
+            TLog("AssignDetilView-----",data)
+            this.flushData(true);
+        })
     }
 
     renderBody() {
@@ -119,9 +124,6 @@ export default class AssignDetilView extends BaseView {
         this.flushData(false);
     }
 
-    onForceFlushData(data){
-        this.flushData(true);
-    }
 
     flushData = (isHideLoading) => {
         G_RunAfterInteractions(() => {

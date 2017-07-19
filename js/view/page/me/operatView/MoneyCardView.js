@@ -22,6 +22,11 @@ export default class MoneyCardView extends BaseView {
             totalPage:1,
             cardList:[]
         }
+        this.registOnForceFlush(G_RoutConfig.MoneyCardView,(data)=>{
+            this.setState({curPage:1,totalPage:1,cardList:[]},()=>{
+                this._loadMore(null,1);
+            })
+        })
     }
 
 
@@ -35,11 +40,6 @@ export default class MoneyCardView extends BaseView {
         this._loadMore(null,1)
     }
 
-    onForceFlushData(data){
-        this.setState({curPage:1,totalPage:1,cardList:[]},()=>{
-            this._loadMore(null,1);
-        })
-    }
 
     _loadMore = (callFinishBack,isFlush) => {
         HTTP_SERVER.LIST_BANGK_CARDS.body.page  = isFlush ? 1: HTTP_SERVER.LIST_BANGK_CARDS.body.page+1;
@@ -101,11 +101,10 @@ export default class MoneyCardView extends BaseView {
     }
 
     onRightPressed() {
-
-        if(this.props.cardList.length<=0) {
+        if(this.state.cardList.length<=0) {
             G_NavUtil.push(G_RoutConfig.AddCardView,{title: "添加银行卡"});
         }else {
-            G_NavUtil.push(G_RoutConfig.AddValidView,{title: "1. 验证银行卡",cardList:this.props.cardList});
+            G_NavUtil.push(G_RoutConfig.AddValidView,{title: "1. 验证银行卡",cardList:this.state.cardList});
         }
     }
 }

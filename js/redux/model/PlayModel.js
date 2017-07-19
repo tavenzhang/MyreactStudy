@@ -58,18 +58,18 @@ export  default class PlayModel {
     getWayNameById(wayId) {
         let name = "";
         for (let key in this.data) {
-            if (parseInt(this.data[key]["id"]) == parseInt(wayId)) {
-                name = this.data[key].name;
-                return name
-            }
-            else {
+            // if (parseInt(this.data[key]["id"]) == parseInt(wayId)) {
+            //     name = this.data[key].name;
+            //     return name
+            // }
+            // else {
                 for (let keySub1 in this.data[key].arrayList) {
                     let item = this.data[key].arrayList[keySub1]
-                    if (parseInt(item["id"]) == parseInt(wayId)) {
-                        name = item.name;
-                        return name
-                    }
-                    else {
+                    // if (parseInt(item["id"]) == parseInt(wayId)) {
+                    //     name = item.name;
+                    //     return name
+                    // }
+                    // else {
                         if (item["children"]) {
                             for (let subKey2 in item["children"]) {
                                 let dataItem = item["children"][subKey2];
@@ -78,9 +78,9 @@ export  default class PlayModel {
                                     return name
                                 }
                             }
-                        }
+                      //  }
                     }
-                }
+                //}
 
             }
         }

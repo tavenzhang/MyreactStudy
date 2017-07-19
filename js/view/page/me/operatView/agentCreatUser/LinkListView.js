@@ -106,7 +106,7 @@ export default class LinkListView extends BaseView {
                                     result[index].status = "已过期"; //过期
                                 }
                                 else {
-                                    result[index].status = Math.ceil((expirtDate - nowDate) / (1000 * 60 * 60 * 24)) + "天";
+                                    result[index].status = Math.floor((expirtDate - nowDate) / (1000 * 60 * 60 * 24)) + "天";
                                 }
                             } else {
                                 result[index].status = "永久"

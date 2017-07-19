@@ -187,7 +187,6 @@ export default class CreateLinkView extends React.Component {
     }
 
     _onCreateLink = () => {
-        HTTP_SERVER.AgentUserLinkList
         HTTP_SERVER.AgentUserLinkCreate.body.valid_days = this.state.pickValue;
         HTTP_SERVER.AgentUserLinkCreate.body.is_agent = this.props.isGentUser;
         HTTP_SERVER.AgentUserLinkCreate.body.prize_group = this.curGroupValue;

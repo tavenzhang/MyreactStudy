@@ -106,6 +106,7 @@ export default class MyView extends BaseView {
         this.state = {
             modalVisible: false,
         }
+        this.name="MyView";
     }
 
 

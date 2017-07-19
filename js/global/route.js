@@ -58,6 +58,8 @@ import ApplyOuterDetailView from "../view/page/me/operatView/moneyIn/ApplyOuterD
 import RecordMoneyView from "../view/page/me/operatView/RecordMoneyView";
 import TeamDetailView from "../view/page/me/operatView/agentTeam/TeamDetailView";
 import RecordMoneyDetailView from "../view/page/me/operatView/record/RecordMoneyDetailView";
+import TeamChildAgentView from "../view/page/me/operatView/agentTeam/TeamChildAgentView";
+import ChaseHistoryView from "../view/page/me/operatView/record/ChaseHistoryView";
 
 let tabMyNavigator = TabNavigator({
         Home: {
@@ -171,7 +173,9 @@ global.G_RoutConfig = {
     ApplyOuterDetailView:createNavScreen(ApplyOuterDetailView, "ApplyOuterDetailView"),
     RecordMoneyView:createNavScreen(RecordMoneyView, "RecordMoneyView"),
     TeamDetailView:createNavScreen(TeamDetailView, "TeamDetailView"),
-    RecordMoneyDetailView:createNavScreen(RecordMoneyDetailView, "RecordMoneyDetailView")
+    RecordMoneyDetailView:createNavScreen(RecordMoneyDetailView, "RecordMoneyDetailView"),
+    TeamChildAgentView:createNavScreen(TeamChildAgentView, "TeamChildAgentView"),
+    ChaseHistoryView:createNavScreen(ChaseHistoryView, "ChaseHistoryView"),
 
 }
 
@@ -214,6 +218,7 @@ global.G_NavUtil = {
             data.mod="";
         }
         ActDispatch.AppAct.app_route_state(true, data);
+       // G_Navigation.goBack();
         setTimeout(G_Navigation.goBack, 200);
     },
     push: (componet, data, title) => {

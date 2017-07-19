@@ -41,7 +41,6 @@ export default class AgentAssignMoneyView extends BaseView {
     }
 
     componentDidMount() {
-        G_RunAfterInteractions(() => {
             HTTP_SERVER.AgentAssinList.body.username = "";
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentAssinList, (data) => {
                 let dataList = [];
@@ -52,7 +51,6 @@ export default class AgentAssignMoneyView extends BaseView {
                 }
                 this.setState({dataList: dataList})
             })
-        })
     }
 
 

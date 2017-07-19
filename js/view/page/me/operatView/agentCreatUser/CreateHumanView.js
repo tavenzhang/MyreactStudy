@@ -172,7 +172,8 @@ const styles = StyleSheet.create({
         height: G_PLATFORM_IOS ? 30:40,
         borderWidth: 1,
         borderRadius: 5,
-        textAlign: "center"
+        textAlign: "center",
+        padding:0
     },
     itemSp: {
         flexDirection: "row",

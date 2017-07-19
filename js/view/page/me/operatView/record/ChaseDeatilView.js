@@ -28,7 +28,6 @@ export  default class BetDetailView extends BaseView {
         let {gameModel, appModel} = this.props.navigation.state.params;
         let gameName = gameModel.getGameNameById(this.state.data.lottery_id)
         this.gameName = gameName;
-        let dataList = this.state.data.detail_list ? this.state.data.detail_list.data : [];
         const {data} = this.state;
         let series_id = gameModel.getSeriesIdById(data.lottery_id)
         let coefficient = appModel.getACoefficients(data.coefficient);
@@ -50,17 +49,18 @@ export  default class BetDetailView extends BaseView {
                         <Text
                             style={[styles.text, styles.gameHeadText, styles.winNumber]}> {data.total_issues} 期</Text>
                         <Text
-                            style={[styles.text, styles.gameHeadText, styles.winNumber]}> {data.finished_issues} 期</Text>
-                        <Text style={[styles.text, styles.gameHeadText, styles.winNumber]}> {data.canceled_issues} 期</Text>
+                            style={[styles.text, styles.gameHeadText, styles.winNumber]}> {data.finished_issues}
+                            期</Text>
+                        <Text style={[styles.text, styles.gameHeadText, styles.winNumber]}> {data.canceled_issues}
+                            期</Text>
                     </View>
                 </View>
                 <View style={styles.profitRow}>
                     <Text style={styles.title}>追号状态:</Text>
-                    <Text
-                        style={[styles.text, styles.winStatus, {color: isFinish ? G_Theme.primary : G_Theme.grayDeep}]}>{appModel.getATraceStatus(this.state.data.status)}</Text>
+                    <Text style={[styles.text, styles.winStatus, {color: isFinish ? G_Theme.primary : G_Theme.grayDeep}]}>{appModel.getATraceStatus(this.state.data.status)}</Text>
                 </View>
                 <View style={styles.profitRow}>
-                    <Text style={styles.title}>中奖奖金:</Text>
+                    <Text style={styles.title}>中奖金额:</Text>
                     <Text
                         style={[styles.text, styles.winStatus, {color: G_Theme.primary}]}>{data.prize ? G_DateUtil.formatMoney(data.prize) : 0}元</Text>
                 </View>
@@ -72,16 +72,16 @@ export  default class BetDetailView extends BaseView {
                 <View style={styles.profitRow}>
                     <Text style={styles.title}>订单金额:</Text>
                     <Text
-                        style={[styles.text, styles.winStatus,{color: G_Theme.primary}]}>{G_DateUtil.formatMoney(data.amount)}元</Text>
+                        style={[styles.text, styles.winStatus, {color: G_Theme.primary}]}>{G_DateUtil.formatMoney(data.amount)}元</Text>
                 </View><View style={styles.profitRow}>
-                    <Text style={styles.title}>完成金额:</Text>
-                    <Text
-                        style={[styles.text, styles.winStatus,{color: G_Theme.primary}]}>{G_DateUtil.formatMoney(data.amount)}元</Text>
-                </View><View style={styles.profitRow}>
-                    <Text style={styles.title}>取消金额:</Text>
-                    <Text
-                        style={[styles.text, styles.winStatus,{color: G_Theme.primary}]}>{G_DateUtil.formatMoney(data.amount)}元</Text>
-                </View>
+                <Text style={styles.title}>完成金额:</Text>
+                <Text
+                    style={[styles.text, styles.winStatus, {color: G_Theme.primary}]}>{G_DateUtil.formatMoney(data.amount)}元</Text>
+            </View><View style={styles.profitRow}>
+                <Text style={styles.title}>取消金额:</Text>
+                <Text
+                    style={[styles.text, styles.winStatus, {color: G_Theme.primary}]}>{G_DateUtil.formatMoney(data.amount)}元</Text>
+            </View>
 
                 <View style={styles.profitRow}>
                     <Text style={styles.title}>返点:</Text>
@@ -93,8 +93,7 @@ export  default class BetDetailView extends BaseView {
                 </View>
                 <View style={[styles.profitRow, {borderColor: G_Theme.gray, backgroundColor: '#fff',}]}>
                     <Text style={styles.title}>追号号码:</Text>
-                    <Text style={[styles.text, {color: G_Theme.grayDeep}]}>{data.title} <Text
-                        style={{color: G_Theme.grayDeep}}>{data.multiple}倍</Text></Text>
+                    <Text style={[styles.text, {color: G_Theme.grayDeep}]}>{data.title}</Text>
                 </View>
                 <View style={[styles.profitRow, {borderColor: G_Theme.gray, borderWidth: 1, backgroundColor: '#fff',}]}>
                     <Text style={[styles.text, styles.betNumber]}>{data.bet_number} </Text>
@@ -117,36 +116,46 @@ export  default class BetDetailView extends BaseView {
                         }]}>{data.created_at}</Text>
                 </View>
                 {/*<TFlatList dataList={dataList} loadMore={this.loadMore} renderRow={this._renderRow}/>*/}
-                {
-                    data.status==0 ? <TButton onPress={this.onChaseCanel} containerStyle={{marginHorizontal: 40, marginTop:20}} btnName={"撤销追号"}/>:null
-                }
+                <View style={{flexDirection: "row", marginTop: 20, justifyContent: "center", alignItems: "center"}}>
+                    {
+                        data.status == 0 ?
+                            <TButton onPress={this.onChaseCanel} containerStyle={{width: 150}} btnName={"撤销追号"}/> : null
+                    }
+                    <TButton
+                        containerStyle={{marginHorizontal: 10, backgroundColor: "green", width: 150, borderRadius: 5}}
+                        onPress={this.onClickHistory} btnName={"追号历史"}/>
+                </View>
+
             </View>
         );
     }
 
+
     componentDidMount() {
         let {id} = this.props.navigation.state.params
         HTTP_SERVER.CHASE_DETAIL.url = HTTP_SERVER.CHASE_DETAIL.formatUrl.replace(/#id/g, id);
-            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.CHASE_DETAIL, (result) => {
-                if (result.data) {
-                    // let arr = this.state.dataList.concat(result.data.data);
-                    this.setState({data: result.data})
-                }
-            })
-        }
+        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.CHASE_DETAIL, (result) => {
+            if (result.data) {
+                this.setState({data: result.data})
+            }
+        })
+    }
 
     componentWillUnmount() {
         ActDispatch.FetchAct.canCelVoFetch(HTTP_SERVER.CHASE_DETAIL);
     }
 
-    onChaseCanel=()=>{
+    onClickHistory = () => {
+        G_NavUtil.push(G_RoutConfig.ChaseHistoryView,{...this.props.navigation.state.params,data:this.state.data},"追号历史")
+    }
+    onChaseCanel = () => {
         let {id} = this.props.navigation.state.params
-        HTTP_SERVER.CHASE_CANCEL.url=HTTP_SERVER.CHASE_CANCEL.formatUrl.replace(/#id/g, id);
+        HTTP_SERVER.CHASE_CANCEL.url = HTTP_SERVER.CHASE_CANCEL.formatUrl.replace(/#id/g, id);
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.CHASE_CANCEL, (result) => {
             if (result.isSuccess) {
                 G_NavUtil.pop(G_RoutConfig.RecordChaseView);
             }
-            else{
+            else {
                 ActDispatch.AppAct.showErrorBox("撤销失败！")
             }
         })

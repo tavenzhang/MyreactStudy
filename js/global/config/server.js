@@ -3,7 +3,7 @@
 let SERVERADDR = "http://www.orchidf.com";
 
 global.G_SERVERADDR = SERVERADDR;
-global.G_APPVERSION="app_7_17"
+global.G_APPVERSION="app_7_18"
 
 const METHOD_GET = "GET";
 const METHOD_POST = "POST";
@@ -304,7 +304,13 @@ global.HTTP_SERVER = {
         body: {prize_group: "", user_id: "", username: "", plus_num: "", subtract_num: "", note: ""}
     },
     //获取团队用户数据
-    AgentTeamUser: {url: "/mobile-agent/users", method: METHOD_POST, body: {page: 0}},
+    AgentTeamUser: {url: "/mobile-agent/users", method: METHOD_POST, body: {
+        page: 0,is_agent:0,username:"",reg_date_from:"",reg_date_to:""
+    }},
+    ///mobile-agent/users/sub-users/{id}
+    AgentTeamChildUser: {url: "", formatUrl:"/mobile-agent/users/sub-users/#id", method: METHOD_POST, body: {
+        page: 0,is_agent:0,username:"",reg_date_from:"",reg_date_to:"",
+    }},
     //盈亏报表
     AgentProfit: {url: "/mobile-agent/user-profits", method: METHOD_POST, body: {page: 0}},
     //银行充值

@@ -1,14 +1,14 @@
 import React from 'react';
 import {
     View,
-    Text,
 } from 'react-native';
 
 import {connect} from 'react-redux';
-import BaseView from "../../../componet/BaseView";
-import TeamListView from "./agentTeam/TeamListView"
-import AgentFindView from "./agentTeam/AgentFindView";
-import {NavButtonText} from "../../../componet/navBarMenu/HeaderMenu";
+
+import BaseView from "../../../../componet/BaseView";
+import AgentFindView from "./AgentFindView";
+import {NavButtonText} from "../../../../componet/navBarMenu/HeaderMenu";
+import TeamListView from "./TeamListView";
 
 const mapStateToProps = state => {
     return {
@@ -18,11 +18,11 @@ const mapStateToProps = state => {
 }
 
 @connect(mapStateToProps)
-export default class AgentTeamView extends BaseView {
+export default class TeamChildAgentView extends BaseView {
 
 
     static navigationOptions = ({navigation})=> ({
-        title: "团队管理",
+        title: "下级团队",
         headerRight:<NavButtonText style={{
             marginLeft: 20,
             paddingHorizontal: 8,
@@ -48,23 +48,25 @@ export default class AgentTeamView extends BaseView {
     }
 
     componentDidMount() {
-       this.loadMore(null,1)
+        this.loadMore(null,1)
     }
 
     loadMore = (callBack, isFlush) => {
+        let {agentId}=this.props.navigation.state.params;
         let searchData = this.state.searchData;
         if(isFlush)
         {
-            HTTP_SERVER.AgentTeamUser.body.page = 1;
+            HTTP_SERVER.AgentTeamChildUser.body.page = 1;
         }else{
-            HTTP_SERVER.AgentTeamUser.body.page += 1;
+            HTTP_SERVER.AgentTeamChildUser.body.page += 1;
         }
+        HTTP_SERVER.AgentTeamChildUser.url = HTTP_SERVER.AgentTeamChildUser.formatUrl.replace(/#id/g,agentId);
 
-        HTTP_SERVER.AgentTeamUser.body.username = !!searchData.username ? searchData.username : '';
-        HTTP_SERVER.AgentTeamUser.body.is_agent = !!searchData.is_agent ? searchData.is_agent : '';
-        HTTP_SERVER.AgentTeamUser.body.reg_date_from = !!searchData.date_from ? searchData.date_from : '';
-        HTTP_SERVER.AgentTeamUser.body.reg_date_to = !!searchData.date_to ? searchData.date_to : '';
-        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentTeamUser, (result) => {
+        HTTP_SERVER.AgentTeamChildUser.body.username = !!searchData.username ? searchData.username : '';
+        HTTP_SERVER.AgentTeamChildUser.body.is_agent = !!searchData.is_agent ? searchData.is_agent : '';
+        HTTP_SERVER.AgentTeamChildUser.body.reg_date_from = !!searchData.date_from ? searchData.date_from : '';
+        HTTP_SERVER.AgentTeamChildUser.body.reg_date_to = !!searchData.date_to ? searchData.date_to : '';
+        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentTeamChildUser, (result) => {
             if (result.data) {
                 this.setState({dataList:G_ArrayUtils.addComapreCopy(this.state.dataList,result.data.datas.data),
                     curPage:result.data.datas.currentPage,
@@ -91,8 +93,8 @@ export default class AgentTeamView extends BaseView {
 
     renderBody() {
         let {userData} = this.props.navigation.state.params
-       // const {searchData}=this.state;
-       // TLog('[[[[[[[searchData]]]]]]',searchData);
+        // const {searchData}=this.state;
+        // TLog('[[[[[[[searchData]]]]]]',searchData);
         return (<View style={G_Style.appContentView}>
             <AgentFindView onFindPress={this.onFindPress} visible={this.state.modalVisible}  hideViewHandle={this.onHideModal}/>
             <TeamListView loadMore={this.loadMore} curPage={this.state.curPage} totalPage={this.state.totalPage} userData={userData}  dataList={this.state.dataList} {...this.state}/>

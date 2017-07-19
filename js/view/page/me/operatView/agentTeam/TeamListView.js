@@ -6,7 +6,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import TFlatList from "../../../../componet/TFlatList";
-import {TAIco} from "../../../../componet/tcustom/button/TButton";
+import {TAIco, TButton} from "../../../../componet/tcustom/button/TButton";
 
 export default class TeamListView extends React.Component {
 
@@ -17,64 +17,57 @@ export default class TeamListView extends React.Component {
         }
     }
 
-    item(username) {
-        const {userData} = this.props;
-        G_NavUtil.push(G_RoutConfig.MoneyTransferView, {
-            title: '转账',
-            money: parseInt(userData.data.available),
-            uid: userData.data.user_id,
-            username: username
-        });
-    }
-
-
     render() {
         const {dataList, curPage, totalPage,loadMore} = this.props;
-        return (
+        return (<View style={G_Style.appContentView}>
+            {this.renderHeadView()}
             <TFlatList
                 curPage={curPage}
                 totalPage={totalPage}
                 dataList={dataList}
-                renderHeader={this.renderHeadView}
                 renderRow={this.rendeRow}
                 loadMore={loadMore}
-            />)
+            />
+        </View>)
     }
 
     renderHeadView = () => {
         return (<View style={[styles.row]}>
             <View style={[styles.containView]}>
-                <Text style={[styles.headText]}>用户</Text>
+                <Text style={styles.headText}>用户</Text>
             </View>
             <View style={styles.containView}>
-                <Text style={[styles.headText,{flex:1}]}>下级</Text>
+                <Text style={styles.headText}>下级</Text>
+            </View>
+            <View style={[styles.containView]}>
+                <Text stle={styles.headText}>奖金组</Text>
             </View>
             <View style={styles.containView}>
-                <Text stle={[styles.headText,{flex:1}]}>奖金组</Text>
+                <Text style={styles.headText}>净盈亏</Text>
             </View>
             <View style={styles.containView}>
-                <Text style={[styles.headText]}>净盈亏</Text>
+                <Text style={styles.headText}>月投注</Text>
             </View>
-            <View style={styles.containView}>
-                <Text style={[styles.headText]}>月投注</Text>
-            </View>
-
             <View style={[styles.containView,{flex:1}]}>
-                <Text style={[styles.headText]}>详情</Text>
+                <Text style={styles.headText}>详情</Text>
             </View>
         </View>)
     }
 
     rendeRow = (data, section) => {
+         let subNum = parseInt(data.sub_user_counts);
         return (<TouchableOpacity onPress={() => this.onPressItem(data)}>
             <View style={[styles.row]}>
                 <View style={styles.containView}>
                     <Text style={[styles.contentText,]}>{data.username}</Text>
                 </View>
-                <View style={[styles.containView,{flex:1}]}>
-                    <Text style={[styles.contentText]}>{data.sub_user_counts}</Text>
+                <View style={[styles.containView]}>
+                    {
+                        subNum >0 ?  <TButton containerStyle={{paddingVertical:5, paddingHorizontal:10}} btnName={data.sub_user_counts} onPress={()=>this.onClickChildAgent(data)}/>:
+                             <Text style={[styles.contentText]}>{subNum}</Text>
+                    }
                 </View>
-                <View style={[styles.containView,{flex:1}]}>
+                <View style={[styles.containView]}>
                     <Text style={[styles.contentText]}>{data.prize_group}</Text>
                 </View>
                 <View style={styles.containView}>
@@ -90,6 +83,10 @@ export default class TeamListView extends React.Component {
                 </View>
 
             </View></TouchableOpacity>)
+    }
+
+    onClickChildAgent=(data)=>{
+        G_NavUtil.push(G_RoutConfig.TeamChildAgentView,{agentId:data.id});
     }
 
     onPressItem = (data) => {
@@ -120,7 +117,6 @@ const styles = StyleSheet.create({
         height: G_Theme.textInpuntH,
     },
     headText: {
-        lineHeight: 40,
         fontWeight: "bold"
     },
     contentText: {

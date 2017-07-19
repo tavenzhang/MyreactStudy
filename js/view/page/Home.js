@@ -82,8 +82,7 @@ export default class Home extends BaseView {
             if(data&&data!="")
             {
                 let udata=JSON.parse(data)
-                if(udata)
-                {
+                if(udata) {
                     ActDispatch.AppAct.setStorgeUser(udata.username,udata.srcPwd);
                 }
             }

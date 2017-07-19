@@ -32,6 +32,11 @@ export default class RecordChaseView extends BaseView {
             totalPage:1
         }
 
+        this.registOnForceFlush(G_RoutConfig.RecordChaseView,(data)=>{
+            this.setState({dataList: []}, () => {
+                this.loadMore(null, true);
+            })
+        })
     }
 
     renderBody() {
@@ -47,12 +52,6 @@ export default class RecordChaseView extends BaseView {
 
     componentDidMount() {
         this.loadMore(null, true);
-    }
-
-    onForceFlushData(data) {
-        this.setState({dataList: []}, () => {
-            this.loadMore(null, true);
-        })
     }
 
 

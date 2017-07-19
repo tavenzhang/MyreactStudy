@@ -29,6 +29,9 @@ export default class RecordBetView extends BaseView {
             curPage:1,
             totalPage:1,
         }
+        this.registOnForceFlush(G_RoutConfig.RecordBetView,(data)=>{
+            this.clickMenuItem([],this.state.status);
+        })
     }
 
     renderBody() {
@@ -38,7 +41,7 @@ export default class RecordBetView extends BaseView {
                         flexDirection: "row",
                         height: 30,
                        backgroundColor:'#fff',
-                    marginTop: 35  }}>
+                    marginTop: 36  }}>
                     <TouchableOpacity style={[styles.touchTabButton,styles.searchTab,this.state.status==MenuListType.All?styles.selectedSearch:null,]}
                                       onPress={() => this.clickMenuItem([], MenuListType.All)}>
                         <Text style={[this.state.status==MenuListType.All?styles.selectedText:null,{fontSize:14}]}>全部</Text>
@@ -69,10 +72,6 @@ export default class RecordBetView extends BaseView {
         );
     }
 
-    onForceFlushData(data){
-        TLog("onForceFlushData-----------this.state.status",this.state.status)
-        this.clickMenuItem([],this.state.status);
-    }
 
 
     componentDidMount() {

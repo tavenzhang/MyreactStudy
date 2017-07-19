@@ -37,7 +37,7 @@ export default class Notice extends BaseView {
         let {noticeList}=this.props
         return (
             <View style={G_Style.appContentView}>
-                {noticeList ? <TFlatList curPage={noticeList.data.current_page} totalPage={noticeList.data.last_page} dataList={noticeList.data} renderRow={this._renderRow}/>:null}
+                {noticeList&&noticeList.data ? <TFlatList curPage={noticeList.data.current_page} totalPage={noticeList.data.last_page} dataList={noticeList.data} renderRow={this._renderRow}/>:null}
             </View>
         );
     }

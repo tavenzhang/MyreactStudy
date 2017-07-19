@@ -117,7 +117,8 @@ function fetchMiddleware(extraArgument) {
             if(promise) {
                 TLog(`http--------canel----------------`, key);
                 FetchMap.set(key,null);
-                promise.cancel()
+                promise.cancel();
+                next(ActionEnum.FetchAct.noticeSuccess());
             }
         }
         if (typeof action === 'function') {

@@ -69,7 +69,7 @@ export default class RecordMoneySearchView extends React.Component {
                             <Text>账变类型:</Text>
                                 <TPicker
                                     viewStyle={{flex: 1}}
-                                   itemStyle={{fontSize: 15, height: 150}}
+                                   itemStyle={{width:100,fontSize: 15, height: 150}}
                                    dataList={appModel.getATransactionTypeList}
                                    pickValue={this.state.pickValue}
                                    onValueChange={(data) => {
@@ -118,7 +118,7 @@ export default class RecordMoneySearchView extends React.Component {
 
 const styles = StyleSheet.create({
     textStyle: {
-        width: 100,
+        width: 80,
         left: 10,
         fontSize: 14,
         height: G_PLATFORM_IOS ? 30 : 40,

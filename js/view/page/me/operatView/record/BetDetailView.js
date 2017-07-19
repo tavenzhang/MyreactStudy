@@ -11,8 +11,16 @@ import {
 import BaseView from "../../../../componet/BaseView";
 import {HOME_ICONS} from "../../../../../assets/index";
 import {TButton} from "../../../../componet/tcustom/button/TButton";
+import connect from "react-redux/src/components/connect";
 
+const mapStateToProps = state => {
+    return {
+        gameModel: state.get("appState").get("gameModel"),
+        appModel: state.get("appState").get("appModel"),
+    }
+}
 
+@connect(mapStateToProps)
 export  default class BetDetailView extends BaseView {
 
     constructor(props) {
@@ -23,7 +31,7 @@ export  default class BetDetailView extends BaseView {
     }
 
     renderBody() {
-        let {gameModel, appModel} = this.props.navigation.state.params
+        let {gameModel, appModel} = this.props
 
         const {data} = this.state;
         let gameName = gameModel.getGameNameById(data.lottery_id)

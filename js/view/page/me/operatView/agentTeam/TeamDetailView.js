@@ -6,11 +6,20 @@ import {
 } from 'react-native';
 import BaseView from "../../../../componet/BaseView";
 import {TButton} from "../../../../componet/tcustom/button/TButton";
+import connect from "react-redux/src/components/connect";
+const mapStateToProps = state => {
+    return {
+        userData: state.get("appState").get("userData").toJS(),
+    }
+}
 
+@connect(mapStateToProps)
 export  default class TeamDetailView extends BaseView {
 
     renderBody() {
-        let {appModel,data} = this.props.navigation.state.params
+        let {data} = this.props.navigation.state.params
+        let {userData}=this.props
+        TLog("userData.user_id===+"+userData.data.user_id,data.parent_id)
         return (<View style={[G_Style.appContentView]}>
             <View style={styles.profitRow}>
                 <Text style={styles.title}>用户名:</Text>
@@ -62,13 +71,11 @@ export  default class TeamDetailView extends BaseView {
                 <Text style={styles.title}>在线:</Text>
                 <Text style={[styles.text,{color:G_Theme.grayDeep}]}>{data.online ? "在线":"离线"}</Text>
             </View>
-            <View style={[styles.profitRow,{borderColor: G_Theme.gray,backgroundColor: '#fff',}]}>
-                <Text style={styles.title}>账变明细:</Text>
-                <TButton onPress={this._onPressMoneyHistory} btnName={"账变列表"}/>
-            </View>
             <View style={{flexDirection:"row", justifyContent:"center", alignItems:"center", marginTop:30}}>
                 {data.hasOverlimit ? <TButton containerStyle={{marginHorizontal: 5,backgroundColor:"blue",width:140, borderRadius:5}}  onPress={this._onPressAssingn} btnName={"高点配额"}/>:null}
-                <TButton  containerStyle={{marginHorizontal: 5,backgroundColor:"green", width:140, borderRadius:5}} onPress={this._onPressTrans} btnName={"转账"}/>
+                {userData.data.user_id == data.parent_id  ?<TButton  containerStyle={{marginHorizontal: 5,backgroundColor:"green", width:140, borderRadius:5}} onPress={this._onPressTrans} btnName={"转账"}/>
+                    : <TButton containerStyle={{width:200}} onPress={this._onPressMoneyHistory} btnName={"账变列表"}/>
+                }
             </View>
 
         </View>);

@@ -69,6 +69,10 @@ export default class LoginView extends BaseView {
         );
     }
 
+    componentDidMount(){
+    TLog("componentDidMount----login")
+    }
+
     onClickCheck = () => {
         this.setState({checkSelect: !this.state.checkSelect})
     }

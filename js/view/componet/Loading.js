@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
         top: (G_Theme.windowHeight - 80) / 2,
         left: (G_Theme.windowWidth - 100) / 2,
     },
-
     loadingTitle: {
         marginTop: 10,
         fontSize: 14,

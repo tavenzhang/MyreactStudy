@@ -138,8 +138,9 @@ export  default class BetDetailView extends BaseView {
             if (result.data) {
                 this.setState({data: result.data})
             }
-        })
+        },true)
     }
+
 
     componentWillUnmount() {
         ActDispatch.FetchAct.canCelVoFetch(HTTP_SERVER.CHASE_DETAIL);

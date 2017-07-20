@@ -3,12 +3,16 @@ const FetchMap=new Map();
 const makeCancelable = (promise) => {
     let hasCanceled_ = false;
     const wrappedPromise = new Promise((resolve, reject) => {
-        promise.then((val) =>
+        promise.then((val) =>    {
+            TLog("wrappedPromise====hasCanceled_--",hasCanceled_)
+            hasCanceled_ ? null : resolve(val)}
           //  hasCanceled_ ? reject({isCanceled: true}) : resolve(val)
-            hasCanceled_ ? null : resolve(val)
+
         );
         promise.catch((error) =>
-            hasCanceled_ ? null: reject(error)
+        {
+            TLog(" promise.catch((error) =>hasCanceled_--",hasCanceled_)
+            hasCanceled_ ? null: reject(error)}
         );
     });
     return {
@@ -111,14 +115,15 @@ function fetchMiddleware(extraArgument) {
             }
         }
         else if(action.type == ActionType.FetchType.FETCH_CANCEL) {
-            let bodyStr =!action.body ? "":JSON.stringify(action.body);
+            let bodyStr = action.body ? JSON.stringify(action.body):"";
             let key=action.url+bodyStr;
-            let promise=FetchMap.get(key)
-            if(promise) {
-                TLog(`http--------canel----------------`, key);
-                FetchMap.set(key,null);
-                promise.cancel();
-                next(ActionEnum.FetchAct.noticeSuccess());
+            let fetchCanelAble=FetchMap.get(key)
+            if(fetchCanelAble) {
+                TLog(`http------fetch--canel----------------`, key);
+               FetchMap.set(key,null);
+               fetchCanelAble.cancel();
+               setTimeout(()=>next(ActionEnum.FetchAct.noticeSuccess()),500)
+              //  next(ActionEnum.FetchAct.noticeSuccess());
             }
         }
         if (typeof action === 'function') {

@@ -212,14 +212,14 @@ global.G_NavRouteState = null
 global.G_NavUtil = {
     pop: (componet,data = {}) => {
         //避免goback 引起的多次didMound
-        if(componet) {
+        if(componet&&componet.name) {
             data.mod=componet.name;
         }else{
             data.mod="";
         }
         ActDispatch.AppAct.app_route_state(true, data);
-       // G_Navigation.goBack();
-        setTimeout(G_Navigation.goBack, 200);
+         G_Navigation.goBack();
+        // setTimeout(G_Navigation.goBack, 200);
     },
     push: (componet, data, title) => {
         let name = componet;

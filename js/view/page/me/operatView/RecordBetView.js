@@ -30,6 +30,7 @@ export default class RecordBetView extends BaseView {
             totalPage:1,
         }
         this.registOnForceFlush(G_RoutConfig.RecordBetView,(data)=>{
+            TLog("RecordBetView----",data)
             this.clickMenuItem([],this.state.status);
         })
     }
@@ -71,7 +72,6 @@ export default class RecordBetView extends BaseView {
             </View>
         );
     }
-
 
 
     componentDidMount() {

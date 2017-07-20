@@ -67,33 +67,6 @@ export  default class AssignDetailView extends BaseView {
         </View>)
     }
 
-    componentDidMount() {
-        let {id} = this.props.navigation.state.params;
-        HTTP_SERVER.BET_DETAIL.url = HTTP_SERVER.BET_DETAIL.formatUrl.replace(/#id/g, id);
-        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.BET_DETAIL, (result) => {
-            if (result.data) {
-                // let arr = this.state.dataList.concat(result.data.data);
-                this.setState({data: result.data})
-            }
-        })
-    }
-
-    componentWillUnmount() {
-        ActDispatch.FetchAct.canCelVoFetch(HTTP_SERVER.BET_DETAIL);
-    }
-
-    onCanCelBet=()=>{
-        let {id} = this.props.navigation.state.params;
-        const {data} = this.state;
-        HTTP_SERVER.BET_CanCel.url = HTTP_SERVER.BET_CanCel.formatUrl.replace(/#id/g, id);
-        TLog("onCanCelBet-----data",data)
-        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.BET_CanCel, (result) => {
-            if (result.isSuccess) {
-                // let arr = this.state.dataList.concat(result.data.data);
-                G_NavUtil.pop(G_RoutConfig.RecordBetView,{state:data.status});
-            }
-        })
-    }
 
 }
 const styles = StyleSheet.create({

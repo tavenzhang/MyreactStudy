@@ -129,7 +129,7 @@ export default class BaseGameView extends BaseView {
                     dateHistoryList={this.state.history_lotterys}
                     prize={price}
                     series_id={series_id} onTimeHanlde={this.requetGameData}/>
-                {subView}
+                 {subView}
                 <MoreMenu
                     ref="moreMenu"
                     menus={menuDataList}
@@ -236,7 +236,7 @@ export default class BaseGameView extends BaseView {
         {
             case 4:
             case 6:
-                return [{name: "玩法说明", key: 1}, {name: "走势图", key: 2}, {name: "近期开奖", key: 3}];
+                return [{name: "玩法说明", key: 1},{name: "近期开奖", key: 3}];
                 break;
             default:
                 return [{name: "玩法说明", key: 1}, {name: "走势图", key: 2}, {name: "近期开奖", key: 3}];

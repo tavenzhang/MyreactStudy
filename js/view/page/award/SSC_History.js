@@ -39,7 +39,7 @@ export default class SSC_History extends BaseView {
     }
 
     componentDidMount() {
-        setTimeout(()=>{ this.loadMore(null)},500)
+        this.loadMore(null);
     }
 
     loadMore = (callBack) => {

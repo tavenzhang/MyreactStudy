@@ -17,6 +17,7 @@ const mapStateToProps = state => {
     return {
         gameModel: state.get("appState").get("gameModel"),
         appModel: state.get("appState").get("appModel"),
+        userData: state.get("appState").get("userData").toJS(),
     }
 }
 
@@ -31,7 +32,7 @@ export  default class BetDetailView extends BaseView {
     }
 
     renderBody() {
-        let {gameModel, appModel} = this.props
+        let {gameModel, appModel,userData} = this.props
 
         const {data} = this.state;
         let gameName = gameModel.getGameNameById(data.lottery_id)
@@ -64,6 +65,11 @@ export  default class BetDetailView extends BaseView {
                     style={[styles.text, styles.winStatus, {color: isWin ? G_Theme.primary : G_Theme.grayDeep}]}>{appModel.getAProjectStatus(data.status)}</Text>
             </View>
             <View style={styles.profitRow}>
+                <Text style={styles.title}>返点:</Text>
+                <Text style={[styles.text, styles.winNumber]}>{(userData.data.user_prize_group-data.prize_group)*100/2000} %</Text>
+            </View>
+
+            <View style={styles.profitRow}>
                 <Text style={styles.title}>开奖号码:</Text>
                 <Text style={[styles.text, styles.winNumber]}>{data.winning_number}</Text>
             </View>
@@ -92,6 +98,7 @@ export  default class BetDetailView extends BaseView {
     }
 
     componentDidMount() {
+        TLog("BetDetailView   -----componentDidMount-----")
         let {id} = this.props.navigation.state.params;
         HTTP_SERVER.BET_DETAIL.url = HTTP_SERVER.BET_DETAIL.formatUrl.replace(/#id/g, id);
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.BET_DETAIL, (result) => {
@@ -99,11 +106,11 @@ export  default class BetDetailView extends BaseView {
                     // let arr = this.state.dataList.concat(result.data.data);
                     this.setState({data: result.data})
                 }
-            })
+            },true)
         }
 
     componentWillUnmount() {
-        ActDispatch.FetchAct.canCelVoFetch(HTTP_SERVER.BET_DETAIL);
+         ActDispatch.FetchAct.canCelVoFetch(HTTP_SERVER.BET_DETAIL);
     }
 
     onCanCelBet=()=>{
@@ -114,7 +121,7 @@ export  default class BetDetailView extends BaseView {
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.BET_CanCel, (result) => {
             if (result.isSuccess) {
                 // let arr = this.state.dataList.concat(result.data.data);
-              G_NavUtil.pop(G_RoutConfig.RecordBetView,{state:data.status});
+               G_NavUtil.pop(G_RoutConfig.RecordBetView,{state:data.status});
             }
         })
     }

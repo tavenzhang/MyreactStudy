@@ -1,7 +1,6 @@
 import React,{PropTypes} from 'react';
 import {
     View,
-    Animated,
     ActivityIndicator,
     FlatList,
 } from 'react-native';

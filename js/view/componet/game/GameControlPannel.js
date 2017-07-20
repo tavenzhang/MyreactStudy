@@ -22,7 +22,8 @@ export default class GameControlPannel extends Component {
         btnIconEvent : PropTypes.func,
         btnName : PropTypes.string,
         topDesc : PropTypes.object,
-        btnDisable: PropTypes.bool
+        btnDisable: PropTypes.bool,
+        leftButton:PropTypes.any,
     };
 
     static defaultProps = {
@@ -32,7 +33,8 @@ export default class GameControlPannel extends Component {
         balance : 0,
         btnName : '确 定',
         topDesc : <Text/>,
-        btnDisable : true
+        btnDisable : true,
+        leftButton:null
     };
 
     btnAction() {
@@ -51,7 +53,7 @@ export default class GameControlPannel extends Component {
 
     render() {
         const me = this;
-        const { topDesc, balance, btnName, btnDisable, btnIconEventDesc, btnIconEvent, btnIconDisable, btnIconName } = this.props;
+        const { leftButton,topDesc, balance, btnName, btnDisable, btnIconEventDesc, btnIconEvent, btnIconDisable, btnIconName } = this.props;
         const btnStatus = btnDisable ? styles.btnDisable : null;
         const btnIconStatus = btnIconDisable ? styles.btnIconDisable : null;
 
@@ -78,6 +80,7 @@ export default class GameControlPannel extends Component {
                 </View>
                 <View style={{flexDirection : 'row'}}>
                     {iconBtnDom}
+                    {leftButton}
                     <TouchableOpacity onPress={() => me.btnAction()} style={[styles.btn,btnStatus]}>
                         <Text style={styles.btnText}>{btnName}</Text>
                     </TouchableOpacity>

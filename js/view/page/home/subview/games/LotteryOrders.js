@@ -41,8 +41,8 @@ const mapStateToProps = state => {
 }
 @connect(mapStateToProps)
 export default class LotteryOrders extends BaseView {
-    static navigationOptions={
-        title:"购彩篮"
+    static navigationOptions = {
+        title: "购彩篮"
     }
 
     constructor(props) {
@@ -87,7 +87,6 @@ export default class LotteryOrders extends BaseView {
         HTTP_SERVER.SUBMIT_ORDERS.url = HTTP_SERVER.SUBMIT_ORDERS.formatUrl.replace(/#id/g, gameId) + '?customer=' + CUSTOMER;
         HTTP_SERVER.SUBMIT_ORDERS.body = submitData;
         TLog("------===submitData====-------", submitData)
-
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.SUBMIT_ORDERS, data => {
             TLog('注单提交反馈======》', data);
             if (data.isSuccess) {
@@ -113,7 +112,6 @@ export default class LotteryOrders extends BaseView {
         const me = this;
         let total = 0,
             totalMoney = 0,
-
             tracetimes = !traceTimes ? 1 : traceTimes,
             tracemultiple = !traceMultiple ? 1 : traceMultiple;
         const btnDisable = orderListNum == 0 ? styles.btnDisable : null;
@@ -128,75 +126,43 @@ export default class LotteryOrders extends BaseView {
             onPress={() => randomLotterys(5)}
             leftIcon="plus-circle"
         /> : null;
+
+
         return (
             <View style={[G_Style.appContentView]}>
                 <View style={styles.btnGrounp}>
                     {randomLotteryOne}
                     {randomLotteryFive}
-                    <Button
-                        btnName="继续选号"
-                        onPress={() => G_NavUtil.pop()}
-                    />
+                    <Button btnName="继续选号" onPress={this._onPopView}/>
                 </View>
-                <ScrollView style={styles.orderListBox}>
-                    {
-                        orderList.map((v, i) => {
-                            total = total + v.num;
-                            totalMoney = totalMoney + v.amount;
-                            return <OrderItem
-                                key={i}
-                                btnLeftPress={() => ActDispatch.GameAct.delOrder(i)}
-                                data={v}/>
-                        })
-                    }
-                    <View style={styles.operateBox}>
+                <View style={[styles.orderListBox,{flex:1}]}>
+                    <ScrollView style={{flex:1}} >
+                        {
+                            orderList.map((v, i) => {
+                                total = total + v.num;
+                                totalMoney = totalMoney + v.amount;
+                                return <OrderItem
+                                    key={i}
+                                    btnLeftPress={() => ActDispatch.GameAct.delOrder(i)}
+                                    data={v}/>
+                            })
+                        }
+                    </ScrollView>
+                    <View style={[styles.operateBox, {alignItems:"center"}]}>
                         <TouchableOpacity style={[styles.btnDeleteAll, btnDisable]} underlayColor={G_Theme.primary}
-                                          onPress={
-                                              () => {
-                                                  if (orderListNum) {
-                                                      Alert.alert(
-                                                          '',
-                                                          '确定要清空购彩篮吗?',
-                                                          [
-                                                              {text: '取消'},
-                                                              {
-                                                                  text: '确定', onPress: () => {
-                                                                  ActDispatch.GameAct.delOrder();
-                                                                  //返回上一级
-                                                                  //返回选球页
-                                                                  setTimeout(() => G_NavUtil.pop(), 1000);
-                                                              }
-                                                              }
-                                                          ]
-                                                      )
-                                                  }
-                                              }
-                                          }>
+                                          onPress={this._onClearBasket}>
                             <View style={{flexDirection: 'row'}}>
                                 <AIcon name="trash-o" style={styles.iconDelete}/>
                                 <Text style={styles.textDelete}>清空购彩篮</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
-                </ScrollView>
+                </View>
                 <GameTracePannel/>
                 <GameControlPannel
                     balance={balance}
                     topDesc={this.getTotalText(total, tracetimes, tracemultiple, totalMoney)}
-                    btnEvent={() => {
-                        if (orderListNum == 0) {
-                            Alert.alert(
-                                '',
-                                '您的购彩篮为空,请先选择投注号码!',
-                                [
-                                    {text: '确定', onPress: () => G_NavUtil.pop()}
-                                ]
-                            )
-                        }
-                        else {
-                            me.submitOrders(totalMoney)
-                        }
-                    }}
+                    btnEvent={() => this._onInvest(totalMoney)}
                     btnDisable={orderListNum == 0 ? true : false}
                     btnName="投 注"
                 />
@@ -204,11 +170,53 @@ export default class LotteryOrders extends BaseView {
         );
     }
 
+
+    _onInvest = (totalMoney) => {
+        const {orderListNum} = this.props;
+        if (orderListNum == 0) {
+            Alert.alert(
+                '',
+                '您的购彩篮为空,请先选择投注号码!',
+                [
+                    {text: '确定', onPress: () => G_NavUtil.pop()}
+                ]
+            )
+        }
+        else {
+            this.submitOrders(totalMoney)
+        }
+    }
+
+    _onPopView = () => {
+        G_NavUtil.pop()
+    }
+
+    _onClearBasket = () => {
+        const {orderListNum} = this.props;
+        if (orderListNum) {
+            Alert.alert(
+                '',
+                '确定要清空购彩篮吗?',
+                [
+                    {text: '取消'},
+                    {
+                        text: '确定', onPress: () => {
+                        ActDispatch.GameAct.delOrder();
+                        //返回上一级
+                        //返回选球页
+                     //   setTimeout(this._onPopView, 1000);
+                    }
+                    }
+                ]
+            )
+        }
+    }
+
 }
 
 const styles = StyleSheet.create({
     orderListBox: {
-        marginBottom: G_Theme.gameOperatePanelHeight - 2,
+        marginBottom: G_Theme.gameOperatePanelHeight - 2+30,
         marginTop: 10
     },
     operateBox: {

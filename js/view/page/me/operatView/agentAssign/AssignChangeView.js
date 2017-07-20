@@ -108,7 +108,7 @@ export default class AssignChangeView extends BaseView {
 
     componentDidMount() {
         let {groupData, data} = this.props.navigation.state.params;
-        G_RunAfterInteractions(() => {
+
             HTTP_SERVER.AgentAssinPerson.body.prize_group = groupData.curGroup;
             HTTP_SERVER.AgentAssinPerson.body.user_id = data.object.id;
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentAssinPerson, (data) => {
@@ -122,7 +122,10 @@ export default class AssignChangeView extends BaseView {
                 }
 
             },true)
-        })
+    }
+
+    componentWillUnmount() {
+        ActDispatch.FetchAct.canCelVoFetch(HTTP_SERVER.AgentAssinPerson);
     }
 
 

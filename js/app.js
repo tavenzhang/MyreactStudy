@@ -20,8 +20,7 @@ import {AppStackNavigator} from "./redux/reducer/NavReducer";
 
 //定义全局Dispatch 方便使用
 const mapDispatchToProps = (dispatch) => {
-    if(!G_InitRegistApp)
-    {   ActDispatch.AppAct=bindActionCreators(ActDispatch.AppAct,dispatch);
+    if(!G_InitRegistApp) {   ActDispatch.AppAct=bindActionCreators(ActDispatch.AppAct,dispatch);
         ActDispatch.FetchAct=bindActionCreators(ActDispatch.FetchAct,dispatch);
         ActDispatch.HomeAct=bindActionCreators(ActDispatch.HomeAct,dispatch);
         ActDispatch.NoticeAct=bindActionCreators(ActDispatch.NoticeAct,dispatch);
@@ -68,8 +67,7 @@ export default class App extends React.Component {
             duration: 850,
             delay: 500,
         })
-        if(!__DEV__)
-        {
+        if(!__DEV__) {
             G_MyStorage.getItem(G_EnumStroeKeys.CODE_PUSH, (data) => {
                 if(data&&data!="") {
                     let codePush = JSON.parse(data);

@@ -122,7 +122,6 @@ export default class BaseGameView extends BaseView {
         }
 
         price = price * moneyUnit;
-
         return (defaultMethodId > 0) ? (
             <View style={G_Style.appContentView}>
                 <BannerView
@@ -232,12 +231,24 @@ export default class BaseGameView extends BaseView {
     }
 
     getMoreMenuData() {
-        return [{name: "玩法说明", key: 1}, {name: "走势图", key: 2}, {name: "近期开奖", key: 3}];
+        const {series_id} = this.props.navigation.state.params;
+        switch (series_id)
+        {
+            case 4:
+            case 6:
+                return [{name: "玩法说明", key: 1}, {name: "走势图", key: 2}, {name: "近期开奖", key: 3}];
+                break;
+            default:
+                return [{name: "玩法说明", key: 1}, {name: "走势图", key: 2}, {name: "近期开奖", key: 3}];
+                break;
+        }
+
     }
 
     onMoreMenuSelect(data) {
         const {currentGameWay} = this.state;
-        const {id, gameModel} = this.props.navigation.state.params;
+        TLog("onMoreMenuSelect-----------",this.props.navigation.state.params)
+        const {id, gameModel,series_id} = this.props.navigation.state.params;
         switch (data.key) {
             case 1:
                 const gameName = currentGameWay.parent_parent_name_cn + "-" + currentGameWay.name_cn;
@@ -251,7 +262,8 @@ export default class BaseGameView extends BaseView {
             case 2:
                 G_NavUtil.push(G_RoutConfig.TrendView,{
                     title: `${gameModel.getGameNameById(id)}-走势图`,
-                    lotteryId: id
+                    lotteryId: id,
+                    series_id:series_id
                 })
                 break;
             case 3:

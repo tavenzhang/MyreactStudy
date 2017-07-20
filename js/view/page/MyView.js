@@ -61,13 +61,7 @@ export default class MyView extends BaseView {
             headerRight: <NavButtonText onClick={()=>{
                 ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LOGIN_OUT, () => {
                     ActDispatch.AppAct.loginOut();
-                    if (G_PLATFORM_IOS) {
-                        G_NavUtil.push(G_RoutConfig.LoginView)
-                    } else {
-                        setTimeout(() => {
-                            G_NavUtil.push(G_RoutConfig.LoginView)
-                        }, 500)
-                    }
+                    G_NavUtil.push(G_RoutConfig.LoginView);
                 })
             }}  name={"注销"} navigation={navigation} visible={userData.isLogined}/>
         }

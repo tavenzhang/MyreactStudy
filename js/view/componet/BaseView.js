@@ -38,12 +38,12 @@ export default class BaseView extends Component {
     }
 
     componentWillUpdate() {
-        LayoutAnimation.configureNext(G_LayoutAnimationHelp.springNoDelete);
+        G_PLATFORM_IOS ? LayoutAnimation.configureNext(G_LayoutAnimationHelp.springNoDelete):LayoutAnimation.configureNext(G_LayoutAnimationHelp.springNoCreate);
         if(!this.initRegist) {
             if(this.props.navigation) {
                 this.initRegist=true;
-                //this.registPressHandle();
-                setTimeout(this.registPressHandle,500)
+                this.registPressHandle();
+                // this.registPressHandle
             }
         }
 

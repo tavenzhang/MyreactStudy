@@ -49,12 +49,17 @@ export default class AgentInfoView extends BaseView {
     componentDidMount() {
         G_RunAfterInteractions(() => {
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentInfo, (data) => {
-                this.setState({agentData: data.data})
+                if(data.isSuccess){
+                    this.setState({agentData: data.data})
+                }
             })
         })
 
         // let {setParams}=this.props.navigation
         // setParams({onLeftPressed:this.onLeftPressed,onRightPressed:this.onRightPressed,onHeadPressed:this.onHeadPressed})
+    }
+    componentWillUnmount() {
+        ActDispatch.FetchAct.canCelVoFetch(HTTP_SERVER.AgentInfo);
     }
 }
 

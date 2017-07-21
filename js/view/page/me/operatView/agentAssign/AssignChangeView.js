@@ -105,7 +105,6 @@ export default class AssignChangeView extends BaseView {
         </View>)
     }
 
-
     componentDidMount() {
         let {groupData, data} = this.props.navigation.state.params;
 

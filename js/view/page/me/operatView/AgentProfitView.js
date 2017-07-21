@@ -66,6 +66,10 @@ export default class AgentProfitView extends BaseView {
         });
     }
 
+    componentWillUnmount() {
+        ActDispatch.FetchAct.canCelVoFetch(HTTP_SERVER.AgentProfit);
+    }
+
     onHideModal=()=> {
         this.setState({modalVisible: false});
     }

@@ -8,11 +8,18 @@ import {
 
 } from 'react-native';
 import BaseView from "../../../../componet/BaseView";
-import TFlatList from "../../../../componet/TFlatList";
 import {HOME_ICONS} from "../../../../../assets/index";
 import {TButton} from "../../../../componet/tcustom/button/TButton";
+import connect from "react-redux/src/components/connect";
 
 
+const mapStateToProps = state => {
+    return {
+        userData: state.get("appState").get("userData").toJS(),
+    }
+}
+
+@connect(mapStateToProps)
 export  default class BetDetailView extends BaseView {
 
     constructor(props) {
@@ -26,6 +33,7 @@ export  default class BetDetailView extends BaseView {
 
     renderBody() {
         let {gameModel, appModel} = this.props.navigation.state.params;
+        let {userData}=this.props
         let gameName = gameModel.getGameNameById(this.state.data.lottery_id)
         this.gameName = gameName;
         const {data} = this.state;
@@ -54,6 +62,11 @@ export  default class BetDetailView extends BaseView {
                         <Text style={[styles.text, styles.gameHeadText, styles.winNumber]}> {data.canceled_issues}
                             期</Text>
                     </View>
+                </View>
+                <View style={styles.profitRow}>
+                    <Text style={styles.title}>用户名:</Text>
+                    <Text
+                        style={[styles.text, styles.winStatus]}>{data.username}</Text>
                 </View>
                 <View style={styles.profitRow}>
                     <Text style={styles.title}>追号状态:</Text>
@@ -118,7 +131,7 @@ export  default class BetDetailView extends BaseView {
                 {/*<TFlatList dataList={dataList} loadMore={this.loadMore} renderRow={this._renderRow}/>*/}
                 <View style={{flexDirection: "row", marginTop: 20, justifyContent: "center", alignItems: "center"}}>
                     {
-                        data.status == 0 ?
+                        data.status == 0&&data.user_id==userData.data.user_id ?
                             <TButton onPress={this.onChaseCanel} containerStyle={{width: 150}} btnName={"撤销追号"}/> : null
                     }
                     <TButton
@@ -134,11 +147,15 @@ export  default class BetDetailView extends BaseView {
     componentDidMount() {
         let {id} = this.props.navigation.state.params
         HTTP_SERVER.CHASE_DETAIL.url = HTTP_SERVER.CHASE_DETAIL.formatUrl.replace(/#id/g, id);
-        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.CHASE_DETAIL, (result) => {
-            if (result.data) {
-                this.setState({data: result.data})
-            }
-        },true)
+        if(!this.state.data.lottery_id)
+        {
+            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.CHASE_DETAIL, (result) => {
+                if (result.data) {
+                    this.setState({data: result.data})
+                }
+            })
+        }
+
     }
 
 
@@ -149,6 +166,7 @@ export  default class BetDetailView extends BaseView {
     onClickHistory = () => {
         G_NavUtil.push(G_RoutConfig.ChaseHistoryView,{...this.props.navigation.state.params,data:this.state.data},"追号历史")
     }
+
     onChaseCanel = () => {
         let {id} = this.props.navigation.state.params
         HTTP_SERVER.CHASE_CANCEL.url = HTTP_SERVER.CHASE_CANCEL.formatUrl.replace(/#id/g, id);

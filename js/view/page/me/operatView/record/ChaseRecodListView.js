@@ -35,9 +35,10 @@ export default class ChaseRecodListView extends React.Component {
                             <Text style={styles.textItemStyle}>{gameName}</Text>
                             <Text style={[styles.textItemStyle,styles.desc]}>{rowData.title}</Text>
                         </View>
-                        <View style={[styles.itemContentStyle,{flex:3}]}>
-                            <Text style={styles.textItemStyle} numberOfLines={1}>已完成:{rowData.finished_issues}</Text>
-                            <Text style={[styles.desc]}>总追号:{rowData.total_issues}</Text>
+                        <View style={[styles.itemContentStyle,{flex:4, alignItems:"center", justifyContent:"center"}]}>
+                            <Text style={styles.textItemStyle} numberOfLines={1}>{`完成度:${rowData.finished_issues}/${rowData.total_issues}`}</Text>
+                            <Text style={[styles.textItemStyle,{fontSize:12,
+                            }]} >({rowData.username})</Text>
                         </View>
                         <View style={[styles.itemContentStyle,{flex:2}]}>
                             <Text style={[styles.textItemStyle,{fontSize:12,

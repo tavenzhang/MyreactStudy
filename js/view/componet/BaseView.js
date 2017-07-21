@@ -27,7 +27,12 @@ export default class BaseView extends Component {
         //this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
         this.initRegist=false;
-
+        if(this.props.navigation) {
+            if(G_Navigation!=this.props.navigation)
+            {
+                G_Navigation = this.props.navigation
+            }
+        }
         this.name="";
     }
 
@@ -36,9 +41,7 @@ export default class BaseView extends Component {
     }
 
     componentWillUpdate() {
-        if(this.props.navigation) {
-            G_Navigation = this.props.navigation
-        }
+
        G_PLATFORM_IOS ? LayoutAnimation.configureNext(G_LayoutAnimationHelp.springNoDelete):LayoutAnimation.configureNext(G_LayoutAnimationHelp.springNoCreate);
         if(!this.initRegist) {
             if(this.props.navigation) {

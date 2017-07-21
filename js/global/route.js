@@ -219,7 +219,6 @@ global.G_NavUtil = {
         }
         ActDispatch.AppAct.app_route_state(true, data);
          G_Navigation.goBack();
-        // setTimeout(G_Navigation.goBack, 200);
     },
     push: (componet, data, title) => {
         let name = componet;
@@ -228,7 +227,7 @@ global.G_NavUtil = {
         }
         let pushData = pushView(name, data, title);
 
-        TLog("G_Navigation--pushToView===" + pushData.component, G_Navigation)
+        TLog("G_Navigation--pushToView===" + pushData.component, G_NavState.routes)
         if (G_NavState.routes[G_NavState.routes.length - 1].routeName != pushData.component) {
             G_Navigation.navigate(pushData.component, {...pushData.passProps});
         }

@@ -15,7 +15,9 @@ global.TLog = (name = null, obj = []) => {
         }
     }
     else {
-        ANativeModule.logClass("myLog", name + " \n" + JSON.stringify(obj));
+        if (G_ENV_DEBUG){
+            ANativeModule.logClass("myLog", name + " \n" + JSON.stringify(obj));
+        }
     }
 };
 

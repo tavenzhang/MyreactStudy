@@ -146,6 +146,8 @@ export class InfoView extends React.PureComponent {
     }
 
     clickLogin = () => {
+       // let {navigate}=this.props.navigation
+      //  navigate(G_RoutConfig.LoginView.name)
         G_NavUtil.push(G_RoutConfig.LoginView)
     }
 }

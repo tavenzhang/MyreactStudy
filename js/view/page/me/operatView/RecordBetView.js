@@ -75,10 +75,13 @@ export default class RecordBetView extends BaseView {
 
 
     componentDidMount() {
-            this.loadMore(null, true);
+        TLog("componentDidMount-----Record");
+
+        this.loadMore(null, true);
     }
 
     componentWillUnmount() {
+        TLog("componentWillUnmount-----Record");
         ActDispatch.FetchAct.canCelVoFetch(HTTP_SERVER.BET_RECODE);
     }
 

@@ -118,8 +118,9 @@ export default class RecordAssginView extends BaseView {
             if(result.data.datas.data) {
 
                 let arr = G_ArrayUtils.addComapreCopy(this.state.dataList, result.data.datas.data)
-                this.setState({dataList: arr,   curPage:esult.data.datas.current_page,
-                    totalPage:last_page,});
+                this.setState({dataList: arr,
+                    curPage:result.data.datas.current_page,
+                    totalPage:result.data.datas.last_page,});
             }
         }, false);
 

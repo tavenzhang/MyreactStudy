@@ -26,17 +26,22 @@ export default class Award extends BaseView {
         },
     })
 
-
-    renderBody() {
-            let {awardList}=this.props
-        return (
-             awardList.length>0  ? <View style={G_Style.appContentView}>
-                <TFlatList  dataList={awardList}  renderRow={this._renderRow}/>
-            </View>:null
-        );
+    constructor(props)
+    {
+        super(props)
+        this.state={
+            dataList:[]
+        }
     }
 
 
+    renderBody() {
+        return (
+             <View style={G_Style.appContentView}>
+                <TFlatList loadMore={this.onLoaderMore}  dataList={this.state.dataList}  renderRow={this._renderRow}/>
+            </View>
+        );
+    }
 
     _renderRow = (rowData) => {
         let {gameModel}=this.props
@@ -45,9 +50,6 @@ export default class Award extends BaseView {
         if(rowData.series_id)
         {
             lotteryList = G_GAME_OnHandleWinnerNum(rowData.series_id,rowData.win_number)
-        }
-        else{
-            lotteryList  = G_GAME_OnHandleWinnerNum(gameModel.getSeriesIdById(rowData.lottery_id),rowData.win_number);
         }
 
         if (lotteryList.length>0) {
@@ -75,9 +77,24 @@ export default class Award extends BaseView {
         );
     }
 
+    componentDidMount(){
+        this.onLoaderMore(null,1)
+    }
+
+   onLoaderMore=(callBack,isFlush)=>{
+       ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_ALL_Lottery,(data)=>{
+           if(data.isSuccess)
+           {
+               this.setState({dataList:G_ArrayUtils.addComapreCopy(this.state.dataList,data.data,"lottery_id")})
+           }
+           if(callBack){
+               callBack();
+           }
+       })
+   }
 
 
-    itemClick = (data) => {
+itemClick = (data) => {
         TLog("itemClick--------",data);
         switch(data.series_name)
         {

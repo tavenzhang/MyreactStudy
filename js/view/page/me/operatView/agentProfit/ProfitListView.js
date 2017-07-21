@@ -75,7 +75,7 @@ export default class ProfitListView extends React.Component {
     }
 
     view(profitData) {
-        G_NavUtil.push(G_RoutConfig.ProfitView,{
+        G_NavUtil.push(G_RoutConfig.ProfitView, {
             title: '盈亏详情',
             profitData: profitData,
             formatMoney: this.formatMoney,
@@ -83,32 +83,24 @@ export default class ProfitListView extends React.Component {
     }
 
     render() {
-        let {dataList,curPage,totalPage} = this.props;
-        if (dataList) {
-            return (<View >
-                {this.rendeSum()}
-                {this.renderSelf()}
-                {this.renderDirect()}
-                <TFlatList
-                     dataList={dataList}
-                     renderRow={this.rendeRow}
-                     curPage={curPage}
-                     totalPage={totalPage}
-                />
-
-            </View>)
-        }
-        return (
-            <View style={G_Theme.appContentCenterView}>
-               <Text>数据请求中 请稍等或稍后再尝试 ！</Text>
-            </View>
-        )
+        let {dataList, curPage, totalPage} = this.props;
+        return (<View style={G_Style.appContentView}>
+            {this.rendeSum()}
+            {this.renderSelf()}
+            {this.renderDirect()}
+            <TFlatList
+                dataList={dataList}
+                renderRow={this.rendeRow}
+                curPage={curPage}
+                totalPage={totalPage}
+            />
+        </View>)
     }
 
     renderDirect() {
         const {oSelfProfit} = this.props;
 
-        if (oSelfProfit && !!oSelfProfit.turnover) {
+        if (oSelfProfit && oSelfProfit.turnover) {
             return (<View style={[styles.row]}>
                 <View style={[styles.itemContentStyle, {flex: 10}]}>
                     <Text style={[styles.textItemName]}>直属下级盈亏明细</Text>
@@ -163,7 +155,7 @@ export default class ProfitListView extends React.Component {
     rendeSum() {
         const {oAgentSumPerDay} = this.props;
 
-        if (oAgentSumPerDay && !!oAgentSumPerDay.team_turnover) {
+        if (oAgentSumPerDay && oAgentSumPerDay.team_turnover) {
             return (
                 <TouchableHighlight onPress={() => this.clickSum()} underlayColor='rgba(10,10,10,0.2)'>
 
@@ -205,10 +197,9 @@ export default class ProfitListView extends React.Component {
     }
 
     rendeRow = (data, section) => {
+        TLog("ProfitListView----rendeRow", data)
         return (
-
             <TouchableHighlight onPress={() => this.clickItem(data)} underlayColor='rgba(10,10,10,0.2)'>
-
                 <View style={[styles.row]}>
                     <View style={[styles.itemContentStyle, {flex: 2}]}>
                         <Text style={styles.textItemName}>{data.username}</Text>

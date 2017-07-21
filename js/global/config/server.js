@@ -98,7 +98,7 @@ global.HTTP_SERVER = {
     LETTER_LIST: {url: `/mobile-station-letters`, method: METHOD_POST, body: {}},
     LETTER_DETAIL: {url: "", formatUrl: `/mobile-station-letters/#id/view`, method: METHOD_POST, body: {}},
     //获取系统公告
-    GET_LIST_SYSTEM: {url: `/mobile-announcements`, method: METHOD_GET, body: {}},
+    GET_LIST_SYSTEM: {url: ``,formatUrl: `/mobile-announcements?page=#id`, method: METHOD_GET, body: {page: 1}},
     GET_SYSTEM_DETAIL: {url: "", formatUrl: `/mobile-announcements/#id/view`, method: METHOD_POST, body: {}},
 
     //充值明细

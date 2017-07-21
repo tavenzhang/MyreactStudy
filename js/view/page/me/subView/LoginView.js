@@ -80,6 +80,7 @@ export default class LoginView extends BaseView {
     onClickCheck = () => {
         this.setState({checkSelect: !this.state.checkSelect})
     }
+
     onErrMsg = () => {
         let msg = null;
         if (!this.state.nameText) {
@@ -106,8 +107,6 @@ export default class LoginView extends BaseView {
                     ActDispatch.AppAct.setStorgeUser(this.state.nameText, "");
                     G_MyStorage.setItem(G_EnumStroeKeys.USR_DATA, JSON.stringify(bodyData), () => G_NavUtil.pop());
                 }
-
-
             } else {
                 ActDispatch.AppAct.showBox(data.Msg);
             }

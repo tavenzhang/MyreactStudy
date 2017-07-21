@@ -47,7 +47,6 @@ export default class AgentProfitView extends BaseView {
         this._getSource(this.state.searchData);
     }
     _getSource(searchData) {
-        TLog("HTTP_SERVER------------------------------------", HTTP_SERVER.AgentProfit);
         G_RunAfterInteractions(() => {
             HTTP_SERVER.AgentProfit.body.page = 1;
             HTTP_SERVER.AgentProfit.body.pagesize = 15;
@@ -56,11 +55,12 @@ export default class AgentProfitView extends BaseView {
             HTTP_SERVER.AgentProfit.body.date_from = !!searchData.date_from ? searchData.date_from : '';
             HTTP_SERVER.AgentProfit.body.date_to = !!searchData.date_to ? searchData.date_to : '';
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentProfit, (result) => {
-                TLog("rowData------------------------------------", result.data.oSelfProfit);
+             //   TLog("rowData------------------------------------", result.data.oSelfProfit);
                 if (result.data) {
-                    this.setState({dataList: result.data.datas.data});
-                    this.setState({oSelfProfit: result.data.oSelfProfit});
-                    return this.setState({oAgentSumPerDay: result.data.oAgentSumPerDay});
+                    this.setState({dataList: result.data.datas.data
+                        ,oSelfProfit: result.data.oSelfProfit,
+                        oAgentSumPerDay:result.data.oAgentSumPerDay
+                    });
                 }
             })
         });
@@ -85,7 +85,7 @@ export default class AgentProfitView extends BaseView {
     renderBody() {
         let {userData} = this.props.navigation.state.params;
         const {searchData} = this.state;
-        return (<View>
+        return (<View style={G_Style.appContentView}>
             <AgentSearchView onFindPress={this.onFindPress} visible={this.state.modalVisible} username={searchData ? searchData.username : ''}
                              is_agent={searchData ? searchData.is_agent : ''}
                              date_from={searchData ? searchData.date_from : ''}

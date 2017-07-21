@@ -74,8 +74,8 @@ export default class Home extends BaseView {
                G_SERVERADDR=data;
             }
             ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.GET_GAME_LIST_INFO, ActionType.AppType.GAMELIST_RESULT);
-            ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.GET_PLAY_LIST_INFO, ActionType.AppType.PLAY_LIST_RESULT);
-            ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.GET_DATA_DEATIL, ActionType.AppType.MOBILE_TYPES_RESULT);
+            ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.GET_PLAY_LIST_INFO, ActionType.AppType.PLAY_LIST_RESULT,null,true);
+            ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.GET_DATA_DEATIL, ActionType.AppType.MOBILE_TYPES_RESULT,null,true);
         })
        !G_PLATFORM_IOS ? setTimeout(()=>{this.setState({showBanner:true})},1000):null;
         setTimeout (()=>G_MyStorage.getItem(G_EnumStroeKeys.USR_DATA, (data) => {
@@ -86,22 +86,6 @@ export default class Home extends BaseView {
                     ActDispatch.AppAct.setStorgeUser(udata.username,udata.srcPwd);
                 }
             }
-        }),2000)
-
-        setTimeout(()=>{
-            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_ALL_Lottery,(data)=>{
-                if(data.isSuccess)
-                {
-                    ActDispatch.AppAct.setAwardList(data.data);
-                }
-            },true)
-            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.GET_LIST_SYSTEM, (result) => {
-                if (result.data.data) {
-                    ActDispatch.AppAct.setNoticeList(result.data);
-                }
-            },true);
-
-        },1000)
-
+        }),1000)
     }
 }

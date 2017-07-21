@@ -49,9 +49,6 @@ export default class LotteryOrders extends BaseView {
         super(props);
         this.state = {};
 
-
-        //this.gameMethod = new GameMethod();
-        //this.gameMethod.setBalls(balls);
         this.submitOrders = this.submitOrders.bind(this);
     }
 
@@ -127,7 +124,6 @@ export default class LotteryOrders extends BaseView {
             leftIcon="plus-circle"
         /> : null;
 
-
         return (
             <View style={[G_Style.appContentView]}>
                 <View style={styles.btnGrounp}>
@@ -135,8 +131,8 @@ export default class LotteryOrders extends BaseView {
                     {randomLotteryFive}
                     <Button btnName="继续选号" onPress={this._onPopView}/>
                 </View>
-                <View style={[styles.orderListBox,{flex:1}]}>
-                    <ScrollView style={{flex:1}} >
+                <View style={[styles.orderListBox, {flex: 1}]}>
+                    <ScrollView style={{flex: 1}}>
                         {
                             orderList.map((v, i) => {
                                 total = total + v.num;
@@ -148,7 +144,7 @@ export default class LotteryOrders extends BaseView {
                             })
                         }
                     </ScrollView>
-                    <View style={[styles.operateBox, {alignItems:"center"}]}>
+                    <View style={[styles.operateBox, {alignItems: "center"}]}>
                         <TouchableOpacity style={[styles.btnDeleteAll, btnDisable]} underlayColor={G_Theme.primary}
                                           onPress={this._onClearBasket}>
                             <View style={{flexDirection: 'row'}}>
@@ -204,7 +200,7 @@ export default class LotteryOrders extends BaseView {
                         ActDispatch.GameAct.delOrder();
                         //返回上一级
                         //返回选球页
-                     //   setTimeout(this._onPopView, 1000);
+                        //   setTimeout(this._onPopView, 1000);
                     }
                     }
                 ]
@@ -216,7 +212,7 @@ export default class LotteryOrders extends BaseView {
 
 const styles = StyleSheet.create({
     orderListBox: {
-        marginBottom: G_Theme.gameOperatePanelHeight - 2+30,
+        marginBottom: G_Theme.gameOperatePanelHeight - 2 + 30,
         marginTop: 10
     },
     operateBox: {

@@ -118,6 +118,7 @@ global.T_AppReStart = () => {
 global.T_JSReload = () => {
     RNRestart.Restart();
 }
+
 let firstErrorTyr=false;
 
 let CODER_SERVER_LIST=[];

@@ -86,7 +86,7 @@ export default class TeamListView extends React.Component {
     }
 
     onClickChildAgent=(data)=>{
-        G_NavUtil.push(G_RoutConfig.TeamChildAgentView,{agentId:data.id});
+        G_NavUtil.push(G_RoutConfig.TeamChildAgentView,{agentId:data.id},data.username+"-下级团队",true);
     }
 
     onPressItem = (data) => {

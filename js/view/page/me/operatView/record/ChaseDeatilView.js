@@ -135,7 +135,7 @@ export  default class BetDetailView extends BaseView {
                             <TButton onPress={this.onChaseCanel} containerStyle={{width: 150}} btnName={"撤销追号"}/> : null
                     }
                     <TButton
-                        containerStyle={{marginHorizontal: 10, backgroundColor: "green", width: 150, borderRadius: 5}}
+                        containerStyle={{marginHorizontal: 8, backgroundColor: "green", width: 150, borderRadius: 5}}
                         onPress={this.onClickHistory} btnName={"追号历史"}/>
                 </View>
 
@@ -183,8 +183,7 @@ export  default class BetDetailView extends BaseView {
 const styles = StyleSheet.create({
     profitRow: {
         width: G_Theme.windowWidth,
-        paddingTop: 5,
-        paddingBottom: 5,
+        paddingVertical: G_PLATFORM_IOS ?  5:3,
         flexDirection: "row",
         // borderBottomWidth: 1,
         borderColor: '#ccc',

@@ -60,7 +60,6 @@ function fetchMiddleware(extraArgument) {
                             resHttp = res;
                             let data = JSON.parse(res);
                             TLog("http<--------------" + action.url, data);
-
                             if (data && data.status == 0) {
                                 next(ActionEnum.AppAct.showBox(data.msg || "操作错误~", 'error'));
                             }
@@ -79,8 +78,6 @@ function fetchMiddleware(extraArgument) {
                             if (action.endAction) {
                                 next({type: action.endAction, httpResult: data});
                             }
-                            // if(data.Msg)//警告提示信息
-                            // {
                             if (data.isSuccess) {
                                 if (data.Msg) {
                                     next(ActionEnum.AppAct.showBox(data.Msg));
@@ -91,13 +88,14 @@ function fetchMiddleware(extraArgument) {
                                     next(ActionEnum.AppAct.showErrorBox(data.Msg));
                                     next(ActionEnum.AppAct.loginOut());
                                     setTimeout(()=>G_NavUtil.push(G_RoutConfig.LoginView),500)
-
                                 }
                                 else {
-                                    next(ActionEnum.AppAct.showErrorBox(data.Msg));
+                                    if(data.Msg)
+                                    {
+                                        next(ActionEnum.AppAct.showErrorBox(data.Msg));
+                                    }
                                 }
                             }
-                            //}
                             //更改请求状态
                             if (!action.isHideHint) {
                                 next(ActionEnum.FetchAct.noticeSuccess());

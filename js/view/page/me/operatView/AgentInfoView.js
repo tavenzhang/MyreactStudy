@@ -54,7 +54,6 @@ export default class AgentInfoView extends BaseView {
                 }
             })
         })
-
         // let {setParams}=this.props.navigation
         // setParams({onLeftPressed:this.onLeftPressed,onRightPressed:this.onRightPressed,onHeadPressed:this.onHeadPressed})
     }

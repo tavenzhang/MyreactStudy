@@ -220,7 +220,7 @@ global.G_NavUtil = {
         ActDispatch.AppAct.app_route_state(true, data);
          G_Navigation.goBack();
     },
-    push: (componet, data, title) => {
+    push: (componet, data, title,isForceRepeate=false) => {
         let name = componet;
         if (componet.name) {
             name = componet.name
@@ -228,7 +228,7 @@ global.G_NavUtil = {
         let pushData = pushView(name, data, title);
 
         TLog("G_Navigation--pushToView===" + pushData.component, G_NavState.routes)
-        if (G_NavState.routes[G_NavState.routes.length - 1].routeName != pushData.component) {
+        if (G_NavState.routes[G_NavState.routes.length - 1].routeName != pushData.component ||isForceRepeate) {
             G_Navigation.navigate(pushData.component, {...pushData.passProps});
         }
     }

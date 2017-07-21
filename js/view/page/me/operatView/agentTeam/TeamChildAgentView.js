@@ -22,7 +22,6 @@ export default class TeamChildAgentView extends BaseView {
 
 
     static navigationOptions = ({navigation})=> ({
-        title: "下级团队",
         headerRight:<NavButtonText style={{
             marginLeft: 20,
             paddingHorizontal: 8,

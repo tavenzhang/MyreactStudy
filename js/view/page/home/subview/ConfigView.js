@@ -96,11 +96,13 @@ export default class ConfigView extends BaseView {
     }
 
     onClickDomain=()=>{
+        let {setModalVisible}=this.props
         if(this.state.domain !="")
         {
             G_MyStorage.setItem(G_EnumStroeKeys.DO_MAIN, "http://"+this.state.domain,()=>{
                 ActDispatch.AppAct.showBox("域名更新成功")
                 T_JSReload();
+                setModalVisible(false)
             });
         }
         else{

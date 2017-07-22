@@ -147,7 +147,7 @@ export default class CreateLinkView extends React.Component {
                 <View style={{
                     flexDirection: "row",
                     marginBottom: 10,
-                    marginTop: 5,
+                    marginTop:G_PLATFORM_IOS?15:5,
                     alignItems: "center",
                 }}>
                     <Text style={{textAlign: "right"}}>百家乐奖金组:</Text>
@@ -162,7 +162,7 @@ export default class CreateLinkView extends React.Component {
                          }}/>
                 <TButton
                     btnName="生成链接"
-                    viewStyle={{marginTop:2}}
+                    viewStyle={{marginTop:13}}
                     containerStyle={{
                         borderRadius: 3,
                         backgroundColor: '#d7213c'
@@ -175,14 +175,17 @@ export default class CreateLinkView extends React.Component {
     _onValidInput = () => {
         let errMsg = null;
         let {groupDate} = this.props
-        if (this.state.textChannel == "") {
-            errMsg = "请输入推广渠道名称"
+        if (groupDate == null) {
+               errMsg = "奖金组数据错误"
         }
-        else if (this.state.textQQ1 == "" && this.state.textQQ2 == "" && this.state.textQQ3 == "") {
-            errMsg = "请至少输入一个联系qq"
-        } else if (groupDate == null) {
-            errMsg = "奖金组数据错误"
-        }
+        // if (this.state.textChannel == "") {
+        //     errMsg = "请输入推广渠道名称"
+        // }
+        // else if (this.state.textQQ1 == "" && this.state.textQQ2 == "" && this.state.textQQ3 == "") {
+        //     errMsg = "请至少输入一个联系qq"
+        // } else if (groupDate == null) {
+        //     errMsg = "奖金组数据错误"
+        // }
         return errMsg
     }
 

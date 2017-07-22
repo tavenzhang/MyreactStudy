@@ -82,7 +82,6 @@ export default class BaseGameView extends BaseView {
     getGameWays() {
         const {series_id, playModel} = this.props.navigation.state.params;
         let list = playModel.getPlayByGid(series_id).arrayList;
-        // TLog("getGameWays----", list)
         return list;
     }
 
@@ -111,7 +110,6 @@ export default class BaseGameView extends BaseView {
         if(prize) {
             if( series_id == 1 || series_id == 3) { //时时彩,3d
                 price = prize / 2000 * fullPrize;
-
                 if(maxGrounp < 1960) {
                     price = maxGrounp / 1960 * price;
                 }
@@ -153,7 +151,6 @@ export default class BaseGameView extends BaseView {
     requetGameData = () => {
         const {id} = this.props.navigation.state.params;
         HTTP_SERVER.GET_GAME_DETAIL.url = HTTP_SERVER.GET_GAME_DETAIL.formatUrl.replace(/#id/g, id);
-        G_RunAfterInteractions(() => {
             ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.GET_GAME_DETAIL, ActionType.GameType.SET_GAMECONFIG, data => {
                 if (data.isSuccess) {
                     const pd = data.data;
@@ -183,7 +180,6 @@ export default class BaseGameView extends BaseView {
                 }
 
             }, false, true);
-        })
     }
 
 

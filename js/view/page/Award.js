@@ -78,10 +78,10 @@ export default class Award extends BaseView {
     }
 
     componentDidMount(){
-        this.onLoaderMore(null,1)
+        setTimeout(()=> this.onLoaderMore(null,1,true),2000)
     }
 
-   onLoaderMore=(callBack,isFlush)=>{
+   onLoaderMore=(callBack,isFlush,isHide=false)=>{
        ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_ALL_Lottery,(data)=>{
            if(data.isSuccess)
            {
@@ -90,7 +90,7 @@ export default class Award extends BaseView {
            if(callBack){
                callBack();
            }
-       })
+       },isHide)
    }
 
 

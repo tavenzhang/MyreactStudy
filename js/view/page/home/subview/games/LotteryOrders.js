@@ -53,7 +53,6 @@ export default class LotteryOrders extends BaseView {
     }
 
     submitOrders(amount) {
-
         const {gameId, orderList, lottery_items, traceInfo, isTrace, traceTimes, traceMultiple} = this.props;
         let submitData = {
                 gameId: gameId,

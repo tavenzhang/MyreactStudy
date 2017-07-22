@@ -55,14 +55,14 @@ export default class Notice extends BaseView {
     }
 
     componentDidMount(){
-        this.onLoaderMore(null,1)
+        setTimeout(()=> this.onLoaderMore(null,1,true),2000)
     }
 
     itemClick = (data) => {
         G_NavUtil.push(G_RoutConfig.NoticeDeailView,{...data, title: '公告详情'});
     }
 
-    onLoaderMore=(callBack,isFlush)=>{
+    onLoaderMore=(callBack,isFlush,isHide=false)=>{
         if(isFlush) {
             HTTP_SERVER.GET_LIST_SYSTEM.body.page =1
         }else{
@@ -80,7 +80,7 @@ export default class Notice extends BaseView {
             if(callBack){
                 callBack();
             }
-        });
+        },isHide);
     }
 
 }

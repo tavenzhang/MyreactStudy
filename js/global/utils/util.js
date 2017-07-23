@@ -187,9 +187,11 @@ global.G_ArrayUtils = {
         }
         return srcList.slice()
     }
-
 }
-
+//（用户投注奖金组-用户当前奖金组）/2000*100%
+global.G_GroupBackRate=(configGrop,useGroup)=>{
+    return ((parseInt(configGrop)-parseInt(useGroup))*100/2000).toFixed(2)
+}
 
 // Number.prototype.toFixed =function(len)
 // {

@@ -41,6 +41,19 @@ export default class AgentTeamView extends BaseView {
             totalPage:1,
             modalVisible: false
         }
+        this.registOnForceFlush(G_RoutConfig.AgentTeamView,(data)=>{
+            //id:data.id,prize_group:HTTP_
+            let newList=[];
+            for (let item of this.state.dataList)
+            {
+                if(item.id == data.id){
+                    item.prize_group = data.prize_group;
+                    newList.push(item);
+                    break;
+                }
+            }
+            this.setState({dataList:G_ArrayUtils.addComapreCopy(this.state.dataList,newList)});
+        })
     }
 
     onRightPressed() {
@@ -49,6 +62,10 @@ export default class AgentTeamView extends BaseView {
 
     componentDidMount() {
        this.loadMore(null,1)
+    }
+
+    componentWillUnmount() {
+        ActDispatch.FetchAct.canCelVoFetch(HTTP_SERVER.AgentTeamUser);
     }
 
     loadMore = (callBack, isFlush) => {
@@ -74,7 +91,7 @@ export default class AgentTeamView extends BaseView {
             {
                 callBack();
             }
-        },false,true)
+        },false,false)
     }
 
 

@@ -60,6 +60,7 @@ import TeamDetailView from "../view/page/me/operatView/agentTeam/TeamDetailView"
 import RecordMoneyDetailView from "../view/page/me/operatView/record/RecordMoneyDetailView";
 import TeamChildAgentView from "../view/page/me/operatView/agentTeam/TeamChildAgentView";
 import ChaseHistoryView from "../view/page/me/operatView/record/ChaseHistoryView";
+import TeamGroupChangeView from "../view/page/me/operatView/agentTeam/TeamGroupChangeView";
 
 let tabMyNavigator = TabNavigator({
         Home: {
@@ -176,6 +177,7 @@ global.G_RoutConfig = {
     RecordMoneyDetailView:createNavScreen(RecordMoneyDetailView, "RecordMoneyDetailView"),
     TeamChildAgentView:createNavScreen(TeamChildAgentView, "TeamChildAgentView"),
     ChaseHistoryView:createNavScreen(ChaseHistoryView, "ChaseHistoryView"),
+    TeamGroupChangeView:createNavScreen(TeamGroupChangeView, "TeamGroupChangeView"),
 
 }
 
@@ -218,7 +220,8 @@ global.G_NavUtil = {
             data.mod="";
         }
         ActDispatch.AppAct.app_route_state(true, data);
-         G_Navigation.goBack();
+        setTimeout(G_Navigation.goBack,200)
+         //G_Navigation.goBack();
     },
     push: (componet, data, title,isForceRepeate=false) => {
         let name = componet;

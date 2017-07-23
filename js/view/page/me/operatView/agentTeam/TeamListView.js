@@ -91,7 +91,7 @@ export default class TeamListView extends React.Component {
     }
 
     onClickGroup=(data)=>{
-      TLog("onClickGroup-----",data)
+        G_NavUtil.push(G_RoutConfig.TeamGroupChangeView,{data:data},"调整配额");
     }
 
     onClickChildAgent=(data)=>{

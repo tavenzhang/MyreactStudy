@@ -4,7 +4,6 @@ import {
     StyleSheet,
     Text,
 } from 'react-native';
-import BaseView from "../../../../componet/BaseView";
 import {TButton} from "../../../../componet/tcustom/button/TButton";
 import connect from "react-redux/src/components/connect";
 const mapStateToProps = state => {
@@ -14,9 +13,9 @@ const mapStateToProps = state => {
 }
 
 @connect(mapStateToProps)
-export  default class TeamDetailView extends BaseView {
+export  default class TeamDetailView extends React.Component {
 
-    renderBody() {
+    render() {
         let {data} = this.props.navigation.state.params
         let {userData}=this.props
         TLog("userData.user_id===+"+userData.data.user_id,data.parent_id)

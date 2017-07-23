@@ -30,7 +30,7 @@ export default class TRendDetailView extends BaseView {
         let {dataList,headData} = this.props
         return (
             <View style={G_Style.appContentView}>
-                <View style={{width: G_Theme.windowWidth, height: 30, flexDirection: "row", backgroundColor: "#aaa"}}>
+                {headData ?<View style={{width: G_Theme.windowWidth, height: 30, flexDirection: "row", backgroundColor: "#aaa"}}>
                     <View style={styles.headTitle}>
                         <Text style={[styles.text, {color: "white", fontWeight: "bold"}]}>{headData.title}</Text>
                     </View>
@@ -43,7 +43,7 @@ export default class TRendDetailView extends BaseView {
                             )
                         })
                     }
-                </View>
+                </View>:null}
                 <TFlatList initialNumToRender={20} dataList={dataList} renderRow={this.rendRow}/>
             </View>
         );

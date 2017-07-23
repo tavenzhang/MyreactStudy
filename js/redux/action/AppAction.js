@@ -58,5 +58,5 @@ export const AppAct={
     showConfigModel:(visible=true)=>({
         type:ActionType.AppType.SHOW_CONFIG_MODEL,
         visible
-    })
+    }),
 }

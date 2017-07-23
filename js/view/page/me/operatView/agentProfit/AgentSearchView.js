@@ -27,7 +27,7 @@ export default class AgentSearchView extends React.Component {
             date_from: null,
             date_to: null
         }
-        this.dateValidList = [{name: "所有玩家", value: ''},
+        this.dateValidList = [{name: "所有类型", value: ''},
             {name: "玩家", value: 0},
             {
                 name: "代理",

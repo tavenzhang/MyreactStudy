@@ -42,5 +42,9 @@ export const GameAct={
     updatePrize: data => ({
         type: gType.UPDATE_PRIZE,
         data
-    })
+    }),
+    lottoryState:(data)=>({
+        type:ActionType.GameType.LOTTOR_STATE,
+        data
+    }),
 }

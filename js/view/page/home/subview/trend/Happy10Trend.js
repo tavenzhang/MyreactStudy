@@ -39,7 +39,7 @@ export default class Happy10Trend extends BaseTrend {
                 firstList: this.getDataByPosition(data, 0),
                 mixList: this.getDataByPosition(data, 1),
             })
-        })
+        },false,true)
     }
 
 

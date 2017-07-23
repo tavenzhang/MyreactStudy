@@ -42,6 +42,7 @@ export const ActionType = {
         SET_GAMECONFIG: "GameType/SET_GAMECONFIG",
         SET_TRACE: "GameType/SET_TRACE",
         UPDATE_PRIZE: "GameType/UPDATE_PRIZE",
+        LOTTOR_STATE:"GameType/SHOW_LOTTOR_STATE"
     },
 }
 global.ActionType=ActionType;

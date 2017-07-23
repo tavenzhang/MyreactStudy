@@ -32,18 +32,28 @@ export  default  class MoneyView extends React.Component {
                 <View style={{backgroundColor: "#ddd", justifyContent: "center", margin: 5, padding: 10}}>
                     <Text style={styles.textMoneyName}>团队总投注额：<Text style={styles.textMoney}>{data.aCommissionAndProfit.team_turnover}</Text> 元</Text>
                     <Text  style={styles.textMoneyName}>团队净盈亏：<Text style={styles.textMoney}>{data.aCommissionAndProfit.team_deficit}</Text> 元</Text>
-                    <Text  style={styles.textMoneyName}>返点收入：<Text style={styles.textMoney}>{data.aCommissionAndProfit.commission}</Text> 元</Text>
-                    <Text  style={styles.textMoneyName}>预计分红：<Text style={styles.textMoney}>{`${parseInt(data.aCommissionAndProfit.bonus_percents)}%   ${data.aCommissionAndProfit.bonus}`}</Text> 元</Text>
+                    <Text  style={styles.textMoneyName}>团队返点收入：<Text style={styles.textMoney}>{data.aCommissionAndProfit.commission}</Text> 元</Text>
                     <View style={{flexDirection:"row", alignItems:"center"}}>
-                        <Text  style={styles.textMoneyName}>可用余额：<Text style={styles.textMoney}>{moneyBalance}</Text> 元</Text>
-                        <Button containerStyle={{  padding: 5,backgroundColor:"rgb(240,80,120)",borderRadius:5,marginHorizontal:5}} style={{fontSize:14,
+                        <Text  style={styles.textMoneyName}>团队奖金：<Text style={styles.textMoney}>{data.aCommissionAndProfit.team_prize}</Text> 元</Text>
+                        <Button containerStyle={{marginRight: 10,padding: 5,backgroundColor:"rgb(240,80,120)",borderRadius:5,marginHorizontal:5}} style={{fontSize:14,
                            color:"white", borderRadius:
                         10}} onPress={this._gotoTransMoney}>转账</Button>
                         <Button containerStyle={{backgroundColor:"rgb(56,88,138)", borderRadius:5,padding: 5}}  style={{fontSize:14,  color:"white"}} onPress={this._gotoOutMoney}>提现</Button>
                     </View>
+                    <View style={{flexDirection:"row", alignItems:"center"}}>
+                        <Text  style={styles.textMoneyName}>分红详情:</Text>
+                        <Button  containerStyle={{  padding:4,backgroundColor:"rgb(240,0,0)",borderRadius:5,marginHorizontal:5}} style={{fontSize:14,
+                            color:"white", borderRadius:
+                                10}} onPress={this._gotoOutProfit}>分红报表</Button>
+                    </View>
                 </View>
             </View>:null
         );
+    }
+    _gotoOutProfit=()=>{
+        let {userData}=this.props
+        G_NavUtil.push(G_RoutConfig.RecordAssginView,{
+        },"分红报表")
     }
 
     _gotoOutMoney=()=>{

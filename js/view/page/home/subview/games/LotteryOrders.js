@@ -8,17 +8,17 @@ import {
     ScrollView,
     StyleSheet,
     Alert,
-    TouchableOpacity
+    TouchableOpacity,
+    LayoutAnimation
 } from 'react-native';
-import {connect} from 'react-redux';
-import BaseView from "../../../../componet/BaseView";
+
 import Button from "../../../../componet/Button";
 import OrderItem from "../../../../componet/game/OrderItem";
 import GameControlPannel from "../../../../componet/game/GameControlPannel";
-import GameTracePannel from "../../../../componet/game/GameTracePannel";
-import GameMethod from "../../../../../class/GameMethod";
 import AIcon from 'react-native-vector-icons/FontAwesome';
-
+import TGameTraceView from "../../../../componet/game/TGameTraceView";
+import connect from "react-redux/src/components/connect";
+//
 const mapStateToProps = state => {
     //const balls = state.get("gameState").get("balls").toArray();
     //let newBalls = []
@@ -34,25 +34,22 @@ const mapStateToProps = state => {
         traceMultiple: state.get("gameState").get("traceMultiple"),
         gameId: state.get("gameState").get("gameId"),
         lottery_items: state.get("gameState").get("lottery_items"),
-        gameNumbers: state.get("gameState").get("gameNumbers"),
-        balance: parseFloat(state.get("appState").getIn(['userData', 'data', 'available']))
+        gameNumbers: state.get("gameState").get("gameNumbers").toJS(),
+        balance: parseFloat(state.get("appState").getIn(['userData', 'data', 'available'])),
+        userData: state.get("appState").get("userData").toJS(),
         //balls: newBalls,
     }
 }
 @connect(mapStateToProps)
-export default class LotteryOrders extends BaseView {
-    static navigationOptions = {
-        title: "购彩篮"
-    }
+export default class LotteryOrders extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {};
-
-        this.submitOrders = this.submitOrders.bind(this);
     }
 
-    submitOrders(amount) {
+
+    submitOrders = (amount) => {
         const {gameId, orderList, lottery_items, traceInfo, isTrace, traceTimes, traceMultiple} = this.props;
         let submitData = {
                 gameId: gameId,
@@ -90,7 +87,7 @@ export default class LotteryOrders extends BaseView {
                 ActDispatch.GameAct.delOrder();
                 HttpUtil.flushMoneyBalance();//体现余额 改变
                 //返回选球页
-                G_NavUtil.pop()
+                this._onPopView()
             }
         })
     }
@@ -100,11 +97,16 @@ export default class LotteryOrders extends BaseView {
             style={{color: "red"}}> {G_moneyFormat(totalMoney * tracetimes * tracemultiple)}</Text>元</Text>
     }
 
+    componentWillUpdate() {
+        G_PLATFORM_IOS ? LayoutAnimation.configureNext(G_LayoutAnimationHelp.springNoDelete) : LayoutAnimation.configureNext(G_LayoutAnimationHelp.springNoCreate);
+    }
 
-    renderBody() {
 
-        const {orderList, balance, orderListNum, isTrace, traceTimes, traceMultiple, navigation} = this.props;
-        const {randomLotterys, isRandomOrder} = navigation.state.params;
+    render() {
+
+        const {orderList, balance, orderListNum, traceTimes, traceMultiple,lottery_items} = this.props;
+        const {randomLotterys, isRandomOrder} = this.props;
+        TLog("lottery_items----",lottery_items)
         const me = this;
         let total = 0,
             totalMoney = 0,
@@ -128,7 +130,7 @@ export default class LotteryOrders extends BaseView {
                 <View style={styles.btnGrounp}>
                     {randomLotteryOne}
                     {randomLotteryFive}
-                    <Button btnName="继续选号" onPress={this._onPopView}/>
+                    <Button btnName="亲自选号" onPress={this._onPopView}/>
                 </View>
                 <View style={[styles.orderListBox, {flex: 1}]}>
                     <ScrollView style={{flex: 1}}>
@@ -153,7 +155,7 @@ export default class LotteryOrders extends BaseView {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <GameTracePannel/>
+                <TGameTraceView {...this.props}/>
                 <GameControlPannel
                     balance={balance}
                     topDesc={this.getTotalText(total, tracetimes, tracemultiple, totalMoney)}
@@ -183,7 +185,7 @@ export default class LotteryOrders extends BaseView {
     }
 
     _onPopView = () => {
-        G_NavUtil.pop()
+        ActDispatch.GameAct.lottoryState({show: false})
     }
 
     _onClearBasket = () => {
@@ -197,16 +199,12 @@ export default class LotteryOrders extends BaseView {
                     {
                         text: '确定', onPress: () => {
                         ActDispatch.GameAct.delOrder();
-                        //返回上一级
-                        //返回选球页
-                        //   setTimeout(this._onPopView, 1000);
                     }
                     }
                 ]
             )
         }
     }
-
 }
 
 const styles = StyleSheet.create({
@@ -227,8 +225,6 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginBottom: 20,
         flexDirection: 'row',
-        //borderWidth: 1,
-        //borderColor: '#333',
         backgroundColor: G_Theme.primary,
         padding: 10,
         width: 140,

@@ -47,7 +47,7 @@ export default class L115Trend extends BaseTrend {
                 fiveList: this.getDataByPosition(data, 4),
                 mixList: this.getDataByPosition(data, 5)
             })
-        })
+        },false,true)
     }
 
 

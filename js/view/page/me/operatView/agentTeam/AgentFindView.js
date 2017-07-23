@@ -28,7 +28,7 @@ export default class AgentFindView extends React.Component{
             date_from:null,
             date_to:null
         }
-        this.dateValidList = [{name: "全部用户", value: ''}, {name: "玩家", value: 0}, {name: "代理", value: 1}]
+        this.dateValidList = [{name: "所有类型", value: ''}, {name: "玩家", value: 0}, {name: "代理", value: 1}]
     }
 
     render()

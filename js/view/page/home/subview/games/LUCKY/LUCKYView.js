@@ -21,7 +21,7 @@ const mapStateToProps = state => {
     }
 }
 
-@connect(mapStateToProps)
+@connect(BaseGameView.mapStateToProps)
 export default class LUCKYView extends BaseGameView {
     static navigationOptions = BaseGameView.navigationOptionsGame;
     constructor(props) {

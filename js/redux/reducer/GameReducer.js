@@ -14,6 +14,10 @@ const initGameState = fromJS({
     prize: null, //用户选择的奖金组
     moneyUnit: 1, //金额模式
     multiple: 1, //倍数
+    lottorState:{
+        show:false,
+        randomLotterys: null,
+        isRandomOrder:true}
 })
 
 const gType = ActionType.GameType;
@@ -65,13 +69,15 @@ const gameState = (state = initGameState, action) => {
             return state.merge({multiple:action.data})
 
         case gType.SET_GAMECONFIG:
-            //TLog('gameConfig====',action.httpResult)
+            TLog('gameConfig====',action.httpResult.data);
             const data = action.httpResult.data;
             return state.merge({
                 gameId: data.gameId,
                 lottery_items: data.currentNumber,
                 gameNumbers: data.gameNumbers,
             })
+        case ActionType.GameType.LOTTOR_STATE:
+            return state.merge({lottorState: action.data});
         default:
             return state;
     }

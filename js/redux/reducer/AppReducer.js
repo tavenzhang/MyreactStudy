@@ -24,7 +24,7 @@ const initAppState = fromJS({
     storageUser:{},
     awardList:[],
     noticeList:[],
-    showConfigModel:false
+    showConfigModel:false,
 })
 
 const appState = (state = initAppState, action) => {

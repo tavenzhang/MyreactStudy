@@ -1,6 +1,4 @@
-/**
- * Created by soga on 2017/5/9.
- */
+
 import React from 'react';
 import {
     View,
@@ -34,25 +32,7 @@ import Budingwei from "./Budingwei";
 
 import connect from "react-redux/src/components/connect";
 
-const mapStateToProps = state => {
-    //const balls = state.get("gameState").get("balls").toArray();
-    //let newBalls = []
-    //balls.map((v,i) => {
-    //    newBalls[i] = v.toArray();
-    //});
-    return {
-        //balls: newBalls,
-        orderNum: state.get("gameState").get("orderList").count(),
-        moneyUnit: state.get("gameState").get("moneyUnit"), //金额模式
-        multiple: state.get("gameState").get("multiple"), //倍数
-        orderList: state.get("gameState").get("orderList"),
-        orderListNum: state.get("gameState").get("orderList").count(),
-        prize: state.get("gameState").get("prize"), //奖金组
-        balance: parseFloat(state.get("appState").getIn(['userData','data','available']))
-    }
-}
-
-@connect(mapStateToProps)
+@connect(BaseGameView.mapStateToProps)
 export default class D3View extends BaseGameView {
     static navigationOptions = BaseGameView.navigationOptionsGame;
     constructor(props) {

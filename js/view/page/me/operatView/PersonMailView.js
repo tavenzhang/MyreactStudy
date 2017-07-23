@@ -16,9 +16,9 @@ export default class PersonMailView extends BaseView {
         super(props);
         this.state = {
             dataList: [],
-            msgList:[],
             curPage:1,
             totalPage:1,
+            msgDic:{}
         };
     }
 
@@ -36,10 +36,10 @@ export default class PersonMailView extends BaseView {
             if (this.state.dataList.length <= 0) {
                 ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LETTER_LIST, (result) => {
                     if (result.data.data) {
-                        let arr = this.state.dataList.concat(result.data.data);
-                        this.setState({dataList: arr, curPage:result.data.current_page,
-                            totalPage:last_page});
-                        this.setState({msgList: result.data.msg_type});
+                        let arr = G_ArrayUtils.addComapreCopy(this.state.dataList,result.data.data) ;
+                        this.setState({dataList: arr,msgDic: result.data.msg_type,
+                            curPage:result.data.current_page,
+                            totalPage:result.data.last_page});
                     }
                 });
             }
@@ -48,7 +48,7 @@ export default class PersonMailView extends BaseView {
 
     _renderRow = (data) => {
         let dataName = G_DateUtil.formatFrendlyDateString(data.updated_at);
-        let typeInfo = this.state.msgList;
+        let typeInfo = this.state.msgDic;
         let typeName = typeInfo[data.type_id];
         return (
             <View>

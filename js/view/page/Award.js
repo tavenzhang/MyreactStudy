@@ -78,7 +78,8 @@ export default class Award extends BaseView {
     }
 
     componentDidMount(){
-        setTimeout(()=> this.onLoaderMore(null,1,true),2000)
+        // setTimeout(()=> this.onLoaderMore(null,1,true),500)
+        this.onLoaderMore(null,1,true);
     }
 
    onLoaderMore=(callBack,isFlush,isHide=false)=>{

@@ -55,7 +55,7 @@ export default class Notice extends BaseView {
     }
 
     componentDidMount(){
-        setTimeout(()=> this.onLoaderMore(null,1,true),2000)
+        this.onLoaderMore(null,1,true)
     }
 
     itemClick = (data) => {

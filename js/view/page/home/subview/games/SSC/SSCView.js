@@ -1,11 +1,8 @@
 import React from 'react';
 import {
-    View,
     Text
     , StyleSheet,
-    TouchableOpacity
 } from 'react-native';
-import AIcon from 'react-native-vector-icons/FontAwesome';
 
 import BaseGameView from "../BaseGameView";
 import WuxingZhixuanFushi from "./WuxingZhixuanFushi";
@@ -134,26 +131,10 @@ import QuweiHaoshichengshuang from "./QuweiHaoshichengshuang";
 import QuweiSanxingbaoxi from "./QuweiSanxingbaoxi";
 import QuweiSijifacai from "./QuweiSijifacai";
 
-
-
 import connect from "react-redux/src/components/connect";
 
-const mapStateToProps = state => {
-    return {
-        //balls: newBalls,
-        orderNum: state.get("gameState").get("orderList").count(),
-        moneyUnit: state.get("gameState").get("moneyUnit"), //金额模式
-        multiple: state.get("gameState").get("multiple"), //倍数
-        orderList: state.get("gameState").get("orderList"),
-        orderListNum: state.get("gameState").get("orderList").count(),
-        balance:state.get("appState").get("moneyBalance"),
-        prize: state.get("gameState").get("prize"), //奖金组
-    }
-}
 
-
-
-@connect(mapStateToProps)
+@connect(BaseGameView.mapStateToProps)
 export default class SSCView extends BaseGameView {
     static navigationOptions = BaseGameView.navigationOptionsGame;
     constructor(props) {

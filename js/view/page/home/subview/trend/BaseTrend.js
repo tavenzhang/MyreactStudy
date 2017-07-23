@@ -58,9 +58,12 @@ export default class BaseTrend extends React.Component {
                 thirdList: this.getDataByPosition(data, 2),
                 mixList:this.getDataByPosition(data, 3),
             })
-        })
+        },false,true)
     }
 
+    componentWillUnmount() {
+        ActDispatch.FetchAct.canCelVoFetch (HTTP_SERVER.TREND_DATA)
+    }
 
     _handleChangeTab = (index) => {
         this.setState({index});

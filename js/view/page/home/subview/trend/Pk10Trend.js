@@ -36,7 +36,7 @@ export default class Pk10Trend extends BaseTrend {
                 secondList: this.getDataByPosition(data, 1),
                 mixList: this.getDataByPosition(data, 2)
             })
-        })
+        },false,true)
     }
 
 

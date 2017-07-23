@@ -11,28 +11,15 @@ import {
     Image,
     TouchableHighlight
 } from 'react-native';
-import {connect} from 'react-redux';
 import Ball from "./Ball";
 import GameControlPannel from "./GameControlPannel";
 import GameModelPannel from "./GameModelPannel";
 import GamePriceModelPannel from "./GamePriceModelPannel";
 import BallOperateBtn from "./BallOperateBtn";
 import RNShakeEvent from 'react-native-shake-event';
-import {TButton} from "../tcustom/button/TButton";
 import {Icon_yaoyiyao} from "../../../assets/index";
 
-//
-// const mapStateToProps = state => {
-//     TLog('----------->',state)
-//     return {
-//         orderList: state.get("gameState").get("orderList"),
-//         orderListNum: state.get("gameState").get("orderList").count(),
-//
-//         balance: parseFloat(state.get("appState").getIn(['userData', 'data', 'available']))
-//         //balls: newBalls,
-//     }
-// }
-// @connect(mapStateToProps)
+
 export default class Games extends Component {
     constructor(props) {
         super(props);
@@ -592,7 +579,7 @@ export default class Games extends Component {
                 {
                     this.isRandomSelect ?
                         <TouchableHighlight onPress={this.randomSelcet} style={styles.yaoyiyao}>
-                            <View style={{alignItems:"center"}}>
+                            <View style={{alignItems: "center"}}>
                                 <Image
                                     style={styles.yaoyiyaoImg}
                                     source={Icon_yaoyiyao}
@@ -625,10 +612,20 @@ export default class Games extends Component {
                         me.addBallsToBasket();
                     }}
                     btnIconEvent={() => {
-                        G_NavUtil.push(G_RoutConfig.LotteryOrders,{
+                        // G_NavUtil.push(G_RoutConfig.LotteryOrders,{
+                        //     randomLotterys: me.randomLotterys,
+                        //     isRandomOrder: me.isRandomOrder
+                        // });
+                        ActDispatch.GameAct.lottoryState({
+                            show: true,
                             randomLotterys: me.randomLotterys,
                             isRandomOrder: me.isRandomOrder
-                        });
+                        })
+                        console.log("---btnIconEvent----",{
+                            show: true,
+                            randomLotterys: me.randomLotterys,
+                            isRandomOrder: me.isRandomOrder
+                        })
                     }}
                     btnIconEventDesc={orderNum}
                     btnIconName='cart-plus'

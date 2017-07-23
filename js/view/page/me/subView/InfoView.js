@@ -55,7 +55,7 @@ export class InfoView extends React.PureComponent {
                 <View style={styles.rowSp}>
                     <View style={{flexDirection: "row", flex: 1, justifyContent: "center"}}>
                         <Text style={[{fontSize: 14, color: G_Theme.grayDeep}]}>奖金组: </Text>
-                        <Text style={[{fontSize: 14}]}>{userData.data.user_forever_prize_group} </Text>
+                        <Text style={[{fontSize: 14}]}>{userData.data.user_prize_group} </Text>
                     </View>
                     <View style={{flexDirection: "row", flex: 1, justifyContent: "center"}}>
                         <Text style={{

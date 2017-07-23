@@ -55,6 +55,7 @@ export default class TeamListView extends React.Component {
     }
 
     rendeRow = (data, section) => {
+        const {userData} = this.props;
          let subNum = parseInt(data.sub_user_counts);
         return (<TouchableOpacity onPress={() => this.onPressItem(data)}>
             <View style={[styles.row]}>
@@ -68,7 +69,11 @@ export default class TeamListView extends React.Component {
                     }
                 </View>
                 <View style={[styles.containView]}>
-                    <Text style={[styles.contentText]}>{data.prize_group}</Text>
+                    {
+                       data.parent_id ==userData.data.user_id ? <TButton containerStyle={{paddingVertical:3, paddingHorizontal:6}} btnName={data.prize_group} onPress={()=>this.onClickGroup(data)}/>
+                           : <Text style={[styles.contentText]}>{data.prize_group}</Text>
+                    }
+
                 </View>
                 <View style={styles.containView}>
                     <Text
@@ -83,6 +88,10 @@ export default class TeamListView extends React.Component {
                 </View>
 
             </View></TouchableOpacity>)
+    }
+
+    onClickGroup=(data)=>{
+      TLog("onClickGroup-----",data)
     }
 
     onClickChildAgent=(data)=>{

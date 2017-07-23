@@ -10,6 +10,7 @@ import HeadMenuListView from "./HeadMenuListView";
 import MoreMenu from "../../../../componet/MoreMenu";
 import BannerView from "./BannerView";
 import AIcon from 'react-native-vector-icons/FontAwesome';
+import LotteryOrders from "./LotteryOrders";
 
 export default class BaseGameView extends BaseView {
 
@@ -27,6 +28,23 @@ export default class BaseGameView extends BaseView {
             headerRight: <NavButtonAIco navigation={navigation} icoName={G_EnumFontNames.bars} isRightButton={true}/>
         }
     }
+
+    static  mapStateToProps = state => {
+        return {
+            //balls: newBalls,
+            orderNum: state.get("gameState").get("orderList").count(),
+            moneyUnit: state.get("gameState").get("moneyUnit"), //金额模式
+            multiple: state.get("gameState").get("multiple"), //倍数
+            orderList: state.get("gameState").get("orderList"),
+            orderListNum: state.get("gameState").get("orderList").count(),
+            balance:state.get("appState").get("moneyBalance"),
+            prize: state.get("gameState").get("prize"), //奖金组
+
+            //balls: newBalls,
+            lottorState:state.get("gameState").get("lottorState").toJS(), //够彩篮
+        }
+    }
+
 
     constructor(props) {
         super(props);
@@ -61,7 +79,6 @@ export default class BaseGameView extends BaseView {
         this.getGameWays = this.getGameWays.bind(this);
     }
 
-
     getGameTitle() {
         const {name} = this.props.navigation.state.params;
         const {currentGameWay} = this.state;
@@ -92,6 +109,7 @@ export default class BaseGameView extends BaseView {
     }
 
     onHeadPressed = () => {
+        TLog("onHeadPressed-----",this.state.isShowMenu)
         this.setState({isShowMenu: !this.state.isShowMenu});
     }
 
@@ -99,6 +117,7 @@ export default class BaseGameView extends BaseView {
     renderBody() {
         const {currentGameWay, defaultMethodId} = this.state;
         const {series_id} = this.props.navigation.state.params;
+        let {lottorState}=this.props;
         let subView = this.state.selectItem ? this.onRenderSubView(this.state.selectItem) : null;
         let menuDataList = this.getMoreMenuData();
         const {moneyUnit,prize} = this.props;
@@ -127,7 +146,7 @@ export default class BaseGameView extends BaseView {
                     dateHistoryList={this.state.history_lotterys}
                     prize={price}
                     series_id={series_id} onTimeHanlde={this.requetGameData}/>
-                 {subView}
+                 {lottorState.show ? <LotteryOrders {...this.props} {...lottorState}/> :subView}
                 <MoreMenu
                     ref="moreMenu"
                     menus={menuDataList}
@@ -146,6 +165,11 @@ export default class BaseGameView extends BaseView {
     componentDidMount() {
         this.requetGameData();
         HttpUtil.flushMoneyBalance();
+    }
+
+    componentWillUnmount() {
+        ActDispatch.GameAct.delOrder();
+        ActDispatch.GameAct.lottoryState({show:false})
     }
 
     requetGameData = () => {
@@ -195,6 +219,7 @@ export default class BaseGameView extends BaseView {
                     currentGameWay: gameMethodHash[data.id]
                 }, () => {
                     this.props.navigation.setParams({gameTitle: this.getGameTitle()})
+                    ActDispatch.GameAct.lottoryState({show:false})
                 });
             }
             else {
@@ -217,7 +242,8 @@ export default class BaseGameView extends BaseView {
                             isRequestGameWay: false,
                             selectItem: data
                         }, () => {
-                            this.props.navigation.setParams({gameTitle: this.getGameTitle()})
+                            this.props.navigation.setParams({gameTitle: this.getGameTitle()});
+                            ActDispatch.GameAct.lottoryState({show:false})
                         });
 
                     });

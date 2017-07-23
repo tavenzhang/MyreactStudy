@@ -326,6 +326,14 @@ global.HTTP_SERVER = {
     MoneyBankPlatAdd: {url: "/mobile-deposit/create-platform-form", method: METHOD_POST,body:{
         platform_id:"",merchant_id:"",amount:"",pay_type:"",bank_id:""
     }},
+    //用户奖金组信息
+    GROUP_PRIZE_INFO: {url: "", formatUrl:"/mobile-agent/user-user-prize-sets/get-prize-set/#id", method: METHOD_POST,body:{
+
+    }},
+    //设置用户奖金组信息
+    GROUP_PRIZE_SET: {url: "", formatUrl:"/mobile-agent/user-user-prize-sets/set-prize-set/#id", method: METHOD_POST,body:{
+        prize_group:""
+    }},
 };
 
 global.HttpUtil = {

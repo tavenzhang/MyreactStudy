@@ -91,7 +91,7 @@ export default class TeamChildAgentView extends BaseView {
 
 
     renderBody() {
-        let {userData} = this.props.navigation.state.params
+        let {userData} = this.props
         // const {searchData}=this.state;
         // TLog('[[[[[[[searchData]]]]]]',searchData);
         return (<View style={G_Style.appContentView}>

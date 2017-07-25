@@ -35,7 +35,7 @@ export default class TGameTraceView extends Component {
 
 
     render() {
-        let {isTrace, orderListNum} = this.props;
+        let {isTrace, orderListNum,isCanChase} = this.props;
         let validMoney = 0;
         let validIssueNum = 0
         this.state.traceList.map((item) => {
@@ -54,7 +54,7 @@ export default class TGameTraceView extends Component {
                         alignItems: "center",
                         justifyContent: "center"
                     }}>
-                        <TButton disable={orderListNum <= 0} btnName={" 我要追号"}
+                        <TButton disable={orderListNum <= 0|| !isCanChase} btnName={" 我要追号"}
                                  onPress={() => this.setState({showModel: true})}/>
                     </View>
                     <View style={{
@@ -106,6 +106,7 @@ export default class TGameTraceView extends Component {
             </View>
         );
     }
+
 
 
     _rendMenuBarView = () => {
@@ -323,6 +324,7 @@ export default class TGameTraceView extends Component {
     }
 
     _onConfirmPress = () => {
+        let {wayId}=this.props;
         let validMoney = 0;
         let validIssueNum = 0
         let traceList = []
@@ -339,6 +341,7 @@ export default class TGameTraceView extends Component {
         data.traceWinStop = this.state.traceWinStop;
         data.traceList = traceList;
         data.traceTotalMoney = validMoney;
+        data.traceWayId=wayId;
         ActDispatch.GameAct.setTrace(data);
         this._onHideView()
     }

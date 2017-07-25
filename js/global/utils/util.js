@@ -201,10 +201,10 @@ global.G_GroupBackRate=(configGrop,useGroup)=>{
 //     var start = s1.indexOf(".");
 //
 //     //截取小数点后,0之后的数字，判断是否大于5，如果大于5这入为1
-//     if(s1.substr(start+len+1,1)>=5)
-//     {
-//         tempNum=1;
-//     }
+//     // if(s1.substr(start+len+1,1)>=5)
+//     // {
+//     //     tempNum=1;
+//     // }
 //
 //     //计算10的len次方,把原数字扩大它要保留的小数位数的倍数
 //     var temp = Math.pow(10,len);

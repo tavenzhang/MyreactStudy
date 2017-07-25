@@ -606,7 +606,7 @@ export default class Games extends Component {
 
                 </ScrollView>
                 <GameControlPannel
-                    onFastBtnClick={this.onFastInvest}
+                    onLeftBtnClick={this.onFastInvest}
                     balance={balance}
                     topDesc={operTopDesc}
                     btnEvent={this.addBallsToBasket}
@@ -636,6 +636,7 @@ export default class Games extends Component {
     }
 
     onFastInvest=()=>{
+        ActDispatch.GameAct.delOrder();
         this.addBallsToBasket();
         ActDispatch.GameAct.lottoryState({
             show: true,

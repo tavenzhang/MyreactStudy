@@ -16,7 +16,8 @@ const mapStateToProps = state => {
         gameModel: state.get("appState").get("gameModel"),
         playModel: state.get("appState").get("playModel"),
         appModel: state.get("appState").get("appModel"),
-        userID: state.get("appState").get("userData").get("data").get("user_id"),
+        userData: state.get("appState").get("userData").toJS(),
+        //userID: state.get("appState").get("userData").get("data").get("user_id"),
     }
 }
 
@@ -37,6 +38,7 @@ export default class RecordBetView extends BaseView {
     }
 
     renderBody() {
+         let {userData}=this.props
         return (
             <View style={G_Style.appContentView}>
                 <View style={{
@@ -66,7 +68,7 @@ export default class RecordBetView extends BaseView {
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 1, backgroundColor: "yellow"}}>
-                    <BetRecordListView  curPage={this.state.curPage} totalPage={this.state.totalPage} dataList={this.state.dataList}
+                    <BetRecordListView  userID={userData.data.user_id} curPage={this.state.curPage} totalPage={this.state.totalPage} dataList={this.state.dataList}
                                        loadMore={this.loadMore} {...this.props}/>
                 </View>
                 <RecordMenuView clickMenuItem={this.clickMenuItem} {...this.props}/>

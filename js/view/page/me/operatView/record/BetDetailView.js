@@ -68,6 +68,10 @@ export  default class BetDetailView extends BaseView {
                     style={[styles.text, styles.winStatus, {color: isWin ? G_Theme.primary : G_Theme.grayDeep}]}>{appModel.getAProjectStatus(data.status)}</Text>
             </View>
             <View style={styles.profitRow}>
+                <Text style={styles.title}>奖金组:</Text>
+                <Text style={[styles.text, styles.winNumber]}>{data.prize_group}</Text>
+            </View>
+            <View style={styles.profitRow}>
                 <Text style={styles.title}>返点:</Text>
                 <Text style={[styles.text, styles.winNumber]}>{(userData.data.user_prize_group-data.prize_group)*100/2000} %</Text>
             </View>

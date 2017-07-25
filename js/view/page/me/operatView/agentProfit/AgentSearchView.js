@@ -79,11 +79,11 @@ export default class AgentSearchView extends React.Component {
                         </View>
                         <View style={{flexDirection: "row", alignItems: "center"}}>
                             <Text style={{marginRight: 5}}>时间:</Text>
-                            <MyDatePicker onDateSelect={(date_from) => {
+                            <MyDatePicker defaultDate={this.state.date_from} onDateSelect={(date_from) => {
                                 this.setState({date_from: date_from})
                             }}/>
                             <Text style={{marginHorizontal: 10}}>至</Text>
-                            <MyDatePicker onDateSelect={(date_to) => {
+                            <MyDatePicker defaultDate={this.state.date_to} onDateSelect={(date_to) => {
                                 this.setState({date_to: date_to})
                             }}/>
                         </View>

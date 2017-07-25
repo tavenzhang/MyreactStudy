@@ -10,7 +10,8 @@ import {connect} from 'react-redux';
 import BaseView from "../../../componet/BaseView";
 import RecordMenuView, {MenuListType} from "./record/RecordMenuView";
 import TFlatList from "../../../componet/TFlatList";
-import {TAIco} from "../../../componet/tcustom/button/TButton";
+import {TAIco, TButton} from "../../../componet/tcustom/button/TButton";
+import MyDatePicker from "../../../componet/tcustom/date/TDatePicker";
 
 
 const mapStateToProps = state => {
@@ -26,20 +27,25 @@ export default class RecordAssginView extends BaseView {
     constructor(props) {
         super(props);
         this.state = {
-            curGame: null,
-            curPlay: null,
-            curTime: null,
             dataList: [],
             curPage:1,
             totalPage:1,
+            date_from:"",
+            date_to:""
         }
     }
 
     renderBody() {
         return (
             <View style={G_Style.appContentView}>
-                <RecordMenuView clickMenuItem={this.clickMenuItem} {...this.props}/>
-                <TFlatList totalPage={this.state.totalPage} curPage={this.state.curPage} styleView={{flex: 1, marginTop: 35}} renderRow={this._renderRow} dataList={this.state.dataList} loadMore={this.loadMore}/>
+                <View style={{flexDirection:"row", alignItems:"center", borderBottomWidth:1, justifyContent:"center"}}>
+                    <Text>时间：</Text>
+                    <MyDatePicker dataFormat={"YYYY-MM-DD hh:mm:ss"} defaultDate={this.state.date_from} onDateSelect={(date_from)=>{this.setState({date_from:date_from})}}/>
+                    <Text style={{marginHorizontal: 10}}>至</Text>
+                    <MyDatePicker dataFormat={"YYYY-MM-DD hh:mm:ss"}  defaultDate={this.state.date_to}  onDateSelect={(date_to)=>{this.setState({date_to:date_to})}}/>
+                    <TButton viewStyle={{marginLeft:20}} btnName={"搜索"}  onPress={this.onPreeSearch}/>
+                </View>
+                <TFlatList totalPage={this.state.totalPage} curPage={this.state.curPage} styleView={{flex: 1}} renderRow={this._renderRow} dataList={this.state.dataList} loadMore={this.loadMore}/>
             </View>
         );
     }
@@ -100,11 +106,13 @@ export default class RecordAssginView extends BaseView {
         }
     }
 
+    onPreeSearch=()=>{
+        this.setState({dataList:[]},()=>this.loadMore(null,1))
+    }
+
     loadMore = (callBack, isFlush) => {
-        HTTP_SERVER.RECORD_ASSIGN_MONEY.body.bought_at_from = this.state.curTime ? this.state.curTime.date : "";
-        HTTP_SERVER.RECORD_ASSIGN_MONEY.body.bought_at_to = ""
-        HTTP_SERVER.RECORD_ASSIGN_MONEY.body.lottery_id = this.state.curGame ? this.state.curGame.id : "";
-        HTTP_SERVER.RECORD_ASSIGN_MONEY.body.way_group_id = this.state.curPlay ? this.state.curPlay.id : "";
+        HTTP_SERVER.RECORD_ASSIGN_MONEY.body.bought_at_from = this.state.date_from;
+        HTTP_SERVER.RECORD_ASSIGN_MONEY.body.bought_at_to = this.state.date_to
         if (isFlush) {
             HTTP_SERVER.RECORD_ASSIGN_MONEY.body.page = 1;
         }

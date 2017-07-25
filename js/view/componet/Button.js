@@ -16,6 +16,7 @@ export  default  class Button extends React.Component {
         btnName : PropTypes.any.isRequired,
         onPress : PropTypes.func.isRequired,
         leftIcon : PropTypes.string,
+        style:PropTypes.any
     };
 
     static defaultProps = {
@@ -23,12 +24,12 @@ export  default  class Button extends React.Component {
     };
 
     render() {
-        const {leftIcon,onPress,btnName} = this.props;
+        const {leftIcon,onPress,btnName,style} = this.props;
 
         const leftIconDom = leftIcon ? <AIcon name={leftIcon} style={styles.iconLeft} /> : null;
 
         return (
-            <TouchableOpacity onPress={() => onPress()} style={[styles.btn]}>
+            <TouchableOpacity onPress={() => onPress()} style={[styles.btn,style]}>
                 {leftIconDom}
                 <Text style={styles.btnText}>{btnName}</Text>
             </TouchableOpacity>

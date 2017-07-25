@@ -10,7 +10,11 @@ export default class MyDatePicker extends Component {
         defaultDate: PropTypes.any,
         minDate: PropTypes.any,
         maxDate: PropTypes.any,
-        onDateSelect:PropTypes.func
+        onDateSelect:PropTypes.func,
+        dataFormat:PropTypes.any
+    }
+    static defaultProps={
+        onDateSelect:"YYYY-MM-DD"
     }
 
     constructor(props){
@@ -22,7 +26,7 @@ export default class MyDatePicker extends Component {
 
     render(){
 
-        let {minDate,maxDate,onDateSelect}=this.props
+        let {minDate,maxDate,onDateSelect,dataFormat}=this.props
         return (
         <View>
             <DatePicker
@@ -32,7 +36,7 @@ export default class MyDatePicker extends Component {
                 showIcon={false}
                 placeholder="select date"
                // format="YYYY-MM-DD hh:mm:ss"
-                format="YYYY-MM-DD"
+                 format={dataFormat}
                 minDate={minDate}
                 maxDate={maxDate}
                 confirmBtnText="Confirm"
@@ -45,7 +49,7 @@ export default class MyDatePicker extends Component {
                     //     marginLeft: 0
                     // },
                     dateInput: {
-                        height:25
+                        height:30
                     }
                     // ... You can check the source to find the other keys.
                 }}

@@ -119,7 +119,6 @@ export class InfoView extends React.PureComponent {
                             </TouchableOpacity>
                         </View>:null
                     }
-
                 </View>
             </View>
         } else {

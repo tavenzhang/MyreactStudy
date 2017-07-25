@@ -39,7 +39,7 @@ export default class BaseGameView extends BaseView {
             orderListNum: state.get("gameState").get("orderList").count(),
             balance:state.get("appState").get("moneyBalance"),
             prize: state.get("gameState").get("prize"), //奖金组
-
+            gameId: state.get("gameState").get("gameId"),
             //balls: newBalls,
             lottorState:state.get("gameState").get("lottorState").toJS(), //够彩篮
         }
@@ -146,7 +146,7 @@ export default class BaseGameView extends BaseView {
                     dateHistoryList={this.state.history_lotterys}
                     prize={price}
                     series_id={series_id} onTimeHanlde={this.requetGameData}/>
-                 {lottorState.show ? <LotteryOrders price={price} {...this.props} {...lottorState}/> :subView}
+                 {lottorState.show ? <LotteryOrders {...this.props} {...lottorState}/> :subView}
                 <MoreMenu
                     ref="moreMenu"
                     menus={menuDataList}
@@ -163,12 +163,16 @@ export default class BaseGameView extends BaseView {
     }
 
     componentDidMount() {
+        const {id} = this.props.navigation.state.params;
+        let {gameId}= this.props
         this.requetGameData();
+        if(gameId!=id){
+            ActDispatch.GameAct.delOrder();
+        }
         HttpUtil.flushMoneyBalance();
     }
 
     componentWillUnmount() {
-        ActDispatch.GameAct.delOrder();
         ActDispatch.GameAct.lottoryState({show:false})
     }
 

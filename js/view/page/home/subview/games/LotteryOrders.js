@@ -20,14 +20,10 @@ const mapStateToProps = state => {
     return {
         orderList: state.get("gameState").get("orderList"),
         orderListNum: state.get("gameState").get("orderList").count(),
-        isTrace: state.get("gameState").get("isTrace"),
-        traceWinStop:state.get("gameState").get("traceWinStop"),
-        traceTimes: state.get("gameState").get("traceTimes"),
-        traceList: state.get("gameState").get("traceList").toJS(),
-        traceTotalMoney:state.get("gameState").get("traceTotalMoney"),
         gameId: state.get("gameState").get("gameId"),
         lottery_items: state.get("gameState").get("lottery_items"),
         gameNumbers: state.get("gameState").get("gameNumbers").toJS(),
+        traceData:state.get("gameState").get("traceData").toJS(),
         balance: parseFloat(state.get("appState").getIn(['userData', 'data', 'available'])),
         userData: state.get("appState").get("userData").toJS(),
     }
@@ -37,16 +33,14 @@ export default class LotteryOrders extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
     }
 
-
     submitOrders = (amount,isModel=false) => {
-        const {gameId, orderList, traceWinStop,lottery_items,traceTotalMoney, traceList, isTrace, traceTimes} = this.props;
+        const {gameId, orderList,lottery_items, traceData} = this.props;
         let submitData = {
                 gameId: gameId,
-                isTrace: isTrace,
-                traceWinStop: traceWinStop,
+                isTrace: traceData.isTrace,
+                traceWinStop: traceData.traceWinStop,
                 traceStopValue: 1,
                 balls: orderList,
                 // amount:amount
@@ -54,20 +48,20 @@ export default class LotteryOrders extends React.Component {
          submitData['orders'] = {};
 
         ////非追号
-        if (!isTrace) {
+        if (!traceData.isTrace) {
             //获得当前期号，将期号作为键
             submitData['orders'][lottery_items] = 1;
             //总金额
         } else {
             //追号
-            for (let j = 0; j < traceTimes; j++) {
-                let issue = traceList[j].issue,
-                    multiple = traceList[j].mulity;
+            for (let j = 0; j < traceData.traceTimes; j++) {
+                let issue = traceData.traceList[j].issue,
+                    multiple =traceData.traceList[j].mulity;
                     submitData['orders'][issue] = multiple;
             }
         }
         //总金额
-        submitData['amount'] = isTrace ? traceTotalMoney :amount;
+        submitData['amount'] = traceData.isTrace ? traceData.traceTotalMoney :amount;
         HTTP_SERVER.SUBMIT_ORDERS.url = HTTP_SERVER.SUBMIT_ORDERS.formatUrl.replace(/#id/g, gameId) + '?customer=' + CUSTOMER;
         HTTP_SERVER.SUBMIT_ORDERS.body = submitData;
         TLog("------===submitData====-------", submitData)
@@ -84,24 +78,10 @@ export default class LotteryOrders extends React.Component {
         },false,isModel)
     }
 
-    getTotalText(total, totalMoney) {
-        const {traceTotalMoney, isTrace, traceTimes} = this.props;
-           let money= isTrace ? traceTotalMoney:totalMoney
-            let txtLabel= isTrace ? `总计: ${total*traceTimes}注, 追号${traceTimes}期, 共`:`总计: ${total}注, 共`
-        return <Text>{txtLabel}<Text
-             style={{color: "red"}}> {G_moneyFormat(money)}</Text>元</Text>
-
-    }
-
-    componentWillUpdate() {
-        G_PLATFORM_IOS ? LayoutAnimation.configureNext(G_LayoutAnimationHelp.springNoDelete) : LayoutAnimation.configureNext(G_LayoutAnimationHelp.springNoCreate);
-    }
-
 
     render() {
-        const {orderList, balance, orderListNum,randomLotterys, isRandomOrder} = this.props;
-        let total = 0,
-            totalMoney = 0;
+        const {orderList, balance, orderListNum,randomLotterys, isRandomOrder,traceData} = this.props;
+        let total = 0, totalMoney = 0;
         const btnDisable = orderListNum == 0 ? styles.btnDisable : null;
 
         let randomLotteryOne = isRandomOrder ? <Button
@@ -114,18 +94,29 @@ export default class LotteryOrders extends React.Component {
             onPress={() => randomLotterys(5)}
             leftIcon="plus-circle"
         /> : null;
-
+        let isCanChase=true;
+        let lastMode=null;
+        let lastWay=null;
         return (
             <View style={[G_Style.appContentView]}>
                 <View style={styles.btnGrounp}>
+                    <Button btnName="返回游戏" style={{backgroundColor:"green"}} onPress={this._onPopView}/>
                     {randomLotteryOne}
                     {randomLotteryFive}
-                    <Button btnName="亲自选号" onPress={this._onPopView}/>
                 </View>
                 <View style={[styles.orderListBox, {flex: 1}]}>
                     <ScrollView style={{flex: 1}}>
                         {
                             orderList.map((v, i) => {
+                                if(isCanChase){
+                                    if(!lastMode){
+                                        lastMode=v.moneyunit
+                                    }
+                                    if(!lastWay){
+                                        lastWay = v.wayId
+                                    }
+                                    isCanChase = lastMode==v.moneyunit && lastWay==v.wayId;
+                                }
                                 total = total + v.num;
                                 totalMoney = totalMoney + v.amount;
                                 return <OrderItem
@@ -145,7 +136,7 @@ export default class LotteryOrders extends React.Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <TGameTraceView  totalMoney={totalMoney} {...this.props}/>
+                <TGameTraceView wayId={lastWay} isCanChase={isCanChase} totalMoney={totalMoney} {...this.props}/>
                 <GameControlPannel
                     balance={balance}
                     topDesc={this.getTotalText(total,totalMoney)}
@@ -158,16 +149,50 @@ export default class LotteryOrders extends React.Component {
     }
 
     componentDidMount() {
-        let {isFast,orderList}=this.props;
+        let {isFast}=this.props;
         if(isFast){
-            let total = 0, totalMoney = 0;
-            orderList.map((v) => {
-                total = total + v.num;
-                totalMoney = totalMoney + v.amount;
-            })
-            this.submitOrders(totalMoney,true)
+            let investVo=this.onCountInvest();
+            this.submitOrders(investVo.totalMoney,true)
         }
+    }
 
+    onCountInvest=()=>{
+        let {traceData,orderList}=this.props;
+        let isCanChase=true;
+        let lastMode=null;
+        let lastWay=null;
+        let totalNum = 0, totalMoney = 0;
+        orderList.map((v) => {
+            if(isCanChase){
+                if(!lastMode){
+                    lastMode=v.moneyunit
+                }
+                if(!lastWay){
+                    lastWay = v.wayId
+                }
+                isCanChase = lastMode==v.moneyunit && lastWay==v.wayId;
+            }
+            if(traceData.isTrace&&!isCanChase){
+                this._onClearTrace();
+            }
+            totalNum = totalNum + v.num;
+            totalMoney = totalMoney + v.amount;
+        })
+        if(isCanChase){
+            if(traceData.isTrace){
+                totalMoney= traceData.traceTotalMoney;
+            }
+        }
+        return {totalMoney,totalNum,isCanChase}
+    }
+
+
+    getTotalText(total, totalMoney) {
+        const {traceData} = this.props;
+        let money= traceData.isTrace ? traceData.traceTotalMoney:totalMoney
+        let txtLabel= traceData.isTrace ? `总计: ${total*traceData.traceTimes}注, 追号${traceData.traceTimes}期, 共`:`总计: ${total}注, 共`
+        return <Text>{txtLabel}<Text
+            style={{color: "red"}}> {G_moneyFormat(money)}</Text>元</Text>
     }
 
 

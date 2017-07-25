@@ -24,7 +24,8 @@ export default class GameControlPannel extends Component {
         btnName : PropTypes.string,
         topDesc : PropTypes.object,
         btnDisable: PropTypes.bool,
-        onFastBtnClick:PropTypes.func,
+        onLeftBtnClick:PropTypes.func,
+        btnLeftName:PropTypes.string
     };
 
     static defaultProps = {
@@ -35,7 +36,8 @@ export default class GameControlPannel extends Component {
         btnName : '确 定',
         topDesc : <Text/>,
         btnDisable : true,
-        onFastBtnClick:null
+        onLeftBtnClick:null,
+        btnLeftName:"一键投注"
     };
 
     btnAction() {
@@ -54,8 +56,8 @@ export default class GameControlPannel extends Component {
 
     render() {
         const me = this;
-        const { onFastBtnClick,topDesc, balance, btnName, btnDisable, btnIconEventDesc, btnIconEvent, btnIconDisable, btnIconName } = this.props;
-        const btnStatus = btnDisable ? styles.btnDisable : null;
+        const { onLeftBtnClick,btnLeftName, topDesc, balance, btnName, btnDisable, btnIconEventDesc, btnIconEvent, btnIconDisable, btnIconName } = this.props;
+       // const btnStatus = btnDisable ? styles.btnDisable : null;
         const btnIconStatus = btnIconDisable ? styles.btnIconDisable : null;
 
         //icon btn
@@ -81,7 +83,7 @@ export default class GameControlPannel extends Component {
                 </View>
                 <View style={{flexDirection : 'row', alignItems:"center"}}>
                     {
-                        onFastBtnClick ?  <TButton btnName={"一键投注"} onPress={onFastBtnClick} containerStyle={[styles.btn, {marginRight:15,
+                        onLeftBtnClick ?  <TButton btnName={btnLeftName} onPress={onLeftBtnClick} containerStyle={[styles.btn, {marginRight:15,
                             backgroundColor: "green", paddingLeft:5, paddingRight:
                         5, paddingVertical:7}]} disable={btnDisable}/>:null
                     }

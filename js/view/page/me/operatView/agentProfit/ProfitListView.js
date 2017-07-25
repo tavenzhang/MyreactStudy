@@ -197,7 +197,7 @@ export default class ProfitListView extends React.Component {
     }
 
     rendeRow = (data, section) => {
-        TLog("ProfitListView----rendeRow", data)
+      //  TLog("ProfitListView----rendeRow", data)
         return (
             <TouchableHighlight onPress={() => this.clickItem(data)} underlayColor='rgba(10,10,10,0.2)'>
                 <View style={[styles.row]}>

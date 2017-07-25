@@ -33,7 +33,6 @@ export default class BaseView extends Component {
                 G_Navigation = this.props.navigation
             }
         }
-        G_LastView=this;
         this.name=null;
         this.state={
             myTest:1
@@ -53,7 +52,7 @@ export default class BaseView extends Component {
                 this.registPressHandle();
             }
         }
-
+        G_LastView=this;
        // TLog("this.constructor.name--"+this.name,G_NavRouteState)
         if(G_NavRouteState&&G_NavRouteState.isFlush&&this.name==G_NavRouteState.mod)
         {
@@ -79,6 +78,7 @@ export default class BaseView extends Component {
     }
 
     renderBody() {
+
     }
 
     onLeftPressed() {

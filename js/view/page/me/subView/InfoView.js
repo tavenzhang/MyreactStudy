@@ -99,25 +99,27 @@ export class InfoView extends React.PureComponent {
                             </View>
                         </TouchableOpacity>
                     </View>
-                    <View style={[styles.commonBar, {
-                        borderLeftWidth: 1,
-                    }]}>
-                        <TouchableOpacity onPress={() => {
-                            G_NavUtil.push(G_RoutConfig.MoneyTransferView,{
-                                title: '转账',
-                                money: moneyBalance,
-                                // uid: userData.data.user_id,
-                                username: userData.data.username
-                            });
-                        }}>
-                            <View style={{flexDirection: "row",}}>
-                                <AIcon name={"exchange"}
-                                       style={styles.commonIcon}/>
-                                <Text style={styles.commonText}>转账</Text>
+                    {userData.data.user_type > 0 ?  <View style={[styles.commonBar, {
+                            borderLeftWidth: 1,
+                        }]}>
+                            <TouchableOpacity onPress={() => {
+                                G_NavUtil.push(G_RoutConfig.MoneyTransferView,{
+                                    title: '转账',
+                                    money: moneyBalance,
+                                    // uid: userData.data.user_id,
+                                    username: ""
+                                });
+                            }}>
+                                <View style={{flexDirection: "row",}}>
+                                    <AIcon name={"exchange"}
+                                           style={styles.commonIcon}/>
+                                    <Text style={styles.commonText}>转账</Text>
 
-                            </View>
-                        </TouchableOpacity>
-                    </View>
+                                </View>
+                            </TouchableOpacity>
+                        </View>:null
+                    }
+
                 </View>
             </View>
         } else {

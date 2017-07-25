@@ -146,7 +146,7 @@ export default class BaseGameView extends BaseView {
                     dateHistoryList={this.state.history_lotterys}
                     prize={price}
                     series_id={series_id} onTimeHanlde={this.requetGameData}/>
-                 {lottorState.show ? <LotteryOrders {...this.props} {...lottorState}/> :subView}
+                 {lottorState.show ? <LotteryOrders price={price} {...this.props} {...lottorState}/> :subView}
                 <MoreMenu
                     ref="moreMenu"
                     menus={menuDataList}
@@ -174,6 +174,7 @@ export default class BaseGameView extends BaseView {
 
     requetGameData = () => {
         const {id} = this.props.navigation.state.params;
+        ActDispatch.GameAct.lottoryState({show:false})
         HTTP_SERVER.GET_GAME_DETAIL.url = HTTP_SERVER.GET_GAME_DETAIL.formatUrl.replace(/#id/g, id);
             ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.GET_GAME_DETAIL, ActionType.GameType.SET_GAMECONFIG, data => {
                 if (data.isSuccess) {

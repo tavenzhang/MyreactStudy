@@ -12,17 +12,19 @@ export default class MyModalView extends Component {
         visible: PropTypes.bool,
         hideModal:PropTypes.func,
         onPressModal:PropTypes.func,
+        isAutoHide:PropTypes.bool,
     }
 
     static defaultProps={
-        hideModal:()=>{}
+        hideModal:()=>{},
+        isAutoHide:false
     }
     constructor(props){
         super(props)
     }
 
     render(){
-        let {visible,hideModal,onPressModal}=this.props
+        let {visible,hideModal,onPressModal,isAutoHide}=this.props
         return (
             <Modal
                 animationType={"fade"}
@@ -31,9 +33,9 @@ export default class MyModalView extends Component {
                 onRequestClose={hideModal}
                 hardwareAccelerated={true}
             >
-                <TouchableWithoutFeedback onPress={onPressModal}>
+                {isAutoHide ? <TouchableWithoutFeedback onPress={onPressModal}>
                     {this.props.children}
-                </TouchableWithoutFeedback>
+                </TouchableWithoutFeedback>:this.props.children}
             </Modal>
         )
     }

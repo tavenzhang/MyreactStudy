@@ -123,7 +123,7 @@ export default class PersonPwdView extends BaseView {
                     ActDispatch.AppAct.showErrorBox(data.Msg);
                     if(data.isSuccess)
                     {
-                        G_NavUtil.pop();
+                        G_NavUtil.pop(G_RoutConfig.Main,{mode:"changPwd",pwd:this.state.newPwd});
                     }
                 }, false)
             }
@@ -148,7 +148,7 @@ export default class PersonPwdView extends BaseView {
                         ActDispatch.AppAct.showErrorBox(data.Msg);
                         if(data.isSuccess)
                         {
-                            G_NavUtil.pop();
+                            G_NavUtil.pop(G_RoutConfig.Main);
                         }
                     }, false)
 

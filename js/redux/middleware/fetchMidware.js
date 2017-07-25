@@ -80,7 +80,10 @@ function fetchMiddleware(extraArgument) {
                             }
                             if (data.isSuccess) {
                                 if (data.Msg) {
-                                    next(ActionEnum.AppAct.showBox(data.Msg));
+                                    if (!action.isHideError)
+                                    {
+                                        next(ActionEnum.AppAct.showBox(data.Msg));
+                                    }
                                 }
                             }
                             else {
@@ -92,7 +95,11 @@ function fetchMiddleware(extraArgument) {
                                 else {
                                     if(data.Msg)
                                     {
-                                        next(ActionEnum.AppAct.showErrorBox(data.Msg));
+                                        if (!action.isHideError)
+                                        {
+                                            next(ActionEnum.AppAct.showErrorBox(data.Msg));
+                                        }
+
                                     }
                                 }
                             }

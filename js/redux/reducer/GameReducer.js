@@ -6,9 +6,11 @@ const initGameState = fromJS({
     gameId: null,
     lottery_items: null,
     isTrace:0,//追号信息
-    traceTimes:1,//追号信息
-    traceMultiple:1,//追号倍数
-    traceInfo:[],//追号数据
+    traceWinStop:0,
+    traceTimes:0,//追号信息
+    traceTotalMoney:0,
+   // traceMultiple:1,//追号倍数
+    traceList:[],//追号数据
     gameNumbers: [],
     orderList: [], //订单数据
     prize: null, //用户选择的奖金组
@@ -61,15 +63,16 @@ const gameState = (state = initGameState, action) => {
             return state.merge({
                 isTrace:traceInfo.isTrace,
                 traceTimes:traceInfo.traceTimes,
-                traceMultiple:traceInfo.traceMultiple,
-                traceInfo:traceInfo.traceInfo
+                traceList:traceInfo.traceList,
+                traceWinStop:traceInfo.traceWinStop,
+                traceTotalMoney:traceInfo.traceTotalMoney
             })
 
         case gType.SET_MULTIPLE:
             return state.merge({multiple:action.data})
 
         case gType.SET_GAMECONFIG:
-            TLog('gameConfig====',action.httpResult.data);
+          //  TLog('gameConfig====',action.httpResult.data);
             const data = action.httpResult.data;
             return state.merge({
                 gameId: data.gameId,

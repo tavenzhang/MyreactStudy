@@ -3,18 +3,15 @@ import {
     View,
     StyleSheet,
     Text,
-    Image,
 } from 'react-native';
 import BaseView from "../../../../componet/BaseView";
 
-
-
 export  default class AssignDetailView extends BaseView {
 
-    renderBody() {
+    render() {
         let {appModel,data,gameModel,playModel} = this.props.navigation.state.params;
         let gameName = gameModel.getGameNameById(data.lottery_id);
-        let timeStr=G_DateUtil.formatSimpleItemDateString(data.created_at)
+       // let timeStr=G_DateUtil.formatSimpleItemDateString(data.created_at)
         let wayName=  playModel.getWayNameById(data.way_id);
         return (<View style={[G_Style.appContentView]}>
             <View style={styles.profitRow}>
@@ -66,6 +63,7 @@ export  default class AssignDetailView extends BaseView {
             </View>
         </View>)
     }
+
 
 
 }

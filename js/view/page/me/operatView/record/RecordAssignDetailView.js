@@ -8,7 +8,7 @@ import BaseView from "../../../../componet/BaseView";
 
 export  default class RecordAssignDetailView extends BaseView {
 
-    renderBody() {
+    render() {
         let {appModel,data} = this.props.navigation.state.params
         return (<View style={[G_Style.appContentView]}>
             <View style={styles.profitRow}>

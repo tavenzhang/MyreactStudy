@@ -69,7 +69,6 @@ export default class EditCardView extends BaseView {
                             onChangeText={(password) => this.setState({password: password})}
                             value={this.state.password}
                             secureTextEntry={true}
-                            keyboardType={'numeric'}
                         />
                     </View>
                 </View>

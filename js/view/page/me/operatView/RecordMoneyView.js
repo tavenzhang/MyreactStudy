@@ -51,12 +51,12 @@ export default class RecordMoneyView extends BaseView {
         }
     }
 
-    renderBody() {
+    render() {
         let {appModel}=this.props;
         return (
             <View style={G_Style.appContentView}>
                 <RecordMenuView clickMenuItem={this.clickMenuItem} {...this.props}/>
-                <TFlatList curPage={this.state.curPage} totalPage={this.state.totalPage} styleView={{flex: 1, marginTop: 35}} renderRow={this._renderRow} dataList={this.state.dataList} loadMore={this.loadMore}/>
+                <TFlatList renderHeader={this._renderHeader}  curPage={this.state.curPage} totalPage={this.state.totalPage} styleView={{flex: 1, marginTop: 35}} renderRow={this._renderRow} dataList={this.state.dataList} loadMore={this.loadMore}/>
                 <RecordMoneySearchView username={this.state.username} appModel={appModel} visible={this.state.modelShow} onHideHandle={()=>this.setState({modelShow:false})} onConfirmPress={this.onConfirmPress} />
             </View>
         );
@@ -72,12 +72,34 @@ export default class RecordMoneyView extends BaseView {
         this.loadMore(null, true);
     }
 
+    _renderHeader =()=>{
+        return (<View style={styles.headRow}>
+            <View style={[styles.itemHeadStyle,{flex:1}]}>
+                <Text style={styles.textHeadStyle}>日期</Text>
+            </View>
+            <View style={[styles.itemHeadStyle,{flex:1}]}>
+                <Text style={styles.textHeadStyle}>金额</Text>
+            </View>
+            <View style={[styles.itemHeadStyle,{flex:2}]}>
+                <Text style={styles.textHeadStyle}>类型</Text>
+            </View>
+            <View style={[styles.itemHeadStyle,{flex:2}]}>
+                <Text style={styles.textHeadStyle}>彩种</Text>
+            </View>
+            <View style={[styles.itemHeadStyle,{flex:2}]}>
+                <Text style={styles.textHeadStyle}>余额</Text>
+            </View>
+            <View style={[styles.itemHeadStyle,{flex:0.5}]}>
+            </View>
+        </View>)
+    }
+
     _renderRow = (rowData) => {
         let {gameModel,playModel,appModel}=this.props;
         let gameName= gameModel.getGameNameById(rowData.lottery_id);
         let dateStr=   G_DateUtil.formatSimpleItemDateString(rowData.created_at);
         let playName = playModel.getWayNameById(rowData.way_id);
-        let money= rowData.is_income ? `+${ parseInt(rowData.amount)}`:`-${ parseInt(rowData.amount)}`
+        let money= rowData.is_income ? `+${parseFloat(rowData.amount).toFixed(4)}`:`-${parseFloat(rowData.amount).toFixed(4)}`
 
         return (
             <TouchableOpacity onPress={() => this.itemClick(rowData)}>
@@ -98,7 +120,7 @@ export default class RecordMoneyView extends BaseView {
                 <View style={[styles.itemContentStyle,{flex:2}]}>
                     <Text style={styles.textItemStyle}  numberOfLines={2}>{rowData.available}</Text>
                 </View>
-                <View style={[styles.itemContentStyle,{flex: 1}]}>
+                <View style={[styles.itemContentStyle,{flex: 0.5}]}>
                     <TAIco name={"angle-right"}
                            style={{fontSize: 25, paddingTop:2, alignSelf: "center", color: "gray"}}/>
                 </View>
@@ -119,7 +141,7 @@ export default class RecordMoneyView extends BaseView {
     }
 
     itemClick = (data) => {
-        G_NavUtil.push(G_RoutConfig.RecordMoneyDetailView,{data,...this.props},"帐变详情");
+        G_NavUtil.push(G_RoutConfig.RecordMoneyDetailView,{data,title:"帐变详情"});
     }
 
     clickMenuItem = (data, listType) => {
@@ -171,7 +193,20 @@ export default class RecordMoneyView extends BaseView {
     }
 }
 const styles = StyleSheet.create({
-
+    itemHeadStyle: {
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    textHeadStyle: {
+        fontSize: 14,
+        fontWeight: "bold",
+        color:"gray"
+    },
+    headRow: {
+        flexDirection: 'row',
+        height: 32,
+        borderColor: "gray",
+    },
     itemContentStyle: {
         flex: 1,
         justifyContent: "center",

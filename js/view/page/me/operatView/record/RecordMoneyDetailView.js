@@ -4,21 +4,31 @@ import {
     StyleSheet,
     Text,
 } from 'react-native';
+import connect from "react-redux/src/components/connect";
 import BaseView from "../../../../componet/BaseView";
 
+const mapStateToProps = state => {
+    return {
+        gameModel: state.get("appState").get("gameModel"),
+        playModel: state.get("appState").get("playModel"),
+        appModel: state.get("appState").get("appModel"),
+    }
+}
+@connect(mapStateToProps)
 export  default class RecordMoneyDetailView extends BaseView {
 
-    renderBody() {
-        let {appModel,data,gameModel,playModel,userData} = this.props.navigation.state.params
+    render() {
+        let {data} = this.props.navigation.state.params
+        let {appModel,gameModel,playModel}=this.props;
         let gameName= gameModel.getGameNameById(data.lottery_id);
         let playName = playModel.getWayNameById(data.way_id);
-        let money= data.is_income ? `+${ parseInt(data.amount)}`:`-${ parseInt(data.amount)}`
+        let money = data.is_income ? `+${parseFloat(data.amount).toFixed(4)}` : `-${parseFloat(data.amount).toFixed(4)}`
 
         return (<View style={[G_Style.appContentView]}>
             <View style={styles.profitRow}>
                 <Text style={styles.title}>用户名:</Text>
                 <Text
-                    style={[styles.text, styles.winStatus]}>{userData.data.nickname}</Text>
+                    style={[styles.text, styles.winStatus]}>{data.username}</Text>
             </View>
             <View style={styles.profitRow}>
                 <Text style={styles.title}>编号:</Text>
@@ -33,7 +43,6 @@ export  default class RecordMoneyDetailView extends BaseView {
                 <Text style={styles.title}>创建日期:</Text>
                 <Text style={[styles.text, styles.winNumber]}>{data.created_at}</Text>
             </View>
-
             <View style={styles.profitRow}>
                 <Text style={styles.title}>模式:</Text>
                 <Text style={[styles.text, styles.winNumber]}>{appModel.getACoefficients(data.coefficient)}</Text>
@@ -54,7 +63,6 @@ export  default class RecordMoneyDetailView extends BaseView {
                 <Text style={styles.title}>玩法:</Text>
                 <Text style={[styles.text,styles.winStatus]}>{playName}</Text>
             </View>
-
         </View>);
     }
 

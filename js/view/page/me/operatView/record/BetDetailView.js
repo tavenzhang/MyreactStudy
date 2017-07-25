@@ -33,7 +33,6 @@ export  default class BetDetailView extends BaseView {
 
     renderBody() {
         let {gameModel, appModel,userData} = this.props
-
         const {data} = this.state;
         let gameName = gameModel.getGameNameById(data.lottery_id)
         let series_id = gameModel.getSeriesIdById(data.lottery_id)
@@ -58,6 +57,10 @@ export  default class BetDetailView extends BaseView {
                     <Text style={[styles.text,styles.gameHeadText,{
                         color: G_Theme.grayDeep,}]}> {coefficient}</Text>
                 </View>
+            </View>
+            <View style={styles.profitRow}>
+                <Text style={styles.title}>用户名:</Text>
+                <Text style={[styles.text, styles.winNumber]}>{data.username}</Text>
             </View>
             <View style={styles.profitRow}>
                 <Text style={styles.title}>订单状态:</Text>
@@ -92,7 +95,7 @@ export  default class BetDetailView extends BaseView {
                 <Text style={[styles.text, styles.gameHeadText,{flex:8,textAlign:'left'}]}>{data.bought_at}</Text>
             </View>
             {
-                data.allow_cancel&&data.status==0 ? <TButton onPress={this.onCanCelBet} containerStyle={{marginHorizontal: 40, marginTop:20}} btnName={"撤销投注"}/>:null
+                data.user_id==userData.data.user_id&&data.allow_cancel&&data.status==0 ? <TButton onPress={this.onCanCelBet} containerStyle={{marginHorizontal: 40, marginTop:20}} btnName={"撤销投注"}/>:null
             }
         </View>);
     }

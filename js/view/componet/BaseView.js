@@ -33,7 +33,11 @@ export default class BaseView extends Component {
                 G_Navigation = this.props.navigation
             }
         }
-        this.name="";
+        G_LastView=this;
+        this.name=null;
+        this.state={
+            myTest:1
+        }
     }
 
     renderNavigationBar() {
@@ -47,7 +51,6 @@ export default class BaseView extends Component {
             if(this.props.navigation) {
                 this.initRegist=true;
                 this.registPressHandle();
-                //setTimeout(this.registPressHandle,500)
             }
         }
 
@@ -56,7 +59,7 @@ export default class BaseView extends Component {
         {
             ActDispatch.AppAct.app_route_state(false)
             if(this.onForcefunc) {
-                TLog("------------------this.name--onForcefunc="+this.name,G_NavRouteState)
+                TLog("------------------this.name--onForcefunc=",G_NavRouteState)
                 this.onForcefunc(G_NavRouteState);
             }
         }
@@ -99,6 +102,12 @@ export default class BaseView extends Component {
             this.name = name;
         }
         this.onForcefunc=onForcefunc;
+    }
+
+    componentDidMount(){
+        if(!G_PLATFORM_IOS){//解决在andorid 平台 一些白屏问题
+            setTimeout(()=>this.setState({myTest:2}),500)
+        }
     }
 
 }

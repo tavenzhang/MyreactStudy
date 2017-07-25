@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 import AIcon from 'react-native-vector-icons/FontAwesome';
+import {TButton} from "../tcustom/button/TButton";
 
 export default class GameControlPannel extends Component {
     static propTypes = {
@@ -23,7 +24,7 @@ export default class GameControlPannel extends Component {
         btnName : PropTypes.string,
         topDesc : PropTypes.object,
         btnDisable: PropTypes.bool,
-        leftButton:PropTypes.any,
+        onFastBtnClick:PropTypes.func,
     };
 
     static defaultProps = {
@@ -34,7 +35,7 @@ export default class GameControlPannel extends Component {
         btnName : '确 定',
         topDesc : <Text/>,
         btnDisable : true,
-        leftButton:null
+        onFastBtnClick:null
     };
 
     btnAction() {
@@ -53,7 +54,7 @@ export default class GameControlPannel extends Component {
 
     render() {
         const me = this;
-        const { leftButton,topDesc, balance, btnName, btnDisable, btnIconEventDesc, btnIconEvent, btnIconDisable, btnIconName } = this.props;
+        const { onFastBtnClick,topDesc, balance, btnName, btnDisable, btnIconEventDesc, btnIconEvent, btnIconDisable, btnIconName } = this.props;
         const btnStatus = btnDisable ? styles.btnDisable : null;
         const btnIconStatus = btnIconDisable ? styles.btnIconDisable : null;
 
@@ -78,12 +79,17 @@ export default class GameControlPannel extends Component {
                         <Text style={styles.money}>可用余额<Text style={{color: "red"}}> {G_moneyFormat(balance)}</Text>元</Text>
                     </View>
                 </View>
-                <View style={{flexDirection : 'row'}}>
+                <View style={{flexDirection : 'row', alignItems:"center"}}>
+                    {
+                        onFastBtnClick ?  <TButton btnName={"一键投注"} onPress={onFastBtnClick} containerStyle={[styles.btn, {marginRight:15,
+                            backgroundColor: "green", paddingLeft:5, paddingRight:
+                        5, paddingVertical:7}]} disable={btnDisable}/>:null
+                    }
                     {iconBtnDom}
-                    {leftButton}
-                    <TouchableOpacity onPress={() => me.btnAction()} style={[styles.btn,btnStatus]}>
-                        <Text style={styles.btnText}>{btnName}</Text>
-                    </TouchableOpacity>
+                    <TButton btnName={btnName} onPress={()=>me.btnAction()}  containerStyle={[styles.btn,{marginLeft:10}]} disable={btnDisable}/>
+                    {/*<TouchableOpacity onPress={() => me.btnAction()} style={[styles.btn,btnStatus]}>*/}
+                        {/*<Text style={styles.btnText}>{btnName}</Text>*/}
+                    {/*</TouchableOpacity>*/}
                 </View>
             </View>
         );
@@ -119,20 +125,15 @@ const styles = StyleSheet.create({
 
     btn: {
         backgroundColor: global.G_Theme.primary,
-        justifyContent:"center",
-        alignItems:"center",
-        padding:10,
-        paddingLeft:20,
-        paddingRight:20,
-        position:'relative'
+        paddingLeft:15,
+        paddingRight:15,
+        borderRadius:0
     },
 
     btnIcon: {
         justifyContent:"center",
         alignItems:"center",
-        padding:10,
-        marginLeft:10,
-        marginRight:10,
+        padding:5,
         position:'relative'
     },
 

@@ -1,6 +1,3 @@
-/**
- * Created by soga on 2017/4/17.
- */
 import React from 'react';
 import {
     View,
@@ -20,24 +17,19 @@ import TGameTraceView from "../../../../componet/game/TGameTraceView";
 import connect from "react-redux/src/components/connect";
 //
 const mapStateToProps = state => {
-    //const balls = state.get("gameState").get("balls").toArray();
-    //let newBalls = []
-    //balls.map((v,i) => {
-    //    newBalls[i] = v.toArray();
-    //});
     return {
         orderList: state.get("gameState").get("orderList"),
         orderListNum: state.get("gameState").get("orderList").count(),
         isTrace: state.get("gameState").get("isTrace"),
+        traceWinStop:state.get("gameState").get("traceWinStop"),
         traceTimes: state.get("gameState").get("traceTimes"),
-        traceInfo: state.get("gameState").get("traceInfo"),
-        traceMultiple: state.get("gameState").get("traceMultiple"),
+        traceList: state.get("gameState").get("traceList").toJS(),
+        traceTotalMoney:state.get("gameState").get("traceTotalMoney"),
         gameId: state.get("gameState").get("gameId"),
         lottery_items: state.get("gameState").get("lottery_items"),
         gameNumbers: state.get("gameState").get("gameNumbers").toJS(),
         balance: parseFloat(state.get("appState").getIn(['userData', 'data', 'available'])),
         userData: state.get("appState").get("userData").toJS(),
-        //balls: newBalls,
     }
 }
 @connect(mapStateToProps)
@@ -49,34 +41,33 @@ export default class LotteryOrders extends React.Component {
     }
 
 
-    submitOrders = (amount) => {
-        const {gameId, orderList, lottery_items, traceInfo, isTrace, traceTimes, traceMultiple} = this.props;
+    submitOrders = (amount,isModel=false) => {
+        const {gameId, orderList, traceWinStop,lottery_items,traceTotalMoney, traceList, isTrace, traceTimes} = this.props;
         let submitData = {
                 gameId: gameId,
                 isTrace: isTrace,
-                traceWinStop: 1,
+                traceWinStop: traceWinStop,
                 traceStopValue: 1,
                 balls: orderList,
                 // amount:amount
-            },
-            newTraceInfo = traceInfo.toJS();
-        submitData['orders'] = {};
+            };
+         submitData['orders'] = {};
 
         ////非追号
-        if (isTrace == 0) {
+        if (!isTrace) {
             //获得当前期号，将期号作为键
             submitData['orders'][lottery_items] = 1;
             //总金额
         } else {
             //追号
             for (let j = 0; j < traceTimes; j++) {
-                let number = newTraceInfo[j].traceNumber,
-                    multiple = newTraceInfo[j].traceMultiple;
-                submitData['orders'][number] = multiple;
+                let issue = traceList[j].issue,
+                    multiple = traceList[j].mulity;
+                    submitData['orders'][issue] = multiple;
             }
         }
         //总金额
-        submitData['amount'] = amount * traceTimes * traceMultiple;
+        submitData['amount'] = isTrace ? traceTotalMoney :amount;
         HTTP_SERVER.SUBMIT_ORDERS.url = HTTP_SERVER.SUBMIT_ORDERS.formatUrl.replace(/#id/g, gameId) + '?customer=' + CUSTOMER;
         HTTP_SERVER.SUBMIT_ORDERS.body = submitData;
         TLog("------===submitData====-------", submitData)
@@ -87,14 +78,19 @@ export default class LotteryOrders extends React.Component {
                 ActDispatch.GameAct.delOrder();
                 HttpUtil.flushMoneyBalance();//体现余额 改变
                 //返回选球页
+                this._onClearTrace()
                 this._onPopView()
             }
-        })
+        },false,isModel)
     }
 
-    getTotalText(total, tracetimes, tracemultiple, totalMoney) {
-        return <Text>总计: {total}注{tracetimes}期{tracemultiple}倍, 共<Text
-            style={{color: "red"}}> {G_moneyFormat(totalMoney * tracetimes * tracemultiple)}</Text>元</Text>
+    getTotalText(total, totalMoney) {
+        const {traceTotalMoney, isTrace, traceTimes} = this.props;
+           let money= isTrace ? traceTotalMoney:totalMoney
+            let txtLabel= isTrace ? `总计: ${total*traceTimes}注, 追号${traceTimes}期, 共`:`总计: ${total}注, 共`
+        return <Text>{txtLabel}<Text
+             style={{color: "red"}}> {G_moneyFormat(money)}</Text>元</Text>
+
     }
 
     componentWillUpdate() {
@@ -103,17 +99,11 @@ export default class LotteryOrders extends React.Component {
 
 
     render() {
-
-        const {orderList, balance, orderListNum, traceTimes, traceMultiple,lottery_items} = this.props;
-        const {randomLotterys, isRandomOrder} = this.props;
-        TLog("lottery_items----",lottery_items)
-        const me = this;
+        const {orderList, balance, orderListNum,randomLotterys, isRandomOrder} = this.props;
         let total = 0,
-            totalMoney = 0,
-            tracetimes = !traceTimes ? 1 : traceTimes,
-            tracemultiple = !traceMultiple ? 1 : traceMultiple;
+            totalMoney = 0;
         const btnDisable = orderListNum == 0 ? styles.btnDisable : null;
-        // let topDesc=<Text>总计: {total}注{tracetimes}期{tracemultiple}倍, 共<Text style={{color: "red"}}> {G_moneyFormat(totalMoney * traceTimes * traceMultiple)}</Text>元</Text>
+
         let randomLotteryOne = isRandomOrder ? <Button
             btnName="机选1注"
             onPress={() => randomLotterys(1)}
@@ -155,16 +145,29 @@ export default class LotteryOrders extends React.Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <TGameTraceView {...this.props}/>
+                <TGameTraceView  totalMoney={totalMoney} {...this.props}/>
                 <GameControlPannel
                     balance={balance}
-                    topDesc={this.getTotalText(total, tracetimes, tracemultiple, totalMoney)}
+                    topDesc={this.getTotalText(total,totalMoney)}
                     btnEvent={() => this._onInvest(totalMoney)}
                     btnDisable={orderListNum == 0 ? true : false}
                     btnName="投 注"
                 />
             </View>
         );
+    }
+
+    componentDidMount() {
+        let {isFast,orderList}=this.props;
+        if(isFast){
+            let total = 0, totalMoney = 0;
+            orderList.map((v) => {
+                total = total + v.num;
+                totalMoney = totalMoney + v.amount;
+            })
+            this.submitOrders(totalMoney,true)
+        }
+
     }
 
 
@@ -204,6 +207,16 @@ export default class LotteryOrders extends React.Component {
                 ]
             )
         }
+    }
+
+    _onClearTrace=()=>{
+        let data ={};
+        data.isTrace =0;
+        data.traceTimes=0;
+        data.traceWinStop=0;
+        data.traceList=[];
+        data.traceTotalMoney=0;
+        ActDispatch.GameAct.setTrace(data);
     }
 }
 

@@ -17,6 +17,7 @@ const mapStateToProps = state => {
         gameModel: state.get("appState").get("gameModel"),
         playModel: state.get("appState").get("playModel"),
         appModel: state.get("appState").get("appModel"),
+        userID: state.get("appState").get("userData").get("data").get("user_id"),
     }
 }
 @connect(mapStateToProps)

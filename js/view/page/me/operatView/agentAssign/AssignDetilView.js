@@ -63,12 +63,12 @@ export default class AssignDetilView extends BaseView {
                 { data.info.prize_group!=data.info.forever_prize_group?<Text style={[styles.contentText, {
                     fontSize: 12,
                     color: G_Theme.primary,paddingLeft:5
-                }]}>{`${data.info.prize_group}(临时)`}</Text>:null
+                }]}>{`(${data.info.prize_group})`}</Text>:null
                 }
                 <Text style={[styles.contentText, {
                     fontSize: 12,
                     color: G_Theme.grayDeep,paddingLeft:5
-                }]}>{`${data.info.forever_prize_group}(永久)`}</Text>
+                }]}>{`(${data.info.forever_prize_group})`}</Text>
 
             </View>
 

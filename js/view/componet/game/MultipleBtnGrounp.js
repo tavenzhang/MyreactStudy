@@ -45,7 +45,6 @@ export default class MultipleBtnGrounp extends React.Component {
         }
 
         ActDispatch.GameAct.setMultiple(newMultiple);
-
         this.setState({multipleValue:newMultiple})
         checkBallIsComplete(newMultiple);
 

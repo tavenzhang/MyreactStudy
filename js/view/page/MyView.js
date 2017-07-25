@@ -10,7 +10,7 @@ import AcountListView from "./me/subView/AcountListView";
 import {NavButtonText} from "../componet/navBarMenu/HeaderMenu";
 import ConfigView from "./home/subview/ConfigView";
 import {InfoView} from "./me/subView/InfoView";
-
+import md5 from "react-native-md5";
 export let ItemNameEnum = {
     //我的彩票
     awardFind: "中奖查询",
@@ -44,6 +44,7 @@ const mapStateToProps = state => {
         userData: state.get("appState").get("userData").toJS(),
         moneyBalance: state.get("appState").get("moneyBalance"),
         showConfigModel:state.get("appState").get("showConfigModel"),
+        storageUser: state.get("appState").get("storageUser").toJS(),
     }
 }
 
@@ -66,8 +67,13 @@ export default class MyView extends BaseView {
             }}  name={"注销"} navigation={navigation} visible={userData.isLogined}/>
         }
     }
-
     static dataListRecord = [
+        { ico: "file-text",   name: ItemNameEnum.betRecord
+        }, {ico: "file-text-o", name: ItemNameEnum.chaseRecode},
+        {ico: "money", name: ItemNameEnum.recordMoney},
+        {ico: "random", name: ItemNameEnum.recordBack}];
+
+    static dataListRecordAgent = [
         { ico: "file-text",   name: ItemNameEnum.betRecord
         }, {ico: "file-text-o", name: ItemNameEnum.chaseRecode},
         {ico: "money", name: ItemNameEnum.recordMoney},
@@ -101,6 +107,21 @@ export default class MyView extends BaseView {
             modalVisible: false,
         }
         this.name="MyView";
+        this.registOnForceFlush(G_RoutConfig.Main,(data)=>{
+            if(!data.isLoginViewBack)
+            {
+                if(data&&data.mode=="changPwd"){
+                    HTTP_SERVER.LOGIN_IN.body.srcPwd=data.pwd;
+                    HTTP_SERVER.LOGIN_IN.body.password=md5.hex_md5(md5.hex_md5(md5.hex_md5(HTTP_SERVER.LOGIN_IN.body.username + HTTP_SERVER.LOGIN_IN.body.srcPwd)));
+                }
+                ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LOGIN_IN,(data)=>{
+                    if (data.isSuccess) {
+                        ActDispatch.AppAct.loginReault(data);
+                        G_MyStorage.setItem(G_EnumStroeKeys.USR_DATA, JSON.stringify(HTTP_SERVER.LOGIN_IN.body));
+                    }
+                },true,false,true);
+            }
+        })
     }
 
 
@@ -118,10 +139,11 @@ export default class MyView extends BaseView {
             {
                 dataList = {
                     "代理中心": MyView.dataListTopAgent,
-                    "我的彩票": MyView.dataListRecord,
+                    "我的彩票": MyView.dataListRecordAgent,
                     "账户资金": MyView.dataListMoeny_Agent,
                     "系统信息": MyView.dataListSystem
                 };
+
             }
         }
         return (

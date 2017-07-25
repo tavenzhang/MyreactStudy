@@ -21,15 +21,11 @@ export default class MoneyDetailView extends BaseView {
         this.state = {
             index:0,
             routes: [
-                { key: '1', title: '全部' },
-                { key: '2', title: '充值' },
-                { key: '3', title: '提现' },
-                { key: '4', title: '派奖' },
-                { key: '5', title: '转账' },
+                { key: '1', title: '充值' },
+                { key: '2', title: '提现' },
+                { key: '3', title: '派奖' },
+                { key: '4', title: '转账' },
             ],
-            dataList1:[],
-            curPage1:1,
-            totalPage1:1,
             dataList2:[],
             curPage2:2,
             totalPage2:2,
@@ -56,14 +52,12 @@ export default class MoneyDetailView extends BaseView {
     _renderScene = ({ route }) => {
         switch (route.key) {
             case '1':
-                return <MoneyChangeHistoryView curPage={this.state.curPage1} totalPage={this.state.totalPage1}  dataList={this.state.dataList1} loadMore={this._loadMore} {...this.props} style={[ styles.page]} httpService={HTTP_SERVER.LIST_REANSACTON} />;
-            case '2':
                 return <MoneyChangeHistoryView curPage={this.state.curPage2} totalPage={this.state.totalPage2}  dataList={this.state.dataList2} loadMore={this._loadMore}  {...this.props} style={[ styles.page]} httpService={HTTP_SERVER.LIST_ADD_MONEY}/>;
-            case '3':
+            case '2':
                 return <MoneyChangeHistoryView curPage={this.state.curPage3} totalPage={this.state.totalPage3}  dataList={this.state.dataList3} loadMore={this._loadMore}  {...this.props} style={[ styles.page]} httpService={HTTP_SERVER.LIST_DRAW} />;
-            case '4':
+            case '3':
                 return <MoneyChangeHistoryView curPage={this.state.curPage4} totalPage={this.state.totalPage4} dataList={this.state.dataList4} loadMore={this._loadMore}  {...this.props} style={[ styles.page]} httpService={HTTP_SERVER.LIST_AWARD_MONEY} />;
-            case '5':
+            case '4':
                 return <MoneyChangeHistoryView curPage={this.state.curPage5} totalPage={this.state.totalPage5}  dataList={this.state.dataList5}  loadMore={this._loadMore}  {...this.props} style={[ styles.page]} httpService={HTTP_SERVER.LIST_TRANSLATE_MONEY} />;
            default:
                return null;

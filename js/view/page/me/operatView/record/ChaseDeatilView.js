@@ -4,8 +4,6 @@ import {
     Text,
     StyleSheet,
     Image,
-    TouchableHighlight
-
 } from 'react-native';
 import BaseView from "../../../../componet/BaseView";
 import {HOME_ICONS} from "../../../../../assets/index";
@@ -31,7 +29,7 @@ export  default class BetDetailView extends BaseView {
     }
 
 
-    renderBody() {
+    render() {
         let {gameModel, appModel} = this.props.navigation.state.params;
         let {userData}=this.props
         let gameName = gameModel.getGameNameById(this.state.data.lottery_id)
@@ -40,6 +38,9 @@ export  default class BetDetailView extends BaseView {
         let series_id = gameModel.getSeriesIdById(data.lottery_id)
         let coefficient = appModel.getACoefficients(data.coefficient);
         let isFinish = data.status == 1 ? true : false;
+        let finishAmount= (data.finished_issues/data.total_issues)* data.amount;
+        let canCelAmount= (data.canceled_issues/data.total_issues)* data.amount;
+        let rateBack= G_GroupBackRate(data.prize_group,userData.data.user_prize_group)
         return (<View style={[G_Style.appContentView]}>
 
                 <View style={styles.gameHead}>
@@ -73,32 +74,33 @@ export  default class BetDetailView extends BaseView {
                     <Text style={[styles.text, styles.winStatus, {color: isFinish ? G_Theme.primary : G_Theme.grayDeep}]}>{appModel.getATraceStatus(this.state.data.status)}</Text>
                 </View>
                 <View style={styles.profitRow}>
-                    <Text style={styles.title}>中奖金额:</Text>
-                    <Text
-                        style={[styles.text, styles.winStatus, {color: G_Theme.primary}]}>{data.prize ? G_DateUtil.formatMoney(data.prize) : 0}元</Text>
-                </View>
-                <View style={styles.profitRow}>
                     <Text style={styles.title}>投注模式:</Text>
                     <Text
                         style={[styles.text,]}>{coefficient}</Text>
                 </View>
                 <View style={styles.profitRow}>
-                    <Text style={styles.title}>订单金额:</Text>
+                    <Text style={styles.title}>中奖金额:</Text>
+                    <Text
+                        style={[styles.text, styles.winStatus, {color: G_Theme.primary}]}>{data.prize ? G_DateUtil.formatMoney(data.prize) : 0}元</Text>
+                </View>
+
+                <View style={styles.profitRow}>
+                    <Text style={styles.title}>追号金额:</Text>
                     <Text
                         style={[styles.text, styles.winStatus, {color: G_Theme.primary}]}>{G_DateUtil.formatMoney(data.amount)}元</Text>
                 </View><View style={styles.profitRow}>
                 <Text style={styles.title}>完成金额:</Text>
                 <Text
-                    style={[styles.text, styles.winStatus, {color: G_Theme.primary}]}>{G_DateUtil.formatMoney(data.amount)}元</Text>
+                    style={[styles.text, styles.winStatus, {color: G_Theme.primary}]}>{G_DateUtil.formatMoney(finishAmount)}元</Text>
             </View><View style={styles.profitRow}>
                 <Text style={styles.title}>取消金额:</Text>
                 <Text
-                    style={[styles.text, styles.winStatus, {color: G_Theme.primary}]}>{G_DateUtil.formatMoney(data.amount)}元</Text>
+                    style={[styles.text, styles.winStatus, {color: G_Theme.primary}]}>{G_DateUtil.formatMoney(canCelAmount)}元</Text>
             </View>
 
                 <View style={styles.profitRow}>
                     <Text style={styles.title}>返点:</Text>
-                    <Text style={[styles.text,]}>1090-1.0003%</Text>
+                    <Text style={[styles.text,]}>{data.prize_group}-{rateBack}%</Text>
                 </View>
                 <View style={styles.profitRow}>
                     <Text style={styles.title}>中奖后终止任务:</Text>
@@ -128,7 +130,7 @@ export  default class BetDetailView extends BaseView {
                             textAlign: 'left'
                         }]}>{data.created_at}</Text>
                 </View>
-                {/*<TFlatList dataList={dataList} loadMore={this.loadMore} renderRow={this._renderRow}/>*/}
+                {/*<TFlatList dataListN={dataList} loadMore={this.loadMore} renderRow={this._renderRow}/>*/}
                 <View style={{flexDirection: "row", marginTop: 20, justifyContent: "center", alignItems: "center"}}>
                     {
                         data.status == 0&&data.user_id==userData.data.user_id ?

@@ -3,7 +3,7 @@
 let SERVERADDR = "http://www.orchidf.com";
 
 global.G_SERVERADDR = SERVERADDR;
-global.G_APPVERSION="app_7_18"
+global.G_APPVERSION="app_7_24"
 
 const METHOD_GET = "GET";
 const METHOD_POST = "POST";

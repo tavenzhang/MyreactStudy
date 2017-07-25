@@ -28,6 +28,7 @@ export default class MoneyTransferView extends BaseView {
         let agentCount = "";
         let money="";
         let {params}=this.props.navigation.state;
+        TLog("params------",params)
         if(params)
         {
             agentCount=params.username ? params.username : ""
@@ -156,7 +157,7 @@ export default class MoneyTransferView extends BaseView {
             HTTP_SERVER.TRANSFER_SUB_MINT.body.amount = this.state.money
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.TRANSFER_SUB_MINT, (result) => {
                 if (result.isSuccess) {
-                    G_NavUtil.pop();
+                    G_NavUtil.pop(G_RoutConfig.Main);
                 }
             })
     }

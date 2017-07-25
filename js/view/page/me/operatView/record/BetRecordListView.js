@@ -24,9 +24,9 @@ export default class BetRecordListView extends React.Component {
     }
 
     _renderRow = (rowData,index) => {
-        let {gameModel, appModel} = this.props;
+        let {gameModel, appModel,userID} = this.props;
         let gameName = gameModel.getGameNameById(rowData.lottery_id),
-         statusColor = rowData.status == 3 ? G_Theme.primary : G_Theme.grayDeep,
+           statusColor = rowData.status == 3 ? G_Theme.primary : G_Theme.grayDeep,
             amount=G_DateUtil.formatMoney(rowData.amount);
         return (
                 <TouchableHighlight onPress={() => this.itemClick(rowData)} underlayColor='rgba(10,10,10,0.2)'>
@@ -37,7 +37,11 @@ export default class BetRecordListView extends React.Component {
                                   numberOfLines={1}>{rowData.day} </Text>
                         </View>
                         <View style={[styles.itemContentStyle, index==0?'':styles.record, {flex: 5}]}>
-                            <Text style={styles.textItemStyle}>{gameName}</Text>
+                            <View style={{flexDirection:"row", alignItems:"center"}}>
+                                <Text style={styles.textItemStyle}>{gameName}</Text>
+                                {userID!=rowData.user_id ? <Text style={{color:"red", marginLeft:10}}>({rowData.username})</Text>:null}
+                            </View>
+
                             {/*<Text style={{fontSize: 12, color: "gray", marginTop: 5}} numberOfLines={1}>{`投注号码:${rowData.bet_number}`}</Text>*/}
                             <Text style={{fontSize: 12, color: "gray", marginTop: 5}}
                                   numberOfLines={1}>{`${amount}元    ${rowData.title}`}</Text>

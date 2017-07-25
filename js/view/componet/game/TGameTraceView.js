@@ -3,13 +3,7 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableOpacity,
-    TextInput,
 } from 'react-native';
-import {connect} from 'react-redux';
-
-import GameTraceKeyBorad from "./GameTraceKeyBorad";
-import GameTracemMultipleKeyBorad from "./GameTracemMultipleKeyBorad";
 import TModalView from "../tcustom/modal/TModalView";
 import {TButton, TButtonView} from "../tcustom/button/TButton";
 import MySegmentedControlTab from "../tcustom/TSegmentedControlTab";
@@ -17,15 +11,6 @@ import CheckBox from "react-native-check-box";
 import {TTextInput} from "../tcustom/textInput/TTextInput";
 import TFlatList from "../TFlatList";
 
-// const mapStateToProps = state => {
-//     return {
-//         isTrace: state.get("gameState").get("isTrace"),
-//         traceTimes: state.get("gameState").get("traceTimes"),
-//         traceMultiple: state.get("gameState").get("traceMultiple"),
-//         gameNumbers: state.get("gameState").get("gameNumbers"),
-//     }
-// }
-// @connect(mapStateToProps)
 export default class TGameTraceView extends Component {
     constructor(props) {
         super(props);
@@ -37,24 +22,28 @@ export default class TGameTraceView extends Component {
                 trace: 1,
                 showModel: false,
                 selectedTabIndex: 0,
-                checkSelect: true,
+                traceWinStop: true,
                 profite: 50,
                 timeNum: 10,
-                traceList: []
+                traceList: [],
+                startMulty: 1,
+                dimMulty: 1,
+                lastMulty: 1,
+
             };
-        // this.inputMultiple = this.inputMultiple.bind(this);
-        // this.setMultiple = this.setMultiple.bind(this);
-        // this.setTrace = this.setTrace.bind(this);
-        // this.inputTrace = this.inputTrace.bind(this);
-        // this.setIsShowKeyMultiple = this.setIsShowKeyMultiple.bind(this);
-        // this.setIsShowKeyTrace = this.setIsShowKeyTrace.bind(this);
-        // this.serTraceInfo = this.serTraceInfo.bind(this);
     }
 
 
     render() {
-        let {orderList, isTrace, traceTimes, gameNumbers, orderListNum, traceMultiple, userData} = this.props
-        //userData.data.user_prize_group
+        let {isTrace, orderListNum} = this.props;
+        let validMoney = 0;
+        let validIssueNum = 0
+        this.state.traceList.map((item) => {
+            if (item.money > 0) {
+                validIssueNum++;
+                validMoney += item.money;
+            }
+        })
         return (
             <View >
                 <View style={styles.tracePanel}>
@@ -75,42 +64,41 @@ export default class TGameTraceView extends Component {
                         alignItems: "center",
                         justifyContent: "center"
                     }}>
-                        <TButton disable={!isTrace} btnName={" 取消追号"}/>
+                        <TButton disable={!isTrace} btnName={" 取消追号"} onPress={this._onClearTrace}/>
                     </View>
                 </View>
-                <TModalView visible={this.state.showModel}>
+                <TModalView isAutoHide={false} visible={this.state.showModel}>
                     <View style={{flex: 1, justifyContent: "center", backgroundColor: "rgba(50, 50, 50,0.6)"}}>
                         <View style={{flex: 1, marginTop: 90, marginBottom: 45, backgroundColor: "white"}}>
                             <MySegmentedControlTab selectedTabIndex={this.state.selectedTabIndex}
                                                    valueList={['利润追号', '同倍追号', '翻倍追号']} onTabChange={this.onTabChange}/>
                             <View>
-                                <View style={{flexDirection: "row", alignItems: "center"}}>
-                                    <Text>最低收益率:</Text>
-                                    <TTextInput viewStyle={styles.traceInput}
-                                                onChangeText={(profite) => this.setState({profite})}
-                                                value={this.state.profite.toString()} keyboardType={ 'numeric'}/>
-                                    <Text>% </Text>
-                                    <Text>追号期数:</Text>
-                                    <TTextInput viewStyle={styles.traceInput}
-                                                onChangeText={(timeNum) => this.setState({timeNum})}
-                                                value={this.state.timeNum.toString()} keyboardType={ 'numeric'}/>
-                                    <TButton btnName={"生成追号计划"} onPress={this._onProduceTrace}/>
-                                </View>
+                                {this._rendMenuBarView()}
                             </View>
-                            <TFlatList styleView={{height: 250}} dataList={this.state.traceList}
+                            <TFlatList styleView={{height: 280, marginVertical: 10, backgroundColor: "#ddd"}}
+                                       dataList={this.state.traceList}
                                        renderRow={this._onRenderRow} renderHeader={this._onRenderHeader}/>
-                            <CheckBox
-                                style={{padding: 10}}
-                                onClick={() => this.setState({checkSelect: !this.state.checkSelect})}
-                                isChecked={this.state.checkSelect}
-                                rightText={'中奖后停止追号'}
-                            />
-                            <View style={{flexDirection: "row"}}>
-                                <Text>一共追号期数:111</Text>
+                            <View style={{flexDirection: "row", alignItems: "center"}}>
+                                <CheckBox
+                                    style={{padding: 10}}
+                                    onClick={() => this.setState({traceWinStop: !this.state.traceWinStop})}
+                                    isChecked={this.state.traceWinStop}
+                                    rightTextView={<Text>{'中奖后停止追号'}</Text>}
+                                />
+                                <TButton containerStyle={{backgroundColor: "blue", marginLeft: 20, paddingVertical: 4}}
+                                         visible={this.state.traceList.length > 0}
+                                         btnName={"清除追号"} onPress={() => this.setState({traceList: []})}/>
+                            </View>
+                            <View style={{flexDirection: "row", alignItems: "center"}}>
+                                <Text>一共追号期数: {validIssueNum} 期, {validIssueNum * orderListNum} 注 总金额: <Text
+                                    style={{color: "red", fontWeight: "bold"}}>{validMoney} 元</Text></Text>
                             </View>
                             <View style={{flexDirection: "row", flex: 1, alignSelf: "center", marginTop: 20}}>
-                                <TButton btnName={"确定追号"} viewStyle={{marginHorizontal: 10}}/>
-                                <TButton btnName={"取消追号"} onPress={() => this.setState({showModel: false})}/>
+                                <TButton disable={validIssueNum <= 0} btnName={"确定追号"}
+                                         viewStyle={{marginHorizontal: 20}} onPress={this._onConfirmPress}/>
+                                <TButton btnName={"取消"}
+                                         containerStyle={{backgroundColor: "green", paddingHorizontal: 30}}
+                                         onPress={this._onHideView}/>
                             </View>
                         </View>
                     </View>
@@ -118,88 +106,275 @@ export default class TGameTraceView extends Component {
             </View>
         );
     }
-    _onRenderHeader = (data) => {
+
+
+    _rendMenuBarView = () => {
+        let contentView = null
+        switch (this.state.selectedTabIndex) {
+            case 0:
+                contentView = (<View style={[{flexDirection: "row", alignItems: "center"}]}>
+                    <Text>最低收益率:</Text>
+                    <TTextInput style={styles.traceInput}
+                                onChangeText={(profite) => this.setState({profite})}
+                                value={this.state.profite.toString()} keyboardType={ 'numeric'}/>
+                    <Text>% </Text>
+                </View>)
+                break;
+            case 1:
+                contentView = (<View style={[{flexDirection: "row", alignItems: "center"}]}>
+                    <Text>起始倍数:</Text>
+                    <TTextInput style={styles.traceInput}
+                                onChangeText={(startMulty) => this.setState({startMulty})}
+                                value={this.state.startMulty.toString()} keyboardType={ 'numeric'}/>
+                </View>)
+
+                break;
+            case 2:
+                contentView = (<View style={[{flexDirection: "row", alignItems: "center"}]}>
+                    <Text>起始倍数:</Text>
+                    <TTextInput style={styles.traceInput}
+                                onChangeText={(startMulty) => this.setState({startMulty})}
+                                value={this.state.startMulty.toString()} keyboardType={ 'numeric'}/>
+                    <Text>隔</Text>
+                    <TTextInput style={styles.traceInput}
+                                onChangeText={(dimMulty) => this.setState({dimMulty})}
+                                value={this.state.dimMulty.toString()} keyboardType={ 'numeric'}/>
+                    <Text> 倍x</Text>
+                    <TTextInput style={styles.traceInput}
+                                onChangeText={(lastMulty) => this.setState({lastMulty})}
+                                value={this.state.lastMulty.toString()} keyboardType={ 'numeric'}/>
+                </View>)
+                break;
+        }
+
+        return (<View style={{flexDirection: "row", flexWrap: "wrap", alignItems: "center", marginTop: 10}}>
+            {contentView}
+            <Text>追号期数:</Text>
+            <TTextInput style={[styles.traceInput, {width: 35}]}
+                        onChangeText={(timeNum) => {
+                            timeNum = timeNum > 200 ? 200 : timeNum;
+                            this.setState({timeNum})
+                        }}
+                        value={this.state.timeNum.toString()}
+                        keyboardType={ 'numeric'}/>
+            <TButton containerStyle={{backgroundColor: "green", paddingVertical: 5, marginVertical: 2}}
+                     btnName={"生成追号计划"} onPress={this._onProduceTrace}/>
+        </View>)
+    }
+
+    _onRenderHeader = () => {
         return (<View style={{flexDirection: "row"}}>
-            <View style={{flex: 2}}>
+            <View style={[styles.listViewHeadSp, {flex: 2}]}>
                 <Text> 追号期次</Text>
             </View>
-            <View style={{flex: 1}}>
+            <View style={[styles.listViewHeadSp]}>
                 <Text>倍数</Text>
             </View>
-            <View style={{flex: 1}}>
+            <View style={[styles.listViewHeadSp]}>
                 <Text>金额</Text>
             </View>
-            <View style={{flex: 1}}>
+            <View style={[styles.listViewHeadSp]}>
                 <Text>奖金</Text>
             </View>
-            <View style={{flex: 1}}>
-                <Text>盈利金额</Text>
+            <View style={[styles.listViewHeadSp, {flex: 2}]}>
+                {
+                    this.state.selectedTabIndex ==0 ?<Text>盈利金额</Text>:<Text>开奖时间</Text>
+                }
             </View>
         </View>)
     }
 
     _onRenderRow = (data) => {
-        return (<View style={{flexDirection: "row"}}>
-            <View style={{flex: 2}}>
-                <Text>{data.gameNumbers}</Text>
-            </View>
-            <View style={{flex: 1}}>
-                <Text>{data.mulity} 倍</Text>
-            </View>
-            <View style={{flex: 1}}>
-                <Text>{data.money}</Text>
-            </View>
-            <View style={{flex: 1}}>
-                <Text>{data.group} </Text>
-            </View>
-            <View style={{flex: 1}}>
-                <Text>{data.profit} </Text>
-            </View>
-        </View>)
+        // TLog("_onRenderRow-----"+data.mulity,data)
+        return (
+            <View style={{flexDirection: "row", paddingVertical: 5, borderBottomWidth: 1, borderBottomColor: "gray"}}>
+                <View style={[styles.listViewSp, {flex: 2}]}>
+                    <CheckBox
+                        style={{}}
+                        onClick={() => this._onChangeChectIssu(data)}
+                        isChecked={data.used}
+                        rightTextView={ <Text>{data.gameNumbers}</Text>}
+                    />
+                </View>
+                <View style={[styles.listViewSp]}>
+                    <TTextInput value={data.mulity.toString()} style={{
+                        textAlign: "center", width: 30, borderWidth: 1,
+                        borderColor: "gray"
+                    }} keyboardType={"numeric"} onChangeText={(value) => this._onChangeMulity(data, value)}/>
+                </View>
+                <View style={[styles.listViewSp]}>
+                    <Text style={{color: "red"}}>{G_DateUtil.formatMoney(data.money)}</Text>
+                </View>
+                <View style={[styles.listViewSp]}>
+                    <Text>{data.group} </Text>
+                </View>
+                <View style={[styles.listViewSp, {flex: 2}]}>
+                    {
+                        this.state.selectedTabIndex ==0 ?   <View style={styles.listViewSp}>
+                            <Text>{data.money > 0 ? G_DateUtil.formatMoney(data.profit) : 0}</Text>
+                            <Text>({data.money > 0 ? ((data.profit / data.money) * 100).toFixed(2) : 0}%)</Text>
+                        </View>:<Text>{data.time}</Text>
+                    }
+
+                </View>
+            </View>)
+    }
+
+    _onChangeChectIssu = (itemData) => {
+        let changeList = []
+        let {totalMoney, userData} = this.props
+        itemData.used = !itemData.used;
+        itemData.group = itemData.used ? itemData.mulity * userData.data.user_prize_group : 0
+        itemData.money = itemData.used ? itemData.mulity * totalMoney : 0;
+        changeList.push(itemData);
+        this.setState({traceList: G_ArrayUtils.addComapreCopy(this.state.traceList, changeList, "gameNumbers")})
+    }
+
+
+    _onChangeMulity = (itemData, value) => {
+        let {totalMoney, price} = this.props
+        let changeList = []
+        let consume=0;
+        for (let item of this.state.traceList) {
+            if (item.gameNumbers == itemData.gameNumbers) {
+                item.mulity = value;
+                item.money = item.mulity * totalMoney;
+                item.group = item.mulity * price;
+                changeList.push(item);
+            }
+            consume += item.money
+            item.profit=  item.group-consume;
+        }
+        this.setState({traceList: G_ArrayUtils.addComapreCopy(this.state.traceList, changeList, "gameNumbers")})
     }
 
     onTabChange = (data, selected) => {
         TLog("onTabChange---------" + selected, data)
-        this.setState({selectedTabIndex: selected});
+        this.setState({selectedTabIndex: selected, traceList: []});
     }
 
     _onProduceTrace = () => {
-        TLog("onTabChange---_onProduceTrace------"+ this.state.timeNum,orderListNum)
-        let {orderList, isTrace, traceTimes, gameNumbers, orderListNum, traceMultiple, userData} = this.props
-        if (this.state.selectedTabIndex == 0) {
-            // let number = newTraceInfo[j].traceNumber,
-            // multiple = newTraceInfo[j].traceMultiple;
-            let traceList = []
-            for (let i = 0; i < this.state.timeNum; i++) {
-                let item = {}
-                item.gameNumbers = gameNumbers[i].number;
-                item.mulity = 1;
-                item.money = 1,
-                    item.group =  userData.data.user_prize_group;
-                item.profit =parseInt(item.group) -  (i + 1) * item.money;
-                TLog("traceList----item.group=="+item.group,(i + 1) * item.money)
-                traceList.push(item)
-            }
-
-            this.setState({traceList: traceList})
+        let {totalMoney} = this.props
+      //  TLog("onTabChange---_onProduceTrace------" + this.state.timeNum)
+        let {gameNumbers, price} = this.props
+        let traceList = []
+        switch (this.state.selectedTabIndex) {
+            case 0:
+                let consume=0
+                for (let i = 0; i < this.state.timeNum; i++) {
+                    let item = {}
+                    item.gameNumbers = gameNumbers[i].number;
+                    item.time=gameNumbers[i].time
+                    item.mulity = 1;
+                    item.money = item.mulity * totalMoney;
+                    consume+=item.money
+                    item.group = item.mulity*price;
+                    item.profit = item.group - consume;
+                    item.used = true;
+                    if ((item.profit / item.money) * 100 >= this.state.profite) {
+                        traceList.push(item)
+                    } else {
+                        break;
+                    }
+                }
+                break;
+            case 1:
+                for (let i = 0; i < this.state.timeNum; i++) {
+                    let item = {}
+                    item.gameNumbers = gameNumbers[i].number;
+                    item.time=gameNumbers[i].time
+                    item.mulity = this.state.startMulty;
+                    ;
+                    item.money = item.mulity * totalMoney
+                    item.group = item.mulity*price;
+                    item.profit = parseInt(item.group) - (i + 1) * item.money;
+                    item.used = true;
+                    traceList.push(item)
+                }
+                break;
+            case 2:
+                let tempCount = 0;
+                let dim = parseInt(this.state.dimMulty) + 1;
+                for (let i = 0; i < this.state.timeNum; i++) {
+                    let item = {}
+                    tempCount++;
+                    TLog("tempCount=====" + tempCount, dim);
+                    if (tempCount % dim == 0) {
+                        item.mulity = this.state.lastMulty;
+                    }
+                    else {
+                        item.mulity = this.state.startMulty;
+                    }
+                    item.gameNumbers = gameNumbers[i].number;
+                    item.time=gameNumbers[i].time
+                    item.money = item.mulity * totalMoney
+                    item.group = item.mulity*price;
+                    item.profit = parseInt(item.group) - (i + 1) * item.money;
+                    item.used = true;
+                    traceList.push(item)
+                }
+                break;
         }
+        this.setState({traceList: traceList})
+    }
+
+    _onHideView = () => {
+        this.setState({showModel: false})
+    }
+
+    _onConfirmPress = () => {
+        let validMoney = 0;
+        let validIssueNum = 0
+        let traceList = []
+        this.state.traceList.map((item) => {
+            if (item.money > 0) {
+                validIssueNum++;
+                validMoney += item.money;
+                traceList.push({issue: item.gameNumbers, mulity: item.mulity})
+            }
+        })
+        let data = {};
+        data.isTrace = 1;
+        data.traceTimes = validIssueNum;
+        data.traceWinStop = this.state.traceWinStop;
+        data.traceList = traceList;
+        data.traceTotalMoney = validMoney;
+        ActDispatch.GameAct.setTrace(data);
+        this._onHideView()
+    }
+
+    _onClearTrace = () => {
+        let data = {};
+        data.isTrace = 0;
+        data.traceTimes = 0;
+        data.traceWinStop = 0;
+        data.traceList = [];
+        data.traceTotalMoney = 0;
+        ActDispatch.GameAct.setTrace(data);
     }
 }
 
 
 const styles = StyleSheet.create({
-    listViewSp:{
-        justifyContent:"center",
-        alignItems:"center",
-        flex:1
+    listViewHeadSp: {
+        justifyContent: "center",
+        alignItems: "center",
+        flex: 1,
+        backgroundColor: "yellow",
+        paddingVertical: 5
+    },
+    listViewSp: {
+        justifyContent: "center",
+        alignItems: "center",
+        flex: 1
     },
     traceInput: {
-        width: 30,
+        width: 25,
         borderWidth: 1,
         padding: 0,
         marginHorizontal: 5,
         borderColor: "gray",
-        paddingHorizontal: 5
+        textAlign: "center",
     },
     tracePanel: {
         flex: 1,

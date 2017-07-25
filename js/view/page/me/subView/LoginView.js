@@ -19,7 +19,7 @@ const mapStateToProps = state => {
 }
 
 @connect(mapStateToProps)
-export default class LoginView extends BaseView {
+export default class LoginView extends React.Component {
     static navigationOptions = {
         title: "登录",
     }
@@ -36,7 +36,7 @@ export default class LoginView extends BaseView {
         };
     }
 
-    renderBody() {
+    render() {
         return (
             <View style={[G_Style.appContentView, {justifyContent: "center"}]}>
                 <View style={{marginLeft: 40, marginRight: 40, marginBottom: G_Theme.windowHeight / 5,}}>
@@ -100,17 +100,32 @@ export default class LoginView extends BaseView {
             if (data.isSuccess) {
                 ActDispatch.AppAct.loginReault(data);
                 if(this.state.checkSelect) {
-                    G_MyStorage.setItem(G_EnumStroeKeys.USR_DATA, JSON.stringify(bodyData), () => G_NavUtil.pop());
+                    G_MyStorage.setItem(G_EnumStroeKeys.USR_DATA, JSON.stringify(bodyData),this.onPopView);
                     ActDispatch.AppAct.setStorgeUser(this.state.nameText, this.state.pwdText);
                 }else{
                     bodyData.srcPwd="";
                     ActDispatch.AppAct.setStorgeUser(this.state.nameText, "");
-                    G_MyStorage.setItem(G_EnumStroeKeys.USR_DATA, JSON.stringify(bodyData), () => G_NavUtil.pop());
+                    G_MyStorage.setItem(G_EnumStroeKeys.USR_DATA, JSON.stringify(bodyData), this.onPopView);
                 }
             } else {
                 ActDispatch.AppAct.showBox(data.Msg);
             }
         }, false, true)
+    }
+
+    onPopView=()=>{
+        let {navigation}=this.props
+        let viewName = G_NavState.routes[G_NavState.routes.length - 2].routeName;
+        if(G_RoutConfig.Main.name ==viewName){
+            navigation.goBack();
+        }
+        else{
+            navigation.goBack()
+            if(G_LastView){
+                G_LastView.componentDidMount();
+            }
+        }
+
     }
 }
 

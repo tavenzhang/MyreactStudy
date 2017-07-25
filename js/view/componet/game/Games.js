@@ -606,11 +606,10 @@ export default class Games extends Component {
 
                 </ScrollView>
                 <GameControlPannel
+                    onFastBtnClick={this.onFastInvest}
                     balance={balance}
                     topDesc={operTopDesc}
-                    btnEvent={() => {
-                        me.addBallsToBasket();
-                    }}
+                    btnEvent={this.addBallsToBasket}
                     btnIconEvent={() => {
                         // G_NavUtil.push(G_RoutConfig.LotteryOrders,{
                         //     randomLotterys: me.randomLotterys,
@@ -634,6 +633,16 @@ export default class Games extends Component {
                 />
             </View>
         );
+    }
+
+    onFastInvest=()=>{
+        this.addBallsToBasket();
+        ActDispatch.GameAct.lottoryState({
+            show: true,
+            randomLotterys: this.randomLotterys,
+            isRandomOrder: this.isRandomOrder,
+            isFast:true
+        })
     }
 
     getOriginal() {

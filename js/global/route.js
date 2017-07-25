@@ -209,7 +209,7 @@ global.G_InitRegistApp = false;
 global.G_Navigation = null;
 global.G_NavState = null;
 global.G_NavRouteState = null
-
+global.G_LastView = null
 
 global.G_NavUtil = {
     pop: (componet,data = {}) => {

@@ -72,11 +72,11 @@ export default class MoneyCardView extends BaseView {
 
         return (
             <View style={styles.row}>
-                <View style={{flex: 2}}>
-                    <Text style={{color: "white"}}>{rowData.bank}</Text>
-                    <Text style={{color: "white", fontSize: 12, marginTop: 3, letterSpacing: 2}}>卡号:{rowData.accountEny}</Text>
+                <View style={{flex: 3}}>
+                    <Text style={{color: "white"}}>{rowData.bank}  ({rowData.province}-{rowData.city}  支行:{rowData.branch})</Text>
+                    <Text style={{color: "white", fontSize: 12, marginTop: 3, letterSpacing: 2}}>卡号:{rowData.accountEny} </Text>
                     <Text style={{color: "white", fontSize: 12, marginTop: 3, letterSpacing: 2}}>账户:{countName}</Text>
-                    <Text style={{color: "white", fontSize: 12, marginTop: 3,}}>银行卡状态:{lockSate}</Text>
+                    <Text style={{color: "white", fontSize: 12, marginTop: 3,}}>银行卡状态:{lockSate} </Text>
                 </View>
                 <View style={{flex: 1, justifyContent: "center", alignItems: "center", flexDirection: "row"}}>
                     <TouchableOpacity onPress={()=>{this.itemEditClcik(rowData)}}>
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         marginHorizontal: 5,
         marginVertical: 3,
-        paddingLeft: 30,
+        paddingLeft: 15,
         alignItems: "center"
     },
     scrollView: {

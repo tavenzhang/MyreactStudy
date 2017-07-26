@@ -61,6 +61,7 @@ import RecordMoneyDetailView from "../view/page/me/operatView/record/RecordMoney
 import TeamChildAgentView from "../view/page/me/operatView/agentTeam/TeamChildAgentView";
 import ChaseHistoryView from "../view/page/me/operatView/record/ChaseHistoryView";
 import TeamGroupChangeView from "../view/page/me/operatView/agentTeam/TeamGroupChangeView";
+import InvestResultView from "../view/page/home/subview/games/InvestResultView";
 
 let tabMyNavigator = TabNavigator({
         Home: {
@@ -178,6 +179,7 @@ global.G_RoutConfig = {
     TeamChildAgentView:createNavScreen(TeamChildAgentView, "TeamChildAgentView"),
     ChaseHistoryView:createNavScreen(ChaseHistoryView, "ChaseHistoryView"),
     TeamGroupChangeView:createNavScreen(TeamGroupChangeView, "TeamGroupChangeView"),
+    InvestResultView:createNavScreen(InvestResultView, "InvestResultView"),
 
 }
 

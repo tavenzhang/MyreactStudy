@@ -25,15 +25,10 @@ export default class MoneyTransferView extends BaseView {
 
     constructor(props) {
         super(props);
-        let agentCount = "";
-        let money="";
         let {params}=this.props.navigation.state;
-        TLog("params------",params)
-        if(params)
-        {
-            agentCount=params.username ? params.username : ""
-            money =params.money ? params.money:""
-        }
+        let  agentCount=params.username ? params.username : ""
+        let money =params.money ? params.money:""
+
         this.state = {
             pwdText: "",
             agentCount,

@@ -74,13 +74,14 @@ export default class LotteryOrders extends React.Component {
                 //返回选球页
                 this._onClearTrace()
                 this._onPopView()
+                G_NavUtil.push(G_RoutConfig.InvestResultView,{data:submitData,traceTimes:traceData.traceTimes},"投注结果")
             }
         },false,isModel)
     }
 
 
     render() {
-        const {orderList, balance, orderListNum,randomLotterys, isRandomOrder,traceData} = this.props;
+        const {orderList, balance, orderListNum,randomLotterys, isRandomOrder} = this.props;
         let total = 0, totalMoney = 0;
         const btnDisable = orderListNum == 0 ? styles.btnDisable : null;
 
@@ -136,7 +137,7 @@ export default class LotteryOrders extends React.Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <TGameTraceView wayId={lastWay} isCanChase={isCanChase} totalMoney={totalMoney} {...this.props}/>
+                <TGameTraceView  wayId={lastWay} isCanChase={isCanChase} totalMoney={totalMoney} {...this.props}/>
                 <GameControlPannel
                     balance={balance}
                     topDesc={this.getTotalText(total,totalMoney)}

@@ -49,6 +49,7 @@ export default class BaseGameView extends BaseView {
     constructor(props) {
         super(props);
         this.gameMenu = this.getGameWays();
+        const {name} = this.props.navigation.state.params;
         this.state = {
             bet_max_prize_group: null,
             bet_min_prize_group: null,
@@ -71,6 +72,7 @@ export default class BaseGameView extends BaseView {
             // requestGameStatus: 1, //1=未开始,2=进行中,3=请求结束
             gameMethodHash: {},
             currentGameWay: {},
+            gName:name,
         }
         this.onRenderSubView = this.onRenderSubView.bind(this);
         this.getMoreMenuData = this.getMoreMenuData.bind(this);
@@ -146,7 +148,7 @@ export default class BaseGameView extends BaseView {
                     dateHistoryList={this.state.history_lotterys}
                     prize={price}
                     series_id={series_id} onTimeHanlde={this.requetGameData}/>
-                 {lottorState.show ? <LotteryOrders {...this.props} {...lottorState}/> :subView}
+                 {lottorState.show ? <LotteryOrders prize={price} {...this.props} {...lottorState}/> :subView}
                 <MoreMenu
                     ref="moreMenu"
                     menus={menuDataList}
@@ -294,7 +296,7 @@ export default class BaseGameView extends BaseView {
                 })
                 break;
             case 3:
-                G_NavUtil.push(G_RoutConfig.SSC_History,{lottery_name: this.gameName, lottery_id: id});
+                G_NavUtil.push(G_RoutConfig.SSC_History,{lottery_name: this.gameName, lottery_id: id},this.gameName);
                 break;
             default:
                 break;

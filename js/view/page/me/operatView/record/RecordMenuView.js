@@ -23,7 +23,8 @@ export default class RecordMenuView extends React.PureComponent {
     static propTypes={
         onPressMenu:PropTypes.func,
         clickMenuItem:PropTypes.func,
-        isHideGame:PropTypes.bool
+        isHideGame:PropTypes.bool,
+        defaultGame:PropTypes.object
     }
     static defaultProps={
         isHideGame:false
@@ -35,9 +36,10 @@ export default class RecordMenuView extends React.PureComponent {
         let lastWeekTime = G_DateUtil.formatRecodData(new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000));
         let lastMonth = G_DateUtil.formatRecodData(new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000));
         let lastTowMonth = G_DateUtil.formatRecodData(new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000));
+        let {defaultGame}=this.props
         this.state = {
             status:MenuListType.All,
-            curGame: null,
+            curGame: defaultGame ? defaultGame:null,
             curPlay: null,
             curTime: null,
             dataList: [],

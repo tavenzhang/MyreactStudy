@@ -41,11 +41,14 @@ export default class RecordChaseView extends BaseView {
     }
 
     renderBody() {
+        let {gameId}=this.props.navigation.state.params;
+        let {gameModel}=this.props;
+        let defaultGame =gameModel.getGameDataById(gameId)
         return (
             <View style={G_Style.appContentView}>
-                <RecordMenuView clickMenuItem={this.clickMenuItem} {...this.props}/>
+                <RecordMenuView defaultGame={defaultGame} clickMenuItem={this.clickMenuItem} {...this.props}/>
                 <View style={{flex: 1, marginTop: 35, backgroundColor: "yellow"}}>
-                    <ChaseRecodListView curPage={this.state.curPage} totalPage={this.state.totalPage} dataList={this.state.dataList} loadMore={this.loadMore} {...this.props}/>
+                    <ChaseRecodListView  curPage={this.state.curPage} totalPage={this.state.totalPage} dataList={this.state.dataList} loadMore={this.loadMore} {...this.props}/>
                 </View>
             </View>
         );

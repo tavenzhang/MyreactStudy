@@ -35,7 +35,7 @@ export default class TGameTraceView extends Component {
 
 
     render() {
-        let {isTrace, orderListNum,isCanChase} = this.props;
+        let { orderListNum,isCanChase,traceData} = this.props;
         let validMoney = 0;
         let validIssueNum = 0
         this.state.traceList.map((item) => {
@@ -64,7 +64,7 @@ export default class TGameTraceView extends Component {
                         alignItems: "center",
                         justifyContent: "center"
                     }}>
-                        <TButton disable={!isTrace} btnName={" 取消追号"} onPress={this._onClearTrace}/>
+                        <TButton disable={!traceData.isTrace} btnName={" 取消追号"} onPress={this._onClearTrace}/>
                     </View>
                 </View>
                 <TModalView isAutoHide={false} visible={this.state.showModel}>
@@ -75,7 +75,7 @@ export default class TGameTraceView extends Component {
                             <View>
                                 {this._rendMenuBarView()}
                             </View>
-                            <TFlatList styleView={{height: 280, marginVertical: 10, backgroundColor: "#ddd"}}
+                            <TFlatList styleView={{height: G_PLATFORM_IOS ?280:200, marginVertical: 10, backgroundColor: "#ddd"}}
                                        dataList={this.state.traceList}
                                        renderRow={this._onRenderRow} renderHeader={this._onRenderHeader}/>
                             <View style={{flexDirection: "row", alignItems: "center"}}>
@@ -223,9 +223,9 @@ export default class TGameTraceView extends Component {
 
     _onChangeChectIssu = (itemData) => {
         let changeList = []
-        let {totalMoney, userData} = this.props
+        let {totalMoney,prize} = this.props
         itemData.used = !itemData.used;
-        itemData.group = itemData.used ? itemData.mulity * userData.data.user_prize_group : 0
+        itemData.group = itemData.used ? itemData.mulity * prize: 0
         itemData.money = itemData.used ? itemData.mulity * totalMoney : 0;
         changeList.push(itemData);
         this.setState({traceList: G_ArrayUtils.addComapreCopy(this.state.traceList, changeList, "gameNumbers")})
@@ -233,14 +233,14 @@ export default class TGameTraceView extends Component {
 
 
     _onChangeMulity = (itemData, value) => {
-        let {totalMoney, price} = this.props
+        let {totalMoney, prize} = this.props
         let changeList = []
         let consume=0;
         for (let item of this.state.traceList) {
             if (item.gameNumbers == itemData.gameNumbers) {
                 item.mulity = value;
                 item.money = item.mulity * totalMoney;
-                item.group = item.mulity * price;
+                item.group = item.mulity * prize;
                 changeList.push(item);
             }
             consume += item.money
@@ -257,19 +257,20 @@ export default class TGameTraceView extends Component {
     _onProduceTrace = () => {
         let {totalMoney} = this.props
       //  TLog("onTabChange---_onProduceTrace------" + this.state.timeNum)
-        let {gameNumbers, price} = this.props
+        let {gameNumbers, prize} = this.props
         let traceList = []
         switch (this.state.selectedTabIndex) {
             case 0:
                 let consume=0
                 for (let i = 0; i < this.state.timeNum; i++) {
+                    TLog("this.state.timeNum--"+prize,gameNumbers)
                     let item = {}
                     item.gameNumbers = gameNumbers[i].number;
                     item.time=gameNumbers[i].time
                     item.mulity = 1;
                     item.money = item.mulity * totalMoney;
                     consume+=item.money
-                    item.group = item.mulity*price;
+                    item.group = item.mulity*prize;
                     item.profit = item.group - consume;
                     item.used = true;
                     if ((item.profit / item.money) * 100 >= this.state.profite) {
@@ -277,6 +278,7 @@ export default class TGameTraceView extends Component {
                     } else {
                         break;
                     }
+                    TLog("this.state.timeNum--end--traceList",traceList)
                 }
                 break;
             case 1:
@@ -287,7 +289,7 @@ export default class TGameTraceView extends Component {
                     item.mulity = this.state.startMulty;
                     ;
                     item.money = item.mulity * totalMoney
-                    item.group = item.mulity*price;
+                    item.group = item.mulity*prize;
                     item.profit = parseInt(item.group) - (i + 1) * item.money;
                     item.used = true;
                     traceList.push(item)
@@ -309,7 +311,7 @@ export default class TGameTraceView extends Component {
                     item.gameNumbers = gameNumbers[i].number;
                     item.time=gameNumbers[i].time
                     item.money = item.mulity * totalMoney
-                    item.group = item.mulity*price;
+                    item.group = item.mulity*prize;
                     item.profit = parseInt(item.group) - (i + 1) * item.money;
                     item.used = true;
                     traceList.push(item)

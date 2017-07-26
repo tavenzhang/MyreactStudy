@@ -30,6 +30,8 @@ export default class RecordBetView extends BaseView {
             dataList:[],
             curPage:1,
             totalPage:1,
+            curGame:null,
+            curTime:null
         }
         this.registOnForceFlush(G_RoutConfig.RecordBetView,(data)=>{
             TLog("RecordBetView----",data)
@@ -38,7 +40,10 @@ export default class RecordBetView extends BaseView {
     }
 
     renderBody() {
-         let {userData}=this.props
+         let {userData,gameModel}=this.props
+        let {gameId}=this.props.navigation.state.params;
+         let defaultGame = gameModel.getGameDataById(gameId);
+         TLog("gameId====="+gameId,defaultGame)
         return (
             <View style={G_Style.appContentView}>
                 <View style={{
@@ -71,7 +76,7 @@ export default class RecordBetView extends BaseView {
                     <BetRecordListView  userID={userData.data.user_id} curPage={this.state.curPage} totalPage={this.state.totalPage} dataList={this.state.dataList}
                                        loadMore={this.loadMore} {...this.props}/>
                 </View>
-                <RecordMenuView clickMenuItem={this.clickMenuItem} {...this.props}/>
+                <RecordMenuView defaultGame={defaultGame} clickMenuItem={this.clickMenuItem} {...this.props}/>
             </View>
         );
     }

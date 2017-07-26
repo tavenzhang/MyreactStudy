@@ -611,20 +611,13 @@ export default class Games extends Component {
                     topDesc={operTopDesc}
                     btnEvent={this.addBallsToBasket}
                     btnIconEvent={() => {
-                        // G_NavUtil.push(G_RoutConfig.LotteryOrders,{
-                        //     randomLotterys: me.randomLotterys,
-                        //     isRandomOrder: me.isRandomOrder
-                        // });
-                        ActDispatch.GameAct.lottoryState({
+                        let param={
                             show: true,
                             randomLotterys: me.randomLotterys,
                             isRandomOrder: me.isRandomOrder
-                        })
-                        console.log("---btnIconEvent----",{
-                            show: true,
-                            randomLotterys: me.randomLotterys,
-                            isRandomOrder: me.isRandomOrder
-                        })
+                        }
+                        ActDispatch.GameAct.lottoryState(param)
+                        TLog("---btnIconEvent----",param)
                     }}
                     btnIconEventDesc={orderNum}
                     btnIconName='cart-plus'
@@ -684,7 +677,7 @@ export default class Games extends Component {
 
     getResultData(lotterys) {
         const me = this;
-        const {moneyUnit, multiple, currentGameWay, prize} = this.props;
+        const {moneyUnit, multiple, currentGameWay, prize,gName} = this.props;
         let orderdata = {},
             onePrice = currentGameWay.price,
             lotterysOriginal = me.getOriginal();
@@ -705,7 +698,8 @@ export default class Games extends Component {
             onePrice: onePrice,
             moneyunit: moneyUnit,
             multiple: multiple,
-            gameName: currentGameWay.parent_parent_name_cn + currentGameWay.name_cn
+            gameName: gName+"-"+currentGameWay.name_cn,
+           // gameName: gName+"-"+currentGameWay.parent_parent_name_cn + currentGameWay.name_cn,
         };
         return me.editSubmitData(orderdata);
     }
@@ -794,7 +788,7 @@ export default class Games extends Component {
     //返回值： 按照当前玩法生成一注标准的随机投注单(order)
     randomNum() {
         const me = this,
-            {moneyUnit, multiple, currentGameWay, prize} = this.props;
+            {moneyUnit, multiple, currentGameWay, prize,gName} = this.props;
         let i = 0,
             current = [],
             order = [],
@@ -817,7 +811,8 @@ export default class Games extends Component {
             onePrice: onePrice,
             moneyunit: moneyUnit,
             multiple: multiple,
-            gameName: currentGameWay.parent_parent_name_cn + currentGameWay.name_cn
+            //gameName: gName+"-"+currentGameWay.parent_parent_name_cn + currentGameWay.name_cn
+            gameName: gName+"-" + currentGameWay.name_cn
         };
         return order;
     }

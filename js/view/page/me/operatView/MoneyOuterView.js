@@ -90,7 +90,7 @@ export default class MoneyOuterView extends BaseView {
                         <Text style={styles.textLeft}>可提现金额:</Text>
                     </View>
                     <View style={styles.trRight}>
-                        <Text style={styles.cellMargin}>{parseInt(this.state.dataInfo.accounts.withdrawable)}</Text>
+                        <Text style={styles.cellMargin}>{G_DateUtil.formatMoney(this.state.dataInfo.accounts.withdrawable)}</Text>
                     </View>
                 </View>
                 <View style={{flexDirection: "row", alignItems: "center", justifyContent:"center"}}>

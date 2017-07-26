@@ -32,6 +32,16 @@ export  default class GameModel {
         }
     }
 
+    getGameDataById(id){
+        let result=null
+        for (let item of this.gameInfoList) {
+            if (item.id == parseInt(id)) {
+                result = item;
+                break;
+            }
+        }
+        return result;
+    }
 
     getGameNameById(id) {
         let reultName = ""

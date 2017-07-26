@@ -16,7 +16,7 @@ import AIcon from 'react-native-vector-icons/FontAwesome';
 export default class ThirdInView extends React.Component {
 
     static propTypes = {
-        visible:PropTypes.bool,
+        visible: PropTypes.bool,
         platList: PropTypes.any
     }
 
@@ -27,7 +27,9 @@ export default class ThirdInView extends React.Component {
             pay_typeList: [],
             paySelectItem: null,
             textMoney: "",
-            imgBase64: null
+            imgBase64: null,
+            bankList: [],
+            bankSelectItem: null,
         }
         this.baseFomat = "data:image/png;base64,#content"
         this.defaultSelect = false;
@@ -61,6 +63,28 @@ export default class ThirdInView extends React.Component {
         );
     }
 
+
+    renderBankItem = (item, selected, onSelect, index) => {
+        let style = selected ? {fontWeight: 'bold', color: "green"} : {};
+        return (
+            <TouchableWithoutFeedback onPress={onSelect} key={index}>
+                <View style={{flexDirection: "row", alignItems: "center", marginVertical: 7, marginHorizontal: 8}}>
+                    <Text style={[style, {fontWeight: "bold"}]}>{item.name}</Text>
+                </View>
+            </TouchableWithoutFeedback>
+        );
+    }
+
+    renderBankContainer = (optionNodes) => {
+        return <View style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            alignItems: "center"
+        }}>{optionNodes}</View>;
+    }
+
+
     renderContainer = (optionNodes) => {
         return <View style={{flexDirection: "row", flexWrap: "wrap"}}>{optionNodes}</View>;
     }
@@ -79,7 +103,19 @@ export default class ThirdInView extends React.Component {
     }
 
     render() {
-        let {platList,visible} = this.props;
+        let {platList, visible} = this.props;
+        let bankView = null;
+        if (this.isBankAdd()) {
+            bankView = <RadioButtons
+                options={this.state.bankList}
+                onSelection={(bankSelectItem) => {
+                    this.setState({bankSelectItem})
+                }}
+                selectedOption={this.state.bankSelectItem}
+                renderOption={ this.renderBankItem}
+                renderContainer={ this.renderBankContainer}
+            />
+        }
         return ( visible ?
             <View style={{margin: 20}}>
                 <View style={{flexDirection: "row"}}>
@@ -92,7 +128,7 @@ export default class ThirdInView extends React.Component {
                         renderContainer={ this.renderContainer}
                     />
                 </View>
-                <View style={{alignItems: "center", marginVertical: 30}}>
+                <View style={{alignItems: "center", marginVertical: 20}}>
                     <RadioButtons
                         options={this.state.pay_typeList}
                         onSelection={(paySelectItem) => {
@@ -101,19 +137,22 @@ export default class ThirdInView extends React.Component {
                         selectedOption={this.state.paySelectItem}
                         renderOption={ this.renderTypeItem }/>
                 </View>
-                <View style={{flexDirection: "row", alignItems: "center"}}>
+                {bankView}
+                <View style={{flexDirection: "row", alignItems: "center", marginTop: 20}}>
                     <Text style={{marginRight: 20}}>充值金额:</Text>
-                    <TTextInput viewStyle={{borderWidth: 1, borderRadius: 5, paddingLeft: 10, borderColor: "gray"}}
+                    <TTextInput style={{textAlign:"center"}}  viewStyle={{borderWidth: 1, borderRadius: 5, paddingLeft: 10, borderColor: "gray"}}
                                 value={this.state.textMoney} onChangeText={(textMoney) => {
                         this.setState({textMoney})
                     }}
                                 placeholder={"充值金额"} keyboardType={"numeric"}/>
+                    <Text> 元</Text>
 
                 </View>
                 <View style={{alignItems: "center", justifyContent: "center", marginVertical: 50}}>
-                    <TButton containerStyle={{width: 200}} disable={this.state.textMoney == ""} btnName={"下一步"}
+                    <TButton containerStyle={{width: 200}} errMsg={this.onValid()} btnName={"下一步"}
                              onPress={this.onNextStep}/>
                 </View>
+
                 <View style={{width: 150, height: 200, alignSelf: "center"}}>
                     {this.state.imgBase64 ? <Image
                         style={{flex: 1}}
@@ -123,7 +162,21 @@ export default class ThirdInView extends React.Component {
             </View> : null);
     }
 
+    onValid = () => {
+        let result = null;
+        if (this.state.textMoney == "") {
+            result = "请输入有效的充值金额!"
+        } else if (this.isBankAdd()) {
+            if (!this.state.bankSelectItem) {
+                result = "请选择有效的充值银行!"
+            }
+        }
+        return result;
+    }
 
+    isBankAdd = () => {
+        return this.state.paySelectItem && this.state.paySelectItem.name.indexOf("银行支付") > -1
+    }
 
     onSetSecectPlatFrom = (platList) => {
         this.defaultSelect = true
@@ -142,46 +195,60 @@ export default class ThirdInView extends React.Component {
                     let item = {};
                     item.id = index;
                     item.name = pay_type[index];
-                    if (index != 3)//快捷支付
-                    {
-                        pay_typeList.push(item);
+                    pay_typeList.push(item);
+                }
+                let bankList = [];
+                let bankData = data.data.bank_list
+                for (let key in bankData) {
+                    if (bankData[key]) {
+                        bankList.push(bankData[key]);
                     }
                 }
-                this.setState({pay_typeList: pay_typeList, paySelectItem: pay_typeList[0]})
+                this.setState({
+                    pay_typeList: pay_typeList, paySelectItem: pay_typeList[0],
+                    bankList: bankList, bankSelectItem: bankList.length > 0 ? bankList[0] : null
+                })
             }, true)
         })
     }
 
     onNextStep = () => {
+        let isBackAdd = this.isBankAdd();
         G_RunAfterInteractions(() => {
             HTTP_SERVER.MoneyBankPlatAdd.body.amount = this.state.textMoney;
             HTTP_SERVER.MoneyBankPlatAdd.body.merchant_id = this.state.selectedOption.merchant_id;
             HTTP_SERVER.MoneyBankPlatAdd.body.pay_type = this.state.paySelectItem.id;
             HTTP_SERVER.MoneyBankPlatAdd.body.platform_id = this.state.selectedOption.id;
-            HTTP_SERVER.MoneyBankPlatAdd.body.bank_id = "";
+            HTTP_SERVER.MoneyBankPlatAdd.body.bankid = isBackAdd ? this.state.bankSelectItem.id : "";
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.MoneyBankPlatAdd, (data) => {
                 if (data.isSuccess) {
-                    let result = this.baseFomat.replace("#content", data.data.qr);
-                    //TLog("result------------", this.state.paySelectItem);
-                    this.setState({imgBase64: result});
-                    if (G_PLATFORM_IOS) {
-                        this.onSaveCameraRoll(result)
+                    if (isBackAdd) {
+                        G_NavUtil.push(G_RoutConfig.TWebView,{webData:data.data.form},"银行充值");
                     }
                     else {
+                        let result = this.baseFomat.replace("#content", data.data.qr);
+                        //TLog("result------------", this.state.paySelectItem);
+                        this.setState({imgBase64: result});
+                        if (G_PLATFORM_IOS) {
+                            this.onSaveCameraRoll(result)
+                        }
+                        else {
 
-                        let PATH_TO_FILE = RNFetchBlob.fs.dirs.PictureDir + "/myPay.png";
-                        // TLog("RNFetchBlob--start",PATH_TO_FILE)
-                        RNFetchBlob.fs.writeFile(
-                            PATH_TO_FILE,
-                            data.data.qr,
-                            "base64"
-                        ).then(res => {
-                            this.onSaveCameraRoll(PATH_TO_FILE);
-                        }).catch((err) => {
-                            TLog("save--err" + err)
-                        })
+                            let PATH_TO_FILE = RNFetchBlob.fs.dirs.PictureDir + "/myPay.png";
+                            // TLog("RNFetchBlob--start",PATH_TO_FILE)
+                            RNFetchBlob.fs.writeFile(
+                                PATH_TO_FILE,
+                                data.data.qr,
+                                "base64"
+                            ).then(res => {
+                                this.onSaveCameraRoll(PATH_TO_FILE);
+                            }).catch((err) => {
+                                TLog("save--err" + err)
+                            })
+                        }
                     }
                 }
+
             }, false, false)
         })
 

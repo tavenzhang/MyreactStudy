@@ -1,9 +1,8 @@
-
 import React from 'react';
 import {
     View,
     StyleSheet,
-    WebView
+    WebView, ScrollView
 } from 'react-native';
 
 import {connect} from 'react-redux';
@@ -20,23 +19,26 @@ import BaseView from "../../../componet/BaseView";
 export default class TWebView extends BaseView {
 
 
-
     renderBody() {
-        let params= this.props.navigation.state.params;
-        return (
-            <View style={G_Style.appContentView}>
-                <View style={{flex:1}}>
-                    <WebView style={styles.webview_style}
-                             source={{uri:params.data}}
-                             startInLoadingState={true}
-                             domStorageEnabled={true}
-                             javaScriptEnabled={true}
-                             onLoadStart={()=>ActDispatch.AppAct.showLoading()}
-                             onLoad={ActDispatch.AppAct.hideLoading}
-                             onError={ActDispatch.AppAct.hideLoading}
-                    >
-                    </WebView>
-                </View>
+        let {webData, data} = this.props.navigation.state.params;
+        return (<View style={G_Style.appContentView}>
+                {/*<ScrollView style={{flex: 1}}/>*/}
+                    {
+                        webData ? <WebView style={{backgroundColor: "white"}}
+                                           source={{html: webData}}
+                                           automaticallyAdjustContentInsets={false}/> :
+                            <WebView style={styles.webview_style}
+                                     source={{uri: data}}
+                                     startInLoadingState={true}
+                                     domStorageEnabled={true}
+                                     javaScriptEnabled={true}
+                                     onLoadStart={() => ActDispatch.AppAct.showLoading()}
+                                     onLoad={ActDispatch.AppAct.hideLoading}
+                                     onError={ActDispatch.AppAct.hideLoading}
+                           />
+
+                    }
+                {/*</ScrollView>*/}
             </View>
         );
     }
@@ -66,6 +68,7 @@ const styles = StyleSheet.create({
         fontSize: 25
     },
     webview_style: {
+        flex: 1
         //backgroundColor:'#00ff00',
     }
 

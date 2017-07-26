@@ -79,6 +79,7 @@ export default class BaseGameView extends BaseView {
         this.onMoreMenuSelect = this.onMoreMenuSelect.bind(this)
         this.getGameTitle = this.getGameTitle.bind(this);
         this.getGameWays = this.getGameWays.bind(this);
+        this.canViewShow=true;
     }
 
     getGameTitle() {
@@ -105,9 +106,14 @@ export default class BaseGameView extends BaseView {
     }
 
     onRightPressed = () => {
-        if (this.refs.moreMenu) {
-            this.refs.moreMenu.toggle();
+        if(this.canViewShow){
+            this.canViewShow=false;
+            if (this.refs.moreMenu) {
+                this.refs.moreMenu.toggle();
+            }
+            setTimeout(()=>this.canViewShow=true,1000)
         }
+
     }
 
     onHeadPressed = () => {
@@ -176,6 +182,7 @@ export default class BaseGameView extends BaseView {
 
     componentWillUnmount() {
         ActDispatch.GameAct.lottoryState({show:false})
+        ActDispatch.FetchAct.canCelVoFetch(HTTP_SERVER.GET_GAME_DETAIL);
     }
 
     requetGameData = () => {

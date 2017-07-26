@@ -3,7 +3,7 @@
 let SERVERADDR = "http://www.orchidf.com";
 
 global.G_SERVERADDR = SERVERADDR;
-global.G_APPVERSION="app_7_24"
+global.G_APPVERSION="app_7_26"
 
 const METHOD_GET = "GET";
 const METHOD_POST = "POST";
@@ -324,7 +324,7 @@ global.HTTP_SERVER = {
     MoneyBankPlatDetail: {url:"",formatUrl: "/mobile-deposit/platform-detail/#platId", method: METHOD_POST},
     //第三方平台充值提交
     MoneyBankPlatAdd: {url: "/mobile-deposit/create-platform-form", method: METHOD_POST,body:{
-        platform_id:"",merchant_id:"",amount:"",pay_type:"",bank_id:""
+        platform_id:"",merchant_id:"",amount:"",pay_type:"",bankid:""
     }},
     //用户奖金组信息
     GROUP_PRIZE_INFO: {url: "", formatUrl:"/mobile-agent/user-user-prize-sets/get-prize-set/#id", method: METHOD_POST,body:{
@@ -337,8 +337,12 @@ global.HTTP_SERVER = {
 };
 
 global.HttpUtil = {
-    flushMoneyBalance: () => {
-        ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.MOENY_USER_ACCOUNT, ActionType.AppType.MONEY_ACCOUNT__CHANGE, null, true);
+    flushMoneyBalance: (callBack) => {
+        ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.MOENY_USER_ACCOUNT, ActionType.AppType.MONEY_ACCOUNT__CHANGE, ()=>{
+            if(callBack){
+                callBack();
+            }
+        }, true);
     }
 }
 

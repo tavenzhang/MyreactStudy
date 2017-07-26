@@ -57,7 +57,7 @@ export default class Home extends BaseView {
             data: "http://www.baidu.com"
         }, {
             url: `${G_SERVERADDR}/i/home/home_activity_banne1r2.jpg`,
-            name: "活动3",
+            name: "活动4",
             data: "http://www.google.com"
         }]
         return (

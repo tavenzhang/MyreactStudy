@@ -21,15 +21,15 @@ const mapStateToProps = state => {
 export default class TeamChildAgentView extends BaseView {
 
 
-    static navigationOptions = ({navigation})=> ({
-        headerRight:<NavButtonText style={{
-            marginLeft: 20,
-            paddingHorizontal: 8,
-            paddingVertical: 4,
-            backgroundColor: "rgb(208,199,160)",
-            borderRadius: 5
-        }} name={"查询"} navigation={navigation} />
-    })
+    // static navigationOptions = ({navigation})=> ({
+    //     headerRight:<NavButtonText style={{
+    //         marginLeft: 20,
+    //         paddingHorizontal: 8,
+    //         paddingVertical: 4,
+    //         backgroundColor: "rgb(208,199,160)",
+    //         borderRadius: 5
+    //     }} name={"查询"} navigation={navigation} />
+    // })
 
     constructor(props) {
         super(props);

@@ -82,7 +82,12 @@ export default class SSC_History extends BaseView {
         );
     }
 
+    componentWillUnmount() {
+        ActDispatch.FetchAct.canCelVoFetch(HTTP_SERVER.notice_Lottery_Hisotry);
+    }
+
     itemClick = (data) => {
+
     }
 }
 

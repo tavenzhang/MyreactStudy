@@ -35,6 +35,10 @@ export let ItemNameEnum = {
     agentAssignMoney: "高点配额",
     agentTeam: "团队管理",
     agentProfit: "盈亏报表",
+    agentMoney: "团队帐变",
+    agentMoneyIn: "团队存款",
+    agentMoneyOut: "团队取款",
+    agentGame:"游戏记录",
     //系统信息
     aboutSystem:"关于我们"
 }
@@ -122,7 +126,23 @@ export default class MyView extends BaseView {
                 },true,false,true);
             }
         })
+        this.isFlush =false;
     }
+
+    componentWillUpdate(){
+        let {userData} = this.props;
+        super.componentWillUpdate();
+        if(userData.isLogined&&!this.isFlush) {
+            TLog("MyView0-----------componentWillUpdate")
+            this.isFlush=true
+            HttpUtil.flushMoneyBalance(this.onCallBack) ;
+        }
+    }
+
+    onCallBack=()=>{
+        this.isFlush=false
+    }
+
 
 
 

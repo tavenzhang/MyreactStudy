@@ -32,6 +32,7 @@ export default class AcountListView extends React.Component {
         return (
             <View style={[G_Style.appContentView, {backgroundColor: "rgba(230,230,230,0.5)"}]}>
                 <ListView
+                    onRefresh={this.onFreshFunc}
                     dataSource={ds}
                     renderRow={this._renderRow}
                 />

@@ -587,7 +587,6 @@ export default class Games extends Component {
                                     style={styles.yaoyiyaoImg}
                                     source={Icon_yaoyiyao}
                                 />
-                                <Text style={styles.yaoyiyaoText}>随机</Text>
                             </View>
                         </TouchableHighlight> : null
                 }
@@ -870,7 +869,7 @@ const styles = StyleSheet.create({
     gameBox: {},
     yaoyiyao: {
         flexDirection: 'column',
-        height: 45,
+        height: 35,
         width: 35,
         position: 'absolute',
         alignItems: "center",
@@ -878,7 +877,7 @@ const styles = StyleSheet.create({
         top: -5,
         zIndex: 100,
         justifyContent: "center",
-        backgroundColor: '#ff5722',
+        //backgroundColor: '#ff5722',
         borderRadius: 4,
 
     },

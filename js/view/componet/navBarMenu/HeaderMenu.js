@@ -22,7 +22,6 @@ export class NavCommonView extends React.PureComponent {
 
     onPress = () => {
         let  {navigation,isRightButton,isHeadView,onClick}=this.props;
-        console.log("onClick------------",onClick);
         if(onClick) {
             onClick();
         }
@@ -62,7 +61,7 @@ export class NavButtonText extends React.PureComponent {
         isRightButton:PropTypes.bool,
         style:PropTypes.object,
         visible:PropTypes.bool,
-        textStyle:PropTypes.bool,
+        textStyle:PropTypes.object,
         isHeadView:PropTypes.bool,
         onClick:PropTypes.func,
     }

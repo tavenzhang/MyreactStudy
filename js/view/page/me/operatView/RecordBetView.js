@@ -8,6 +8,8 @@ import {connect} from 'react-redux';
 import BaseView from "../../../componet/BaseView";
 import BetRecordListView from "./record/BetRecordListView";
 import RecordMenuView, {MenuListType} from "./record/RecordMenuView";
+import {NavButtonText} from "../../../componet/navBarMenu/HeaderMenu";
+import ReciotBetSearchView from "./record/ReciotBetSearchView";
 
 
 
@@ -23,6 +25,15 @@ const mapStateToProps = state => {
 
 @connect(mapStateToProps)
 export default class RecordBetView extends BaseView {
+    static navigationOptions=({navigation, screenProps}) =>({
+        title:"游戏记录",
+        headerRight: <NavButtonText style={{
+            paddingHorizontal: 5,
+            paddingVertical: 5,
+            backgroundColor: "rgb(208,199,160)",
+            borderRadius: 5}} textStyle={{fontSize:14}} name={"更多查询"} navigation={navigation}/>
+    })
+
     constructor(props) {
         super(props);
         this.state = {
@@ -31,19 +42,23 @@ export default class RecordBetView extends BaseView {
             curPage:1,
             totalPage:1,
             curGame:null,
-            curTime:null
+            curTime:null,
+            modelShow:false
         }
         this.registOnForceFlush(G_RoutConfig.RecordBetView,(data)=>{
-            TLog("RecordBetView----",data)
             this.clickMenuItem([],this.state.status);
         })
+    }
+
+    onRightPressed(){
+        this.setState({modelShow:!this.state.modelShow})
     }
 
     renderBody() {
          let {userData,gameModel}=this.props
         let {gameId}=this.props.navigation.state.params;
          let defaultGame = gameModel.getGameDataById(gameId);
-         TLog("gameId====="+gameId,defaultGame)
+         TLog("gameId====="+gameId,defaultGame);
         return (
             <View style={G_Style.appContentView}>
                 <View style={{
@@ -77,19 +92,28 @@ export default class RecordBetView extends BaseView {
                                        loadMore={this.loadMore} {...this.props}/>
                 </View>
                 <RecordMenuView defaultGame={defaultGame} clickMenuItem={this.clickMenuItem} {...this.props}/>
+                <ReciotBetSearchView username={this.state.username} {...this.props} visible={this.state.modelShow} onHideHandle={()=>this.setState({modelShow:false})} onConfirmPress={this.onConfirmPress} />
             </View>
         );
     }
 
+    onConfirmPress=(data)=>{
+        //{"modalVisible":true,"serialNumer":"","userName":"","pickValue":""}
+        //G_NavUtil.push(G_RoutConfig.BackDetailView,{data,...this.props},"返点详情");
+        TLog("onConfirmPress----",data);
+        // HTTP_SERVER.LIST_REANSACTON.body.serial_number=this.state.serial_number;
+        // HTTP_SERVER.LIST_REANSACTON.body.type_id =this.state.type_id;
+        // HTTP_SERVER.LIST_REANSACTON.body.username=this.state.username;
+        // this.setState({dataList:[],serial_number:data.serialNumer,type_id:data.pickValue,username:data.userName},()=>{
+        //     this.loadMore(null,1);
+        // })
+    }
 
     componentDidMount() {
-        TLog("componentDidMount-----Record");
-
         this.loadMore(null, true);
     }
 
     componentWillUnmount() {
-        TLog("componentWillUnmount-----Record");
         ActDispatch.FetchAct.canCelVoFetch(HTTP_SERVER.BET_RECODE);
     }
 

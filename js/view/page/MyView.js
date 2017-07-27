@@ -36,9 +36,9 @@ export let ItemNameEnum = {
     agentTeam: "团队管理",
     agentProfit: "盈亏报表",
     agentMoney: "团队帐变",
-    agentMoneyIn: "团队存款",
-    agentMoneyOut: "团队取款",
-    agentGame:"游戏记录",
+    agentGame: "游戏记录",
+    agentMoneyIn: "存款明细",
+    agentMoneyOut: "取款明细",
     //系统信息
     aboutSystem:"关于我们"
 }
@@ -98,10 +98,13 @@ export default class MyView extends BaseView {
     static dataListTopAgent = [{ico: "info-circle", name: ItemNameEnum.agentInfo}, {
         ico: "user-circle",
         name: ItemNameEnum.agentCreate
-    }, {ico: "shekel", name: ItemNameEnum.agentAssignMoney}, {ico: "cubes", name: ItemNameEnum.agentTeam}, {
-        ico: "book",
-        name: ItemNameEnum.agentProfit
-    }];
+    }, {ico: "shekel", name: ItemNameEnum.agentAssignMoney},
+        {ico: "cubes", name: ItemNameEnum.agentTeam},
+        {ico: "book", name: ItemNameEnum.agentProfit},
+        {ico: "file-text", name: ItemNameEnum.agentGame},
+        {ico: "money", name: ItemNameEnum.agentMoney},
+        {ico: "book", name: ItemNameEnum.agentMoneyIn},
+        {ico: "book", name: ItemNameEnum.agentMoneyOut}];
 
     static dataListSystem= [{ico: "info", name: ItemNameEnum.aboutSystem}];
 

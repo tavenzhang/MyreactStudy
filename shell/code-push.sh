@@ -14,3 +14,8 @@ react-native run-ios --configuration Release
 code-push release-react tcp-ios ios  --description '新版本测试'
 code-push release-react tcp-android android   --description '新版本测试'
 code-push release-react tcp-android android  -m true  --description '新版本测试'
+
+code-push login http://104.250.145.227:3000
+
+rNhzFZ0bp9wxOK5faYlIky5bHcjA4ksvOXqog
+

@@ -1,18 +1,15 @@
 import React, {PropTypes} from 'react';
 import {
     View,
-    Picker,
     StyleSheet,
     Text,
-    TextInput,
-
 } from 'react-native';
 
 import MyModalView from "../../../../componet/tcustom/modal/TModalView";
 import {TButton} from "../../../../componet/tcustom/button/TButton";
 import {TTextInput} from "../../../../componet/tcustom/textInput/TTextInput";
 import {TPicker} from "../../../../componet/tcustom/picker/TPicker";
-export default class RecordMoneySearchView extends React.Component {
+export default class ReciotBetSearchView extends React.Component {
     static propTypes = {
         visible: PropTypes.bool,
         onHideHandle: PropTypes.func,
@@ -54,11 +51,11 @@ export default class RecordMoneySearchView extends React.Component {
                                     }}/>
                             </View>
                             <View style={styles.pickView}>
-                                <Text>账变类型:</Text>
+                                <Text>投注状态:</Text>
                                 <TPicker
                                     viewStyle={{flex: 1}}
                                     itemStyle={{width: 100, fontSize: 15, height: 150}}
-                                    dataList={appModel.getATransactionTypeList}
+                                    dataList={appModel.getAProjectStatusList}
                                     pickValue={this.state.pickValue}
                                     onValueChange={(data) => {
                                         this.setState({pickValue: data})
@@ -66,30 +63,30 @@ export default class RecordMoneySearchView extends React.Component {
                             </View>
                         </View>
                         <View style={{flexDirection: "row", alignItems: "center", justifyContent:"center"}}>
+                            <View style={{flexDirection: "row", alignItems: "center"}}>
                                 <View style={{flexDirection: "row", alignItems: "center"}}>
-                                    <View style={{flexDirection: "row", alignItems: "center"}}>
-                                        <Text style={{width: 70, textAlign: "right"}}>账变编号:</Text>
-                                        <View style={{borderBottomWidth: 1, borderColor: "gray", marginRight: 20,}}>
-                                            <TTextInput
-                                                style={styles.textStyle}
-                                                onChangeText={(serialNumer) => this.setState({serialNumer})}
-                                                value={this.state.serialNumer}
-                                                placeholder={""}
-                                            />
-                                        </View>
-                                    </View>
-                                </View>
-                                <View style={{flexDirection: "row", alignItems: "center"}}>
-                                    <Text style={{width: 70, textAlign: "right", marginHorizontal: 5}}>用户名:</Text>
+                                    <Text style={{width: 70, textAlign: "right"}}>期号:</Text>
                                     <View style={{borderBottomWidth: 1, borderColor: "gray", marginRight: 20,}}>
                                         <TTextInput
                                             style={styles.textStyle}
-                                            onChangeText={(userName) => this.setState({userName})}
-                                            value={this.state.userName}
+                                            onChangeText={(serialNumer) => this.setState({serialNumer})}
+                                            value={this.state.serialNumer}
                                             placeholder={""}
                                         />
                                     </View>
                                 </View>
+                            </View>
+                            <View style={{flexDirection: "row", alignItems: "center"}}>
+                                <Text style={{width: 70, textAlign: "right", marginHorizontal: 5}}>用户名:</Text>
+                                <View style={{borderBottomWidth: 1, borderColor: "gray", marginRight: 20,}}>
+                                    <TTextInput
+                                        style={styles.textStyle}
+                                        onChangeText={(userName) => this.setState({userName})}
+                                        value={this.state.userName}
+                                        placeholder={""}
+                                    />
+                                </View>
+                            </View>
                         </View>
                         <View style={{flexDirection: "row", alignSelf:"center"}}>
                             <TButton containerStyle={{

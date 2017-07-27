@@ -124,6 +124,7 @@ export default class AcountListView extends React.Component {
                         G_NavUtil.push(G_RoutConfig.MoneyApply,{title: data.name})
                         break;
                     case ItemNameEnum.recordMoney:
+                    case ItemNameEnum.agentMoney:
                         G_NavUtil.push(G_RoutConfig.RecordMoneyView,{title: data.name})
                         break;
                 }

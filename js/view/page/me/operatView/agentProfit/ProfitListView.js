@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{PropTypes} from 'react';
 import {
     View,
     StyleSheet,
@@ -8,8 +8,12 @@ import {
 
 import AIcon from 'react-native-vector-icons/FontAwesome';
 import TFlatList from "../../../../componet/TFlatList";
+import MySegmentedControlTab from "../../../../componet/tcustom/TSegmentedControlTab";
 
 export default class ProfitListView extends React.Component {
+    static propTypes={
+        onTabChange:PropTypes.func
+    }
 
     constructor(props) {
         super(props);
@@ -18,7 +22,8 @@ export default class ProfitListView extends React.Component {
             oSelfProfit: {},
             oAgentSumPerDay: [],
             dataList: [],
-            username: ''
+            username: '',
+            selectedTabIndex:0
         }
     }
 
@@ -97,13 +102,23 @@ export default class ProfitListView extends React.Component {
         </View>)
     }
 
+    onTabSelectChange=(data,index)=>{
+        let {onTabChange}=this.props;
+        if(onTabChange){
+            onTabChange(data,index)
+        }
+        this.setState({selectedTabIndex:index})
+    }
+
     renderDirect() {
         const {oSelfProfit} = this.props;
 
         if (oSelfProfit && oSelfProfit.turnover) {
             return (<View style={[styles.row]}>
                 <View style={[styles.itemContentStyle, {flex: 10}]}>
-                    <Text style={[styles.textItemName]}>直属下级盈亏明细</Text>
+                    <MySegmentedControlTab selectedTabIndex={this.state.selectedTabIndex} valueList={['直属下级', '所有下级']} onTabChange={this.onTabSelectChange}/>
+
+                    {/*<Text style={[styles.textItemName]}>直属下级盈亏明细</Text>*/}
                 </View>
             </View>);
         }
@@ -202,7 +217,8 @@ export default class ProfitListView extends React.Component {
             <TouchableHighlight onPress={() => this.clickItem(data)} underlayColor='rgba(10,10,10,0.2)'>
                 <View style={[styles.row]}>
                     <View style={[styles.itemContentStyle, {flex: 2}]}>
-                        <Text style={styles.textItemName}>{data.username}</Text>
+                        <Text style={[styles.textItemName,{fontWeight:"bold"}]}>{data.username}</Text>
+                        <Text style={[styles.textItemName,{fontSize:12}]}>{data.is_agent ? "(代理)":"(玩家)"}</Text>
                     </View>
                     <View style={[styles.itemContentStyle, {flex: 2}]}>
                         <Text style={[styles.textItemStyle]}

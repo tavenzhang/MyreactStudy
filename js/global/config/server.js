@@ -312,7 +312,9 @@ global.HTTP_SERVER = {
         page: 0,is_agent:0,username:"",reg_date_from:"",reg_date_to:"",
     }},
     //盈亏报表
-    AgentProfit: {url: "/mobile-agent/user-profits", method: METHOD_POST, body: {page: 0}},
+    AgentProfit: {url: "/mobile-agent/user-profits", method: METHOD_POST, body: {page: 0,
+        username:"",is_agent:"",user_search_type:"2"
+    }},
     //银行充值
     //1 /mobile-deposit/bank-list
     MoneyBankList: {url: "/mobile-deposit/bank-list", method: METHOD_POST},

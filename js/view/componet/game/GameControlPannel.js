@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
         width: G_Theme.windowWidth,
         height: G_Theme.gameOperatePanelHeight,
         backgroundColor: '#fff',
-        //borderTopWidth: 0.5,
+        borderTopWidth: 0.5,
         borderColor: G_Theme.gray,
         shadowOffset:{
             width: 0,
@@ -214,6 +214,7 @@ const styles = StyleSheet.create({
         height: controlPanelBottomHeight,
         width: iconGrounpWidth/2 ,
         borderRightWidth: 0.5,
+        backgroundColor: '#fff',
         borderColor: G_Theme.gray,
     },
 

@@ -555,7 +555,7 @@ export default class Games extends Component {
 
     render() {
         const me = this;
-        const {lotterys, isBallsComplete, user_prize_group} = me.state;
+        const {lotterys, isBallsComplete, user_prize_group, series_identifier} = me.state;
         const {orderNum, moneyUnit, multiple, balance, bet_max_prize_group, bet_min_prize_group, diff_grize_group, series_amount, currentGameWay} = me.props;
         const operTopDesc = <Text>{lotterys.length}注 * {multiple}倍 =
             <Text
@@ -614,7 +614,12 @@ export default class Games extends Component {
                         let param={
                             show: true,
                             randomLotterys: me.randomLotterys,
-                            isRandomOrder: me.isRandomOrder
+                            isRandomOrder: me.isRandomOrder,
+                            isTrace: true
+                        }
+                        // 基诺,幸运28不显示追号
+                        if(series_identifier === 'KENO' || series_identifier === 'LUCKY') {
+                            param.isTrace = false;
                         }
                         ActDispatch.GameAct.lottoryState(param)
                         TLog("---btnIconEvent----",param)

@@ -81,7 +81,7 @@ export default class LotteryOrders extends React.Component {
 
 
     render() {
-        const {orderList, balance, orderListNum,randomLotterys, isRandomOrder} = this.props;
+        const {orderList, balance, orderListNum,randomLotterys, isRandomOrder, isTrace} = this.props;
         let total = 0, totalMoney = 0;
         const btnDisable = orderListNum == 0 ? styles.btnDisable : null;
 
@@ -137,7 +137,7 @@ export default class LotteryOrders extends React.Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <TGameTraceView  wayId={lastWay} isCanChase={isCanChase} totalMoney={totalMoney} {...this.props}/>
+                { isTrace ? <TGameTraceView  wayId={lastWay} isCanChase={isCanChase} totalMoney={totalMoney} {...this.props}/> : null}
                 <GameControlPannel
                     balance={balance}
                     topDesc={this.getTotalText(total,totalMoney)}

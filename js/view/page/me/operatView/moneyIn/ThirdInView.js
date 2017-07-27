@@ -164,7 +164,10 @@ export default class ThirdInView extends React.Component {
 
     onValid = () => {
         let result = null;
-        if (this.state.textMoney == "") {
+        if(!this.state.paySelectItem){
+            result = "请输入有效充值方式!"
+        }
+        else if (this.state.textMoney == "") {
             result = "请输入有效的充值金额!"
         } else if (this.isBankAdd()) {
             if (!this.state.bankSelectItem) {

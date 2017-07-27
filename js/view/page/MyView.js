@@ -59,7 +59,7 @@ export default class MyView extends BaseView {
         let {userData} = screenProps
         return {
             title: '我的',
-            tabBarIcon: ({focused}) => {
+            tabBarIcon: ({focused}) =>{
                 return <AIcon name='user' style={{fontSize: 25, color: focused ? G_Theme.selectColor : G_Theme.gray}}/>
             },
             headerLeft: <NavButtonText onClick={()=>ActDispatch.AppAct.showConfigModel(true)}  isRightButton={false} name={"设置"} navigation={navigation}/>,
@@ -133,9 +133,13 @@ export default class MyView extends BaseView {
         let {userData} = this.props;
         super.componentWillUpdate();
         if(userData.isLogined&&!this.isFlush) {
-            TLog("MyView0-----------componentWillUpdate")
-            this.isFlush=true
-            HttpUtil.flushMoneyBalance(this.onCallBack) ;
+           // TLog("MyView0-----------componentWillUpdate==",G_NavState.routes)
+             let viewName = G_NavState.routes[G_NavState.routes.length - 1].routeName;
+           //  TLog("MyView0-----------componentWillUpdate=="+viewName)
+            if(G_RoutConfig.Main.name ==viewName){
+                this.isFlush=true
+                HttpUtil.flushMoneyBalance(this.onCallBack) ;;
+            }
         }
     }
 

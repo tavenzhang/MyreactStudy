@@ -3,14 +3,14 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    LayoutAnimation
 } from 'react-native';
-import BaseView from "../../../../componet/BaseView";
 import TFlatList from "../../../../componet/TFlatList";
 import AIcon from 'react-native-vector-icons/FontAwesome';
 import Ball from "../../../../componet/game/Ball";
 
-export default class BannerView extends BaseView {
+export default class BannerView extends React.Component {
     static propTypes = {
         dateHistoryList: PropTypes.array,
         showHistory: PropTypes.bool,
@@ -32,11 +32,13 @@ export default class BannerView extends BaseView {
     }
 
     componentWillUpdate(nextProps, nextState) {
-        super.componentWillUpdate()
         let {currentNumberTime, currentTime} = nextProps;
-        if (currentNumberTime && this.currentNumberTime != currentNumberTime) {
-            TLog("currentNumberTime----" + currentNumberTime, currentTime)
+        G_PLATFORM_IOS ? LayoutAnimation.configureNext(G_LayoutAnimationHelp.springNoDelete):LayoutAnimation.configureNext(G_LayoutAnimationHelp.springNoCreate);
+       // TLog("componentWillUpdate----currentNumberTime11==" + this.nowTime+"--"+this.currentNumberTime != currentNumberTime, currentTime)
+        if (currentNumberTime &&(this.currentNumberTime != currentNumberTime||this.nowTime!=currentTime)) {
+            TLog("currentNumberTime11----" + currentNumberTime, currentTime)
             this.currentNumberTime = currentNumberTime;
+            this.nowTime=currentTime;
             this.setState({currentTime}, () => {
                 let dim = (this.currentNumberTime - this.state.currentTime);
                 clearInterval(this.timeId);
@@ -112,6 +114,9 @@ export default class BannerView extends BaseView {
         let height = series_id == 4 ? 48 : 26;//基诺  20个球
         let marginTop = series_id == 4 ? 17 : 5;//基诺  20个球
         let ballText = this.getFormatBallText(series_id, rowDataArr[1], index);
+        let timeIssue=rowDataArr[0];
+      //  timeIssue=timeIssue ? timeIssue.substring(4,timeIssue.length-1):"";
+
         return (
             <View style={{
                 flexDirection: "row",
@@ -124,8 +129,8 @@ export default class BannerView extends BaseView {
                 <Text style={{
                     fontSize: 12,
                     color: G_Theme.grayDeep,
-                    width:105
-                }}>{`${rowDataArr[0]}期号码`}</Text>
+                    width: series_id ==7 ? 100:120
+                }}>{`${timeIssue}期号码`}</Text>
                 {ballText}
             </View>
         );
@@ -217,7 +222,8 @@ export default class BannerView extends BaseView {
     }
 
     _firstRow(ballWidth, i, v) {
-        let radios = 11;
+
+        let radios =11;
         return <View style={[styles.ballBtnBox, {width: ballWidth, marginTop:3}]} key={i}>
             <Ball
                 radius={radios}

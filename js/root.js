@@ -11,11 +11,13 @@ import  route   from "./global/route";
 import  native   from "./global/nativeExtent";
 import  enumString   from "./global/enumString";
 //import PerfMonitor from 'react-native/Libraries/Performance/RCTRenderingPerf';
+
 import React  from 'react';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 
 import configureStore from './redux/store/store';
 import App from './app';
+import {AppState} from "react-native";
 
 
 const store = configureStore();
@@ -26,19 +28,34 @@ export default class Root extends React.Component {
 
     render() {
         return (
-            <Provider store = {store} >
+            <Provider store={store}>
                 <App />
             </Provider>
         )
     }
 
     componentDidMount() {
-        // PerfMonitor.toggle();
-        // setTimeout(() => {
-        //     PerfMonitor.start();
-        //     setTimeout(() => {
-        //         PerfMonitor.stop();
-        //     }, 20000);
-        // }, 5000);
+        TLog("App----");
+        //T_AWAKE();
+        AppState.addEventListener('change', this.onStateChange)
+    }
+
+    onStateChange = (state) => {
+        TLog('AppState changed to' + G_LastView, state)
+        setTimeout(() => ActDispatch.AppAct.appSate(state), 100);
+        switch (`${state}`) {
+            case "inactive":
+                break;
+            case "active":
+                if (G_LastView) {
+                    if (G_BaseGameView && G_LastView != G_BaseGameView) {
+                        G_BaseGameView.componentDidMount(true)
+                    } else {
+                        G_LastView.componentDidMount(true);
+                    }
+                    TLog("active----G_LastView=" + G_LastView.constructor.name)
+                }
+                break;
+        }
     }
 }

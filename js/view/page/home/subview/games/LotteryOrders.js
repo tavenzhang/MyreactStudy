@@ -26,6 +26,7 @@ const mapStateToProps = state => {
         traceData:state.get("gameState").get("traceData").toJS(),
         balance: parseFloat(state.get("appState").getIn(['userData', 'data', 'available'])),
         userData: state.get("appState").get("userData").toJS(),
+        //moneyBalance: state.get("appState").get("moneyBalance"),
     }
 }
 @connect(mapStateToProps)

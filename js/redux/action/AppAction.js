@@ -59,4 +59,8 @@ export const AppAct={
         type:ActionType.AppType.SHOW_CONFIG_MODEL,
         visible
     }),
+    appSate:(data)=>({
+        type:ActionType.AppType.APPSTATE,
+            data
+    })
 }

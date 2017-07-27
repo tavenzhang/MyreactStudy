@@ -6,6 +6,7 @@ import {
     BackHandler,
     UIManager,
     ToastAndroid,
+    AppState
 } from 'react-native';
 
 import {connect} from 'react-redux';
@@ -79,6 +80,7 @@ export default class App extends React.Component {
             })
         }
     }
+
 
     render() {
         const {isLoading, infoBox,isModal} = this.props;

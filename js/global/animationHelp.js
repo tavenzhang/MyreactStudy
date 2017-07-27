@@ -65,6 +65,20 @@ global.G_LayoutAnimationHelp={
             type: LayoutAnimation.Types.spring,
             springDamping: 0.7,
         },
+    },
+    springCreate : {
+        duration: 300,
+        create: {
+            type: LayoutAnimation.Types.spring,
+            //type:LayoutAnimation.Types.easeInEaseOut,
+              property: LayoutAnimation.Properties.scaleXY,
+           // property:LayoutAnimation.Properties.opacity,
+            springDamping: 0.5,
+        },
+        update: {
+            type: LayoutAnimation.Types.spring,
+            springDamping: 0.7,
+        },
     }
 }
 

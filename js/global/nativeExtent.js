@@ -147,4 +147,18 @@ global.T_TryCodePushConfig = () => {
     }
 }
 
+global.T_AWAKE = () => {
+    let wakeCallBack=()=>{
+        TLog("T_AWAKE-------")
+        // if(G_LastView){
+        //     G_LastView.componentDidMount();
+        // }
+    }
+    if (G_PLATFORM_IOS) {
+        INativeModule.awake(wakeCallBack);
+    }
+    else {
+        ANativeModule.awake( wakeCallBack);
+    }
+}
 

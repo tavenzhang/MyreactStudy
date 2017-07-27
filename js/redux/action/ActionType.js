@@ -20,6 +20,7 @@ export const ActionType = {
         AWARD_LIST:"app/AWARD_List",
         NOTICE_LIST:"app/NOTICE_LIST",
         SHOW_CONFIG_MODEL:"app/SHOW_CONFIG_MODEL",
+        APPSTATE:"app/APPSTATE"
     },
     FetchType: {
         FETCH_REQUEST: "fetch/REQUEST",

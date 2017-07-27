@@ -18,7 +18,7 @@ export default class GameControlPannel extends Component {
         lotterys : PropTypes.number.isRequired,
         multiple : PropTypes.number.isRequired,
         unitPrice : PropTypes.number.isRequired,
-        balance : PropTypes.number.isRequired,
+        balance : PropTypes.any.isRequired,
         btnEvent : PropTypes.func,
         btnIconEvent : PropTypes.func,
         btnName : PropTypes.string,

@@ -212,7 +212,7 @@ global.G_Navigation = null;
 global.G_NavState = null;
 global.G_NavRouteState = null
 global.G_LastView = null
-
+global.G_BaseGameView = null
 global.G_NavUtil = {
     pop: (componet,data = {}) => {
         //避免goback 引起的多次didMound

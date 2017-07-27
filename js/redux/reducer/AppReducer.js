@@ -25,6 +25,8 @@ const initAppState = fromJS({
     awardList:[],
     noticeList:[],
     showConfigModel:false,
+    appState:{nowState:null,lastState:null},
+    isActive:""
 })
 
 const appState = (state = initAppState, action) => {
@@ -43,6 +45,10 @@ const appState = (state = initAppState, action) => {
             });
         case ActionType.AppType.MONEY_ACCOUNT__CHANGE:
             //TLog("ActionType.AppType.MONEY_ACCOUNT__CHANGE----",action.httpResult.data)
+            if(state.get("userData").get("isLogined"))
+            {
+                state=state.setIn(['userData', 'data', 'available'],action.httpResult.data.available);
+            }
             return state.merge({moneyBalance:parseFloat(action.httpResult.data.available)});
         case ActionType.AppType.LOGIN_RESULT:
             return state.merge({userData:fromJS({...action.data,isLogined:true}),moneyBalance:Number(action.data.data.available)});
@@ -88,6 +94,10 @@ const appState = (state = initAppState, action) => {
             return state.merge({noticeList: action.data});
         case ActionType.AppType.SHOW_CONFIG_MODEL:
             return state.merge({showConfigModel: action.visible});
+        case ActionType.AppType.APPSTATE:
+            TLog("ActionType.AppType.APPSTATE--action.data",action.data);
+             let tempState=state.get("appState").get("nowState")
+            return state.merge({appState:{nowState:action.data,lastState:tempState},isActive:action.data})
         default:
             return state;
     }

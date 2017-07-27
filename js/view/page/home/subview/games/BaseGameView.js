@@ -40,6 +40,8 @@ export default class BaseGameView extends BaseView {
             balance:state.get("appState").get("moneyBalance"),
             prize: state.get("gameState").get("prize"), //奖金组
             gameId: state.get("gameState").get("gameId"),
+            appState:state.get("appState").get("appState").toJS(),
+            isActive:state.get("appState").get("isActive"),
             //balls: newBalls,
             lottorState:state.get("gameState").get("lottorState").toJS(), //够彩篮
         }
@@ -89,11 +91,11 @@ export default class BaseGameView extends BaseView {
         let gameName = name;
         if (this.state.selectItem) {
             if (currentGameWay.parent_parent_name_cn) {
-                gameName = "[" + currentGameWay.parent_parent_name_cn + "]-" + this.state.selectItem.name_cn;
+                gameName = "[" + currentGameWay.parent_parent_name_cn + "]-" + currentGameWay.name_cn;
             }
             else {
 
-                gameName = "[" + name + "]-" + this.state.selectItem.name_cn;
+                gameName = "[" + name + "]-" + this.state.selectItem.name;
             }
         }
         return gameName;
@@ -120,6 +122,7 @@ export default class BaseGameView extends BaseView {
         TLog("onHeadPressed-----",this.state.isShowMenu)
         this.setState({isShowMenu: !this.state.isShowMenu});
     }
+
 
 
     renderBody() {
@@ -170,22 +173,24 @@ export default class BaseGameView extends BaseView {
         ) : null
     }
 
-    componentDidMount() {
+    componentDidMount(isSleep:boolean=false) {
         const {id} = this.props.navigation.state.params;
         let {gameId}= this.props
-        this.requetGameData();
+        this.requetGameData(isSleep);
         if(gameId!=id){
             ActDispatch.GameAct.delOrder();
         }
         HttpUtil.flushMoneyBalance();
+        G_BaseGameView =this;
     }
 
     componentWillUnmount() {
         ActDispatch.GameAct.lottoryState({show:false})
         ActDispatch.FetchAct.canCelVoFetch(HTTP_SERVER.GET_GAME_DETAIL);
+        G_BaseGameView =null;
     }
 
-    requetGameData = () => {
+    requetGameData = (isSleep=false) => {
         const {id} = this.props.navigation.state.params;
         ActDispatch.GameAct.lottoryState({show:false})
         HTTP_SERVER.GET_GAME_DETAIL.url = HTTP_SERVER.GET_GAME_DETAIL.formatUrl.replace(/#id/g, id);
@@ -217,12 +222,12 @@ export default class BaseGameView extends BaseView {
                     ActDispatch.AppAct.showErrorBox("当前游戏获取数据出错，请稍后再尝试");
                 }
 
-            }, false, true);
+            }, isSleep, !isSleep);
     }
 
 
     clickMenuItem = (data) => {
-        //  TLog("clickMenuItem--", data);
+         // TLog("clickMenuItem--", data);
         const {gameMethodHash, isRequestGameWay, currentGameWay} = this.state;
         const {id, playModel} = this.props.navigation.state.params;
         if (currentGameWay.id != data.id) {

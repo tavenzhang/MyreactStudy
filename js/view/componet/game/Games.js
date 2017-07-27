@@ -899,11 +899,12 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         borderBottomWidth: 1,
         borderColor: G_Theme.gray,
-        padding: 8,
+        padding: 2,
     },
     ballBtnGrounpIcon: {
         color: G_Theme.second,
         fontSize: 14,
+        marginTop: 8
     },
     gameRow: {
         flexWrap: 'wrap',

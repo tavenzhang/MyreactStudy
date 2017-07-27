@@ -16,8 +16,10 @@ global.CUSTOMER = G_PLATFORM_IOS ? '8f1ad78957965153dbce5d96ff37617a' : '4fcd478
 //样式配置
 global.G_Theme = {
     primary: '#f24336',
-    second: '#448afe',
-    gray: '#ddd',
+    second: '#26a7ff',
+    third: '#37dc94',
+    fourth: 'rgb(244,241,229)',
+    gray: '#d5d5d5',
     grayDeep: '#888',
     black: '#333',
     selectColor: '#ad9423',

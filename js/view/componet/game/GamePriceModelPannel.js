@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
         width: 100,
         padding: 2,
         borderRadius: 15,
-        backgroundColor: '#ccc',
+        backgroundColor: G_Theme.fourth,
         alignItems: "center",
         justifyContent: "center",
         marginLeft: 10

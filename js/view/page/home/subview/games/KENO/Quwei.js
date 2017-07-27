@@ -299,10 +299,10 @@ export default class Quwei extends KENO {
                                     width: ballWidth,
                                 }]} key={i}>
                                     <BallSquare
-                                        width={ ballWidth - 10}
+                                        width={ ballWidth - 5}
                                         height={(G_Theme.windowWidth - 20) / 4 / 2}
                                         text={repo.series_way_name }
-                                        desctext={ (repo.prize * 100) / 100}
+                                        desctext={ `X ${(repo.prize * 100) / 100}`}
                                         row={row}
                                         valid_nums={repo.valid_nums}
                                         value={i}
@@ -346,14 +346,14 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         flexWrap: 'wrap',
-        //paddingLeft: 20,
+        paddingLeft: 5,
         //paddingRight: 20,
     },
     ballBtnBoxQuwei: {
         //flexDirection: 'row',
         justifyContent: "center",
         alignItems: "center",
-        height: 60
+        height: 50,
     },
 
     ballBtnBox: {
@@ -366,24 +366,36 @@ const styles = StyleSheet.create({
 
     gameRow: {
         flexWrap: 'wrap',
-        margin: 10,
+        margin: 5,
+        zIndex: 1,
         backgroundColor: '#fff',
         marginBottom: 0,
         borderRadius: 8
     },
     gameRowTitle: {
-        width: 60,
-        height: 18,
-        backgroundColor: G_Theme.primary,
-        justifyContent: "center",
+        width: 100,
+        height: 14,
+        flexDirection: 'row',
+        //color: G_Theme.primary,
+        //justifyContent: "center",
         alignItems: "center",
-        marginLeft: 1,
-        marginTop: 6,
+        marginTop: 10,
+        marginLeft: 10,
+        paddingLeft: 10,
         marginBottom: 10,
+        borderLeftWidth: 3,
+        borderColor: G_Theme.primary
+    },
+    gameRowTitleIcon: {
+        color: G_Theme.primary,
+        fontSize: 14,
+        marginRight: 5,
+        marginTop: 2
     },
     gameRowTitleText: {
-        color: '#fff',
-        fontSize: 12
+        color: G_Theme.primary,
+        fontSize: 14,
+        fontWeight: '700'
     },
     controlPanel: {
         flex: 1,

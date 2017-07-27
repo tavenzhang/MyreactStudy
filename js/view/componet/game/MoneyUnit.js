@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
         flexDirection : 'row',
     },
     moneyBtn: {
-        backgroundColor:G_Theme.gray,
+        backgroundColor:'#fff',
         justifyContent:"center",
         alignItems:"center",
         width: 30,
@@ -96,7 +96,8 @@ const styles = StyleSheet.create({
 
     moneyBtnText: {
         fontWeight: '700',
-        fontSize: 14
+        fontSize: 14,
+        color: G_Theme.second
     },
 
     btnTextSelected: {

@@ -18,7 +18,7 @@ import GamePriceModelPannel from "./GamePriceModelPannel";
 import BallOperateBtn from "./BallOperateBtn";
 import RNShakeEvent from 'react-native-shake-event';
 import {Icon_yaoyiyao} from "../../../assets/index";
-
+import AIcon from 'react-native-vector-icons/FontAwesome';
 
 export default class Games extends Component {
     constructor(props) {
@@ -370,6 +370,7 @@ export default class Games extends Component {
     buildBallOperates(row) {
         const me = this;
         return <View style={styles.ballBtnGrounp}>
+            <AIcon name="magic" style={styles.ballBtnGrounpIcon} />
             <BallOperateBtn text="全" onPress={() => me.ballSelectActions('all', row)}/>
             <BallOperateBtn text="大" onPress={() => me.ballSelectActions('big', row)}/>
             <BallOperateBtn text="小" onPress={() => me.ballSelectActions('small', row)}/>
@@ -384,7 +385,9 @@ export default class Games extends Component {
         return <View style={styles.gameBox}>
             {me.state.rowTitle.map((v, i) => {
                 return <View key={i} style={styles.gameRow}>
-                    <View style={styles.gameRowTitle}><Text style={styles.gameRowTitleText}>{v}</Text></View>
+                    <View style={styles.gameRowTitle}>
+                        <Text style={styles.gameRowTitleText}>{v}</Text>
+                    </View>
                     {me.buildBalls(i)}
                     { me.isShowOperate ? me.buildBallOperates(i) : null}
                 </View>
@@ -891,39 +894,54 @@ const styles = StyleSheet.create({
     ballBtnGrounp: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginLeft: 20,
-        marginRight: 20,
+        marginLeft: 15,
+        marginRight: 15,
         marginBottom: 10,
-        borderWidth: 1,
+        borderBottomWidth: 1,
         borderColor: G_Theme.gray,
         padding: 8,
-        borderRadius: 15
+    },
+    ballBtnGrounpIcon: {
+        color: G_Theme.second,
+        fontSize: 14,
     },
     gameRow: {
         flexWrap: 'wrap',
-        margin: 10,
+        margin: 5,
         zIndex: 1,
         backgroundColor: '#fff',
         marginBottom: 0,
         borderRadius: 8
     },
     gameRowTitle: {
-        width: 45,
-        height: 18,
-        backgroundColor: G_Theme.primary,
-        justifyContent: "center",
+        width: 100,
+        height: 14,
+        flexDirection: 'row',
+        //color: G_Theme.primary,
+        //justifyContent: "center",
         alignItems: "center",
-        marginLeft: 1,
-        marginTop: 6,
+        marginTop: 10,
+        marginLeft: 10,
+        paddingLeft: 10,
         marginBottom: 10,
+        borderLeftWidth: 3,
+        borderColor: G_Theme.primary
+    },
+    gameRowTitleIcon: {
+        color: G_Theme.primary,
+        fontSize: 14,
+        marginRight: 5,
+        marginTop: 2
     },
     gameRowTitleText: {
-        color: '#fff',
-        fontSize: 12
+        color: G_Theme.primary,
+        fontSize: 14,
+        fontWeight: '700'
     },
     controlPanel: {
         flex: 1,
-        padding: 10,
+        padding: 15,
+        paddingTop: 5,
         marginTop: 10,
         marginBottom: 5,
         //justifyContent: 'space-between'

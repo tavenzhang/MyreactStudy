@@ -35,10 +35,10 @@ export default class BallOperateBtn extends React.Component {
 };
 
 const styles = StyleSheet.create({
-    ballText: {
-        color: G_Theme.primary,
+    btnText: {
+        color: '#555',
         fontWeight: 'bold',
-        fontSize: 16
+        fontSize: 14
     },
     btn: {
         justifyContent:"center",

@@ -43,5 +43,8 @@ const styles = StyleSheet.create({
     btn: {
         justifyContent:"center",
         alignItems:"center",
+        //backgroundColor: '#f00',
+        width: 30,
+        height: 30,
     },
 });

@@ -54,6 +54,7 @@ export default class GamePriceModelPannel extends Component {
                     minimumValue={bet_min_prize_group}
                     maximumValue={bet_max_prize_group}
                     maximumTrackTintColor={G_Theme.gray}
+                    minimumTrackTintColor={G_Theme.second}
                     step={diff_grize_group}
                     />
                 <View style={styles.priceDataBox}>

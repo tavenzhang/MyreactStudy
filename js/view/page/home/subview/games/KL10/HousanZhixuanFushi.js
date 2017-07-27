@@ -18,7 +18,7 @@ export default class HousanZhixuanFushi extends KL10 {
     ];
 
     //设置rowtitle
-    setRowTitle = () => ['一位','二位','三位'];
+    setRowTitle = () => ['六位','七位','八位'];
 
     checkBallIsComplete() {
         const me = this;

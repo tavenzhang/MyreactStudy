@@ -16,7 +16,7 @@ export default class Dingweidan5 extends KL10 {
     ];
 
     //设置rowtitle
-    setRowTitle = () => ['第三位'];
+    setRowTitle = () => ['第五位'];
 
     checkBallIsComplete() {
         let me = this,

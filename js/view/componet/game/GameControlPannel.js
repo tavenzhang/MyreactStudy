@@ -13,6 +13,11 @@ import {
 import AIcon from 'react-native-vector-icons/FontAwesome';
 import {TButton} from "../tcustom/button/TButton";
 
+let iconGrounpWidth = G_Theme.windowWidth * 0.3;
+let btnGrounpWidth = G_Theme.windowWidth * 0.7;
+const controlPanelBottomHeight = 38;
+const controlPanelTopHeight = 22;
+
 export default class GameControlPannel extends Component {
     static propTypes = {
         lotterys : PropTypes.number.isRequired,
@@ -25,7 +30,9 @@ export default class GameControlPannel extends Component {
         topDesc : PropTypes.object,
         btnDisable: PropTypes.bool,
         onLeftBtnClick:PropTypes.func,
-        btnLeftName:PropTypes.string
+        btnLeftName:PropTypes.string,
+        isShowBtnIcon: PropTypes.bool,
+        isShowBtnIcon2: PropTypes.bool
     };
 
     static defaultProps = {
@@ -37,6 +44,8 @@ export default class GameControlPannel extends Component {
         topDesc : <Text/>,
         btnDisable : true,
         onLeftBtnClick:null,
+        isShowBtnIcon: true,
+        isShowBtnIcon2: true,
         btnLeftName:"一键投注"
     };
 
@@ -54,44 +63,74 @@ export default class GameControlPannel extends Component {
         }
     }
 
+    btnIconAction2() {
+        const { btnIconEvent2, btnIconDisable2 } = this.props;
+        if(!btnIconDisable2) {
+            btnIconEvent2();
+        }
+    }
+
     render() {
         const me = this;
-        const { onLeftBtnClick,btnLeftName, topDesc, balance, btnName, btnDisable, btnIconEventDesc, btnIconEvent, btnIconDisable, btnIconName } = this.props;
-       // const btnStatus = btnDisable ? styles.btnDisable : null;
+        const { onLeftBtnClick,btnLeftName, topDesc, balance, btnName, btnDisable, btnIconEventDesc, btnIconEvent2, btnIconEvent, btnIconDisable, btnIconName, btnIconName2,btnIconDisable2,btnIconText,btnIconText2, isShowBtnIcon2, isShowBtnIcon } = this.props;
+        const btnStatus = btnDisable ? styles.btnDisable : null;
         const btnIconStatus = btnIconDisable ? styles.btnIconDisable : null;
+        const btnIconStatus2 = btnIconDisable2 ? styles.btnIconDisable : null;
 
         //icon btn
         let iconBtnDom = null;
-        if(btnIconEvent) {
+        if(btnIconEvent && isShowBtnIcon) {
             const btnTopRightIconDom = btnIconEventDesc ? <View style={styles.btnDesc}><Text style={styles.btnDescText}>{btnIconEventDesc}</Text></View> : null;
 
             iconBtnDom = <TouchableOpacity onPress={() => me.btnIconAction()} style={[styles.btnIcon]}>
                                 {btnTopRightIconDom}
-                                <AIcon name={btnIconName} style={[styles.iconCar,btnIconStatus]} />
-                            </TouchableOpacity>
+                                <AIcon name={btnIconName} style={[styles.iconBtn,btnIconStatus]} />
+                                <Text style={styles.iconBtnText}>{btnIconText}</Text>
+            </TouchableOpacity>
+        }
+
+        let iconBtnDom2 = null;
+        if(btnIconEvent2 && isShowBtnIcon2) {
+            iconBtnDom2 = <TouchableOpacity onPress={() => me.btnIconAction2()} style={[styles.btnIcon]}>
+                <AIcon name={btnIconName2} style={[styles.iconBtn,btnIconStatus2]} />
+                <Text style={styles.iconBtnText}>{btnIconText2}</Text>
+            </TouchableOpacity>
+        }
+
+        let btnWidth = btnGrounpWidth / 2;
+        if(!iconBtnDom2) {
+            btnWidth = G_Theme.windowWidth * 0.85 / 2;
+        }
+
+        if(!onLeftBtnClick) {
+            btnWidth = G_Theme.windowWidth * 0.85;
         }
 
         return (
             <View style={styles.controlPanel}>
-                <View>
+                <View style={styles.controlPanelTop}>
                     <View>
                         <Text style={styles.lotterys}>{topDesc}</Text>
                     </View>
                     <View>
-                        <Text style={styles.money}>可用余额<Text style={{color: "red"}}> {G_moneyFormat(balance)}</Text>元</Text>
+                        <Text style={styles.money}>余额<Text style={{color: G_Theme.primary}}> {G_moneyFormat(balance)}</Text>元</Text>
                     </View>
                 </View>
-                <View style={{flexDirection : 'row', alignItems:"center"}}>
-                    {
-                        onLeftBtnClick ?  <TButton btnName={btnLeftName} onPress={onLeftBtnClick} containerStyle={[styles.btn, {marginRight:15,
-                            backgroundColor: "green", paddingLeft:5, paddingRight:
-                        5, paddingVertical:7}]} disable={btnDisable}/>:null
-                    }
-                    {iconBtnDom}
-                    <TButton btnName={btnName} onPress={()=>me.btnAction()}  containerStyle={[styles.btn,{marginLeft:10}]} disable={btnDisable}/>
-                    {/*<TouchableOpacity onPress={() => me.btnAction()} style={[styles.btn,btnStatus]}>*/}
+                <View style={styles.controlPanelBottom}>
+                    <View style={styles.iconGrounp}>
+                        {iconBtnDom}
+                        {iconBtnDom2}
+                    </View>
+                    <View style={styles.btnGrounp}>
+                        {
+                            onLeftBtnClick ?  <TButton btnName={btnLeftName} onPress={onLeftBtnClick} containerStyle={[styles.btn,styles.btnLeft,{width: btnWidth}]} disable={btnDisable}/>:null
+                        }
+                        <TButton btnName={btnName} onPress={()=>me.btnAction()} disable={btnDisable} containerStyle={[styles.btn,styles.btnRight,btnStatus,{width: btnWidth}]} />
+                        {/*<TouchableOpacity onPress={() => me.btnAction()} containerStyle style={[styles.btn,btnStatus]}>*/}
                         {/*<Text style={styles.btnText}>{btnName}</Text>*/}
-                    {/*</TouchableOpacity>*/}
+                        {/*</TouchableOpacity>*/}
+                    </View>
+
                 </View>
             </View>
         );
@@ -99,51 +138,90 @@ export default class GameControlPannel extends Component {
 
 }
 
-
 const styles = StyleSheet.create({
 
     controlPanel: {
         flex: 1,
-        flexDirection : 'row',
         position: 'absolute',
-        bottom: -3,
+        bottom: 0,
         width: G_Theme.windowWidth,
-        padding: 8,
         height: G_Theme.gameOperatePanelHeight,
-        backgroundColor: G_Theme.black,
-        justifyContent: 'space-between'
+        backgroundColor: '#fff',
+        //borderTopWidth: 0.5,
+        borderColor: G_Theme.gray,
+        shadowOffset:{
+            width: 0,
+            height: -1,
+        },
+        shadowColor: '#ddd',
+        shadowOpacity: 0.8,
     },
-
+    controlPanelBottom: {
+        flexDirection : 'row',
+        alignItems:"center",
+        backgroundColor: '#fff',
+        justifyContent: 'space-between',
+        borderTopWidth: 0.5,
+        borderColor: G_Theme.gray
+    },
+    controlPanelTop: {
+        flexDirection : 'row',
+        justifyContent: 'space-between',
+        height: controlPanelTopHeight,
+        paddingLeft:5,
+        paddingRight:5,
+    },
     lotterys: {
         color: G_Theme.second,
-        fontSize: 14
+        fontSize: 12,
+        lineHeight:controlPanelTopHeight
     },
 
     money: {
-        color: '#fff',
+        color: G_Theme.black,
         fontSize: 12,
-        lineHeight: 18
+        lineHeight: controlPanelTopHeight
     },
-
+    btnGrounp: {
+        flexDirection : 'row',
+    },
+    iconGrounp: {
+        flexDirection : 'row',
+    },
     btn: {
         backgroundColor: global.G_Theme.primary,
         paddingLeft:15,
         paddingRight:15,
-        borderRadius:0
+        height:controlPanelBottomHeight,
+        width: btnGrounpWidth/2,
+        borderRadius:0,
+        paddingVertical: 0,
+        paddingHorizontal: 0,
+        justifyContent:"center",
+    },
+    btnLeft: {
+        backgroundColor: G_Theme.third
+    },
+    btnRight: {
+        //borderLeftWidth: 1,
+        //borderColor: G_Theme.gray,
     },
 
     btnIcon: {
         justifyContent:"center",
         alignItems:"center",
-        padding:5,
-        position:'relative'
+        position:'relative',
+        height: controlPanelBottomHeight,
+        width: iconGrounpWidth/2 ,
+        borderRightWidth: 0.5,
+        borderColor: G_Theme.gray,
     },
 
     btnDesc: {
         position:'absolute',
-        top: -1,
-        right: -1,
-        backgroundColor: G_Theme.second,
+        top: 1,
+        right: 2,
+        backgroundColor: G_Theme.primary,
         width: 18,
         height: 18,
         borderRadius: 9,
@@ -158,19 +236,26 @@ const styles = StyleSheet.create({
     },
 
     btnDisable: {
-        backgroundColor: global.G_Theme.gray,
+        borderLeftWidth: 0.5,
+        borderColor: G_Theme.gray,
     },
 
     btnIconDisable: {
-        color: global.G_Theme.gray,
+        color: G_Theme.gray,
     },
 
     btnText: {
         color: '#fff'
     },
 
-    iconCar: {
-        fontSize: 25,
-        color: global.G_Theme.second,
+    iconBtn: {
+        fontSize: 22,
+        color: G_Theme.second,
+    },
+
+    iconBtnText: {
+        fontSize: 8,
+        color: '#666',
+        marginTop: 3
     }
 });

@@ -20,7 +20,6 @@ export default class TGameTraceView extends Component {
                 isShowKeyTrace: false,
                 isShowKeyMultiple: false,
                 trace: 1,
-                showModel: false,
                 selectedTabIndex: 0,
                 traceWinStop: true,
                 profite: 50,
@@ -35,7 +34,7 @@ export default class TGameTraceView extends Component {
 
 
     render() {
-        let { orderListNum,isCanChase,traceData} = this.props;
+        let { orderListNum,isCanChase,traceData,isShow,onCloseModel} = this.props;
         let validMoney = 0;
         let validIssueNum = 0
         this.state.traceList.map((item) => {
@@ -45,65 +44,42 @@ export default class TGameTraceView extends Component {
             }
         })
         return (
-            <View >
-                <View style={styles.tracePanel}>
-                    <View style={{
-                        flexDirection: 'row',
-                        flex: 1,
-                        borderRightWidth: 0.5,
-                        alignItems: "center",
-                        justifyContent: "center"
-                    }}>
-                        <TButton disable={orderListNum <= 0|| !isCanChase} btnName={" 我要追号"}
-                                 onPress={() => this.setState({showModel: true})}/>
-                    </View>
-                    <View style={{
-                        flexDirection: 'row',
-                        flex: 1,
-                        paddingLeft: 20,
-                        alignItems: "center",
-                        justifyContent: "center"
-                    }}>
-                        <TButton disable={!traceData.isTrace} btnName={" 取消追号"} onPress={this._onClearTrace}/>
-                    </View>
-                </View>
-                <TModalView isAutoHide={false} visible={this.state.showModel}>
-                    <View style={{flex: 1, justifyContent: "center", backgroundColor: "rgba(50, 50, 50,0.6)"}}>
-                        <View style={{flex: 1, marginTop: 90, marginBottom: 45, backgroundColor: "white"}}>
-                            <MySegmentedControlTab selectedTabIndex={this.state.selectedTabIndex}
-                                                   valueList={['利润追号', '同倍追号', '翻倍追号']} onTabChange={this.onTabChange}/>
-                            <View>
-                                {this._rendMenuBarView()}
-                            </View>
-                            <TFlatList styleView={{height: G_PLATFORM_IOS ?280:200, marginVertical: 10, backgroundColor: "#ddd"}}
-                                       dataList={this.state.traceList}
-                                       renderRow={this._onRenderRow} renderHeader={this._onRenderHeader}/>
-                            <View style={{flexDirection: "row", alignItems: "center"}}>
-                                <CheckBox
-                                    style={{padding: 10}}
-                                    onClick={() => this.setState({traceWinStop: !this.state.traceWinStop})}
-                                    isChecked={this.state.traceWinStop}
-                                    rightTextView={<Text>{'中奖后停止追号'}</Text>}
+            <TModalView isAutoHide={false} visible={isShow}>
+                <View style={{flex: 1, justifyContent: "center", backgroundColor: "rgba(50, 50, 50,0.6)"}}>
+                    <View style={{flex: 1, marginTop: 90, marginBottom: 45, backgroundColor: "white"}}>
+                        <MySegmentedControlTab selectedTabIndex={this.state.selectedTabIndex}
+                                               valueList={['利润追号', '同倍追号', '翻倍追号']} onTabChange={this.onTabChange}/>
+                        <View>
+                            {this._rendMenuBarView()}
+                        </View>
+                        <TFlatList styleView={{height: G_PLATFORM_IOS ?280:200, marginVertical: 10, backgroundColor: "#ddd"}}
+                                   dataList={this.state.traceList}
+                                   renderRow={this._onRenderRow} renderHeader={this._onRenderHeader}/>
+                        <View style={{flexDirection: "row", alignItems: "center"}}>
+                            <CheckBox
+                                style={{padding: 10}}
+                                onClick={() => this.setState({traceWinStop: !this.state.traceWinStop})}
+                                isChecked={this.state.traceWinStop}
+                                rightTextView={<Text>{'中奖后停止追号'}</Text>}
                                 />
-                                <TButton containerStyle={{backgroundColor: "blue", marginLeft: 20, paddingVertical: 4}}
-                                         visible={this.state.traceList.length > 0}
-                                         btnName={"清除追号"} onPress={() => this.setState({traceList: []})}/>
-                            </View>
-                            <View style={{flexDirection: "row", alignItems: "center"}}>
-                                <Text>一共追号期数: {validIssueNum} 期, {validIssueNum * orderListNum} 注 总金额: <Text
-                                    style={{color: "red", fontWeight: "bold"}}>{validMoney} 元</Text></Text>
-                            </View>
-                            <View style={{flexDirection: "row", flex: 1, alignSelf: "center", marginTop: 20}}>
-                                <TButton disable={validIssueNum <= 0} btnName={"确定追号"}
-                                         viewStyle={{marginHorizontal: 20}} onPress={this._onConfirmPress}/>
-                                <TButton btnName={"取消"}
-                                         containerStyle={{backgroundColor: "green", paddingHorizontal: 30}}
-                                         onPress={this._onHideView}/>
-                            </View>
+                            <TButton containerStyle={{backgroundColor: "blue", marginLeft: 20, paddingVertical: 4}}
+                                     visible={this.state.traceList.length > 0}
+                                     btnName={"清除追号"} onPress={() => this.setState({traceList: []})}/>
+                        </View>
+                        <View style={{flexDirection: "row", alignItems: "center"}}>
+                            <Text>一共追号期数: {validIssueNum} 期, {validIssueNum * orderListNum} 注 总金额: <Text
+                                style={{color: "red", fontWeight: "bold"}}>{validMoney} 元</Text></Text>
+                        </View>
+                        <View style={{flexDirection: "row", flex: 1, alignSelf: "center", marginTop: 20}}>
+                            <TButton disable={validIssueNum <= 0} btnName={"确定追号"}
+                                     viewStyle={{marginHorizontal: 20}} onPress={this._onConfirmPress}/>
+                            <TButton btnName={"取消"}
+                                     containerStyle={{backgroundColor: "green", paddingHorizontal: 30}}
+                                     onPress={() => onCloseModel()}/>
                         </View>
                     </View>
-                </TModalView>
-            </View>
+                </View>
+            </TModalView>
         );
     }
 
@@ -321,12 +297,8 @@ export default class TGameTraceView extends Component {
         this.setState({traceList: traceList})
     }
 
-    _onHideView = () => {
-        this.setState({showModel: false})
-    }
-
     _onConfirmPress = () => {
-        let {wayId}=this.props;
+        let {wayId,onCloseModel}=this.props;
         let validMoney = 0;
         let validIssueNum = 0
         let traceList = []
@@ -345,18 +317,9 @@ export default class TGameTraceView extends Component {
         data.traceTotalMoney = validMoney;
         data.traceWayId=wayId;
         ActDispatch.GameAct.setTrace(data);
-        this._onHideView()
+        onCloseModel()
     }
 
-    _onClearTrace = () => {
-        let data = {};
-        data.isTrace = 0;
-        data.traceTimes = 0;
-        data.traceWinStop = 0;
-        data.traceList = [];
-        data.traceTotalMoney = 0;
-        ActDispatch.GameAct.setTrace(data);
-    }
 }
 
 

@@ -34,6 +34,9 @@ export default class LotteryOrders extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            isShowTraceModel : false
+        };
     }
 
     submitOrders = (amount,isModel=false) => {
@@ -82,7 +85,8 @@ export default class LotteryOrders extends React.Component {
 
 
     render() {
-        const {orderList, balance, orderListNum,randomLotterys, isRandomOrder, isTrace} = this.props;
+        const {orderList, balance, orderListNum,randomLotterys, isRandomOrder, isTrace, traceData} = this.props;
+        const {isShowTraceModel} = this.state;
         let total = 0, totalMoney = 0;
         const btnDisable = orderListNum == 0 ? styles.btnDisable : null;
 
@@ -99,6 +103,7 @@ export default class LotteryOrders extends React.Component {
         let isCanChase=true;
         let lastMode=null;
         let lastWay=null;
+        TLog('traceData',traceData)
         return (
             <View style={[G_Style.appContentView]}>
                 <View style={styles.btnGrounp}>
@@ -128,23 +133,31 @@ export default class LotteryOrders extends React.Component {
                             })
                         }
                     </ScrollView>
-                    <View style={[styles.operateBox, {alignItems: "center"}]}>
-                        <TouchableOpacity style={[styles.btnDeleteAll, btnDisable]} underlayColor={G_Theme.primary}
-                                          onPress={this._onClearBasket}>
-                            <View style={{flexDirection: 'row'}}>
-                                <AIcon name="trash-o" style={styles.iconDelete}/>
-                                <Text style={styles.textDelete}>清空购彩篮</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
                 </View>
-                { isTrace ? <TGameTraceView  wayId={lastWay} isCanChase={isCanChase} totalMoney={totalMoney} {...this.props}/> : null}
+                { isTrace ? <TGameTraceView
+                    wayId={lastWay}
+                    isShow={isShowTraceModel}
+                    isCanChase={isCanChase}
+                    totalMoney={totalMoney}
+                    onCloseModel={() => this.setState({isShowTraceModel: false})}
+                    {...this.props}
+                /> : null}
                 <GameControlPannel
                     balance={balance}
+                    onLeftBtnClick={() => this.setState({isShowTraceModel: true})}
+                    btnLeftName="我要追号"
                     topDesc={this.getTotalText(total,totalMoney)}
                     btnEvent={() => this._onInvest(totalMoney)}
                     btnDisable={orderListNum == 0 ? true : false}
-                    btnName="投 注"
+                    btnName="确认投注"
+                    btnIconEvent={() => this._onClearBasket()}
+                    btnIconName="trash-o"
+                    btnIconText="清空"
+                    btnIconDisable={ orderListNum == 0 ? true : false }
+                    btnIconEvent2={() => this._onClearTrace()}
+                    btnIconName2="ban"
+                    btnIconText2="取消追号"
+                    btnIconDisable2={ !traceData.isTrace }
                 />
             </View>
         );
@@ -218,6 +231,16 @@ export default class LotteryOrders extends React.Component {
         ActDispatch.GameAct.lottoryState({show: false})
     }
 
+    _onClearTrace = () => {
+        let data = {};
+        data.isTrace = 0;
+        data.traceTimes = 0;
+        data.traceWinStop = 0;
+        data.traceList = [];
+        data.traceTotalMoney = 0;
+        ActDispatch.GameAct.setTrace(data);
+    }
+
     _onClearBasket = () => {
         const {orderListNum} = this.props;
         if (orderListNum) {
@@ -234,16 +257,6 @@ export default class LotteryOrders extends React.Component {
                 ]
             )
         }
-    }
-
-    _onClearTrace=()=>{
-        let data ={};
-        data.isTrace =0;
-        data.traceTimes=0;
-        data.traceWinStop=0;
-        data.traceList=[];
-        data.traceTotalMoney=0;
-        ActDispatch.GameAct.setTrace(data);
     }
 }
 

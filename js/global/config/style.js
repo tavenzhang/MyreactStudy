@@ -34,7 +34,7 @@ global.G_Theme = {
     navigatorHeadH: G_PLATFORM_IOS ? 64 : 56,
     TabBarH: 64,
     StatusBarH: G_PLATFORM_IOS ? 20 : 0,
-    gameOperatePanelHeight: 50,
+    gameOperatePanelHeight: 60,
     textInpuntH: G_PLATFORM_IOS ? 30 : 40,
     halfGrayAlpha: 'rgba(52, 52, 52, 0.5)',
     bgPbg: "rgb(208,199,160)",

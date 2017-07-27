@@ -627,10 +627,20 @@ export default class Games extends Component {
                         ActDispatch.GameAct.lottoryState(param)
                         TLog("---btnIconEvent----",param)
                     }}
+                    btnName="加入购物车"
                     btnIconEventDesc={orderNum}
                     btnIconName='cart-plus'
+                    btnIconText="购物车"
                     btnDisable={ !isBallsComplete }
                     btnIconDisable={ orderNum > 0 ? false : true }
+                    btnIconEvent2={ () => {
+                        if(this.isRandomSelect) {
+                            this.randomSelcet()
+                        }
+                    }}
+                    isShowBtnIcon2={this.isRandomSelect}
+                    btnIconName2="mobile"
+                    btnIconText2="随机"
                 />
             </View>
         );
@@ -897,7 +907,7 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         marginRight: 15,
         marginBottom: 10,
-        borderBottomWidth: 1,
+        borderBottomWidth: 0.5,
         borderColor: G_Theme.gray,
         padding: 2,
     },

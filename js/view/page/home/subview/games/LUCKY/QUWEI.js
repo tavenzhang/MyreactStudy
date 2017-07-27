@@ -267,8 +267,8 @@ export default class QUWEI extends LUCKY {
                 ballTitleLen = rowTitle.length;
 
             if (rows == ballTitleLen) {
-                const ballWidth = (G_Theme.windowWidth - 20) / me.state.rowBallNumber;
-                const ballWidthS = (G_Theme.windowWidth - 20) / 2;
+                const ballWidth = (G_Theme.windowWidth - 10) / me.state.rowBallNumber;
+                const ballWidthS = (G_Theme.windowWidth - 10) / 2;
                 return <View style={styles.ballBox}>
 
                     {
@@ -290,14 +290,14 @@ export default class QUWEI extends LUCKY {
 
                                 return <View style={[styles.ballBtnBoxQuwei, {
                                     width: i > 35 ? ballWidthS : ballWidth,
-                                    height: ballWidth / 2 + 20
+                                    height: ballWidth / 2 + 5
                                 }]}
                                              key={i}>
                                     <BallSquare
                                         width={ i > 35 ? ballWidthS - 10 : ballWidth - 10}
                                         height={ballWidth / 2}
                                         text={repo.series_way_name }
-                                        desctext={ (repo.prize * 100) / 100}
+                                        desctext={ `X ${(repo.prize * 100) / 100}`}
                                         row={row}
                                         value={repo.valid_nums}
                                         status={balls[row][i]}
@@ -360,24 +360,36 @@ const
 
         gameRow: {
             flexWrap: 'wrap',
-            margin: 10,
+            margin: 5,
+            zIndex: 1,
             backgroundColor: '#fff',
             marginBottom: 0,
             borderRadius: 8
         },
         gameRowTitle: {
-            width: 60,
-            height: 18,
-            backgroundColor: G_Theme.primary,
-            justifyContent: "center",
+            width: 100,
+            height: 14,
+            flexDirection: 'row',
+            //color: G_Theme.primary,
+            //justifyContent: "center",
             alignItems: "center",
-            marginLeft: 1,
-            marginTop: 6,
+            marginTop: 10,
+            marginLeft: 10,
+            paddingLeft: 10,
             marginBottom: 10,
+            borderLeftWidth: 3,
+            borderColor: G_Theme.primary
+        },
+        gameRowTitleIcon: {
+            color: G_Theme.primary,
+            fontSize: 14,
+            marginRight: 5,
+            marginTop: 2
         },
         gameRowTitleText: {
-            color: '#fff',
-            fontSize: 12
+            color: G_Theme.primary,
+            fontSize: 14,
+            fontWeight: '700'
         },
         controlPanel: {
             flex: 1,

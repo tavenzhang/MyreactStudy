@@ -252,16 +252,17 @@ const styles = StyleSheet.create({
     timeBanner: {
         flexDirection: 'row',
         justifyContent: "space-between",
-        backgroundColor: '#ddd',
+        backgroundColor: G_Theme.fourth,
         padding: 5
     },
     timeBannerText: {
-        fontSize: 12
+        fontSize: 12,
+        color:'#333'
     },
     row: {
         flexDirection: 'row',
         height: 40,
-        borderBottomColor: "#ddd",
+        borderBottomColor: G_Theme.fourth,
         borderBottomWidth: 1,
     },
     moneyText: {

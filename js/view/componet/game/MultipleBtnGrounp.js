@@ -136,5 +136,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginLeft: 5,
         marginRight: 5,
+        color: G_Theme.second
     }
 });

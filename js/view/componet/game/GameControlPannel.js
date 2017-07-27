@@ -170,6 +170,7 @@ const styles = StyleSheet.create({
         height: controlPanelTopHeight,
         paddingLeft:5,
         paddingRight:5,
+        backgroundColor: '#fff'
     },
     lotterys: {
         color: G_Theme.second,
@@ -237,8 +238,14 @@ const styles = StyleSheet.create({
     },
 
     btnDisable: {
-        borderLeftWidth: 0.5,
+        borderLeftWidth: 1,
         borderColor: G_Theme.gray,
+        height:controlPanelBottomHeight,
+        width: btnGrounpWidth/2,
+        borderRadius:0,
+        paddingVertical: 0,
+        paddingHorizontal: 0,
+        justifyContent:"center",
     },
 
     btnIconDisable: {

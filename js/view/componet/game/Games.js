@@ -587,6 +587,7 @@ export default class Games extends Component {
                                     style={styles.yaoyiyaoImg}
                                     source={Icon_yaoyiyao}
                                 />
+                                <Text style={styles.yaoyiyaoText}>摇一摇</Text>
                             </View>
                         </TouchableHighlight> : null
                 }
@@ -889,7 +890,7 @@ const styles = StyleSheet.create(
                 resizeMode: 'contain'
             },
             yaoyiyaoText: {
-                fontSize: 8,
+                fontSize: 7,
                 marginTop: 2,
             },
             ballBtnGrounp: {

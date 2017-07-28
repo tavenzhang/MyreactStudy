@@ -30,7 +30,7 @@ export default class OrderItem extends React.Component {
                     </TouchableOpacity>
                 </View>
                 <View>
-                    <Text>[{data.gameName}] <Text style={styles.lotteryNumber}>{data.viewBalls}</Text></Text>
+                    <Text style={styles.itemTitle}>[{data.gameName}] <Text style={styles.lotteryNumber}>{data.viewBalls}</Text></Text>
                     <Text style={styles.desc}>{data.num}注x{data.multiple}倍x{data.onePrice * data.moneyunit}元={G_moneyFormat(data.amount)}元</Text>
                 </View>
             </View>
@@ -43,12 +43,10 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection : 'row',
         padding : 8,
-        marginBottom: 10,
-        marginLeft: 10,
-        marginRight: 10,
-        backgroundColor : '#fff',
-        borderBottomWidth: 2,
-        borderColor: '#ddd'
+        marginBottom: 2,
+
+        borderBottomWidth: G_Theme.lineBase,
+        borderColor: G_Theme.gray
     },
     btnBox: {
         width: 40,
@@ -58,18 +56,23 @@ const styles = StyleSheet.create({
 
     },
     iconDelete: {
-        color: '#b80f17',
+        color: '#f24336',
         fontWeight: 'bold',
         fontSize: 24
     },
     lotteryNumber: {
-        color: '#555',
+        color: G_Theme.primary,
         lineHeight: 22,
         fontSize: 14,
         fontWeight: "500",
         letterSpacing: 1
     },
     desc: {
-        color: global.G_Theme.second
+        color: G_Theme.second,
+        fontSize: 12
+    },
+    itemTitle: {
+        color: G_Theme.black,
+        //fontSize: 12
     }
 });

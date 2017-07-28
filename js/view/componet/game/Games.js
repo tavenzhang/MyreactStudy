@@ -695,6 +695,7 @@ export default class Games extends Component {
     getResultData(lotterys) {
         const me = this;
         const {moneyUnit, multiple, currentGameWay, prize,gName} = this.props;
+        TLog('1212121212',this.props)
         let orderdata = {},
             onePrice = currentGameWay.price,
             lotterysOriginal = me.getOriginal();
@@ -715,7 +716,7 @@ export default class Games extends Component {
             onePrice: onePrice,
             moneyunit: moneyUnit,
             multiple: multiple,
-            gameName: gName+"-"+currentGameWay.name_cn,
+            gameName: currentGameWay.parent_parent_name_cn+"-"+currentGameWay.name_cn,
            // gameName: gName+"-"+currentGameWay.parent_parent_name_cn + currentGameWay.name_cn,
         };
         return me.editSubmitData(orderdata);

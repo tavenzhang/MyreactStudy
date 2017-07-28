@@ -107,7 +107,7 @@ export default class LotteryOrders extends React.Component {
         return (
             <View style={[G_Style.appContentView]}>
                 <View style={styles.btnGrounp}>
-                    <Button btnName="返回游戏" style={{backgroundColor:"green"}} onPress={this._onPopView}/>
+                    <Button btnName="返回游戏" leftIcon="gamepad" style={{backgroundColor:G_Theme.third}} onPress={this._onPopView}/>
                     {randomLotteryOne}
                     {randomLotteryFive}
                 </View>
@@ -293,12 +293,14 @@ const styles = StyleSheet.create({
     },
     btnGrounp: {
         flexDirection: 'row',
-        padding: 5,
+        //padding: 5,
         backgroundColor: '#fff',
         justifyContent: 'space-between',
         shadowColor: G_Theme.gray,
-        shadowOffset: {h: 5, w: 0},
+        shadowOffset: {h: 3, w: 0},
         shadowRadius: 3,
         shadowOpacity: 0.6,
+        borderBottomWidth: G_Theme.lineBase,
+        borderColor: G_Theme.gray
     }
 });

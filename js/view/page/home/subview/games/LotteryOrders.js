@@ -91,12 +91,12 @@ export default class LotteryOrders extends React.Component {
         const btnDisable = orderListNum == 0 ? styles.btnDisable : null;
 
         let randomLotteryOne = isRandomOrder ? <Button
-            btnName="机选1注"
+            btnName="机选1单"
             onPress={() => randomLotterys(1)}
             leftIcon="plus-circle"
         /> : null;
         let randomLotteryFive = isRandomOrder ? <Button
-            btnName="机选5注"
+            btnName="机选5单"
             onPress={() => randomLotterys(5)}
             leftIcon="plus-circle"
         /> : null;

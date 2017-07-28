@@ -786,6 +786,7 @@ export default class Games extends Component {
         return current;
     }
 
+    //随机选
     randomLotterys(num) {
         var me = this,
             i = 0;

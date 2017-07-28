@@ -25,7 +25,32 @@ export default class WuxingZhixuanZuhe extends SSC {
 
     //设置rowtitle
     setRowTitle = () => ['万位','千位','百位','十位','个位'];
+    //组合随机注单组合方法
+    //子类实现
+    randomCombinLottery(arr) {
+        const me = this;
+        let combinationResult,
+            len,
+            len2,
+            i,
+            j,
+            finalResult=[],
+            tempArr;
+        combinationResult = me.combination(arr);
+        len = combinationResult.length;
+        i = 0;
+        for(;i < len;i++){
+            len2 = combinationResult[i].length;
+            j = 0;
+            for(;j < len2;j++){
+                tempArr = combinationResult[i].slice(j);
+                finalResult.push(tempArr);
+            }
 
+        }
+        //组合结果
+        return finalResult;
+    }
 
     //获取总注数/获取组合结果
     //isGetNum=true 只获取数量，返回为数字
@@ -91,4 +116,6 @@ export default class WuxingZhixuanZuhe extends SSC {
         //组合结果
         return finalResult;
     }
+
+
 }

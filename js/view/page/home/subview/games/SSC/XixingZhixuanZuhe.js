@@ -25,7 +25,7 @@ export default class XixingZhixuanZuhe extends SSC {
     //设置rowtitle
     setRowTitle = () => ['千位','百位','十位','个位'];
 
-//组合随机注单组合方法
+    //组合随机注单组合方法
     //子类实现
     randomCombinLottery(arr) {
         const me = this;

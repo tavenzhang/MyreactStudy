@@ -3,10 +3,11 @@ import {
     StyleSheet,
     View,
     Text,
-    ActivityIndicator,
+    Image
 } from 'react-native';
 import TModalView from "./tcustom/modal/TModalView";
 
+import {LOADING} from "../../assets/index";
 
 export default class Loading extends React.Component {
     static  propTypes = {
@@ -16,17 +17,20 @@ export default class Loading extends React.Component {
 
     render() {
         let {visible, isModal} = this.props
-
         return ( !isModal ? (visible ?
                 <View style={styles.loading}>
-                    <ActivityIndicator color="white"/>
-                    <Text style={styles.loadingTitle}>loading……</Text>
+                    <Image
+                        style={styles.loadingIcon}
+                        source={LOADING}
+                        />
                 </View>:null
             ):(<TModalView visible={visible} hideModal={this.onCancelHideView} >
-                <View style={{flex: 1, justifyContent: "center", backgroundColor: "rgba(50, 50, 50,0.2)"}}>
+                <View style={{flex: 1, justifyContent: "center", backgroundColor: "rgba(50, 50, 50,0.5)"}}>
                     <View style={styles.loading}>
-                        <ActivityIndicator color="white"/>
-                        <Text style={styles.loadingTitle}>loading……</Text>
+                        <Image
+                            style={styles.loadingIcon}
+                            source={LOADING}
+                            />
                     </View>
                 </View>
             </TModalView>)
@@ -35,10 +39,15 @@ export default class Loading extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    loadingIcon: {
+        resizeMode: 'contain',
+        width: G_Theme.windowWidth * 0.25,
+        height: G_Theme.windowWidth * 0.25,
+    },
     loading: {
-        backgroundColor: 'gray',
-        height: 80,
-        width: 100,
+        backgroundColor: '#fff',
+        width: G_Theme.windowWidth * 0.27,
+        height: G_Theme.windowWidth * 0.27,
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',

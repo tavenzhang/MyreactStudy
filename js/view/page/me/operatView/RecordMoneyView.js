@@ -28,7 +28,11 @@ const mapStateToProps = state => {
 export default class RecordMoneyView extends BaseView {
     static navigationOptions=({navigation, screenProps}) =>({
         title:"账变列表",
-        headerRight: <NavButtonText name={"更多查询"} navigation={navigation}/>
+        headerRight: <NavButtonText style={{
+            paddingHorizontal: 5,
+            paddingVertical: 5,
+            backgroundColor: "rgb(208,199,160)",
+            borderRadius: 5}} textStyle={{fontSize:14}} name={"更多查询"} navigation={navigation}/>
     })
 
     constructor(props) {
@@ -52,12 +56,12 @@ export default class RecordMoneyView extends BaseView {
     }
 
     render() {
-        let {appModel}=this.props;
+        let {appModel,userData}=this.props;
         return (
             <View style={G_Style.appContentView}>
                 <RecordMenuView clickMenuItem={this.clickMenuItem} {...this.props}/>
                 <TFlatList renderHeader={this._renderHeader}  curPage={this.state.curPage} totalPage={this.state.totalPage} styleView={{flex: 1, marginTop: 35}} renderRow={this._renderRow} dataList={this.state.dataList} loadMore={this.loadMore}/>
-                <RecordMoneySearchView username={this.state.username} appModel={appModel} visible={this.state.modelShow} onHideHandle={()=>this.setState({modelShow:false})} onConfirmPress={this.onConfirmPress} />
+                <RecordMoneySearchView userData={userData} username={this.state.username} appModel={appModel} visible={this.state.modelShow} onHideHandle={()=>this.setState({modelShow:false})} onConfirmPress={this.onConfirmPress} />
             </View>
         );
     }
@@ -130,11 +134,10 @@ export default class RecordMoneyView extends BaseView {
     }
 
     onConfirmPress=(data)=>{
-        //{"modalVisible":true,"serialNumer":"","userName":"","pickValue":""}
+        //{"modalVisible":true,"serialNumer":"","userName":"","pickValue":"",userPicker:"1"}
         //G_NavUtil.push(G_RoutConfig.BackDetailView,{data,...this.props},"返点详情");
-        HTTP_SERVER.LIST_REANSACTON.body.serial_number=this.state.serial_number;
-        HTTP_SERVER.LIST_REANSACTON.body.type_id =this.state.type_id;
-        HTTP_SERVER.LIST_REANSACTON.body.username=this.state.username;
+        HTTP_SERVER.LIST_REANSACTON.body.serial_number=data.serial_number;
+        HTTP_SERVER.LIST_REANSACTON.body.user_search_type=data.userPicker
         this.setState({dataList:[],serial_number:data.serialNumer,type_id:data.pickValue,username:data.userName},()=>{
             this.loadMore(null,1);
         })

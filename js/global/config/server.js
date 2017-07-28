@@ -47,6 +47,8 @@ global.HTTP_SERVER = {
             lottery_id: "",
             way_id: "",
             way_group_id:"",
+            user_search_type:"4",
+            trace_id:"",
             username: "",
             user_id: "",
             page: 1,
@@ -88,7 +90,7 @@ global.HTTP_SERVER = {
         page: 1,
         pagesize: 15,
         type_id:"",
-        serial_number:""
+        user_search_type:"4"
     }},
     //追号详情
     CHASE_DETAIL: {url: "", formatUrl: `/mobile-traces/#id/view`, method: METHOD_POST, body: {}},
@@ -312,7 +314,9 @@ global.HTTP_SERVER = {
         page: 0,is_agent:0,username:"",reg_date_from:"",reg_date_to:"",
     }},
     //盈亏报表
-    AgentProfit: {url: "/mobile-agent/user-profits", method: METHOD_POST, body: {page: 0}},
+    AgentProfit: {url: "/mobile-agent/user-profits", method: METHOD_POST, body: {page: 0,
+        username:"",is_agent:"",user_search_type:"2"
+    }},
     //银行充值
     //1 /mobile-deposit/bank-list
     MoneyBankList: {url: "/mobile-deposit/bank-list", method: METHOD_POST},

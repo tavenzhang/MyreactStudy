@@ -5,13 +5,12 @@ import {
     StyleSheet,
     Text,
     TextInput,
-    TouchableOpacity,
 
 } from 'react-native';
 import MyDatePicker from "../../../../componet/tcustom/date/TDatePicker";
 import MyModalView from "../../../../componet/tcustom/modal/TModalView";
 import {TButton} from "../../../../componet/tcustom/button/TButton";
-export default class AgentSearchView extends React.Component {
+export default class MoneySearchView extends React.Component {
     static propTypes = {
         visible: PropTypes.bool,
         hideViewHandle: PropTypes.func,

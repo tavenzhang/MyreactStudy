@@ -59,3 +59,8 @@ global.G_GAME_OnHandleWinnerNum=(sid,numStr)=>{
     }
     return lotteryList;
 }
+
+global.G_UserTypeList = [{name: "所有用户", value: "4"}, {name: "自己", value: "1"}, {name: "直属下级", value: "2"}, {
+    name: "所有下级",
+    value: "3"
+}]

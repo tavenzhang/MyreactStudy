@@ -34,6 +34,7 @@ export default class AgentProfitView extends BaseView {
             dataList: [],
             curPage:1,
             totalPage:1,
+            directAgent:true
 
         }
     }
@@ -49,11 +50,12 @@ export default class AgentProfitView extends BaseView {
     _getSource(searchData) {
         G_RunAfterInteractions(() => {
             HTTP_SERVER.AgentProfit.body.page = 1;
-            HTTP_SERVER.AgentProfit.body.pagesize = 15;
             HTTP_SERVER.AgentProfit.body.username = !!searchData.username ? searchData.username : '';
             HTTP_SERVER.AgentProfit.body.is_agent = !!searchData.is_agent ? searchData.is_agent : '';
             HTTP_SERVER.AgentProfit.body.date_from = !!searchData.date_from ? searchData.date_from : '';
             HTTP_SERVER.AgentProfit.body.date_to = !!searchData.date_to ? searchData.date_to : '';
+            //2是直属下级，3所有下级
+            HTTP_SERVER.AgentProfit.body.user_search_type= this.state.directAgent ? '2':'3';
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.AgentProfit, (result) => {
              //   TLog("rowData------------------------------------", result.data.oSelfProfit);
                 if (result.data) {
@@ -62,7 +64,7 @@ export default class AgentProfitView extends BaseView {
                         oAgentSumPerDay:result.data.oAgentSumPerDay
                     });
                 }
-            })
+            },false,true)
         });
     }
 
@@ -80,17 +82,23 @@ export default class AgentProfitView extends BaseView {
         this._getSource(data);
     }
 
+    onTabChange=(data,index)=>{
+        TLog("onTabChange==="+index,data)
+        this.setState({directAgent:index==0},()=>{
+            this.componentDidMount();
+        })
+    }
 
 
     renderBody() {
         let {userData} = this.props.navigation.state.params;
         const {searchData} = this.state;
         return (<View style={G_Style.appContentView}>
-            <AgentSearchView onFindPress={this.onFindPress} visible={this.state.modalVisible} username={searchData ? searchData.username : ''}
+            <AgentSearchView  onFindPress={this.onFindPress} visible={this.state.modalVisible} username={searchData ? searchData.username : ''}
                              is_agent={searchData ? searchData.is_agent : ''}
                              date_from={searchData ? searchData.date_from : ''}
                              date_to={searchData ? searchData.date_to : ''} hideViewHandle={this.onHideModal}/>
-            <ProfitListView curPage={this.state.curPage} totalPage={this.state.totalPage} userData={userData}  {...this.state}/>
+            <ProfitListView onTabChange={this.onTabChange} curPage={this.state.curPage} totalPage={this.state.totalPage} userData={userData}  {...this.state}/>
 
         </View>)
     }

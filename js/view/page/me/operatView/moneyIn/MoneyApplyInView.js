@@ -6,9 +6,10 @@ import {
 } from 'react-native';
 
 import TFlatList from "../../../../componet/TFlatList";
-import {TAIco} from "../../../../componet/tcustom/button/TButton";
+import {TAIco, TButton} from "../../../../componet/tcustom/button/TButton";
+import MyDatePicker from "../../../../componet/tcustom/date/TDatePicker";
 
-export default class MoneyApplyInView extends React.Component {
+export default class MoneyApplyInView extends React.PureComponent {
    static propTypes={
        loadMore:PropTypes.func,
        dataList:PropTypes.any,
@@ -20,6 +21,13 @@ export default class MoneyApplyInView extends React.Component {
         let {dataList,loadMore,curPage,totalPage}=this.props
         return (
             <View style={G_Style.appContentView}>
+                {/*<View style={{flexDirection:"row", alignItems:"center", borderBottomWidth:1, justifyContent:"center"}}>*/}
+                    {/*<Text>时间：</Text>*/}
+                    {/*<MyDatePicker dataFormat={"YYYY-MM-DD hh:mm:ss"} defaultDate={this.state.date_from} onDateSelect={(date_from)=>{this.setState({date_from:date_from})}}/>*/}
+                    {/*<Text style={{marginHorizontal: 10}}>至</Text>*/}
+                    {/*<MyDatePicker dataFormat={"YYYY-MM-DD hh:mm:ss"}  defaultDate={this.state.date_to}  onDateSelect={(date_to)=>{this.setState({date_to:date_to})}}/>*/}
+                    {/*<TButton viewStyle={{marginLeft:20}} btnName={"搜索"}  onPress={this.onPreeSearch}/>*/}
+                {/*</View>*/}
                 <View style={styles.headRow}>
                     <View style={[styles.itemHeadStyle,{flex:1}]}>
                         <Text style={styles.textHeadStyle}>日期</Text>

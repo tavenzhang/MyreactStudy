@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
         width: G_Theme.windowWidth,
         height: G_Theme.gameOperatePanelHeight,
         backgroundColor: '#fff',
-        //borderTopWidth: 0.5,
+        borderTopWidth: 1 / G_Theme.lineBase,
         borderColor: G_Theme.gray,
         shadowOffset:{
             width: 0,
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
         alignItems:"center",
         backgroundColor: '#fff',
         justifyContent: 'space-between',
-        borderTopWidth: 0.5,
+        borderTopWidth: 1 / G_Theme.lineBase,
         borderColor: G_Theme.gray
     },
     controlPanelTop: {
@@ -170,6 +170,7 @@ const styles = StyleSheet.create({
         height: controlPanelTopHeight,
         paddingLeft:5,
         paddingRight:5,
+        backgroundColor: '#fff'
     },
     lotterys: {
         color: G_Theme.second,
@@ -213,7 +214,8 @@ const styles = StyleSheet.create({
         position:'relative',
         height: controlPanelBottomHeight,
         width: iconGrounpWidth/2 ,
-        borderRightWidth: 0.5,
+        borderRightWidth: 1 / G_Theme.lineBase,
+        backgroundColor: '#fff',
         borderColor: G_Theme.gray,
     },
 
@@ -236,8 +238,14 @@ const styles = StyleSheet.create({
     },
 
     btnDisable: {
-        borderLeftWidth: 0.5,
+        borderLeftWidth: 1 / G_Theme.lineBase,
         borderColor: G_Theme.gray,
+        height:controlPanelBottomHeight,
+        width: btnGrounpWidth/2,
+        borderRadius:0,
+        paddingVertical: 0,
+        paddingHorizontal: 0,
+        justifyContent:"center",
     },
 
     btnIconDisable: {

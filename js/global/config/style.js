@@ -1,7 +1,7 @@
 /**
  * Created by zhangxinhua on 16/12/10.
  */
-import {Dimensions, Platform, StyleSheet} from 'react-native';
+import {Dimensions, Platform, StyleSheet, PixelRatio} from 'react-native';
 
 export const WINDOW = {
     width: Dimensions.get('window').width,
@@ -28,6 +28,7 @@ global.G_Theme = {
     fontSizeNormal: 14,
     fontSizeSmall: 12,
     fontSizeLarge: 18,
+    lineBase: PixelRatio.get(),
     swipHeaderHeight: 50,//切换title的高度
     windowWidth: WINDOW.width,
     windowHeight: WINDOW.height,

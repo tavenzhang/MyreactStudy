@@ -40,7 +40,7 @@ export default class HousanZhixuanHezhi extends SSC {
         }
         return resultNum;
     }
-    formatViewBalls(original){
+    makePostParameter(original){
         let me = this,
             result = [],
             len = original.length,
@@ -48,7 +48,7 @@ export default class HousanZhixuanHezhi extends SSC {
         for (; i < len; i++) {
             result = result.concat(original[i].join('|'));
         }
-        return result.join('|');
+        return result.join('');
     }
 
     checkBallIsComplete(){

@@ -631,7 +631,7 @@ export default class Games extends Component {
                     btnIconEventDesc={orderNum}
                     btnIconName='cart-plus'
                     btnIconText="购彩篮"
-                    btnDisable={ !isBallsComplete }
+                    btnDisable={ lotterys.length > 0 ? false : true}
                     btnIconDisable={ orderNum > 0 ? false : true }
                     btnIconEvent2={ () => {
                         if(this.isRandomSelect) {

@@ -626,10 +626,10 @@ export default class Games extends Component {
                         ActDispatch.GameAct.lottoryState(param)
                         TLog("---btnIconEvent----",param)
                     }}
-                    btnName="加入购物车"
+                    btnName="加入购彩篮"
                     btnIconEventDesc={orderNum}
                     btnIconName='cart-plus'
-                    btnIconText="购物车"
+                    btnIconText="购彩篮"
                     btnDisable={ !isBallsComplete }
                     btnIconDisable={ orderNum > 0 ? false : true }
                     btnIconEvent2={ () => {
@@ -855,116 +855,56 @@ export default class Games extends Component {
 }
 
 
-const styles = StyleSheet.create({
-    ballOperate: {
-        marginBottom: G_Theme.gameOperatePanelHeight - 2,
-    },
-    ballBox: {
-        flex: 1,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        //paddingLeft: 20,
-        //paddingRight: 20,
-    },
-    gameBox: {},
-    yaoyiyao: {
-        flexDirection: 'column',
-        height: 35,
-        width: 35,
-        position: 'absolute',
-        alignItems: "center",
-        right: 2,
-        top: -5,
-        zIndex: 100,
-        justifyContent: "center",
-        //backgroundColor: '#ff5722',
-        borderRadius: 4,
+const styles = StyleSheet.create(
+    Object.assign(
+        G_Game.ball,
+        G_Game.rowTitle,
+        G_Game.control,
+        {
+            ballOperate: {
+                marginBottom: G_Theme.gameOperatePanelHeight - 2,
+            },
+            yaoyiyao: {
+                flexDirection: 'column',
+                height: 35,
+                width: 35,
+                position: 'absolute',
+                alignItems: "center",
+                right: 2,
+                top: -5,
+                zIndex: 100,
+                justifyContent: "center",
+                //backgroundColor: '#ff5722',
+                borderRadius: 4,
 
-    },
-    yaoyiyaoImg: {
-        flexDirection: 'row',
-        height: 25,
-        width: 35,
-        alignItems: "center",
-        justifyContent: "center",
-        resizeMode: 'contain'
-    },
-    yaoyiyaoText: {
-        fontSize: 8,
-        marginTop: 2,
-    },
-    ballBtnBox: {
-        flexDirection: 'row',
-        justifyContent: "center",
-        alignItems: "center",
-        height: 50
-    },
-
-    ballBtnGrounp: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginLeft: 15,
-        marginRight: 15,
-        marginBottom: 10,
-        borderBottomWidth: 1 / G_Theme.lineBase,
-        borderColor: G_Theme.gray,
-        padding: 2,
-    },
-    ballBtnGrounpIcon: {
-        color: G_Theme.second,
-        fontSize: 14,
-        marginTop: 8
-    },
-    gameRow: {
-        flexWrap: 'wrap',
-        margin: 5,
-        zIndex: 1,
-        backgroundColor: '#fff',
-        marginBottom: 0,
-        borderRadius: 8
-    },
-    gameRowTitle: {
-        width: 100,
-        height: 14,
-        flexDirection: 'row',
-        //color: G_Theme.primary,
-        //justifyContent: "center",
-        alignItems: "center",
-        marginTop: 10,
-        marginLeft: 10,
-        paddingLeft: 10,
-        marginBottom: 10,
-        borderLeftWidth: 3,
-        borderColor: G_Theme.primary
-    },
-    gameRowTitleIcon: {
-        color: G_Theme.primary,
-        fontSize: 14,
-        marginRight: 5,
-        marginTop: 2
-    },
-    gameRowTitleText: {
-        color: G_Theme.primary,
-        fontSize: 14,
-        fontWeight: '700'
-    },
-    controlPanel: {
-        flex: 1,
-        padding: 15,
-        paddingTop: 5,
-        marginTop: 10,
-        marginBottom: 5,
-        //justifyContent: 'space-between'
-    },
-    randButton: {
-        alignSelf: "flex-end",//width: 100,
-        marginTop: 1,
-        height: 30,
-        paddingTop: 5,
-        paddingHorizontal: 20,
-        borderWidth: 1,
-        borderColor: G_Theme.gray,
-        backgroundColor: "transparent"
-    }
-
-});
+            },
+            yaoyiyaoImg: {
+                flexDirection: 'row',
+                height: 25,
+                width: 35,
+                alignItems: "center",
+                justifyContent: "center",
+                resizeMode: 'contain'
+            },
+            yaoyiyaoText: {
+                fontSize: 8,
+                marginTop: 2,
+            },
+            ballBtnGrounp: {
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                marginLeft: 15,
+                marginRight: 15,
+                marginBottom: 10,
+                borderBottomWidth: G_Theme.lineBase,
+                borderColor: G_Theme.gray,
+                padding: 2,
+            },
+            ballBtnGrounpIcon: {
+                color: G_Theme.second,
+                fontSize: 14,
+                marginTop: 8
+            },
+        }
+    )
+);

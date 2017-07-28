@@ -130,50 +130,10 @@ export default class QuweiHousanErxing extends SSC {
 }
 
 
-const styles = StyleSheet.create({
-
-    ballBox: {
-        flex: 1,
-        flexDirection : 'row',
-        flexWrap : 'wrap',
-        //paddingLeft: 20,
-        //paddingRight: 20,
-    },
-
-    ballBtnBox: {
-        flexDirection : 'row',
-        justifyContent:"center",
-        alignItems:"center",
-        height: 50
-    },
-
-    gameRow: {
-        flexWrap : 'wrap',
-        margin: 10,
-        backgroundColor: '#fff',
-        marginBottom: 0,
-        borderRadius: 8
-    },
-    gameRowTitle: {
-        width: 45,
-        height: 18,
-        backgroundColor :G_Theme.primary,
-        justifyContent:"center",
-        alignItems:"center",
-        marginLeft: 1,
-        marginTop: 6,
-        marginBottom: 10,
-    },
-    gameRowTitleText: {
-        color: '#fff',
-        fontSize: 12
-    },
-    controlPanel: {
-        flex: 1,
-        padding: 10,
-        marginTop:10,
-        marginBottom:5,
-        //justifyContent: 'space-between'
-    }
-
-});
+const styles = StyleSheet.create(
+    Object.assign(
+        G_Game.ball,
+        G_Game.rowTitle,
+        G_Game.control
+    )
+);

@@ -28,7 +28,7 @@ global.G_Theme = {
     fontSizeNormal: 14,
     fontSizeSmall: 12,
     fontSizeLarge: 18,
-    lineBase: PixelRatio.get(),
+    lineBase: 1 / PixelRatio.get(),
     swipHeaderHeight: 50,//切换title的高度
     windowWidth: WINDOW.width,
     windowHeight: WINDOW.height,
@@ -73,6 +73,70 @@ global.G_Style = StyleSheet.create({
         alignItems: "center"
     }
 });
+
+global.G_Game = {
+    rowTitle: {
+        gameRow: {
+            flexWrap: 'wrap',
+            margin: 5,
+            zIndex: 1,
+            backgroundColor: '#fff',
+            marginBottom: 0,
+            borderRadius: 8
+        },
+        gameRowTitle: {
+            width: 100,
+            height: 14,
+            flexDirection: 'row',
+            //color: G_Theme.primary,
+            //justifyContent: "center",
+            alignItems: "center",
+            marginTop: 10,
+            marginLeft: 10,
+            paddingLeft: 10,
+            marginBottom: 10,
+            borderLeftWidth: 3,
+            borderColor: G_Theme.primary
+        },
+        gameRowTitleIcon: {
+            color: G_Theme.primary,
+            fontSize: 14,
+            marginRight: 5,
+            marginTop: 2
+        },
+        gameRowTitleText: {
+            color: G_Theme.primary,
+            fontSize: 14,
+            fontWeight: '700'
+        },
+    },
+    control: {
+        controlPanel: {
+            flex: 1,
+            padding: 15,
+            paddingTop: 5,
+            marginTop: 10,
+            marginBottom: 5,
+            //justifyContent: 'space-between'
+        }
+    },
+    ball : {
+        ballBox: {
+            flex: 1,
+            flexDirection : 'row',
+            flexWrap : 'wrap',
+            //paddingLeft: 20,
+            //paddingRight: 20,
+        },
+
+        ballBtnBox: {
+            flexDirection : 'row',
+            justifyContent:"center",
+            alignItems:"center",
+            height: 50
+        },
+    }
+}
 
 
 

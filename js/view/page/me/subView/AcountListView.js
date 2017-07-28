@@ -54,6 +54,7 @@ export default class AcountListView extends React.Component {
                         G_NavUtil.push(G_RoutConfig.RecordAwardView,{title: data.name})
                         break;
                     case ItemNameEnum.betRecord:
+                    case ItemNameEnum.agentGame:
                         G_NavUtil.push(G_RoutConfig.RecordBetView,{title: data.name});
                         break;
                     case ItemNameEnum.chaseRecode:
@@ -121,6 +122,7 @@ export default class AcountListView extends React.Component {
                         G_NavUtil.push(G_RoutConfig.RecordAssginView,{title: data.name})
                         break;
                     case ItemNameEnum.applyMoney:
+                    case ItemNameEnum.agentMoneyInOut:
                         G_NavUtil.push(G_RoutConfig.MoneyApply,{title: data.name})
                         break;
                     case ItemNameEnum.recordMoney:

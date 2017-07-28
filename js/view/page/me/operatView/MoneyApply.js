@@ -6,6 +6,7 @@ import BaseView from "../../../componet/BaseView";
 import connect from "react-redux/src/components/connect";
 import MoneyApplyInView from "./moneyIn/MoneyApplyInView";
 import MoneyApplyOutView from "./moneyIn/MoneyApplyOutView";
+import {NavButtonText} from "../../../componet/navBarMenu/HeaderMenu";
 
 const mapStateToProps = state => {
     return {
@@ -14,6 +15,14 @@ const mapStateToProps = state => {
 }
 @connect(mapStateToProps)
 export default class MoneyApply extends BaseView {
+    static navigationOptions=({navigation, screenProps}) =>({
+        headerRight: <NavButtonText style={{
+            paddingHorizontal: 5,
+            paddingVertical: 5,
+            backgroundColor: "rgb(208,199,160)",
+            borderRadius: 5}} textStyle={{fontSize:14}} name={"查询"} navigation={navigation}/>
+    })
+
     constructor(props)
     {
         super(props)
@@ -30,6 +39,10 @@ export default class MoneyApply extends BaseView {
             outCurPage:1,
             outTotalPage:1,
         };
+    }
+
+    onRightPressed(){
+
     }
 
     _handleChangeTab = (index) => {

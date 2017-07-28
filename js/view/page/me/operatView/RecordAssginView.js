@@ -8,7 +8,6 @@ import {
 
 import {connect} from 'react-redux';
 import BaseView from "../../../componet/BaseView";
-import RecordMenuView, {MenuListType} from "./record/RecordMenuView";
 import TFlatList from "../../../componet/TFlatList";
 import {TAIco, TButton} from "../../../componet/tcustom/button/TButton";
 import MyDatePicker from "../../../componet/tcustom/date/TDatePicker";

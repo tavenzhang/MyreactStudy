@@ -97,18 +97,6 @@ export default class RecordBetView extends BaseView {
         );
     }
 
-    onConfirmPress=(data)=>{
-        //{"modalVisible":true,"serialNumer":"","userName":"","pickValue":""}
-        //G_NavUtil.push(G_RoutConfig.BackDetailView,{data,...this.props},"返点详情");
-        TLog("onConfirmPress----",data);
-        // HTTP_SERVER.LIST_REANSACTON.body.serial_number=this.state.serial_number;
-        // HTTP_SERVER.LIST_REANSACTON.body.type_id =this.state.type_id;
-        // HTTP_SERVER.LIST_REANSACTON.body.username=this.state.username;
-        // this.setState({dataList:[],serial_number:data.serialNumer,type_id:data.pickValue,username:data.userName},()=>{
-        //     this.loadMore(null,1);
-        // })
-    }
-
     componentDidMount() {
         this.loadMore(null, true);
     }
@@ -145,12 +133,26 @@ export default class RecordBetView extends BaseView {
         }
     }
 
+    onConfirmPress=(data)=>{
+        //{"modalVisible":true,"serialNumer":"","userName":"","pickValue":""}
+        //G_NavUtil.push(G_RoutConfig.BackDetailView,{data,...this.props},"返点详情");
+        //{"modalVisible":true,"issueNumer":"","userName":"","pickValue":"1","userPicker":"4"}
+        HTTP_SERVER.BET_RECODE.body.username = data.userName;
+        HTTP_SERVER.BET_RECODE.body.user_search_type=data.userPicker;
+        HTTP_SERVER.BET_RECODE.body.issue=data.issueNumer;
+        this.setState({dataList:[],status:data.pickValue},()=>{
+            this.loadMore(null,true);
+        })
+    }
+
+
     loadMore = (callBack, isFlush) => {
         HTTP_SERVER.BET_RECODE.body.bought_at_from = this.state.curTime ? this.state.curTime.date : "";
         HTTP_SERVER.BET_RECODE.body.bought_at_to = "";
         HTTP_SERVER.BET_RECODE.body.lottery_id = this.state.curGame ? this.state.curGame.id : "";
         HTTP_SERVER.BET_RECODE.body.status = this.state.status ? this.state.status : "";
         HTTP_SERVER.BET_RECODE.body.way_group_id = this.state.curPlay ? this.state.curPlay.id : "";
+
         if (isFlush) {
             HTTP_SERVER.BET_RECODE.body.page = 1;
         }

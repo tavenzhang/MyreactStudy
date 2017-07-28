@@ -22,14 +22,15 @@ export default class RecordMoneySearchView extends React.Component {
     constructor(props) {
         super(props)
         let {userData}=this.props
+        this.userTypeList = userData.isLogined&&userData.data.user_type>0 ? G_UserTypeList:[{name: "自己", value: 1}]
         this.state = {
             modalVisible: true,
             serialNumer: "",
             userName: this.props.username ? this.props.username : "",
             pickValue: "",
-            typePicker: 0,
+            userPicker:  this.userTypeList[0].value,
         }
-        this.userTypeList = userData.isLogined&&userData.data.user_type>0 ? G_UserTypeList:[{name: "自己", value: 0}]
+
     }
 
     render() {
@@ -48,9 +49,9 @@ export default class RecordMoneySearchView extends React.Component {
                                     viewStyle={{flex: 1}}
                                     itemStyle={{width: 100, fontSize: 15, height: 150}}
                                     dataList={this.userTypeList}
-                                    pickValue={this.state.typePicker}
+                                    pickValue={this.state.userPicker}
                                     onValueChange={(data) => {
-                                        this.setState({typePicker: data})
+                                        this.setState({userPicker: data})
                                     }}/>
                             </View>
                             <View style={styles.pickView}>

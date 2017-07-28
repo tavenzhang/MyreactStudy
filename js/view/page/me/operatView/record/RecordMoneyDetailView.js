@@ -49,11 +49,11 @@ export  default class RecordMoneyDetailView extends BaseView {
             </View>
             <View style={styles.profitRow}>
                 <Text style={styles.title}>账户余额:</Text>
-                <Text style={[styles.text, styles.winNumber]}>{data.available}</Text>
+                <Text style={[styles.text, styles.winNumber]}>{G_DateUtil.formatMoney(data.available)}</Text>
             </View>
             <View style={[styles.profitRow,{borderColor: G_Theme.gray,backgroundColor: '#fff',}]}>
                 <Text style={styles.title}>金额:</Text>
-                <Text style={[styles.text,styles.winNumber]}>{money}</Text>
+                <Text style={[styles.text,styles.winNumber]}>{ G_DateUtil.formatMoney(money)}</Text>
             </View>
             <View style={[styles.profitRow,{borderColor: G_Theme.gray,backgroundColor: '#fff',}]}>
                 <Text style={styles.title}>游戏:</Text>

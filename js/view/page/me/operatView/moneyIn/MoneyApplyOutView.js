@@ -6,7 +6,7 @@ import {
 
 import TFlatList from "../../../../componet/TFlatList";
 
-export default class MoneyApplyOutView extends React.Component {
+export default class MoneyApplyOutView extends React.PureComponent {
     static propTypes={
         loadMore:PropTypes.func,
         dataList:PropTypes.any,

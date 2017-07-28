@@ -47,6 +47,8 @@ global.HTTP_SERVER = {
             lottery_id: "",
             way_id: "",
             way_group_id:"",
+            user_search_type:"4",
+            trace_id:"",
             username: "",
             user_id: "",
             page: 1,
@@ -88,7 +90,7 @@ global.HTTP_SERVER = {
         page: 1,
         pagesize: 15,
         type_id:"",
-        serial_number:""
+        user_search_type:"4"
     }},
     //追号详情
     CHASE_DETAIL: {url: "", formatUrl: `/mobile-traces/#id/view`, method: METHOD_POST, body: {}},

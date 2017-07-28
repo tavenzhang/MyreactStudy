@@ -37,8 +37,7 @@ export let ItemNameEnum = {
     agentProfit: "盈亏报表",
     agentMoney: "团队帐变",
     agentGame: "游戏记录",
-    agentMoneyIn: "存款明细",
-    agentMoneyOut: "取款明细",
+    agentMoneyInOut: "存取明细",
     //系统信息
     aboutSystem:"关于我们"
 }
@@ -78,18 +77,22 @@ export default class MyView extends BaseView {
         {ico: "random", name: ItemNameEnum.recordBack}];
 
     static dataListRecordAgent = [
-        { ico: "file-text",   name: ItemNameEnum.betRecord
+        { ico: "file-text",   name: ItemNameEnum.agentGame
         }, {ico: "file-text-o", name: ItemNameEnum.chaseRecode},
-        {ico: "money", name: ItemNameEnum.recordMoney},
+        {ico: "money", name: ItemNameEnum.agentMoney},
         {ico: "random", name: ItemNameEnum.recordBack},
         {ico: "gift", name: ItemNameEnum.recordAssignProfit}];
 
-    static dataListMoney = [{ico: "exchange", name: ItemNameEnum.myMoney}, {ico: "credit-card", name: ItemNameEnum.cardMange},
-        {ico: "th-list", name: ItemNameEnum.applyMoney}];
+    static dataListMoney = [  {ico: "th-list", name: ItemNameEnum.applyMoney},
+        {ico: "exchange", name: ItemNameEnum.myMoney},
+        {ico: "credit-card", name: ItemNameEnum.cardMange},
+     ];
+
     static dataListMoeny_Agent = [
+        {ico: "th-list", name: ItemNameEnum.agentMoneyInOut},
         {ico: "cny", name: ItemNameEnum.myMoney},
         {ico: "credit-card", name: ItemNameEnum.cardMange},
-        {ico: "th-list", name: ItemNameEnum.applyMoney}];
+   ];
 
     static dataListPerson = [{ico: "lock", name: ItemNameEnum.pwdMange}, {
         ico: "envelope-o",
@@ -100,11 +103,7 @@ export default class MyView extends BaseView {
         name: ItemNameEnum.agentCreate
     }, {ico: "shekel", name: ItemNameEnum.agentAssignMoney},
         {ico: "cubes", name: ItemNameEnum.agentTeam},
-        {ico: "book", name: ItemNameEnum.agentProfit},
-        {ico: "file-text", name: ItemNameEnum.agentGame},
-        {ico: "money", name: ItemNameEnum.agentMoney},
-        {ico: "book", name: ItemNameEnum.agentMoneyIn},
-        {ico: "book", name: ItemNameEnum.agentMoneyOut}];
+        {ico: "book", name: ItemNameEnum.agentProfit}];
 
     static dataListSystem= [{ico: "info", name: ItemNameEnum.aboutSystem}];
 

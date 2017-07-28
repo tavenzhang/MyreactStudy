@@ -134,11 +134,10 @@ export default class RecordMoneyView extends BaseView {
     }
 
     onConfirmPress=(data)=>{
-        //{"modalVisible":true,"serialNumer":"","userName":"","pickValue":""}
+        //{"modalVisible":true,"serialNumer":"","userName":"","pickValue":"",userPicker:"1"}
         //G_NavUtil.push(G_RoutConfig.BackDetailView,{data,...this.props},"返点详情");
-        HTTP_SERVER.LIST_REANSACTON.body.serial_number=this.state.serial_number;
-        HTTP_SERVER.LIST_REANSACTON.body.type_id =this.state.type_id;
-        HTTP_SERVER.LIST_REANSACTON.body.username=this.state.username;
+        HTTP_SERVER.LIST_REANSACTON.body.serial_number=data.serial_number;
+        HTTP_SERVER.LIST_REANSACTON.body.user_search_type=data.userPicker
         this.setState({dataList:[],serial_number:data.serialNumer,type_id:data.pickValue,username:data.userName},()=>{
             this.loadMore(null,1);
         })

@@ -39,8 +39,8 @@ export  default class InvestResultView extends BaseView {
                 <Text style={[styles.text, styles.winStatus]}>{lottery_items}期</Text>
             </View>
             <View style={styles.profitRow}>
-                <Text style={styles.title}>注数:</Text>
-                <Text style={[styles.text, styles.winNumber]}>{data.balls.length} 注</Text>
+                <Text style={styles.title}>单数:</Text>
+                <Text style={[styles.text, styles.winNumber]}>{data.balls.length} 单</Text>
             </View>
             <View style={styles.profitRow}>
                 <Text style={styles.title}>投注金额:</Text>

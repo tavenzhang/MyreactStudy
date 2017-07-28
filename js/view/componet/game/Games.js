@@ -832,7 +832,7 @@ export default class Games extends Component {
             moneyunit: moneyUnit,
             multiple: multiple,
             //gameName: gName+"-"+currentGameWay.parent_parent_name_cn + currentGameWay.name_cn
-            gameName: gName+"-" + currentGameWay.name_cn
+            gameName: currentGameWay.parent_parent_name_cn+"-" + currentGameWay.name_cn
         };
         return order;
     }

@@ -144,12 +144,16 @@ export default class BaseGameView extends BaseView {
                     price = maxGrounp / 1960 * price;
                 }
             }
-            else { // 2/4/6/7
+            else if(series_id == 4 || series_id == 6) { //基诺和幸运28,奖金不变
+                price = fullPrize
+            }
+            else { // 2/7
                 price = fullPrize * (prize - 1960 + maxGrounp) / 2000;
             }
         }
 
         price = price * moneyUnit;
+
         return (defaultMethodId > 0) ? (
             <View style={G_Style.appContentView}>
                 <BannerView

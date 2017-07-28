@@ -62,6 +62,7 @@ export default class Renxuan3 extends KENO {
             let i = me.getRandomNum();
             current[0].push(i);
         }
+
         return current;
     }
 
@@ -90,8 +91,9 @@ export default class Renxuan3 extends KENO {
     getRandomNum() {
         let me = this,
             i = Math.floor(Math.random() *this.RandomArr.length);
-        let Num=this.RandomArr[i-1];
-        me.setRandomArr(i-1);
+        let Num=this.RandomArr[i];
+
+        me.setRandomArr(i);
         return Num;
     }
     //获取组合结果

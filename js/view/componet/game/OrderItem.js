@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     },
     itemTitle: {
         color: G_Theme.black,
+        paddingRight:40
         //fontSize: 12
     }
 });

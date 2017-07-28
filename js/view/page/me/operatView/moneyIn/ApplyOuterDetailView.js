@@ -10,30 +10,31 @@ export  default class ApplyOuterDetailView extends BaseView {
 
     renderBody() {
         let {data,appModel} = this.props.navigation.state.params
-        let real_amount = data.real_amount ?  data.real_amount:0
+        let available= (data.after_available==""||data.after_available==null) ? "0.000":data.after_available
+
         return (<View style={[G_Style.appContentView]}>
             <View style={styles.profitRow}>
                 <Text style={styles.title}>用户名:</Text>
                 <Text
-                    style={[styles.text, styles.winNumber]}>{data.username}</Text>
+                    style={[styles.text, styles.winStatus]}>{data.username}</Text>
             </View>
             <View style={styles.profitRow}>
                 <Text style={styles.title}>编号:</Text>
                 <Text
-                    style={[styles.text, styles.winStatus]}>{data.deposit_id}</Text>
+                    style={[styles.text, styles.winStatus]}>{data.serial_number}</Text>
             </View>
             <View style={styles.profitRow}>
                 <Text style={styles.title}>时间:</Text>
                 <Text
-                    style={[styles.text, styles.winStatus]}>{data.pay_time}</Text>
+                    style={[styles.text, styles.winStatus]}>{data.request_time}</Text>
             </View>
             <View style={[styles.profitRow,{borderColor: G_Theme.gray,backgroundColor: '#fff',}]}>
-                <Text style={styles.title}>充值类型:</Text>
-                <Text style={[styles.text,styles.winStatus]}>{data.deposit_mode==2 ? "第三方充值":" 银行卡充值"}</Text>
+                <Text style={styles.title}>提款银行卡:</Text>
+                <Text style={[styles.text,styles.winStatus]}>{data.account}</Text>
             </View>
             <View style={styles.profitRow}>
                 <Text style={styles.title}>状态:</Text>
-                <Text style={[styles.text, styles.winNumber]}>{appModel.getADepositStatus(data.status)}</Text>
+                <Text style={[styles.text, styles.winNumber]}>{appModel.getAWithdrawStatus(data.status)}</Text>
             </View>
             <View style={styles.profitRow}>
                 <Text style={styles.title}>金额 :</Text>
@@ -44,10 +45,9 @@ export  default class ApplyOuterDetailView extends BaseView {
                 <Text style={[styles.text,styles.winNumber]}>{data.fee}</Text>
             </View>
             <View style={[styles.profitRow,{borderColor: G_Theme.gray,backgroundColor: '#fff',}]}>
-                <Text style={styles.title}>实际充值:</Text>
-                <Text style={[styles.text,styles.winNumber]}>{real_amount}</Text>
+                <Text style={styles.title}>余额:</Text>
+                <Text style={[styles.text,styles.winNumber]}>{available}</Text>
             </View>
-
         </View>);
     }
 

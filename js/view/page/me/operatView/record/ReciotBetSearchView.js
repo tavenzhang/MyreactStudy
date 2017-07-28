@@ -19,7 +19,7 @@ export default class ReciotBetSearchView extends React.Component {
     constructor(props) {
         super(props)
         let {userData}=this.props
-        this.userTypeList = userData.isLogined&&userData.data.user_type>0 ? G_UserTypeList:[{name: "自己", value: 1}]
+        this.userTypeList = userData.isAgent ? G_UserTypeList:[{name: "自己", value: 1}]
         this.state = {
             modalVisible: true,
             issueNumer: "",

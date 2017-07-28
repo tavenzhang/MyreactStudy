@@ -81,9 +81,14 @@ export default class Home extends BaseView {
         setTimeout (()=>G_MyStorage.getItem(G_EnumStroeKeys.USR_DATA, (data) => {
             if(data&&data!="")
             {
-                let udata=JSON.parse(data)
-                if(udata) {
-                    ActDispatch.AppAct.setStorgeUser(udata.username,udata.srcPwd);
+                try {
+                    let udata=JSON.parse(data)
+                    if(udata) {
+                        ActDispatch.AppAct.setStorgeUser(udata.username,udata.srcPwd);
+                    }
+                }
+                catch (err) {
+                    TLog(`callback error<----------${action.url}:`, err);
                 }
             }
         }),1000)

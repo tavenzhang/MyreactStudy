@@ -24,6 +24,7 @@ const mapStateToProps = state => {
 export default class LoginView extends React.Component {
     static navigationOptions = {
         title: "登录",
+        header:null
     }
 
     constructor(props) {

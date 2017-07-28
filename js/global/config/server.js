@@ -3,7 +3,7 @@
 let SERVERADDR = "http://www.orchidf.com";
 
 global.G_SERVERADDR = SERVERADDR;
-global.G_APPVERSION="app_7_27"
+global.G_APPVERSION="app_7_29"
 
 const METHOD_GET = "GET";
 const METHOD_POST = "POST";
@@ -102,7 +102,6 @@ global.HTTP_SERVER = {
     //获取系统公告
     GET_LIST_SYSTEM: {url: ``,formatUrl: `/mobile-announcements?page=#id`, method: METHOD_GET, body: {page: 1}},
     GET_SYSTEM_DETAIL: {url: "", formatUrl: `/mobile-announcements/#id/view`, method: METHOD_POST, body: {}},
-
     //充值明细
     LIST_ADD_MONEY: {url: `/mobile-transactions/my-deposit`, method: METHOD_POST, body: {page: 1, pagesize: 15}},
     //提现帐变
@@ -227,7 +226,30 @@ global.HTTP_SERVER = {
         method: METHOD_POST,
         body: {card_number: "", card_id: "", fund_password: "", amount: 0, username: ""}
     },
-    //查看提现申请/mobile-withdrawals
+    ///mobile-withdrawals/user-infos 团队提现申请记录
+    MONEY_OTER_TEAM_APPLY: {url: "/mobile-withdrawals/user-infos", method: METHOD_POST, body: {
+        create_at_from:"",
+        create_at_to:"",
+        user_search_type:"4",
+        username:"",
+        serial_number:"",//提现定单号
+        status:"", //提现状态
+        page:1
+    }},
+
+    //充值申请 列表
+    MONEY_IN_APPLY: {url: "/mobile-recharges", method: METHOD_POST, body: {
+        create_at_from:"",
+        create_at_to:"",
+        user_search_type:"4",
+        username:"",
+        deposit_id:"",//流水号
+        status:"", //充值状态
+        deposit_mode:"",//充值方式
+        page:1
+    }},
+
+    //normal 提现申请/mobile-withdrawals
     MONEY_OUTER_APPLY: {url: "/mobile-withdrawals", method: METHOD_POST, body: {
         request_time_from:"",
         request_time_to:"",
@@ -235,8 +257,12 @@ global.HTTP_SERVER = {
     }},
     //充值申请 列表
     MONEY_IN_APPLY: {url: "/mobile-recharges", method: METHOD_POST, body: {
-        request_time_from:"",
-        request_time_to:"",
+        user_search_type:"4",
+        create_at_from:"",
+        create_at_to:"",
+        deposit_id:"",//流水号
+        status:"", //充值状态
+        deposit_mode:"",//充值方式
         page:1
     }},
     //提现

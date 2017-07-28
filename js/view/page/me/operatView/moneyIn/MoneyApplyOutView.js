@@ -1,75 +1,86 @@
-import React,{PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 import {
     View,
-    Text, StyleSheet,
+    Text, StyleSheet, TouchableOpacity,
 } from 'react-native';
 
 import TFlatList from "../../../../componet/TFlatList";
+import {TAIco} from "../../../../componet/tcustom/button/TButton";
 
 export default class MoneyApplyOutView extends React.PureComponent {
-    static propTypes={
-        loadMore:PropTypes.func,
-        dataList:PropTypes.any,
-        curPage:PropTypes.number,
-        totalPage:PropTypes.number
+    static propTypes = {
+        loadMore: PropTypes.func,
+        dataList: PropTypes.any,
+        curPage: PropTypes.number,
+        totalPage: PropTypes.number
     }
+
     render() {
-        let {dataList,loadMore,curPage,totalPage}=this.props
+        let {dataList, loadMore, curPage, totalPage} = this.props
         return (
             <View style={G_Style.appContentView}>
                 <View style={styles.headRow}>
-                    <View style={[styles.itemHeadStyle,{flex:1}]}>
+                    <View style={[styles.itemHeadStyle]}>
                         <Text style={styles.textHeadStyle}>日期</Text>
                     </View>
-                    <View style={[styles.itemHeadStyle,{flex:1}]}>
+                    <View style={[styles.itemHeadStyle]}>
+                        <Text style={styles.textHeadStyle}>姓名</Text>
+                    </View>
+                    <View style={[styles.itemHeadStyle]}>
                         <Text style={styles.textHeadStyle}>金额</Text>
                     </View>
-                    <View style={[styles.itemHeadStyle,{flex:1}]}>
+                    <View style={[styles.itemHeadStyle]}>
                         <Text style={styles.textHeadStyle}>手续费</Text>
                     </View>
-                    <View style={[styles.itemHeadStyle,{flex:1}]}>
-                        <Text style={styles.textHeadStyle}>编号</Text>
-                    </View>
-                    <View style={[styles.itemHeadStyle,{flex:1}]}>
+
+                    <View style={[styles.itemHeadStyle]}>
                         <Text style={styles.textHeadStyle}>状态</Text>
                     </View>
                 </View>
-                <TFlatList  curPage={curPage} totalPage={totalPage} dataList={dataList} loadMore={loadMore} renderRow={this._renderRow}/>
+                <TFlatList curPage={curPage} totalPage={totalPage} dataList={dataList} loadMore={loadMore}
+                           renderRow={this._renderRow}/>
             </View>
         );
     }
 
 
-
     _renderRow = (data) => {
-        let {appModel}=this.props
-        let dateStr= G_DateUtil.formatSimpleItemDateString(data.request_time);
-        return (
-            <View style={styles.row}>
-                <View style={[styles.itemContentStyle,{flex:2}]}>
-                    <Text style={styles.textItemStyle}>{dateStr}</Text>
+        let {appModel} = this.props
+        let dateStr = G_DateUtil.formatSimpleItemDateString(data.request_time);
+        return (    <TouchableOpacity onPress={() => this.onPress(data)}>
+                <View style={styles.row}>
+                    <View style={[styles.itemContentStyle]}>
+                        <Text style={styles.textItemStyle}>{dateStr}</Text>
+                    </View>
+                    <View style={[styles.itemContentStyle,]}>
+                        <Text style={styles.textItemStyle}>{data.username}</Text>
+                    </View>
+                    <View style={[styles.itemContentStyle, ]}>
+                        <Text style={[styles.textItemStyle]}>{data.amount}</Text>
+                    </View>
+                    <View style={[styles.itemContentStyle, ]}>
+                        <Text style={styles.textItemStyle}>{data.fee}</Text>
+                    </View>
+                    <View style={[styles.itemContentStyle,{flexDirection:"row"}]}>
+                        <Text
+                            style={[styles.textItemStyle, {color: data.status ? "green" : "red"}]}>{appModel.getAWithdrawStatus(data.status)}</Text>
+                        <TAIco name={"angle-right"}
+                               style={{fontSize: 24, marginLeft: 10, fontWeight: "bold", color: "red"}}/>
+                    </View>
                 </View>
-                <View style={[styles.itemContentStyle,{flex:2}]}>
-                    <Text style={[styles.textItemStyle]}>{data.amount}</Text>
-                </View>
-                <View style={[styles.itemContentStyle,{flex:2}]}>
-                    <Text style={styles.textItemStyle}>{data.fee}</Text>
-                </View>
-                <View style={[styles.itemContentStyle,{flex:2}]}>
-                    <Text style={styles.textItemStyle}>{data.serial_number}</Text>
-                </View>
-                <View style={[styles.itemContentStyle,{flex:2}]}>
-                    <Text style={[styles.textItemStyle,{color:data.status ? "green":"red"}]} >{appModel.getAWithdrawStatus(data.status)}</Text>
-                </View>
-            </View>
+            </TouchableOpacity>
         );
+    }
+
+    onPress=(data)=>{
+        G_NavUtil.push(G_RoutConfig.ApplyOuterDetailView,{data,...this.props},"提款详情")
     }
 }
 
 
-
 const styles = StyleSheet.create({
     itemHeadStyle: {
+        flex: 1,
         alignItems: "center",
         justifyContent: "center"
     },
@@ -82,11 +93,11 @@ const styles = StyleSheet.create({
     textHeadStyle: {
         fontSize: 14,
         fontWeight: "bold",
-        color:"gray"
+        color: "gray"
     },
     textItemStyle: {
         fontSize: 13,
-        textAlign:"center"
+        textAlign: "center"
     },
     headRow: {
         flexDirection: 'row',
@@ -96,7 +107,7 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         height: 40,
-        borderBottomWidth:0.5,
+        borderBottomWidth: 0.5,
         borderColor: "gray",
 
     },

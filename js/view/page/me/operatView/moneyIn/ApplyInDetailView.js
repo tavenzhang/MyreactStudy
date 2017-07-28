@@ -11,7 +11,6 @@ export  default class ApplyInDetailView extends BaseView {
     renderBody() {
         let {data,appModel} = this.props.navigation.state.params
         let real_amount = data.real_amount ?  data.real_amount:0
-        TLog("ApplyInDetailView----------",data)
         return (<View style={[G_Style.appContentView]}>
             <View style={styles.profitRow}>
                 <Text style={styles.title}>用户名:</Text>
@@ -28,6 +27,10 @@ export  default class ApplyInDetailView extends BaseView {
                 <Text
                     style={[styles.text, styles.winStatus]}>{data.pay_time}</Text>
             </View>
+            <View style={[styles.profitRow,{borderColor: G_Theme.gray,backgroundColor: '#fff',}]}>
+                <Text style={styles.title}>充值类型:</Text>
+                <Text style={[styles.text,styles.winStatus]}>{data.deposit_mode==2 ? "第三方充值":" 银行卡充值"}</Text>
+            </View>
             <View style={styles.profitRow}>
                 <Text style={styles.title}>状态:</Text>
                 <Text style={[styles.text, styles.winNumber]}>{appModel.getADepositStatus(data.status)}</Text>
@@ -38,12 +41,13 @@ export  default class ApplyInDetailView extends BaseView {
             </View>
             <View style={[styles.profitRow,{borderColor: G_Theme.gray,backgroundColor: '#fff',}]}>
                 <Text style={styles.title}>手续费:</Text>
-                <Text style={[styles.text,{color:G_Theme.grayDeep}]}>{data.fee}</Text>
+                <Text style={[styles.text,styles.winNumber]}>{data.fee}</Text>
             </View>
             <View style={[styles.profitRow,{borderColor: G_Theme.gray,backgroundColor: '#fff',}]}>
                 <Text style={styles.title}>实际充值:</Text>
-                <Text style={[styles.text,{color:G_Theme.grayDeep}]}>{real_amount}</Text>
+                <Text style={[styles.text,styles.winNumber]}>{real_amount}</Text>
             </View>
+
         </View>);
     }
 

@@ -14,7 +14,7 @@ export default class MyDatePicker extends Component {
         dataFormat:PropTypes.any
     }
     static defaultProps={
-        onDateSelect:"YYYY-MM-DD hh:mm:ss"
+        dataFormat:"YYYY-MM-DD hh:mm:ss"
     }
 
     constructor(props){

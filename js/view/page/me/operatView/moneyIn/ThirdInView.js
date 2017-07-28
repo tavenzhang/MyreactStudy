@@ -225,8 +225,8 @@ export default class ThirdInView extends React.Component {
             HTTP_SERVER.MoneyBankPlatAdd.body.bankid = isBackAdd ? this.state.bankSelectItem.id : "";
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.MoneyBankPlatAdd, (data) => {
                 if (data.isSuccess) {
-                    if (isBackAdd) {
-                        G_NavUtil.push(G_RoutConfig.TWebView,{webData:data.data.form},"银行充值");
+                    if (isBackAdd||!data.data.qr_flag) {
+                        G_NavUtil.push(G_RoutConfig.TWebView,{webData:data.data.form},"充值");
                     }
                     else {
                         let result = this.baseFomat.replace("#content", data.data.qr);

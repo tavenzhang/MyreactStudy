@@ -6,15 +6,25 @@ export  default class AppModel {
             let obj=this.data.data.aTransactionTypes;
             let resultList=this.getDataListByObj(obj);
              resultList.unshift({name:"全部类型",value:""});
+            this.getATransactionTypeList = resultList;
 
-            for (let key in  obj){
-                resultList.push({name:obj[key],value:key})
-            }
              obj=this.data.data.aProjectStatus;
             let projectStateList=this.getDataListByObj(obj);
             projectStateList.unshift({name:"全部状态",value:""})
-            this.getATransactionTypeList = resultList;
             this.getAProjectStatusList=projectStateList;
+
+            obj=this.data.data.aWithdrawStatus;
+            let drawDateList=this.getDataListByObj(obj);
+            drawDateList.unshift({name:"全部状态",value:""})
+            this.getADrawDateList=drawDateList;
+
+            obj=this.data.data.aDepositStatus;
+            let deposit=this.getDataListByObj(obj);
+            deposit.unshift({name:"全部状态",value:""})
+            this.getADeposit=deposit;
+
+
+
 
         }
     }

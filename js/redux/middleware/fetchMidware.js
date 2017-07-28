@@ -4,14 +4,14 @@ const makeCancelable = (promise) => {
     let hasCanceled_ = false;
     const wrappedPromise = new Promise((resolve, reject) => {
         promise.then((val) => {
-                TLog("wrappedPromise====hasCanceled_--", hasCanceled_)
+               // TLog("wrappedPromise====hasCanceled_--", hasCanceled_)
                 hasCanceled_ ? null : resolve(val)
             }
             //  hasCanceled_ ? reject({isCanceled: true}) : resolve(val)
 
         );
         promise.catch((error) => {
-                TLog(" promise.catch((error) =>hasCanceled_--", hasCanceled_)
+               // TLog(" promise.catch((error) =>hasCanceled_--", hasCanceled_)
                 hasCanceled_ ? null : reject(error)
             }
         );

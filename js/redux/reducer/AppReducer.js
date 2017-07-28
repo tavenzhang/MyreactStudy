@@ -8,7 +8,7 @@ const initAppState = fromJS({
     requesting: false,
     fail: false,
     success: true,
-    userData:{isLogined:false,data:{is_set_fund_password:55}},
+    userData:{isLogined:false,data:{is_set_fund_password:55},isAgent:false},
     infoBox: {
         show: false, //是否显示
         msg: "",//显示内容
@@ -26,7 +26,8 @@ const initAppState = fromJS({
     noticeList:[],
     showConfigModel:false,
     appState:{nowState:null,lastState:null},
-    isActive:""
+    isActive:"",
+
 })
 
 const appState = (state = initAppState, action) => {
@@ -51,9 +52,10 @@ const appState = (state = initAppState, action) => {
             }
             return state.merge({moneyBalance:parseFloat(action.httpResult.data.available)});
         case ActionType.AppType.LOGIN_RESULT:
-            return state.merge({userData:fromJS({...action.data,isLogined:true}),moneyBalance:Number(action.data.data.available)});
+            TLog("action.data-----"+action.data.data.user_type,action.data);
+            return state.merge({userData:{...action.data,isLogined:true,isAgent:action.data.data.user_type>0},moneyBalance:Number(action.data.data.available)});
         case ActionType.AppType.LOG_OUT:
-            return state.merge({userData: fromJS({isLogined:false}),moneyBalance:0});
+            return state.merge({userData:{isLogined:false,isAgent:false},moneyBalance:0});
         case ActionType.AppType.SHOW_INFOBOX:
             return state.merge({infoBox: {
                     show: true,

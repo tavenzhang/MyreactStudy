@@ -3,6 +3,10 @@
 export const  home_game=require('./homeGame.png')
 export const  Icon_yaoyiyao=require('./yaoyiyao.png')
 export const  Icon_touxaing=require('./touxiang.jpg')
+export const  LOGO=require('./logo.png')
+export const  LOGOBG=require('./login_bg.jpg')
+export const  CHECK_WHITE=require('./ic_check_box_white.png')
+export const  CHECK_WHITE_OUTLINE=require('./ic_check_box_outline_white.png')
 
 export const  SSC=require('./home/ssc.png')
 export const  L115=require('./home/L115.png')

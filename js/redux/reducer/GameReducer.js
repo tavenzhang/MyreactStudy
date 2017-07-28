@@ -36,19 +36,20 @@ const gameState = (state = initGameState, action) => {
 
     switch (action.type) {
         case gType.ADD_ORDER:
-            let shouldAdd = true;
-            state.getIn(['orderList']).forEach(function (d, b) { //去重
-                if (d.viewBalls == action.data.viewBalls) {
-                    shouldAdd = false;
-                    return false;
-                }
-            })
-            if (shouldAdd) {
-                return state.update('orderList', arr => arr.concat(action.data));
-            }
-            else {
-                return state;
-            }
+            //let shouldAdd = true;
+            //state.getIn(['orderList']).forEach(function (d, b) { //去重
+            //    if (d.viewBalls == action.data.viewBalls) {
+            //        shouldAdd = false;
+            //        return false;
+            //    }
+            //})
+            //if (shouldAdd) {
+            //    return state.update('orderList', arr => arr.concat(action.data));
+            //}
+            //else {
+            //    return state;
+            //}
+            return state.update('orderList', arr => arr.concat(action.data));
         case gType.DEL_ORDER:
             if (action.id >= 0) {//删除某一个
                 return state.deleteIn(['orderList', action.id]);

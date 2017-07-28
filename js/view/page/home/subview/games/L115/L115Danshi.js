@@ -45,7 +45,7 @@ export default class L115Danshi extends GameDanshi {
     }
 
     //并设置 isBallsComplete
-    checkBallIsComplete(data) {
+    checkBallIsComplete(multiline, data) {
         var me = this,
             i = 0,
             ballData = {},
@@ -54,7 +54,7 @@ export default class L115Danshi extends GameDanshi {
         ballData.sameData = [];
         ballData.errorData = [];
         ballData.tData = [];
-
+        TLog('000000009333399999999',data)
         //按规则进行拆分结果
         result = me.iterator(data);
 

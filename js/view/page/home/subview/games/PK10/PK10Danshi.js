@@ -45,7 +45,7 @@ export default class L115Danshi extends GameDanshi {
     }
 
     //并设置 isBallsComplete
-    checkBallIsComplete(data) {
+    checkBallIsComplete(multiline, data) {
         var me = this,
             i = 0,
             ballData = {},

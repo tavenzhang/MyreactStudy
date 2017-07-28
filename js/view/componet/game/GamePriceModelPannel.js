@@ -36,6 +36,8 @@ export default class GamePriceModelPannel extends Component {
     render() {
         const { bet_max_prize_group, bet_min_prize_group, series_amount, diff_grize_group, onChange, value, user_prize_group } = this.props;
         const { rebat } = this.state;
+        const sliderLeftColor = G_PLATFORM_IOS ? G_Theme.second : G_Theme.gray;
+        const sliderRightColor = G_PLATFORM_IOS ? G_Theme.gray : G_Theme.second;
         return (
             <View style={{flexDirection : 'row'}}>
                 <View style={styles.priceControlTitleBox}>
@@ -53,8 +55,8 @@ export default class GamePriceModelPannel extends Component {
                     style={styles.slider}
                     minimumValue={bet_min_prize_group}
                     maximumValue={bet_max_prize_group}
-                    maximumTrackTintColor={G_Theme.gray}
-                    minimumTrackTintColor={G_Theme.second}
+                    maximumTrackTintColor={sliderRightColor}
+                    minimumTrackTintColor={sliderLeftColor}
                     step={diff_grize_group}
                     />
                 <View style={styles.priceDataBox}>

@@ -2,7 +2,9 @@ import React from 'react';
 import {
     View,
     StyleSheet,
-    Image
+    Image,
+    Text,
+    TouchableOpacity
 } from 'react-native';
 
 import AIcon from 'react-native-vector-icons/FontAwesome';
@@ -71,26 +73,33 @@ export default class LoginView extends React.Component {
                                     style={styles.input}
                                     onChangeText={(pwdText) => this.setState({pwdText})}/>
                     </View>
-                    <CheckBox
-                        style={styles.checkBox}
-                        rightTextStyle={{color:'#fff'}}
-                        onClick={this.onClickCheck}
-                        isChecked={this.state.checkSelect}
-                        rightText={'记住密码'}
-                        checkedImage={<Image
-                            style={styles.checkBoxIcon}
-                            source={CHECK_WHITE}
-                            />}
-                        unCheckedImage={
-                            <Image
-                            style={styles.checkBoxIcon}
-                            source={CHECK_WHITE_OUTLINE}
-                            />
-                        }
-                    />
+                    <View style={{justifyContent: 'space-between', flexDirection:'row', marginTop: 20}}>
+                        <CheckBox
+                            style={styles.checkBox}
+                            rightTextStyle={{color:'#fff'}}
+                            onClick={this.onClickCheck}
+                            isChecked={this.state.checkSelect}
+                            rightText={'记住密码'}
+                            checkedImage={<Image
+                                style={styles.checkBoxIcon}
+                                source={CHECK_WHITE}
+                                />}
+                            unCheckedImage={
+                                <Image
+                                style={styles.checkBoxIcon}
+                                source={CHECK_WHITE_OUTLINE}
+                                />
+                            }
+                        />
+                        <TouchableOpacity>
+                            <Text style={styles.backBtn}>返回首页</Text>
+                        </TouchableOpacity>
+                    </View>
+
                     <TButton errMsg={this.onErrMsg()}
                              containerStyle={styles.loginBtn}
                              btnName={"登  陆"} onPress={this.clickLogin}/>
+
                 </View>
             </View>
         );
@@ -180,9 +189,8 @@ const styles = StyleSheet.create({
         zIndex: 10
     },
     checkBox: {
-        flex: 1,
-        marginTop: 20,
-        borderColor: '#fff'
+        borderColor: '#fff',
+        flexDirection:'row'
     },
     checkBoxIcon: {
         width: 20,
@@ -204,6 +212,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: 'rgb(78,8,90)'
+    },
+    backBtn: {
+        color: '#eee',
+        fontSize:12,
+        marginTop:4
     },
     inputContain: {
         paddingBottom: 5,

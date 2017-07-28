@@ -906,7 +906,7 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         marginRight: 15,
         marginBottom: 10,
-        borderBottomWidth: 0.5,
+        borderBottomWidth: 1 / G_Theme.lineBase,
         borderColor: G_Theme.gray,
         padding: 2,
     },

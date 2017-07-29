@@ -83,7 +83,7 @@ let tabMyNavigator = TabNavigator({
         tabBarPosition: 'bottom', // 显示在底端，android 默认是显示在页面顶端的
         swipeEnabled: false, // 禁止左右滑动
         backBehavior: 'home', // 按 back 键是否跳转到第一个 Tab， none 为不跳转
-        lazy: G_PLATFORM_IOS ? true : true,
+        lazy: G_PLATFORM_IOS ? false : false,
         tabBarOptions: {
             activeTintColor: G_Theme.selectColor, // 文字和图片选中颜色
             inactiveTintColor: '#999', // 文字和图片默认颜色
@@ -109,7 +109,6 @@ let myNavigationOptions = ({navigation}) => {
     }else{
         return null;
     }
-
 }
 
 const createNavScreen = (screen, name) => ({

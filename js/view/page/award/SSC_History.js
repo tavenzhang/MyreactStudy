@@ -42,9 +42,13 @@ export default class SSC_History extends BaseView {
         this.loadMore(null);
     }
 
-    loadMore = (callBack) => {
+    loadMore = (callBack,isFlush) => {
         const {lottery_id} = this.props.navigation.state.params;
+        if(isFlush){
+            this.next_id=0;
+        }
         HTTP_SERVER.notice_Lottery_Hisotry.url= `${HTTP_SERVER.notice_Lottery_Hisotry.formatUrl}/${lottery_id}/${this.next_id}`
+
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.notice_Lottery_Hisotry,(result)=>{
             if(result.isSuccess)
             {

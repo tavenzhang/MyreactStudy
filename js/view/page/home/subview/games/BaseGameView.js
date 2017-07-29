@@ -40,7 +40,6 @@ export default class BaseGameView extends BaseView {
             balance:state.get("appState").get("moneyBalance"),
             prize: state.get("gameState").get("prize"), //奖金组
             gameId: state.get("gameState").get("gameId"),
-            appState:state.get("appState").get("appState").toJS(),
             isActive:state.get("appState").get("isActive"),
             //balls: newBalls,
             lottorState:state.get("gameState").get("lottorState").toJS(), //够彩篮

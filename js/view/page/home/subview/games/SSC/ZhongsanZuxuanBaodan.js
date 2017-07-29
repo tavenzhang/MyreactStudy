@@ -7,6 +7,7 @@ export default class ZhongsanZuxuanBaodan extends SSC {
 
     constructor(props) {
         super(props);
+        this.isShowOperate = false;
     }
 
     //设置球排列

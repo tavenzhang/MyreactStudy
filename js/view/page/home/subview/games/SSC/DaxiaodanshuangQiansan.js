@@ -64,30 +64,4 @@ export default class DaxiaodanshuangQiansan extends SSC {
 }
 
 
-const styles = StyleSheet.create({
-
-    gameRow: {
-        flexWrap : 'wrap',
-        margin: 10,
-        backgroundColor: '#fff',
-        marginBottom: 0,
-        borderRadius: 8
-    },
-
-    gameRowTitle: {
-        width: 45,
-        height: 18,
-        backgroundColor : global.G_Theme.primary,
-        justifyContent:"center",
-        alignItems:"center",
-        marginLeft: 1,
-        marginTop: 6,
-        marginBottom: 10,
-    },
-
-    gameRowTitleText: {
-        color: '#fff',
-        fontSize: 12
-    },
-
-});
+const styles = StyleSheet.create(G_Game.rowTitle);

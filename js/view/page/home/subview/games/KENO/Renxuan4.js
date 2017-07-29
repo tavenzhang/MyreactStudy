@@ -7,7 +7,7 @@ export default class Renxuan4 extends KENO {
 
     constructor(props) {
         super(props);
-
+        this.isShowOperate = false;
     }
 
     //设置球排列
@@ -87,7 +87,7 @@ export default class Renxuan4 extends KENO {
                 num++;
             }
         }
-        if (num >= 4) {
+        if (num >= 4 && num <= 8) {
             this.setState({isBallsComplete: true});
             return true;
         }

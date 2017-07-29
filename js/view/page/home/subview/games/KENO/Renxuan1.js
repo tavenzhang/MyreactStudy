@@ -7,6 +7,7 @@ export default class Renxuan1 extends KENO {
 
     constructor(props) {
         super(props);
+        this.isShowOperate = false;
 
     }
 
@@ -33,7 +34,7 @@ export default class Renxuan1 extends KENO {
                 num++;
             }
         }
-        if (num >= 1) {
+        if (num >= 1 && num <= 8) {
             this.setState({isBallsComplete: true});
             return true;
         }

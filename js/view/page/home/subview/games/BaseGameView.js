@@ -277,6 +277,9 @@ export default class BaseGameView extends BaseView {
                     });
                 }
             }
+
+            //初始化倍数
+            ActDispatch.GameAct.setMultiple(1);
         }
     }
 

@@ -16,6 +16,7 @@ export  default class GameList extends React.Component {
 
     static propTypes = {
         dataList: PropTypes.array,
+        onLoadMore:PropTypes.func,
     }
 
     constructor(props) {
@@ -45,10 +46,11 @@ export  default class GameList extends React.Component {
                 seriesList.push({sid: item.series_id, dataList: [item], name: this.getSerialName(item.series_id)})
             }
         }
-
+        let {onLoadMore}=this.props
         return (
+
             <View style={[G_Style.appContentView, styles.gameListBox]}>
-                <TFlatList dataList={this._handDataList(seriesList)} renderRow={this._rendRowSeries}/>
+                <TFlatList dataList={this._handDataList(seriesList)} loadMore={onLoadMore} renderRow={this._rendRowSeries}/>
             </View>
         )
     }

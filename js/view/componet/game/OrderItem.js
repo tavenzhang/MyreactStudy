@@ -29,7 +29,7 @@ export default class OrderItem extends React.Component {
                         <AIcon name="minus-circle" style={styles.iconDelete} />
                     </TouchableOpacity>
                 </View>
-                <View>
+                <View style={{flex:1}}>
                     <Text style={styles.itemTitle}>[{data.gameName}] <Text style={styles.lotteryNumber}>{data.viewBalls}</Text></Text>
                     <Text style={styles.desc}>{data.num}注x{data.multiple}倍x{data.onePrice * data.moneyunit}元={G_moneyFormat(data.amount)}元</Text>
                 </View>
@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
         flexDirection : 'row',
         justifyContent:"center",
         alignItems:"center",
-
     },
     iconDelete: {
         color: '#f24336',

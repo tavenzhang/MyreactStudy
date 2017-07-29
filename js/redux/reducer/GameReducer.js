@@ -27,7 +27,8 @@ const initGameState = fromJS({
         show: false,
         randomLotterys: null,
         isRandomOrder: true
-    }
+    },
+    currentWay:{id:0,name_cn:""},
 })
 
 const gType = ActionType.GameType;
@@ -81,7 +82,8 @@ const gameState = (state = initGameState, action) => {
             })
         case gType.SET_MULTIPLE:
             return state.merge({multiple: action.data})
-
+        case gType.SET_GAME_WAY:
+            return state.merge({currentWay:{id:action.httpResult.data.id,name_cn:action.httpResult.data.name_cn}})
         case gType.SET_GAMECONFIG:
             //TLog('gameConfig====', action.httpResult.data);
             const data = action.httpResult.data;

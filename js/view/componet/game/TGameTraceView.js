@@ -84,7 +84,6 @@ export default class TGameTraceView extends Component {
     }
 
 
-
     _rendMenuBarView = () => {
         let contentView = null
         switch (this.state.selectedTabIndex) {
@@ -129,6 +128,7 @@ export default class TGameTraceView extends Component {
             <Text>追号期数:</Text>
             <TTextInput style={[styles.traceInput, {width: 35}]}
                         onChangeText={(timeNum) => {
+                            timeNum=parseInt(timeNum)
                             timeNum = timeNum > 200 ? 200 : timeNum;
                             this.setState({timeNum})
                         }}
@@ -177,7 +177,11 @@ export default class TGameTraceView extends Component {
                     <TTextInput value={data.mulity.toString()} style={{
                         textAlign: "center", width: 30, borderWidth: 1,
                         borderColor: "gray"
-                    }} keyboardType={"numeric"} onChangeText={(value) => this._onChangeMulity(data, value)}/>
+                    }} keyboardType={"numeric"} onChangeText={(value) => {
+                        value=value==""? 1:value
+                        value=parseInt(value)
+                        value=value <=0 ? 1:value;
+                        this._onChangeMulity(data, value)}}/>
                 </View>
                 <View style={[styles.listViewSp]}>
                     <Text style={{color: "red"}}>{G_DateUtil.formatMoney(data.money)}</Text>
@@ -238,7 +242,7 @@ export default class TGameTraceView extends Component {
         switch (this.state.selectedTabIndex) {
             case 0:
                 let consume=0
-                for (let i = 0; i < this.state.timeNum; i++) {
+                for (let i = 0; i <  this.state.timeNum; i++) {
                     TLog("this.state.timeNum--"+prize,gameNumbers)
                     let item = {}
                     item.gameNumbers = gameNumbers[i].number;

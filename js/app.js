@@ -86,6 +86,7 @@ export default class App extends React.Component {
         const {isLoading, infoBox,isModal} = this.props;
         G_NavState = this.props.nav;
         G_NavRouteState =this.props.routState;
+        TLog("isModal======",isModal)
         return (
             <View style={{flex: 1}}>
                 <StatusBar
@@ -93,13 +94,18 @@ export default class App extends React.Component {
                     //  style={{color: "#f00",height:64,background:'F00',flex:1}}
                     backgroundColor='transparent'
                     translucent={true}
-                    hidden={Platform.OS === 'ios' ? false : true}
+                    hidden={G_PLATFORM_IOS ? false : true}
                 />
                 <AppStackNavigator navigation={addNavigationHelpers({
                     dispatch: this.props.dispatch,
                     state: this.props.nav,
                 })} screenProps={{userData:this.props.userData}}/>
-                <Loading visible={isLoading} isModal={isModal} />
+                {isLoading&&isModal ? <View style={{width:G_Theme.windowWidth,height:G_Theme.windowHeight,
+                    backgroundColor:"rgba(50, 50, 50,0.4)",
+                    position:"absolute",
+                    zIndex:10
+                }}/>:null}
+                <Loading visible={isLoading} />
                 {infoBox.show ? <ToastBoxView isError={infoBox.isError}
                                               visible={infoBox.show}
                                               msg={infoBox.msg}

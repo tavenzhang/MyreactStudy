@@ -201,8 +201,6 @@ export default class Quwei extends KENO {
         G_RunAfterInteractions(() => {
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.MethodData, (result) => {
                 if (result.data) {
-
-                    // let arr = this.state.dataList.concat(result.data.data);
                     this.setState({gameMethod: result.data})
                 }
             })

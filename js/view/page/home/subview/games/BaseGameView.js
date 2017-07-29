@@ -44,6 +44,7 @@ export default class BaseGameView extends BaseView {
             isActive:state.get("appState").get("isActive"),
             //balls: newBalls,
             lottorState:state.get("gameState").get("lottorState").toJS(), //够彩篮
+            currentWay:state.get("gameState").get("currentWay").toJS(),
         }
     }
 
@@ -192,6 +193,7 @@ export default class BaseGameView extends BaseView {
 
     requetGameData = (isSleep=false) => {
         const {id} = this.props.navigation.state.params;
+        let {currentWay,gameId}=this.props;
         ActDispatch.GameAct.lottoryState({show:false})
         HTTP_SERVER.GET_GAME_DETAIL.url = HTTP_SERVER.GET_GAME_DETAIL.formatUrl.replace(/#id/g, id);
             ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.GET_GAME_DETAIL, ActionType.GameType.SET_GAMECONFIG, data => {
@@ -214,20 +216,24 @@ export default class BaseGameView extends BaseView {
                         traceMaxTimes: pd.traceMaxTimes,
                         history_lotterys: pd.history_lotterys.split("-"),
                     });
-                    if (!this.state.selectItem && pd.defaultMethodId) {
-                        const defaultGame = {"id": pd.defaultMethodId + '', "name_cn": pd.defaultMethod_cn}
-                        this.clickMenuItem(defaultGame);
+                    TLog("currentWay----gameId=="+gameId ,currentWay)
+                    if((currentWay.name_cn !="")&&gameId==id){
+                        this.clickMenuItem({"id": currentWay.id + '', "name_cn": currentWay.name_cn});
+                    }else{
+                        if (!this.state.selectItem && pd.defaultMethodId) {
+                            this.clickMenuItem({"id": pd.defaultMethodId + '', "name_cn": pd.defaultMethod_cn});
+                        }
                     }
+
                 } else {
                     ActDispatch.AppAct.showErrorBox("当前游戏获取数据出错，请稍后再尝试");
                 }
-
             }, isSleep, !isSleep);
     }
 
 
     clickMenuItem = (data) => {
-         // TLog("clickMenuItem--", data);
+         TLog("clickMenuItem--", data);
         const {gameMethodHash, isRequestGameWay, currentGameWay} = this.state;
         const {id, playModel} = this.props.navigation.state.params;
         if (currentGameWay.id != data.id) {
@@ -243,9 +249,9 @@ export default class BaseGameView extends BaseView {
             }
             else {
                 if (!isRequestGameWay) {
-                    this.setState({isRequestGameWay: true});
+                    this.setState({isRequestGameWay: true});//SET_GAME_WAY
                     HTTP_SERVER.GET_GAME_WAY.url = HTTP_SERVER.GET_GAME_WAY.formatUrl.replace(/#id/g, id).replace(/#way_id/g, data.id)
-                    ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.GET_GAME_WAY, d => {
+                    ActDispatch.FetchAct.fetchVoWithAction(HTTP_SERVER.GET_GAME_WAY,ActionType.GameType.SET_GAME_WAY, d => {
                         const pd = d.data;
                         gameMethodHash[pd.id] = pd;
                         if (pd.name_cn ==null) {

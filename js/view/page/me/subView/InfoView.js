@@ -81,7 +81,6 @@ export class InfoView extends React.PureComponent {
                                 <AIcon name={"cny"}
                                        style={styles.commonIcon}/>
                                 <Text style={styles.commonText}>充值</Text>
-
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -105,7 +104,7 @@ export class InfoView extends React.PureComponent {
                             <TouchableOpacity onPress={() => {
                                 G_NavUtil.push(G_RoutConfig.MoneyTransferView,{
                                     title: '转账',
-                                    money: moneyBalance,
+                                   // money: moneyBalance,
                                     // uid: userData.data.user_id,
                                     username: ""
                                 });

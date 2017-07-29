@@ -79,7 +79,7 @@ export default class LoginView extends React.Component {
                             rightTextStyle={{color:'#fff'}}
                             onClick={this.onClickCheck}
                             isChecked={this.state.checkSelect}
-                            rightText={'记住密码'}
+                            rightTextView={<Text style={{color:"#eee", marginLeft:5}}>记住密码</Text>}
                             checkedImage={<Image
                                 style={styles.checkBoxIcon}
                                 source={CHECK_WHITE}
@@ -91,11 +91,10 @@ export default class LoginView extends React.Component {
                                 />
                             }
                         />
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={this.onPopView}>
                             <Text style={styles.backBtn}>返回首页</Text>
                         </TouchableOpacity>
                     </View>
-
                     <TButton errMsg={this.onErrMsg()}
                              containerStyle={styles.loginBtn}
                              btnName={"登  陆"} onPress={this.clickLogin}/>
@@ -215,7 +214,7 @@ const styles = StyleSheet.create({
     },
     backBtn: {
         color: '#eee',
-        fontSize:12,
+        fontSize:14,
         marginTop:4
     },
     inputContain: {

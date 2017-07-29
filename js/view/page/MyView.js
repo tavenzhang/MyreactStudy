@@ -62,12 +62,7 @@ export default class MyView extends BaseView {
                 return <AIcon name='user' style={{fontSize: 25, color: focused ? G_Theme.selectColor : G_Theme.gray}}/>
             },
             headerLeft: <NavButtonText onClick={()=>ActDispatch.AppAct.showConfigModel(true)}  isRightButton={false} name={"设置"} navigation={navigation}/>,
-            headerRight: <NavButtonText onClick={()=>{
-                ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LOGIN_OUT, () => {
-                    ActDispatch.AppAct.loginOut();
-                    G_NavUtil.push(G_RoutConfig.LoginView);
-                })
-            }}  name={"注销"} navigation={navigation} visible={userData.isLogined}/>
+            headerRight: <NavButtonText name={"注销"} navigation={navigation} visible={userData.isLogined}/>
         }
     }
     static dataListRecord = [
@@ -131,18 +126,35 @@ export default class MyView extends BaseView {
         this.isFlush =false;
     }
 
+    onRightPressed(){
+            ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.LOGIN_OUT, () => {
+                ActDispatch.AppAct.loginOut();
+                this.clearSotoryLogin()
+                G_NavUtil.push(G_RoutConfig.LoginView)})
+    }
+
+
+    clearSotoryLogin(){
+        let {name,pwd} = this.props.storageUser
+        ActDispatch.AppAct.setStorgeUser(name,"");
+        let bodyData={};
+        bodyData.username = name;
+        bodyData.srcPwd = "";
+        G_MyStorage.setItem(G_EnumStroeKeys.USR_DATA, JSON.stringify(bodyData));
+    }
+
     componentWillUpdate(){
         let {userData} = this.props;
         super.componentWillUpdate();
-        if(userData.isLogined&&!this.isFlush) {
-           // TLog("MyView0-----------componentWillUpdate==",G_NavState.routes)
-             let viewName = G_NavState.routes[G_NavState.routes.length - 1].routeName;
-           //  TLog("MyView0-----------componentWillUpdate=="+viewName)
-            if(G_RoutConfig.Main.name ==viewName){
-                this.isFlush=true
-                HttpUtil.flushMoneyBalance(this.onCallBack) ;;
-            }
-        }
+        // if(userData.isLogined&&!this.isFlush) {
+        //    // TLog("MyView0-----------componentWillUpdate==",G_NavState.routes)
+        //      let viewName = G_NavState.routes[G_NavState.routes.length - 1].routeName;
+        //    //  TLog("MyView0-----------componentWillUpdate=="+viewName)
+        //     if(G_RoutConfig.Main.name ==viewName){
+        //         this.isFlush=true
+        //         HttpUtil.flushMoneyBalance(this.onCallBack) ;;
+        //     }
+        // }
     }
 
     onCallBack=()=>{

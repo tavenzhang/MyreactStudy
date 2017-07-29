@@ -23,7 +23,6 @@ export const GameAct={
         type: gType.SET_MONEYUNIT,
         data
     }),
-
     setMultiple: data => ({
         type: gType.SET_MULTIPLE,
         data

@@ -63,9 +63,15 @@ export default class Home extends BaseView {
         return (
             <View style={[G_Style.appContentView,{backgroundColor:"#f1f1f1"}]}>
                 {this.state.showBanner||G_PLATFORM_IOS ? <MyBannerSwiper dataList={bannerList} {...this.props} />:null}
-                <GameList dataList={gameList} {...this.props} />
+                <GameList onLoadMore={this.onLoadMore} dataList={gameList} {...this.props} />
             </View>
         );
+    }
+
+    onLoadMore=(callBack,flush)=>{
+        if(flush){
+           this.componentDidMount()
+        }
     }
 
     componentDidMount() {

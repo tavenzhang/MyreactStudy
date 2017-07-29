@@ -90,9 +90,12 @@ export default class BannerView extends React.Component {
                             color: "red",
                             fontWeight: "bold"
                         }}>{G_DateUtil.formatSecondDate(dim)}</Text></Text></View>
-                        <View ref="moreMenuButton" style={{flexDirection: "row"}}><Text
-                            style={styles.timeBannerText}>玩法奖金:<Text
-                            style={{color: "red", fontWeight: "bold"}}>{G_moneyFormat(prize)}</Text>元</Text></View>
+                        {
+                            series_id !=6 ?    <View ref="moreMenuButton" style={{flexDirection: "row"}}><Text
+                                style={styles.timeBannerText}>玩法奖金:<Text
+                                style={{color: "red", fontWeight: "bold"}}>{G_moneyFormat(prize)}</Text>元</Text></View>:null
+                        }
+
                     </View>
                     {historyView}
                     {!this.state.showHistory ? <AIcon color="gray" style={{

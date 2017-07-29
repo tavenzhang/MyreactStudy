@@ -39,6 +39,7 @@ export const ActionType = {
         DEL_ORDER: "GameType/DEL_ORDER",
         SET_BALLS: "GameType/SET_BALLS",
         SET_MONEYUNIT: "GameType/SET_MONEYUNIT",
+        SET_GAME_WAY: "GameType/SET_GAME_WAY",
         SET_MULTIPLE: "GameType/SET_MULTIPLE",
         SET_GAMECONFIG: "GameType/SET_GAMECONFIG",
         SET_TRACE: "GameType/SET_TRACE",

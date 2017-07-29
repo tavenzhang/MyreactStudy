@@ -262,7 +262,7 @@ export default class LotteryOrders extends React.Component {
 
 const styles = StyleSheet.create({
     orderListBox: {
-        marginBottom: G_Theme.gameOperatePanelHeight - 2 + 30,
+        marginBottom: G_Theme.gameOperatePanelHeight - 2 ,
         marginTop: 10
     },
     operateBox: {

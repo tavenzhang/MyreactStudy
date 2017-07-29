@@ -49,7 +49,6 @@ export default class Renxuan2 extends KENO {
         me.setRandomArr();
        for(let j=0;j<2;j++){
            let i=me.getRandomNum();
-           TLog('i=',i);
            me.selectBall(i, 0, 1);
        }
     }
@@ -94,9 +93,9 @@ export default class Renxuan2 extends KENO {
     getRandomNum() {
         let me = this,
             i = Math.floor(Math.random() *this.RandomArr.length);
-        return this.RandomArr[i-1];
+        return this.RandomArr[i];
 
-        me.setRandomArr(i-1);
+        me.setRandomArr(i);
 
 
     }

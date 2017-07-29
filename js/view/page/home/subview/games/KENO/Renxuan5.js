@@ -90,8 +90,8 @@ export default class Renxuan5 extends KENO {
     getRandomNum() {
         let me = this,
             i = Math.floor(Math.random() *this.RandomArr.length);
-        let Num=this.RandomArr[i-1];
-        me.setRandomArr(i-1);
+        let Num=this.RandomArr[i];
+        me.setRandomArr(i);
         return Num;
     }
     //获取组合结果

@@ -5,6 +5,7 @@ import android.app.Application;
 import com.elvishew.xlog.LogLevel;
 import com.elvishew.xlog.XLog;
 import com.facebook.react.ReactApplication;
+import com.airbnb.android.react.lottie.LottiePackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage;
 import com.jadsonlourenco.RNShakeEvent.RNShakeEventPackage;
@@ -53,6 +54,7 @@ public class MainApplication extends Application implements ReactApplication {
             myCodePush = new CodePush("", MainApplication.this, BuildConfig.DEBUG, "");
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new LottiePackage(),
             new VectorIconsPackage(),
             new RCTSplashScreenPackage(),
             new RNShakeEventPackage(),

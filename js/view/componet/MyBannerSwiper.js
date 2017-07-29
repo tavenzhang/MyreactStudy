@@ -17,6 +17,7 @@ export default class MyBannerSwiper extends React.Component {
     }
 
     render() {
+        //"banner":[{"link":"/announcements/130/view","pic":""},{"link":"/announcements/128/view","pic":""},{"link":"/bets/bet/1","pic":""}]}}
         const {dataList}= this.props
         return (
             <Swiper
@@ -35,11 +36,17 @@ export default class MyBannerSwiper extends React.Component {
                         <TouchableOpacity key={i} activeOpacity={0.75} onPress={()=>{
                             this.bannerClick(banner);
                         }}>
-                            <Image
-                                style={styles.bannerImage}
-                                source={home_game}
-                                key={i}
-                            />
+                            {
+                                banner.pic=="" ||!banner.pic  ?   <Image
+                                    style={styles.bannerImage}
+                                    source={home_game}
+                                    key={i}
+                                />:<Image
+                                    style={styles.bannerImage}
+                                    source={{uri: banner.pic}}
+                                    key={i}
+                                />
+                            }
                         </TouchableOpacity>
                     )
                 }) : null}
@@ -49,7 +56,7 @@ export default class MyBannerSwiper extends React.Component {
 
     bannerClick=(data)=> {
         TLog("bannerClick,----data==",data)
-        G_NavUtil.push(G_RoutConfig.TWebView,data);
+        G_NavUtil.push(G_RoutConfig.TWebView,{data:data.link,title:data.title});
     }
 }
 

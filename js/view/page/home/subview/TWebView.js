@@ -5,22 +5,14 @@ import {
     WebView, ScrollView
 } from 'react-native';
 
-import {connect} from 'react-redux';
-
 import BaseView from "../../../componet/BaseView";
 
-// const mapStateToProps = state => {
-//     return {
-//        // isLoading: state.fetchState.requesting || state.appState.requesting,
-//     }
-// }
-//
-// @connect(mapStateToProps)
 export default class TWebView extends BaseView {
-
 
     renderBody() {
         let {webData, data} = this.props.navigation.state.params;
+        TLog("webData====",webData);
+        TLog("data====",data)
         return (<View style={G_Style.appContentView}>
                 {/*<ScrollView style={{flex: 1}}/>*/}
                     {

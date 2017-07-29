@@ -17,7 +17,7 @@ export default class Loading extends React.PureComponent {
     render() {
         let {visible} = this.props
         return (
-                <View style={[styles.loading,{opacity: visible ? 1:0}]}>
+                <View pointerEvents="none"   style={[styles.loading,{opacity: visible ? 1:0}]}>
                     <Image style={{ resizeMode: 'contain',
                         width: G_Theme.windowWidth * 0.25,
                         height: G_Theme.windowWidth * 0.25}} source={LOADING}/>
@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     },
     loading: {
         backgroundColor: '#fff',
+      //  backgroundColor: "rgba(52, 52, 52, 0.2)",
         width: G_Theme.windowWidth * 0.27,
         height: G_Theme.windowWidth * 0.27,
         borderRadius: 10,

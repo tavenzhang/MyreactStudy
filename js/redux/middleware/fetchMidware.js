@@ -112,10 +112,12 @@ function fetchMiddleware(extraArgument) {
                     .catch(e => {
                         FetchMap.set(keyFetch, null);
                         let errorMsg = e.toString();
+
                         TLog(`http<-------error---`, errorMsg);
                         TLog(`http<-------error--- ${action.url}`, resHttp);
                         next(ActionEnum.FetchAct.noticeFail());
                         if (!action.isHideError) {
+                            errorMsg=="TypeError: Network request failed" ? "网络不稳定 请稍后重试！":errorMsg;
                             next(ActionEnum.AppAct.showBox(errorMsg, 'error'));
                         }
                     })

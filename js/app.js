@@ -86,7 +86,7 @@ export default class App extends React.Component {
         const {isLoading, infoBox,isModal} = this.props;
         G_NavState = this.props.nav;
         G_NavRouteState =this.props.routState;
-        TLog("isModal======",isModal)
+       // TLog("isModal======",isModal)
         return (
             <View style={{flex: 1}}>
                 <StatusBar

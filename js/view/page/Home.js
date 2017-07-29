@@ -44,25 +44,12 @@ export default class Home extends BaseView {
     }
 
     renderBody() {
-        let {gameModel} = this.props;
-        let gameList = gameModel.gameInfoList;
-        gameList = gameList ? gameList :[];
-        let bannerList = [{
-            url: `${G_SERVERADDR}/i/home/home_activity_banne1r3.jpg`,
-            name: "活动1",
-            data: "http://www.baidu.com"
-        }, {
-            url: `${G_SERVERADDR}/i/home/home_activity_banner12.jpg`,
-            name: "活动2",
-            data: "http://www.baidu.com"
-        }, {
-            url: `${G_SERVERADDR}/i/home/home_activity_banne1r2.jpg`,
-            name: "活动4",
-            data: "http://www.google.com"
-        }]
+        let {gameModel,appModel} = this.props;
+        let gameList = gameModel.gameInfoList; //bannerList
+         gameList = gameList ? gameList :[];
         return (
             <View style={[G_Style.appContentView,{backgroundColor:"#f1f1f1"}]}>
-                {this.state.showBanner||G_PLATFORM_IOS ? <MyBannerSwiper dataList={bannerList} {...this.props} />:null}
+                {this.state.showBanner||G_PLATFORM_IOS ? <MyBannerSwiper dataList={appModel.bannerList} {...this.props} />:null}
                 <GameList onLoadMore={this.onLoadMore} dataList={gameList} {...this.props} />
             </View>
         );

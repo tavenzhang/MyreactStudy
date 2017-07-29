@@ -25,7 +25,7 @@ const initAppState = fromJS({
     awardList:[],
     noticeList:[],
     showConfigModel:false,
-    appState:{nowState:null,lastState:null},
+    //appState:{nowState:null,lastState:null},
     isActive:"",
 
 })
@@ -96,10 +96,10 @@ const appState = (state = initAppState, action) => {
             return state.merge({noticeList: action.data});
         case ActionType.AppType.SHOW_CONFIG_MODEL:
             return state.merge({showConfigModel: action.visible});
-        case ActionType.AppType.APPSTATE:
-            TLog("ActionType.AppType.APPSTATE--action.data",action.data);
-             let tempState=state.get("appState").get("nowState")
-            return state.merge({appState:{nowState:action.data,lastState:tempState},isActive:action.data})
+        // case ActionType.AppType.APPSTATE:
+        //     TLog("ActionType.AppType.APPSTATE--action.data",action.data);
+        //      let tempState=state.get("appState").get("nowState")
+        //     return state.merge({appState:{nowState:action.data,lastState:tempState},isActive:action.data})
         default:
             return state;
     }

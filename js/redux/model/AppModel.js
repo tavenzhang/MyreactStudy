@@ -1,6 +1,7 @@
 export  default class AppModel {
 
     constructor(data) {
+        this.bannerList=[];
         if (data) {
             this.data = data;
             let obj=this.data.data.aTransactionTypes;
@@ -22,10 +23,7 @@ export  default class AppModel {
             let deposit=this.getDataListByObj(obj);
             deposit.unshift({name:"全部状态",value:""})
             this.getADeposit=deposit;
-
-
-
-
+            this.bannerList=this.data.data.banner;
         }
     }
 

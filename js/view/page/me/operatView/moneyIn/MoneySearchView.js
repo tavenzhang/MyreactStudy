@@ -37,7 +37,7 @@ export default class MoneySearchView extends React.Component {
         let {visible, hideViewHandle, appModel, isInMoney} = this.props;
         let stateList = isInMoney ? appModel.getADeposit : appModel.getADrawDateList;
         return (
-            <MyModalView visible={visible} onPressModal={hideViewHandle}>
+            <TModalView visible={visible} onPressModal={hideViewHandle}>
                 <View style={{flex: 1, justifyContent: "center", backgroundColor: "rgba(50, 50, 50,0.2)"}}>
                     <View style={{
                         justifyContent: "center",
@@ -139,7 +139,7 @@ export default class MoneySearchView extends React.Component {
                         </View>
                     </View>
                 </View>
-            </MyModalView>
+            </TModalView>
         )
     }
 

@@ -5,10 +5,11 @@ import {
     Text,
 } from 'react-native';
 
-import MyModalView from "../../../../componet/tcustom/modal/TModalView";
 import {TButton} from "../../../../componet/tcustom/button/TButton";
 import {TTextInput} from "../../../../componet/tcustom/textInput/TTextInput";
 import {TPicker} from "../../../../componet/tcustom/picker/TPicker";
+import TModalView from "../../../../componet/tcustom/modal/TModalView";
+
 export default class ReciotBetSearchView extends React.Component {
     static propTypes = {
         visible: PropTypes.bool,
@@ -33,7 +34,7 @@ export default class ReciotBetSearchView extends React.Component {
     render() {
         let {visible, appModel} = this.props;
         return (
-            <MyModalView visible={visible} hideModal={this.onCancelHideView} onPressModal={this.onCancelHideView}>
+            <TModalView visible={visible} hideModal={this.onCancelHideView} onPressModal={this.onCancelHideView}>
                 <View style={{flex: 1, justifyContent: "center", backgroundColor: "rgba(50, 50, 50,0.2)"}}>
                     <View style={{backgroundColor: "white",
                         borderRadius: 10, marginHorizontal: 10,
@@ -107,7 +108,7 @@ export default class ReciotBetSearchView extends React.Component {
                         </View>
                     </View>
                 </View>
-            </MyModalView>
+            </TModalView>
         )
     }
 

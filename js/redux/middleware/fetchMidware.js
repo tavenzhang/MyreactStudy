@@ -66,7 +66,7 @@ function fetchMiddleware(extraArgument) {
                             else {
                             }
                             if (action.callback && undefined != action.callback) {
-
+                                data.success=data.isSuccess;
                                 try {
                                     action.callback(data);
                                 }

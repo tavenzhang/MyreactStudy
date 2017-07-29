@@ -36,7 +36,7 @@ export default class RecordMoneySearchView extends React.Component {
     render() {
         let {visible, appModel} = this.props;
         return (
-            <MyModalView visible={visible} hideModal={this.onCancelHideView} onPressModal={this.onCancelHideView}>
+            <TModalView visible={visible} hideModal={this.onCancelHideView} onPressModal={this.onCancelHideView}>
                 <View style={{flex: 1, justifyContent: "center", backgroundColor: "rgba(50, 50, 50,0.2)"}}>
                     <View style={{backgroundColor: "white",
                         borderRadius: 10, marginHorizontal: 10,
@@ -110,7 +110,7 @@ export default class RecordMoneySearchView extends React.Component {
                         </View>
                     </View>
                 </View>
-            </MyModalView>
+            </TModalView>
         )
     }
 

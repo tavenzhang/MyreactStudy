@@ -5,7 +5,7 @@ import {
     StyleSheet,
 } from 'react-native';
 import TModalView from "../tcustom/modal/TModalView";
-import {TButton, TButtonView} from "../tcustom/button/TButton";
+import {TButton} from "../tcustom/button/TButton";
 import MySegmentedControlTab from "../tcustom/TSegmentedControlTab";
 import CheckBox from "react-native-check-box";
 import {TTextInput} from "../tcustom/textInput/TTextInput";

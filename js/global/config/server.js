@@ -99,6 +99,11 @@ global.HTTP_SERVER = {
     //获取站内信列表
     LETTER_LIST: {url: `/mobile-station-letters`, method: METHOD_POST, body: {}},
     LETTER_DETAIL: {url: "", formatUrl: `/mobile-station-letters/#id/view`, method: METHOD_POST, body: {}},
+    ///mobile-station-letters/replay 回复消息
+    LETTER_REPLAY: { url: `/mobile-station-letters/replay`, method: METHOD_POST, body: {
+        msg_id:"",
+        content:""
+    }},
     //获取系统公告
     GET_LIST_SYSTEM: {url: ``,formatUrl: `/mobile-announcements?page=#id`, method: METHOD_GET, body: {page: 1}},
     GET_SYSTEM_DETAIL: {url: "", formatUrl: `/mobile-announcements/#id/view`, method: METHOD_POST, body: {}},

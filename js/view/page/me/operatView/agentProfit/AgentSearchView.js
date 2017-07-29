@@ -40,7 +40,7 @@ export default class AgentSearchView extends React.Component {
     render() {
         let {visible, onFindPress, hideViewHandle} = this.props;
         return (
-            <MyModalView visible={visible} hideModal={this.onFindConfirm} onPressModal={this.onFindConfirm}>
+            <TModalView visible={visible} hideModal={this.onFindConfirm} onPressModal={this.onFindConfirm}>
                 <View style={{flex: 1, justifyContent: "center", backgroundColor: "rgba(50, 50, 50,0.2)"}}>
                     <View style={{
                         justifyContent: "center", alignItems: "center", backgroundColor: "white",
@@ -107,7 +107,7 @@ export default class AgentSearchView extends React.Component {
                         </View>
                     </View>
                 </View>
-            </MyModalView>
+            </TModalView>
         )
     }
 

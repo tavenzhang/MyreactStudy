@@ -45,11 +45,12 @@ export default class Home extends BaseView {
 
     renderBody() {
         let {gameModel,appModel} = this.props;
+        let bannerList = appModel.bannerList ? appModel.bannerList :[];
         let gameList = gameModel.gameInfoList; //bannerList
          gameList = gameList ? gameList :[];
         return (
             <View style={[G_Style.appContentView,{backgroundColor:"#f1f1f1"}]}>
-                {this.state.showBanner||G_PLATFORM_IOS ? <MyBannerSwiper dataList={appModel.bannerList} {...this.props} />:null}
+                {this.state.showBanner||G_PLATFORM_IOS ? <MyBannerSwiper dataList={bannerList} {...this.props} />:null}
                 <GameList onLoadMore={this.onLoadMore} dataList={gameList} {...this.props} />
             </View>
         );

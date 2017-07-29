@@ -31,4 +31,100 @@ export default class HousanZuxuanHunhe extends SSCDanshi {
         }
         return true;
     }
+
+    checkBallIsComplete(multiline, data){
+        let me = this,
+            len,
+            i = 0,
+            balls,
+            ballsstr,
+            has = {},
+            ballData = {},
+            result = [];
+
+        if (!data) {
+            this.setState({isBallsComplete: false});
+
+            return [];
+        }
+        ballData.sameData = [];
+        ballData.errorData = [];
+        ballData.tData = [];
+        //按规则进行拆分结果
+        result = me.iterator(data);
+        len = result.length;
+
+        for(i = 0; i < len; i++){
+
+            balls = result[i].split('');
+            ballsstr = result[i].split('').sort();
+
+            //检测基本长度
+            if(me.checkSingleNum(balls)){
+                if(has[ballsstr]){
+                    //重复
+                    ballData.sameData.push(balls);
+                }else{
+                    ballData.tData.push(balls);
+                    has[ballsstr] = true;
+                }
+            }else{
+                ballData.errorData.push(balls);
+            }
+        }
+        //校验
+        if(ballData.tData.length > 0){
+            this.setState({isBallsComplete: true});
+            return ballData.tData;
+        }else{
+            this.setState({isBallsComplete: false});
+            return [];
+        }
+    }
+
+    checkBallIsComplete(multiline, data) {
+        let len,
+            i = 0,
+            balls,
+            me=this,
+            ballData = {},
+            has = {},
+            ballsstr,
+            result = [];
+        if (!data) {
+            this.setState({isBallsComplete: false});
+            return [];
+        }
+        ballData.sameData = [];
+        ballData.errorData = [];
+        ballData.tData = [];
+        //按规则进行拆分结果
+        result = me.iterator(data);
+        len = result.length;
+        for (i = 0; i < len; i++) {
+            balls = result[i].split('');
+            ballsstr = balls.sort();
+            //检测基本长度
+            if (me.checkSingleNum(balls)) {
+                if (has[ballsstr]) {
+                    //重复
+                    ballData.sameData.push(balls);
+                } else {
+                    ballData.tData.push(balls);
+                    has[ballsstr] = true;
+                }
+            } else {
+                ballData.errorData.push(balls);
+            }
+        }
+        this.setState({ballData: ballData});
+        //校验
+        if (ballData.tData.length > 0) {
+            this.setState({isBallsComplete: true});
+            return ballData.tData;
+        } else {
+            this.setState({isBallsComplete: false});
+            return [];
+        }
+    }
 }

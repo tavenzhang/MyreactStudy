@@ -43,7 +43,7 @@ export const GameAct={
         data
     }),
     lottoryState:(data)=>({
-        type:ActionType.GameType.LOTTOR_STATE,
+        type: gType.LOTTOR_STATE,
         data
     }),
 }

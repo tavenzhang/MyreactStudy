@@ -62,6 +62,8 @@ export default class Games extends Component {
         this.formatViewBalls = this.formatViewBalls.bind(this);
         this.addBallsToBasket = this.addBallsToBasket.bind(this);
         this.beforeAddBallsToBasket = this.beforeAddBallsToBasket.bind(this);
+        this.onFastInvest = this.onFastInvest.bind(this);
+        this.beforeOnFastInvest = this.beforeOnFastInvest.bind(this);
         this.clearAllBall = this.clearAllBall.bind(this);
         this.selectAutoOne = this.selectAutoOne.bind(this);
         this.randomSelcet = this.randomSelcet.bind(this);
@@ -646,15 +648,19 @@ export default class Games extends Component {
         );
     }
 
-    onFastInvest=()=>{
+    beforeOnFastInvest() {
         ActDispatch.GameAct.delOrder();
-        this.addBallsToBasket();
+        this.beforeAddBallsToBasket();
         ActDispatch.GameAct.lottoryState({
             show: true,
             randomLotterys: this.randomLotterys,
             isRandomOrder: this.isRandomOrder,
             isFast:true
         })
+    }
+
+    onFastInvest() {
+        this.beforeOnFastInvest();
     }
 
     getOriginal() {
@@ -696,7 +702,6 @@ export default class Games extends Component {
     getResultData(lotterys) {
         const me = this;
         const {moneyUnit, multiple, currentGameWay, prize,gName} = this.props;
-        TLog('1212121212',this.props)
         let orderdata = {},
             onePrice = currentGameWay.price,
             lotterysOriginal = me.getOriginal();

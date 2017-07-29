@@ -8,7 +8,7 @@ import {
     Text,
     StyleSheet,
     TextInput,
-    Alert
+    Alert,
 } from 'react-native';
 
 import Games from './Games'
@@ -50,7 +50,7 @@ export default class GameDanshi extends Games {
         if (sameTip || errorTip) {
             Alert.alert(
                 '',
-                `${errorTip} ${sameTip}, 是否确定清理后加入购彩篮?`,
+                `${errorTip} ${sameTip} , 是否确定清理后加入购彩篮?`,
                 [
                     {text: '取消'},
                     {text: '确定', onPress: () => me.beforeAddBallsToBasket()}
@@ -59,6 +59,30 @@ export default class GameDanshi extends Games {
         }
         else {
             me.beforeAddBallsToBasket();
+        }
+    }
+
+    onFastInvest() {
+        const me = this;
+        const {ballData} = this.state;
+
+        const sameTip = ballData.sameData.length > 0 ? `重复号: ${me.formatViewBalls(ballData.sameData)}` : '';
+        const errorTip = ballData.errorData.length > 0 ? `错误号: ${me.formatViewBalls(ballData.errorData)}` : '';
+
+        if (sameTip || errorTip) {
+            Alert.alert(
+                '',
+                `${errorTip} ${sameTip}, 是否确定清除?`,
+                [
+                    {text: '取消'},
+                    {text: '确定', onPress: () => {
+                        me.removeOrderError();
+                    }}
+                ]
+            )
+        }
+        else {
+            me.beforeOnFastInvest();
         }
     }
 
@@ -77,6 +101,7 @@ export default class GameDanshi extends Games {
                 multiline={true}
                 numberOfLines={10}
                 onChangeText={text => {
+                    text = text.replace(/[^\d\s\r\n,.;#@$%&*!~|^]/g, '');
                     this.setState({text: text})
                     const lotterys = me.checkBallIsComplete(null, text);
                     TLog('lotterys',lotterys);

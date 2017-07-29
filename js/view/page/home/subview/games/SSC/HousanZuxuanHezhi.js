@@ -87,7 +87,7 @@ export default class HousanZuxuanHezhi extends SSC {
         }
     }
 
-    formatViewBalls(original){
+    makePostParameter(original){
         let me = this,
             result = [],
             len = original.length,

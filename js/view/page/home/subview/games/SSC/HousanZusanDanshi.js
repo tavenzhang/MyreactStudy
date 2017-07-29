@@ -9,7 +9,7 @@ export default class HousanZusanDanshi extends SSCDanshi {
         super(props);
 
         this.state.normalTips = ['说明：支持常见的各种单式格式','间隔符如： 换行符 回车 逗号 分号等',
-            '格式范例：330 887 988  223 112'
+            '格式范例：310 237 978  123 132'
         ].join('\n')
     }
 
@@ -33,5 +33,51 @@ export default class HousanZusanDanshi extends SSCDanshi {
             return false;
         }
         return true;
+    }
+
+    checkBallIsComplete(multiline, data) {
+        let len,
+            i = 0,
+            balls,
+            me=this,
+            ballData = {},
+            has = {},
+            ballsstr,
+            result = [];
+        if (!data) {
+            this.setState({isBallsComplete: false});
+            return [];
+        }
+        ballData.sameData = [];
+        ballData.errorData = [];
+        ballData.tData = [];
+        //按规则进行拆分结果
+        result = me.iterator(data);
+        len = result.length;
+        for (i = 0; i < len; i++) {
+            balls = result[i].split('');
+            ballsstr = balls.sort();
+            //检测基本长度
+            if (me.checkSingleNum(balls)) {
+                if (has[ballsstr]) {
+                    //重复
+                    ballData.sameData.push(balls);
+                } else {
+                    ballData.tData.push(balls);
+                    has[ballsstr] = true;
+                }
+            } else {
+                ballData.errorData.push(balls);
+            }
+        }
+        this.setState({ballData: ballData});
+        //校验
+        if (ballData.tData.length > 0) {
+            this.setState({isBallsComplete: true});
+            return ballData.tData;
+        } else {
+            this.setState({isBallsComplete: false});
+            return [];
+        }
     }
 }

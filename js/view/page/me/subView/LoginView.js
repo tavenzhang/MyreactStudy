@@ -210,7 +210,9 @@ const styles = StyleSheet.create({
         height:40,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: 'rgb(78,8,90)'
+        backgroundColor: 'transparent',
+        borderWidth: 1,
+        borderColor: 'rgb(134,46,184)'
     },
     backBtn: {
         color: '#eee',

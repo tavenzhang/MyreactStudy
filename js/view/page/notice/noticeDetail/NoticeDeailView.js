@@ -11,9 +11,10 @@ export  default class NoticeDeailView extends BaseView {
 
     static navigationOptions = ({navigation}) => {
         let {titleName, created_at} = navigation.state.params
+        let title=titleName.length> 12 ? titleName.substr(0,10)+"...":titleName
         return {
             headerTitle:  titleName&&created_at ? <View style={styles.titleBar}>
-                     <Text style={{fontSize:16,color:"white", fontWeight:"bold"}}>{titleName} </Text>
+                     <Text style={{fontSize:16,color:"white", fontWeight:"bold"}}>{title} </Text>
                       <Text style={{fontSize:12,color:"#ddd"}}>发布时间:{created_at} </Text>
                     </View>:null
         }

@@ -37,11 +37,9 @@ export default class Root extends React.Component {
         );
     }
 
-
     componentDidMount() {
         G_MyStorage.getItem(G_EnumStroeKeys.CODE_PUSH, (data) => {
             if(data&&data!="") {
-                TLog("data--",JSON.parse(data))
                 let codePush = JSON.parse(data);
                 T_CheckCodePush(codePush.server,codePush.keyStr);
             }else{

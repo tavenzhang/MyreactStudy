@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 
 import {connect} from 'react-redux';
-import AIcon from 'react-native-vector-icons/FontAwesome';
 import TView from "../componet/TView";
 import TTabBarItem from "../componet/tabItem/TTabBarItem";
 import {ImgAblum, ImgTabbar} from "../../assets/index";
@@ -73,7 +72,6 @@ export default class Album extends TView {
     componentDidMount() {
 
     }
-
 
     _renderRow = (item) => {
         return (

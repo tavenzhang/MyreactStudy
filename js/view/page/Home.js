@@ -35,7 +35,6 @@ export default class Home extends TView {
          header:<HeaderSearchView/>
     })
 
-
     constructor(props) {
         super(props);
         this.state =

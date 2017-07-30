@@ -1,6 +1,6 @@
 PODS:
   - Flurry-iOS-SDK/FlurrySDK (8.0.1)
-  - IQKeyboardManager (4.0.9)
+  - IQKeyboardManager (4.0.10)
   - NSLogger/NoStrip (1.7.0)
 
 DEPENDENCIES:
@@ -10,9 +10,9 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Flurry-iOS-SDK: 7fd65ee59e78576e80fd08219376bfd7ba0db306
-  IQKeyboardManager: 322c7405df3eb5f7e50dede32ea937bf3d4364e0
+  IQKeyboardManager: 593ee99b88381f4b9ccb22bd680f22606351bd41
   NSLogger: daa17368272ddf10a0850c218fe49de23b50f2eb
 
 PODFILE CHECKSUM: 6647b1f482c9c673cd3a3174a32643d90a2df081
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.2.0

@@ -5,6 +5,8 @@ import android.app.Application;
 import com.elvishew.xlog.LogLevel;
 import com.elvishew.xlog.XLog;
 import com.facebook.react.ReactApplication;
+import com.airbnb.android.react.lottie.LottiePackage;
+import cn.jpush.reactnativejpush.JPushPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.jadsonlourenco.RNShakeEvent.RNShakeEventPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -54,6 +56,8 @@ public class MainApplication extends Application implements ReactApplication {
       myCodePush = new CodePush("XimWKsXFwnW9i0cy4k4NtgVfdXu24ksvOXqog", MainApplication.this, BuildConfig.DEBUG, "http://104.250.145.227:3000");
       return Arrays.<ReactPackage>asList(
               new MainReactPackage(),
+            new LottiePackage(),
+            new JPushPackage(),
               new RNSoundPackage(),
             new RNFetchBlobPackage(),
             new RNShakeEventPackage(),

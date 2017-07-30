@@ -8,7 +8,7 @@ export default class Renxuan2 extends KENO {
     constructor(props) {
         super(props);
         this.RandomArr = [];
-
+        this.isShowOperate = false;
     }
 
     //设置球排列
@@ -34,7 +34,7 @@ export default class Renxuan2 extends KENO {
                 num++;
             }
         }
-        if (num >= 2) {
+        if (num >= 2 && num <= 8) {
             this.setState({isBallsComplete: true});
             return true;
         }

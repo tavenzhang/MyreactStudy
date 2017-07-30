@@ -135,6 +135,11 @@ global.G_Game = {
             alignItems:"center",
             height: 50
         },
+
+        ballText: {
+            fontWeight: 'bold',
+            fontSize: 12
+        }
     }
 }
 

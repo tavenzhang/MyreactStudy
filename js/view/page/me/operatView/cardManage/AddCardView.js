@@ -8,6 +8,7 @@ import BaseView from "../../../../componet/BaseView";
 import ModalDropdown from 'react-native-modal-dropdown';
 import BankCityModel from "../../../../../redux/model/BankCityModel";
 import {TButton} from "../../../../componet/tcustom/button/TButton";
+import {TPicker} from "../../../../componet/tcustom/picker/TPicker";
 
 export default class AddCardView extends BaseView {
     constructor(props) {
@@ -21,7 +22,9 @@ export default class AddCardView extends BaseView {
             provinceData: null,
             cityData: null,
             bankCityModel: null,
-            point:""
+            point:"",
+            bankList:[],
+            selectBank:null,
         }
     }
 
@@ -39,17 +42,13 @@ export default class AddCardView extends BaseView {
                         <View style={{width: G_Theme.windowWidth * 1 / 3, alignItems: "flex-end"}}>
                             <Text >开户银行: </Text>
                         </View>
-                        <ModalDropdown style={styles.dropdown_1}
-                                       options={backList}
-                                       renderRow={this.rendDropRow}
-                                       onSelect={(idx, value) => {
-                                           this.setState({bankData: value})
-                                       }}
-                        >
-                            <Text
-                                style={{textAlign: "center"}}>{this.state.bankData ? this.state.bankData.name : "请选择银行"}</Text>
-
-                        </ModalDropdown>
+                        <TPicker viewStyle={styles.dropdown_1}
+                                 itemStyle={{width:200, height:150}}
+                                 dataList={this.state.bankList}
+                                 pickValue={this.state.selectBank}
+                                 onValueChange={(selectBank) => {
+                                     this.setState({selectBank})
+                                 }}/>
                     </View>
                     <View style={{flex: 1, alignItems: "center", flexDirection: "row"}}>
                         <View style={{width: G_Theme.windowWidth * 1 / 3, alignItems: "flex-end"}}>
@@ -165,6 +164,10 @@ export default class AddCardView extends BaseView {
 
     componentDidMount() {
         ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.BANK_CARD_ADD_STEP_1, (result) => {
+            if(result.success)
+            {
+
+            }
             this.setState({bankCityModel: new BankCityModel(result)})
             //ActDispatch.AppAct.showErrorBox(result.Msg);
         })

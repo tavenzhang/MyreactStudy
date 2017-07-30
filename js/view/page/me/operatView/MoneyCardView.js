@@ -60,7 +60,7 @@ export default class MoneyCardView extends BaseView {
     }
 
 
-    _renderRow = (rowData, section) => {
+    _renderRow = (rowData) => {
        if(!rowData)
        {
            return null;
@@ -76,7 +76,8 @@ export default class MoneyCardView extends BaseView {
                     <Text style={{color: "white"}}>{rowData.bank}  ({rowData.province}-{rowData.city}  支行:{rowData.branch})</Text>
                     <Text style={{color: "white", fontSize: 12, marginTop: 3, letterSpacing: 2}}>卡号:{rowData.accountEny} </Text>
                     <Text style={{color: "white", fontSize: 12, marginTop: 3, letterSpacing: 2}}>账户:{countName}</Text>
-                    <Text style={{color: "white", fontSize: 12, marginTop: 3,}}>银行卡状态:{lockSate} </Text>
+                    <Text style={{color: "white", fontSize: 12, marginTop: 3,}}>银行卡状态:{lockSate}</Text>
+                    <Text style={{color: "white", fontSize: 12, marginTop: 3,}}>绑定时间:{rowData.created_at}</Text>
                 </View>
                 <View style={{flex: 1, justifyContent: "center", alignItems: "center", flexDirection: "row"}}>
                     <TouchableOpacity onPress={()=>{this.itemEditClcik(rowData)}}>

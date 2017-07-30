@@ -12,9 +12,9 @@ import TFlatList from "../../../../componet/TFlatList";
 
 
 export default class AssignDetilView extends BaseView {
-    static navigationOptions={
-        title:"配额详情"
-    }
+    // static navigationOptions={
+    //     title:"配额详情"
+    // }
 
     constructor(props) {
         super(props);
@@ -121,6 +121,8 @@ export default class AssignDetilView extends BaseView {
 
 
     componentDidMount() {
+        let {prize_group}=this.props.navigation.state.params;
+        this.props.navigation.setParams({title:`${prize_group}-配额详情`})
         this.flushData(false);
     }
 

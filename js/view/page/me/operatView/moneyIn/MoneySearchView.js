@@ -5,7 +5,7 @@ import {
     Text,
 } from 'react-native';
 import MyDatePicker from "../../../../componet/tcustom/date/TDatePicker";
-import MyModalView from "../../../../componet/tcustom/modal/TModalView";
+import TModalView from "../../../../componet/tcustom/modal/TModalView";
 import {TButton} from "../../../../componet/tcustom/button/TButton";
 import {TPicker} from "../../../../componet/tcustom/picker/TPicker";
 import {TTextInput} from "../../../../componet/tcustom/textInput/TTextInput";

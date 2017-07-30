@@ -3,6 +3,7 @@ import {
     View,
     Text, StyleSheet,
     ListView,
+    RefreshControl,
     TouchableOpacity
 } from 'react-native';
 import {ItemNameEnum} from "../../MyView";
@@ -23,6 +24,8 @@ export default class AcountListView extends React.Component {
                 rowHasChanged: (r1, r2) => r1 !== r2,
                 sectionHeaderHasChanged: (r1, r2) => r1 !== r2
             }),
+            refreshing:false
+
         };
     }
 
@@ -32,12 +35,27 @@ export default class AcountListView extends React.Component {
         return (
             <View style={[G_Style.appContentView, {backgroundColor: "rgba(230,230,230,0.5)"}]}>
                 <ListView
-                    onRefresh={this.onFreshFunc}
                     dataSource={ds}
                     renderRow={this._renderRow}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.refreshing}
+                            onRefresh={this._onRefresh.bind(this)}
+                        />}
                 />
             </View>
         );
+    }
+
+    _onRefresh=()=>{
+        if(this.props.userData.isLogined){
+            this.setState({refreshing:true},()=>{
+                HttpUtil.flushMoneyBalance(()=>this.setState({refreshing:false}));
+            })
+        }
+        else{
+            this.setState({refreshing:false});
+        }
     }
 
 

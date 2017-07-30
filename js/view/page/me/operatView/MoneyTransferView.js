@@ -62,10 +62,17 @@ export default class MoneyTransferView extends BaseView {
                             <Text>转账金额:</Text>
                             <TTextInput
                                 style={styles.textStyle}
-                                onChangeText={(money) => this.setState({money})}
+                                onBlur={()=>{
+                                    let money=Number(this.state.money).toFixed(3)
+                                    this.setState({money})
+                                }}
+                                onChangeText={(money) => {
+                                    TLog("data---onChangeText-",money)
+                                    this.setState({money})}}
                                 value={this.state.money.toString()}
                                 maxLength={20}
                                 placeholder={"(不能大于账号余额)"}
+                                keyboardType={'numeric'}
                             />
                         </View>
                         <View style={styles.inputContain}>

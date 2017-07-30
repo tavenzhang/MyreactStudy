@@ -1,11 +1,10 @@
-/**
- * Created by thomas on 2017/6/3.
- */
+
 import React, {PropTypes} from 'react';
 import {
     View,
     Text,
-    StyleSheet
+    StyleSheet,
+    TouchableOpacity
 } from 'react-native';
 
 export  default  class AssignView extends React.Component {
@@ -33,7 +32,8 @@ export  default  class AssignView extends React.Component {
                     }}>
                         {dataItemList.map((item, index) => {
 
-                            return (  <View style={[styles.group]} key={index + "uu"}>
+                            return (  <TouchableOpacity onPress={()=>this._onPressAssingn(item)} key={index + "uu"}>
+                                <View style={[styles.group]}>
                                 <Text
                                     style={{color: "white", fontWeight: "bold", fontSize: 16}}>{item.prize_group}</Text>
                                 <Text style={{
@@ -41,12 +41,19 @@ export  default  class AssignView extends React.Component {
                                     color: "green",
                                     fontSize: 14
                                 }}>{`${item.used_num}/${item.limit_num}`}</Text>
-                            </View>)
+                            </View></TouchableOpacity>)
                         })}
                     </View>
                 </View>
             </View> : null
         );
+    }
+
+    _onPressAssingn=(data)=>{
+        G_NavUtil.push(G_RoutConfig.AssignDetilView,{
+            userName: "",
+            prize_group:data.prize_group
+        })
     }
 }
 

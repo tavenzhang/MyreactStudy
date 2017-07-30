@@ -149,7 +149,14 @@ global.G_StringUtil =  {
         let tempStr = str.substr(0, str.length - num);
         tempStr = tempStr.replace(/./g, "*");
         tempStr += str.substr(str.length - num);
-        return tempStr;
+        let resut=""
+        for(let i=0;i<tempStr.length;i++){
+            if(i>0&&i%4==0){
+                resut+=" ";
+            }
+            resut+=tempStr.substr(i,1);
+        }
+        return resut;
     },
 };
 
@@ -190,7 +197,7 @@ global.G_ArrayUtils = {
 }
 //（用户投注奖金组-用户当前奖金组）/2000*100%
 global.G_GroupBackRate=(configGrop,useGroup)=>{
-    return ((parseInt(configGrop)-parseInt(useGroup))*100/2000).toFixed(2)
+    return ((Math.abs(parseInt(configGrop)-parseInt(useGroup)))*100/2000).toFixed(2)
 }
 
 // Number.prototype.toFixed =function(len)

@@ -17,15 +17,15 @@ export  default  class MoneyView extends React.Component {
         return(data ? <View>
                 <View style={{flexDirection: "row", justifyContent: "center", margin: 5}}>
                     <View style={[styles.circleView, {borderColor: "green"}]}>
-                        <Text style={styles.textOnlineHead}>在线用户</Text>
+                        <Text style={styles.textOnlineHead}>当前在线</Text>
                         <Text style={styles.textPeople}>{parseInt(data.iUserOnline)}</Text>
                     </View>
                     <View style={[styles.circleView, {borderColor: "red"}]}>
-                        <Text style={styles.textOnlineHead}>在线代理</Text>
+                        <Text style={styles.textOnlineHead}>代理</Text>
                         <Text style={styles.textPeople}>{parseInt(data.iAgentCount)}</Text>
                     </View>
                     <View style={[styles.circleView, {borderColor: "blue"}]}>
-                        <Text style={styles.textOnlineHead}>在线玩家</Text>
+                        <Text style={styles.textOnlineHead}>玩家</Text>
                         <Text style={styles.textPeople}>{parseInt(data.iPlayerCount)}</Text>
                     </View>
                 </View>

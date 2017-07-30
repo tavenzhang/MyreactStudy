@@ -5,11 +5,9 @@ import {
     StyleSheet,
     Text,
     TextInput,
-    TouchableOpacity,
-
 } from 'react-native';
 import MyDatePicker from "../../../../componet/tcustom/date/TDatePicker";
-import MyModalView from "../../../../componet/tcustom/modal/TModalView";
+import TModalView from "../../../../componet/tcustom/modal/TModalView";
 import {TButton} from "../../../../componet/tcustom/button/TButton";
 export default class AgentFindView extends React.Component{
     static propTypes={

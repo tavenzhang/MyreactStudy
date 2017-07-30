@@ -66,7 +66,7 @@ export default class LinkDetailView extends BaseView {
             </View>
             <View style={{height:30 ,borderBottomColor:G_Theme.gray,padding:5,borderBottomWidth:1,flexDirection:'row'}}>
                 <Text style={styles.titleStyle}>过期时期:</Text>
-                <Text style={styles.descStyle}>  {content.created_at}</Text>
+                <Text style={styles.descStyle}>  {content.expired_at}</Text>
             </View>
             <View style={{height:30 ,borderBottomColor:G_Theme.gray,padding:5,borderBottomWidth:1,flexDirection:'row'}}>
                 <Text style={styles.titleStyle}>创建时期:</Text>

@@ -5,7 +5,7 @@ import {
     StyleSheet,
 } from 'react-native';
 import TModalView from "../tcustom/modal/TModalView";
-import {TButton} from "../tcustom/button/TButton";
+import {TButton, TButtonView} from "../tcustom/button/TButton";
 import MySegmentedControlTab from "../tcustom/TSegmentedControlTab";
 import CheckBox from "react-native-check-box";
 import {TTextInput} from "../tcustom/textInput/TTextInput";
@@ -178,9 +178,9 @@ export default class TGameTraceView extends Component {
                         textAlign: "center", width: 30, borderWidth: 1,
                         borderColor: "gray"
                     }} keyboardType={"numeric"} onChangeText={(value) => {
-                        value=value==""? 1:value
+                        value=value==""? 0:value
                         value=parseInt(value)
-                        value=value <=0 ? 1:value;
+                        value=value <=0 ? 0:value;
                         this._onChangeMulity(data, value)}}/>
                 </View>
                 <View style={[styles.listViewSp]}>

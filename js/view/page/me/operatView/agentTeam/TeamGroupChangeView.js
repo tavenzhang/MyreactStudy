@@ -35,6 +35,7 @@ export  default class TeamGroupChangeView extends BaseView {
        // TLog("TeamGroupChangeView-----data=",data);
         let minGroup= this.state.teamData ? this.state.teamData.iMinPrizeGroup:0;
         let maxGroup=this.state.teamData ? this.state.teamData.iMaxPrizeGroup:0;
+        let {userData}=this.props
         return ( this.state.teamData ? <View style={[G_Style.appContentView]}>
             <View style={styles.profitRow}>
                 <Text style={styles.title}>用户名:</Text>
@@ -67,7 +68,8 @@ export  default class TeamGroupChangeView extends BaseView {
             </View>
             <View style={[styles.profitRow,{padding:0, margin:0,paddingTop:0}]}>
                 <Text style={styles.title}></Text>
-                    <Text style={{width:200}} >奖金组设置范围 {minGroup}～{maxGroup} 平均返点率   <Text style={{fontWeight:"bold",color:"red"}}>{G_GroupBackRate(this.state.configGroupValue,this.state.userData.prize_group)} %</Text>
+                    <Text style={{width:200}} >奖金组设置范围 {minGroup}～{maxGroup} 平均返点率   <Text style={{fontWeight:"bold",color:"red"}}>
+                        {G_GroupBackRate(this.state.configGroupValue,userData.data.user_prize_group)} %</Text>
                     </Text>
             </View>
             <View style={styles.profitRow}>

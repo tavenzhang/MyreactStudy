@@ -11,6 +11,7 @@ export  default class NoticeDeailView extends BaseView {
 
     static navigationOptions = ({navigation}) => {
         let {titleName, created_at} = navigation.state.params
+        titleName=titleName ? titleName:""
         let title=titleName.length> 12 ? titleName.substr(0,10)+"...":titleName
         return {
             headerTitle:  titleName&&created_at ? <View style={styles.titleBar}>

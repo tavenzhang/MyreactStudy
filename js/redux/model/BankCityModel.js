@@ -1,6 +1,4 @@
-/**
- * Created by thomas on 2017/3/15.
- */
+
 export  default class BankCityModel {
 
     constructor(data){
@@ -8,14 +6,9 @@ export  default class BankCityModel {
         this.princeList=[];
         if(data)
         {
-            this.banks= data.data.banks;
-            for(let key in  this.banks){
-                let item ={};
-                item.name =this.banks[key];
-                item.id=key;
-                this.bankList.push(item);
-            }
-            this.provice_cities=data.data.provice_cities;
+            this.bankList= this.getDataListByObj(data.data.banks);
+            this.princeList=this.getDataListByObj(data.data.provice_cities);
+            let provice_cities=data.data.provice_cities;
 
             for(let city_key in  this.provice_cities){
 
@@ -25,35 +18,12 @@ export  default class BankCityModel {
         }
     }
 
-    getBanksIdByName(name)
-    {
-        let banksId = "";
-        for(let key in  this.banks){
-            if(this.banks[key]==name)
-            {
-                banksId=key;
-                 break;
-            }
+    getDataListByObj(obj){
+        let resultList=[]
+        for (let key in  obj){
+            resultList.push({name:obj[key],value:key})
         }
-        return banksId;
-    }
-
-    getProvinceIdByNameById(name)
-    {
-        let princeId = "";
-        for(let key in  this.provice_cities){
-            if(this.provice_cities[key]==name)
-            {
-                princeId=key;
-                break;
-            }
-        }
-        return princeId;
-    }
-
-    getCityDataByProvince()
-    {
-
+        return resultList;
     }
 
 }

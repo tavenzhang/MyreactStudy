@@ -1,14 +1,11 @@
 import React, {PropTypes} from 'react';
 import {
     View,
-    Picker,
     StyleSheet,
     Text,
-    TextInput,
-
 } from 'react-native';
 
-import MyModalView from "../../../../componet/tcustom/modal/TModalView";
+import TModalView from "../../../../componet/tcustom/modal/TModalView";
 import {TButton} from "../../../../componet/tcustom/button/TButton";
 import {TTextInput} from "../../../../componet/tcustom/textInput/TTextInput";
 import {TPicker} from "../../../../componet/tcustom/picker/TPicker";

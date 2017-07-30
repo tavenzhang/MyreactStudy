@@ -9,8 +9,9 @@ import {
 
 } from 'react-native';
 import MyDatePicker from "../../../../componet/tcustom/date/TDatePicker";
-import MyModalView from "../../../../componet/tcustom/modal/TModalView";
+
 import {TButton} from "../../../../componet/tcustom/button/TButton";
+import TModalView from "../../../../componet/tcustom/modal/TModalView";
 export default class AgentSearchView extends React.Component {
     static propTypes = {
         visible: PropTypes.bool,

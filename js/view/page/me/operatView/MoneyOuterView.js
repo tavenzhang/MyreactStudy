@@ -163,7 +163,6 @@ export default class MoneyOuterView extends BaseView {
     }
 
     componentDidMount() {
-        G_RunAfterInteractions(()=>{
             ActDispatch.FetchAct.fetchVoWithResult(HTTP_SERVER.MONEY_OUTER_0, (data) => {
                 if (data.isSuccess) {
                     if (data.data.bank_cards && data.data.bank_cards.length > 0) {
@@ -174,7 +173,6 @@ export default class MoneyOuterView extends BaseView {
                     }
                 }
             })
-        })
     }
 
     onRenderPickRow=()=>{

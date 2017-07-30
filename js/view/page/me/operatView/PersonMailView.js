@@ -76,7 +76,11 @@ export default class PersonMailView extends BaseView {
 
     itemClick = (data) => {
         let title=data.msg_title.length> 12 ? data.msg_title.substr(0,10)+"...":data.msg_title
-        G_NavUtil.push(G_RoutConfig.MessageDetail,{...data, title});
+        data.is_readed=1;
+        let dataList=[data];
+        this.setState({dataList:G_ArrayUtils.addComapreCopy(this.state.dataList,dataList)},()=>{
+            G_NavUtil.push(G_RoutConfig.MessageDetail,{...data, title});
+        })
     }
 
 }

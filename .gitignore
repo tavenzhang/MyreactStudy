@@ -52,3 +52,21 @@ buck-out/
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
+android/app/src/main/res/drawable-hdpi/
+android/app/src/main/res/drawable-mdpi/
+android/app/src/main/res/drawable-xhdpi/
+android/app/src/main/res/drawable-xxhdpi/
+android/app/src/main/res/drawable-xxxhdpi/
+android/fastlane/
+android/gradle/
+ios/AdHoc_taven.TForest.mobileprovision
+ios/G858E47F7H.cer
+ios/Podfile.lock
+ios/Pods/Headers/
+ios/Pods/Local Podspecs/
+ios/Pods/lottie-ios/
+ios/SplashScreenResource/
+ios/TForest-tvOS/
+ios/TForest-tvOSTests/
+ios/fastlane/hot_release/
+ios/hot_release/
